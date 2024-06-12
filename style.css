@@ -1,22 +1,72 @@
+/* Reseta os estilos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo do corpo */
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
+    color: #333;
     text-align: center;
 }
 
+/* Estilo do cabeçalho */
 header {
     background-color: #4CAF50;
     color: white;
     padding: 20px 0;
 }
 
-main {
+#logo {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+#logo-text {
+    font-size: 24px;
+}
+
+#logo-subtitle {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.nav-pills .nav-link {
+    color: white;
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.main {
     padding: 20px;
 }
 
+/* Estilo do botão */
 button {
     padding: 10px 20px;
     font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
 }
