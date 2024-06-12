@@ -21,13 +21,11 @@ body, html {
     align-items: center;
 }
 
-.container {
-    max-width: 800px;
-    width: 100%;
-
 
 /* Estilo do cabeçalho */
-
+.container {
+    width: 100%;
+    height: 100%;
     --s: 200px; /* control the size */
     --c1: #1d1d1d;
     --c2: #4e4f51;
@@ -189,7 +187,7 @@ nav {
     }
   
     50% {
-      content: "?6@%";
+      content: "?2@%";
     }
   
     55% {
