@@ -12,7 +12,71 @@ body {
     color: #333;
     text-align: center;
 }
-
+.download-button {
+  position: relative;
+  border-width: 0;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 4px;
+  z-index: 1;
+ }
+ 
+ .download-button .docs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 4px;
+  z-index: 1;
+  background-color: #242a35;
+  border: solid 1px #e8e8e82d;
+  transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+ }
+ 
+ .download-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+ }
+ 
+ .download {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  margin: 0 auto;
+  z-index: -1;
+  border-radius: 4px;
+  transform: translateY(0%);
+  background-color: #01e056;
+  border: solid 1px #01e0572d;
+  transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+ }
+ 
+ .download-button:hover .download {
+  transform: translateY(100%)
+ }
+ 
+ .download svg polyline,.download svg line {
+  animation: docs 1s infinite;
+ }
+ 
+ @keyframes docs {
+  0% {
+   transform: translateY(0%);
+  }
+ 
+  50% {
+   transform: translateY(-15%);
+  }
+ 
+  100% {
+   transform: translateY(0%);
+  }
+ }
 /* Estilo do botão */
 .ui-btn {
     --btn-default-bg: rgb(41, 41, 41);
@@ -174,255 +238,7 @@ body {
         right: 0;
     }
 }
-
-button {
-    position: relative;
-    padding: 13px 35px;
-    background: #f5ddb7;
-    font-size: 17px;
-    font-weight: 900;
-    color: #181818;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 2px 2px 5px #18181869, inset 2px 2px 10px #ffffffb0;
-    transition: all .3s ease-in-out;
-  }
   
-  .icon-1 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 0px;
-    height: auto;
-    transition: all .5s ease-in-out;
-    z-index: -1;
-  }
-  
-  .icon-2 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 0px;
-    height: auto;
-    transition: all .5s ease-in-out;
-    z-index: -2;
-  }
-  
-  .icon-3 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 0px;
-    height: auto;
-    transition: all .5s ease-in-out;
-    z-index: -2;
-  }
-  
-  .icon-4 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 0px;
-    height: auto;
-    transition: all .5s ease-in-out;
-    z-index: -2;
-  }
-  
-  .icon-5 {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 0px;
-    height: auto;
-    transition: all .5s ease-in-out;
-    z-index: -2;
-  }
-  
-  button:hover {
-    padding: 13px 25px;
-    border-radius: 8px 8px 24px 24px;
-  }
-  
-  button:hover .icon-1 {
-    top: -250%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    width: 50px;
-    height: auto;
-    animation: inIcon1 1s ease .45s forwards;
-  }
-  
-  @keyframes inIcon1 {
-    0% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  
-    25% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(5deg);
-    }
-  
-    50% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(1deg);
-    }
-  
-    65% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(3deg);
-    }
-  
-    100% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  }
-  
-  button:hover .icon-2 {
-    position: absolute;
-    top: -200%;
-    left: 90%;
-    transform: translate(-50%, 0);
-    width: 75px;
-    height: auto;
-    animation: inIcon2 1s ease .45s forwards;
-  }
-  
-  @keyframes inIcon2 {
-    0% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  
-    35% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(10deg);
-    }
-  
-    50% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(4deg);
-    }
-  
-    80% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(5deg);
-    }
-  
-    100% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  }
-  
-  button:hover .icon-3 {
-    position: absolute;
-    top: -130%;
-    left: 20%;
-    transform: translate(-50%, 0);
-    width: 60px;
-    height: auto;
-    animation: inIcon3 1s ease .45s forwards;
-  }
-  
-  @keyframes inIcon3 {
-    0% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  
-    35% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(-2deg);
-    }
-  
-    100% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  }
-  
-  button:hover .icon-4 {
-    position: absolute;
-    top: -300%;
-    left: 10%;
-    transform: translate(-50%, 0);
-    width: 85px;
-    height: auto;
-    animation: inIcon4 1s ease .45s forwards;
-  }
-  
-  @keyframes inIcon4 {
-    0% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  
-    40% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(-3deg);
-    }
-  
-    100% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  }
-  
-  button:hover .icon-5 {
-    position: absolute;
-    top: -350%;
-    left: 90%;
-    transform: translate(-50%, 0);
-    width: 85px;
-    height: auto;
-    animation: inIcon5 1s ease .45s forwards;
-  }
-  
-  @keyframes inIcon5 {
-    0% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  
-    35% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(-3deg);
-    }
-  
-    100% {
-      transform-origin: 0 100%;
-      transform: translate(-50%, 0) rotate(0deg);
-    }
-  }
-  
-  .fil-leaf-1 {
-    fill: #7B9B3A
-  }
-  
-  .fil-leaf-2 {
-    fill: #556729;
-    fill-rule: nonzero
-  }
-  
-  .fil-leaf-3 {
-    fill: #556729
-  }
-  
-  .fil-leaf-4 {
-    fill: #3C4819
-  }
-  
-  .fil-leaf-5 {
-    fill: #3C4819
-  }
-
 
 
 
@@ -651,6 +467,63 @@ body.dark-theme .ui-btn {
 }
 
 
+
+
+
+.social-links,.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-btn {
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  font-family: 'Titillium Web', sans-serif;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  background: white;
+  margin: 5px;
+  transition: 0.3s;
+  justify-content: center;
+}
+
+.social-btn svg {
+  height: 24px;
+  width: 24px;
+}
+
+.social-btn span {
+  width: 0px;
+  overflow: hidden;
+  transition: 0.3s;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.social-btn:hover {
+  width: 150px;
+  border-radius: 5px;
+}
+
+.social-btn:hover span {
+  padding: 2px;
+  width: 80px;
+}
+
+#twitter svg {
+  fill: #1da1f2;
+}
+
+#linkedin svg {
+  fill: #0e76a8;
+}
+
+#github {
+  fill: #333;
+}
 
 
 
