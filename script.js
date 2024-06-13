@@ -1,8 +1,7 @@
 // Código de Processing
 function setup() {
     var canvas = createCanvas(windowWidth, windowHeight); // Defina o tamanho do canvas como a largura e altura da janela do navegador
-    canvas.position(0, 0); // Posicione o canvas no canto superior esquerdo
-    canvas.style('z-index', '-1'); // Coloque o canvas no fundo da página
+    canvas.parent('canvas'); // Define o elemento pai do canvas
     noStroke(); // Sem contorno nos retângulos
     rectMode(CENTER); // Centro dos retângulos
 }
