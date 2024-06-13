@@ -8,7 +8,7 @@
 /* Estilo do corpo */
 body {
     font-family: Arial, sans-serif;
-    background-color: #222; /* cor de fundo escura */
+    background-color: #000; /* cor de fundo preta */
     color: #fff; /* cor do texto */
     text-align: center;
 }
@@ -73,10 +73,4 @@ body, html {
     position: absolute;
     content: "";
     background: inherit;
-  }
-  
-  .ui-btn:hover, .ui-btn:focus {
-    background: var(--btn-hover-bg);
-  }
-  
-  .ui-btn:hover span, .ui
+ 
