@@ -7,9 +7,9 @@ function setup() {
 }
   
 function draw() {
-    background(51); // Cor de fundo branca
+    background(0); // Cor de fundo preta
   
-    fill(0); // Cor preta dos retângulos
+    fill(255); // Cor branca dos retângulos
   
     // Variáveis para o sketch de Brownian motion
     var num = 2000;
