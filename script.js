@@ -2,15 +2,13 @@
 function setup() {
     var canvas = createCanvas(windowWidth, windowHeight); // Defina o tamanho do canvas como a largura e altura da janela do navegador
     canvas.parent('canvas'); // Define o elemento pai do canvas
-    noStroke(); // Sem contorno nos retângulos
+    noFill(); // Sem preenchimento nos retângulos
+    stroke(255); // Cor da linha (branca)
     rectMode(CENTER); // Centro dos retângulos
 }
   
 function draw() {
-    fill(0); // Cor preta dos retângulos
-    rect(width/2, height/2, width, height); // Desenha um retângulo preto que cobre toda a tela
-
-    fill(255); // Cor branca dos retângulos
+    background(0); // Cor de fundo preta
   
     // Variáveis para o sketch de Brownian motion
     var num = 2000;
@@ -40,8 +38,7 @@ function draw() {
 
     // Draw a line connecting the points
     for(var i=1; i<num; i++) {    
-        var val = float(i)/num * 204.0 + 51;
-        stroke(val);
+        stroke(255); // Cor da linha (branca)
         line(ax[i-1], ay[i-1], ax[i], ay[i]);
     }
 }
