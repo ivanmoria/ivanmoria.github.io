@@ -1,57 +1,50 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente em um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
-    <title>Ivan Moriá Borges</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="d-flex flex-wrap justify-content-center py-3 mt-2 mb-2">
-                <a href="index.html" id="logo" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                    <i class="bi bi-code-slash fs-3" id="icon"></i>
-                    <span id="logo-text" class="fs-5 ps-3">Ivan Moriá Borges
-                        <small id="logo-subtitle" class="text-muted"> - PhD Candidate</small>
-                    </span>
-                </a>
+// Código de Processing
+var num = 2000;
+var range = 6;
 
-                <nav id="navbar-items">
-                    <button class="ui-btn">
-                        <span>Home</span>
-                    </button>
-                    <button class="ui-btn">
-                        <span>Sobre</span>
-                    </button>
-                    <button class="ui-btn">
-                        <span>Projects</span>
-                    </button>
-                    <button class="ui-btn">
-                        <span>Contato</span>
-                    </button>
-                </nav>
+var ax = new Array(num);
+var ay = new Array(num); 
 
-            </div>
-        </header>
+function setup() {
+  var canvas = createCanvas(windowWidth, windowHeight); // Defina o tamanho do canvas como a largura e altura da janela do navegador
+  canvas.parent('canvas'); // Define o elemento pai do canvas
+  noFill(); // Sem preenchimento nos retângulos
+  stroke(255); // Cor da linha (branca)
+  rectMode(CENTER); // Centro dos retângulos
 
-        <main>
-            <p>Este é o meu primeiro site hospedado no GitHub Pages. Estou aprendendo a construí-lo com o ChatGPT</p>
-          
-            <button id="btn" class="ui-btn">
-                <span>Clique aqui</span>
-            </button>
-        </main>
-    </div>
+  for(var i = 0; i < num; i++) {
+    ax[i] = width/2;
+    ay[i] = height/2;
+  }
+  frameRate(30);
+}
 
-    <!-- Canvas para o sketch de Processing -->
-    <canvas id="canvas"></canvas>
+function draw() {
+  background(91); // Cor de fundo cinza escuro
 
-    <!-- Inclua a biblioteca do Processing.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
-    <!-- Inclua o arquivo JavaScript com o código do Processing -->
-    <script src="script.js" defer></script>
-</body>
-</html>
+  // Shift all elements 1 place to the left
+  for(var i = 1; i < num; i++) {
+    ax[i-1] = ax[i];
+    ay[i-1] = ay[i];
+  }
+
+  // Put a new value at the end of the array
+  ax[num-1] += random(-range, range);
+  ay[num-1] += random(-range, range);
+
+  // Constrain all points to the screen
+  ax[num-1] = constrain(ax[num-1], 0, width);
+  ay[num-1] = constrain(ay[num-1], 0, height);
+  
+  // Draw a line connecting the points
+  for(var i=1; i<num; i++) {    
+    var val = float(i)/num * 204.0 + 51;
+    stroke(val);
+    line(ax[i-1], ay[i-1], ax[i], ay[i]);
+  }
+}
+
+// Evento de clique no botão
+document.getElementById('btn').addEventListener('click', function() {
+  alert('Olá! Você clicou no botão.');
+});
