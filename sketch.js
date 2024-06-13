@@ -9,7 +9,7 @@ function setup() {
 function draw() {
     background(51); // Cor de fundo
   
-    fill(255, 204); // Cor dos retângulos
+    fill(0); // Cor dos retângulos
   
     // Retângulo que segue o mouse horizontalmente
     rect(mouseX, height/2, mouseY/2+10, mouseY/2+10);
