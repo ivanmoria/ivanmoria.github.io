@@ -23,7 +23,7 @@ void setup()
 
 void draw() 
 {
-  background(51);
+  background(91);
   
   // Shift all elements 1 place to the left
   for(int i = 1; i < num; i++) {
