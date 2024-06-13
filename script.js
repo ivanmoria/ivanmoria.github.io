@@ -7,8 +7,9 @@ function setup() {
 }
   
 function draw() {
-    background(0); // Cor de fundo preta
-  
+    fill(0); // Cor preta dos retângulos
+    rect(width/2, height/2, width, height); // Desenha um retângulo preto que cobre toda a tela
+
     fill(255); // Cor branca dos retângulos
   
     // Variáveis para o sketch de Brownian motion
