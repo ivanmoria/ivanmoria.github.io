@@ -7,51 +7,110 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            overflow: hidden;
+            color: #f0f0f0;
         }
-        .audio-player {
-            margin: 10px 0;
+        canvas {
+            display: block;
+            
+        }
+        h1, h2, p {
+            position: relative;
+            z-index: 1;
+            color: #f0f0f0;
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            right: 10px;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        #back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
+    <div id="canvas-container"></div>
+    <button id="back-button" onclick="goToIndex()">Back to Index</button>
     <h1>Welcome to the Projects Page</h1>
     <p>This is the page where the Projects button will take you.</p>
 
     <h2>My Music Recordings</h2>
     <div class="audio-player">
-        <h3>Dino Pintando o sete - Sivuca</h3>
+        <h3>Dino pintando o Sete - Sivuca</h3>
+        
         <audio controls>
             <source src="music/Dino pintando o sete.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
+          
         </audio>
     </div>
 
     <div class="audio-player">
+        
         <h3>Perigoso - Orlando Silveira</h3>
         <audio controls>
             <source src="music/Perigoso.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
+            
         </audio>
     </div>
 
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        // Seleciona todos os elementos <audio> na página
-        const audios = document.querySelectorAll('audio');
+        let num = 200;
+        let range = 20;
 
-        audios.forEach(audio => {
-            // Adiciona um evento de 'play' a cada elemento <audio>
-            audio.addEventListener('play', () => {
-                // Pausa todos os outros elementos <audio> que não sejam o que está sendo reproduzido
-                audios.forEach(otherAudio => {
-                    if (otherAudio !== audio) {
-                        otherAudio.pause();
-                    }
-                });
-            });
-        });
+        let ax = [];
+        let ay = [];
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 2;
+                ay[i] = height / 2;
+            }
+            frameRate(20);
+        }
+
+        function draw() {
+            background(43);
+
+            // Shift all elements 1 place to the left
+            for (let i = 1; i < num; i++) {
+                ax[i - 1] = ax[i];
+                ay[i - 1] = ay[i];
+            }
+
+            // Put a new value at the end of the array
+            ax[num - 1] += random(-range, range);
+            ay[num - 1] += random(-range, range);
+
+            // Constrain all points to the screen
+            ax[num - 1] = constrain(ax[num - 1], 0, width);
+            ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+            // Draw a line connecting the points
+            for (let i = 1; i < num; i++) {
+                let val = float(i) / num * 100.0 + 3;
+                stroke(val);
+                line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+
+        function goToIndex() {
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>
-
