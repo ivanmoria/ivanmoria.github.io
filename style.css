@@ -181,3 +181,11 @@ body, html {
       right: 0;
     }
   }
+
+  /* Estilos para o canvas */
+canvas {
+    display: block;
+    margin: auto;
+    max-width: 80%; /* Define o tamanho máximo do canvas */
+    border: 1px solid black; /* Adiciona uma borda preta ao redor do canvas */
+}
