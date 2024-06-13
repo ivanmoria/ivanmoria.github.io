@@ -36,6 +36,22 @@
     </div>
 
     
-    </div>
+    <script>
+        // Seleciona todos os elementos <audio> na página
+        const audios = document.querySelectorAll('audio');
+
+        audios.forEach(audio => {
+            // Adiciona um evento de 'play' a cada elemento <audio>
+            audio.addEventListener('play', () => {
+                // Pausa todos os outros elementos <audio> que não sejam o que está sendo reproduzido
+                audios.forEach(otherAudio => {
+                    if (otherAudio !== audio) {
+                        otherAudio.pause();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
