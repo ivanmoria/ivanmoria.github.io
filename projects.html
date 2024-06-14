@@ -202,7 +202,7 @@
             audio1.addEventListener('play', function() {
                 if (currentAudio && currentAudio !== audio1) {
                     currentAudio.pause();
-                    document.getElementById('playPauseBtn1').textContent = 'II'; // Pause Icon
+                    document.getElementById('playPauseBtn1').textContent = '\u25B6'; // Pause Icon
                 }
                 currentAudio = audio1;
                 wavesurfer1.play();
@@ -215,7 +215,7 @@
             audio2.addEventListener('play', function() {
                 if (currentAudio && currentAudio !== audio2) {
                     currentAudio.pause();
-                    document.getElementById('playPauseBtn2').textContent = 'II'; // Pause Icon
+                    document.getElementById('playPauseBtn2').textContent = '\u25B6'; // Pause Icon
                 }
                 currentAudio = audio2;
                 wavesurfer2.play();
@@ -266,46 +266,43 @@
 
            
             var currentTimeDisplay1 = document.getElementById('currentTime1');
-var currentTimeDisplay2 = document.getElementById('currentTime2');
-var durationDisplay1 = document.getElementById('duration1');
-var durationDisplay2 = document.getElementById('duration2');
+            var currentTimeDisplay2 = document.getElementById('currentTime2');
+            var durationDisplay1 = document.getElementById('duration1');
+            var durationDisplay2 = document.getElementById('duration2');
 
-if (!audio1.paused) {
-    currentTimeDisplay1.textContent = formatTime(audio1.currentTime);
-    durationDisplay1.textContent = formatTime(audio1.duration);
-}
+            if (!audio1.paused) {
+                currentTimeDisplay1.textContent = formatTime(audio1.currentTime);
+                durationDisplay1.textContent = formatTime(audio1.duration);
+            }
 
-if (!audio2.paused) {
-    currentTimeDisplay2.textContent = formatTime(audio2.currentTime);
-    durationDisplay2.textContent = formatTime(audio2.duration);
-}
+            if (!audio2.paused) {
+                currentTimeDisplay2.textContent = formatTime(audio2.currentTime);
+                durationDisplay2.textContent = formatTime(audio2.duration);
+            }
 
-// Verificando o estado de reprodução dos áudios e atualizando os ícones
-if (!audio1.paused) {
-    playPauseBtn1.textContent = 'II'; // Pause Icon
-} else {
-    playPauseBtn1.textContent = '\u25B6'; // Play Icon
-}
+            // Verificando o estado de reprodução dos áudios e atualizando os ícones
+            if (!audio1.paused) {
+                playPauseBtn1.textContent = 'II'; // Pause Icon
+            } else {
+                playPauseBtn1.textContent = '\u25B6'; // Play Icon
+            }
 
-if (!audio2.paused) {
-    playPauseBtn2.textContent = 'II'; // Pause Icon
-} else {
-    playPauseBtn2.textContent = '\u25B6'; // Play Icon
-}
+            if (!audio2.paused) {
+                playPauseBtn2.textContent = 'II'; // Pause Icon
+            } else {
+                playPauseBtn2.textContent = '\u25B6'; // Play Icon
+            }
 
-// Se ambos os áudios estiverem tocando, pausa o outro
-if (!audio1.paused && !audio2.paused && audio1 !== audio2) {
-    audio2.pause();
-}
+            // Se ambos os áudios estiverem tocando, pausa o outro
+            if (!audio1.paused && !audio2.paused && audio1 !== audio2) {
+                audio2.pause();
+            }
 
-if (!audio2.paused && !audio1.paused && audio2 !== audio1) {
-    audio1.pause();
-}
-}, 1000);
-</script>
+            if (!audio2.paused && !audio1.paused && audio2 !== audio1) {
+                audio1.pause();
+            }
+        }, 1000);
+    </script>
 </body>
-
-
-
-
 </html>
+
