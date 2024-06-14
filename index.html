@@ -1,97 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+
+     
   
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
-            <title>Ivan Moriá Borges</title>
+
+
+            <!DOCTYPE html>
+            <html lang="en">
+              
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
+                        <title>Ivan Moriá Borges</title>
+                   
+                        <link rel="stylesheet" href="style.css">
+               
+                      
+                    </head>
+            
+            
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        overflow: hidden;
+                        color: #f0f0f047;
+                    }
+                    
+                    h1, h2, p {
+                        position: relative;
+                        z-index: 1;
+                        color: #f0f0f0;
+                    }
+      
+        
+                </style>
+            </head>
+            
+
+
+     
+
+        <div id="canvas-container"></div>
+        <header>
+    
+            <nav id="navbar-items">
+                <button class="ui-btn" onclick="window.location.href='projects.html'">
+                    <span>Projects</span>
+                </button>
        
-            <link rel="stylesheet" href="style.css">
-            <script src="script.js" defer></script>
-          
-        </head>
-    <body class="page-transition">
-
-    <style>
-        body 
-        
-        {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            overflow: hidden;
-            color: #f0f0f047;
-        }
-        
-        h1, h2, p {
-            position: relative;
-            z-index: 1;
-            color: #f0f0f0;
-        }
-        
-    </style>
-</head>
-
-    <div id="canvas-container"></div>
-    <header>
-
-        <nav id="navbar-items">
-            <button class="ui-btn" onclick="window.location.href='projects.html'">
-                <span>Projects</span>
-            </button>
-   
-  </div>
-        </nav>
-      </header>
+      </div>
+            </nav>
+          </header>
+    
+    
+          <main>
+            <br>Em construção...</br>
+        </main>
+    </div>
 
 
-      <main>
-        <br>Em construção...</br>
-    </main>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-<script>
-    let num = 200;
-    let range = 20;
-    let ax = [];
-    let ay = [];
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+                <script>
+                    let num = 200;
+                    let range = 20;
+                    let ax = [];
+                    let ay = [];
+            
+                    function setup() {
+                        let canvas = createCanvas(windowWidth, windowHeight);
+                        canvas.parent('canvas-container');
+                        for (let i = 0; i < num; i++) {
+                            ax[i] = width / 2;
+                            ay[i] = height / 2;
+                        }
+                        frameRate(20);
+                    }
+            
+                    function draw() {
+                        background(25);
+                        for (let i = 1; i < num; i++) {
+                            ax[i - 1] = ax[i];
+                            ay[i - 1] = ay[i];
+                        }
+                        ax[num - 1] += random(-range, range);
+                        ay[num - 1] += random(-range, range);
+                        ax[num - 1] = constrain(ax[num - 1], 0, width);
+                        ay[num - 1] = constrain(ay[num - 1], 0, height);
+                        for (let i = 1; i < num; i++) {
+                            let val = float(i) / num * 100.0 + 3;
+                            stroke(val);
+                            line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+                        }   
+                    }
+            
+                    function windowResized() {
+                        resizeCanvas(windowWidth, windowHeight);
+                    }
+            
+                    function goToIndex() {
+                        window.location.href = "index.html";
+                    }
+                </script>
+            </body>
+            </html>
+            
 
-    function setup() {
-        let canvas = createCanvas(windowWidth, windowHeight);
-        canvas.parent('canvas-container');
-        for (let i = 0; i < num; i++) {
-            ax[i] = width / 2;
-            ay[i] = height / 2;
-        }
-        frameRate(20);
-    }
 
-    function draw() {
-        background(43);
-        for (let i = 1; i < num; i++) {
-            ax[i - 1] = ax[i];
-            ay[i - 1] = ay[i];
-        }
-        ax[num - 1] += random(-range, range);
-        ay[num - 1] += random(-range, range);
-        ax[num - 1] = constrain(ax[num - 1], 0, width);
-        ay[num - 1] = constrain(ay[num - 1], 0, height);
-        for (let i = 1; i < num; i++) {
-            let val = float(i) / num * 100.0 + 3;
-            stroke(val);
-            line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
-        }   
-    }
 
-    function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
-    }
 
-    function goToIndex() {
-        window.location.href = "index.html";
-    }
-</script>
 
-</body>
-</html>
+
+
+
+
+
+
+
