@@ -17,15 +17,3 @@ function loadContent(url) {
           }, 50); // Tempo de espera em milissegundos (50ms)
       });
 }
-
-// Função para carregar o conteúdo com uma transição suave
-function transitionPage(url) {
-  document.getElementById('content').classList.remove('loaded');
-  document.getElementById('loading').style.display = 'block';
-  setTimeout(function() {
-      loadContent(url);
-  }, 700); // Tempo de espera em milissegundos (200ms)
-}
-
-// Exemplo de uso para carregar uma nova página
-transitionPage('projects.html');
