@@ -6,3 +6,10 @@ document.getElementById('btn').addEventListener('click', function() {
 });
 
 
+document.getElementById('loading').style.display = 'block';
+fetch(url)
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('content').innerHTML = html;
+        document.getElementById('loading').style.display = 'none';
+    });
