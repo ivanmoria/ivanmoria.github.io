@@ -1,80 +1,73 @@
 
 .Btn {
-  width: 50px;
-  height: 50px;
-  border: none;
-  border-radius: 50%;
-  background-color: rgb(27, 27, 27);
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.34);
+  border-radius: 10px;
+  background-color: rgba(255, 0, 0, 0);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  position: relative;
+  position: absolute;
   transition-duration: 0.3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+
+  top: 68%;
+  transform: translateY(-50%);
+  right: 0%;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+}
+.audio-player {
+  width: 300px;
+  height: 60px;
+  margin: 40px 0;
+  
+  position: relative;
+  z-index: 1;
+  align-items: right;
+  left: 3%;
+  box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.305);
+
+  
+}
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
+
+
 .svgIcon {
-  fill: #2196f3;
+  fill: rgb(70, 70, 70);
 }
 
 .icon2 {
   width: 18px;
   height: 5px;
-  border-bottom: 2px solid #2196f3;
-  border-left: 2px solid #2196f3;
-  border-right: 2px solid #2196f3;
-}
-
-.tooltip {
-  position: absolute;
-  right: -80px;
-  opacity: 0;
-  background-color: rgb(12, 12, 12);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition-duration: 0.2s;
-  pointer-events: none;
-  letter-spacing: 0.5px;
-}
-
-.tooltip::before {
-  position: absolute;
-  content: "";
-  width: 10px;
-  height: 10px;
-  background-color: rgb(12, 12, 12);
-  background-size: 1000%;
-  background-position: center;
-  transform: rotate(45deg);
-  left: -5%;
-  transition-duration: 0.3s;
-}
-
-.Btn:hover .tooltip {
-  opacity: 1;
-  transition-duration: 0.3s;
+  border-bottom: 2px solid rgb(70, 70, 70);
+  border-left: 2px solid rgb(70, 70, 70);
+  border-right: 2px solid rgb(70, 70, 70);
 }
 
 .Btn:hover {
-  background-color: #2196f3;
+  background-color: rgba(0, 0, 0, 0.207);
   transition-duration: 0.3s;
 }
 
 .Btn:hover .icon2 {
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.529);
+  border-left: 2px solid rgba(255, 255, 255, 0.529);
+  border-right: 2px solid rgba(255, 255, 255, 0.529);
 }
 
 .Btn:hover .svgIcon {
-  fill: black;
-  animation: slide-in-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  fill: rgba(251, 255, 251, 0.728);
+  animation: slide-in-top 0.7s linear infinite ;
 }
 
 @keyframes slide-in-top {
