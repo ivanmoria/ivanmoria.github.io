@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal projects of Ivan Moriá">
     <title>Moriá - Projects</title>
@@ -46,12 +47,12 @@
             border-radius: 8px;
             position: relative;
             z-index: 1;
-            width: 90%;
+            width: 50%;
             max-width: 600px;
             color: #f0f0f0;
         }
 
-        .audio-player h2 {
+        .audio-player h3 {
             margin: 0;
             color: #f0f0f0;
             text-align: center;
@@ -96,12 +97,6 @@
             height: 100px;
             position: relative;
             z-index: 1;
-        }
-
-        @media only screen and (min-width: 600px) {
-            .audio-player {
-                width: 50%;
-            }
         }
     </style>
 </head>
@@ -207,7 +202,7 @@
             audio1.addEventListener('play', function() {
                 if (currentAudio && currentAudio !== audio1) {
                     currentAudio.pause();
-                    document.getElementById('playPauseBtn1').textContent = 'Play'; // Pause Icon
+                    document.getElementById('playPauseBtn1').textContent = '\u25B6'; // Pause Icon
                 }
                 currentAudio = audio1;
                 wavesurfer1.play();
@@ -220,7 +215,7 @@
             audio2.addEventListener('play', function() {
                 if (currentAudio && currentAudio !== audio2) {
                     currentAudio.pause();
-                    document.getElementById('playPauseBtn2').textContent = 'Play'; // Pause Icon
+                    document.getElementById('playPauseBtn2').textContent = '\u25B6'; // Pause Icon
                 }
                 currentAudio = audio2;
                 wavesurfer2.play();
@@ -245,15 +240,15 @@
         });
 
 
-        function togglePlayPause(audioId) {
+            function togglePlayPause(audioId) {
             var audio = document.getElementById(audioId);
             var playPauseBtn = document.getElementById('playPauseBtn' + audioId.slice(-1));
             if (audio.paused) {
                 audio.play();
-                playPauseBtn.textContent = 'Pause'; // Pause Icon
+                playPauseBtn.textContent = 'II'; // Pause Icon
             } else {
                 audio.pause();
-                playPauseBtn.textContent = 'Play'; // Play Icon
+                playPauseBtn.textContent = '\u25B6'; // Play Icon
             }
         }
 
@@ -269,6 +264,7 @@
             var playPauseBtn1 = document.getElementById('playPauseBtn1');
             var playPauseBtn2 = document.getElementById('playPauseBtn2');
 
+           
             var currentTimeDisplay1 = document.getElementById('currentTime1');
             var currentTimeDisplay2 = document.getElementById('currentTime2');
             var durationDisplay1 = document.getElementById('duration1');
@@ -286,15 +282,15 @@
 
             // Verificando o estado de reprodução dos áudios e atualizando os ícones
             if (!audio1.paused) {
-                playPauseBtn1.textContent = 'Pause'; // Pause Icon
+                playPauseBtn1.textContent = 'II'; // Pause Icon
             } else {
-                playPauseBtn1.textContent = 'Play'; // Play Icon
+                playPauseBtn1.textContent = '\u25B6'; // Play Icon
             }
 
             if (!audio2.paused) {
-                playPauseBtn2.textContent = 'Pause'; // Pause Icon
+                playPauseBtn2.textContent = 'II'; // Pause Icon
             } else {
-                playPauseBtn2.textContent = 'Play'; // Play Icon
+                playPauseBtn2.textContent = '\u25B6'; // Play Icon
             }
 
             // Se ambos os áudios estiverem tocando, pausa o outro
