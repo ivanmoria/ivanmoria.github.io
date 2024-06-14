@@ -17,3 +17,4 @@ function loadContent(url) {
           }, 50); // Tempo de espera em milissegundos (50ms)
       });
 }
+
