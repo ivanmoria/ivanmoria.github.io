@@ -142,3 +142,14 @@ canvas {
   z-index: -1; /* Coloca o canvas no fundo */
 }
 
+
+.pdf-container {
+  margin-bottom: 20px;
+}
+
+iframe {
+  width: 20%;
+  height: 250px;
+  border: 1px solid #f0f0f000;
+  box-shadow: 2px 2px 5px rgba(171, 109, 109, 0.305);
+}
