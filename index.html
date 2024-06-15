@@ -1,4 +1,4 @@
-            <!DOCTYPE html>
+   <!DOCTYPE html>
             <html lang="en">
               
                     <head>
@@ -21,6 +21,7 @@
                         font-family: Arial, sans-serif;
                         margin: 0;
                         overflow: hidden;
+                        cursor: none; /* Remove o cursor do mouse */
                         color: #f0f0f047;
                     }
                     
@@ -30,7 +31,9 @@
                         color: #f0f0f0;
                     }
       
-        
+                
+                
+                
                 </style>
             </head>
             
@@ -60,64 +63,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
         let num = 200;
-        let range = 20;
+        let range =30;
         let ax = [];
         let ay = [];
-        let extraLines = 200;
+        let extraLines = 20;
 
+
+
+
+        let isMousePressed = false;
 
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
             canvas.parent('canvas-container');
-            for (let i = 0; i < num; i++) {
-                ax[i] = width / 2;
-                ay[i] = height / 2;
+            for (let i = 0; i < num + extraLines; i++) {
+                ax[i] = width /7;
+                ay[i] = height /9;
             }
-            for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 2;
-                ay[j] = height / 2;
-            }
-            frameRate(1000);
+            frameRate(60);
         }
 
         function draw() {
             background(43);
-            for (let i = 1; i < num; i++) {
-                ax[i - 1] = ax[i];
-                ay[i - 1] = ay[i];
-            }
-            ax[num - 1] += random(-range, range);
-            ay[num - 1] += random(-range, range);
-            ax[num - 1] = constrain(ax[num - 1], 0, width);
-            ay[num - 1] = constrain(ay[num - 1], 0, height);
-            for (let i = 1; i < num; i++) {
-                let val = float(i) / num * 100.0 + 3;
-                stroke(val);
-                line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+            let targetX = mouseX;
+            let targetY = mouseY;
+
+            for (let i = 0; i < num; i++) {
+                let x = ax[i];
+                let y = ay[i];
+                let dx = targetX - x;
+                let dy = targetY - y;
+                let angle = atan2(dy, dx);
+                let speed = map(i, 0, num, 0, 100); // Ajuste a velocidade aqui
+                ax[i] += cos(angle) * speed;
+                ay[i] += sin(angle) * speed;
             }
 
             for (let j = 1; j < extraLines; j++) {
-                ax[j - 1] = ax[j];
-                ay[j - 1] = ay[j];
+                ax[j - 1 + num] = ax[j + num];
+                ay[j - 1 + num] = ay[j + num];
             }
-            ax[extraLines - 1] += random(-range, range);
-            ay[extraLines - 1] += random(range, - range);
-            ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-            ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-            for (let j = 1; j < num; j++) {
-                let val = float(j) / num * 200.0 + 3 ;
-                stroke(val, 22, 44442, 2 * (j +4));
-                line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+
+            let dx = ax[extraLines - 10] - ax[extraLines - 10 + num];
+            let dy = ay[extraLines - 10] - ay[extraLines - 10 + num];
+            let angle = atan2(dy, dx);
+            let speed = map(extraLines, 0, num, 0, 33); // Ajuste a velocidade aqui
+            ax[extraLines - 1 + num] += cos(angle) * speed;
+            ay[extraLines - 1 + num] += sin(angle) * speed;
+
+            for (let j = 1; j < num ; j++) {
+                let val = float(j) / num * 200.0 + 3;
+                strokeWeight(1); // Define a espessura da linha
+                
+                if (isMousePressed) {
+                    stroke(val, (ax[j]), (ay[j]),  43);
+                } else {
+                    stroke(val, 100);
+                }
+                line(ax[j -1], ay[j -1], ax[j], ay[j]);
             }
+  
+        }
+        function mousePressed() {
+            isMousePressed = true;
+        }
+
+        function mouseReleased() {
+            isMousePressed = false;
         }
     </script>
-    
-            </body>
-            </html>
-            
-
-
-
+</body>
+</html>
 
 
 
