@@ -89,13 +89,32 @@
             <source src="media/Perigoso.mp3" type="audio/mpeg">
         </audio>
     </div>
+    <h2>Project Documents</h2>
+    <div class="pdf-container">
+        <h3>Project Document 1</h3>
+        <iframe src="documents/Relatorio-de-atividades-de-bolsista%20(Fapemig).pdf"></iframe>
+        <button onclick="downloadFile('documents/document1.pdf', 'Project Document 1.pdf')">Download</button>
+    </div>
+    <div class="pdf-container">
+        <h3>Project Document 2</h3>
+        <iframe src="documents/document2.pdf"></iframe>
+        <button onclick="downloadFile('documents/document2.pdf', 'Project Document 2.pdf')">Download</button>
+    </div>
+    <div class="pdf-container">
+        <h3>Project Document 3</h3>
+        <iframe src="documents/document3.pdf"></iframe>
+        <button onclick="downloadFile('documents/document3.pdf', 'Project Document 3.pdf')">Download</button>
+    </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        let num = 200;
-        let range = 20;
+        let num = 50;
+        let range = 5;
         let ax = [];
         let ay = [];
+        let extraLines = 200;
+
 
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
@@ -104,41 +123,47 @@
                 ax[i] = width / 2;
                 ay[i] = height / 2;
             }
-            frameRate(20);
-        }
-
-        function draw() {
-            background(43);
-            for (let i = 1; i < num; i++) {
-                ax[i - 1] = ax[i];
-                ay[i - 1] = ay[i];
+            for (let j = 0; j < num + extraLines; j++) {
+                ax[j] = width / 2;
+                ay[j] = height / 2;
             }
-            ax[num - 1] += random(-range, range);
-            ay[num - 1] += random(-range, range);
-            ax[num - 1] = constrain(ax[num - 1], 0, width);
-            ay[num - 1] = constrain(ay[num - 1], 0, height);
-            for (let i = 1; i < num; i++) {
-                let val = float(i) / num * 100.0 + 3;
-                stroke(val);
-                line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
-            }   
-        }
+            frameRate(1000);
+     // Chama a função de clique automático repetidamente a cada 5 segundos
+     setInterval(autoClick, 10000);
 
-        function windowResized() {
-            resizeCanvas(windowWidth, windowHeight);
-        }
+}
+
+function draw() {
+    background(43);
+    
+    // Atualizar posições para todas as linhas
+    for (let i = 1; i < num + extraLines; i++) {
+        ax[i - 1] = ax[i];
+        ay[i - 1] = ay[i];
+    }
+    ax[num + extraLines - 1] += random(-range, range);
+    ay[num + extraLines - 1] += random(-range, range);
+    ax[num + extraLines - 1] = constrain(ax[num + extraLines - 1], 0, width);
+    ay[num + extraLines - 1] = constrain(ay[num + extraLines - 1], 0, height);
+    for (let i = 1; i < num + extraLines; i++) {
+        let val = map(ax[i], 0, width, 0, 255); // Correlaciona a cor com a coordenada x
+        let val2 = map(ay[i],0, height, 0, 255); // Correlaciona a cor com a coordenada y
+        stroke(val, val2, 80); // Atualiza a cor do traço com base nas coordenadas x e y
+        line(ax[ i-3] , ay[  i - 3], ax[i], ay[i]);
+    }
+}
 
 
+function autoClick() {
+    // Adiciona novos pontos a cada 5 segundos
+    extraLines++;
+    ax.push(random(width));
+    ay.push(random(height));
+}
 
-        function downloadFile(url, fileName) {
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
     </script>
+
+
   
 </body>
 </html>
