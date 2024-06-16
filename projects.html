@@ -15,6 +15,7 @@
             overflow: auto;
             color: #f0f0f047;
             
+
         }
     
     </style>
@@ -199,11 +200,11 @@
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        let num = 50;
+        let num = 200;
         let range = 5;
         let ax = [];
         let ay = [];
-        let extraLines = 200;
+        let extraLines = 100;
 
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
@@ -217,30 +218,64 @@
                 ay[j] = height / 2;
             }
             frameRate(1000);
-            setInterval(autoClick, 1000);
+       
         }
-
+    
         function draw() {
-            background(43);
-            for (let i = 1; i < num + extraLines; i++) {
-                ax[i - 1] = ax[i];
-                ay[i - 1] = ay[i];
-            }
-            ax[num + extraLines - 1] += random(-range, range);
-            ay[num + extraLines - 1] += random(-range, range);
-            ax[num + extraLines - 1] = constrain(ax[num + extraLines - 1], 0, width);
-            ay[num + extraLines - 1] = constrain(ay[num + extraLines - 1], 0, height);
-            for (let i = 1; i < num + extraLines; i++) {
-                let val = map(ax[i], 0, width, 0, 255);
-                let val2 = map(ay[i],0, height, 0, 255);
-                stroke(val, val2, 10);
-                line(ax[i-3], ay[i-3], ax[i], ay[i]);
-            }
-        }
+    background(43);
+    for (let i = 1; i < num; i++) {
+        ax[i - 1] = ax[i];
+        ay[i - 1] = ay[i];
+    }
+    ax[num - 1] += random(-range, range);
+    ay[num - 1] += random(-range, range);
+    ax[num - 1] = constrain(ax[num - 1], 0, width);
+    ay[num - 1] = constrain(ay[num - 1], 0, height);
+    for (let i = 1; i < num ; i++) {
+        let val0 = float(i) / num * 200.0 + 3 ;
+        let val = map(ax[i], 0, width, 0, 255);
+        let val2 = map(ay[i],0, height, 0, 255);
+        stroke(val0,val,val2);
+        line(ax[i-1], ay[i-1], ax[i], ay[i]);
+        
+    }
 
-        function autoClick() {
-            // Adiciona novos pontos a cada 5 segundos
-        }
+    for (let j = 1; j < extraLines; j++) {
+        ax[j - 1] = ax[j];
+        ay[j - 1] = ay[j];
+    }
+    ax[extraLines - 1] += random(-range, range);
+    ay[extraLines - 1] += random(range, - range);
+    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+    for (let j = 1; j < num; j++) {
+        let val1 = float(j) / num * 200.0 + 3 ;
+        let val3 = map(ax[j], 0, width, 0, 255);
+        let val4 = map(ay[j],0, height, 0, 255);
+
+        stroke(val1,val3,val4);
+
+        line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+    }
+
+
+
+        
+}
+
+    
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
