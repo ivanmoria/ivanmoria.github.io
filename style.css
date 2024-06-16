@@ -1,9 +1,9 @@
 
 .Btn {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.34);
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgba(3, 122, 9, 0);
 
   flex-direction: column;
@@ -12,8 +12,8 @@
   cursor: pointer;
   position:absolute;
   transition-duration: 0.3s;
-left:87%;
-top: - 20px
+left:59.5%;
+top:-1%, 1%;
 
 
 
@@ -25,7 +25,7 @@ top: - 20px
 
 .Btn:hover {
   background-color: rgba(8, 130, 47, 0.207);
-  height: 70px;
+  height: 58px;
   border: 2px solid rgba(255, 255, 255, 0);
   transition-duration: 0.3s;
 }
@@ -145,6 +145,8 @@ canvas {
   width: 100%;
   height: 100%;
   z-index: -1; /* Coloca o canvas no fundo */
+
+  
 }
 #back-button {
   position: absolute;
@@ -163,22 +165,26 @@ canvas {
   justify-content: space-between;
   width: 100%;
   align-items: flex-start; /* Adicionado para alinhar as colunas ao topo */
-  margin: 20px 0;
+  margin: 0px 0;
 }
 
-.left-column, .right-column {
-  flex-basis: 88%;
-  width: 100%; /* Ajuste conforme necessário para o layout desejado */
+
+.left-column {
+  flex: 0 0 60%; /* Flex-grow, flex-shrink e flex-basis */
   background-color: #66666600;
   color: #f0f0f042;
   padding: 20px;
+  box-sizing: border-box; /* Certifica que padding está incluído na largura */
 }
 
 .right-column {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Alinha os itens ao topo */
+  flex: 0 0 40%; /* Flex-grow, flex-shrink e flex-basis */
+  background-color: #66666600;
+  color: #f0f0f042;
+  padding: 20px;
+  box-sizing: border-box; /* Certifica que padding está incluído na largura */
 }
+
 
 .audio-player {
   width: 80%;
@@ -197,3 +203,5 @@ canvas {
 audio {
   width: 95%;
 }
+
+
