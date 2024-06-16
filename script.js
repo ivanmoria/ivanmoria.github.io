@@ -27,3 +27,4 @@ function downloadFile(fileUrl, fileName) {
   a.click();
   document.body.removeChild(a);
 }
+
