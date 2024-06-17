@@ -13,6 +13,7 @@
             font-family: 'JS Brains Telex', sans-serif;
             margin: 10px;
             overflow: auto;
+       
             color: #f0f0f047;
         }
 
@@ -154,8 +155,8 @@
             > Cristina Tati: "O Planeta Azul"</a></span>
             </div>
             
-            <button class="uia-btn" onclick="window.open('media/documents/Relatorio-de-atividades-de-bolsista%20(Fapemig).pdf', 'popup', 'width=420,height=600')">
-                <span>Relatórios</span>
+            <button class="uia-btn" onclick="window.open('media/documents/ProjetodepesquisaIvan.pdf', 'popup', 'width=420,height=600')">
+                <span>Projeto de Pesquisa</span>
             </button>
     
             <button class="uia-btn" onclick="window.open('media/documents/Histórico%20e%20cerfiticados.pdf', 'popup', 'width=420,height=600')">
@@ -195,14 +196,14 @@
  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        let num = 500;
+        let num = 1000;
         let range = 6;
         let ax = [];
         let ay = [];
-        let extraLines = 500;
+        let extraLines = 400;
 
         function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight);
+            let canvas = createCanvas(windowWidth, windowHeight );
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
                 ax[i] = width / 2;
@@ -212,15 +213,19 @@
                 ax[j] = width / 2;
                 ay[j] = height / 2;
             }
-            frameRate(1000);
+            frameRate(60);
             setInterval(autoClick, 10000);
             setInterval(autoClick1, 11002);
+    
     
    
         }
     
         function draw() {
+            
     background(43);
+
+  
     for (let i = 1; i < num; i++) {
         ax[i - 1] = ax[i];
         ay[i - 1] = ay[i];
@@ -229,11 +234,17 @@
     ay[num - 1] += random(-range, range);
     ax[num - 1] = constrain(ax[num - 1], 0, width);
     ay[num - 1] = constrain(ay[num - 1], 0, height);
+    
+    
+ 
+    
+    
+    
     for (let i = 1; i < num ; i++) {
         let val0 = float(i) / num * 200.0 + 3 ;
         let val = map(ax[i], 0, width, 0, 255);
         let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2);
+        stroke(val0,val,val2, 100);
         line(ax[i-4], ay[i-1], ax[i], ay[i]);
         
     }
@@ -251,7 +262,7 @@
         let val3 = map(ax[j], 0, width, 0, 255);
         let val4 = map(ay[j],0, height, 0, 255);
 
-        stroke(val1,val3,val4);
+        stroke(val1,val3,val4, 100);
 
         line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
     }
@@ -271,7 +282,7 @@ function autoClick() {
             ay[num - 1] += 13*random(-range, range);
             ax[num - 1] +=13* random(-range, range);
             line(ax[num - 10], ay[num - 10], ax[num ], ay[num ]);
-    }
+}
 
     </script>
 </body>
