@@ -21,15 +21,7 @@
                         z-index: 1;
                        left: 12%;
                     }
-        
-                    #canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
+
       
             
 
@@ -93,7 +85,7 @@
 
 
             
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
+            <div style="display: flex; flex-direction: column;margin-top: -15px; margin-left: -15px;margin-bottom: -25px; width:100%; ">
                 <div tabindex="0" class="plusButton" onclick="window.open('https://my.ltb.io/#/viewStack/ABSRD', 'popup', 'width=600,height=650');" style="margin-right: 10px;">
                   <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                     <g mask="url(#mask0_21_345)">
@@ -102,11 +94,13 @@
                   </svg>
                 </div>
                 </div>  
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-left: 3%;margin-top: -13px; ">
+                
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open('media/documents/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496', 'popup', 'width=600,height=650');">
                   <span>Comunicação Oral</span>
                 </button>
             </div>
+            
 
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -178,14 +172,13 @@
             > https://ubammusicoterapia.com.br//2022/Anais-XXII-ENPEMT-2022.pdf</a></span>
             </div>
 
-
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-                <button class="uia-btn">
-        <span>Songbook</span> 
-                </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
-            ><a href="https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul" style="color:#ffffff4d;"
-            > Cristina Tati: "O Planeta Azul"</a></span>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+                <a href="https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul" class="uia-btn" style="color:#ffffff4d; text-decoration: none;">
+                    <span>Songbook</span>
+                </a>
+                <span style="text-align: justify; width: 85%; margin-top: -10px;">
+                    Cristina Tati: "O Planeta Azul"
+                </span>
             </div>
             
             <button class="uia-btn" onclick="window.open('media/documents/ProjetodepesquisaIvan.pdf', 'popup', 'width=420,height=600')">
@@ -332,6 +325,10 @@ function autoClick() {
           
 
     </script>
+
+
+
+
 </body>
 </html>
 
