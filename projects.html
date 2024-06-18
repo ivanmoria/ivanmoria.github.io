@@ -16,6 +16,15 @@
        
             color: #f0f0f047;
         }
+            h3, p {
+                        position: relative;
+                        z-index: 1;
+                       left: 12%;
+                    }
+        
+
+      
+            
 
     </style>
 </head>
@@ -168,24 +177,34 @@
         <div class="right-column">
             <h2>My Music Recordings</h2>
             <div class="audio-player">
-                <button class="Btn" onclick="downloadFile('media/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" class="svgIcon">
-                        <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path>
+
+        
+                <div tabindex="0" class="plusButton" onclick="downloadFile('media/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
+                    <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                      <g mask="url(#mask0_21_345)">
+                        <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+                      </g>
                     </svg>
-                    <span class="icon2"></span>
-                </button>
+                  </div>
+
+
                 <h3>Dino pintando o Sete - Sivuca</h3>
                 <audio controls>
                     <source src="media/Dino pintando o sete.mp3" type="audio/mpeg">
                 </audio>
             </div>
             <div class="audio-player">
-                <button class="Btn" onclick="downloadFile('media/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" class="svgIcon">
-                        <path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path>
-                    </svg>
-                    <span class="icon2"></span>
-                </button>
+
+                    <div tabindex="0" class="plusButton" onclick="downloadFile('media/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
+                        <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                          <g mask="url(#mask0_21_345)">
+                            <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+                          </g>
+                        </svg>
+                      </div>
+
+
+
                 <h3>Perigoso - Orlando Silveira</h3>
                 <audio controls>
                     <source src="media/Perigoso.mp3" type="audio/mpeg">
@@ -215,7 +234,9 @@
             }
             frameRate(60);
             setInterval(autoClick, 10000);
-            setInterval(autoClick1, 11002);
+            setInterval(autoClick1, 15002);
+            setInterval(autoClick2, 300);
+ 
     
     
    
@@ -244,7 +265,7 @@
         let val0 = float(i) / num * 200.0 + 3 ;
         let val = map(ax[i], 0, width, 0, 255);
         let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 100);
+        stroke(val0,val,val2, 50);
         line(ax[i-4], ay[i-1], ax[i], ay[i]);
         
     }
@@ -262,7 +283,7 @@
         let val3 = map(ax[j], 0, width, 0, 255);
         let val4 = map(ay[j],0, height, 0, 255);
 
-        stroke(val1,val3,val4, 100);
+        stroke(val1,val3,val4, 50);
 
         line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
     }
@@ -283,6 +304,15 @@ function autoClick() {
             ax[num - 1] +=13* random(-range, range);
             line(ax[num - 10], ay[num - 10], ax[num ], ay[num ]);
 }
+function autoClick2() {
+            extraLines++;
+            ay[num - 1] += -2*random(-range, range);
+            ax[num - 1] +=-2* random(-range, range);
+            line(ax[num -1], ay[num -1], ax[num ], ay[num ]);
+
+        }
+       
+          
 
     </script>
 </body>
