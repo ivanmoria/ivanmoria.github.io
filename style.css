@@ -1,51 +1,4 @@
 
-.Btn {
-  width: 20px;
-  height: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.34);
-  border-radius: 15px;
-  background-color: rgba(3, 122, 9, 0);
-
-  flex-direction: column;
-  align-items: center;
-
-  cursor: pointer;
-  position:absolute;
-  transition-duration: 0.3s;
-left:59.5%;
-top:-1%, 1%;
-
-
-
-}
-
-.svgIcon {
-  fill: rgba(255, 255, 255, 0.372);
-}
-
-.Btn:hover {
-  background-color: rgba(8, 130, 47, 0.207);
-  height: 58px;
-  border: 2px solid rgba(255, 255, 255, 0);
-  transition-duration: 0.3s;
-}
-
-.Btn:hover .svgIcon {
-  fill: rgba(5, 200, 5, 0.587);
-  animation: slide-in-top 1s linear infinite ;
-}
-
-@keyframes slide-in-top {
-  0% {
-    transform: translateY(-10px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(40px);
-    opacity: 1;
-  }
-}
 
 /* Estilo do botão */
 .ui-btn {
@@ -204,4 +157,63 @@ audio {
   width: 95%;
 }
 
+
+/* Note that you only needs to edit the config to customize the button! */
+
+.plusButton {
+  /* Config start */
+  --plus_sideLength: 2rem;
+  --plus_topRightTriangleSideLength: 0.9rem;
+  /* Config end */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 1.6rem;
+  left: 0.3rem;
+  width: var(--plus_sideLength);
+  height: var(--plus_sideLength);
+  background-color: #43000000;
+  overflow: hidden;
+}
+
+.plusButton::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 0 var(--plus_topRightTriangleSideLength) var(--plus_topRightTriangleSideLength) 0;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0) transparent transparent;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.plusButton:hover {
+  cursor: pointer;
+}
+
+.plusButton:hover::before {
+  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+}
+
+.plusButton:focus-visible::before {
+  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+}
+
+.plusButton>.plusIcon {
+  fill: rgba(255, 255, 255, 0.576);
+  width: calc(var(--plus_sideLength) * 0.7);
+  height: calc(var(--plus_sideLength) * 0.7);
+  z-index: 1;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.plusButton:hover>.plusIcon {
+  fill: rgb(0, 244, 24);
+  transform: rotate(180deg);
+}
 
