@@ -32,7 +32,44 @@
                     }
       
                 
-                
+                /* Estilo para navegadores WebKit (Chrome, Safari) */
+body::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem vertical */
+    height: 12px; /* Altura da barra de rolagem horizontal */
+}
+
+body::-webkit-scrollbar-track {
+    background: #333; /* Cor do fundo da barra de rolagem */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #666; /* Cor da barra de rolagem */
+    border-radius: 6px; /* Cantos arredondados */
+    border: 3px solid #333; /* Espaçamento interno para a borda */
+}
+
+/* Estilo para Firefox */
+body {
+    scrollbar-width: thin; /* Define a largura da barra de rolagem */
+    scrollbar-color: #666 #333; /* Define a cor da barra de rolagem e do fundo */
+}
+
+/* Estilo para Edge e Internet Explorer */
+body::-ms-scrollbar {
+    width: 12px; /* Largura da barra de rolagem vertical */
+    height: 12px; /* Altura da barra de rolagem horizontal */
+}
+
+body::-ms-scrollbar-track {
+    background: #333; /* Cor do fundo da barra de rolagem */
+}
+
+body::-ms-scrollbar-thumb {
+    background-color: #666; /* Cor da barra de rolagem */
+    border-radius: 6px; /* Cantos arredondados */
+    border: 3px solid #333; /* Espaçamento interno para a borda */
+}
+
                 
                 </style>
             </head>
