@@ -21,7 +21,7 @@
                         font-family: Arial, sans-serif;
                         margin: 0;
                         overflow: hidden;
-                        cursor: none; /* Remove o cursor do mouse */
+                      /*  cursor: none; /* Remove o cursor do mouse */
                         color: #f0f0f047;
                     }
                     
@@ -85,47 +85,7 @@ body::-ms-scrollbar-thumb {
                 <button class="ui-btn" onclick="window.location.href='projects.html'">
                     <span>Projects</span>
                 </button>
-                <button class="ui-btn" onclick="window.location.href='Untitled-1.html'">
-                    <span>1</span>
-                </button>
-                <button class="ui-btn" onclick="window.location.href='Untitled-2.html'">
-                    <span>2</span>
-                </button>
-                <button class="ui-btn" onclick="window.location.href='Untitled-3.html'">
-                    <span>3</span>
-                </button>
        
-                <button class="ui-btn" onclick="window.location.href='Untitled-4.html'">
-                    <span>4</span>
-                </button>
-       
-                <button class="ui-btn" onclick="window.location.href='Untitled-5.html'">
-                    <span>5</span>
-                </button>
-       
-                <button class="ui-btn" onclick="window.location.href='Untitled-6.html'">
-                    <span>6</span>
-                </button>
-       
-                <button class="ui-btn" onclick="window.location.href='Untitled-7.html'">
-                    <span>7</span>
-                </button>
-       
-                <button class="ui-btn" onclick="window.location.href='Untitled-8.html'">
-                    <span>8</span>
-                </button>
-       
-                <button class="ui-btn" onclick="window.location.href='Untitled-9.html'">
-                    <span>9</span>
-                </button>
-       
-       
-
-
-
-
-
-
       </div>
             </nav>
           </header>
@@ -148,7 +108,10 @@ body::-ms-scrollbar-thumb {
             let num = 222;
             let ax = [];
             let ay = [];
+            let initialX = [];
+            let initialY = [];
             let isMousePressed = false;
+            let easing = 0.05; // Fator de suavização para o retorno às posições iniciais
     
             function setup() {
                 let canvas = createCanvas(windowWidth, windowHeight);
@@ -156,9 +119,12 @@ body::-ms-scrollbar-thumb {
                 for (let i = 0; i < num; i++) {
                     ax[i] = width / 2;
                     ay[i] = height / 2;
+                    initialX[i] = width / 2;
+                    initialY[i] = height / 2;
                 }
                 frameRate(60);
-                setInterval(autoClick, 1000);
+                setInterval(autoClick, 100); // Intervalo para explosão a cada segundo
+                setInterval(resetPositions, 50040); // Intervalo para resetar as posições a cada 5 segundos
             }
     
             function draw() {
@@ -175,40 +141,37 @@ body::-ms-scrollbar-thumb {
                     let speed = map(i, 0, num, 0, 52);
                     ax[i] += cos(angle) * speed;
                     ay[i] += sin(angle) * speed;
+    
+                    // Suavização do retorno às posições iniciais
+                    ax[i] += (initialX[i] - ax[i]) * easing;
+                    ay[i] += (initialY[i] - ay[i]) * easing;
                 }
     
                 for (let j = 1; j < num; j++) {
                     let val = float(j) / num * 200.0 + 3;
                     strokeWeight(1);
-                    if (isMousePressed) {
-                        stroke(val, (ax[j]), (ay[j]), 43);
-                    } else {
-                        stroke(val, 100);
-                    }
+                    let col = map(dist(mouseX, mouseY, ax[j], ay[j]), 0, width/2, 0, 255);
+                    stroke(col, 100, 100, 150);
                     line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
                 }
             }
     
             function autoClick() {
-                for (let i = 0; i < num; i++) {
-                    let x = ax[i];
-                    let y = ay[i];
-                    let dx = mouseX - x;
-                    let dy = mouseY - y;
-                    let angle = atan2(dy, dx);
-                    let speed = map(i, 0, num, 0, 52);
-                    ax[i] += cos(angle) * speed;
-                    ay[i] += sin(angle) * speed;
-                }
-    
                 // Explosão aleatória
-                if (random() < 0.1) { // 10% de chance de explosão a cada chamada
+                if (random() < 0.1) { // 10% de chance de explosão a cada segundo
                     for (let i = 0; i < num; i++) {
                         let explosionAngle = random() * TWO_PI; // Ângulo aleatório
                         let explosionSpeed = random() * 100; // Velocidade aleatória
-                        ax[i] += cos(explosionAngle) * explosionSpeed;
-                        ay[i] += sin(explosionAngle) * explosionSpeed;
+                        ax[i-1] += cos(explosionAngle) * explosionSpeed;
+                        ay[i-1] += sin(explosionAngle) * explosionSpeed;
                     }
+                }
+            }
+    
+            function resetPositions() {
+                for (let i = 0; i < num; i++) {
+                    ax[i] = initialX[i];
+                    ay[i] = initialY[i];
                 }
             }
     
@@ -223,10 +186,3 @@ body::-ms-scrollbar-thumb {
     </body>
     </html>
     
-
-
-
-
-
-
-
