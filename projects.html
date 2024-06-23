@@ -10,6 +10,7 @@
     <title>Moriá - Projects</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
         body {
             font-family: 'JS Brains Telex', sans-serif;
@@ -18,24 +19,115 @@
        
             color: #f0f0f047;
         }
-            h3, p {
+             p {
+                        position: relative;
+                        z-index: 1;
+                       left: 60%;
+                                }
+                                h2{
+                        position: relative;
+                        z-index: 1;
+                       left: 50%;
+                                }
+                                h3 {
                         position: relative;
                         z-index: 1;
                        left: 12%;
-                    }
+                                }
+                                .container {
+  display: flex;
 
+
+        }
+  
+        .left-column {
+            flex: 1 0 60%; /* Ajuste conforme necessário */
+  padding: 20px;
+  box-sizing: border-box; /* Certifica que padding está incluído na largura */
+  margin-right: -40px; /* Compensa qualquer espaçamento visual */
+  margin-top: 0; /* Remove o espaçamento do canto esquerdo alto */
+        }
+        .middle-column {
+            flex: 1 0 30%; /* Ajuste conforme necessário */
+            padding: 20x;
+            
+            margin-top: 20px;
+            margin-left: -180px; /* Compensa qualquer espaçamento visual */
+            margin-right: -5px; /* Compensa qualquer espaçamento visual */
+        }
+        .right-column {
+            flex: 1 0 20%; /* Ajuste conforme necessário */
+            padding: 20px;
+            box-sizing: border-box; /* Certifica que padding está incluído na largura */
+            margin-left: -100px; /* Compensa qualquer espaçamento visual */
+            margin-right: -5px; /* Compensa qualquer espaçamento visual */
+        }
+
+/* Estilo para o navbar */
+#navbar-items {
+            display: flex; /* Define o layout flexível */
+            justify-content: center; /* Centraliza os itens horizontalmente */
+
+            padding: 0; /* Remove o preenchimento padrão da lista */
+        
+        }
+        .ui-btn {
+     
+            margin-right: 73px; /* Margem à direita */
+        }
 
     </style>
 </head>
 <body>
     <div id="canvas-container"></div>
+    <nav id="navbar-items">
     <button class="ui-btn" onclick="window.location.href='index.html'">
         <span>Back to Index</span>
     </button>
-    <div class="container">
+    <button class="ui-btn" onclick="window.location.href='Untitled-1.html'">
+        <span>1</span>
+    </button>
+    <button class="ui-btn" onclick="window.location.href='Untitled-2.html'">
+        <span>2</span>
+    </button>
+    <button class="ui-btn" onclick="window.location.href='Untitled-3.html'">
+        <span>3</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-4.html'">
+        <span>4</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-5.html'">
+        <span>5</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-6.html'">
+        <span>6</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-7.html'">
+        <span>7</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-8.html'">
+        <span>8</span>
+    </button>
+
+    <button class="ui-btn" onclick="window.location.href='Untitled-9.html'">
+        <span>9</span>
+    </button>
+
+</nav>
+
+<div class="container">
+    
+
+
+
         <div class="left-column">
-            <h2>Welcome to the Projects Page</h2>
-            <p>These are my publications</p>
+      
+            <p2 style="margin-top: -20px;">Publications</p2>
             
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
@@ -191,67 +283,199 @@
         </div>
     
 
-        <div class="right-column">
-            <h2>My Music Recordings</h2>
-            <div class="audio-player">
 
-        
-                <div tabindex="0" class="plusButton" onclick="downloadFile('media/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
+
+
+
+
+
+
+
+
+
+        <div class="middle-column">
+            <p2 style="margin-top: 200px;"> Musical Performances</p2>
+            
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+                    <button class="uia-btn" onclick="window.open
+                    ('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
+        <span> Concerto para 2 cellos</span> 
+                    </button>
+                    <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                >MORIÁ, IVAN; BUTTROS, J. Concerto for two cellos in G minor. RV 531. Antonio Vivaldi. 
+                <a href="https://www.luanovacultural.com/orquestra-415" style="color:#ffffff78; text-decoration: none;"
+                >     Orquestra 415 de Musica Antiga.</a>
+           
+                Teatro da Biblioteca Publica de Belo Horizonte - MG, 2024.
+                
+                
+                
+                <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf" style="color:#ffffff4d;"
+                >Score</a></span>
+                </div> 
+
+                
+</div>
+
+<div class="right-column">
+
+
+            <h4>Music Recordings</h4>
+
+
+
+            <div class="audio-player">
+                <div id="waveform"></div>
+                <div class="controls">
+                  <button id="playBtn">▶</button>
+       
+                </div>
+                <div class="track-info">
+                  <span id="trackName">Nome da Faixa</span>
+                </div>
+                <div class="download-buttons">
+                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
                     <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                       <g mask="url(#mask0_21_345)">
                         <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
                       </g>
                     </svg>
                   </div>
+                </div>
+              </div>
+              
+              <div class="audio-player">
+                <div id="waveform2"></div>
+                <div class="controls">
+                  <button id="playBtn2">▶</button>
+       
+                </div>
+                <div class="track-info">
+                  <span id="trackName2">Nome da Faixa</span>
+                </div>
+                <div class="download-buttons">
+                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
+                    <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                      <g mask="url(#mask0_21_345)">
+                        <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
 
 
-                <h3>Dino pintando o Sete - Sivuca</h3>
-                <audio controls>
-                    <source src="media/Dino pintando o sete.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-            <div class="audio-player">
-
-                    <div tabindex="0" class="plusButton" onclick="downloadFile('media/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
-                        <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-                          <g mask="url(#mask0_21_345)">
-                            <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
-                          </g>
-                        </svg>
-                      </div>
 
 
 
-                <h3>Perigoso - Orlando Silveira</h3>
-                <audio controls>
-                    <source src="media/Perigoso.mp3" type="audio/mpeg">
-                </audio>
-            </div>
-        </div>
-    </div>
- 
+
+
+
+              
+              <script>
+            document.addEventListener('DOMContentLoaded', function() {
+  var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: '#808080',
+    progressColor: ' #556B2F',
+    barWidth: 2,
+    cursorWidth: 1,
+    height: 80,
+    responsive: true,
+  });
+
+  document.getElementById('waveform').style.marginTop = '20px'; // Ajuste o valor conforme necessário
+
+  var wavesurfer2 = WaveSurfer.create({
+    container: '#waveform2',
+    waveColor: '#808080',
+    progressColor: '#708090',
+    barWidth: 2,
+   
+    cursorWidth: 1,
+    height: 80,
+    responsive: true,
+  });
+  document.getElementById('waveform2').style.marginTop = '20px'; // Ajuste o valor conforme necessário
+
+  var audio = document.createElement('audio');
+  audio.src = 'media/Dino pintando o sete.mp3'; // Inicia com o primeiro áudio
+  audio.controls = true;
+
+  var playBtn = document.getElementById('playBtn');
+
+  var trackName = document.getElementById('trackName');
+
+  var playBtn2 = document.getElementById('playBtn2');
+
+  var trackName2 = document.getElementById('trackName2');
+  
+
+  // Função para atualizar o nome da faixa
+  function updateTrackName(track, element) {
+    element.textContent = track;
+  }
+
+  // Evento de clique no botão de reprodução/pausa
+  playBtn.addEventListener('click', function() {
+    if (wavesurfer.isPlaying()) {
+      wavesurfer.pause();
+      playBtn.textContent = '▶';
+    } else {
+      wavesurfer.play();
+      playBtn.textContent = '❚❚';
+      // Pausa o segundo áudio se estiver tocando
+      if (wavesurfer2.isPlaying()) {
+        wavesurfer2.pause();
+        playBtn2.textContent = '▶';
+      }
+    }
+  });
+
+  playBtn2.addEventListener('click', function() {
+    if (wavesurfer2.isPlaying()) {
+      wavesurfer2.pause();
+      playBtn2.textContent = '▶';
+    } else {
+      wavesurfer2.play();
+      playBtn2.textContent = '❚❚';
+      // Pausa o primeiro áudio se estiver tocando
+      if (wavesurfer.isPlaying()) {
+        wavesurfer.pause();
+        playBtn.textContent = '▶';
+      }
+    }
+  });
+
+  // Carrega a forma de onda ao iniciar
+  wavesurfer.load(audio.src);
+  wavesurfer2.load('media/Perigoso.mp3'); // Carrega o segundo áudio
+  updateTrackName('Dino pintando o Sete - Sivuca', trackName); // Define o nome da faixa inicial
+  updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da segunda faixa
+});
+
+              </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
-        let num = 1000;
-        let range = 6;
+        let num = 400;
+        let range = 60;
         let ax = [];
         let ay = [];
-        let extraLines = 500;
+        let extraLines = 300;
 
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight );
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
-                ax[i] = width / 2;
-                ay[i] = height / 2;
+                ax[i] = width / -10;
+                ay[i] = height / -10;
             }
             for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 2;
-                ay[j] = height / 2;
+                ax[j] = width / 230;
+                ay[j] = height / 200;
             }
-            frameRate(60);
-            setInterval(autoClick, 10000);
-            setInterval(autoClick1, 15002);
+            frameRate(30);
+
        
     
     
@@ -306,19 +530,6 @@
 
 
 
-        
-}
-function autoClick() {
-            num++;
-            ax[num - 1] += 50* random(-range, range);
-            ay[num - 1] += 50*random(-range, range);
-            line(ax[num - 10], ay[num - 10], ax[num ], ay[num ]);
-    }
-    function autoClick1() {
-            extraLines++;
-            ay[num - 1] += 13*random(-range, range);
-            ax[num - 1] +=13* random(-range, range);
-            line(ax[num - 10], ay[num - 10], ax[num ], ay[num ]);
 }
 
        
@@ -331,7 +542,6 @@ function autoClick() {
 
 </body>
 </html>
-
 
 
 
