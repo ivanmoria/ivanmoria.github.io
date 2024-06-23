@@ -35,32 +35,45 @@
                        left: 12%;
                                 }
                                 .container {
-  display: flex;
-
-
+            display: flex;
+            flex-wrap: wrap;
         }
-  
+        .left-column, .middle-column, .right-column {
+            padding: 20px;
+            box-sizing: border-box;
+        }
         .left-column {
-            flex: 1 0 60%; /* Ajuste conforme necessário */
-  padding: 20px;
-  box-sizing: border-box; /* Certifica que padding está incluído na largura */
-  margin-right: -40px; /* Compensa qualquer espaçamento visual */
-  margin-top: 0; /* Remove o espaçamento do canto esquerdo alto */
+            flex: 1 1 100%;
         }
         .middle-column {
-            flex: 1 0 30%; /* Ajuste conforme necessário */
-            padding: 20x;
-            
-            margin-top: 20px;
-            margin-left: -180px; /* Compensa qualquer espaçamento visual */
-            margin-right: -5px; /* Compensa qualquer espaçamento visual */
+            flex: 1 1 100%;
         }
         .right-column {
-            flex: 1 0 20%; /* Ajuste conforme necessário */
-            padding: 20px;
-            box-sizing: border-box; /* Certifica que padding está incluído na largura */
-            margin-left: -100px; /* Compensa qualquer espaçamento visual */
-            margin-right: -5px; /* Compensa qualquer espaçamento visual */
+            flex: 1 1 100%;
+        }
+        @media (min-width: 768px) {
+            .left-column {
+                flex: 1 0 60%;
+                margin-right: -40px;
+            }
+            .middle-column {
+                flex: 1 0 30%;
+                margin-left: -180px;
+                margin-right: -5px;
+            }
+            .right-column {
+                flex: 1 0 20%;
+                margin-left: -100px;
+                margin-right: -5px;
+            }
+        }
+        #navbar-items {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        .ui-btn {
+            margin-right: 73px;
         }
 
 /* Estilo para o navbar */
@@ -75,6 +88,17 @@
      
             margin-right: 73px; /* Margem à direita */
         }
+        .popup-link {
+    color: #ffffff7d;
+    text-decoration: none;
+  }
+
+  .popup-link:hover {
+    color: #e1ff0081;
+    text-decoration:  none;
+ 
+  }
+
 
     </style>
 </head>
@@ -121,34 +145,88 @@
 </nav>
 
 <div class="container">
-    
-
-
-
         <div class="left-column">
-      
             <p2 style="margin-top: -20px;">Publications</p2>
             
+
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
                 ('media/documents/Dissertacao_Ivan-Moria.pdf', 'popup', 'width=420,height=600');">
     <span> Dissertação</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
-            >MORIÁ, IVAN; A cognição social em musicoterapia: perspectivas sobre a atuação na prática musical interativa em saúde mental [manuscrito]. Dissertação (mestrado) – Universidade Federal de Minas Gerais, Instituto de Ciências Biológicas. Programa de Pós-Graduação em Neurociências. 114 f, 2021.
-            v. 8, n. 2, p. 53–74, 2021. <a href="http://hdl.handle.net/1843/38062" style="color:#ffffff4d;"
-            >http://hdl.handle.net/1843/38062</a></span>
+            >MORIÁ, IVAN; A cognição social em musicoterapia: perspectivas sobre a atuação na prática musical interativa em saúde mental [manuscrito].
+          
+            <a href="http://hdl.handle.net/1843/38062"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">
+            Dissertação (mestrado)    </a>   
+                 –   Universidade Federal de Minas Gerais, Instituto de Ciências Biológicas. 
+          </span>
+
+          <a href="https://www.neurocienciasufmg.com"
+       
+          class="popup-link"
+          onclick="window.open(this.href); return false;">
+          Programa de Pós-Graduação em Neurociências.       </a>   
+           114 f, 2021. 
+        </span>
+
+
+
             </div>
+
+            
+
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+              <button class="uia-btn" onclick="window.open
+              ('media/documents/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf', 'popup', 'width=600,height=650');">
+  <span> Monografia</span> 
+              </button>
+              <span style="text-align: justify; width: 85%; margin-top: -10px;"
+          >MORIÁ, IVAN; CORDEIRO, Rodrigo. Musicoterapia e Saúde Mental: um encontro através do cantar. [manuscrito].
+          
+        
+          <a href="http://dx.doi.org/10.13140/RG.2.2.25059.27682/2"
+          class="popup-link"
+          onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          Monografia (graduação)    </a>   
+          – Universidade Federal de Minas Gerais, Escola de Música.
+
+
+
+        <a href="    https://musica.ufmg.br/musicoterapia/"
+        class="popup-link"
+        onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+       Graduação em Música – habilitação em Musicoterapia.     </a>   
+     65 f,     2017.
+
+          </div>
+
+
+
       
+
+
+
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
                 ('media/documents/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
-            >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. Percepta - Revista de Cognição Musical,
-            v. 8, n. 2, p. 53–74, 2021. <a href="https://doi.org/10.34018/2318-891X.8(2)53-74" style="color:#ffffff4d;"
-            >https://doi.org/10.34018/2318-891X.8(2)53-74</a></span>
+            >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. 
+            
+
+           
+            
+            <a href="https://doi.org/10.34018/2318-891X.8(2)53-74"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Percepta - Revista de Cognição Musical,      </a>   
+            v. 8, n. 2, p. 53–74, 2021.
+   </span>
             </div>
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
@@ -158,9 +236,19 @@
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial.
-            Brazilian Journal of Music Therapy,
-            n. 31, p. 24-38, 2021. <a href="https://doi.org/10.51914/brjmt.31.2021.87" style="color:#ffffff4d;"
-            >https://doi.org/10.51914/brjmt.31.2021.87</a></span>
+           
+          
+            
+            <a href="https://doi.org/10.51914/brjmt.31.2021.87"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Brazilian Journal of Music Therapy,    </a>   
+            n. 31, p. 24-38, 2021. 
+   </span>
+            
+            
+   
             </div>
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
@@ -170,9 +258,24 @@
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, 
-            social cognition and neurocognition. In:  Proceedings of the 12th European Music Therapy Conference, Edinburgh, Scotland,
-            p. 222, 2022. <a href="  https://www.qmu.ac.uk/conferences-and-events/emtc-2022/programme-book-of-abstracts/" style="color:#ffffff4d;"
-            >https://www.qmu.ac.uk/emtc-2022/abstracts/</a></span>
+            social cognition and neurocognition. In: 
+            
+            
+     
+            
+            <a href="https://www.qmu.ac.uk/conferences-and-events/emtc-2022/programme-book-of-abstracts/"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Proceedings of the 12th European Music Therapy Conference,     </a>   
+            Edinburgh, Scotland,
+            p. 222, 2022. 
+            
+   </span>
+            
+            
+            
+   
             </div>
 
 
@@ -197,17 +300,22 @@
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
-            In: Proceedings of the 17th WFMT World Congress of Music Therapy, Vancouver, Canada. Special Issue of Music Therapy Today 18(1),
-            p. 459-460, 2023. <a href="https://www.wfmt.info/music-therapy-today" style="color:#ffffff4d;"
-            >https://www.wfmt.info/music-therapy-today</a></span>
-            </div>
-        
-
+            In: 
             
+ 
+               
+            <a href="https://www.wfmt.info/music-therapy-today"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Proceedings of the 17th WFMT World Congress of Music Therapy,   </a>   
              
+ 
+            Vancouver, Canada. Special Issue of Music Therapy Today 18(1),
+            p. 459-460, 2023.
 
-
-
+          </span>
+        </div>
          
 
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
@@ -217,10 +325,25 @@
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; BARROSO, SEBASTIAN. Musicoterapia e performance musical: a improvisação musical terapêutica como ferramenta no tratamento da ansiedade. 
-            In: Anais do 8º Nas Nuvens... Congresso de Música,UFMG, UEMG E KING'S COLLEGE,
-            2022. v. 8. p. 1-13. <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2022/12/43-Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" style="color:#ffffff4d;"
-            >https://musica.ufmg.br/9-nasnuvens-artigo</a></span>
+            In: 
+                        
+            <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2022/12/43-Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Anais do 8º Nas Nuvens...    </a>   
+            
+            
+            Congresso de Música, UFMG, UEMG E KING'S COLLEGE,
+            2022. v. 8. p. 1-13. </span>
             </div>
+
+
+
+             
+ 
+
+
 
 
            
@@ -231,9 +354,16 @@
                 </button>
                 <span style="text-align: justify; width: 85%;margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
-            In: Anais do 9º Nas Nuvens... Congresso de Música,UFMG, UEMG E KING'S COLLEGE,
-            2023. <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2024/04/35-A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf" style="color:#ffffff4d;"
-            >https://musica.ufmg.br/9-nasnuvens-artigo/</a></span>
+            In:
+            
+            <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2024/04/35-A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Anais do 9º Nas Nuvens...   </a>   
+            
+             Congresso de Música, UFMG, UEMG E KING'S COLLEGE,
+            2023. </span>
             </div>
 
             
@@ -245,9 +375,16 @@
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I; ACOSTA, C.S.G. ; ZANINI, C.R.O ; GIFFONI, Y ; ANSAY, N.
             Panorama do XVII Congresso Mundial de Musicoterapia: relatos de experiências de Musicoterapeutas no Brasil.
-            In: Anais do XXIII ENPEMT - Encontro Nacional de Pesquisa em Musicoterapia,
-            p. 25-26, 2023. <a href=" https://ubammusicoterapia.com.br/wp-content/uploads/2023/11/Anais-XXIII-EPEMT-04-11-2023.pdf" style="color:#ffffff4d;"
-            > https://ubammusicoterapia.com.br/2023/Anais-XXIII-EPEMT-04-11-2023.pdf</a></span>
+            In: 
+ 
+            <a href="https://ubammusicoterapia.com.br/wp-content/uploads/2023/11/Anais-XXIII-EPEMT-04-11-2023.pdf"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Anais do XXIII ENPEMT - Encontro Nacional de Pesquisa em Musicoterapia,  </a>   
+            p. 25-26, 2023.
+            
+         </span>
             </div>
             
 
@@ -259,20 +396,50 @@
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M ; KETHLEN, T.
             Tradução e Validação da Escala Interest in Music para o português brasileiro.
-            In: Anais do XXII EMPEMT - Encontro Nacional de Pesquisa em Musicoterapia,
-            p. 25-26, 2023. <a href="https://ubammusicoterapia.com.br/wp-content/uploads/2023/03/Anais-XXII-enpemt-2022.pdf" style="color:#ffffff4d;"
-            > https://ubammusicoterapia.com.br//2022/Anais-XXII-ENPEMT-2022.pdf</a></span>
-            </div>
-
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
-                <a href="https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul" class="uia-btn" style="color:#ffffff4d; text-decoration: none;">
-                    <span>Songbook</span>
-                </a>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;">
-                    Cristina Tati: "O Planeta Azul"
-                </span>
-            </div>
+            In: 
             
+       
+
+
+            <a href="https://ubammusicoterapia.com.br/wp-content/uploads/2023/03/Anais-XXII-enpemt-2022.pdf"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+          
+            Anais do XXII EMPEMT - Encontro Nacional de Pesquisa em Musicoterapia, </a>   
+            p. 25-26, 2023.
+          </span>
+        </div>
+
+
+        <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+          <button class="uia-btn" onclick="window.open
+          ('media/documents/PlanetaAzul.pdf#page=2', 'pdfpopup', 'width=420,height=580');">
+<span>Songbook</span> 
+          </button>
+          <span style="text-align: justify; width: 85%; margin-top: -10px;"
+      > TATI, Cristina. O Planeta Azul. Transcrição musical. In:
+
+      <a href="https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul"
+      class="popup-link"
+
+      onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+    
+      Cristina Tati: - O Planeta Azul.  </a>   
+      São Paulo: Indepente. p. 1-88, 2022.  
+      
+   </span>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
             <button class="uia-btn" onclick="window.open('media/documents/ProjetodepesquisaIvan.pdf', 'popup', 'width=420,height=600')">
                 <span>Projeto de Pesquisa</span>
             </button>
@@ -302,16 +469,23 @@
         <span> Concerto para 2 cellos</span> 
                     </button>
                     <span style="text-align: justify; width: 85%; margin-top: -10px;"
-                >MORIÁ, IVAN; BUTTROS, J. Concerto for two cellos in G minor. RV 531. Antonio Vivaldi. 
-                <a href="https://www.luanovacultural.com/orquestra-415" style="color:#ffffff78; text-decoration: none;"
-                >     Orquestra 415 de Musica Antiga.</a>
-           
+                >MORIÁ, IVAN; BUTTROS, J.        <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf"
+                class="popup-link"
+                onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+                Concerto for two cellos in G minor.
+             </a> RV 531. Antonio Vivaldi. 
+
+
+          <a href="https://www.luanovacultural.com/orquestra-415"
+          class="popup-link"
+          onclick="window.open(this.href); return false;">
+          Orquestra 415 de Musica Antiga.          </a>
+
+         
                 Teatro da Biblioteca Publica de Belo Horizonte - MG, 2024.
                 
-                
-                
-                <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf" style="color:#ffffff4d;"
-                >Score</a></span>
+         
+ 
                 </div> 
 
                 
@@ -467,12 +641,12 @@
             let canvas = createCanvas(windowWidth, windowHeight );
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
-                ax[i] = width / -10;
-                ay[i] = height / -10;
+                ax[i] = width / 2;
+                ay[i] = height / 2;
             }
             for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 230;
-                ay[j] = height / 200;
+                ax[j] = width / 2;
+                ay[j] = height / 2;
             }
             frameRate(30);
 
@@ -505,7 +679,7 @@
         let val0 = float(i) / num * 200.0 + 3 ;
         let val = map(ax[i], 0, width, 0, 255);
         let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 50);
+        stroke(val0,val,val2, 80);
         line(ax[i-4], ay[i-1], ax[i], ay[i]);
         
     }
