@@ -111,55 +111,6 @@ canvas {
 
 
 
-
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: flex-start; /* Adicionado para alinhar as colunas ao topo */
-  margin: 0px 0;
-}
-
-
-.left-column {
-  flex: 0 0 60%; /* Flex-grow, flex-shrink e flex-basis */
-  background-color: #66666600;
-  color: #f0f0f042;
-  padding: 20px;
-  box-sizing: border-box; /* Certifica que padding está incluído na largura */
-}
-
-.right-column {
-  flex: 0 0 40%; /* Flex-grow, flex-shrink e flex-basis */
-  background-color: #66666600;
-  color: #f0f0f042;
-  padding: 20px;
-  box-sizing: border-box; /* Certifica que padding está incluído na largura */
-}
-
-
-.audio-player {
-  width: 80%;
-  margin: 10px 0;
-  margin-top: 10px; /* Pequeno ajuste para margem superior */
-
-}
-
-
-.audio-player h3 {
-  margin-bottom: 4px;
-  margin-top: 0px;
-  align-self: flex-end; 
-}
-
-audio {
-  width: 95%;
-}
-
-
-/* Note that you only needs to edit the config to customize the button! */
-
 .plusButton {
   /* Config start */
   --plus_sideLength: 2rem;
@@ -217,3 +168,123 @@ audio {
   transform: rotate(180deg);
 }
 
+
+
+
+.plusButtonn {
+  /* Config start */
+  --plus_sideLength: 2rem;
+  --plus_topRightTriangleSideLength: 0.9rem;
+  /* Config end */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -1.55rem;
+  left: 16.5rem;
+  width: var(--plus_sideLength);
+  height: var(--plus_sideLength);
+  background-color: #43000000;
+  overflow: hidden;
+}
+
+.plusButtonn::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-width: 0 var(--plus_topRightTriangleSideLength) var(--plus_topRightTriangleSideLength) 0;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0) transparent transparent;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.plusButtonn:hover {
+  cursor: pointer;
+}
+
+.plusButtonn:hover::before {
+  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+}
+
+.plusButtonn:focus-visible::before {
+  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
+}
+
+.plusButtonn>.plusIcon {
+  fill: rgba(255, 255, 255, 0.576);
+  width: calc(var(--plus_sideLength) * 0.7);
+  height: calc(var(--plus_sideLength) * 0.7);
+  z-index: 1;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.2s;
+}
+
+.plusButtonn:hover>.plusIcon {
+  fill: rgb(0, 244, 24);
+  transform: rotate(180deg);
+}
+
+
+
+.audio-player {
+  width: 300px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #2523232e;
+  border-radius: 20px;
+  background-color: #00000031;
+  margin-bottom: 20px; /* Adiciona margem abaixo do elemento */
+}
+
+.progress-container {
+  margin-bottom: 10px;
+}
+
+.progress-container input[type=range] {
+  width: 100%;
+}
+
+.controls button {
+  margin-right: 10px; /* Ajuste a margem conforme necessário */
+  width: 50px; /* Ajuste a largura do botão conforme necessário */
+  height: 50px; /* Ajuste a altura do botão conforme necessário */
+  border: none;
+  background-color: transparent;
+  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+  cursor: pointer;
+  color: #ffffff5a; /* Cor do ícone ao passar o mouse */
+}
+
+.controls button:hover {
+  color: #04ff575a; /* Cor do ícone ao passar o mouse */
+}
+
+/* Exemplo de estilos para o ícone de play */
+.play-icon::before {
+  content: " ▶"; /* Símbolo de play */
+}
+
+/* Exemplo de estilos para o ícone de pause */
+.pause-icon::before {
+  content: "❚❚"; /* Símbolo de pause */
+}
+
+
+.track-info {
+  margin-top: -105px;
+  margin-left: 45px;
+
+}
+
+
+
+#playBtn, #playBtn2 {
+  position: absolute;
+  margin-top:-120px;
+  margin-left: px;
+  z-index: 1; /* Garante que o botão fique sobreposto */
+}

@@ -1,188 +1,187 @@
-   <!DOCTYPE html>
-            <html lang="en">
-              
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
-                        <title>Ivan Moriá Borges</title>
-                   
-                        <link rel="stylesheet" href="style.css">
-               
-                      
-                    </head>
-            
-            
-                <style>
-                    body 
-                    
-                    {
-                        font-family: Arial, sans-serif;
-                        margin: 0;
-                        overflow: hidden;
-                      /*  cursor: none; /* Remove o cursor do mouse */
-                        color: #f0f0f047;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation with p5.js and Webcam</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        #video {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 160px;
+            height: 120px;
+            border: 2px solid #fff;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <video id="video" autoplay muted></video>
+    <script>
+        let num = 222;
+        let ax = [];
+        let ay = [];
+        let initialX = [];
+        let initialY = [];
+        let easing = 0.05;
+        let targetCenterX;
+        let targetCenterY;
+        let handX = 0; // Posição X da mão
+        let handY = 0; // Posição Y da mão
+        let isHandOpen = false;
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            targetCenterX = width / 2;
+            targetCenterY = height / 2;
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 22;
+                ay[i] = height / 22;
+                initialX[i] = width / 2;
+                initialY[i] = height / 2;
+            }
+            frameRate(60);
+            console.log("Canvas setup complete");
+        }
+
+        function draw() {
+            background(40);
+
+            // Mover a animação para a posição da mão
+            let targetX = handX;
+            let targetY = handY;
+
+            for (let i = 0; i < num; i++) {
+                let x = ax[i];
+                let y = ay[i];
+                let dx = targetX - x;
+                let dy = targetY - y;
+                let angle = atan2(dy, dx);
+                let speed = map(i, 0, num, 0, 52);
+
+                if (isHandOpen) {
+                    ax[i - 1] += cos(angle) * speed / 2;
+                    ay[i - 1] += sin(angle) * speed / 2;
+                }
+
+                ax[i] += (initialX[i] - ax[i]) * easing;
+                ay[i] += (initialY[i] - ay[i]) * easing;
+            }
+
+            for (let j = 1; j < num; j++) {
+                let val = j / num * 200.0 + 3;
+                strokeWeight(1);
+                if (isHandOpen) {
+                    stroke(val, ax[j], ay[j], 43);
+                } else {
+                    stroke(val, 100);
+                }
+                line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+            }
+        }
+
+        const socket = new WebSocket('ws://localhost:12345');
+
+        socket.onopen = function() {
+            console.log('WebSocket connection established');
+        };
+
+        socket.onmessage = function(event) {
+            console.log('Message received from server:', event.data);
+            const data = JSON.parse(event.data);
+            if (data.hasOwnProperty('handOpen')) {
+                isHandOpen = data.handOpen;
+                console.log('Hand state updated:', isHandOpen);
+            }
+            if (data.hasOwnProperty('handX') && data.hasOwnProperty('handY')) {
+                handX = data.handX;
+                handY = data.handY;
+                console.log('Hand position updated:', handX, handY);
+            }
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+
+        socket.onclose = function() {
+            console.log('WebSocket connection closed');
+        };
+
+        function startVideo() {
+            const video = document.getElementById('video');
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    video.srcObject = stream;
+                    console.log("Webcam video started");
+                    detectHandGesture(); // Inicia a detecção de gestos
+                })
+                .catch((err) => {
+                    console.error('Error accessing webcam:', err);
+                });
+        }
+
+        function detectHandGesture() {
+            const video = document.getElementById('video');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            function processFrame() {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const totalPixels = frame.data.length / 4;
+                    let brightPixels = 0;
+                    let sumX = 0;
+                    let sumY = 0;
+
+                    for (let i = 0; i < frame.data.length; i += 4) {
+                        const r = frame.data[i];
+                        const g = frame.data[i + 1];
+                        const b = frame.data[i + 2];
+                        if (r + g + b > 200) {
+                            brightPixels++;
+                            sumX += (i / 4) % canvas.width;
+                            sumY += Math.floor((i / 4) / canvas.width);
+                        }
                     }
-                    
-                    h1, h2, p {
-                        position: relative;
-                        z-index: 1;
-                        color: #f0f0f0;
+
+                    const handState = brightPixels > totalPixels * 0.5;
+                    if (handState !== isHandOpen) {
+                        isHandOpen = handState;
+                        console.log('Detected hand state:', isHandOpen);
+                        socket.send(JSON.stringify({ handOpen: isHandOpen }));
                     }
-      
-                
-                /* Estilo para navegadores WebKit (Chrome, Safari) */
-body::-webkit-scrollbar {
-    width: 12px; /* Largura da barra de rolagem vertical */
-    height: 12px; /* Altura da barra de rolagem horizontal */
-}
 
-body::-webkit-scrollbar-track {
-    background: #333; /* Cor do fundo da barra de rolagem */
-}
-
-body::-webkit-scrollbar-thumb {
-    background-color: #666; /* Cor da barra de rolagem */
-    border-radius: 6px; /* Cantos arredondados */
-    border: 3px solid #333; /* Espaçamento interno para a borda */
-}
-
-/* Estilo para Firefox */
-body {
-    scrollbar-width: thin; /* Define a largura da barra de rolagem */
-    scrollbar-color: #666 #333; /* Define a cor da barra de rolagem e do fundo */
-}
-
-/* Estilo para Edge e Internet Explorer */
-body::-ms-scrollbar {
-    width: 12px; /* Largura da barra de rolagem vertical */
-    height: 12px; /* Altura da barra de rolagem horizontal */
-}
-
-body::-ms-scrollbar-track {
-    background: #333; /* Cor do fundo da barra de rolagem */
-}
-
-body::-ms-scrollbar-thumb {
-    background-color: #666; /* Cor da barra de rolagem */
-    border-radius: 6px; /* Cantos arredondados */
-    border: 3px solid #333; /* Espaçamento interno para a borda */
-}
-
-                
-                </style>
-            </head>
-            
-
-        
-     
-
-        <div id="canvas-container"></div>
-        <header>
-    
-            <nav id="navbar-items">
-                <button class="ui-btn" onclick="window.location.href='projects.html'">
-                    <span>Projects</span>
-                </button>
-       
-      </div>
-            </nav>
-          </header>
-    
-    
-          <main>
-            <br>Em construção...</br>
-        </main>
-    </div>
-
-
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    </head>
-    <body>
-        <div id="canvas-container"></div>
-        <script>
-            let num = 222;
-            let ax = [];
-            let ay = [];
-            let initialX = [];
-            let initialY = [];
-            let isMousePressed = false;
-            let easing = 0.05; // Fator de suavização para o retorno às posições iniciais
-    
-            function setup() {
-                let canvas = createCanvas(windowWidth, windowHeight);
-                canvas.parent('canvas-container');
-                for (let i = 0; i < num; i++) {
-                    ax[i] = width / 2;
-                    ay[i] = height / 2;
-                    initialX[i] = width / 2;
-                    initialY[i] = height / 2;
-                }
-                frameRate(60);
-                setInterval(autoClick, 100); // Intervalo para explosão a cada segundo
-                setInterval(resetPositions, 50040); // Intervalo para resetar as posições a cada 5 segundos
-            }
-    
-            function draw() {
-                background(40);
-                let targetX = mouseX;
-                let targetY = mouseY;
-    
-                for (let i = 0; i < num; i++) {
-                    let x = ax[i];
-                    let y = ay[i];
-                    let dx = targetX - x;
-                    let dy = targetY - y;
-                    let angle = atan2(dy, dx);
-                    let speed = map(i, 0, num, 0, 52);
-                    ax[i] += cos(angle) * speed;
-                    ay[i] += sin(angle) * speed;
-    
-                    // Suavização do retorno às posições iniciais
-                    ax[i] += (initialX[i] - ax[i]) * easing;
-                    ay[i] += (initialY[i] - ay[i]) * easing;
-                }
-    
-                for (let j = 1; j < num; j++) {
-                    let val = float(j) / num * 200.0 + 3;
-                    strokeWeight(1);
-                    let col = map(dist(mouseX, mouseY, ax[j], ay[j]), 0, width/2, 0, 255);
-                    stroke(col, 100, 100, 150);
-                    line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
-                }
-            }
-    
-            function autoClick() {
-                // Explosão aleatória
-                if (random() < 0.1) { // 10% de chance de explosão a cada segundo
-                    for (let i = 0; i < num; i++) {
-                        let explosionAngle = random() * TWO_PI; // Ângulo aleatório
-                        let explosionSpeed = random() * 100; // Velocidade aleatória
-                        ax[i-1] += cos(explosionAngle) * explosionSpeed;
-                        ay[i-1] += sin(explosionAngle) * explosionSpeed;
+                    if (brightPixels > 0) {
+                        handX = sumX / brightPixels;
+                        handY = sumY / brightPixels;
+                        console.log('Detected hand position:', handX, handY);
+                        socket.send(JSON.stringify({ handX: handX, handY: handY }));
                     }
                 }
+                function updateMousePosition(x, y) {
+    const canvasRect = canvas.getBoundingClientRect();
+    const mouseX = x - canvasRect.left;
+    const mouseY = y - canvasRect.top;
+    const event = new MouseEvent('mousemove', {
+        clientX: mouseX,
+        clientY: mouseY
+    });
+    canvas.dispatchEvent(event);
+}
+                requestAnimationFrame(processFrame);
             }
-    
-            function resetPositions() {
-                for (let i = 0; i < num; i++) {
-                    ax[i] = initialX[i];
-                    ay[i] = initialY[i];
-                }
-            }
-    
-            function mousePressed() {
-                isMousePressed = true;
-            }
-    
-            function mouseReleased() {
-                isMousePressed = false;
-            }
-        </script>
-    </body>
-    </html>
-    
+            processFrame();
+        }
+
+        startVideo();
+    </script>
+</body>
+</html>
