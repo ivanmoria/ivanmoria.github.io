@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#383838"> <!-- Mude a cor conforme desejado -->
+    <meta name="theme-color" content="#303339"> <!-- Mude a cor conforme desejado -->
                     <!-- Para dispositivos iOS -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#383838">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#303339">
     <!-- Para dispositivos Android com Chrome -->
-    <meta name="theme-color" content="#383838">
+    <meta name="theme-color" content="#303339">
     <meta name="description" content="Personal projects of Ivan Moriá">
     <title>Moriá - Projects</title>
     <link rel="stylesheet" href="style.css">
@@ -648,8 +648,8 @@ waveColor: '#808080',
 progressColor: ' #556B2F',
 barWidth: 2,
 cursorWidth: 4,
-height: 80,
-width: 375,
+height: 40,
+width: 200,
 responsive: true,
 });
 
@@ -662,8 +662,8 @@ progressColor: '#708090',
 barWidth: 2,
 
 cursorWidth: 4,
-height: 80,
-width: 375,
+height: 40,
+width: 200,
 responsive: true,
 });
 document.getElementById('waveform2').style.marginTop = '20px'; // Ajuste o valor conforme necessário
@@ -735,7 +735,7 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
         let extraLines = 300;
 
         function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight );
+            let canvas = createCanvas(window.innerWidth, window.innerHeight);
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
                 ax[i] = width / 2;
