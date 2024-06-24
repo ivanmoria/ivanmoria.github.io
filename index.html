@@ -2,92 +2,108 @@
 <html lang="en">
   
         <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
-            <title>Ivan Moriá Borges</title>
-       
-            <link rel="stylesheet" href="style.css">
-   
-          
-        </head>
+  
 
-
-    <style>
-        body 
-        
-        {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            overflow: hidden;
-            cursor: none; /* Remove o cursor do mouse */
-            color: #f0f0f047;
-        }
-        
-        h1, h2, p {
-            position: relative;
-            z-index: 1;
-            color: #f0f0f0;
-        }
-
-
-
-    
-    /* Estilo para navegadores WebKit (Chrome, Safari) */
-body::-webkit-scrollbar {
-width: 12px; /* Largura da barra de rolagem vertical */
-height: 12px; /* Altura da barra de rolagem horizontal */
-}
-
-body::-webkit-scrollbar-track {
-background: #333; /* Cor do fundo da barra de rolagem */
-}
-
-body::-webkit-scrollbar-thumb {
-background-color: #666; /* Cor da barra de rolagem */
-border-radius: 6px; /* Cantos arredondados */
-border: 3px solid #333; /* Espaçamento interno para a borda */
-}
-
-/* Estilo para Firefox */
-body {
-scrollbar-width: thin; /* Define a largura da barra de rolagem */
-scrollbar-color: #666 #333; /* Define a cor da barra de rolagem e do fundo */
-}
-
-/* Estilo para Edge e Internet Explorer */
-body::-ms-scrollbar {
-width: 12px; /* Largura da barra de rolagem vertical */
-height: 12px; /* Altura da barra de rolagem horizontal */
-}
-
-body::-ms-scrollbar-track {
-background: #333; /* Cor do fundo da barra de rolagem */
-}
-
-body::-ms-scrollbar-thumb {
-background-color: #666; /* Cor da barra de rolagem */
-border-radius: 6px; /* Cantos arredondados */
-border: 3px solid #333; /* Espaçamento interno para a borda */
-}
-
-    
-    </style>
-</head>
-
-
-
-
-
-<div id="canvas-container"></div>
-<header>
-
-<nav id="navbar-items">
-    <button class="ui-btn" onclick="window.location.href='projects.html'">
-        <span>Projects</span>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
+         
+                <meta name="description" content="Ivan Moriá">
+                <title>Ivan Moriá Borges</title>
+                <link rel="stylesheet" href="style.css">
+                <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+                <script src="https://unpkg.com/wavesurfer.js"></script>
+                <style>
+                    body,  html  {
+                        font-family: 'JS Brains Telex', sans-serif;
+                        margin: 0;
+                        overflow: auto;
+                   
+                        color: #f0f0f047;
+                    
+            
+                    }
+            
+                         p {
+                                    position: relative;
+                                    z-index: 1;
+                                   left: 60%;
+                                            }
+                                            h2{
+                                    position: relative;
+                                    z-index: 1;
+                                   left: 50%;
+                                            }
+                                            h3 {
+                                    position: relative;
+                                    z-index: 1;
+                                   left: 12%;
+                                            }
+                                            .container {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+                    .left-column, .middle-column, .right-column {
+                        padding: 20px;
+                        box-sizing: border-box;
+                    }
+                    .left-column {
+                        flex: 1 1 100%;
+                    }
+                    .middle-column {
+                        flex: 1 1 100%;
+                    }
+                    .right-column {
+                        flex: 1 1 100%;
+                    }
+                    @media (min-width: 768px) {
+                        .left-column {
+                            flex: 1 0 60%;
+                            margin-right: -40px;
+                        }
+                        .middle-column {
+                            flex: 1 0 30%;
+                            margin-left: -180px;
+                            margin-right: -5px;
+                        }
+                        .right-column {
+                            flex: 1 0 20%;
+                            margin-left: -100px;
+                            margin-right: -5px;
+                        }
+                    }
+                    #navbar-items {
+                        display: flex;
+                        justify-content: center;
+                        padding: 0;
+                    }
+                    .ui-btn {
+                        margin-right: 73px;
+                    }
+            
+                    .popup-link {
+                color: #ffffff7d;
+                text-decoration: none;
+              }
+            
+              .popup-link:hover {
+                color: #e1ff0081;
+                text-decoration:  none;
+             
+              }
+            
+                </style>
+            </head>
+            <body>
+                <div id="canvas-container"></div>
+                <nav id="navbar-items">
+    <button class="ui-btn" onclick="window.location.href='references.html'">
+        <span>References</span>
     </button>
-   
+    <button class="ui-btn" onclick="window.location.href='videos.html'">
+        <span>Videos</span>
+    </button>
 
 
 
