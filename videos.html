@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color"
-    content="#f0f0f047"
+    <meta name="theme-color" content="#383838"> <!-- Mude a cor conforme desejado -->
     <meta name="description" content="Personal projects of Ivan Moriá">
     <title>Moriá - Projects</title>
     <link rel="stylesheet" href="style.css">
@@ -40,24 +39,24 @@
                                 .container {
             display: flex;
             flex-wrap: wrap;
+            overflow:hidden;
         }
         .left-column, .middle-column, .right-column {
             padding: 20px;
             box-sizing: border-box;
+      flex: 1 1 100%;
+      flex-wrap: wrap;
+      overflow:hidden
         }
-        .left-column {
-            flex: 1 1 100%;
-        }
-        .middle-column {
-            flex: 1 1 100%;
-        }
-        .right-column {
-            flex: 1 1 100%;
-        }
-        @media (min-width: 768px) {
+        .left-column, .middle-column, .right-column {
+                flex: 1 0 100%;
+                margin: 0;
+            }
+        
+              @media (min-width: 768px) {
             .left-column {
                 flex: 1 0 60%;
-                margin-right: -40px;
+                margin: 0px;
             }
             .middle-column {
                 flex: 1 0 30%;
@@ -69,6 +68,14 @@
                 margin-left: -100px;
                 margin-right: -5px;
             }
+        }
+
+        @media (max-width: 767px) {
+            .left-column, .middle-column, .right-column {
+                flex: 1 0 100%;
+                margin: 0;
+            }
+        
         }
         #navbar-items {
             display: flex;
