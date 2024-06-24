@@ -207,7 +207,7 @@ canvas {
   justify-content: center;
   align-items: center;
   top: -1.55rem;
-  left: 16.5rem;
+  left: 21.5rem;
   width: var(--plus_sideLength);
   height: var(--plus_sideLength);
   background-color: #43000000;
@@ -257,7 +257,7 @@ canvas {
 
 
 .audio-player {
-  width: 300px;
+  width: 375px;
   height: 100px;
   padding: 10px;
   border: 1px solid #2523232e;
@@ -267,7 +267,7 @@ canvas {
 }
 
 .progress-container {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .progress-container input[type=range] {
@@ -276,8 +276,8 @@ canvas {
 
 .controls button {
   margin-right: 10px; /* Ajuste a margem conforme necessário */
-  width: 50px; /* Ajuste a largura do botão conforme necessário */
-  height: 50px; /* Ajuste a altura do botão conforme necessário */
+  width: 10px; /* Ajuste a largura do botão conforme necessário */
+  height: 60px; /* Ajuste a altura do botão conforme necessário */
   border: none;
   background-color: transparent;
   font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
@@ -301,8 +301,8 @@ canvas {
 
 
 .track-info {
-  margin-top: -105px;
-  margin-left: 45px;
+  margin-top: -100px;
+  margin-left: 75px;
 
 }
 

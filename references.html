@@ -54,7 +54,7 @@
         .right-column {
             flex: 1 1 100%;
         }
-        @media (min-width: 768px) {
+              @media (min-width: 768px) {
             .left-column {
                 flex: 1 0 60%;
                 margin-right: -40px;
@@ -69,6 +69,14 @@
                 margin-left: -100px;
                 margin-right: -5px;
             }
+        }
+
+        @media (max-width: 767px) {
+            .left-column, .middle-column, .right-column {
+                flex: 1 0 100%;
+                margin: 0;
+            }
+        
         }
         #navbar-items {
             display: flex;
@@ -578,7 +586,7 @@ Seresta & Serenata Popular e Imperial.</a>
  Interpretação: Acordeon. 2022.
 </div> 
 
-<div class="right-column">
+
 
     <h4>Music Recordings</h4>
 
@@ -634,8 +642,9 @@ container: '#waveform',
 waveColor: '#808080',
 progressColor: ' #556B2F',
 barWidth: 2,
-cursorWidth: 1,
+cursorWidth: 4,
 height: 80,
+width: 375,
 responsive: true,
 });
 
@@ -647,8 +656,9 @@ waveColor: '#808080',
 progressColor: '#708090',
 barWidth: 2,
 
-cursorWidth: 1,
+cursorWidth: 4,
 height: 80,
+width: 375,
 responsive: true,
 });
 document.getElementById('waveform2').style.marginTop = '20px'; // Ajuste o valor conforme necessário
