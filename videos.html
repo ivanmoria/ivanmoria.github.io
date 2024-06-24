@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color"
+    content="#f0f0f047"
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Moriá - Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <style>
+        body,  html  {
+            font-family: 'JS Brains Telex', sans-serif;
+            margin: 0;
+            overflow: auto;
+       
+            color: #f0f0f047;
+        
+
+        }
+
+             p {
+                        position: relative;
+                        z-index: 1;
+                       left: 60%;
+                                }
+                                h2{
+                        position: relative;
+                        z-index: 1;
+                       left: 50%;
+                                }
+                                h3 {
+                        position: relative;
+                        z-index: 1;
+                       left: 12%;
+                                }
+                                .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .left-column, .middle-column, .right-column {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .left-column {
+            flex: 1 1 100%;
+        }
+        .middle-column {
+            flex: 1 1 100%;
+        }
+        .right-column {
+            flex: 1 1 100%;
+        }
+        @media (min-width: 768px) {
+            .left-column {
+                flex: 1 0 60%;
+                margin-right: -40px;
+            }
+            .middle-column {
+                flex: 1 0 30%;
+                margin-left: -180px;
+                margin-right: -5px;
+            }
+            .right-column {
+                flex: 1 0 20%;
+                margin-left: -100px;
+                margin-right: -5px;
+            }
+        }
+        #navbar-items {
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+        .ui-btn {
+            margin-right: 73px;
+        }
+
+        .popup-link {
+    color: #ffffff7d;
+    text-decoration: none;
+  }
+
+  .popup-link:hover {
+    color: #e1ff0081;
+    text-decoration:  none;
+ 
+  }
+
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <nav id="navbar-items">
+    <button class="ui-btn" onclick="window.location.href='index.html'">
+        <span>Back to Index</span>
+    </button>
+    <button class="ui-btn" onclick="window.location.href='references.html'">
+        <span>References</span>
+    </button>
+
+
+</nav>
+
+<div class="container">
+ 
+ 
+
+
+
+              <iframe width="320" height="255" src="https://www.youtube.com/embed/LG3E1V8yt7c?si=LdYZL_Oaa7i0Zm7S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="320" height="255" src="https://www.youtube.com/embed/7GbPP_QRicI?si=L97oxYTVH1wV3m2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="320" height="255" src="https://www.youtube.com/embed/eIp7qwRoRAg?si=xuyV0gjPocdy8kQy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <iframe width="320" height="255" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+             
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    </head>
+    <body>
+        <div id="canvas-container"></div>
+        <script>
+            let num = 220;
+            let ax = [];
+            let ay = [];
+            let initialX = [];
+            let initialY = [];
+            let isMousePressed = true;
+            let easing = 0.09; // Fator de suavização para o retorno às posições iniciais
+            let targetCenterX = windowWidth / -10; // Coordenada X do centro da tela
+            let targetCenterY = windowHeight / 0; // Coordenada Y do centro da tela
+            let explosionRadius = 20200; // Raio da explosão das linhas
+    
+            function setup() {
+                let canvas = createCanvas(windowWidth, windowHeight);
+                canvas.parent('canvas-container');
+                for (let i = 0; i < num; i++) {
+                    ax[i] = width / 22;
+                    ay[i] = height / 22;
+                    initialX[i] = width / 2;
+                    initialY[i] = height / 2;
+                }
+                frameRate(60);
+            }
+    
+            function draw() {
+                background(40);
+                let targetX = mouseX;
+                let targetY = mouseY;
+    
+                for (let i = 0; i < num; i++) {
+                    let x = ax[i];
+                    let y = ay[i];
+                    let dx = targetX - x;
+                    let dy = targetY - y;
+                    let angle = atan2(dy, dx);
+                    let speed = map(i, 0, num, 0, 52);
+    
+                    // Mover na direção do ponto anterior apenas durante a explosão
+                    if (isMousePressed) {
+                        ax[i-1] += cos(angle) * speed/2;
+                        ay[i-1] += sin(angle) * speed/2;
+                    }
+    
+                    // Suavização do retorno às posições iniciais
+                    ax[i] += (initialX[i-1] - ax[i]) * easing;
+                    ay[i] += (initialY[i-1] - ay[i]) * easing;
+                }
+    
+                for (let j = 1; j < num; j++) {
+                    let val = float(j) / num * 200.0 + 3;
+                    strokeWeight(1);
+                    if (isMousePressed) {
+                        stroke(val, ax[j], ay[j], 43);
+                    } else {
+                        stroke(val, 100);
+                    }
+                    line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+                }
+            }
+    
+            function autoClick() {
+                // Implementar a explosão de todas as linhas
+                for (let i = 0; i < num; i++) {
+                    let x = ax[i];
+                    let y = ay[i];
+                    let dx = targetCenterX - x;
+                    let dy = targetCenterY - y;
+                    let angle = atan2(dy, dx);
+                    let speed = map(i, 0, num, 0, 52);
+                    ax[i-1] += cos(angle) * speed;
+                    ay[i-1] += sin(angle) * speed;
+                }
+            }
+    
+            function mousePressed() {
+                isMousePressed = true;
+            }
+    
+            function mouseReleased() {
+                isMousePressed = false;
+                // Calcula a direção e a velocidade para cada ponto em direção ao centro da tela
+                for (let i = 0; i < num; i++) {
+                    let x = ax[i];
+                    let y = ay[i];
+                    let dx = targetCenterX - x;
+                    let dy = targetCenterY - y;
+                    let angle = atan2(dy, dx);
+                    let speed = map(i, 0, num, 0, 52);
+                    ax[i-1] += cos(angle) * speed;
+                    ay[i-1] += sin(angle) * speed;
+                }
+                // Ativa a explosão das linhas após atingir o centro
+                autoClick();
+            }
+        </script>
+    </body>
+    </html>
+    
