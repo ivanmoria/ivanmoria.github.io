@@ -181,7 +181,7 @@
             let explosionRadius = 20200; // Raio da explosão das linhas
     
             function setup() {
-                let canvas = createCanvas(windowWidth, windowHeight);
+                let canvas = createCanvas(window.innerWidth, window.innerHeight);
                 canvas.parent('canvas-container');
                 for (let i = 0; i < num; i++) {
                     ax[i] = width / 22;
