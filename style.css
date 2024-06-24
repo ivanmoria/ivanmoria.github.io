@@ -124,13 +124,14 @@ canvas {
   width: 100%;
   height: 100%;
   z-index: -1; /* Coloca o canvas no fundo */
+
+  flex-wrap: wrap;
 }
 #back-button {
   position: absolute;
   top: 20px;
   right: 20px;
   z-index: 2;
-  
 }
 
 
@@ -314,7 +315,7 @@ canvas {
 .track-info {
   margin-top: -100px;
   margin-left: 75px;
-  justify-content: center;
+    justify-content: center;
   position: relative;
   flex: 1 0 100%;
 
@@ -440,7 +441,7 @@ canvas {
         font-family: 'JS Brains Telex', sans-serif;
         margin: 0;
         overflow: auto;
-        display: flex;
+   
         color: #f0f0f047;
 
 
@@ -504,15 +505,9 @@ canvas {
     
     }
     #navbar-items {
-      display: flex;
-      margin-left: 1003px;
-      justify-content: bottom;
-      padding:0px;
-      background: #2d2b2b; /* Cor de fundo da barra de navegação */
-      color: white; /* Cor do texto da barra de navegação */
-      position: fixed;
-      width: 100%;
-      top: 0px;
-      z-index: 10; /* Para garantir que a barra de navegação fique acima do conteúdo */
-  }
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
 
+    
