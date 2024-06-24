@@ -125,7 +125,7 @@ canvas {
   height: 100%;
   z-index: -1; /* Coloca o canvas no fundo */
 
-  
+  flex-wrap: wrap;
 }
 #back-button {
   position: absolute;
