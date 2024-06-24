@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#303339"> <!-- Mude a cor conforme desejado -->
+    <meta name="theme-color" content="#2d2b2b"> <!-- Mude a cor conforme desejado -->
                     <!-- Para dispositivos iOS -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#303339">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
     <!-- Para dispositivos Android com Chrome -->
-    <meta name="theme-color" content="#303339">
+    <meta name="theme-color" content="#2d2b2b">
     <meta name="description" content="Personal projects of Ivan Moriá">
     <title>Moriá - Projects</title>
     <link rel="stylesheet" href="style.css">
@@ -725,6 +725,12 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
               </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script>
+
+function resizeCanvas() {
+      canvas.width = window.innerWidth + 'px';
+      canvas.height = window.innerHeight + 'px';
+      draw();
+    }
         let num = 400;
         let range = 60;
         let ax = [];
@@ -735,12 +741,12 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
             let canvas = createCanvas(window.innerWidth, window.innerHeight);
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
-                ax[i] = width / 2;
+                ax[i] = width / 10;
                 ay[i] = height / 2;
             }
             for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 2;
-                ay[j] = height / 2;
+                ax[j] = width / 22;
+                ay[j] = height / 22;
             }
             frameRate(30);
 
@@ -800,8 +806,9 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
 
 }
 
-       
-          
+window.addEventListener('resize', setCanvasSize);
+    setCanvasSize(); // Inicializa o tamanho do canvas
+    draw(); // Desenha no canvas
 
     </script>
 
