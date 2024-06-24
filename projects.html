@@ -76,18 +76,6 @@
             margin-right: 73px;
         }
 
-/* Estilo para o navbar */
-#navbar-items {
-            display: flex; /* Define o layout flexível */
-            justify-content: center; /* Centraliza os itens horizontalmente */
-
-            padding: 0; /* Remove o preenchimento padrão da lista */
-        
-        }
-        .ui-btn {
-     
-            margin-right: 73px; /* Margem à direita */
-        }
         .popup-link {
     color: #ffffff7d;
     text-decoration: none;
@@ -98,7 +86,6 @@
     text-decoration:  none;
  
   }
-
 
     </style>
 </head>
@@ -118,9 +105,7 @@
         <span>3</span>
     </button>
 
-    <button class="ui-btn" onclick="window.location.href='Untitled-4.html'">
-        <span>4</span>
-    </button>
+    
 
     <button class="ui-btn" onclick="window.location.href='Untitled-5.html'">
         <span>5</span>
@@ -145,16 +130,18 @@
 </nav>
 
 <div class="container">
+  
         <div class="left-column">
             <p2 style="margin-top: -20px;">Publications</p2>
             
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/Dissertacao_Ivan-Moria.pdf', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/Dissertacao_Ivan-Moria.pdf', 'popup', 'width=420,height=600');">
     <span> Dissertação</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+
+                <span class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; A cognição social em musicoterapia: perspectivas sobre a atuação na prática musical interativa em saúde mental [manuscrito].
           
             <a href="http://hdl.handle.net/1843/38062"
@@ -162,8 +149,8 @@
             onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">
             Dissertação (mestrado)    </a>   
                  –   Universidade Federal de Minas Gerais, Instituto de Ciências Biológicas. 
-          </span>
 
+    
           <a href="https://www.neurocienciasufmg.com"
        
           class="popup-link"
@@ -171,16 +158,17 @@
           Programa de Pós-Graduação em Neurociências.       </a>   
            114 f, 2021. 
         </span>
-
-
-
             </div>
+
+       
+
+          
 
             
 
             <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
               <button class="uia-btn" onclick="window.open
-              ('media/documents/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf', 'popup', 'width=600,height=650');">
+              ('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf', 'popup', 'width=600,height=650');">
   <span> Monografia</span> 
               </button>
               <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -211,7 +199,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -231,7 +219,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/Moria_I_Sampaio_R_antimanicomial.pdf', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -253,7 +241,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/emtc2022-book-of-abstracts-final-20220603.pdf#page=223', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223', 'popup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -278,49 +266,54 @@
    
             </div>
 
+     
+          
+          
 
-            
-            <div style="display: flex; flex-direction: column;margin-top: -15px; margin-left: -15px;margin-bottom: -25px; width:100%; ">
-                <div tabindex="0" class="plusButton" onclick="window.open('https://my.ltb.io/#/viewStack/ABSRD', 'popup', 'width=600,height=650');" style="margin-right: 10px;">
-                  <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-                    <g mask="url(#mask0_21_345)">
-                      <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
-                    </g>
-                  </svg>
-                </div>
-                </div>  
+
+
                 
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
-                <button class="uia-btn" onclick="window.open('media/documents/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496', 'popup', 'width=600,height=650');">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; margin-bottom:- 10px; ">
+                <button class="uia-btn" onclick="window.open( 'https://my.ltb.io/#/viewStack/ABSRD', 'popup', 'width=600,height=650');">
                   <span>Comunicação Oral</span>
                 </button>
             </div>
+            <div style="display: flex; flex-direction: column; margin-top: -45px; margin-left: 180px; margin-bottom: 12px; width:100%;margin-right: 10px;">
+
+
+              <button class="editBtn" onclick="copyText()">
+                <svg height="0.2em" viewBox="0 0 512 512">
+                  <path
+                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+                  ></path>
+                </svg>
+              </button>
             
+              </div>
+
+
+
+
+
+              
+
+
 
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
-            In: 
-            
- 
-               
-            <a href="https://www.wfmt.info/music-therapy-today"
-            class="popup-link"
-            onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
-          
-            Proceedings of the 17th WFMT World Congress of Music Therapy,   </a>   
-             
- 
-            Vancouver, Canada. Special Issue of Music Therapy Today 18(1),
-            p. 459-460, 2023.
-
-          </span>
+            In: <a href="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496"class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+            Proceedings of the 17th WFMT World Congress of Music Therapy,   </a>   Special Issue of 
+            <a href="https://www.wfmt.info/music-therapy-today" class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
+            Music Therapy Today   </a>   18(1),  Vancouver, Canada. p. 459-460, 2023. </span>
         </div>
          
 
+
+
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -349,7 +342,7 @@
            
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf', 'popup', 'width=420,height=600');">
+                ('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf', 'popup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
                 <span style="text-align: justify; width: 85%;margin-top: -10px;"
@@ -369,7 +362,7 @@
             
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25', 'pdfpopup', 'width=420,height=600');">
+                ('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25', 'pdfpopup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -390,7 +383,7 @@
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
-                ('media/documents/ENPEMT_2022_poster.pdf', 'popup', 'width=550,height=780');">
+                ('media/documents/textos/ENPEMT_2022_poster.pdf', 'popup', 'width=550,height=780');">
     <span>Comunicação Oral</span> 
                 </button>
                 <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -413,7 +406,7 @@
 
         <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
           <button class="uia-btn" onclick="window.open
-          ('media/documents/PlanetaAzul.pdf#page=2', 'pdfpopup', 'width=420,height=580');">
+          ('media/documents/textos/PlanetaAzul.pdf#page=2', 'pdfpopup', 'width=420,height=580');">
 <span>Songbook</span> 
           </button>
           <span style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -440,11 +433,11 @@
 
 
 
-            <button class="uia-btn" onclick="window.open('media/documents/ProjetodepesquisaIvan.pdf', 'popup', 'width=420,height=600')">
+            <button class="uia-btn" onclick="window.open('media/documents/textos/ProjetodepesquisaIvan.pdf', 'popup', 'width=420,height=600')">
                 <span>Projeto de Pesquisa</span>
             </button>
     
-            <button class="uia-btn" onclick="window.open('media/documents/Histórico%20e%20cerfiticados.pdf', 'popup', 'width=420,height=600')">
+            <button class="uia-btn" onclick="window.open('media/documents/textos/Histórico%20e%20cerfiticados.pdf', 'popup', 'width=420,height=600')">
                 <span>Certificados</span>
             </button>
         </div>
@@ -466,7 +459,7 @@
                 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                     <button class="uia-btn" onclick="window.open
                     ('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
-        <span> Concerto para 2 cellos</span> 
+        <span> Concerto </span> 
                     </button>
                     <span style="text-align: justify; width: 85%; margin-top: -10px;"
                 >MORIÁ, IVAN; BUTTROS, J.        <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf"
@@ -479,15 +472,139 @@
           <a href="https://www.luanovacultural.com/orquestra-415"
           class="popup-link"
           onclick="window.open(this.href); return false;">
-          Orquestra 415 de Musica Antiga.          </a>
+          Orquestra 415 de Musica Antiga.         </a>
+          Teatro da Biblioteca Publica de Belo Horizonte - MG,
+          Interpretação: Violoncelo.
+          2024.
+       </div> 
 
-         
-                Teatro da Biblioteca Publica de Belo Horizonte - MG, 2024.
+
+
+       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+        <button class="uia-btn" onclick="window.open
+        ('https://www.youtube.com/watch?v=tHAdjTTRWI8', 'popup', 'width=505,height=525');">
+<span> Concerto Online</span> 
+        </button>
+        <span style="text-align: justify; width: 85%; margin-top: -10px;"
+    >MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I. VIANNA, J.        <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b2/IMSLP597607-PMLP88554-TELEMANN_Don_Quichotte.pdf"
+    class="popup-link"
+    onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+    Suite "Burlesque de Quixotte".
+ </a> TWV 55:G10. Telemann, G. P.
+
+
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.      </a>
+Online,
+Interpretação: Violoncelo.  
+ 2021.
+</div> 
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://www.youtube.com/watch?v=x4UdMfbglBE', 'popup', 'width=505,height=525');">
+<span> Concerto Online</span> 
+  </button>
+  <span style="text-align: justify; width: 85%; margin-top: -10px;"
+>MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I.  VIANNA, J. Concertos     <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b3/IMSLP388872-PMLP59201-vivaldi_concerto_per_due_oboi_RV_535_score.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+ RV 535 
+</a> e 
+
+<a href="https://vmirror.imslp.org/files/imglnks/usimg/2/26/IMSLP255285-PMLP400426-Vivaldi_Konzert_in_F_dur.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+RV 434,
+</a>   Antonio Vivaldi.
+
+
+
+
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.        </a>
+Online,
+Interpretação: Violoncelo. 
+ 2021.
+</div> 
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 'popup', 'width=505,height=525');">
+<span> Chorodito</span> 
+  </button>
+  <span style="text-align: justify; width: 85%; margin-top: -10px;"
+>MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
+
+
+<a href="media/documents/certificados/choroditolivrariadarua2023.jpeg"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Chorodito:    </a> um grupo de choro de cordas de Belo Horizonte. 
+
+  
+
+<a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Livraria da Rua,   
+</a> 120 min, Interpretação: Bandolim.  2023. 
+
+
+
+
+</div> 
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://youtu.be/7mM-Yurc4po?si=YtHIpfC1LeXALRkd', 'popup', 'width=505,height=525');">
+<span> Orquestra de Choro da UFMG</span> </button> <span style="text-align: justify; width: 85%; margin-top: -10px;"
+>MORIÁ, IVAN; FLÁVIO, M. Solo de <a href='media/audio/partituras/JacobdoBandolim-Assanhado.pdf' class="popup-link"
+onclick="window.open(this.href, 'popup','width=465,height=660' ); return false;">
+Assanhado - Jacob do Bandolim, </a> para bandolim e orquestra. 
+
+
+<a href="https://musica.ufmg.br/blog/2022/07/04/vivamusica-06-04-22/" class="popup-link"
+onclick="window.open(this.href, 'popup','width=420,height=620' ); return false;">
+Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpretação: Bandolim. 2022.
+</div> 
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+  <button class="uia-btn">
+<span> Orquestra de Choro da UFMG</span> </button> <span style="text-align: justify; width: 85%; margin-top: -10px;"
+>MORIÁ, IVAN;  BRUEKERS, M; FLÁVIO, M. Solo de <a href='media/audio/partituras/LuizAmericano-NumaserestaF.pdf' class="popup-link"
+onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+Numa Seresta - Luiz Americano, </a> 
+para acordeon, flauta e orquestra. 
+<a href='http://www.clubedochorodebh.com.br/2022/09/orquestra-de-choro-da-ufmg-se-apresenta.html' class="popup-link"
+onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+Seresta & Serenata Popular e Imperial.</a> 
+
+ Mariana: Praça da Sé. 
+ Interpretação: Acordeon. 2022.
+</div> 
+
+
                 
-         
- 
-                </div> 
-
+      
                 
 </div>
 
@@ -508,7 +625,7 @@
                   <span id="trackName">Nome da Faixa</span>
                 </div>
                 <div class="download-buttons">
-                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
+                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/audio/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
                     <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                       <g mask="url(#mask0_21_345)">
                         <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
@@ -528,7 +645,7 @@
                   <span id="trackName2">Nome da Faixa</span>
                 </div>
                 <div class="download-buttons">
-                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
+                  <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/audio/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
                     <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
                       <g mask="url(#mask0_21_345)">
                         <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
@@ -573,7 +690,7 @@
   document.getElementById('waveform2').style.marginTop = '20px'; // Ajuste o valor conforme necessário
 
   var audio = document.createElement('audio');
-  audio.src = 'media/Dino pintando o sete.mp3'; // Inicia com o primeiro áudio
+  audio.src = 'media/audio/Dino pintando o sete.mp3'; // Inicia com o primeiro áudio
   audio.controls = true;
 
   var playBtn = document.getElementById('playBtn');
@@ -623,7 +740,7 @@
 
   // Carrega a forma de onda ao iniciar
   wavesurfer.load(audio.src);
-  wavesurfer2.load('media/Perigoso.mp3'); // Carrega o segundo áudio
+  wavesurfer2.load('media/audio/Perigoso.mp3'); // Carrega o segundo áudio
   updateTrackName('Dino pintando o Sete - Sivuca', trackName); // Define o nome da faixa inicial
   updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da segunda faixa
 });
