@@ -2,359 +2,324 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#2d2b2b"> 
-    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-    <meta name="theme-color" content="#2d2b2b">
-    <meta name="description" content="Videos - Ivan Moriá">
-    <meta name="author" content="Seleção de Vídeos do portfólio de Ivan Moriá">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+
+    <meta name="theme-color" content="#2d2b2b"> <!-- Mude a cor conforme desejado -->
+                    <!-- Para dispositivos iOS -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <!-- Para dispositivos Android com Chrome -->
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Moriá - Projects</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/wavesurfer.js"></script>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <title>Moriá - Videos</title>
-    <style>
-      
-        .ui-btn {
-            margin-right: 73px;
-        }
-.ui-btn {
-    --btn-default-bg: rgba(41, 41, 41, 0);
-    --btn-padding: 15px 20px;
-    --btn-hover-bg: rgba(51, 51, 51, 0);
-    --btn-transition: .1s;
-    --btn-letter-spacing: .1rem;
-    --btn-animation-duration: 1.2s;
-    --btn-shadow-color: rgba(0, 0, 0, 0);
-    --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
-    --hover-btn-color: #c1c1c1ea;
-    --default-btn-color: #ffffff4d;
-    --font-size: 16px;
-    /* 👆 this field should not be empty */
-    --font-weight: 600;
-    --font-family: Menlo, Roboto Mono, monospace;
-    /* 👆 this field should not be empty */
-}
-.ui-btn {
-    box-sizing: border-box;
-    padding: var(--btn-padding);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--default-btn-color);
-    font: var(--font-weight) var(--font-size) var(--font-family);
-    background: var(--btn-default-bg);
-    border: none;
-    cursor: pointer;
-    transition: var(--btn-transition);
-    overflow: hidden;
-    box-shadow: var(--btn-shadow);
-}
-.ui-btn:hover span,
-.ui-btn:focus span {
-    color: var(--hover-btn-color);
-}
 
-#navbars-items {
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .carousel-container {
+                width: 50%;
+                margin: 142px;margin-top: 40px; /* Center the carousel */
+                margin-bottom: 40px;
+            }
+            body,  html  {
+            font-family: 'JS Brains Telex', sans-serif;
+            margin: 0;
+            overflow: auto;
+
+            color: #f0f0f047;
+
+
+        }
+
+
+             p {
+                        position: relative;
+                        z-index: 1;
+                       left: 60%;
+                                }
+                                h2{
+                        position: relative;
+                        z-index: 1;
+                       left: 50%;
+                                }
+                                h3 {
+                        position: relative;
+                        z-index: 1;
+                       left: 12%;
+                                }
+                                p4 {
+                        position: relative;
+                        z-index: 16;
+            margin-top: -403px;
+            margin-bottom: 392px;
+                                }
+                                .container {
+            display: flex;
+            flex-wrap: wrap;
+            overflow:hidden;
+            margin-left: 15px;
+        }
+        .left-column, .middle-column, .right-column {
+            padding: 20px;
+            box-sizing: border-box;
+      flex: 1 1 100%;
+      flex-wrap: wrap;
+      overflow:hidden
+        }
+        .left-column, .middle-column, .right-column {
+                flex: 1 0 100%;
+                margin: 0;
+            }
+        
+              @media (min-width: 768px) {
+            .left-column {
+                flex: 1 0 60%;
+                margin: 0px;
+            }
+            .middle-column {
+                flex: 1 0 30%;
+                margin-left: -180px;
+                margin-right: -5px;
+            }
+            .right-column {
+                flex: 1 0 20%;
+                margin-left: -100px;
+                margin-right: -5px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .left-column, .middle-column, .right-column {
+                flex: 1 0 100%;
+                margin: 0;
+            }
+        }
+
+        .video-wrapper {
+            width: 100%; /* Make sure the videos take the full width of their container */
+            height: 300px; /* Set the desired height */
+            margin-top: 40px; /* Add the top margin */
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+        }
+    
+    #navbar-items {
         display: flex;
         justify-content: center;
         padding: 0;
     }
-    .containeer {
-            display:block !important;
-            flex-wrap: wrap;
-            overflow:hidden;
-            margin-left: 15px;
-            margin-bottom: 20px;
-            background-color: rgba(0, 0, 0, 0) !important;
+
+        .ui-btn {
+            margin-right: 73px;
         }
-    </style>
-</head>
-<body>
-    <div id="canvass"></div>
-    <nav id="navbars-items">
-    <button class="ui-btn" onclick="window.location.href='index.html'">
-        <span>Back to Index</span>
-    </button>
-    <button class="ui-btn" onclick="window.location.href='references.html'">
-        <span>References</span>
-    </button>
 
-</nav>
+        .popup-link {
+    color: #ffffff7d;
+    text-decoration: none;
+  }
 
-                  <style>
-                    body,  html  {
-                        font-family: 'JS Brains Telex', sans-serif;
-                        margin: 10;
-                        overflow: hidden;
-                   background-color: #2d2b2b;
-                        color: #f0f0f047;
-                    }
-            h5{
-color: black
-
-            }
-                    .popup-link {
-                color: #ffffff7d;
-                text-decoration: none;
-              }
-            
-              .popup-link:hover {
-                color: #e1ff0081;
-                text-decoration:  none;
-             
-              }
-              canvas {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1; /* Coloca o canvas no fundo */
-
-              }
-              #navbar-items {
-                        display: flex;
-                        justify-content: center;
-                        padding: 0;
-                    }
-
-
-                </style>
-                  <title>Portfolio</title>
-              </head>
-              <body onload="preloader()">
-                  <div id="preloader">
-                      <div class="lds-ripple">
-                          <div></div>
-                          <div></div>
-                      </div>
-                  </div>
-                  <div class="containeer" id="wrapper">
-                      <div class="row">
-                      
-                 
-
-                          </div>
-              
-                     
-                                  <div class="header-section">
-                                      <ul class="nav justify-content-center">
-                                          <li class="nav-item">						 
-                                              <a class="nav-link active" href="category.html">Category 1</a>
-                                          </li>
-                                          <li class="nav-item">
-                                              <a class="nav-link" href="category.html">Category 2</a>
-                                          </li>
-                                          <li class="nav-item">
-                                              <a class="nav-link" href="category.html">Category 3</a>
-                                          </li>
-                                          <li class="nav-item dropdown">
-                                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              Dropdown
-                                              </a>
-                                              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                  <a class="dropdown-item" href="#">Action</a>
-                                                  <a class="dropdown-item" href="#">Another action</a>
-                                                  <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item" href="#">Something else here</a>
-                                              </div>
-                                          </li>
-                                      </ul>
-                                      
+  .popup-link:hover {
+    color: #e1ff0081;
+    text-decoration:  none;
  
-              
-              
-              <div class="content-section">
-       
-                  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
-                          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                          <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                          <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                          <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
-              
-                  
-                      </ol>
-                        <div class="carousel-inner">
-                          <div class="carousel-item active">
-                              <div class="row">
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px; margin-left: 55px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355" src="https://www.youtube.com/embed/LG3E1V8yt7c?si=LdYZL_Oaa7i0Zm7S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 1
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                      <div class="card" style="width: 100%;margin-top: 40px;  margin-right: 40px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355"src="https://www.youtube.com/embed/7GbPP_QRicI?si=L97oxYTVH1wV3m2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 1
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  							
-                              </div>
-                          </div>
-                          <div class="carousel-item">
-                              <div class="row">
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px; margin-left: 55px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355"  src="https://www.youtube.com/embed/eIp7qwRoRAg?si=xuyV0gjPocdy8kQy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 2
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px;  margin-right: 40px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355"   src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 2
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  							
-                              </div>
-                          </div>
-                          <div class="carousel-item">
-                              <div class="row">
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px; margin-left: 55px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 3
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px;  margin-right: 40px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355"   src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 3
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  							
-                              </div>
-                          </div>
-                          <div class="carousel-item">
-                              <div class="row">
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px; margin-left: 55px; margin-bottom: 30px;">
-                                          <a href="single.html">
-                                            <iframe width="435" height="355" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 4
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <div class="card" style="width: 100%;margin-top: 40px;  margin-right: 40px; margin-bottom: 30px;">
-                                             <iframe width="435" height="355" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                          </a>
-                                          <div class="card-body ">
-                                              <h5 class="card-text text-truncate">
-                                                  Slider Title Here 4
-                                              </h5>
-                                            </div>
-                                      </div>
-                                  </div>
-                                  							
-                              </div>
-                          </div>
+  }
+
+        </style>
+    </head>
+    <body>
+
+            <div id="canvas-container"></div>
+            <nav id="navbar-items">
+            <button class="ui-btn" onclick="window.location.href='index.html'">
+                <span>Back to Index</span>
+            </button>
+            <button class="ui-btn" onclick="window.location.href='references.html'">
+                <span>Publications</span>
+            </button>
+        
+        
+        </nav>
+        <div class="container">
+        <div class="left-column">
+            <p4 style="margin-top: -200px;">Publications</p4>
+    <div class="carousel-container">
+        <div id="videoCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
                         </div>
-                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                    <div class="container">
- 
- 
-
-
-
-                     
-
-                       
-                   
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
                         </div>
-                  </div>
-              </div> <!-- Content Section End -->
-       
-              
-                  <!-- JS Script Files -->
-                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-                  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-                  <script type="text/javascript" src="js/custom-function.js"></script>
-              
-              
-              
-              
-              
-              
-              
-              
-                            
-                  <script>
-              
-              
-                    $(document).ready(function(){
-                        
-                        $(".fa-ellipsis-v").click(function(){
-                    
-                            $("#wrapper #sidebar").toggleClass("menu-height");
-                        });
-                    });
-                    function preloader(){
-                    
-                        $(window).on("load", function(){
-                    
-                            $("#preloader").css({
-                                "visibility":"hidden",
-                                "opacity":"0",
-                                "transition":"0.5s"
-                            });
-                        });
-                    }
-                    </script>
-              
-              </body>
-              </html>
-              
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9 margin-top: 40px;">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel-item divs as needed -->
+
+
+
+
+
+            </div>
+            <a class="carousel-control-prev" href="#videoCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#videoCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
     
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script>
+
+
+    let num = 400;
+    let range = 60;
+    let ax = [];
+    let ay = [];
+    let extraLines = 300;
+
+    function setup() {
+        let canvas = createCanvas(window.innerWidth, window.innerHeight);
+        canvas.parent('canvas-container');
+        for (let i = 0; i < num; i++) {
+            ax[i] = width / 10;
+            ay[i] = height / 2;
+        }
+        for (let j = 0; j < num + extraLines; j++) {
+            ax[j] = width / 22;
+            ay[j] = height / 22;
+        }
+        frameRate(30);
+
+   
+
+
+
+
+    }
+
+    function draw() {
+        
+background(43);
+
+
+for (let i = 1; i < num; i++) {
+    ax[i - 1] = ax[i];
+    ay[i - 1] = ay[i];
+}
+ax[num - 1] +=-random(-range, range);
+ay[num - 1] += random(-range, range);
+ax[num - 1] = constrain(ax[num - 1], 0, width);
+ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+
+
+
+
+
+for (let i = 1; i < num ; i++) {
+    let val0 = float(i) / num * 200.0 + 3 ;
+    let val = map(ax[i], 0, width, 0, 255);
+    let val2 = map(ay[i],0, height, 0, 255);
+    stroke(val0,val,val2, 80);
+    line(ax[i-4], ay[i-1], ax[i], ay[i]);
+    
+}
+
+for (let j = 1; j < extraLines; j++) {
+    ax[j - 1] = ax[j];
+    ay[j - 1] = ay[j];
+}
+ax[extraLines - 1] += random(-range, range);
+ay[extraLines - 1] += random(range, - range);
+ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+for (let j = 1; j < num; j++) {
+    let val1 = float(j) / num * 200.0 + 3 ;
+    let val3 = map(ax[j], 0, width, 0, 255);
+    let val4 = map(ay[j],0, height, 0, 255);
+
+    stroke(val1,val3,val4, 50);
+
+    line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+}
+
+
+
+}
+
+
+</script>
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
