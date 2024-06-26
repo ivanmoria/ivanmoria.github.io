@@ -142,6 +142,28 @@
     <body>
         <div id="canvas-container"></div>
         <script>
+                  // Função para impedir o recarregamento por pull-to-refresh
+        function preventPullToRefresh(element) {
+            var prevent = false;
+
+            element.addEventListener('touchstart', function(e) {
+                if (e.touches.length !== 1) { return; }
+                var scrollY = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+                prevent = (scrollY === 0);
+            });
+
+            element.addEventListener('touchmove', function(e) {
+                if (prevent) {
+                    prevent = false;
+                    e.preventDefault();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            preventPullToRefresh(document);
+        });
+
             let num = 220;
             let ax = [];
             let ay = [];
