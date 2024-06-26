@@ -4,73 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-    <!-- Para dispositivos Android com Chrome -->
     <meta name="theme-color" content="#2d2b2b">
     <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-<meta name="theme-color" content="#2d2b2b">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="description" content="Personal projects of Ivan Moriá">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
     <title>Moriá - Projects</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
-        body,  html  {
+        body, html {
             font-family: 'JS Brains Telex', sans-serif;
             margin: 0;
             overflow: auto;
-            background-color: #00000000; /* Cor de fundo para a página */
+            background-color: #00000000;
             color: #f0f0f047;
-
-
         }
 
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
+        }
 
-             p {
-                        position: relative;
-                        z-index: 1;
-                       left: 60%;
-                                }
-                                h2{
-                        position: relative;
-                        z-index: 1;
-                       left: 50%;
-                                }
-                                h3 {
-                        position: relative;
-                        z-index: 1;
-                       left: 12%;
-                                }
-                                p4 {
-                        position: relative;
-                        z-index: 16;
-            margin-top: -403px;
-            margin-bottom: 392px;
-                                }
-                                .container {
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        .container {
             display: flex;
             flex-wrap: wrap;
-            overflow:hidden;
             margin-left: 15px;
         }
+
         .left-column, .middle-column {
             padding: 20px;
             box-sizing: border-box;
-      flex: 1 1 100%;
-      flex-wrap: wrap;
-      overflow:hidden
+            flex: 1 1 100%;
+            flex-wrap: wrap;
         }
-        .left-column, .middle-column {
-                flex: 1 0 100%;
-                margin: 0;
-            }
-        
-              @media (min-width: 768px) {
+
+        @media (min-width: 768px) {
             .left-column {
                 flex: 1 0 60%;
                 margin: 0px;
@@ -80,7 +60,6 @@
                 margin-left: 0px;
                 margin-right: -5px;
             }
-           
         }
 
         @media (max-width: 767px) {
@@ -88,7 +67,6 @@
                 flex: 1 0 100%;
                 margin: 0;
             }
-        
         }
 
         .ui-btn {
@@ -96,21 +74,117 @@
         }
 
         .popup-link {
-    color: #ffffff7d;
-    text-decoration: none;
-  }
+            color: #ffffff7d;
+            text-decoration: none;
+        }
 
-  .popup-link:hover {
-    color: #e1ff0081;
-    text-decoration:  none;
- 
-  }
-
+        .popup-link:hover {
+            color: #e1ff0081;
+            text-decoration: none;
+        }
     </style>
+ 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 </head>
 <body>
-    <div id="canvas-container"></div>
+    <div id="canvas-container">
+     
+
+
+    <script>
+
+
+        let num = 400;
+        let range = 60;
+        let ax = [];
+        let ay = [];
+        let extraLines = 300;
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 10;
+                ay[i] = height / 24;
+            }
+            for (let j = 0; j < num + extraLines; j++) {
+                ax[j] = width / 22;
+                ay[j] = height / 22;
+            }
+            frameRate(30);
+
+       
+
+
+    
+   
+        }
+    
+        function draw() {
+            
+    background(43);
+
+  
+    for (let i = 1; i < num; i++) {
+        ax[i - 1] = ax[i];
+        ay[i - 1] = ay[i];
+    }
+    ax[num - 1] +=-random(-range, range);
+    ay[num - 1] += random(-range, range);
+    ax[num - 1] = constrain(ax[num - 1], 0, width);
+    ay[num - 1] = constrain(ay[num - 1], 0, height);
+    
+    
+ 
+    
+    
+    
+    for (let i = 1; i < num ; i++) {
+        let val0 = float(i) / num * 200.0 + 3 ;
+        let val = map(ax[i], 0, width, 0, 255);
+        let val2 = map(ay[i],0, height, 0, 255);
+        stroke(val0,val,val2, 80);
+        line(ax[i-4], ay[i-1], ax[i], ay[i]);
+        
+    }
+
+    for (let j = 1; j < extraLines; j++) {
+        ax[j - 1] = ax[j];
+        ay[j - 1] = ay[j];
+    }
+    ax[extraLines - 1] += random(-range, range);
+    ay[extraLines - 1] += random(range, - range);
+    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+    for (let j = 1; j < num; j++) {
+        let val1 = float(j) / num * 200.0 + 3 ;
+        let val3 = map(ax[j], 0, width, 0, 255);
+        let val4 = map(ay[j],0, height, 0, 255);
+
+        stroke(val1,val3,val4, 50);
+
+        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+    }
+
+
+
+}
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw(); // Garante que o canvas seja redesenhado
+}
+
+    </script>
+
+
+
+
+
+
+    </div>
     <nav id="navbar-items">
+ 
     <button class="ui-btn" onclick="window.location.href='index.html'">
         <span>Back to Index</span>
     </button>
@@ -740,95 +814,7 @@ function resizeWaveforms() {
     window.addEventListener('resize', resizeWaveforms);
     resizeWaveforms();
 });
-
-              </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script>
-
-
-        let num = 400;
-        let range = 60;
-        let ax = [];
-        let ay = [];
-        let extraLines = 300;
-
-        function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight);
-            canvas.parent('canvas-container');
-            for (let i = 0; i < num; i++) {
-                ax[i] = width / 10;
-                ay[i] = height / 24;
-            }
-            for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 22;
-                ay[j] = height / 22;
-            }
-            frameRate(30);
-
-       
-
-
-    
-   
-        }
-    
-        function draw() {
-            
-    background(43);
-
-  
-    for (let i = 1; i < num; i++) {
-        ax[i - 1] = ax[i];
-        ay[i - 1] = ay[i];
-    }
-    ax[num - 1] +=-random(-range, range);
-    ay[num - 1] += random(-range, range);
-    ax[num - 1] = constrain(ax[num - 1], 0, width);
-    ay[num - 1] = constrain(ay[num - 1], 0, height);
-    
-    
- 
-    
-    
-    
-    for (let i = 1; i < num ; i++) {
-        let val0 = float(i) / num * 200.0 + 3 ;
-        let val = map(ax[i], 0, width, 0, 255);
-        let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 80);
-        line(ax[i-4], ay[i-1], ax[i], ay[i]);
-        
-    }
-
-    for (let j = 1; j < extraLines; j++) {
-        ax[j - 1] = ax[j];
-        ay[j - 1] = ay[j];
-    }
-    ax[extraLines - 1] += random(-range, range);
-    ay[extraLines - 1] += random(range, - range);
-    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-    for (let j = 1; j < num; j++) {
-        let val1 = float(j) / num * 200.0 + 3 ;
-        let val3 = map(ax[j], 0, width, 0, 255);
-        let val4 = map(ay[j],0, height, 0, 255);
-
-        stroke(val1,val3,val4, 50);
-
-        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-    }
-
-
-
-}
-background(0); // Exemplo de fundo cinza
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  redraw(); // Garante que o canvas seja redesenhado
-}
-
-    </script>
-
+</script>
 
 
 
