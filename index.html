@@ -149,7 +149,7 @@
             let explosionRadius = 20200; // Raio da explosão das linhas
     
             function setup() {
-                let canvas = createCanvas(1366,768);
+                let canvas = createCanvas(windowWidth, windowHeight);
                 canvas.parent('canvas-container');
                 for (let i = 0; i < num; i++) {
                     ax[i] = width / 22;
@@ -230,6 +230,13 @@
                 // Ativa a explosão das linhas após atingir o centro
                 autoClick();
             }
+            // Atualiza o tamanho do canvas quando a janela é redimensionada
+// Atualiza o tamanho do canvas quando a janela é redimensionada
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw(); // Garante que o canvas seja redesenhado
+}
         </script>
     </body>
     </html>

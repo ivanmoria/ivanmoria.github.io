@@ -235,7 +235,7 @@ let ay = [];
 let extraLines = 300;
 
 function setup() {
-let canvas = createCanvas(window.innerWidth, window.innerHeight);
+let canvas = createCanvas(windowWidth, windowHeight);
 canvas.parent('canvas-container');
 for (let i = 0; i < num; i++) {
     ax[i] = width / 10;
@@ -303,7 +303,11 @@ line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
 
 
 }
-
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw(); // Garante que o canvas seja redesenhado
+}
 
 </script>
 
