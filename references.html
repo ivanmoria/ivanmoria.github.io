@@ -56,14 +56,14 @@
             overflow:hidden;
             margin-left: 15px;
         }
-        .left-column, .middle-column, .right-column {
+        .left-column, .middle-column {
             padding: 20px;
             box-sizing: border-box;
       flex: 1 1 100%;
       flex-wrap: wrap;
       overflow:hidden
         }
-        .left-column, .middle-column, .right-column {
+        .left-column, .middle-column {
                 flex: 1 0 100%;
                 margin: 0;
             }
@@ -74,15 +74,11 @@
                 margin: 0px;
             }
             .middle-column {
-                flex: 1 0 30%;
-                margin-left: -180px;
+                flex: 1 0 40%;
+                margin-left: 0px;
                 margin-right: -5px;
             }
-            .right-column {
-                flex: 1 0 20%;
-                margin-left: -100px;
-                margin-right: -5px;
-            }
+           
         }
 
         @media (max-width: 767px) {
@@ -596,7 +592,7 @@ Seresta & Serenata Popular e Imperial.</a>
  Interpretação: Acordeon. 2022.
 </div> 
 
-
+<div class="middle-column">
 
     <h4>Music Recordings</h4>
 
@@ -642,7 +638,7 @@ Seresta & Serenata Popular e Imperial.</a>
         </div>
       </div>
 
-      
+    </div>  
                 
 </div>
 <script>
@@ -742,11 +738,11 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
         let extraLines = 300;
 
         function setup() {
-            let canvas = createCanvas(window.innerWidth, window.innerHeight);
+            let canvas = createCanvas(1920,1080);
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
                 ax[i] = width / 10;
-                ay[i] = height / 2;
+                ay[i] = height / 24;
             }
             for (let j = 0; j < num + extraLines; j++) {
                 ax[j] = width / 22;
