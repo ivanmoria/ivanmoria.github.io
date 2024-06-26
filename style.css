@@ -267,6 +267,8 @@ canvas {
   justify-content: center;
   position: relative;
   flex: 1 0 100%;
+  margin-bottom: 20px;
+
 }
 
 .progress-container {

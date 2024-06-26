@@ -723,8 +723,21 @@ wavesurfer.load(audio.src);
 wavesurfer2.load('media/audio/Perigoso.mp3'); // Carrega o segundo áudio
 updateTrackName('Dino pintando o Sete - Sivuca', trackName); // Define o nome da faixa inicial
 updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da segunda faixa
-});
 
+
+
+function resizeWaveforms() {
+        var waveformContainer = document.getElementById('waveform');
+        var waveformContainer2 = document.getElementById('waveform2');
+        wavesurfer.drawer.containerWidth = waveformContainer.clientWidth;
+        wavesurfer.drawBuffer();
+        wavesurfer2.drawer.containerWidth = waveformContainer2.clientWidth;
+        wavesurfer2.drawBuffer();
+    }
+
+    window.addEventListener('resize', resizeWaveforms);
+    resizeWaveforms();
+});
 
               </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -738,7 +751,7 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
         let extraLines = 300;
 
         function setup() {
-            let canvas = createCanvas(1920,1080);
+            let canvas = createCanvas(windowWidth, windowHeight);
             canvas.parent('canvas-container');
             for (let i = 0; i < num; i++) {
                 ax[i] = width / 10;
@@ -806,7 +819,11 @@ updateTrackName('Perigoso - Orlando Silveira', trackName2); // Define o nome da 
 
 
 }
-
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw(); // Garante que o canvas seja redesenhado
+}
 
     </script>
 
