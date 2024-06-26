@@ -130,9 +130,108 @@
             
                 </style>
             </head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
             <body>
 
-                <div id="canvas-container"></div>
+                <div id="canvas-container">
+
+
+
+                    <script>
+
+
+                        let num = 400;
+                        let range = 60;
+                        let ax = [];
+                        let ay = [];
+                        let extraLines = 300;
+                        
+                        function setup() {
+                        let canvas = createCanvas(windowWidth, windowHeight);
+                        canvas.parent('canvas-container');
+                        for (let i = 0; i < num; i++) {
+                            ax[i] = width / 10;
+                            ay[i] = height / 2;
+                        }
+                        for (let j = 0; j < num + extraLines; j++) {
+                            ax[j] = width / 22;
+                            ay[j] = height / 22;
+                        }
+                        frameRate(30);
+                        
+                        
+                        
+                        
+                        
+                        
+                        }
+                        
+                        function draw() {
+                        
+                        background(43);
+                        
+                        
+                        for (let i = 1; i < num; i++) {
+                        ax[i - 1] = ax[i];
+                        ay[i - 1] = ay[i];
+                        }
+                        ax[num - 1] +=-random(-range, range);
+                        ay[num - 1] += random(-range, range);
+                        ax[num - 1] = constrain(ax[num - 1], 0, width);
+                        ay[num - 1] = constrain(ay[num - 1], 0, height);
+                        
+                        
+                        
+                        
+                        
+                        
+                        for (let i = 1; i < num ; i++) {
+                        let val0 = float(i) / num * 200.0 + 3 ;
+                        let val = map(ax[i], 0, width, 0, 255);
+                        let val2 = map(ay[i],0, height, 0, 255);
+                        stroke(val0,val,val2, 80);
+                        line(ax[i-4], ay[i-1], ax[i], ay[i]);
+                        
+                        }
+                        
+                        for (let j = 1; j < extraLines; j++) {
+                        ax[j - 1] = ax[j];
+                        ay[j - 1] = ay[j];
+                        }
+                        ax[extraLines - 1] += random(-range, range);
+                        ay[extraLines - 1] += random(range, - range);
+                        ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+                        ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+                        for (let j = 1; j < num; j++) {
+                        let val1 = float(j) / num * 200.0 + 3 ;
+                        let val3 = map(ax[j], 0, width, 0, 255);
+                        let val4 = map(ay[j],0, height, 0, 255);
+                        
+                        stroke(val1,val3,val4, 50);
+                        
+                        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+                        }
+                        
+                        
+                        
+                        }
+                        background(0); // Exemplo de fundo cinza
+                        function windowResized() {
+                          resizeCanvas(windowWidth, windowHeight);
+                          redraw(); // Garante que o canvas seja redesenhado
+                        }
+                        
+                        </script>
+                        
+                        
+
+
+
+
+                </div>
+
+
+
                 <nav id="navbar-items">
                 <button class="ui-btn" onclick="window.location.href='index.html'">
                     <span>Back to Index</span>
@@ -148,172 +247,6 @@
 </nav>
 </header>
 
-
-
-<div class="container">
-<div class="left-column">
-
-<div class="carousel-container">
-<div id="videoCarousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9 margin-top: 40px;">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=Xonj5ddWBDx2N9nm" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add more carousel-item divs as needed -->
-
-
-
-
-
-    </div>
-    <a class="carousel-control-prev" href="#videoCarousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#videoCarousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-<script>
-
-
-let num = 400;
-let range = 60;
-let ax = [];
-let ay = [];
-let extraLines = 300;
-
-function setup() {
-let canvas = createCanvas(windowWidth, windowHeight);
-canvas.parent('canvas-container');
-for (let i = 0; i < num; i++) {
-    ax[i] = width / 10;
-    ay[i] = height / 2;
-}
-for (let j = 0; j < num + extraLines; j++) {
-    ax[j] = width / 22;
-    ay[j] = height / 22;
-}
-frameRate(30);
-
-
-
-
-
-
-}
-
-function draw() {
-
-background(43);
-
-
-for (let i = 1; i < num; i++) {
-ax[i - 1] = ax[i];
-ay[i - 1] = ay[i];
-}
-ax[num - 1] +=-random(-range, range);
-ay[num - 1] += random(-range, range);
-ax[num - 1] = constrain(ax[num - 1], 0, width);
-ay[num - 1] = constrain(ay[num - 1], 0, height);
-
-
-
-
-
-
-for (let i = 1; i < num ; i++) {
-let val0 = float(i) / num * 200.0 + 3 ;
-let val = map(ax[i], 0, width, 0, 255);
-let val2 = map(ay[i],0, height, 0, 255);
-stroke(val0,val,val2, 80);
-line(ax[i-4], ay[i-1], ax[i], ay[i]);
-
-}
-
-for (let j = 1; j < extraLines; j++) {
-ax[j - 1] = ax[j];
-ay[j - 1] = ay[j];
-}
-ax[extraLines - 1] += random(-range, range);
-ay[extraLines - 1] += random(range, - range);
-ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-for (let j = 1; j < num; j++) {
-let val1 = float(j) / num * 200.0 + 3 ;
-let val3 = map(ax[j], 0, width, 0, 255);
-let val4 = map(ay[j],0, height, 0, 255);
-
-stroke(val1,val3,val4, 50);
-
-line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-}
-
-
-
-}
-background(0); // Exemplo de fundo cinza
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  redraw(); // Garante que o canvas seja redesenhado
-}
-
-</script>
 
 
 
