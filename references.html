@@ -17,8 +17,9 @@
             font-family: 'JS Brains Telex', sans-serif;
             margin: 0;
             overflow: auto;
-            background-color: #00000000;
+            background-color: #222222;
             color: #f0f0f047;
+         
         }
 
         #canvas-container {
@@ -27,7 +28,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 1;
             pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
         }
 
@@ -41,6 +42,7 @@
             display: flex;
             flex-wrap: wrap;
             margin-left: 15px;
+            z-index: 2;
         }
 
         .left-column, .middle-column {
@@ -48,6 +50,7 @@
             box-sizing: border-box;
             flex: 1 1 100%;
             flex-wrap: wrap;
+            z-index: 2;
         }
 
         @media (min-width: 768px) {
@@ -71,6 +74,7 @@
 
         .ui-btn {
             margin-right: 73px;
+            z-index: 2;
         }
 
         .popup-link {
@@ -81,6 +85,9 @@
         .popup-link:hover {
             color: #e1ff0081;
             text-decoration: none;
+        }
+        .navbar-items{
+          z-index: 3;
         }
     </style>
  
@@ -111,8 +118,7 @@
                 ax[j] = width / 22;
                 ay[j] = height / 22;
             }
-            background(0); // Define o fundo como preto no setup
-          
+
             frameRate(30);
 
        
@@ -175,7 +181,7 @@ background(0); // Exemplo de fundo cinza
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   redraw(); // Garante que o canvas seja redesenhado
-  background(0); // Redefine o fundo como preto ao redimensionar a janela
+
 }
 
     </script>
