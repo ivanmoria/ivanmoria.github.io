@@ -120,7 +120,26 @@ font-size: 18px;
     </div>
 
 </a>
+
 </div>
+
+
+
+<div class="setting-container">
+<button class="setting-btn" onclick="toggleOptions()">
+  <span class="bar bar1"></span>
+  <span class="bar bar2"></span>
+  <span class="bar bar1"></span>
+</button>
+
+<ul class="options" id="options">
+ <a href="videos.html">Projetos</a> 
+ <a href="contato.html">Contato</a> 
+</ul>
+</div>
+
+
+
 <div class="button-container">
   <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
     <svg
@@ -456,7 +475,7 @@ function windowResized() {
     <nav id="navbar-items">
  
     <button class="ui-btn" onclick="window.location.href='index.html'">
-        <span>Voltar</span>
+        <span>Index</span>
     </button>
 
 
@@ -930,7 +949,13 @@ Seresta & Serenata Popular e Imperial.</a>
 <div class="middle-column">
 
 
+<script>
 
+function toggleOptions() {
+  const container = document.querySelector('.setting-container');
+  container.classList.toggle('open');
+}
+</script>
 </body>
 </html>
 
