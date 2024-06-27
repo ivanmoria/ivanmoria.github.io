@@ -40,8 +40,9 @@
                                    left: 12%;
                                             }
          
-                    .ui-btn {
+                    .uia-btn {
                         margin-right: 73px;
+                        z-index: 4000;
                     }
             
                     .popup-link {
@@ -55,7 +56,11 @@
               }
 
 
-              
+              #navbar-items {
+        display: fixed;
+        justify-content: center;
+        padding: 0;
+    }
             
                 </style>
             </head>
@@ -65,13 +70,13 @@
 </div>
                 <div id="canvas-container"></div>
                 <nav id="navbar-items">
-                
+                    
+
             
     <button class="uia-btn" onclick="window.location.href='references.html'">
-        <span> ~~~> Referências  <~~~ </span>
+<span> Referências</span>
     </button>
 
- 
 </div>
 
 
@@ -112,7 +117,7 @@
             preventPullToRefresh(document);
         });
 
-            let num = 220;
+            let num = 230;
             let ax = [];
             let ay = [];
             let initialX = [];
