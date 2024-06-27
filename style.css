@@ -61,6 +61,7 @@
   /* 👆 this field should not be empty */
   --font-weight: 600;
   --font-family: Menlo, Roboto Mono, monospace;
+  z-index: 2000;
   /* 👆 this field should not be empty */
 }
 
