@@ -146,6 +146,7 @@ font-weight: 200;
                     initialY[i] = height / 2;
                 }
                 frameRate(60);
+                
             }
     
             function draw() {
@@ -183,20 +184,7 @@ font-weight: 200;
                     line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
                 }
             }
-    
-            function autoClick() {
-                // Implementar a explosão de todas as linhas
-                for (let i = 0; i < num; i++) {
-                    let x = ax[i];
-                    let y = ay[i];
-                    let dx = targetCenterX - x;
-                    let dy = targetCenterY - y;
-                    let angle = atan2(dy, dx);
-                    let speed = map(i, 0, num, 0, 52);
-                    ax[i-1] += cos(angle) * speed;
-                    ay[i-1] += sin(angle) * speed;
-                }
-            }
+
     
           
 
