@@ -138,65 +138,6 @@ canvas {
 
 
 
-.plusButton {
-  /* Config start */
-  --plus_sideLength: 2rem;
-  --plus_topRightTriangleSideLength: 0.9rem;
-  /* Config end */
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 1.6rem;
-  left: 0.3rem;
-  width: var(--plus_sideLength);
-  height: var(--plus_sideLength);
-  background-color: #43000000;
-  overflow: hidden;
-}
-
-.plusButton::before {
-  position: absolute;
-  content: "";
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  border-width: 0 var(--plus_topRightTriangleSideLength) var(--plus_topRightTriangleSideLength) 0;
-  border-style: solid;
-  border-color: transparent rgba(0, 0, 0, 0) transparent transparent;
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.2s;
-}
-
-.plusButton:hover {
-  cursor: pointer;
-}
-
-.plusButton:hover::before {
-  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
-}
-
-.plusButton:focus-visible::before {
-  --plus_topRightTriangleSideLength: calc(var(--plus_sideLength) * 2);
-}
-
-.plusButton>.plusIcon {
-  fill: rgba(255, 255, 255, 0.576);
-  width: calc(var(--plus_sideLength) * 0.7);
-  height: calc(var(--plus_sideLength) * 0.7);
-  z-index: 1;
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.2s;
-}
-
-.plusButton:hover>.plusIcon {
-  fill: rgb(0, 244, 24);
-  transform: rotate(180deg);
-}
-
-
-
 
 .plusButtonn {
   /* Config start */
@@ -207,8 +148,8 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: -1.55rem;
-  left: 21.5rem;
+  top: -1.75rem;
+  left: 10.5rem;
   width: var(--plus_sideLength);
   height: var(--plus_sideLength);
   background-color: #43000000;
@@ -258,12 +199,14 @@ canvas {
 
 
 .audio-player {
-  width: 375px;
-  height: 100px;
+  width: 200px;
+  height: 80px;
   color: #ffffff48;
-      font-size: 18px;
+      font-size: 14px;
+
       font-weight: 200;
       font-family: "Mina", sans-serif;
+      white-space: nowrap; /* Mantém o texto em uma linha */
   padding: 10px;
   border: 1px solid #2523232e;
   border-radius: 20px;
@@ -277,7 +220,7 @@ canvas {
 }
 
 .progress-container {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   justify-content: center;
   position: relative;
   flex: 1 0 100%;
@@ -293,7 +236,7 @@ canvas {
 .controls button {
   margin-right: 10px; /* Ajuste a margem conforme necessário */
   width: 10px; /* Ajuste a largura do botão conforme necessário */
-  height: 60px; /* Ajuste a altura do botão conforme necessário */
+  height: 90px; /* Ajuste a altura do botão conforme necessário */
   border: none;
   background-color: transparent;
   font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
@@ -320,8 +263,8 @@ canvas {
 
 
 .track-info {
-  margin-top: -100px;
-  margin-left: 75px;
+  margin-top: -85px;
+  margin-left: 29px;
     justify-content: center;
   position: relative;
   flex: 1 0 100%;
