@@ -19,6 +19,7 @@
                 <title>Ivan Moriá Borges</title>
                 <link rel="stylesheet" href="style.css">
                 <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
                 <script src="https://unpkg.com/wavesurfer.js"></script>
                 <style>
          
@@ -57,14 +58,23 @@
                 </style>
             </head>
             <body>
+
+  <div class="assinatura-container">
+    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
+        <div class="assinatura" id="assinatura">
+            <div class="texto-animado">
+                Ivan Moriá Borges Rodrigues
+    </div>
+    </div>
+
+</a>
+</div>
                 <div id="canvas-container"></div>
                 <nav id="navbar-items">
     <button class="ui-btn" onclick="window.location.href='references.html'">
         <span>References</span>
     </button>
-    <button class="ui-btn" onclick="window.location.href='videos.html'">
-        <span>Videos</span>
-    </button>
+
 
 
 
@@ -73,9 +83,7 @@
 </header>
 
 
-<main>
-<br>Em construção...</br>
-</main>
+
 </div>
 
 
@@ -184,7 +192,6 @@
     
           
 
-            
             // Atualiza o tamanho do canvas quando a janela é redimensionada
 // Atualiza o tamanho do canvas quando a janela é redimensionada
 background(0); // Exemplo de fundo cinza
