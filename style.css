@@ -519,7 +519,7 @@ canvas {
 
 .assinatura-container {
   position: fixed; /* Define o posicionamento fixo */
-  top: 85%; /* Posiciona no centro verticalmente inicialmente */
+  bottom: 5%; /* Posiciona no centro verticalmente inicialmente */
   right: 35px; /* Alinha à direita */
   transform-origin: right ; /* Define o ponto de origem da rotação */
 
