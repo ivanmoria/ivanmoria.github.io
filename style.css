@@ -490,32 +490,6 @@ canvas {
       z-index: 2;
   }
 
-  .left-column, .middle-column {
-      padding: 20px;
-      box-sizing: border-box;
-      flex: 1 1 100%;
-      flex-wrap: wrap;
-      z-index: 2;
-  }
-
-  @media (min-width: 768px) {
-      .left-column {
-          flex: 1 0 60%;
-          margin: 0px;
-      }
-      .middle-column {
-          flex: 1 0 40%;
-          margin-left: 0px;
-          margin-right: -5px;
-      }
-  }
-
-  @media (max-width: 767px) {
-      .left-column, .middle-column, .right-column {
-          flex: 1 0 100%;
-          margin: 0;
-      }
-  }
 
   .ui-btn {
       margin-right: 73px;
@@ -545,7 +519,7 @@ canvas {
 
 .assinatura-container {
   position: fixed; /* Define o posicionamento fixo */
-  top: 80%; /* Posiciona no centro verticalmente inicialmente */
+  top: 98%; /* Posiciona no centro verticalmente inicialmente */
   right: 35px; /* Alinha à direita */
   transform-origin: right ; /* Define o ponto de origem da rotação */
 
@@ -559,7 +533,7 @@ transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e ce
 
 .assinatura {
   font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
-  font-size: 24px;
+  font-size: 18px;
   color: rgba(218, 204, 204, 0.836);
   white-space: nowrap; /* Mantém o texto em uma linha */
   overflow: hidden; /* Esconde o conteúdo que excede a largura */
@@ -598,5 +572,36 @@ color: inherit;
 }
 .assinatura:hover {
 
-color: rgba(255, 166, 0, 0.325);
+color: rgba(255, 255, 255, 0.83);
+}
+
+
+
+.left-column, .middle-column {
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .left-column {
+      flex: 1 0 60%;
+      margin: 0px;
+      margin-left: 0px;
+      margin-right: -270px;
+  }
+  .middle-column {
+      flex: 1 0 45%;
+      margin-left: 120px;
+      margin-right: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .left-column, .middle-column, .right-column {
+      flex: 1 0 100%;
+      margin: 0;
+  }
 }
