@@ -216,6 +216,7 @@ canvas {
   position: relative;
   flex: 1 0 100%;
   margin-bottom: 20px;
+  z-index: 10000;
 
 }
 
