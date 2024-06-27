@@ -450,62 +450,6 @@ canvas {
     }
 
 
-         p {
-                    position: relative;
-                    z-index: 1;
-                   left: 60%;
-                            }
-                            h2{
-                    position: relative;
-                    z-index: 1;
-                   left: 50%;
-                            }
-                            h3 {
-                    position: relative;
-                    z-index: 1;
-                   left: 12%;
-                            }
-                            .container {
-        display: flex;
-        flex-wrap: wrap;
-        overflow:hidden;
-    }
-    .left-column, .middle-column, .right-column {
-        padding: 20px;
-        box-sizing: border-box;
-  flex: 1 1 100%;
-  flex-wrap: wrap;
-  overflow:hidden
-    }
-    .left-column, .middle-column, .right-column {
-            flex: 1 0 100%;
-            margin: 0;
-        }
-    
-          @media (min-width: 768px) {
-        .left-column {
-            flex: 1 0 60%;
-            margin: 0px;
-        }
-        .middle-column {
-            flex: 1 0 30%;
-            margin-left: -180px;
-            margin-right: -5px;
-        }
-        .right-column {
-            flex: 1 0 20%;
-            margin-left: -100px;
-            margin-right: -5px;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .left-column, .middle-column, .right-column {
-            flex: 1 0 100%;
-            margin: 0;
-        }
-    
-    }
     #navbar-items {
         display: flex;
         justify-content: center;
@@ -589,3 +533,9 @@ canvas {
   .navbar-items{
     z-index: 3;
   }
+
+  .rock-salt-regular {
+    font-family: "Rock Salt", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
