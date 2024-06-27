@@ -539,3 +539,63 @@ canvas {
     font-weight: 400;
     font-style: normal;
 }
+
+
+
+.assinatura-container {
+  position: fixed; /* Define o posicionamento fixo */
+  top: 80%; /* Posiciona no centro verticalmente inicialmente */
+  right: 20px; /* Alinha à direita */
+  transform-origin: right ; /* Define o ponto de origem da rotação */
+
+  z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
+  /* Adicione outros estilos necessários para o contêiner da assinatura */
+
+transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
+
+}
+
+
+.assinatura {
+  font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
+  font-size: 24px;
+  color: rgba(218, 204, 204, 0.836);
+  white-space: nowrap; /* Mantém o texto em uma linha */
+  overflow: hidden; /* Esconde o conteúdo que excede a largura */
+  border-right: .15em solid transparent; /* Efeito de cursor inicialmente invisível */
+  display: block; /* Para que o cursor se aplique corretamente */
+  animation: escrever 4s steps(40, end)forwards, piscar-cursor .5s step-end infinite;
+  font-family: "Rock Salt", cursive;
+
+transform-origin: left top; /* Define o ponto de origem da rotação */
+}
+
+
+@keyframes escrever {
+from {
+  width: 0;
+}
+to {
+  width: 100%;
+}
+}
+
+@keyframes piscar-cursor {
+from, to {
+  border-color: transparent;
+}
+50% {
+  border-color: rgba(255, 166, 0, 0.325);
+}
+}
+
+
+/* Estilo adicional para o link */
+#assinatura-link {
+text-decoration: none;
+color: inherit;
+}
+.assinatura:hover {
+
+color: rgba(255, 166, 0, 0.325);
+}
