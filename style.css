@@ -1,5 +1,5 @@
 
-
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 /* Estilo do botão */
 .ui-btn {
     --btn-default-bg: rgba(41, 41, 41, 0);
@@ -15,7 +15,7 @@
     --font-size: 16px;
     /* 👆 this field should not be empty */
     --font-weight: 600;
-    --font-family: Menlo, Roboto Mono, monospace;
+    font-family: 'Poiret One', cursive;
     /* 👆 this field should not be empty */
 }
 
