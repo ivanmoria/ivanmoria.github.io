@@ -516,21 +516,17 @@ canvas {
     font-style: normal;
 }
 
-
-
 .assinatura-container {
   position: fixed; /* Define o posicionamento fixo */
-  bottom: 5%; /* Posiciona no centro verticalmente inicialmente */
-  right: 35px; /* Alinha à direita */
-  transform-origin: right ; /* Define o ponto de origem da rotação */
-
+  bottom: 25%; /* Posiciona no centro verticalmente inicialmente */
+  right: 10px; /* Alinha à direita */
+  transform-origin: right; /* Define o ponto de origem da rotação */
+  display: inline-block; /* Para permitir o alinhamento lado a lado */
+  vertical-align: middle; /* Alinha verticalmente ao centro com o próximo elemento */
+  margin-right: 10px; /* Espaçamento entre a assinatura e os botões */
   z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
-  /* Adicione outros estilos necessários para o contêiner da assinatura */
-
-transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
-
+  transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
 }
-
 
 .assinatura {
   font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
@@ -540,29 +536,38 @@ transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e ce
   overflow: hidden; /* Esconde o conteúdo que excede a largura */
   border-right: .15em solid transparent; /* Efeito de cursor inicialmente invisível */
   display: block; /* Para que o cursor se aplique corretamente */
-  animation: escrever 4s steps(40, end)forwards, piscar-cursor .5s step-end infinite;
-  font-family: "Rock Salt", cursive;
-
-transform-origin: left top; /* Define o ponto de origem da rotação */
+  animation: escrever 4s steps(40, end) forwards, piscar-cursor .5s step-end infinite;
+  transform-origin: left top; /* Define o ponto de origem da rotação */
 }
 
 
 @keyframes escrever {
-from {
-  width: 0;
-}
-to {
-  width: 100%;
-}
-}
-
-@keyframes piscar-cursor {
-from, to {
-  border-color: transparent;
-}
-50% {
-  border-color: rgba(255, 166, 0, 0);
-}
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+  }
+  
+  @keyframes piscar-cursor {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: rgba(255, 166, 0, 0);
+  }
+  }
+  
+.button-container {
+  position: fixed; /* Define o posicionamento fixo */
+  bottom: -100px; /* Alinha com a assinatura verticalmente */
+  right: 0px; /* Alinha à direita, ao lado da assinatura */
+  transform: translateY(-50%); /* Centraliza verticalmente */
+  display: inline-block; /* Para permitir o alinhamento lado a lado */
+  vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
+  z-index: 1000;
+  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
 }
 
 
