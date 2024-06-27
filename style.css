@@ -510,7 +510,7 @@ canvas {
 .button-container {
   position: fixed; /* Define o posicionamento fixo */
   bottom: -100px; /* Alinha com a assinatura verticalmente */
-  right: 0px; /* Alinha à direita, ao lado da assinatura */
+  right: 3px; /* Alinha à direita, ao lado da assinatura */
   transform: translateY(-50%); /* Centraliza verticalmente */
   display: inline-block; /* Para permitir o alinhamento lado a lado */
   vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
@@ -537,7 +537,7 @@ canvas {
   width: 100px; /* Largura da caixa de seleção */
   background-color: #00000038;
   border: 1px solid #cccccc33;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.587);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.197);
   z-index: 1; /* Garante que a caixa de seleção apareça acima de outros elementos */
 }
 
@@ -589,9 +589,9 @@ canvas {
   color: #555; /* Mudança de cor do texto no hover */
 }
 .setting-btn {
-  width: 45px;
+  width: 65px;
   height: 45px;
-  display: flex;
+  display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -605,7 +605,7 @@ canvas {
 }
 .bar {
   width: 60%;
-  height: 2px;
+  height: 3px;
   background-color: rgb(229, 229, 229);
   display: flex;
   align-items: center;
@@ -616,19 +616,19 @@ canvas {
 .bar::before {
   content: "";
   width: 2px;
-  height: 2px;
+  height:4px;
   background-color: rgba(199, 199, 199, 0.512);
   position: absolute;
-  border-radius: 50%;
+  border-radius: 90%;
   border: 2px solid rgba(255, 255, 255, 0.398);
-  transition: all 0.3s;
+  transition: all 0.6s;
   box-shadow: 0px 0px 5px rgba(255, 255, 255, 0);
 }
 .bar1::before {
-  transform: translateX(-4px);
+  transform: translateX(-10px);
 }
 .bar2::before {
-  transform: translateX(4px);
+  transform: translateX(10px);
 }
 .setting-btn:hover .bar1::before {
   transform: translateX(4px);
