@@ -29,7 +29,15 @@ p2, p4{
 
   color: rgba(250, 235, 215, 0.863);
 }
+.cer{
+ position: fixed;
+      top: 10;
+      margin-left: 20px;
+      width: 100%;
+      height: 100%;
+      z-index: 10001010;
 
+}
 .uia-btn {
 
   --hover-btn-color: #0db141ea;
@@ -375,87 +383,65 @@ font-size: 18px;
 </div>
 
 
-    <div id="container">
-
-    <script>
+    <div id="canvas-container">
 
 
-        let num = 400;
-        let range = 60;
-        let ax = [];
-        let ay = [];
-        let extraLines = 300;
-
-        function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight);
-            canvas.parent('canvas-container');
-            for (let i = 0; i < num; i++) {
-                ax[i] = width / 10;
-                ay[i] = height / 24;
-            }
-            for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 22;
-                ay[j] = height / 22;
-            }
-
-            frameRate(30);
-
-       
-
-
-    
-   
-        }
-    
-        function draw() {
-            
-    background(43);
-
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+      <script>
+          let num = 2000;
+          let range = 8;
+          let ax = [];
+          let ay = [];
+          let extraLines = 900;
   
-    for (let i = 1; i < num; i++) {
-        ax[i - 1] = ax[i];
-        ay[i - 1] = ay[i];
-    }
-    ax[num - 1] +=-random(-range, range);
-    ay[num - 1] += random(-range, range);
-    ax[num - 1] = constrain(ax[num - 1], 0, width);
-    ay[num - 1] = constrain(ay[num - 1], 0, height);
-    
-    
+  
+          function setup() {
+              let canvas = createCanvas(windowWidth, windowHeight);
+              canvas.parent('canvas-container');
+              for (let i = 0; i < num; i++) {
+                  ax[i] = width / 2;
+                  ay[i] = height / 2;
+              }
+              for (let j = 0; j < num + extraLines; j++) {
+                  ax[j] = width / 1200;
+                  ay[j] = height / 2300;
+              }
+              frameRate(1000);
+          }
+  
+          function draw() {
+              background(43);
+              for (let i = 1; i < num; i++) {
+                  ax[i - 1] = ax[i];
+                  ay[i - 1] = ay[i];
+              }
+              ax[num - 1] += random(-range, range);
+              ay[num - 1] += random(-range, range);
+              ax[num - 1] = constrain(ax[num - 1], 0, width);
+              ay[num - 1] = constrain(ay[num - 1], 0, height);
+              for (let i = 1; i < num; i++) {
+                  let val = float(i) / num * 100.0 + 3;
+                  stroke(val);
+                  line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+              }
+  
+              for (let j = 1; j < extraLines; j++) {
+                  ax[j - 1] = ax[j];
+                  ay[j - 1] = ay[j];
+              }
+              ax[extraLines - 1] += random(-range, range);
+              ay[extraLines - 1] += random(range, - range);
+              ax[extraLines - 11] = constrain(ax[extraLines - 1], 0, width);
+              ay[extraLines - 11] = constrain(ay[extraLines - 1], 0, height);
+              for (let j = 1; j < num; j++) {
+                  let val = float(j) / num * 200.0 + 3 ;
+                  stroke(val, 22, 44442, 2 * (ax[j] +4));
+                  line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+              }
+          }
  
-    
-    
-    
-    for (let i = 1; i < num ; i++) {
-        let val0 = float(i) / num * 200.0 + 3 ;
-        let val = map(ax[i], 0, width, 0, 255);
-        let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 80);
-        line(ax[i-4], ay[i-1], ax[i], ay[i]);
-        
-    }
-
-    for (let j = 1; j < extraLines; j++) {
-        ax[j - 1] = ax[j];
-        ay[j - 1] = ay[j];
-    }
-    ax[extraLines - 1] += random(-range, range);
-    ay[extraLines - 1] += random(range, - range);
-    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-    for (let j = 1; j < num; j++) {
-        let val1 = float(j) / num * 200.0 + 3 ;
-        let val3 = map(ax[j], 0, width, 0, 255);
-        let val4 = map(ay[j],0, height, 0, 255);
-
-        stroke(val1,val3,val4, 50);
-
-        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-    }
 
 
-
-}
 background(0); // Exemplo de fundo cinza
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -480,7 +466,7 @@ function windowResized() {
 
 </nav>
 
-<div class="container">
+<div class="cer">
   
 <p2>ivanmoriabr@gmail.com</p2>
 
