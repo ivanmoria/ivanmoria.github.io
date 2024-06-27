@@ -545,7 +545,7 @@ canvas {
 .assinatura-container {
   position: fixed; /* Define o posicionamento fixo */
   top: 80%; /* Posiciona no centro verticalmente inicialmente */
-  right: 20px; /* Alinha à direita */
+  right: 35px; /* Alinha à direita */
   transform-origin: right ; /* Define o ponto de origem da rotação */
 
   z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
@@ -585,7 +585,7 @@ from, to {
   border-color: transparent;
 }
 50% {
-  border-color: rgba(255, 166, 0, 0.325);
+  border-color: rgba(255, 166, 0, 0);
 }
 }
 
