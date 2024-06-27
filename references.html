@@ -12,10 +12,63 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
 
+p2, p4{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 200;
+
+  color: rgba(250, 235, 215, 0.863);
+}
+
+.uia-btn {
+
+  --hover-btn-color: #19cc51d0;
+  --default-btn-color: #ffffff59;
+  font-family: 
+  "Shadows Into Light Two", cursive;
+  font-size: 18px;
+  font-weight: 600;
+      }
+.content-text{
+  text-decoration: none;
+  color: #ffffff48;
+      font-size: 18px;
+      font-weight: 200;
+      font-family: "Mina", sans-serif;
+
+}
+
+.ui-btn{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 200;
+
+}
+.popup-link {
+      color: #ffffff5b;
+      font-weight: 800;
+font-size: 18px;
+      font-family: 'Poiret One', cursive;
+    
+
+  }
+
+  .popup-link:hover {
+      color: #e1ff0081;
+      text-decoration: none;
+     
+  }
     </style>
 
 </head>
@@ -142,7 +195,7 @@ function windowResized() {
 <div class="container">
   
         <div class="left-column">
-            <p4 style="margin-top: -200px;">Publications</p4>
+            <p4 style="margin-top: -200px;">Publicações</p4>
             
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
@@ -151,13 +204,13 @@ function windowResized() {
     <span> Dissertação</span> 
                 </button>
 
-                <span class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; A cognição social em musicoterapia: perspectivas sobre a atuação na prática musical interativa em saúde mental [manuscrito].
           
             <a href="http://hdl.handle.net/1843/38062"
             class="popup-link"
             onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">
-            Dissertação (mestrado)    </a>   
+            Dissertação (mestrado)    </a>   
                  –   Universidade Federal de Minas Gerais, Instituto de Ciências Biológicas. 
 
     
@@ -165,7 +218,7 @@ function windowResized() {
        
           class="popup-link"
           onclick="window.open(this.href); return false;">
-          Programa de Pós-Graduação em Neurociências.       </a>   
+          Programa de Pós-Graduação em Neurociências.       </a>   
            114 f, 2021. 
         </span>
             </div>
@@ -181,7 +234,7 @@ function windowResized() {
               ('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf', 'popup', 'width=600,height=650');">
   <span> Monografia</span> 
               </button>
-              <span style="text-align: justify; width: 85%; margin-top: -10px;"
+              <span class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
           >MORIÁ, IVAN; CORDEIRO, Rodrigo. Musicoterapia e Saúde Mental: um encontro através do cantar. [manuscrito].
           
         
@@ -196,7 +249,7 @@ function windowResized() {
         <a href="    https://musica.ufmg.br/musicoterapia/"
         class="popup-link"
         onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
-       Graduação em Música – habilitação em Musicoterapia.     </a>   
+       Graduação em Música – habilitação em Musicoterapia.     </a>   
      65 f,     2017.
 
           </div>
@@ -212,7 +265,7 @@ function windowResized() {
                 ('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. 
             
 
@@ -232,7 +285,7 @@ function windowResized() {
                 ('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial.
            
           
@@ -254,7 +307,7 @@ function windowResized() {
                 ('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223', 'popup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, 
             social cognition and neurocognition. In: 
             
@@ -310,7 +363,7 @@ function windowResized() {
 
 
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
             In: <a href="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496"class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
             Proceedings of the 17th WFMT World Congress of Music Therapy,   </a>   Special Issue of 
@@ -326,7 +379,7 @@ function windowResized() {
                 ('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', 'popup', 'width=420,height=600');">
     <span>Artigo</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, IVAN; BARROSO, SEBASTIAN. Musicoterapia e performance musical: a improvisação musical terapêutica como ferramenta no tratamento da ansiedade. 
             In: 
                         
@@ -355,7 +408,7 @@ function windowResized() {
                 ('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf', 'popup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
-                <span style="text-align: justify; width: 85%;margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%;margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
             In:
             
@@ -375,7 +428,7 @@ function windowResized() {
                 ('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25', 'pdfpopup', 'width=420,height=600');">
     <span>Comunicação Oral</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I; ACOSTA, C.S.G. ; ZANINI, C.R.O ; GIFFONI, Y ; ANSAY, N.
             Panorama do XVII Congresso Mundial de Musicoterapia: relatos de experiências de Musicoterapeutas no Brasil.
             In: 
@@ -396,7 +449,7 @@ function windowResized() {
                 ('media/documents/textos/ENPEMT_2022_poster.pdf', 'popup', 'width=550,height=780');">
     <span>Comunicação Oral</span> 
                 </button>
-                <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M ; KETHLEN, T.
             Tradução e Validação da Escala Interest in Music para o português brasileiro.
             In: 
@@ -419,7 +472,7 @@ function windowResized() {
           ('media/documents/textos/PlanetaAzul.pdf#page=2', 'pdfpopup', 'width=420,height=580');">
 <span>Songbook</span> 
           </button>
-          <span style="text-align: justify; width: 85%; margin-top: -10px;"
+          <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
       > TATI, Cristina. O Planeta Azul. Transcrição musical. In:
 
       <a href="https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul"
@@ -456,14 +509,14 @@ function windowResized() {
 
 
         <div class="middle-column">
-            <p2 style="margin-top: 200px;"> Musical Performances</p2>
+            <p2 style="margin-top: 200px;"> Performances</p2>
             
                 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                     <button class="uia-btn" onclick="window.open
                     ('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
         <span> Concerto </span> 
                     </button>
-                    <span style="text-align: justify; width: 85%; margin-top: -10px;"
+                    <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
                 >MORIÁ, IVAN; BUTTROS, J.        <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf"
                 class="popup-link"
                 onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
@@ -487,7 +540,7 @@ function windowResized() {
         ('https://www.youtube.com/watch?v=tHAdjTTRWI8', 'popup', 'width=505,height=525');">
 <span> Concerto Online</span> 
         </button>
-        <span style="text-align: justify; width: 85%; margin-top: -10px;"
+        <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
     >MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I. VIANNA, J.        <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b2/IMSLP597607-PMLP88554-TELEMANN_Don_Quichotte.pdf"
     class="popup-link"
     onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
@@ -511,7 +564,7 @@ Interpretação: Violoncelo.
   ('https://www.youtube.com/watch?v=x4UdMfbglBE', 'popup', 'width=505,height=525');">
 <span> Concerto Online</span> 
   </button>
-  <span style="text-align: justify; width: 85%; margin-top: -10px;"
+  <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
 >MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I.  VIANNA, J. Concertos     <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b3/IMSLP388872-PMLP59201-vivaldi_concerto_per_due_oboi_RV_535_score.pdf"
 class="popup-link"
 onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
@@ -546,7 +599,7 @@ Interpretação: Violoncelo.
   ('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 'popup', 'width=505,height=525');">
 <span> Chorodito</span> 
   </button>
-  <span style="text-align: justify; width: 85%; margin-top: -10px;"
+  <span   class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
 >MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
 
 
@@ -572,7 +625,7 @@ Livraria da Rua,
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
   <button class="uia-btn" onclick="window.open
   ('https://youtu.be/7mM-Yurc4po?si=YtHIpfC1LeXALRkd', 'popup', 'width=505,height=525');">
-<span> Orquestra de Choro da UFMG</span> </button> <span style="text-align: justify; width: 85%; margin-top: -10px;"
+<span> Orquestra de Choro da UFMG</span> </button> <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
 >MORIÁ, IVAN; FLÁVIO, M. Solo de <a href='media/audio/partituras/JacobdoBandolim-Assanhado.pdf' class="popup-link"
 onclick="window.open(this.href, 'popup','width=465,height=660' ); return false;">
 Assanhado - Jacob do Bandolim, </a> para bandolim e orquestra. 
@@ -591,7 +644,7 @@ Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpreta�
 
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
   <button class="uia-btn">
-<span> Orquestra de Choro da UFMG</span> </button> <span style="text-align: justify; width: 85%; margin-top: -10px;"
+<span> Orquestra de Choro da UFMG</span> </button> <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
 >MORIÁ, IVAN;  BRUEKERS, M; FLÁVIO, M. Solo de <a href='media/audio/partituras/LuizAmericano-NumaserestaF.pdf' class="popup-link"
 onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
 Numa Seresta - Luiz Americano, </a> 
