@@ -212,6 +212,8 @@ canvas {
   border-radius: 20px;
   background-color: #00000031;
   margin-bottom: 20px; /* Adiciona margem abaixo do elemento */
+  margin-left: 40px;
+  margin-top: 20px;
   justify-content: center;
   position: relative;
   flex: 1 0 100%;
