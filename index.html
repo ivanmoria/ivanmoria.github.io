@@ -62,18 +62,38 @@ font-weight: 200;
               }
 
 
-              #navbar-items {
-        display: fixed;
-        justify-content: center;
-        padding: 0;
-    }
-            
+ 
+    .setting-container {
+  position: fixed; /* Define o posicionamento fixo */
+  top: 1px; /* Alinha com a assinatura verticalmente */
+  right: 2px; /* Alinha à direita, ao lado da assinatura */
+
+  display: inline-block; /* Para permitir o alinhamento lado a lado */
+  vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
+  z-index: 1000;
+  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
+}
                 </style>
             </head>
             <body>
 
 
 </div>
+
+<div class="setting-container">
+    <button class="setting-btn" onclick="toggleOptions()">
+      <span class="bar bar1"></span>
+      <span class="bar bar2"></span>
+      <span class="bar bar1"></span>
+    </button>
+    
+    <ul class="options" id="options">
+        <a href="references.html">Referências</a> 
+     <a href="projetos.html">Projetos</a> 
+     <a href="contato.html">Contato</a> 
+    </ul>
+    </div>
+
 
 <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
@@ -87,26 +107,7 @@ font-weight: 200;
 </a>
 
 </div>
-                <div id="canvas-container"></div>
-                <nav id="navbar-items">
-                    
 
-            
-    <button class="uia-btn" onclick="window.location.href='references.html'">
-<span> Referências</span>
-    </button>
-    <button class="uia-btn" onclick="window.location.href='videos.html'">
-        <span> Projetos</span>
-            </button>
-    <button class="uia-btn" onclick="window.location.href='contato.html'">
-        <span> Contato</span>
-            </button>
-         
-</div>
-
-
-</div>
-</nav>
 
 
 
@@ -216,6 +217,13 @@ function windowResized() {
   redraw(); // Garante que o canvas seja redesenhado
 }
         </script>
+        <script>
+
+            function toggleOptions() {
+              const container = document.querySelector('.setting-container');
+              container.classList.toggle('open');
+            }
+            </script>
     </body>
     </html>
     

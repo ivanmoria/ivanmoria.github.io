@@ -10,3 +10,10 @@ function downloadFile(fileUrl, fileName) {
 }
 
 
+<script>
+
+function toggleOptions() {
+  const container = document.querySelector('.setting-container');
+  container.classList.toggle('open');
+}
+</script>
