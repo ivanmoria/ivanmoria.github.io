@@ -468,7 +468,7 @@ canvas {
 
 .assinatura-container {
   position: fixed; /* Define o posicionamento fixo */
-  bottom: 25%; /* Posiciona no centro verticalmente inicialmente */
+  bottom: 40%; /* Posiciona no centro verticalmente inicialmente */
   right: 10px; /* Alinha à direita */
   transform-origin: right; /* Define o ponto de origem da rotação */
   display: inline-block; /* Para permitir o alinhamento lado a lado */
@@ -476,6 +476,17 @@ canvas {
   margin-right: 10px; /* Espaçamento entre a assinatura e os botões */
   z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
   transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
+}
+.assinaturas-container {
+  position: fixed; /* Define o posicionamento fixo */
+  bottom: 92%; /* Posiciona no centro verticalmente inicialmente */
+  left: 10px; /* Alinha à direita */
+  transform-origin: right; /* Define o ponto de origem da rotação */
+  display: inline-block; /* Para permitir o alinhamento lado a lado */
+  vertical-align: middle; /* Alinha verticalmente ao centro com o próximo elemento */
+  margin-right: 10px; /* Espaçamento entre a assinatura e os botões */
+  z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
+  
 }
 .assinatura-container.adjusted {
   bottom: 50%; /*conforme necessário */
@@ -524,7 +535,7 @@ canvas {
 .setting-container {
   position: fixed; /* Define o posicionamento fixo */
   top: 1px; /* Alinha com a assinatura verticalmente */
-  right: 2px; /* Alinha à direita, ao lado da assinatura */
+  right: 0px; /* Alinha à direita, ao lado da assinatura */
 
   display: inline-block; /* Para permitir o alinhamento lado a lado */
   vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
