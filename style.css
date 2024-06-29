@@ -477,7 +477,9 @@ canvas {
   z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
   transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
 }
-
+.assinatura-container.adjusted {
+  bottom: 50%; /*conforme necessário */
+}
 .assinatura {
   font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
   font-size: 18px;
@@ -508,7 +510,7 @@ canvas {
     border-color: rgba(255, 166, 0, 0);
   }
   }
-  
+
 .button-container {
   position: fixed; /* Define o posicionamento fixo */
   bottom: -100px; /* Alinha com a assinatura verticalmente */
