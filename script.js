@@ -29,3 +29,29 @@ window.onresize = adjustSignatureText;
 
 // Chama a função quando a página carrega
 window.onload = adjustSignatureText;
+
+
+function adjustSignatureText() {
+  var assinatura = document.getElementById('texto-animado');
+  var container = document.querySelector('.assinaturas-container');
+  
+  if (window.innerWidth == 320 || window.innerHeight ==568) { // Ajuste o valor conforme necessário
+    assinatura.textContent = 'Ivan Moriá Borges';
+    container.classList.add('adjusted');
+    container.style.top = '0%';
+    container.style.transform = 'translateY(-50%) rotate(180deg)'; // Adiciona a transformação
+    container.style.left = '5%';
+  } else {
+    assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
+    container.classList.add('adjusted');
+
+  }
+
+
+
+}
+// Chama a função quando a janela é redimensionada
+window.onresize = adjustSignatureText;
+
+// Chama a função quando a página carrega
+window.onload = adjustSignatureText;
