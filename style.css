@@ -216,7 +216,7 @@ canvas {
   margin-top: 20px;
   justify-content: center;
   position: relative;
-  flex: 1 0 100%;
+  flex: 1 0 10%;
   margin-bottom: 20px;
   z-index: 10000;
 
@@ -256,18 +256,18 @@ canvas {
 
 /* Exemplo de estilos para o ícone de play */
 .play-icon::before {
-  content: " ▶"; /* Símbolo de play */
+  content: '\u25B6';/* Símbolo de play */
 }
 
 /* Exemplo de estilos para o ícone de pause */
 .pause-icon::before {
-  content: "❚❚"; /* Símbolo de pause */
+  content:'❚❚';
 }
 
 
 .track-info {
   margin-top: -85px;
-  margin-left: 29px;
+  margin-left: 40px;
     justify-content: center;
   position: relative;
   flex: 1 0 100%;
@@ -399,19 +399,27 @@ canvas {
 
 
     }
+    #container-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8%;
+      background-color: #2b2626; /* Cor de fundo da barra de navegação */
+      z-index: 1000; /* Garante que a barra de navegação esteja acima de outros conteúdos */
+      box-shadow: 0 2px 6px rgba(105, 145, 98, 0.961); /* Sombra para efeito de elevação */
+  }
+  
+  #navbar-items {
+      display: flex;
+      justify-content: left; /* Alinha os itens à esquerda */
+      padding: 0px; /* Espaçamento interno dos itens */
+  }
+
+  
 
 
-    #navbar-items {
-        display: flex;
-        justify-content: left;
-        margin-left: -10px;
-        padding: 0;
-        margin-right: 0px;
-        flex-grow: 0; /* Evita que os itens cresçam automaticamente */
-        margin-right: 0; /* Certifique-se de que não há margem direita */
-    }
-    
-
+  
     
     body, html {
       font-family: 'JS Brains Telex', sans-serif;
@@ -419,6 +427,7 @@ canvas {
       overflow: auto;
       background-color: #2d2b2b;
       color: #f0f0f047;
+      padding-top: 30px;
    
   }
 
@@ -783,3 +792,5 @@ margin-top:10px;
  margin-top: 20px;
       z-index: 2;
   }
+
+
