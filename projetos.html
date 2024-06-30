@@ -384,6 +384,7 @@ function windowResized() {
 
 
     </div>
+    <div id="container-nav">
     <nav id="navbar-items">
  
     <button class="ui-btn" onclick="window.location.href='index.html'">
@@ -396,52 +397,37 @@ function windowResized() {
     <span>Contato</span>
 </button>
 
-
+</div>
 
 </nav>
 
 <div class="container">
-  
 
   <p5>Produções caseiras</p5>
 </div>
   <div class="audio-player">
       <div id="waveform"></div>
       <div class="controls">
-        <button id="playBtn">▶</button>
+        <button id="playBtn">&#9654;</button>
   
       </div>
       <div class="track-info">
         <span id="trackName">Nome da Faixa</span>
       </div>
-      <div class="download-buttons">
-        <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/audio/Dino pintando o sete.mp3', 'Dino Pintando o Sete Sivuca.mp3')">
-          <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-            <g mask="url(#mask0_21_345)">
-              <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
-            </g>
-          </svg>
-        </div>
+    
       </div>
     </div>
     
     <div class="audio-player">
       <div id="waveform2"></div>
       <div class="controls">
-        <button id="playBtn2">▶</button>
+        <button id="playBtn2">&#9654;</button>
   
       </div>
       <div class="track-info">
         <span id="trackName2">Nome da Faixa</span>
       </div>
-      <div class="download-buttons">
-        <div tabindex="0" class="plusButtonn" onclick="downloadFile('media/audio/Perigoso.mp3', 'Perigoso Orlando Silveira.mp3')">
-          <svg class="plusIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
-            <g mask="url(#mask0_21_345)">
-              <path d="M13.75 23.75V16.25H6.25V13.75H13.75V6.25H16.25V13.75H23.75V16.25H16.25V23.75H13.75Z"></path>
-            </g>
-          </svg>
-        </div>
+      
       </div>
     </div>
   
@@ -512,14 +498,14 @@ function toggleOptions() {
   playBtn.addEventListener('click', function() {
   if (wavesurfer.isPlaying()) {
   wavesurfer.pause();
-  playBtn.textContent = '▶';
+  playBtn.textContent = '\u25B6'; // Símbolo de play mais minimalista
   } else {
   wavesurfer.play();
   playBtn.textContent = '❚❚';
   // Pausa o segundo áudio se estiver tocando
   if (wavesurfer2.isPlaying()) {
   wavesurfer2.pause();
-  playBtn2.textContent = '▶';
+  playBtn2.textContent = '\u25B6'; // Símbolo de play mais minimalista
   }
   }
   });
@@ -527,14 +513,14 @@ function toggleOptions() {
   playBtn2.addEventListener('click', function() {
   if (wavesurfer2.isPlaying()) {
   wavesurfer2.pause();
-  playBtn2.textContent = '▶';
+  playBtn2.textContent = '\u25B6'; // Símbolo de play mais minimalista
   } else {
   wavesurfer2.play();
-  playBtn2.textContent = '❚❚';
+  playBtn2.textContent ='❚❚';
   // Pausa o primeiro áudio se estiver tocando
   if (wavesurfer.isPlaying()) {
   wavesurfer.pause();
-  playBtn.textContent = '▶';
+  playBtn.textContent = '\u25B6'; // Símbolo de play mais minimalista
   }
   }
   });
