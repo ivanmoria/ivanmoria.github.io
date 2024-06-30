@@ -8,50 +8,42 @@ function downloadFile(fileUrl, fileName) {
   a.click();
   document.body.removeChild(a);
 }
-
-
-
 function adjustSignatureText() {
   var assinatura = document.getElementById('texto-animado');
   var container = document.querySelector('.assinatura-container');
   
-  if (window.innerWidth < 321 || window.innerHeight< 568) { // Ajuste o valor conforme necessário
-    assinatura.textContent = 'IMBR';
-    container.classList.add('adjusted');
+  if (window.innerWidth > window.innerHeight) {
+    if (window.innerHeight == 568) {
+      assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
+      container.style.bottom = '51%';
+      assinatura.style.fontSize = '20px';
+    } else if (window.innerHeight == 320) {
+      assinatura.textContent = 'ivan';
+      container.style.bottom = '72%';
+      assinatura.style.fontSize = '14px';
+    } else if (window.innerHeight == 375) {
+      assinatura.textContent = 'Ivan Moriá';
+      container.style.bottom = '60%';
+      assinatura.style.fontSize = '15px';
+    } else if (window.innerHeight == 667) {
+      assinatura.textContent = 'IMBR';
+      container.style.bottom = '50%';
+      assinatura.style.fontSize = '18px';
+    } else if (window.innerHeight == 414) {
+      assinatura.textContent = 'Ivan Moriá';
+      container.style.bottom = '52%';
+      assinatura.style.fontSize = '20px';
+    } else {
+      assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
+      container.style.bottom = '41%'; // Ajuste o valor conforme necessário
+      assinatura.style.fontSize = '18px';
+    }
   } else {
     assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
-    container.classList.remove('adjusted');
+    container.style.bottom = '41%'; // Ajuste o valor conforme necessário
+    assinatura.style.fontSize = '14px';
   }
 }
 
-// Chama a função quando a janela é redimensionada
 window.onresize = adjustSignatureText;
-
-// Chama a função quando a página carrega
-window.onload = adjustSignatureText;
-
-
-function adjustSignatureText() {
-  var assinatura = document.getElementById('texto-animado');
-  var container = document.querySelector('.assinaturas-container');
-  
-  if (window.innerWidth == 320 || window.innerHeight ==568) { // Ajuste o valor conforme necessário
-    assinatura.textContent = 'Ivan Moriá Borges';
-    container.classList.add('adjusted');
-    container.style.top = '0%';
-    container.style.transform = 'translateY(-50%) rotate(180deg)'; // Adiciona a transformação
-    container.style.left = '5%';
-  } else {
-    assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
-    container.classList.add('adjusted');
-
-  }
-
-
-
-}
-// Chama a função quando a janela é redimensionada
-window.onresize = adjustSignatureText;
-
-// Chama a função quando a página carrega
 window.onload = adjustSignatureText;
