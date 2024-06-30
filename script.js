@@ -14,7 +14,7 @@ function adjustSignatureText() {
   
   if (window.innerWidth > window.innerHeight) {
     if (window.innerHeight == 568) {
-      assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
+      assinatura.textContent = 'Ivan ';
       container.style.bottom = '51%';
       assinatura.style.fontSize = '20px';
     } else if (window.innerHeight == 320) {
@@ -33,10 +33,11 @@ function adjustSignatureText() {
       assinatura.textContent = 'Ivan Moriá';
       container.style.bottom = '52%';
       assinatura.style.fontSize = '20px';
+      
     } else {
-      assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
-      container.style.bottom = '41%'; // Ajuste o valor conforme necessário
-      assinatura.style.fontSize = '18px';
+      assinatura.textContent = 'Ivan Moriá ';
+      container.style.bottom = '70%'; // Ajuste o valor conforme necessário
+      assinatura.style.fontSize = '10px';
     }
   } else {
     assinatura.textContent = 'Ivan Moriá Borges Rodrigues';
