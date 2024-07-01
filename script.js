@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
     waveColor: '#808080',
     progressColor: '#556B2F',
     cursorWidth: 3,
-height: 80,
-width: 205,
+height: 40,
+
 barWidth: 0.04,
 });
 
