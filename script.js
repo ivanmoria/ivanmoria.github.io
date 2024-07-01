@@ -118,4 +118,6 @@ wavesurfer.on('ready', function() {
   playBtn.textContent = '❚❚';
 });
 
-});
+       // Carrega e reproduz o primeiro áudio da playlist
+       loadTrack(0);
+      });

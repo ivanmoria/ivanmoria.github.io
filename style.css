@@ -213,15 +213,15 @@ canvas {
 .audio-player {
 
   color: #16ad0eaa;
-  margin-left: 40px;
-  margin-top: -15px;
+
       font-family: "Mina", sans-serif;
       white-space: nowrap; /* Mantém o texto em uma linha */
-margin-right: 49px;
+margin-right: 40px;
+margin-left: 16px;
 background-color: rgba(0, 0, 0, 0.16) !important;
 
   
-
+border-radius: 22px;
 
   position: relative;
   flex: 1 0 10%;
@@ -232,7 +232,7 @@ background-color: rgba(0, 0, 0, 0.16) !important;
 
 }
 .controls {
-  margin-top: 3px;
+
 
   z-index: 100300;
 }
@@ -246,19 +246,19 @@ background-color: rgba(0, 0, 0, 0.16) !important;
 
 
 .controls button {
-
+  border-radius: 22px;
   position: relative;
-bottom: 103px;
+
 top:155px;
   width: 35px; /* Ajuste a largura do botão conforme necessário */
   height: 35px; /* Ajuste a altura do botão conforme necessário */
   border: none;
   background-color: rgba(117, 117, 117, 0.311);
-  font-size: 15px; /* Ajuste o tamanho da fonte conforme necessário */
+  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
   cursor: pointer;
   justify-content: center;
   position: relative;
-  flex: 1 0 10%;
+
   color: #ffffff5a; /* Cor do ícone ao passar o mouse */
   z-index: 1003300;
 }
