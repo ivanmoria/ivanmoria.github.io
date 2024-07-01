@@ -128,6 +128,18 @@ canvas {
 
 
 }
+
+.canvass-container {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Coloca o canvas no fundo */
+
+
+}
 #back-button {
   position: absolute;
   top: 20px;
@@ -199,59 +211,101 @@ canvas {
 
 
 .audio-player {
+
+  height: 102px;
+  margin: 20px ;
   width: 200px;
-  height: 80px;
-  color: #ffffff48;
+  color: #ffffffe9;
       font-size: 14px;
 
       font-weight: 200;
       font-family: "Mina", sans-serif;
       white-space: nowrap; /* Mantém o texto em uma linha */
   padding: 10px;
-  border: 1px solid #2523232e;
+  border: 1px solid #ffffff71;
   border-radius: 20px;
-  background-color: #00000031;
+  background-color: #ffffff0b;
   margin-bottom: 20px; /* Adiciona margem abaixo do elemento */
-  margin-left: 40px;
-  margin-top: 20px;
-  justify-content: center;
+  left: 4px;
+  
+
+
   position: relative;
   flex: 1 0 10%;
-  margin-bottom: 20px;
-  z-index: 10000;
+  margin-bottom: 230px;
+  z-index: 100300;
+
+
 
 }
+.controls {
+  margin-top: 4px;
 
-.progress-container {
-  margin-bottom: 50px;
-  justify-content: center;
-  position: relative;
-  flex: 1 0 100%;
+  z-index: 100300;
 }
+.track-info {
+  margin-top: 7px;
+  margin-left: 5px;
 
-.progress-container input[type=range] {
-  width: 100%;
-  justify-content: center;
   position: relative;
-  flex: 1 0 100%;
+  z-index: 100300;
+
+}
+.playlist {
+  list-style-type:decimal;
+  margin: 0;
+  
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: -300px;
+  margin-top: -260px;
+  margin-left: 24px;
+  padding-left: 30px;
+  padding-right: 45px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 100300;
+
+  position: relative;
+  border-radius: 20px;
+  position: fixed;
+  flex: 1 0 10%;
+  
+
+  
+}
+.playlist-item {
+  cursor: pointer;
+  margin: 5px 0;
+  margin-bottom: -2px;
+  
+  position: relative;
+  z-index: 100300;
 }
 
 .controls button {
-  margin-right: 10px; /* Ajuste a margem conforme necessário */
-  width: 10px; /* Ajuste a largura do botão conforme necessário */
-  height: 90px; /* Ajuste a altura do botão conforme necessário */
+
+  position: relative;
+  left:-50px;
+  top:40px;
+  margin-left: 30px; /* Ajuste a margem conforme necessário */
+  width: 40px; /* Ajuste a largura do botão conforme necessário */
+  height: 266px; /* Ajuste a altura do botão conforme necessário */
   border: none;
   background-color: transparent;
-  font-size: 20px; /* Ajuste o tamanho da fonte conforme necessário */
+  font-size: 30px; /* Ajuste o tamanho da fonte conforme necessário */
   cursor: pointer;
   justify-content: center;
   position: relative;
-  flex: 1 0 100%;
+  flex: 1 0 10%;
   color: #ffffff5a; /* Cor do ícone ao passar o mouse */
+  z-index: 1003300;
 }
 
 .controls button:hover {
   color: #04ff575a; /* Cor do ícone ao passar o mouse */
+  z-index: 100300;
 }
 
 /* Exemplo de estilos para o ícone de play */
@@ -263,23 +317,18 @@ canvas {
 .pause-icon::before {
   content:'❚❚';
 }
-
-
-.track-info {
-  margin-top: -85px;
-  margin-left: 40px;
-    justify-content: center;
-  position: relative;
-  flex: 1 0 100%;
-
+.waveform{
+  z-index: 600400;
 }
+
+
 
 
 
 #playBtn, #playBtn2 {
   position: absolute;
   margin-top:-120px;
-  margin-left: px;
+  margin-left: 0px;
   z-index: 1; /* Garante que o botão fique sobreposto */
 }
 
@@ -400,14 +449,10 @@ canvas {
 
     }
     #container-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 8%;
-      background-color: #2b2626; /* Cor de fundo da barra de navegação */
+      position: relative;
+   
       z-index: 1000; /* Garante que a barra de navegação esteja acima de outros conteúdos */
-      box-shadow: 0 2px 6px rgba(105, 145, 98, 0.961); /* Sombra para efeito de elevação */
+
   }
   
   #navbar-items {
@@ -427,7 +472,7 @@ canvas {
       overflow: auto;
       background-color: #2d2b2b;
       color: #f0f0f047;
-      padding-top: 30px;
+     
    
   }
 
@@ -440,7 +485,15 @@ canvas {
       z-index: 1;
       pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
   }
-
+  #canvass-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
+}
   .content {
       position: relative;
       z-index: 1;
@@ -666,7 +719,8 @@ color: rgba(255, 255, 255, 0.83);
 
 
 .left-column, .middle-column {
-  padding: 20px;
+  padding: 2px;
+
   box-sizing: border-box;
   flex: 1 1 100%;
   flex-wrap: wrap;
@@ -694,6 +748,43 @@ color: rgba(255, 255, 255, 0.83);
   }
 }
 
+.lefft-column {
+  padding: 10px;
+  box-sizing: border-box;
+  flex: 1 0 60%;
+  flex-wrap: wrap;
+  z-index: 2;
+  margin-top: 4px;
+}
+.midddle-column{
+  margin-left: -20px;
+  box-sizing: border-box;
+  flex: 0 1 500%;
+  flex-wrap: wrap;
+  z-index: 2;
+  margin-top: 4px;
+}
+
+@media (min-width: 768px) {
+  .lefft-column {
+      flex: 1 0 60%;
+      margin: 0px;
+      margin-left: 0px;
+      margin-right: 270px;
+  }
+  .midddle-column {
+      flex: 1 0 40%;
+      margin-left: 10px;
+      margin-right: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .lefft-column, .midddle-column, .right-column {
+      flex: 1 0 100%;
+      margin: 0;
+  }
+}
 /* ================================================================= references */
 
 
