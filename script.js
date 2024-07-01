@@ -48,3 +48,74 @@ function adjustSignatureText() {
 
 window.onresize = adjustSignatureText;
 window.onload = adjustSignatureText;
+
+
+
+
+ 
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Inicializa o Wavesurfer
+  var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: '#808080',
+    progressColor: '#556B2F',
+    cursorWidth: 3,
+height: 80,
+width: 205,
+barWidth: 0.04,
+});
+
+var playBtn = document.getElementById('playBtn');
+var audioPlayer = document.getElementById('audioPlayer');
+var trackName = document.getElementById('trackName');
+
+var playlistItems = document.querySelectorAll('.playlist-item');
+var currentTrackIndex = -1;
+
+function loadTrack(index) {
+  if (index >= 0 && index < playlistItems.length) {
+    var item = playlistItems[index];
+    var src = item.getAttribute('data-src');
+    var name = item.textContent;
+    
+    // Carrega a faixa selecionada no Wavesurfer
+    wavesurfer.load(src);
+    
+    // Atualiza o nome da faixa e exibe o player
+    trackName.textContent = name;
+    audioPlayer.style.display = 'block';
+    
+    // Reseta o ícone do botão de reprodução
+    playBtn.textContent = '►';
+    currentTrackIndex = index;
+  }
+}
+
+playBtn.addEventListener('click', function () {
+  wavesurfer.playPause();
+  playBtn.textContent = wavesurfer.isPlaying() ? '❚❚' : '►';
+});
+
+playlistItems.forEach(function(item, index) {
+  item.addEventListener('click', function() {
+    loadTrack(index);
+  });
+});
+
+// Carrega a próxima faixa automaticamente quando a reprodução atual terminar
+wavesurfer.on('finish', function() {
+  if (currentTrackIndex + 1 < playlistItems.length) {
+    loadTrack(currentTrackIndex + 1);
+  } else {
+    playBtn.textContent = '►'; // Reseta o ícone do botão de reprodução
+  }
+});
+
+// Reproduz automaticamente quando a faixa é carregada
+wavesurfer.on('ready', function() {
+  wavesurfer.play();
+  playBtn.textContent = '❚❚';
+});
+
+});
