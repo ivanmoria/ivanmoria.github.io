@@ -94,7 +94,7 @@ function loadTrack(index) {
 
 playBtn.addEventListener('click', function () {
   wavesurfer.playPause();
-  playBtn.textContent = wavesurfer.isPlaying() ? '❚❚' : '►';
+  playBtn.textContent = wavesurfer.isPlaying() ? 'l  l' : '►';
 });
 
 playlistItems.forEach(function(item, index) {
@@ -115,7 +115,7 @@ wavesurfer.on('finish', function() {
 // Reproduz automaticamente quando a faixa é carregada
 wavesurfer.on('ready', function() {
   wavesurfer.play();
-  playBtn.textContent = '❚❚';
+  playBtn.textContent = 'l  l';
 });
 
        // Carrega e reproduz o primeiro áudio da playlist
