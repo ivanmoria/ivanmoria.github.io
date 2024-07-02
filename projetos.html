@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+
+
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+   
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
@@ -458,7 +462,7 @@ function windowResized() {
 <p4>Orquestra Multiplayer </p4>
   
 </div>
-<li class="playlist-item" data-src="media/audio/orq_multiplayer/Angry_Birds.mp3">Angry Birds</li>
+
 <li class="playlist-item" data-src="media/audio/orq_multiplayer/Batman.mp3">Batman</li>
 <li class="playlist-item" data-src="media/audio/orq_multiplayer/Donkey_Kong.mp3">Donkey Kong</li>
 <li class="playlist-item" data-src="media/audio/orq_multiplayer/Game_Of_Thrones.mp3">Game of Thrones</li>
@@ -494,31 +498,36 @@ function windowResized() {
 
 
 
-            <p2 style="margin-top: 200px; margin-left: 40px"> Performances</p2>
+            <p2 style="margin-top: 200px; margin-left: 10px"> Performances</p2>
 
                 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
+               
 
-                  <iframe width="355" height="200" src="https://www.youtube.com/embed/7GbPP_QRicI?si=gr2rHDU6Xli-TLYN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                  <br>
-                  <iframe width="355" height="200" src="https://www.youtube.com/embed/LG3E1V8yt7c?si=COQnPQ0cUMM2Ti5Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                  <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="slide">
+                          <iframe id="video1" src="https://www.youtube.com/embed/7GbPP_QRicI?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class="slide">
+                        <iframe id="video2" src="https://www.youtube.com/embed/LG3E1V8yt7c?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    
+                      </div>
+                      <div class="slide">
+                      <iframe id="video3" src="https://www.youtube.com/embed/t3M-fxkL5uU?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                   
+                    </div>
+                    <div class="slide">
+                    <iframe id="video4" src="https://www.youtube.com/embed/PkfsRSZKEnE?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                   
+                  </div>
+                  <div class="slide">
+                  <iframe id="video5" src="https://www.youtube.com/embed/eIp7qwRoRAg?enablejsapi=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                     
                 </div>
-              </div>
-              <br>
-              <br>
-                <div class="rigght-column">
 
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
-                <iframe width="220" height="415" src="https://www.youtube.com/embed/t3M-fxkL5uU?si=rO1mwXRjeKNb3ZMj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-              </div>
                 </div>
-                <div class="last-column">
-
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
-                  <iframe width="355" height="200" src="https://www.youtube.com/embed/PkfsRSZKEnE?si=myOVdETGpJUBtIUl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                  <br>
-                  <iframe width="355" height="200" src="https://www.youtube.com/embed/eIp7qwRoRAg?si=RNmZ8IQVYn9ahj7c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-              </div>
+               
+                  </div>
 <script>
 
 function toggleOptions() {
