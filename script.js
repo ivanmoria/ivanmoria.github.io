@@ -95,7 +95,7 @@ function loadTrack(index) {
 
 playBtn.addEventListener('click', function () {
   wavesurfer.playPause();
-  playBtn.textContent = wavesurfer.isPlaying() ? 'l l' : '►';
+  playBtn.textContent = wavesurfer.isPlaying() ? 'll' : '►';
 });
 
 playlistItems.forEach(function(item, index) {

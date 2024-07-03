@@ -25,6 +25,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
+body {
+  position: relative;
+}
 
     </style>
 
@@ -303,80 +306,95 @@ ivan moriá borges rodrigues
 
 </a>
 </div>
+<div id="canvas-container">
+
+<script>
 
 
-    <div id="canvas-container">
-     
+  let num = 400;
+  let range = 60;
+  let ax = [];
+  let ay = [];
+  let extraLines = 300;
 
-      <script>
-        let num = 400;
-        let range = 60;
-        let ax = [];
-        let ay = [];
-        let extraLines = 300;
-    
-        function setup() {
-          let canvas1 = createCanvas(windowWidth, windowHeight);
-          canvas1.parent('canvas-container');
-    
-    
-          for (let i = 0; i < num; i++) {
-            ax[i] = width / 10;
-            ay[i] = height / 24;
-          }
-          for (let j = 0; j < num + extraLines; j++) {
-            ax[j] = width / 22;
-            ay[j] = height / 22;
-          }
-    
-          frameRate(30);
-        }
-    
-        function draw() {
-          // Primeira camada de desenho
-          background(51);
-         
-          for (let i = 1; i < num; i++) {
-            ax[i - 1] = ax[i];
-            ay[i - 1] = ay[i];
-          }
-          ax[num - 1] += -random(-range, range);
-          ay[num - 1] += random(-range, range);
-          ax[num - 1] = constrain(ax[num - 1], 0, width);
-          ay[num - 1] = constrain(ay[num - 1], 0, height);
-    
-          for (let i = 1; i < num; i++) {
-            let val0 = float(i) / num * 200.0 + 3;
-            let val = map(ax[i], 0, width, 0, 255);
-            let val2 = map(ay[i], 0, height, 0, 255);
-            stroke(val0, val, val2, 80);
-            line(ax[i - 4], ay[i - 1], ax[i], ay[i]);
-          }
-    
-          for (let j = 1; j < extraLines; j++) {
-            ax[j - 1] = ax[j];
-            ay[j - 1] = ay[j];
-          }
-          ax[extraLines - 1] += random(-range, range);
-          ay[extraLines - 1] += random(range, -range);
-          ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-          ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-    
-          for (let j = 1; j < num; j++) {
-            let val1 = float(j) / num * 200.0 + 3;
-            let val3 = map(ax[j], 0, width, 0, 255);
-            let val4 = map(ay[j], 0, height, 0, 255);
-            stroke(val1, val3, val4, 50);
-            line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-          }
-        }
-    
-        function windowResized() {
-          resizeCanvas(windowWidth, windowHeight);
-        }
-      </script>
+  function setup() {
+      let canvas = createCanvas(windowWidth, windowHeight);
+      canvas.parent('canvas-container');
+      for (let i = 0; i < num; i++) {
+          ax[i] = width / 10;
+          ay[i] = height / 24;
+      }
+      for (let j = 0; j < num + extraLines; j++) {
+          ax[j] = width / 22;
+          ay[j] = height / 22;
+      }
+
+      frameRate(30);
+
+ 
 
 
+
+
+  }
+
+  function draw() {
+      
+background(43);
+
+
+for (let i = 1; i < num; i++) {
+  ax[i - 1] = ax[i];
+  ay[i - 1] = ay[i];
+}
+ax[num - 1] +=-random(-range, range);
+ay[num - 1] += random(-range, range);
+ax[num - 1] = constrain(ax[num - 1], 0, width);
+ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+
+
+
+
+
+for (let i = 1; i < num ; i++) {
+  let val0 = float(i) / num * 200.0 + 3 ;
+  let val = map(ax[i], 0, width, 0, 255);
+  let val2 = map(ay[i],0, height, 0, 255);
+  stroke(val0,val,val2, 80);
+  line(ax[i-4], ay[i-1], ax[i], ay[i]);
+  
+}
+
+for (let j = 1; j < extraLines; j++) {
+  ax[j - 1] = ax[j];
+  ay[j - 1] = ay[j];
+}
+ax[extraLines - 1] += random(-range, range);
+ay[extraLines - 1] += random(range, - range);
+ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+for (let j = 1; j < num; j++) {
+  let val1 = float(j) / num * 200.0 + 3 ;
+  let val3 = map(ax[j], 0, width, 0, 255);
+  let val4 = map(ay[j],0, height, 0, 255);
+
+  stroke(val1,val3,val4, 50);
+
+  line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+}
+
+
+
+}
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+resizeCanvas(windowWidth, windowHeight);
+redraw(); // Garante que o canvas seja redesenhado
+
+}
+
+</script>
 
 
 
@@ -477,10 +495,30 @@ ivan moriá borges rodrigues
 
 
 
-            <p2 style="margin-top: 200px; margin-left: 10px"> Performances</p2>
+            <p2 style="margin-top: 200px; margin-left: 10px"> Patches</p2>
 
                 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
-               
+                  
+                  <div class="buttton-container">
+                    <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink').click();">
+                        <span class="buttton__text">Record buffers</span>
+                        <span class="buttton__icon">
+                            <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                                <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                                <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <a href="media/maxmsp/PoLYBUFF.maxpat" download="PoLYBUFF.maxpat" id="downloadLink" style="display:none;"></a>
+                    <div class="hovver-content">
+                        <img src="media/maxmsp/PoLYBUFF.png" alt="Sample Image">
+                        <div>Patch no MAX/MSP cuja função principal é gravar inúmeros buffers de áudio e reproduzi-los facilmente selecionando o número do buffer. As gravações se iniciam com um pedal, que corta automaticamente o buffer na duração total do arquivo. É possível também executar simultaneamente vários buffers e executá-los em loop, permitindo uma experimentação sonora ao vivo. Patch idealizado para o concerto para bandoneon e eletrônica do Centro de Pesquisa em Música Contemporânea realizado em Dezembro de 2023, fruto da disciplina Ateliê de Música Eletroacústica ministrado por José Padovani e Rogério Vasconcelos.  </div>
+                    </div>
+                </div>
+
+
+
 <script>
 
 
@@ -495,13 +533,7 @@ ivan moriá borges rodrigues
                 </div>
                
                   </div>
-<script>
 
-function toggleOptions() {
-  const container = document.querySelector('.setting-container');
-  container.classList.toggle('open');
-}
-</script>
 </body>
 </html>
 
