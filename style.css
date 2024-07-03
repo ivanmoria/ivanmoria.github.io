@@ -130,8 +130,10 @@ canvas {
 }
 
 .canvass-container {
+  position: relative;
   display: block;
   position: fixed;
+  overflow:auto !important;
   top: 0;
   left: 0;
   width: 100vw;
@@ -272,13 +274,15 @@ color:rgba(38, 177, 38, 0.634);
 .controls button {
   border-radius: 40px;
   position: relative;
+  padding-left: 8px;
+  padding-top: 4px;
 left:0px;
-top:73px;
-height: 45px;
+top:78px;
+height: 35px;
 width: 35px;
   border: none;
   background-color: rgba(0, 0, 0, 0.711);
-  font-size: 30px; /* Ajuste o tamanho da fonte conforme necessário */
+  font-size: 25px; /* Ajuste o tamanho da fonte conforme necessário */
   cursor: pointer;
   justify-content: center;
   position: relative;
@@ -299,7 +303,8 @@ width: 35px;
 
 /* Exemplo de estilos para o ícone de pause */
 .pause-icon::before {
-  content:'l l';
+
+  content:'ll';
 
 }
 .waveform{
@@ -898,4 +903,111 @@ margin-top:10px;
 iframe {
   width: 100%;
   height: 300px; /* Altura ajustável conforme necessário */
+}
+
+
+
+.buttton {
+  --main-focus: #2d8cf0;
+  --font-color: #dedede;
+  --bg-color-sub: #222;
+  --bg-color: #323232;
+  --main-color: #dedede;
+  position: relative;
+  width: 135px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.buttton, .buttton__icon, .buttton__text {
+  transition: all 0.3s;
+}
+
+.buttton .buttton__text {
+  transform: translateX(21px);
+  color: var(--font-color);
+  font-size: 12px;
+  font-weight: 200;
+  font-family: "Mina", sans-serif;
+  margin-right: 2px;
+  margin-left: -22px;
+
+}
+
+.buttton .buttton__icon {
+  position: absolute;
+  transform: translateX(85px);
+  height: 100%;
+  width: 40px;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttton .svg {
+  width: 20px;
+  fill: var(--main-color);
+}
+
+.buttton:hover {
+  background:  rgba(106, 0, 255, 0.676);
+}
+
+.buttton:hover .buttton__text {
+  color: transparent;
+  
+
+}
+
+.buttton:hover .buttton__icon {
+  width: 120px;
+  transform: translate(0);
+}
+
+.buttton:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px rgba(0, 166, 255, 0.676);
+}
+
+
+
+.hovver-content {
+  display: none;
+  position:absolute;
+  margin-top: -65px; /* Alinha a parte superior do conteúdo com a parte inferior do botão */
+
+  left:-50%;
+  width: 400%; /* Define a largura do conteúdo de hover */
+  transform: translateX(50%);
+  padding: 5px;
+  font-family: "Mina", sans-serif;
+  font-size: 12px;
+  color: rgba(185, 229, 40, 0.715);
+
+  background-color: #00000069;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 10; /* Ajustar z-index para garantir que esteja acima de outros elementos */
+}
+
+.hovver-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.buttton-container:hover .hovver-content {
+  display: block;
+}
+.buttton-container {
+  position: relative;
+  margin-bottom: 2px; /* Adiciona espaço para evitar sobreposição */
 }
