@@ -28,22 +28,32 @@
             <body>
 
 
-</div>
+<div id="container-nav">
+     
+        
+   
+    <nav id="navbar-items">
+ 
 
-<div class="setting-container">
-    <button class="setting-btn" onclick="toggleOptions()">
-      <span class="bar bar1"></span>
-      <span class="bar bar2"></span>
-      <span class="bar bar1"></span>
+
+
+
+    <button class="ui-btn" onclick="window.location.href='projetos.html'">
+        <span>Projetos</span>
     </button>
-    
-    <ul class="options" id="options">
-        <a href="references.html">Referências</a> 
-     <a href="projetos.html">Projetos</a> 
-     <a href="contato.html">Contato</a> 
-    </ul>
-    </div>
 
+    <button class="ui-btn" onclick="window.location.href='references.html'">
+      <span>Referências</span>
+  </button>
+
+  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
+    <span>Contato</span>
+</button>
+
+
+    
+</div>
+<br>
 
 <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
@@ -167,13 +177,7 @@ function windowResized() {
   redraw(); // Garante que o canvas seja redesenhado
 }
         </script>
-        <script>
 
-            function toggleOptions() {
-              const container = document.querySelector('.setting-container');
-              container.classList.toggle('open');
-            }
-            </script>
     </body>
     </html>
     
