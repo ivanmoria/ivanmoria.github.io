@@ -116,7 +116,7 @@ wavesurfer.on('finish', function() {
 // Reproduz automaticamente quando a faixa é carregada
 wavesurfer.on('ready', function() {
   wavesurfer.play();
-  playBtn.textContent = 'l l';
+  playBtn.textContent = 'll';
 });
 
        // Carrega e reproduz o primeiro áudio da playlist
