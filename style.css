@@ -1011,3 +1011,39 @@ iframe {
   position: relative;
   margin-bottom: 2px; /* Adiciona espaço para evitar sobreposição */
 }
+
+
+
+/* Media queries para ajustar o conteúdo de hover em telas menores */
+@media (max-width: 1200px) {
+  .hovver-content {
+    width: 300%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 992px) {
+  .hovver-content {
+    width: 200%;
+    left: 100%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .hovver-content {
+    width: 160%;
+    left: 90%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 576px) {
+  .hovver-content {
+    width: 185%;
+    left: 90%;
+    transform: translateX(-50%);
+    margin-top: 10px; /* Ajusta a posição vertical do conteúdo */
+  }
+}
