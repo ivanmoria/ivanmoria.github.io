@@ -997,6 +997,7 @@ iframe {
   z-index: 10; /* Ajustar z-index para garantir que esteja acima de outros elementos */
 }
 
+
 .hovver-content img {
   max-width: 100%;
   height: auto;
