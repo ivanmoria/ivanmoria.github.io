@@ -984,8 +984,6 @@ iframe {
   position:absolute;
   margin-top: -65px; /* Alinha a parte superior do conteúdo com a parte inferior do botão */
 
-  left:-50%;
-  width: 400%; /* Define a largura do conteúdo de hover */
   transform: translateX(50%);
   padding: 5px;
   font-family: "Mina", sans-serif;
