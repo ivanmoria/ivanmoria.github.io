@@ -14,3 +14,14 @@ ax.add_patch(Rectangle((3, 3), 0.4, 0.1))
 
 #display plot
 plt.show()
+
+
+y = range(1, 11)
+xmin = range(10)
+xmax = range(1, 11)
+colors=['blue', 'green', 'red', 'yellow', 'orange', 'purple', 
+        'cyan', 'magenta', 'pink', 'black']
+
+fig, ax2 = plt.subplots(1, 1)
+ax2.hlines(y, xmin, xmax, colors=colors)
+plt.show()
