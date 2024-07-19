@@ -122,3 +122,19 @@ wavesurfer.on('ready', function() {
        // Carrega e reproduz o primeiro áudio da playlist
        loadTrack(0);
       });
+
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var playlistItems = document.querySelectorAll('.playlist-item');
+        var videoPlayer = document.getElementById('video-player');
+        var videoSource = videoPlayer.querySelector('source');
+
+        playlistItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var src = this.getAttribute('data-src');
+                videoSource.setAttribute('src', src);
+                videoPlayer.load();
+                videoPlayer.play();
+            });
+        });
+    });
