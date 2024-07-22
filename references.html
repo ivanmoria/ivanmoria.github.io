@@ -22,7 +22,117 @@
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
 
+        .miniatura {
+            display: none;
+            position: relative;
+            width: 422px;
+
+            z-index: 5000;
+        }
+
+
+        .buttoon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .buttoon-container:hover .miniatura {
+            display: block;
+            position: absolute;
+        }
+ #video-preview {
+    display: none;
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    z-index: 1000; /* Garante que o preview apareça acima de outros elementos */
+    padding: 10px; /* Adiciona um pouco de espaço ao redor do preview */
+}
+
+ #video-preview img {
+    width: 200px;
+    height: auto;
+}
+.pdf-preview {
+    display: none;
+    position: absolute;
+margin-left: -50px;
+    z-index: 1000; /* Garante que o preview apareça acima de outros elementos */
+
+}
+
+.pdf-preview img{
+    width: 200px;
+    height: auto;
+}
+
+
     </style>
+    
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+ var players = {};
+
+function onYouTubeIframeAPIReady() {
+    document.querySelectorAll('.buttoon-container').forEach(function(container, index) {
+        var playerId = 'player' + index;
+        var videoId = container.querySelector('.uia-btn').getAttribute('data-video-id');
+        var playerElement = document.createElement('div'); // Cria um elemento div para o player
+        playerElement.id = playerId;
+        container.querySelector('.miniatura').appendChild(playerElement); // Adiciona a div ao container da miniatura
+
+        players[playerId] = new YT.Player(playerId, {
+            height: '200',
+            width: '460',
+            videoId: videoId,
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    });
+}
+
+function onPlayerReady(event) {
+    var player = event.target;
+    var container = player.getIframe().closest('.buttoon-container');
+    var button = container.querySelector('.uia-btn');
+    var miniatura = container.querySelector('.miniatura');
+    
+
+    function playVideo() {
+        player.playVideo();
+    }
+
+    function pauseVideo() {
+        player.pauseVideo();
+    }
+
+    button.addEventListener('mouseenter', playVideo);
+    button.addEventListener('mouseleave', pauseVideo);
+    miniatura.addEventListener('mouseenter', playVideo);
+    miniatura.addEventListener('mouseleave', pauseVideo);
+    
+}
+
+function showPreview(event, previewId) {
+    var preview = document.getElementById(previewId);
+    if (preview) {
+        preview.style.left = (event.pageX + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.top = (event.pageY + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.display = 'block';
+    }
+}
+
+function hidePreview() {
+    var previews = document.querySelectorAll('.pdf-preview, .video-preview');
+    previews.forEach(preview => preview.style.display = 'none');
+}
+
+
+</script>
+
+
+
 
 </head>
 <body>
@@ -394,10 +504,6 @@ function windowResized() {
     </script>
 
 
-
-
-
-
     </div>
     <div id="container-nav">
     <nav id="navbar-items">
@@ -711,27 +817,10 @@ function windowResized() {
         </div>
     
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <div class="middle-column">
             <p2 style="margin-top: 200px;"> Performances</p2>
-            
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
+
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                     <button class="uia-btn" onclick="window.open
                     ('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
        
@@ -759,20 +848,14 @@ function windowResized() {
        <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
         <button class="uia-btn" onclick="window.open
         ('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 'popup', 'width=505,height=525');">
-      
       <span>Performance</span> 
         </button>
         <span   class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
       >MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
-      
-      
       <a href="media/documents/certificados/choroditolivrariadarua2023.jpeg"
       class="popup-link"
       onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
       Chorodito:    </a> um grupo de choro de cordas de Belo Horizonte. 
-      
-      
-      
       <a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
       class="popup-link"
       onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
@@ -780,35 +863,53 @@ function windowResized() {
       </a> 120 min, Interpretação: Bandolim.  2023. 
       </div>
       
+
+
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+  <div onmouseout="hidePreview(event, 'vpreview1')"  class="buttoon-container"><button class="uia-btn" 
+    data-video-id="8WFYDplZeY4" onmouseover="showPreview(event, 'vpreview1')" 
+    onclick="window.open('https://youtube.com/playlist?list=PLlu-VJj3dpCsqVv2_KLEbvZEQDJmIQyNF&si=rri702QI7SQO0Hn9', 'popup', 'width=505,height=525');">
+<span>Orquestra de Choro da UFMG</span></button>
+<div id="vpreview1" class="video-preview" style="display: none;">
+<iframe   width="560" height="220" 
+ata-src="https://www.youtube.com/embed/8WFYDplZeY4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <div  onmouseover="showPreview(event, 'vpreview1')"  class="miniatura" style="margin-top: -310px;"></div></div><span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;">
+MORIÁ, IVAN; FLÁVIO. A importância do gênero musical Choro e seu ensino na UFMG. Arranjos do Pixinguinha para orquestra.
+<a href="https://musica.ufmg.br/wp-content/uploads/2023/05/11-VivaMusica-17-maio-Marcos-Flavio-1.pdf" 
+class="popup-link" 
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+
+Projeto Viva Música,</a>
+Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+<div id="preview1" class="pdf-preview" style="display: none;">
+<img src="https://musica.ufmg.br/wp-content/uploads/2023/05/10-VivaMusica-17-maio-23-Marcos-Flavio-cartaz.webp" alt="PDF Preview 1" style="width: 200px; height: auto;"></div></div>
+    
+
+
+
+
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+      <div onmouseout="hidePreview(event, 'vpreview2')"  class="buttoon-container"><button class="uia-btn" 
+      data-video-id="-c08ORMHvrA" onmouseover="showPreview(event, 'vpreview2')" 
+      onclick="window.open('https://youtu.be/-c08ORMHvrA?si=sVXhndTU12RPbsqJ', 'popup', 'width=505,height=525');">
+      <span>Orquestra de Choro da UFMG</span></button>
+  <div id="vpreview2" class="video-preview" style="display: none;">
+  <iframe   width="560" height="220" data-src="https://www.youtube.com/embed/8WFYDplZeY4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <div  onmouseover="showPreview(event, 'vpreview2')"  class="miniatura" style="margin-top: -310px;"></div></div><span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;">
+      MORIÁ, IVAN; FLÁVIO, M. ZADOROSNY, I. O Choro orquestrado na Era de Ouro da Rádio Inconfidência: reflexões sobre 4 obras de compositores da Rádio Inconfidência.
+  <a href="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-Camerata-Orquestra-de-Choro.pdf" 
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+   data-preview="preview2" onmouseover="showPreview(event, 'preview2')" onmouseout="hidePreview()">
+  Projeto Viva Música,</a>
+  Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+  <div id="preview2" class="pdf-preview" style="display: none;">
+  <img src="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-22-novembro-2023-Orquestra-de-Choro-cartaz.webp" alt="PDF Preview 2" style="width: 200px; height: auto;"></div></div>
       
-      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-        <button class="uia-btn" onclick="window.open
-        ('https://youtube.com/playlist?list=PLlu-VJj3dpCsqVv2_KLEbvZEQDJmIQyNF&si=rri702QI7SQO0Hn9', 'popup', 'width=505,height=525');">
-      <span> Orquestra de Choro da UFMG</span> </button> <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
-      >MORIÁ, IVAN; FLÁVIO.
-      A importância do gênero musical Choro e seu ensino na UFMG.
-      <a href="https://musica.ufmg.br/wp-content/uploads/2023/05/11-VivaMusica-17-maio-Marcos-Flavio-1.pdf" class="popup-link"
-      onclick="window.open(this.href, 'popup','width=420,height=620' ); return false;">
-      Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpretação: Acordeon. 2023.
-      </div> 
-      
-
-
-
-
-
-
-      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-        <button class="uia-btn" onclick="window.open
-        ('https://youtu.be/-c08ORMHvrA?si=sVXhndTU12RPbsqJ', 'popup', 'width=505,height=525');">
-      <span> Orquestra de Choro da UFMG</span> </button> <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
-      >MORIÁ, IVAN; FLÁVIO, M. ZADOROSNY, I.
-      O Choro orquestrado na Era de Ouro da Rádio Inconfidência: reflexões sobre 4 obras de compositores da Rádio Inconfidência. 
-      <a href="https://musica.ufmg.br/blog/2023/11/22/viva-musica-22-11-2023-orquestra-de-choro/" class="popup-link"
-      onclick="window.open(this.href, 'popup','width=420,height=620' ); return false;">
-      Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpretação: Acordeon. 2023.
-      </div> 
-      
+  
 
 
 
@@ -827,6 +928,14 @@ onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
 LWV 22
 </a> de Jean-Baptiste Lully.
 
+
+
+
+
+
+
+
+
 <a href="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf"
 class="popup-link"
 onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
@@ -840,6 +949,10 @@ Orquestra 415 de Musica Antiga.        </a>
 Interpretação: Violoncelo. 
  2022.
 </div> 
+
+
+
+
 
 
 
