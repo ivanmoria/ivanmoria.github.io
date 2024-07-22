@@ -25,7 +25,7 @@
         .miniatura {
             display: none;
             position: relative;
-            width: 422px;
+            width: 110%;
 
             z-index: 5000;
         }
@@ -802,67 +802,95 @@ function windowResized() {
 
 
 <p4> Curriculum Vitae</p4>
+
     <button class="uia-btn" onclick="window.open
     ('http://lattes.cnpq.br/8057950046082949', 'popup', 'width=750,height=750');">
 <span>Lattes</span> 
     </button>
+
+
     <br>
-
-
-
-
-
-
-
         </div>
     
-
         <div class="middle-column">
             <p2 style="margin-top: 200px;"> Performances</p2>
 
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-                    <button class="uia-btn" onclick="window.open
-                    ('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
+
+
+
+
+
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+
+                        <button class="uia-btn" 
+                        onmouseout="hidePreview(event, 'previewcello')"   onmouseover="showPreview(event, 'previewcello')" 
+                        onclick="window.open('media/documents/certificados/concerto2cellos.pdf', 'popup', 'width=410,height=610');">
+                    <span>Concerto</span></button>             
+                      <div id="previewcello" class="pdf-preview" style="display: none;">
+                        <img src="media/documents/certificados/concerto2cellos.pdf" alt="PDF Preview 1" style="width: 300px; height: auto;"></div>
        
-       <span> Concerto </span> 
-                    </button>
-                    <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
-                >MORIÁ, IVAN; BUTTROS, J.        <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf"
-                class="popup-link"
-                onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
-                Concerto for two cellos in G minor.
-             </a> RV 531. Antonio Vivaldi. 
 
 
-          <a href="https://www.luanovacultural.com/orquestra-415"
-          class="popup-link"
-          onclick="window.open(this.href); return false;">
-          Orquestra 415 de Musica Antiga.         </a>
+
+
+
+       <span   class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
+       >MORIÁ, IVAN; BUTTROS, J.       
+       <a href="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf"
+       class="popup-link"
+       onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+       data-preview="preview2cello" onmouseover="showPreview(event, 'preview2cello')" onmouseout="hidePreview()">
+       Concerto for two cellos in G minor. </a> RV 531. Antonio Vivaldi. 
+       <a href="https://www.luanovacultural.com/orquestra-415"
+       class="popup-link"
+       onclick="window.open(this.href); return false;">
+ 
+       Orquestra 415 de Musica Antiga.         </a>
           Teatro da Biblioteca Publica de Belo Horizonte - MG,
           Interpretação: Violoncelo.
           2024.
-       </div> 
+
+       <div id="preview2cello" class="pdf-preview" style="display: none; background-color: #ccc;">
+         <img src="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf" alt="PDF Preview 1" style="width: 300px; height: auto;"></div>
+   
+
+
+       </div>
 
 
 
-       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-        <button class="uia-btn" onclick="window.open
-        ('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 'popup', 'width=505,height=525');">
-      <span>Performance</span> 
-        </button>
+
+       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+        <div onmouseout="hidePreview(event, 'vpreviewchoro')"  class="buttoon-container"><button class="uia-btn" 
+          data-video-id="vz__NXxkTKk" onmouseover="showPreview(event, 'vpreviewchoro')" 
+          onclick="window.open('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 'popup', 'width=505,height=525');">
+      <span>Performance</span></button>
+      <div id="vpreviewchoro" class="video-preview" style="display: none;">
+      <iframe   width="560" height="220" 
+      ata-src="https://www.youtube.com/embed/vz__NXxkTKk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        <div  onmouseover="showPreview(event, 'vpreviewchoro')"  class="miniatura" style="margin-top: -310px;"></div></div>
+
         <span   class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
       >MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
       <a href="media/documents/certificados/choroditolivrariadarua2023.jpeg"
       class="popup-link"
-      onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+      onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+      data-preview="previewchoro" onmouseover="showPreview(event, 'previewchoro')" onmouseout="hidePreview()">
       Chorodito:    </a> um grupo de choro de cordas de Belo Horizonte. 
       <a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
       class="popup-link"
       onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+
       Livraria da Rua,   
       </a> 120 min, Interpretação: Bandolim.  2023. 
+      <div id="previewchoro" class="pdf-preview" style="display: none;">
+        <img src="media/documents/certificados/choroditolivrariadarua2023.jpeg" alt="PDF Preview 1" style="width: 300px; height: auto;"></div>
+  
       </div>
-      
+
+
+
+
 
 
 
@@ -874,7 +902,8 @@ function windowResized() {
 <div id="vpreview1" class="video-preview" style="display: none;">
 <iframe   width="560" height="220" 
 ata-src="https://www.youtube.com/embed/8WFYDplZeY4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-  <div  onmouseover="showPreview(event, 'vpreview1')"  class="miniatura" style="margin-top: -310px;"></div></div><span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;">
+  <div  onmouseover="showPreview(event, 'vpreview1')"  class="miniatura" style="margin-top: -310px;"></div></div>
+  <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;">
 MORIÁ, IVAN; FLÁVIO. A importância do gênero musical Choro e seu ensino na UFMG. Arranjos do Pixinguinha para orquestra.
 <a href="https://musica.ufmg.br/wp-content/uploads/2023/05/11-VivaMusica-17-maio-Marcos-Flavio-1.pdf" 
 class="popup-link" 
@@ -1115,6 +1144,7 @@ Online,
 Interpretação: Violoncelo.  
 2021.
 </div> 
+
 
 
 
