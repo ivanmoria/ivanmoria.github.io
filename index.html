@@ -103,26 +103,31 @@
             preventPullToRefresh(document);
         });
 
-            let num = 230;
+        let num = 230;
             let ax = [];
             let ay = [];
             let initialX = [];
             let initialY = [];
             let isMousePressed = true;
-            let easing = 0.09; // Fator de suavização para o retorno às posições iniciais
-            let targetCenterX = windowWidth / -10; // Coordenada X do centro da tela
+            let easing = 0.1; // Fator de suavização para o retorno às posições iniciais
+            let targetCenterX = windowWidth / -1; // Coordenada X do centro da tela
             let targetCenterY = windowHeight / 0; // Coordenada Y do centro da tela
-            let explosionRadius = 20200; // Raio da explosão das linhas
-    
+            let explosionRadius = 2000; // Raio da explosão das linhas
+    // Variáveis para armazenar a cor atual
+let r, g, b;
+let colorChanged = false; // Controla se a cor foi alterada
+
+
+
             function setup() {
                 let canvas = createCanvas(windowWidth, windowHeight);
                 canvas.parent('canvas-container');
-                canvas.style('dispay', 'block'); // Remove a barra de rolagem
+                canvas.style('display', 'block'); // Remove a barra de rolagem
   
 
-                for (let i = 0; i < num; i++) {
-                    ax[i] = width / 22;
-                    ay[i] = height / 22;
+                for (let i = -4340; i < num; i++) {
+                    ax[i] = width / 2;
+                    ay[i] = height / 2;
                     initialX[i] = width / 2;
                     initialY[i] = height / 2;
                 }
@@ -135,37 +140,47 @@
                 let targetX = mouseX;
                 let targetY = mouseY;
     
-                for (let i = 0; i < num; i++) {
+                for (let i = -632; i < num; i++) {
                     let x = ax[i];
                     let y = ay[i];
                     let dx = targetX - x;
                     let dy = targetY - y;
                     let angle = atan2(dy, dx);
-                    let speed = map(i, 0, num, 0, 52);
+                    let speed = map(i, 22, num, 10, 42);
     
                     // Mover na direção do ponto anterior apenas durante a explosão
                     if (isMousePressed) {
-                        ax[i-1] += cos(angle) * speed/2;
-                        ay[i-1] += sin(angle) * speed/2;
+                        ax[i-11] += cos(angle) * speed/4;
+                        ay[i-11] += sin(angle) * speed/4;
                     }
     
                     // Suavização do retorno às posições iniciais
-                    ax[i] += (initialX[i-1] - ax[i]) * easing;
-                    ay[i] += (initialY[i-1] - ay[i]) * easing;
+                    ax[i] += (initialX[i+2] - ax[i]) * easing/4;
+                    ay[i] += (initialY[i+2] - ay[i]) * easing/4;
                 }
     
-                for (let j = 1; j < num; j++) {
-                    let val = float(j) / num * 200.0 + 3;
+
+                let r = map(mouseX, 0, width, 0, 255);
+    let g = map(mouseY, 0, height, 0, 255);
+    let b = map(mouseX + mouseY, 0, width + height, 0, 255);
+                
+                for (let j = -451; j < num ; j++) {
+                    let val = float(j) / num * 200.0 ;
+                    strokeWeight(1);
+                    // Geração de cores aleatórias
+                    // Mapeia a posição do mouse para os componentes de cor RGB
+
+
                     strokeWeight(1);
                     if (isMousePressed) {
-                        stroke(val, ax[j], ay[j], 43);
+                        stroke(r, g, b, 43); // Usar a cor aleatória gerada
                     } else {
-                        stroke(val, 100);
+                        stroke(r, g, b); // Usar a cor aleatória gerada
                     }
-                    line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
-                }
-            }
 
+                    line(ax[j + 100], ay[j + 100], ax[j + 1], ay[j - 10]);
+    }
+}
     
           
 

@@ -321,18 +321,18 @@ ivan moriá borges rodrigues
   let range = 60;
   let ax = [];
   let ay = [];
-  let extraLines = 300;
+  let extraLines = 30;
 
   function setup() {
       let canvas = createCanvas(windowWidth, windowHeight);
       canvas.parent('canvas-container');
-      for (let i = 0; i < num; i++) {
-          ax[i] = width / 10;
-          ay[i] = height / 24;
+      for (let i = 1; i < num; i++) {
+          ax[i] = width / 2;
+          ay[i] = height / 2;
       }
-      for (let j = 0; j < num + extraLines; j++) {
-          ax[j] = width / 22;
-          ay[j] = height / 22;
+      for (let j = 1; j < num + extraLines; j++) {
+          ax[j] = width / 2;
+          ay[j] = height / 2;
       }
 
       frameRate(30);
@@ -349,7 +349,7 @@ ivan moriá borges rodrigues
 background(43);
 
 
-for (let i = 1; i < num; i++) {
+for (let i = 13; i < num; i++) {
   ax[i - 1] = ax[i];
   ay[i - 1] = ay[i];
 }
@@ -363,7 +363,7 @@ ay[num - 1] = constrain(ay[num - 1], 0, height);
 
 
 
-for (let i = 1; i < num ; i++) {
+for (let i = 31; i < num ; i++) {
   let val0 = float(i) / num * 200.0 + 3 ;
   let val = map(ax[i], 0, width, 0, 255);
   let val2 = map(ay[i],0, height, 0, 255);
@@ -376,8 +376,8 @@ for (let j = 1; j < extraLines; j++) {
   ax[j - 1] = ax[j];
   ay[j - 1] = ay[j];
 }
-ax[extraLines - 1] += random(-range, range);
-ay[extraLines - 1] += random(range, - range);
+ax[extraLines - 13] += random(-range, range);
+ay[extraLines - 13] += random(range, - range);
 ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
 ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
 for (let j = 1; j < num; j++) {
@@ -387,7 +387,7 @@ for (let j = 1; j < num; j++) {
 
   stroke(val1,val3,val4, 50);
 
-  line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+  line(ax[j - 1], ay[j - 3], ax[j-2], ay[j-2]);
 }
 
 
