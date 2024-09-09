@@ -436,15 +436,15 @@ redraw(); // Garante que o canvas seja redesenhado
  
 </p2>
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 90%;margin-top: 15px; margin-left: 0px">
-  <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
+  <span  class="content-text" style="text-align: justify; width: 90%; margin-top: -10px;"
   >     <p2>Title:</p2>        
-  <p182> Technologies for Extraction and Processing of Musical Information in Music Therapy: Microanalysis of Musical Traces and Possible Interfaces with Social Cognition.</p182>
+  <p11> Technologies for Extraction and Processing of Musical Information in Music Therapy: Microanalysis of Musical Traces and Possible Interfaces with Social Cognition.</p11>
   <br>
-  <p2>Research Area:</p2> <p18>Music therapy, Sonology</p18>
+  <p2>Research Area:</p2> <p11>Music therapy, Sonology</p11>
 <br>
-<p2> Advisor:</p2> <p18>Renato Tocantins Sampaio</p18>
-<br><p2> Co-advisor: </p2> <p18>Sérgio Freire Garcia</p18>
-<br><p2> Duration:  </p2> <p18> 2021 - 2025</p18>
+<p2> Advisor:</p2> <p11>Renato Tocantins Sampaio</p11>
+<br><p2> Co-advisor: </p2> <p11>Sérgio Freire Garcia</p11>
+<br><p2> Duration:  </p2> <p11> 2021 - 2025</p11>
 
 
   </span>
@@ -531,13 +531,75 @@ feedback on this ongoing research.
           <p4>MAX/MSP</p4>
 
         </span>
-          <li class="playlist-item" data-src="media/audio/Dino pintando o sete.mp3">MAX</li>
-          <li class="playlist-item" data-src="media/audio/Perigoso.mp3">MSP</li>
+
+        <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
+                  
+          <div class="buttton-container">
+            <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink1').click();">
+                <span class="buttton__text">Record buffers</span>
+                <span class="buttton__icon">
+                    <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                        <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                        <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                    </svg>
+                </span>
+            </button>
+            <a href="media/maxmsp/polybuffer.maxpat" download="polybuffer.maxpat" id="downloadLink1" style="display:none;"></a>
+            <div class="hovver-content"style="margin-left: 60%;margin-top: 10%; width: 330px;height: 350px; border: 1px solid #ccc; padding: 00px;">
+              <img src="media/maxmsp/polybuff.png" alt="Sample Image"width="150px" height="60px;">
+                <div>Patch in MAX/MSP with the main function of recording multiple audio buffers and easily playing them back by selecting the buffer number. Recordings are triggered by a pedal, which automatically trims the buffer to the total duration of the file. It is also possible to simultaneously play multiple buffers and loop them, enabling live sound experimentation. The patch was designed for the concert for bandoneon and electronics by the Contemporary Music Research Center held in December 2023, as part of the Electroacoustic Music Workshop course taught by José Padovani and Rogério Vasconcelos. </div>
+            </div>
+        </div>
+
+
+<br>
+        <div class="buttton-container">
+          <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink2').click();">
+              <span class="buttton__text">MeanMath </span>
+              <span class="buttton__icon">
+                  <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                      <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                      <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                  </svg>
+              </span>
+          </button>
+          <a href="media/maxmsp/media_e_desvio.maxpat" download="media_e_desvio.maxpat" id="downloadLink2" style="display:none;"></a>
+          <div class="hovver-content"style="margin-left: 60%;margin-top: 10%; width: 300px;height: 420px; border: 1px solid #ccc; padding: 0px;">
+              <img src="media/maxmsp/media_e_desvio.png" alt="Sample Image"width="150px" height="60px;">
+              <div>
+                Patch created by Sérgio Freire in MAX/MSP to calculate the mean and standard deviation, with outputs on outlets 1 and 2, respectively.  </div>
+          </div>
+      </div>
+<br>
+
+      <div class="buttton-container">
+        <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink3').click();">
+            <span class="buttton__text">Audio Envelope</span>
+            <span class="buttton__icon">
+                <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                </svg>
+            </span>
+        </button>
+        <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
+        <div class="hovver-content"style="margin-left: 60%;margin-top: 10%; width: 300px;height: 410px; border: 1px solid #ccc; padding: 0px;">
+            <img src="media/maxmsp/envelope.png" alt="Sample Image"width="200px" height="60px;">
+            <div>Simple Patch for an Audio Envelope </div>
+        </div>
+    </div>
+
+
+  </div>
+
 
 <br>
 
 <p4>PYTHON</p4>
-<li class="playlist-item" data-src="media/audio/orq415.mp3">Overtue</li>
+<li class="playlist-item" data-src="">Comming soon. Ask about in Contact form</li>
 <br>
 <div class="inline">
 
