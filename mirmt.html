@@ -15,12 +15,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
-
-
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
-   
     <script src="https://www.youtube.com/iframe_api"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://unpkg.com/wavesurfer.js"></script>
@@ -33,13 +29,41 @@ body {
       -ms-user-select: none; /* Internet Explorer/Edge */
       user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
     }
+    p20{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 20px;
+  font-weight: 200;
+font-style:bold;
+  color: rgb(255, 255, 255);
+}
+p18{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 20px;
+
+  color: rgba(255, 255, 255, 0.357);
+}
+p182{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 22px;
+
+  color: rgba(255, 255, 255, 0.357);
+}
+p11{
+
+  font-family: 'Poiret One', cursive;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.222);
+      }
 
 
     </style>
 
 </head>
 <body>
-
   <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
         <div class="assinatura" id="assinatura">
@@ -52,16 +76,9 @@ ivan moriá borges rodrigues
 
 </div>
 
-
-
-
-
-
-
 <div class="button-container">
   <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
     <svg
-   
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width="22px"
@@ -78,7 +95,6 @@ ivan moriá borges rodrigues
       ></g>
       <g id="SVGRepo_iconCarrier">
         <title>email [154#]</title>
-
         <defs></defs>
         <g
           fill-rule="evenodd"
@@ -161,7 +177,6 @@ ivan moriá borges rodrigues
       </g>
     </svg>
   </button>
-
   <button class="button flex-center"onclick="window.location.href='https://www.facebook.com/moriahivan/'">
     <svg
       fill="#fff"
@@ -210,7 +225,6 @@ ivan moriá borges rodrigues
     </svg>
     
   </button>
-
   <button class="button flex-center" onclick="window.location.href='https://github.com/ivanmoria'">
     <svg
       viewBox="0 0 20 20"
@@ -255,9 +269,7 @@ ivan moriá borges rodrigues
       </g>
     </svg>
   </button>
-
   <button class="button flex-center"onclick="window.location.href='https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
-   
     <svg
       stroke="#fff"
       fill="#fff"
@@ -302,21 +314,13 @@ ivan moriá borges rodrigues
     </svg>
   </button>
 </a>
-
-
-  
-</div>
-
 </div>
 </div>
-
+</div>
 </a>
 </div>
 <div id="canvas-container">
-
 <script>
-
-
   let num = 400;
   let range = 60;
   let ax = [];
@@ -404,108 +408,129 @@ redraw(); // Garante que o canvas seja redesenhado
     </div>
     <div id="container-nav">
     <nav id="navbar-items">
-
     <button class="ui-btn" onclick="window.location.href='index.html'">
         <span>Index</span>
     </button>
-
     <button class="ui-btn" onclick="window.location.href='references.html'">
       <span>References</span>
   </button>
-
-  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
-    <span>Contact</span>
-</button>
-
 <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='projetos.html'">
   <span>Projects</span>
 </button>
-
+<button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
+  <span>Contact</span>
+</button>
 
 </nav>
 </div>
-<div class="containerr"></div>
 
 </div>
 </div>
 
 <div class="container">
-  
-        <div class="lefft-column">
+<div class="leffft-column">
+
+
+<p2 style="margin-top: 200px; margin-left: 0px"> PhD in Music at Federal University of Minas Gerais 
+  <br> 
  
-
-          <p2 style="margin-top: 200px; margin-left: 0px"> MAX/MSP Abstractions</p2>
-
-          <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; margin-left: 0px">
-            
-            <div class="buttton-container">
-              <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink1').click();">
-                  <span class="buttton__text">Record buffers</span>
-                  <span class="buttton__icon">
-                      <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                          <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                          <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                      </svg>
-                  </span>
-              </button>
-              <a href="media/maxmsp/polybuffer.maxpat" download="polybuffer.maxpat" id="downloadLink1" style="display:none;"></a>
-              <div class="hovver-content"style="margin-left: 10px;margin-top: -40px; width: 330px;height: 350px; border: 1px solid #ccc; padding: 10px;">
-               
-                  <div>Patch no MAX/MSP cuja função principal é gravar inúmeros buffers de áudio e reproduzi-los facilmente selecionando o número do buffer. As gravações se iniciam com um pedal, que corta automaticamente o buffer na duração total do arquivo. É possível também executar simultaneamente vários buffers e executá-los em loop, permitindo uma experimentação sonora ao vivo. Patch idealizado para o concerto para bandoneon e eletrônica do Centro de Pesquisa em Música Contemporânea realizado em Dezembro de 2023, fruto da disciplina Ateliê de Música Eletroacústica ministrado por José Padovani e Rogério Vasconcelos.  </div>
-              </div>
-          </div>
-
-
+</p2>
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 90%;margin-top: 15px; margin-left: 0px">
+  <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
+  >     <p2>Title:</p2>        
+  <p182> Technologies for Extraction and Processing of Musical Information in Music Therapy: Microanalysis of Musical Traces and Possible Interfaces with Social Cognition.</p182>
+  <br>
+  <p2>Research Area:</p2> <p18>Music therapy, Sonology</p18>
 <br>
-          <div class="buttton-container">
-            <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink2').click();">
-                <span class="buttton__text">Média e Desvio</span>
-                <span class="buttton__icon">
-                    <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                        <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                        <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                    </svg>
-                </span>
-            </button>
-            <a href="media/maxmsp/media_e_desvio.maxpat" download="media_e_desvio.maxpat" id="downloadLink2" style="display:none;"></a>
-            <div class="hovver-content"style="margin-left: 10px;margin-top: -140px; width: 300px;height: 420px; border: 1px solid #ccc; padding: 10px;">
-                <img src="media/maxmsp/media_e_desvio.png" alt="Sample Image"width="150px" height="60px;">
-                <div>Patch criado por Sérgio Freire no MAX/MSP para calcular a média e o desvio padrão, com saídas nos outlets 1 e 2, respectivamente.  </div>
-            </div>
-        </div>
-<br>
+<p2> Advisor:</p2> <p18>Renato Tocantins Sampaio</p18>
+<br><p2> Co-advisor: </p2> <p18>Sérgio Freire Garcia</p18>
+<br><p2> Duration:  </p2> <p18> 2021 - 2025</p18>
 
-        <div class="buttton-container">
-          <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink3').click();">
-              <span class="buttton__text">Envelope</span>
-              <span class="buttton__icon">
-                  <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                      <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                      <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                  </svg>
-              </span>
-          </button>
-          <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
-          <div class="hovver-content"style="margin-left: 10px;margin-top: -190px; width: 300px;height: 410px; border: 1px solid #ccc; padding: 10px;">
-              <img src="media/maxmsp/envelope.png" alt="Sample Image"width="200px" height="650px;">
-              <div>Patch simples para um envelope de áudio </div>
-          </div>
-      </div>
+
+  </span>
+  <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
+      > 
+      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">            
+<br>
+<p2 style="display: flex; flex-direction: column; align-items: flex-start;text-indent: 185px;">
+  Abstract        
+ 
+ 
+</p2>     <br>
+     <p11> &nbsp; Data collection for the analysis of music therapy sessions can be conducted in various ways. 
+      There is an abundance of qualitative studies that narrate the functioning of sessions observationally, supported by music therapy evaluation scales.
+      <br>&nbsp; There is a lack of publications in Brazil that utilize quantitative methods for data collection and analysis in Music Therapy using digital equipment, 
+       such as musical instruments that transmit information via MIDI (Musical Instrument Digital Interface) to electronic processing.
+      <br> &nbsp; This research project aims to identify the potential factors that hinder access to this form of data collection,
+      explore ways to develop more accessible methods for use by music therapists in Brazil, 
+      and assess the feasibility of continuing to develop platforms that use MIDI technology for research. 
+      The methodology will be divided into two main workstreams.
+      <br> &nbsp; In the first, participants will interact through a digital MIDI instrument that processes all the musical information played,
+      with musical elements in audio.
+      All information will be processed in a patch developed in MAX/MSP for data collection and in a Python script for quantitative data analysis. 
+     <br> &nbsp; In the second workstream, interviews will be conducted with music therapists who use technology in their practices, 
+      aiming to map the use of technological tools by music therapists and researchers and conduct an initial validity assessment of the material already developed.
+       This will include initial studies of face, content, and construct validity of the developed protocol, 
+       such as analyses of correlations between spontaneous time and anxiety,
+        correlations between synchronization error rates and anticipation skills (related to social cognition), among other psychometric analyses.
+ <br> &nbsp; We hope that this experiment will enable us to quantitatively visualize levels of perception among participants and the relationship between 
+ various musical stimuli and musical responses, specifically related to rhythmic aspects such as anticipation, delay, synchronization, perception, memory,
+  and understanding of symbolic structures, among others. 
+  <br> &nbsp; This project will contribute to the development of new tools for data collection in Music Therapy,
+   also identifying potential factors that hinder access to this form of data collection and exploring ways to develop 
+   more accessible methods for use by music therapists in Brazil.
+    </p11> <br>
+      <p2>Keywords:</p2>  <p11>  Music Information Retrieval. Music Therapy. Music and Technology. Music Therapy Analysis.
+      </p11></span>
+</div>
+          
+
+
 
 
     </div>
   </div>
 
+        <div class="middddle-column">
 
-        <div class="midddle-column">
+
+ 
+      
+
+   
+
+          <div style="display: flex; flex-direction: column; align-items: flex-start; width: 90%;margin-top: 15px; margin-left: 0px">
+            <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -15px;"  >
+              <p4> MIR - MT</p4>
+
+      <p11>  
+          <br>Given the vast potential for the collection and analysis of musical 
+          data from music therapy sessions using MIDI, 
+          through Music Information Retrieval (MIR) techniques, 
+          there are challenges in advancing technological methodologies and assessing subjective 
+          aspects of the therapeutic process.
+
+          <br>  <br>  <p4> Cronogram</p4><br><br>
+          (2023 – 2024)&nbsp; Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
+   and the use of technological tools in Music Therapy;
+<br>
+<br>(2021 – 2025)&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
+ and Python for processing MIDI data and creating visual and statistical analysis;<br>
+ <br>(2024 – 2025)&nbsp; Advancement of an intuitive visual interface to ensure accessibility for all users and researchers;
+ <br><br> (2024 – 2025)&nbsp; Interviews with experts in music therapy to explore their use of technological tools and collect evaluative 
+feedback on this ongoing research.
+          </p11>
 
 
-          
 
-          <p4> MIR - MT</p4>
+          <p4>
+  <br>
+            <span style="padding: 25%;">Downloadable Files</span>
+      <br>    
+        </p4>  
+          <p4>MAX/MSP</p4>
+
+        </span>
           <li class="playlist-item" data-src="media/audio/Dino pintando o sete.mp3">MAX</li>
           <li class="playlist-item" data-src="media/audio/Perigoso.mp3">MSP</li>
 
@@ -518,7 +543,7 @@ redraw(); // Garante que o canvas seja redesenhado
 
 
 
-<p4>PHD PROJECT</p4>
+
 
 </div>
 
@@ -528,6 +553,7 @@ redraw(); // Garante que o canvas seja redesenhado
 
 
 
+</div>
 
       </div>
 
