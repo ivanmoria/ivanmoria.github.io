@@ -515,30 +515,30 @@ redraw(); // Garante que o canvas seja redesenhado
       <p2 >Keywords:</p2>  <p11 style="color: rgba(118, 157, 191, 0.716); text-align: justify;">Music Information Retrieval, Music Therapy, Music and Technology, Music Therapy Analysis.
       </p11>
 <br><br>
-<br><br>
+
 <div style="display: flex; justify-content: center;">
 
-  <p2 style="  font-size:25px "> 
-     IAMM-IsFAM Congress - Berlin 2024    </p2>     
-</div>
+  <p2 style="font-size: 25px;">
+    IAMM-ISfAM Congress - Berlin 2024
+  </p2>
+</div></div>
+    <br>
+    <embed 
+      src="media/documents/textos/PosterBerlin2024.pdf" 
+      type="application/pdf" 
+      width="100%" 
+      height="760px" 
+      style="object-fit: contain; border: none; pointer-events: none; overflow: hidden;" 
+    />
+  </div>
+  
 
-
-</div>
-
-      <div style="display: flex; justify-content: center;">
-
-        <p2 style="  font-size:30px "> 
-           </p2>     
-      </div>
-
-      <br><br>
-
-      <embed src="media/documents/textos/PosterBerlin2024.pdf" type="application/pdf" width="100%" height="853px" />
-
-    </div>
     
-
-
+    <button class="ui-btn" style="margin-right: 20px;margin-top:-20px" onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
+      <p20><span>Download the PDF</span></p20>
+    </button>
+    
+    
 
 
     </div>
@@ -580,7 +580,7 @@ feedback on this ongoing research.
 
 </p2>
 
- 
+<br> <br>
     <div style="display: flex; justify-content: center;">
 
       <p2 style="font-size:30px; color:rgb(166, 107, 222)"> 
@@ -590,11 +590,11 @@ feedback on this ongoing research.
    <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
    > 
    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">            
-<br>
+
 
           <p4 style="font-size:30px; color:rgb(107, 113, 222)">MAX/MSP</p4>
 
-              <br>
+
               <div style="display: flex; align-items: center;">
                 <div class="buttton-container">
                         <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink1').click();">
@@ -607,24 +607,23 @@ feedback on this ongoing research.
                                 </svg>
                             </span>
                         </button>
-                        <div class="hovver-content"style="margin-left: -28%; margin-top: -30%;width: 430px;height: 256px;">
+                        <div class="hovver-content"style="margin-left: -48%; margin-top: -30%;width: 430px;height: 256px;">
                           <img src="media/maxmsp/polybuff.png"  ></div>
                       </div>
               
-                    <p style="margin-right: 13%; margin-left: 2%; font-size: 16px; color: rgb(43, 144, 127) ;">Patch in MAX/MSP with the main function of 
-                      recording multiple audio buffers and easily playing them back by selecting the buffer number. 
-                      Recordings are triggered by a pedal, which automatically trims the buffer to the total duration of the file. 
+                    <p style="margin-right: 13%; margin-left: 2%; font-size: 16px; color: rgb(43, 144, 127) ;">Patch with the main function of 
+                      recording multiple audio buffers and easily playing them back by selecting the buffer number. </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px; color: rgb(43, 144, 127) ;">
+                        Recordings are triggered by a pedal, which automatically trims the buffer to the total duration of the file. 
                       It is also possible to simultaneously play multiple buffers and loop them, enabling live sound experimentation. 
                       The patch was designed for the concert for bandoneon and electronics by the Contemporary Music Research Center 
                       held in December 2023, as part of the Electroacoustic Music Workshop course taught 
-                      by José Padovani and Rogério Vasconcelos. </div></p>
+                      by José Padovani and Rogério Vasconcelos. </p>
                 <a href="media/maxmsp/polybuffer.maxpat" download="polybuffer.maxpat" id="downloadLink1" style="display:none;"></a>
-              <br>
+   
 
 
 
-<br>
-<div style="display: flex; align-items: center;">
+<div style="display: flex; align-items: center; margin-top: -15px;">
   <div class="buttton-container">
           <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink2').click();">
               <span class="buttton__text">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; MeanMath </span>
@@ -636,10 +635,10 @@ feedback on this ongoing research.
                   </svg>
               </span>
           </button>
-          <div class="hovver-content"style="margin-left: 48%; margin-top: -350%;width: 220px;height: 530px;">
+          <div class="hovver-content"style="margin-left: 48%; margin-top: -270px;width: 220px;height: 530px;">
             <img src="media/maxmsp/media_e_desvio.png"></div>
         </div>
-      <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">Patch created by Sérgio Freire in MAX/MSP
+      <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">Patch created by Sérgio Freire 
          to calculate the mean and standard deviation, with outputs on outlets 1 and 2, respectively.</p>
   </div>
   <a href="media/maxmsp/media_e_desvio.maxpat" download="media_e_desvio.maxpat" id="downloadLink2" style="display:none;"></a>
@@ -647,10 +646,8 @@ feedback on this ongoing research.
 
 
 
-<br>
 
-
-<div style="display: flex; align-items: center;">
+<div style="display: flex; align-items: center;margin-top: -25px;">
   <div class="buttton-container">
           <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink3').click();">
               <span class="buttton__text">&nbsp;Audio Envelope  </span>
@@ -669,6 +666,37 @@ feedback on this ongoing research.
         <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
 <br>
 
+<div style="display: flex; align-items: center;margin-top: -20px;">
+  <div class="buttton-container">
+          <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink4').click();">
+              <span class="buttton__text">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; MIDI Select </span>
+              <span class="buttton__icon">
+                  <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                      <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                      <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                  </svg>
+              </span>
+          </button>
+          <div class="hovver-content"style="margin-left: -48%; margin-top: -350%;width: 430px;height: 256px;">
+            <img src="media/maxmsp/pad.png"></div>
+        </div>
+      <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+        Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information:  </p>
+      </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+Velocity (to measure the strength of pressed notes),
+Key pressed and
+Duration of the key pressed (to estimate the density).
+There is also a velocity sequencer that splits the information into four levels of strength to provide visual feedback with colors and allow other interactions with this information, such as promoting interactive changing behaviors.
+
+
+
+
+All of this information is sent to a Coll object patch (the next one available for download) and then saved as a .csv list, to be processed in other environments such as Python scripts.
+      </p>
+
+  <a href="media/maxmsp/pad.maxpat" download="pad.maxpat" id="downloadLink4" style="display:none;"></a>
+<br>
 
 
 
@@ -785,23 +813,12 @@ feedback on this ongoing research.
         <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
      <p2> Comming soon.   Ask about 
 
-   <span>  clicking here</span>
+
+  <p20 style = "font-size: 25px;"> <span>  clicking here</span></p20>
         </button>
+
 
       </p2> 
 
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
