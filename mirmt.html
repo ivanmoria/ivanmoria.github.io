@@ -471,7 +471,7 @@ redraw(); // Garante que o canvas seja redesenhado
 <br><br> 
 <div style="display: flex; justify-content: flex-end; margin-top: 10px">
   <p2 style="color: rgb(73, 203, 205);font-size:25px;"> Technologies for Extraction and Processing of Musical Information in Music Therapy: 
-    Microanalysis of Musical Traces and Possible Interfaces with Social Cognition.</p2>
+    Microanalysis of Musical Traces and Possible Interfaces with Social Cognition</p2>
 
 </div>
 
@@ -518,27 +518,50 @@ redraw(); // Garante que o canvas seja redesenhado
 
 <div style="display: flex; justify-content: center;">
 
-  <p2 style="font-size: 25px;">
-    IAMM-ISfAM Congress - Berlin 2024
-  </p2>
-</div></div>
-    <br>
-    <embed 
-      src="media/documents/textos/PosterBerlin2024.pdf" 
-      type="application/pdf" 
-      width="100%" 
-      height="760px" 
-      style="object-fit: contain; border: none; pointer-events: none; overflow: hidden;" 
-    />
-  </div>
   
 
+  <button class="ui-btn" onclick="window.location.href='https://iammonline.com/berlin2024/'">
+ 
+      <p2 style="font-size: 20px;">
+        <span>IAMM-ISfAM Congress - Berlin 2024    </span>
+      </p2>
+
+  </button>
+
     
-    <button class="ui-btn" style="margin-right: 20px;margin-top:-20px" onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
-      <p20><span>Download the PDF</span></p20>
-    </button>
+  <button class="ui-btn" style="margin-left: 15px;" onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
+    <p20 style="font-size: 14px;"><span>Download PDF</span></p20>
+  </button>
+  
+
+
+</div></div>
+
+    <style>
+      .no-drag {
+        -webkit-user-drag: none; /* Para navegadores WebKit como Chrome e Safari */
+        -moz-user-select: none; /* Para navegadores Firefox */
+        -ms-user-select: none; /* Para navegadores IE10 e superior */
+        user-select: none; /* Para navegadores modernos */
+        pointer-events: none; /* Evita que a imagem seja clicada ou arrastada */
+      }
+    </style>
     
+    <img 
+      src="media/documents/textos/Berlin.png" 
+      alt="Poster Berlin 2024" 
+      width="100%" 
+      height="100%" 
+      class="no-drag" 
+      style="object-fit: contain; border: none;" 
+    />
     
+  
+  </div>
+
+
+
+
 
 
     </div>
