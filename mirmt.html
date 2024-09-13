@@ -553,7 +553,7 @@ redraw(); // Garante que o canvas seja redesenhado
       width="100%" 
       height="100%" 
       class="no-drag" 
-      style="object-fit: contain; border: none;" 
+      style="object-fit: contain; border: none;margin-top:6px;" 
     />
     
   
@@ -685,7 +685,8 @@ feedback on this ongoing research.
           <div class="hovver-content"style="margin-left: 50%; margin-top: -300%;width: 150%;height: 180%;">
             <img src="media/maxmsp/envelope.png"></div>
         </div>
-      <p style=" margin-left:15px; margin-right:15px;font-size: 16px; color: rgb(43, 144, 127) ;">Simple Patch for an Audio Envelope</p> </div>
+      <p style=" margin-right: 13%; margin-left: 2%;font-size: 16px; color: rgb(43, 144, 127) ;">Simple Audio Envelope with Attack and Release Buttons – Easy to Configure with Values Included in the Abstraction's Name.</p> 
+    </div>
         <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
 <br>
 
@@ -738,22 +739,31 @@ All of this information is sent to a Coll object patch (the next one available f
   <p2 > 
     Music excerpts for rhythm evaluation  </p2>     
 </div>
+<div style="display: flex; align-items: center; margin-top: 15px;">
 
-
-<p33 style="margin-right: 26%; margin-top: 14px;margin-left: 0%"> 
+<p2 style = "font-size: 16px; color: rgb(246, 148, 148);"> 
   Notice: Some devices may have difficulty accessing multimedia files. If this happens, please click the link in the title of each frame to access the score directly on MuseScore's website.
-</p33>
+</p2>
 
           </div>
 
-<br>
-<style>
-  iframe {
-      width: 85%;
-      height: 200px; /* Ajuste a altura conforme necessário */
-      margin-top: 10px; /* Espaçamento entre iframes */
-  }
-</style>
+          <style>
+            .iframet-container {
+                position: relative;
+                width: 100%;
+                padding-top: 100%; /* Proporção 16:9 */
+                margin: 0 auto;
+            }
+          
+            .iframet-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+          </style>
 
 
 
@@ -763,12 +773,6 @@ All of this information is sent to a Coll object patch (the next one available f
   </button>
 
 
-  <iframe 
-    src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed" 
-    allowfullscreen allow="autoplay; fullscreen">
-</iframe>
-
-<br><br>
 
 
     <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
@@ -777,14 +781,6 @@ All of this information is sent to a Coll object patch (the next one available f
         AllaTurca A (in 3 with a jazz-style cadence)
  </span>
   </button>
-
-<iframe 
-    src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed" 
-    allowfullscreen allow="autoplay; fullscreen">
-</iframe>
-
-<br><br>
-
 
 
     <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
@@ -796,18 +792,6 @@ All of this information is sent to a Coll object patch (the next one available f
 
 
 
-
-
-
-<iframe 
-    src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed" 
-    allowfullscreen allow="autoplay; fullscreen">
-</iframe>
-
-<br><br>
-
-
-
     <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
   onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'">
       <span>
@@ -815,11 +799,12 @@ All of this information is sent to a Coll object patch (the next one available f
    </span>
   </button>
 
-<iframe 
-    src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed" 
-   ">
-</iframe>
-<br>
+  <div class="iframet-container">
+    <iframe 
+        src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed" 
+        allowfullscreen>
+    </iframe>
+  </div>
 
 
 
