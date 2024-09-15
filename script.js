@@ -138,3 +138,23 @@ wavesurfer.on('ready', function() {
             });
         });
     });
+
+
+
+    async function sendVisitDataToServer() {
+      const visitData = await getVisitData();
+      
+      // Enviar os dados ao servidor (use fetch, AJAX ou outro método)
+      fetch('/save-visit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(visitData)
+      }).then(response => response.json())
+        .then(data => console.log('Visita registrada:', data))
+        .catch(error => console.error('Erro ao enviar dados:', error));
+    }
+    
+    sendVisitDataToServer();
+    
