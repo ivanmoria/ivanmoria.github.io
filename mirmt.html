@@ -22,6 +22,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://unpkg.com/wavesurfer.js"></script>
     <style>
+      html, body {
+        overflow-x: hidden; /* Esconde a barra de rolagem horizontal */
+        margin: 0;
+        padding: 0;
+        width: 100%; /* Garante que o conteúdo ocupe apenas a largura da tela */
+    }
+    
 body {
   position: relative;
 
@@ -520,13 +527,21 @@ redraw(); // Garante que o canvas seja redesenhado
 
   
 
-  <button class="ui-btn" onclick="window.location.href='https://iammonline.com/berlin2024/'">
+  <button class="uias-btn" onclick="window.location.href='https://iammonline.com/berlin2024/'">
  
       <p2 style="font-size: 20px;">
         <span>IAMM-ISfAM Congress - Berlin 2024    </span>
+        <iframe class="preview" src="https://iammonline.com/berlin2024/"></iframe>
+ 
       </p2>
 
   </button>
+
+
+
+
+
+
 
     
   <button class="ui-btn" style="margin-left: 15px;" onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
@@ -591,7 +606,7 @@ redraw(); // Garante que o canvas seja redesenhado
           there are challenges in advancing technological methodologies and assessing subjective 
           aspects of the therapeutic process.
         </p2>
-          <br>  <br>  <p4> Cronogram</p4><br><br>
+          <br>  <br>  <p4> Research Timeline</p4><br><br>
         <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style=" color: rgb(146, 184, 171);  font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
    and the use of technological tools in Music Therapy;
 <br>
@@ -682,7 +697,7 @@ feedback on this ongoing research.
                   </svg>
               </span>
           </button>
-          <div class="hovver-content"style="margin-left: 48%; margin-top: -270px;width: 220px;height: 530px;">
+          <div class="hovver-content"style="margin-left: 48%; margin-top: -270px;width: 220px;height: 430px;">
             <img src="media/maxmsp/envelope.png"></div>
         </div>
       <p style=" margin-right: 13%; margin-left: 2%;font-size: 16px; color: rgb(43, 144, 127) ;">Simple Audio Envelope with Attack and Release Buttons – Easy to Configure with Values Included in the Abstraction's Name.</p> 
@@ -693,7 +708,7 @@ feedback on this ongoing research.
 <div style="display: flex; align-items: center;margin-top: -20px;">
   <div class="buttton-container">
           <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink4').click();">
-              <span class="buttton__text">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; MIDI Select </span>
+              <span class="buttton__text">&nbsp;&nbsp;&nbsp;  MIDI Capture </span>
               <span class="buttton__icon">
                   <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
                       <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
@@ -702,8 +717,8 @@ feedback on this ongoing research.
                   </svg>
               </span>
           </button>
-          <div class="hovver-content"style="margin-left: -48%; margin-top: -350%;width: 430px;height: 256px;">
-            <img src="media/maxmsp/pad.png"></div>
+          <div class="hovver-content"style="margin-left: -48%; margin-top: -240%;width: 430px;height: 256px;">
+            <img src="media/maxmsp/gifmax.gif"></div>
         </div>
       <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
         Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information:  </p>
@@ -724,8 +739,26 @@ All of this information is sent to a Coll object patch (the next one available f
 
 
 
+<div style="display: flex; align-items: center;margin-top: -20px;">
+  <div class="buttton-container">
+          <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink5').click();">
+              <span class="buttton__text">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C0ll </span>
+              <span class="buttton__icon">
+                  <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                      <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                      <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                  </svg>
+              </span>
+          </button>
+          <div class="hovver-content"style="margin-left: -48%; margin-top: -250%;width: 430px;height: 256px;">
+            <img src="media/maxmsp/c0ll.gif"></div>
+        </div>
+      <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+        This is the core of the coll object, which sends a list with a title to a text object. This object receives information from the MIDI Capture objects and processes it after the input of on or off.  </p>
+      </div> 
 
-
+  <a href="media/maxmsp/c0ll.maxpat" download="c0ll.maxpat" id="downloadLink5" style="display:none;"></a>
 
 
 
@@ -746,7 +779,7 @@ All of this information is sent to a Coll object patch (the next one available f
 </p2>
 
           </div>
-
+          <br>
           <style>
             .iframet-container {
                 position: relative;
@@ -763,42 +796,49 @@ All of this information is sent to a Coll object patch (the next one available f
                 height: 100%;
                 border: 0;
             }
-          </style>
+    
+     
+      </style>
+   
 
 
-
-  <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"  
+  <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"  
   onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'">
       <span ">AllaTurca A (Original)</span>
-  </button>
+      <iframe class="preview" src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
+    </button>
 
 
-
-
-    <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
+    <br>
+    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
   onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'">
       <span>
         AllaTurca A (in 3 with a jazz-style cadence)
  </span>
+ <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
   </button>
 
-
-    <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
+  <br>
+    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
   onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'">
       <span>
         AllaTurca A (changing the beat in jazz style)
    </span>
+   <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
   </button>
 
 
+<br>
 
-    <button class="uia-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
+    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
   onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'">
       <span>
         AllaTurca B (adapted to Brazilian Baião rhythm)
    </span>
-  </button>
+   <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
 
+  </button>
+  <br>
   <div class="iframet-container">
     <iframe 
         src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed" 
@@ -818,15 +858,17 @@ All of this information is sent to a Coll object patch (the next one available f
 
 
  
-        <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
-     <p2> Comming soon.   Ask about 
+        <button class="uia-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
+     <p2> Comming soon.   Ask about   </p2> 
 
 
-  <p20 style = "font-size: 25px;"> <span>  clicking here</span></p20>
+  <p20 style = "font-size: 25px;"> <span> &nbsp; clicking here</span></p20>
+
         </button>
 
 
-      </p2> 
+      </div>
+
 
 </body>
 </html>
