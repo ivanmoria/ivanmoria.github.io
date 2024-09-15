@@ -90,9 +90,46 @@
 
 
 
+.uias-btn  {
+  box-sizing: border-box;
+  padding: var(--btn-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-btn-color);
+  font: var(--font-weight) var(--font-size) var(--font-family);
+  background: var(--btn-default-bg);
+  border: none;
+  cursor: pointer;
+  transition: var(--btn-transition);
+
+  box-shadow: var(--btn-shadow);
+}
 
 
+.uias-btn {
+  color: rgb(134, 157, 95);
+  font-family: 'Poiret One', cursive;
+  position: relative;
+  
+}
 
+.uias-btn:hover .preview {
+  display: block;
+}
+
+.preview {
+  display: none;
+  position: absolute;
+  top: -220px; /* Ajuste a posição do iframe */
+  left: 0;
+  margin-left: 130px;
+  width: 450px; /* Largura da pré-visualização */
+  height: 300px; /* Altura da pré-visualização */
+  border: 1px solid #888;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
 
 
 
