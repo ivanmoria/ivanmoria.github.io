@@ -78,6 +78,25 @@ p11{
 
     </style>
 
+    <style>
+      .iframet-container {
+          position: relative;
+          width: 100%;
+          padding-top: 100%; /* Proporção 16:9 */
+          margin: 0 auto;
+      }
+    
+      .iframet-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+      }
+    
+    
+    </style>
 </head>
 <body>
   <div class="assinatura-container">
@@ -523,30 +542,29 @@ redraw(); // Garante que o canvas seja redesenhado
 <br><br>
 
 <div style="display: flex; justify-content: center;">
-
-  
-
   <button class="uias-btn" onclick="window.location.href='https://iammonline.com/berlin2024/'">
  
       <p2 style="font-size: 20px;">
         <span>IAMM-ISfAM Congress - Berlin 2024    </span>
-        <iframe class="preview" src="https://iammonline.com/berlin2024/"></iframe>
- 
+   
       </p2>
 
   </button>
+<br>
+
+<button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;margin-left:  20px;"
+onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
+    <span>
+PDF
+ </span>
+ <iframe class="preview" style= "margin-top: -10px;margin-left: -460px; width: 600px;height: 300px;"src="media/documents/textos/PosterBerlin2024.pdf"></iframe>
+
+</button>
+<br>
 
 
 
 
-
-
-
-    
-  <button class="ui-btn" style="margin-left: 15px;" onclick="window.location.href='media/documents/textos/PosterBerlin2024.pdf'" download>
-    <p20 style="font-size: 14px;"><span>Download PDF</span></p20>
-  </button>
-  
 
 
 </div></div>
@@ -561,16 +579,7 @@ redraw(); // Garante que o canvas seja redesenhado
       }
     </style>
     
-    <img 
-      src="media/documents/textos/PosterBerlin2024.jpg" 
-      alt="Poster Berlin 2024" 
-      width="100%" 
-      height="100%" 
-      class="no-drag" 
-      style="object-fit: contain; border: none;margin-top:6px;" 
-    />
-    
-  
+
   </div>
 
 
@@ -774,78 +783,182 @@ All of this information is sent to a Coll object patch (the next one available f
 <div style="display: flex; align-items: center; margin-top: 15px;">
 
 <p2 style = "font-size: 16px; color: rgb(246, 148, 148);"> 
-  Notice: Some devices may have difficulty accessing multimedia files. If this happens, please click the link in the title of each frame to access the score directly on MuseScore's website.
+  Notice: Some devices may have difficulty accessing multimedia files. If this happens, please click the link in the title of each piece to access the score directly on MuseScore's website.
 </p2>
 
           </div>
           <br>
+
+
+
           <style>
-            .iframet-container {
-                position: relative;
-                width: 100%;
-                padding-top: 100%; /* Proporção 16:9 */
-                margin: 0 auto;
+            .iframe-preview {
+              display: none;
+              width: 105%;
+              height: 300px; /* Altura do iframe */
+              border: 1px solid #ccc;
+              transform: scale(0.95); /* Aplicando zoom out */
+              transform-origin: top left; /* Define a origem da transformação */
             }
           
-            .iframet-container iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                border: 0;
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              font-family: 'Poiret One', cursive;
+
             }
+          
+            table, th, td {
+              border: 1px solid #869d5faa;
+            }
+          
+            th, td {
+              padding: 10px;
+              text-align: center; /* Centraliza horizontalmente */
+              vertical-align: middle; /* Centraliza verticalmente */
+
+
+              transition: all 0.3s ease; /* Adiciona uma transição suave */
+
+
+            }
+          
+            th {
+              background-color: #869d5fa4;
+              color: white;
+            }
+          
+            td {
+              color: rgb(134, 157, 95);
+            }
+            /* Estilo para a célula da coluna Piece quando hover */
+  .piece-cell:hover {
+    background-color: #30a55f54; /* Altera a cor de fundo no hover */
+
+    transform: scale(1.05); /* Aumenta a célula no hover */
+    z-index: 1; /* Leva a célula para frente */
+  }
+            /* Diminui o tamanho da fonte da coluna Piece */
+            .piece-cell {
+              font-size: 14px;
+              width: 25%; /* Reduzi a largura da coluna Piece */
+            }
+          
+            /* Aumentei a célula de preview para ocupar mais espaço */
+            .preview-cell {
+              vertical-align: top;
+              text-align: center;
+              width: 75%; /* Aumentei a largura da célula de preview */
+            }
+          
+            /* Inicialmente exibe o primeiro iframe */
+            #preview10 {
+              display: block;
+            }
+          </style>
+          
+
+
+
+
+
     
-     
-      </style>
-   
 
 
-  <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"  
-  onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'">
-      <span ">AllaTurca A (Original)</span>
-      <iframe class="preview" src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
-    </button>
 
 
-    <br>
-    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
-  onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'">
-      <span>
-        AllaTurca A (in 3 with a jazz-style cadence)
- </span>
- <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
-  </button>
 
-  <br>
-    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
-  onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'">
-      <span>
-        AllaTurca A (changing the beat in jazz style)
-   </span>
-   <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
-  </button>
+          <!-- JavaScript para manipular a exibição dos iframes -->
+          <script>
+            function showPreview(previewId) {
+              // Esconde todos os iframes
+              var iframes = document.querySelectorAll('.iframe-preview');
+              iframes.forEach(function(iframe) {
+                iframe.style.display = 'none';
+              });
+          
+              // Mostra o iframe correspondente
+              var selectedIframe = document.getElementById(previewId);
+              selectedIframe.style.display = 'block';
+            }
+            function hidePreview() {
+              // Esconde todos os iframes
+              var iframes = document.querySelectorAll('.iframe-preview');
+              iframes.forEach(function(iframe) {
+                  iframe.style.display = 'none';
+              });
+          }
+            
+          </script>
+          
+          <table>
+            <tr>
+              <th>Piece</th>
+              <th>Preview</th>
+            </tr>
+            <tr>
+              <td class="piece-cell">
+                <button class="uias-btn" 
+                  onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'"
+                  onmouseover="showPreview('preview1')" style="color: #c2eebd;">
+                  AllaTurca A (Original)
+                </button>
+              </td>
+              <td rowspan="5" class="preview-cell"> <!-- Mescla a célula de preview para ocupar múltiplas linhas -->
+                <iframe id="preview1" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
+                <iframe id="preview2" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
+                <iframe id="preview3" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
+                <iframe id="preview4" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
+              </td>
+            </tr>
+            <tr>
+              <td class="piece-cell">
+                <button class="uias-btn" 
+                  onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'"
+                  onmouseover="showPreview('preview2')" style="color: #c2eebd;">
+                  AllaTurca A (in 3 with a jazz-style cadence)
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="piece-cell">
+                <button class="uias-btn" 
+                  onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'"
+                  onmouseover="showPreview('preview3')" style="color: #c2eebd;">
+                  AllaTurca A (changing the beat in jazz style)
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="piece-cell">
+                  <button class="uias-btn" 
+                      onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'" 
+                      onmouseover="showPreview('preview4')" 
+              
+                      style="color: #c2eebd;">
+                      AllaTurca B (adapted to Brazilian Baião rhythm)
+                  </button>
+              </td>
+          </tr>
+          
+          <tr>
+            <td class="piecew-cell">
+                <button class="uias-btn" 
+                    onmouseover="hidePreview()" 
+                    onmouseout="hidePreview()" 
+                   >
+                    
+                </button>
+            </td>
+        </tr>
+        
+          
 
 
-<br>
-
-    <button class="uias-btn" style="color: rgb(134, 157, 95);  font-family: 'Poiret One', cursive;"
-  onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'">
-      <span>
-        AllaTurca B (adapted to Brazilian Baião rhythm)
-   </span>
-   <iframe class="preview" src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
-
-  </button>
-  <br>
-  <div class="iframet-container">
-    <iframe 
-        src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed" 
-        allowfullscreen>
-    </iframe>
-  </div>
 
 
+          </table>
+          
 
 
 

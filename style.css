@@ -118,10 +118,16 @@
   display: block;
 }
 
+
+
+
+
+
+
 .preview {
   display: none;
   position: absolute;
-  top: -220px; /* Ajuste a posição do iframe */
+  top: 35px; /* Ajuste a posição do iframe */
   left: 0;
   margin-left: 130px;
   width: 450px; /* Largura da pré-visualização */
@@ -130,13 +136,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
-
-
-
-
-
-
-
 
 
 
