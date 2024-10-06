@@ -607,7 +607,7 @@ PDF
           <div style="display: flex; flex-direction: column; align-items: flex-start; width: 90%;margin-top: 15px; margin-left: 0px">
             <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -15px;"  >
 
-<p2 style=" color: rgb(146, 184, 171);  font-size:20px ">
+<p2 style=" color: rgb(146, 184, 171); color:#00000037 font-size:20px ">
           <br>Given the vast potential for the collection and analysis of musical 
           data from Music Therapy <p20 style="font-size: 22px;">(MT)</p20> sessions using MIDI, 
           through Music Information Retrieval <p20 style="font-size: 22px;">(MIR)</p20> techniques, 
@@ -640,7 +640,40 @@ feedback on this ongoing research.
 
           <p4 style="font-size:30px; color:rgb(107, 113, 222)">MAX/MSP</p4>
 
+<br>
+          <div style="display: flex; align-items: center;margin-top: -20px;">
+            <div class="buttton-container">
+                    <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink4').click();">
+                        <span class="buttton__text">&nbsp;&nbsp;&nbsp;  MIDI Capture </span>
+                        <span class="buttton__icon">
+                            <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                                <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                                <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="hovver-content"style="margin-left: -48%; margin-top: -240%;width: 430px;height: 256px;">
+                      <img src="media/maxmsp/gifmax.gif"></div>
+                  </div>
+                <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+                  Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information:  </p>
+                </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+          Velocity (to measure the strength of pressed notes),
+          Key pressed and
+          Duration of the key pressed (to estimate the density).
+          There is also a velocity sequencer that splits the information into four levels of strength to provide visual feedback with colors and allow other interactions with this information, such as promoting interactive changing behaviors.
+          
+          
+          
+          
+          All of this information is sent to a Coll object patch (the next one available for download) and then saved as a .csv list, to be processed in other environments such as Python scripts.
+                </p>
+          
+            <a href="media/maxmsp/pad.maxpat" download="pad.maxpat" id="downloadLink4" style="display:none;"></a>
 
+          
+          
               <div style="display: flex; align-items: center;">
                 <div class="buttton-container">
                         <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink1').click();">
@@ -712,40 +745,6 @@ feedback on this ongoing research.
     </div>
         <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
 <br>
-
-<div style="display: flex; align-items: center;margin-top: -20px;">
-  <div class="buttton-container">
-          <button type="buttton" class="buttton" onclick="document.getElementById('downloadLink4').click();">
-              <span class="buttton__text">&nbsp;&nbsp;&nbsp;  MIDI Capture </span>
-              <span class="buttton__icon">
-                  <svg class="svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-                      <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-                      <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-                  </svg>
-              </span>
-          </button>
-          <div class="hovver-content"style="margin-left: -48%; margin-top: -240%;width: 430px;height: 256px;">
-            <img src="media/maxmsp/gifmax.gif"></div>
-        </div>
-      <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
-        Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information:  </p>
-      </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
-Velocity (to measure the strength of pressed notes),
-Key pressed and
-Duration of the key pressed (to estimate the density).
-There is also a velocity sequencer that splits the information into four levels of strength to provide visual feedback with colors and allow other interactions with this information, such as promoting interactive changing behaviors.
-
-
-
-
-All of this information is sent to a Coll object patch (the next one available for download) and then saved as a .csv list, to be processed in other environments such as Python scripts.
-      </p>
-
-  <a href="media/maxmsp/pad.maxpat" download="pad.maxpat" id="downloadLink4" style="display:none;"></a>
-<br>
-
-
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
   <div class="buttton-container">
