@@ -158,3 +158,13 @@ wavesurfer.on('ready', function() {
     
     sendVisitDataToServer();
     
+
+
+
+  function showPDFPreview(iframeId) {
+    document.getElementById(iframeId).style.display = 'block';
+}
+
+function hidePDFPreview(iframeId) {
+    document.getElementById(iframeId).style.display = 'none';
+}

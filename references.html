@@ -519,23 +519,46 @@ function windowResized() {
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-bottom:-40 px; ">
 <button class="uia-btn" onclick="window.location.href='mirmt.html'">
 
-<span> Doutorado em  Música (UFMG)</span></button>
+<span> Doutorado em  Música (UFMG)
+</span>
+
+</button>
+
+
+
+
+
+
                 
       <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
       >[No prelo] Tecnologias de Extração e Processamento de Informações
       Musicais em Musicoterapia: Microanálises de Vestígios Musicais
       e possíveis interfaces com a Cognição Social. 
       <a href="https://musica.ufmg.br/ppgmus/"class="popup-link"onclick="window.open(this.href); return false;">
-        Programa de Pós-Graduação em Música,      </a> 
+        Programa de Pós-Graduação em Música,    
+      </a> 
      
+
+
+
+      
        linha de pesquisa: Musicoterapia. Universidade Federal de Minas Gerais (UFMG).  2021 - 2025
    </span></div>
-<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 0px; ">
-<button class="uia-btn" onclick="window.open('media/documents/textos/Dissertacao_Ivan-Moria.pdf', 'popup', 'width=420,height=600');">
+   
+   <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 0;">
+    <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview')" onmouseout="hidePDFPreview('pdf-preview')"
+            onclick="window.open('media/documents/textos/Dissertacao_Ivan-Moria.pdf');">
+        <span>Mestrado em Neurociências (UFMG)</span>
 
 
+    <iframe id="pdf-preview" class="preview" src="media/documents/textos/Dissertacao_Ivan-Moria.pdf" 
+    
+    style="display: none; margin-top: 315px;margin-left: 10px;width: 520px;height: 180px;z-index: 9999;"></iframe>
 
-<span> Mestrado em Neurociências (UFMG)</span> </button>
+
+  </button>
+
+
 
       <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
       >MORIÁ, IVAN; A cognição social em musicoterapia: perspectivas sobre a atuação na prática musical interativa em saúde mental [manuscrito].
@@ -548,8 +571,24 @@ Programa de Pós-Graduação em Neurociências.       </a>    114 f, 2021. </spa
 </div>
  
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-<button class="uia-btn" onclick="window.open('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf', 'popup', 'width=600,height=650');">
-<span>Graduação em Musicoterapia (UFMG)</span></button>
+
+
+<button class="uia-btn" onmouseover="showPDFPreview('pdf-preview2')" onmouseout="hidePDFPreview('pdf-preview2')"
+onclick="window.open('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf');">
+<span>Graduação em Musicoterapia (UFMG)</span>
+
+
+<iframe id="pdf-preview2" class="preview" 
+src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" 
+
+style="display: none; margin-top: 545px;margin-left: 10px;width: 520px;height: 180px;z-index: 9999;"></iframe>
+
+
+
+</button>
+
+
+
 
     <span class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
     >MORIÁ, IVAN; CORDEIRO, Rodrigo. Musicoterapia e Saúde Mental: um encontro através do cantar [manuscrito]. Trabalho de Conclusão de Curso.
@@ -585,11 +624,24 @@ Graduação em Música – habilitação em Musicoterapia.     </a>   65 f,     
 
 
 <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
-<button class="uia-btn" onclick="window.open
-('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', 'popup', 'width=420,height=600');">
 
-<span>Artigo</span></button>
-   
+
+<button class="uia-btn" onmouseover="showPDFPreview('pdf-preview3')" onmouseout="hidePDFPreview('pdf-preview3')"
+onclick="window.open('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf');">
+<span>Artigo</span>
+
+
+<iframe id="pdf-preview3" class="preview" 
+src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" 
+
+style="display: none; margin-top: 990px;margin-left: 10px;width: 520px;height: 170px;z-index: 9999;"></iframe>
+
+
+</button>
+
+
+
+
       <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
       >MORIÁ, IVAN; BARROSO, SEBASTIAN. Musicoterapia e performance musical: a improvisação musical terapêutica como ferramenta no tratamento da ansiedade. 
       In: 
@@ -602,14 +654,29 @@ Anais do 8º Nas Nuvens...    </a>   Congresso de Música, UFMG, UEMG E KING'S C
 <a href="media/documents/certificados/2022-8nasnuvens.pdf"
 class="popup-link"onclick="window.open(this.href, 'popup', 'width=420,height=330'); return false;">
 
-2022. </a></span>
+2022.             <span class="tooltip">Certificado</span> </a></span>
 </div>
 
 
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-<button class="uia-btn" onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf', 'popup', 'width=420,height=600');">
 
-  <span>Artigo</span></button> 
+
+
+  <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview4')" onmouseout="hidePDFPreview('pdf-preview4')"
+  onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf');">
+  <span>Artigo</span>
+  
+  
+  <iframe id="pdf-preview4" class="preview" 
+  src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf" 
+  
+  style="display: none; margin-top: 1190px;margin-left: 10px;width: 520px;height: 140px;z-index: 9999;"></iframe>
+  
+  
+  </button>
+  
+
+
    
 <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
 >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. 
@@ -621,10 +688,22 @@ Percepta - Revista de Cognição Musical,      </a>   v. 8, n. 2, p. 53–74, 20
 
    
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-<button class="uia-btn" onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf', 'popup', 'width=420,height=600');">
-   
-  <span>Artigo</span></button>
-   
+
+
+  <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview5')" onmouseout="hidePDFPreview('pdf-preview5')"
+  onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf');">
+  <span>Artigo</span>
+  
+  
+  <iframe id="pdf-preview5" class="preview" 
+  src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf" 
+  
+  style="display: none; margin-top: 1367px;margin-left: 10px;width: 520px;height: 120px;z-index: 9999;"></iframe>
+  
+  
+  </button>
+
+
    
           <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
           >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial.
@@ -654,7 +733,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
             "The Future of Music and Arts in Medicine and Health",   </a>    IAMM & ISfAM,  <a style="color:rgb(246, 148, 148);">  Berlin, Germany. </a> 
                 <a href="media/documents/certificados/IAMM_ISfAM_certificate_of_attendance_Moriá.pdf"
                 class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=625'); return false;">
-                2024.  </a>   </span>
+                2024.              <span class="tooltip">Certificado</span></a>   </span>
                 </div>
 
 
@@ -665,11 +744,26 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
             
             <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; margin-bottom:- 10px; "
-            < button class="uia-btn" onclick="window.open( ' media/documents/textos/PosterBerlin2024.pdf', 'popup', 'width=500,height=750');">
-              <span>Comunicação Oral</span></button></div>
-            </label>
+      
 
+                       <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview6')" 
+                       onmouseout="hidePDFPreview('pdf-preview6')"
+                       onclick="window.open('media/documents/textos/PosterBerlin2024.pdf');">
+                       <span>Comunicação Oral</span>
+                       
+                       
+                       <iframe id="pdf-preview6" class="preview" 
+                       src="media/documents/textos/PosterBerlin2024.pdf" 
+                       
+                       style="display: none; margin-top: 1755px;margin-left: 10px;width: 520px;height: 140px;z-index: 9999;"></iframe>
+                       
+                       
                        </button>
+                       
+</div>
+
+
+                       
                         <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
                         <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
                 >MORIÁ, IVAN. SAMPAIO, R. FREIRE, S. The use of MIDI data for music therapy research.
@@ -678,7 +772,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
             "The Future of Music and Arts in Medicine and Health",   </a>    IAMM & ISfAM, <a style="color:rgb(246, 148, 148);"> Berlin, Germany.</a> 
                 <a href="media/documents/certificados/IAMM_ISfAM_certificate_of_attendance_Moriá.pdf" 
                 class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=625'); return false;">
-                2024.  </a>   </span>
+                2024.              <span class="tooltip">Certificado</span></a>   </span>
                 </div>
 
 
@@ -709,7 +803,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
                 Music Therapy Today   </a>   18(1), <a style="color:rgb(246, 148, 148);">  Vancouver, Canada.</a> p. 459-460,
                 <a href="media/documents/certificados/certificadowcmt.pdf"
                 class="popup-link" onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
-                2023.  </a>  </span>
+                2023.              <span class="tooltip">Certificado</span></a>  </span>
                 </div>
 
 
@@ -734,7 +828,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
  
   <a href="  media/documents/certificados/2022emtccertificate.pdf"
   class="popup-link"onclick="window.open(this.href, 'popup', 'width=420,height=330'); return false;">
-  2022. </a>   
+  2022.             <span class="tooltip">Certificado</span> </a>   
 
     </span>
   </div> 
@@ -774,7 +868,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
              <a href="media/documents/certificados/2023-9nasnuvens.pdf"
              class="popup-link"
              onclick="window.open(this.href, 'popup', 'width=420,height=280'); return false;">
-             2023.</a></span>
+             2023.
+             <span class="tooltip">Certificado</span></a></span>
             </div>
 
 
@@ -802,14 +897,14 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
             <a href="media/documents/certificados/enpemt2023.pdf"
             class="popup-link"
             onclick="window.open(this.href, 'popup', 'width=420,height=330'); return false;">
-           
-           2023.</a>
-            
-         </span>
-            </div>
-            
-            
+            2023
+            <span class="tooltip">Certificado</span>
+         </a>
+         
 
+          </span>
+        </div>
+        
 
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
                 <button class="uia-btn" onclick="window.open
@@ -822,7 +917,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
     </label>
 
                 <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
-            >MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M ; KETHLEN, T.
+            >MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M.
             Tradução e Validação da Escala Interest in Music para o português brasileiro.
             In: 
             
@@ -839,7 +934,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
             <a href="media/documents/certificados/2022-enpemt.pdf"
             class="popup-link"
             onclick="window.open(this.href, 'popup', 'width=420,height=330'); return false;">
-            2022.</a>
+            2022.
+            <span class="tooltip">Certificado</span></a>
           </span>
         </div>
 
@@ -943,7 +1039,8 @@ class="popup-link"
 
 onclick="window.open(this.href, 'popup', 'width=420,height=625'); return false;">
 
-Pâmela Ramos </a>  <a style="color: rgb(43, 144, 127) ;"> Graduação em Musicoterapia - UFMG. </a>  A Musicoterapia como tratamento para estudantes de Bacharelado em Música
+Pâmela Ramos 
+<span class="tooltip">Certificado</span> </a>  <a style="color: rgb(43, 144, 127) ;"> Graduação em Musicoterapia - UFMG. </a>  A Musicoterapia como tratamento para estudantes de Bacharelado em Música
 com Ansiedade na Performance Musical: algumas reflexões. 2023 
 
 
@@ -954,7 +1051,8 @@ class="popup-link"
 
 onclick="window.open(this.href, 'popup', 'width=420,height=625'); return false;">
 
-Rafael Oliveira </a> <a style="color: rgb(43, 144, 127) ;">  Graduação em Musicoterapia - UNESPAR. </a>  A Improvisação Musical em Musicoterapia para Músicos
+Rafael Oliveira 
+<span class="tooltip">Certificado</span></a> <a style="color: rgb(43, 144, 127) ;">  Graduação em Musicoterapia - UNESPAR. </a>  A Improvisação Musical em Musicoterapia para Músicos
 . 2023
 
 
@@ -968,7 +1066,8 @@ class="popup-link"
 
 onclick="window.open(this.href, 'popup', 'width=420,height=625'); return false;">
 
-Roberto Fonseca </a>  <a style="color: rgb(43, 144, 127) ;">  Graduação em Geografia - UFMG. </a> A “Vida em Bando” e os  Espaços (Apropriados, Vividos...). 2022
+Roberto Fonseca
+<span class="tooltip">Certificado</span> </a>  <a style="color: rgb(43, 144, 127) ;">  Graduação em Geografia - UFMG. </a> A “Vida em Bando” e os  Espaços (Apropriados, Vividos...). 2022
 
 
 <br>
