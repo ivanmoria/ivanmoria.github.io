@@ -1428,3 +1428,47 @@ footer .demo a {
   opacity: 1;
   transition: 0.8s;
 }
+
+
+
+
+.popup-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: rgb(12, 12, 12);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  bottom: 125%; /* Ajuste a posição do tooltip conforme necessário */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.popup-link:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.uia-btn:hover .tooltip {
+  visibility: visible;
+  opacity: 9999;
+}
+
+
+
+.preview {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
