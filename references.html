@@ -537,27 +537,21 @@ function windowResized() {
       <a href="https://musica.ufmg.br/ppgmus/"class="popup-link"onclick="window.open(this.href); return false;">
         Programa de Pós-Graduação em Música,    
       </a> 
-     
-
-
-
-      
        linha de pesquisa: Musicoterapia. Universidade Federal de Minas Gerais (UFMG).  2021 - 2025
-   </span></div>
+   </span>
    
-   <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 0;">
-    <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview')" onmouseout="hidePDFPreview('pdf-preview')"
+
+
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+    <button class="uia-btn" 
             onclick="window.open('media/documents/textos/Dissertacao_Ivan-Moria.pdf');">
-        <span>Mestrado em Neurociências (UFMG)</span>
-
-
-    <iframe id="pdf-preview" class="preview" src="media/documents/textos/Dissertacao_Ivan-Moria.pdf" 
-    
-    style="display: none; margin-top: 315px;margin-left: 10px;width: 520px;height: 180px;z-index: 9999;"></iframe>
-
-
-  </button>
-
+        <span>Mestrado em Neurociências <span style=" color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview')" >(UFMG)</span>
+      </button>
+      <iframe id="pdf-preview" class="preview" src="media/documents/textos/Dissertacao_Ivan-Moria.pdf"  
+      onmouseout="hidePDFPreview('pdf-preview')"
+      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
+   </div>  
 
 
       <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -570,23 +564,17 @@ Dissertação (mestrado em Neurociências)    </a>    –   Universidade Federal
 Programa de Pós-Graduação em Neurociências.       </a>    114 f, 2021. </span>
 </div>
  
-<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
 
 
-<button class="uia-btn" onmouseover="showPDFPreview('pdf-preview2')" onmouseout="hidePDFPreview('pdf-preview2')"
-onclick="window.open('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf');">
-<span>Graduação em Musicoterapia (UFMG)</span>
-
-
-<iframe id="pdf-preview2" class="preview" 
-src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" 
-
-style="display: none; margin-top: 545px;margin-left: 10px;width: 520px;height: 180px;z-index: 9999;"></iframe>
-
-
-
-</button>
-
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+  <button class="uia-btn" 
+          onclick="window.open('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf');">
+      <span>Graduação em Musicoterapia  <span style=" color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview2')" >(UFMG)</span>
+    </button>
+    <iframe id="pdf-preview2" class="preview" src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf"  
+    onmouseout="hidePDFPreview('pdf-preview2')"
+    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+    border: none; background-color: transparent; opacity: 1;"></iframe>
 
 
 
@@ -605,11 +593,18 @@ Graduação em Música – habilitação em Musicoterapia.     </a>   65 f,     
       
 
 
-<div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
-  <button class="uia-btn" onclick="window.open
-  ('', 'popup', 'width=420,height=600');">
-  
-  <span>Artigo</span></button>
+
+
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+  <button class="uia-btn" 
+          onclick="window.open('media/documents/textos/j.pdf');">
+          <span style=" margin-right: 10px;">Artigo </span>  <span style="color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview3')" >Revista Incantare</span>
+    </button>
+    <iframe id="pdf-preview3" class="preview" src="media/documents/textos/j.pdf"  
+    onmouseout="hidePDFPreview('pdf-preview3')"
+    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+    border: none; background-color: transparent; opacity: 1;"></iframe>
+
      
         <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
         >MORIÁ, IVAN; RAMOS, P.; PEDROSA, F.  Musicoterapia e Dependência Química relato de experiência em um CERSAM AD em Belo Horizonte. 
@@ -623,23 +618,17 @@ Graduação em Música – habilitação em Musicoterapia.     </a>   65 f,     
 
 
 
-<div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; ">
 
-
-<button class="uia-btn" onmouseover="showPDFPreview('pdf-preview3')" onmouseout="hidePDFPreview('pdf-preview3')"
-onclick="window.open('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf');">
-<span>Artigo</span>
-
-
-<iframe id="pdf-preview3" class="preview" 
-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" 
-
-style="display: none; margin-top: 990px;margin-left: 10px;width: 520px;height: 170px;z-index: 9999;"></iframe>
-
-
-</button>
-
-
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+    <button class="uia-btn" 
+            onclick="window.open('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf');">
+        <span style=" margin-right: 10px;">Artigo </span>   <span style="color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview4')" > 8º Nas Nuvens</span>
+      </button> 
+      <iframe id="pdf-preview4" class="preview" src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf"  
+      onmouseout="hidePDFPreview('pdf-preview4')"
+      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
+  
 
 
       <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -658,23 +647,20 @@ class="popup-link"onclick="window.open(this.href, 'popup', 'width=420,height=330
 </div>
 
 
-<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
 
 
 
-  <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview4')" onmouseout="hidePDFPreview('pdf-preview4')"
-  onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf');">
-  <span>Artigo</span>
-  
-  
-  <iframe id="pdf-preview4" class="preview" 
-  src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf" 
-  
-  style="display: none; margin-top: 1190px;margin-left: 10px;width: 520px;height: 140px;z-index: 9999;"></iframe>
-  
-  
-  </button>
-  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+  <button class="uia-btn" 
+          onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf');">
+      <span style=" margin-right: 10px;">Artigo </span>  
+       <span style="color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview5')" > Revista Percepta</span>
+    </button> 
+    <iframe id="pdf-preview5" class="preview" src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf"  
+    onmouseout="hidePDFPreview('pdf-preview5')"
+    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+    border: none; background-color: transparent; opacity: 1;"></iframe>
+
 
 
    
@@ -687,22 +673,18 @@ Percepta - Revista de Cognição Musical,      </a>   v. 8, n. 2, p. 53–74, 20
 </div>
 
    
-<div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
 
 
-  <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview5')" onmouseout="hidePDFPreview('pdf-preview5')"
-  onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf');">
-  <span>Artigo</span>
-  
-  
-  <iframe id="pdf-preview5" class="preview" 
-  src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf" 
-  
-  style="display: none; margin-top: 1367px;margin-left: 10px;width: 520px;height: 120px;z-index: 9999;"></iframe>
-  
-  
-  </button>
-
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+  <button class="uia-btn" 
+          onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf');">
+          <span style=" margin-right: 10px;">Artigo </span> 
+           <span style="color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview6')" >Brasilian Journal of Musictherapy</span>
+    </button>
+    <iframe id="pdf-preview6" class="preview" src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf"  
+    onmouseout="hidePDFPreview('pdf-preview6')"
+    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+    border: none; background-color: transparent; opacity: 1;"></iframe>
 
    
           <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -742,24 +724,26 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
 
 
-            
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; margin-bottom:- 10px; "
-      
 
-                       <button class="uia-btn" onmouseover="showPDFPreview('pdf-preview6')" 
-                       onmouseout="hidePDFPreview('pdf-preview6')"
-                       onclick="window.open('media/documents/textos/PosterBerlin2024.pdf');">
-                       <span>Comunicação Oral</span>
-                       
-                       
-                       <iframe id="pdf-preview6" class="preview" 
-                       src="media/documents/textos/PosterBerlin2024.pdf" 
-                       
-                       style="display: none; margin-top: 1755px;margin-left: 10px;width: 520px;height: 140px;z-index: 9999;"></iframe>
-                       
-                       
-                       </button>
-                       
+
+
+                <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+                  <button class="uia-btn" 
+                          onclick="window.open('media/documents/textos/PosterBerlin2024.pdf');"> 
+                          <span style=" margin-right: 10px;">Comunicação Oral </span> 
+    
+                          <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview7')" >Berlin 2024</span>
+                    </button>
+           
+           
+
+                    <iframe id="pdf-preview7" class="preview" src="media/documents/textos/PosterBerlin2024.pdf"  
+                    onmouseout="hidePDFPreview('pdf-preview7')"
+                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    border: none; background-color: transparent; opacity: 1;"></iframe>
+ 
+                
 </div>
 
 
@@ -781,16 +765,26 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
            
 
 
-            
-            <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%;margin-top: 15px; margin-bottom:- 10px; "
-            <button class="uia-btn" onclick="window.open( 'https://my.ltb.io/#/viewStack/ABSRD', 'popup', 'width=600,height=650');">
-  
-   
-       
-              <span>Comunicação Oral</span></button></div>
-            </label>
+                <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+                  <button class="uia-btn" 
+                          onclick="window.open('https://my.ltb.io/#/viewStack/ABSRD');"> 
+                          <span style=" margin-right: 10px;">Comunicação Oral </span> 
+    
+                          <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview8')" >Vancouver 2023</span>
+                    </button>
+           
+           
 
-                       </button>
+                    <iframe id="pdf-preview8" class="preview" src="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496"  
+                    onmouseout="hidePDFPreview('pdf-preview8')"
+                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    border: none; background-color: transparent; opacity: 1;"></iframe>
+ 
+                
+</div>
+
+      
                         <div style="display: flex; flex-direction: column; align-items: flex-start; width:85%; ">
                         <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
                 >MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
@@ -809,15 +803,24 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
 
 
+
+                <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+                  <button class="uia-btn" 
+                          onclick="window.open('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223');"> 
+                          <span style=" margin-right: 10px;">Comunicação Oral </span> 
+    
+                          <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview9')" >Edinburgh 2022</span>
+                    </button>
+           
+           
+
+                    <iframe id="pdf-preview9" class="preview" src="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223"  
+                    onmouseout="hidePDFPreview('pdf-preview9')"
+                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    border: none; background-color: transparent; opacity: 1;"></iframe>
+ 
                 
-    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; "> <button class="uia-btn" onclick="window.open
-      ('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223', 'popup', 'width=420,height=600');">
-
-
-
-
-    <span>Comunicação Oral</span></button>
-  </label>
 
 
    <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -841,17 +844,21 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
 
 
-           
-    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-                <button class="uia-btn" onclick="window.open
-                ('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf', 'popup', 'width=420,height=600');">
-   
-   
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+    <button class="uia-btn" 
+            onclick="window.open('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf');"> 
+            <span style=" margin-right: 10px;">Comunicação Oral </span> 
 
-  
-      <span>Comunicação Oral</span></button>
-    </label>
-  
+            <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview10')" >9º Nas Nuvens</span>
+      </button>
+
+
+
+      <iframe id="pdf-preview10" class="preview" src="media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf"  
+      onmouseout="hidePDFPreview('pdf-preview10')"
+      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
 
                 <span  class="content-text" style="text-align: justify; width: 85%;margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
@@ -875,14 +882,26 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
 
 
-    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-                <button class="uia-btn" onclick="window.open
-                ('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25', 'pdfpopup', 'width=420,height=600');">
-   
 
-  
-      <span>Comunicação Oral</span></button>
-    </label>
+
+            <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+              <button class="uia-btn" 
+                      onclick="window.open('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25');"> 
+                      <span style=" margin-right: 10px;">Comunicação Oral </span> 
+          
+                      <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview11')" >XXIII ENPEMT</span>
+                </button>
+          
+          
+          
+                <iframe id="pdf-preview11" class="preview" src="media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25"  
+                onmouseout="hidePDFPreview('pdf-preview11')"
+                style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                border: none; background-color: transparent; opacity: 1;"></iframe>
+          
+
+
 
                 <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I; ACOSTA, C.S.G. ; ZANINI, C.R.O ; GIFFONI, Y ; ANSAY, N.
@@ -906,15 +925,27 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
         </div>
         
 
-    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-top: 15px; ">
-                <button class="uia-btn" onclick="window.open
-                ('media/documents/textos/ENPEMT_2022_poster.pdf', 'popup', 'width=550,height=780');">
-    
 
 
-  
-      <span>Comunicação Oral</span></button>
-    </label>
+        <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
+          
+          <button class="uia-btn" 
+                  onclick="window.open('media/documents/textos/ENPEMT_2022_poster.pdf');"> 
+                  <span style=" margin-right: 10px;">Comunicação Oral </span> 
+      
+                  <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview12')" >XXII ENPEMT</span>
+            </button>
+      
+      
+      
+            <iframe id="pdf-preview12" class="preview" src="media/documents/textos/ENPEMT_2022_poster.pdf"  
+            onmouseout="hidePDFPreview('pdf-preview12')"
+            style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+            border: none; background-color: transparent; opacity: 1;"></iframe>
+      
+
+
+
 
                 <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
             >MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M.
@@ -928,7 +959,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
             class="popup-link"
             onclick="window.open(this.href, 'popup', 'width=420,height=600'); return false;">
           
-            Anais do XXII EMPEMT  </a>   - Encontro Nacional de Pesquisa em Musicoterapia, <a style="color:rgb(246, 148, 148);"> São Paulo, Brasil. </a>
+            Anais do XXII ENPEMT  </a>   - Encontro Nacional de Pesquisa em Musicoterapia, <a style="color:rgb(246, 148, 148);"> São Paulo, Brasil. </a>
             
             
             <a href="media/documents/certificados/2022-enpemt.pdf"
