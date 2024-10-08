@@ -160,11 +160,12 @@ wavesurfer.on('ready', function() {
     
 
 
+    function showPDFPreview(previewId) {
+      document.getElementById(previewId).style.display = 'block';
+  }
+  
+  function hidePDFPreview(previewId) {
+      document.getElementById(previewId).style.display = 'none';
+  }
+  
 
-  function showPDFPreview(iframeId) {
-    document.getElementById(iframeId).style.display = 'block';
-}
-
-function hidePDFPreview(iframeId) {
-    document.getElementById(iframeId).style.display = 'none';
-}
