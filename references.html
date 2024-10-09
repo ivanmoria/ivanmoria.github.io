@@ -545,13 +545,44 @@ function windowResized() {
    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 15px;">
     <button class="uia-btn" 
             onclick="window.open('media/documents/textos/Dissertacao_Ivan-Moria.pdf');">
-        <span>Mestrado em Neurociências <span style=" color: rgba(34, 218, 49, 0.622)"onmouseover="showPDFPreview('pdf-preview')" >(UFMG)</span>
-      </button>
-      <iframe id="pdf-preview" class="preview" src="media/documents/textos/Dissertacao_Ivan-Moria.pdf"  
+        <span>Mestrado em Neurociências <span style="color: rgba(34, 218, 49, 0.622)" onmouseover="showPDFPreview('pdf-preview')">(UFMG)</span></span>
+    </button>
+    <iframe id="pdf-preview" class="preview" src="media/documents/textos/Dissertacao_Ivan-Moria.pdf"  
       onmouseout="hidePDFPreview('pdf-preview')"
-      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
       border: none; background-color: transparent; opacity: 1;"></iframe>
-   </div>  
+</div>  
+
+<style>
+  /* Estilo comum para todos os iframes de visualização de PDF */
+  iframe[id^="pdf-preview"] {
+      width: 40vw;
+      height: 60vh;
+      margin-left: 2vw;
+      position: fixed;
+      z-index: 9999;
+      border: none;
+      background-color: transparent;
+      opacity: 1;
+  }
+
+  /* Consultas de mídia para diferentes tamanhos de tela */
+  @media (max-width: 768px) { /* Tablets e dispositivos menores */
+      iframe[id^="pdf-preview"] {
+          width: 60vw;
+          height: 50vh;
+          margin-left: 5vw;
+      }
+  }
+
+  @media (max-width: 480px) { /* Telas de celular */
+      iframe[id^="pdf-preview"] {
+          width: 80vw;
+          height: 40vh;
+          margin-left: 10vw;
+      }
+  }
+</style>
 
 
       <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -573,8 +604,8 @@ Programa de Pós-Graduação em Neurociências.       </a>    114 f, 2021. </spa
     </button>
     <iframe id="pdf-preview2" class="preview" src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf"  
     onmouseout="hidePDFPreview('pdf-preview2')"
-    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
-    border: none; background-color: transparent; opacity: 1;"></iframe>
+    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
 
 
 
@@ -602,8 +633,8 @@ Graduação em Música – habilitação em Musicoterapia.     </a>   65 f,     
     </button>
     <iframe id="pdf-preview3" class="preview" src="media/documents/textos/j.pdf"  
     onmouseout="hidePDFPreview('pdf-preview3')"
-    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
-    border: none; background-color: transparent; opacity: 1;"></iframe>
+    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
 
      
         <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -626,7 +657,7 @@ Graduação em Música – habilitação em Musicoterapia.     </a>   65 f,     
       </button> 
       <iframe id="pdf-preview4" class="preview" src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf"  
       onmouseout="hidePDFPreview('pdf-preview4')"
-      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
       border: none; background-color: transparent; opacity: 1;"></iframe>
   
 
@@ -658,8 +689,8 @@ class="popup-link"onclick="window.open(this.href, 'popup', 'width=420,height=330
     </button> 
     <iframe id="pdf-preview5" class="preview" src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf"  
     onmouseout="hidePDFPreview('pdf-preview5')"
-    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
-    border: none; background-color: transparent; opacity: 1;"></iframe>
+    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
 
 
 
@@ -683,8 +714,8 @@ Percepta - Revista de Cognição Musical,      </a>   v. 8, n. 2, p. 53–74, 20
     </button>
     <iframe id="pdf-preview6" class="preview" src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf"  
     onmouseout="hidePDFPreview('pdf-preview6')"
-    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
-    border: none; background-color: transparent; opacity: 1;"></iframe>
+    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
+      border: none; background-color: transparent; opacity: 1;"></iframe>
 
    
           <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -740,9 +771,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
                     <iframe id="pdf-preview7" class="preview" src="media/documents/textos/PosterBerlin2024.pdf"  
                     onmouseout="hidePDFPreview('pdf-preview7')"
-                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
                     border: none; background-color: transparent; opacity: 1;"></iframe>
- 
                 
 </div>
 
@@ -778,9 +808,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
                     <iframe id="pdf-preview8" class="preview" src="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496"  
                     onmouseout="hidePDFPreview('pdf-preview8')"
-                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
                     border: none; background-color: transparent; opacity: 1;"></iframe>
- 
                 
 </div>
 
@@ -817,9 +846,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
                     <iframe id="pdf-preview9" class="preview" src="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223"  
                     onmouseout="hidePDFPreview('pdf-preview9')"
-                    style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                    style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
                     border: none; background-color: transparent; opacity: 1;"></iframe>
- 
                 
 
 
@@ -857,9 +885,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
 
       <iframe id="pdf-preview10" class="preview" src="media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf"  
       onmouseout="hidePDFPreview('pdf-preview10')"
-      style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+      style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
       border: none; background-color: transparent; opacity: 1;"></iframe>
-
                 <span  class="content-text" style="text-align: justify; width: 85%;margin-top: -10px;"
             >MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
             In:
@@ -897,9 +924,8 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
           
                 <iframe id="pdf-preview11" class="preview" src="media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25"  
                 onmouseout="hidePDFPreview('pdf-preview11')"
-                style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+                style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
                 border: none; background-color: transparent; opacity: 1;"></iframe>
-          
 
 
 
@@ -940,7 +966,7 @@ Brazilian Journal of Music Therapy,    </a>   n. 31, p. 24-38, 2021. </span>
       
             <iframe id="pdf-preview12" class="preview" src="media/documents/textos/ENPEMT_2022_poster.pdf"  
             onmouseout="hidePDFPreview('pdf-preview12')"
-            style="display: none; position: fixed; margin: 15px; width: 520px; height: 730px; z-index: 9999; 
+            style="display: none; position: fixed; margin-left: 13px; width: 36%; height: 77.5%; z-index: 9999; 
             border: none; background-color: transparent; opacity: 1;"></iframe>
       
 
