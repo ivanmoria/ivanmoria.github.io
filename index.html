@@ -34,23 +34,13 @@
 
 <div style="display: flex; gap: 10px;">
 
-    <button class="ui-btn" onclick="window.location.href='projetos.html'">
-        <span>Projetos</span>
-    </button>
-</div>
 
 
 
 
-    <button class="ui-btn" onclick="window.location.href='references.html'">
-      <span>Referências</span>
-  </button>
-  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='mirmt.html'">
-  <span>MIRMT</span>
-</button>
-  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
-    <span>Contato</span>
-</button>
+<a href="https://www.hitwebcounter.com" target="_blank">
+  <img   src="https://hitwebcounter.com/counter/counter.php?page=16308682&style=0024&nbdigits=5&type=ip&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="0" />
+</a></a>
 
     </nav>
 
@@ -72,9 +62,7 @@
             
         </div>
 
-     <a href="https://www.hitwebcounter.com" target="_blank">
-        <img   src="https://hitwebcounter.com/counter/counter.php?page=16308682&style=0024&nbdigits=5&type=ip&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="0" />
-    </a></a>
+
 
 
 
@@ -103,22 +91,25 @@
   </label>
   
   <div class="subs">
-    <button class="sub-circle">
-      <input class="hidden-sub-trigger" id="sub1" type="radio" name="sub-circle" value="1">
-      <label for="sub1"></label>
-      
+    <button class="sub-circle" onclick="window.location.href='mirmt.html'">
+      <input value="1" name="sub-circle" type="radio" id="sub1" class="hidden-sub-trigger">
+      <label   style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub1">
+        MIRMT</label>
     </button>
-    <button class="sub-circle">
-      <input class="hidden-sub-trigger" id="sub2" type="radio" name="sub-circle" value="1">
-      <label for="sub2"></label>
+    <button class="sub-circle" onclick="window.location.href='references.html'">
+      <input value="1" name="sub-circle" type="radio" id="sub2" class="hidden-sub-trigger">
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub2">
+        Refs</label>
     </button>
-    <button class="sub-circle">
-      <input class="hidden-sub-trigger" id="sub3" type="radio" name="sub-circle" value="1">
-      <label for="sub3"></label>
+    <button class="sub-circle" onclick="window.location.href='contato.html'">
+      <input value="1" name="sub-circle" type="radio" id="sub3" class="hidden-sub-trigger">
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub3">
+        Contato</label>
     </button>
-    <button class="sub-circle">
-      <input class="hidden-sub-trigger" id="sub4" type="radio" name="sub-circle" value="1">
-      <label for="sub4"></label>
+    <button class="sub-circle" onclick="window.location.href='projetos.html'">
+      <input value="1" name="sub-circle" type="radio" id="sub4" class="hidden-sub-trigger">
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub4">
+        Projetcs</label>
     </button>
     <button class="sub-circle">
       <input class="hidden-sub-trigger" id="sub5" type="radio" name="sub-circle" value="1">
@@ -199,7 +190,7 @@
       class="svg-icon">
       <style>
         .svg-icon:hover path {
-            fill: #000; /* Altera a cor de preenchimento para preto no hover */
+            fill: #000;
         }
     </style>
       <path stroke-width="2"

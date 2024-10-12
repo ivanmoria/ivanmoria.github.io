@@ -1265,7 +1265,7 @@ iframe {
 footer .demo {
   position: absolute;
   bottom: 10px;
-  width: 500px;
+  width: 800px;
   margin: 0 auto;
 }
 
@@ -1287,8 +1287,8 @@ footer .demo a {
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   height: 60px;
-  width: 60px;
-  background-color: var(--night-rider);
+  width: 80px;
+  background-color: var(--black);
   transition: 0.2s;
   text-align: center;
 }
@@ -1296,11 +1296,13 @@ footer .demo a {
 .circle:active {
   transform: scale(0.9);
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
+  background-color:rgb(36, 116, 30);;
+  
 }
 
 .circle:hover {
   cursor: pointer;
-  background-color: var(--night-rider);
+  background-color: rgb(36, 116, 30);
   box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -1320,12 +1322,13 @@ footer .demo a {
   z-index: 0;
   position: absolute;
   height: 40px;
-  width: 40px;
+  width: 60px;
   overflow: hidden;
   border-radius: 50%;
   transition: 0.3s;
   transform: scale(0.5);
   opacity: 0;
+  background-color: var(--eer-black);
   padding: 0;
   margin: 0;
   box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
@@ -1344,7 +1347,7 @@ footer .demo a {
 
 .sub-circle label:hover {
   cursor: pointer;
-  background-color: var(--eer-black);
+  background-color: rgb(36, 116, 30);
 }
 
 .subs {
@@ -1363,17 +1366,18 @@ footer .demo a {
 }
 
 .hidden-sub-trigger:checked ~ label {
-  background-color: var(--black);
+  background-color: rgb(36, 116, 30);
 }
 
 .hidden-trigger {
   display: none;
+  
 }
 
 .hidden-trigger:checked ~ .circle {
   transform: scale(0.9);
   cursor: pointer;
-  background-color: var(--black);
+  background-color:purple;
   box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
 }
 
