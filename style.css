@@ -1285,13 +1285,16 @@ footer .demo a {
   margin: 0 auto;
   -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0px 10px 10px rgba(249, 223, 223, 0.306);
-  border-radius: 50%;
-  height: 60px;
-  width: 80px;
+  border-radius: 20%;
+  height: 40px;
+  width: 40px;
   background-color: rgba(0, 0, 0, 0.598);
- 
+ margin-left:15%;
+ margin-top:-10%;
+ margin-right:15%;
   transition: 0.2s;
   text-align: center;
+  cursor:crosshair;
 }
 
 .circle:active {
@@ -1302,8 +1305,8 @@ footer .demo a {
 }
 
 .circle:hover {
-  cursor: pointer;
-  background-color: rgba(63, 189, 54, 0.697);
+  cursor:crosshair;
+  background-color: rgba(17, 255, 0, 0.323);
 
   -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
   box-shadow: 0 0px 10px 10px rgba(255, 255, 255, 0.668);
@@ -1311,6 +1314,7 @@ footer .demo a {
 
 .circle .svg {
   position: absolute;
+  cursor:crosshair;
   top: 50%;
   left: 50%;
   margin-left: -15px;
@@ -1325,9 +1329,9 @@ footer .demo a {
   z-index: 0;
   position: absolute;
   height: 40px;
-  width: 60px;
+  width: 120px;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 20%;
   transition: 0.3s;
   transform: scale(0.5);
   opacity: 0;
@@ -1336,7 +1340,7 @@ footer .demo a {
   margin: 0;
 
   -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0px 10px 10px rgba(182, 11, 209, 0.284);
+  box-shadow: 0 0px 10px 10px rgba(255, 255, 255, 0.284);
   border: none;
 }
 
@@ -1348,20 +1352,26 @@ footer .demo a {
   height: 100%;
   line-height: 40px;
   transition: .5s;
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(255, 253, 255, 0.284);
 }
 
 .sub-circle label:hover {
   cursor:cell;
-  background-color: rgb(36, 116, 30);
+  background-color: rgba(239, 235, 235, 0.695);
+  -webkit-box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(248, 232, 250, 0.567);
   
   
 }
 
+
 .subs {
-  left: -20px;
-  top: -50px;
-  width: 40px;
+  left: -10px;
+  top: 10px;
+  width: 80px;
   height: 40px;
+
   text-align: center;
   z-index: 0;
   margin: 0 auto;
@@ -1373,7 +1383,7 @@ footer .demo a {
 }
 
 .hidden-sub-trigger:checked ~ label {
-  background-color: rgb(36, 116, 30);
+  background-color: rgba(255, 255, 255, 0.711);
 }
 
 .hidden-trigger {
@@ -1384,8 +1394,9 @@ footer .demo a {
 .hidden-trigger:checked ~ .circle {
   transform: scale(0.9);
   cursor: pointer;
-  background-color:purple;
-  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.1);
+  background-color:rgba(128, 0, 128, 0.478);
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(222, 4, 255, 0.67);
 }
 
 .hidden-trigger:checked ~ .circle .svg {
@@ -1394,48 +1405,48 @@ footer .demo a {
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(1) {
   transform: translate(0px, -100px) scale(1);
-  opacity: 1;
+  opacity: 0;
   transition: 0.1s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(2) {
-  transform: translate(75px, -75px) scale(1);
+  transform: translate(100px, -70px) scale(1);
   opacity: 1;
   transition: 0.2s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(3) {
   transform: translate(100px, 0px) scale(1);
-  opacity: 1;
+  opacity: 0;
   transition: 0.3s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(4) {
-  transform: translate(75px, 75px) scale(1);
+  transform: translate(100px, 200px) scale(1);
   opacity: 1;
   transition: 0.4s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(5) {
   transform: translate(0px, 100px) scale(1);
-  opacity: 1;
+  opacity: 0;
   transition: 0.5s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(6) {
-  transform: translate(-75px, 75px) scale(1);
+  transform: translate(-200px, 90px) scale(1);
   opacity: 1;
   transition: 0.6s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(7) {
   transform: translate(-100px, 0px) scale(1);
-  opacity: 1;
+  opacity: 0;
   transition: 0.7s;
 }
 
 .hidden-trigger:checked ~ .subs button:nth-of-type(8) {
-  transform: translate(-75px, -75px) scale(1);
+  transform: translate(-200px, -100px) scale(1);
   opacity: 1;
   transition: 0.8s;
 }

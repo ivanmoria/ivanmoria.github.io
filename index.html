@@ -91,41 +91,62 @@
   </label>
   
   <div class="subs">
-    <button class="sub-circle" onclick="window.location.href='mirmt.html'">
+
+    <button class="sub-circle" >
       <input value="1" name="sub-circle" type="radio" id="sub1" class="hidden-sub-trigger">
-      <label   style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub1">
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub1">
+       </label>
+    </button>
+    <button class="sub-circle" onclick="window.location.href='mirmt.html'"style= "margin-left: -10px;">
+      <input value="1" name="sub-circle" type="radio" id="sub2" class="hidden-sub-trigger">
+      <label   style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub2">
         MIRMT</label>
     </button>
-    <button class="sub-circle" onclick="window.location.href='references.html'">
-      <input value="1" name="sub-circle" type="radio" id="sub2" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub2">
-        Refs</label>
-    </button>
-    <button class="sub-circle" onclick="window.location.href='contato.html'">
+
+
+
+
+
+
+    
+    <button class="sub-circle" >
       <input value="1" name="sub-circle" type="radio" id="sub3" class="hidden-sub-trigger">
       <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub3">
+        </label>
+    </button>
+
+
+    
+    <button class="sub-circle" onclick="window.location.href='contato.html'"style= "margin-left: -10px;">
+      <input value="1" name="sub-circle" type="radio" id="sub4" class="hidden-sub-trigger">
+      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub4">
         Contato</label>
     </button>
-    <button class="sub-circle" onclick="window.location.href='projetos.html'">
-      <input value="1" name="sub-circle" type="radio" id="sub4" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub4">
-        Projetcs</label>
-    </button>
+
     <button class="sub-circle">
       <input class="hidden-sub-trigger" id="sub5" type="radio" name="sub-circle" value="1">
-      <label for="sub5"></label>
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;" for="sub5">
+
+      </label>
     </button>
-    <button class="sub-circle">
+    <button class="sub-circle"onclick="window.location.href='projetos.html'"style= "margin-left: -10px;">
       <input class="hidden-sub-trigger" id="sub6" type="radio" name="sub-circle" value="1">
-      <label for="sub6"></label>
+      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub6">
+        Projetcs
+      </label>
     </button>
+
     <button class="sub-circle">
       <input class="hidden-sub-trigger" id="sub7" type="radio" name="sub-circle" value="1">
-      <label for="sub7"></label>
+      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub7">
+
+      </label>
     </button>
-    <button class="sub-circle">
+    <button class="sub-circle"onclick="window.location.href='references.html'">
       <input class="hidden-sub-trigger" id="sub8" type="radio" name="sub-circle" value="1">
-      <label for="sub8"></label>
+      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub8">
+        Refs
+      </label>
     </button>
    </div>
 </div>
@@ -420,95 +441,93 @@
         document.addEventListener('DOMContentLoaded', function() {
             preventPullToRefresh(document);
         });
-
-        let num = 230;
-            let ax = [];
-            let ay = [];
-            let initialX = [];
-            let initialY = [];
-            let isMousePressed = true;
-            let easing = 0.1; // Fator de suavização para o retorno às posições iniciais
-            let targetCenterX = windowWidth / -1; // Coordenada X do centro da tela
-            let targetCenterY = windowHeight / 0; // Coordenada Y do centro da tela
-            let explosionRadius = 2000; // Raio da explosão das linhas
-    // Variáveis para armazenar a cor atual
-let r, g, b;
-let colorChanged = false; // Controla se a cor foi alterada
-
-
-
-            function setup() {
-                let canvas = createCanvas(windowWidth, windowHeight);
-                canvas.parent('canvas-container');
-                canvas.style('display', 'block'); // Remove a barra de rolagem
-  
-
-                for (let i = -4340; i < num; i++) {
-                    ax[i] = width / 2;
-                    ay[i] = height / 2;
-                    initialX[i] = width / 2;
-                    initialY[i] = height / 2;
-                }
-                frameRate(60);
-                
+        let num = 200;
+        let range = 20;
+        let ax = [];
+        let ay = [];
+        let extraLines = 200;
+        let explosion = false;
+        let explosionStrength = 10;
+        
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 2;
+                ay[i] = height / 2;
             }
-    
-            function draw() {
-                background(40);
-                let targetX = mouseX;
-                let targetY = mouseY;
-    
-                for (let i = -632; i < num; i++) {
-                    let x = ax[i];
-                    let y = ay[i];
-                    let dx = targetX - x;
-                    let dy = targetY - y;
-                    let angle = atan2(dy, dx);
-                    let speed = map(i, 22, num, 10, 42);
-    
-                    // Mover na direção do ponto anterior apenas durante a explosão
-                    if (isMousePressed) {
-                        ax[i-11] += cos(angle) * speed/4;
-                        ay[i-11] += sin(angle) * speed/4;
-                    }
-    
-                    // Suavização do retorno às posições iniciais
-                    ax[i] += (initialX[i+2] - ax[i]) * easing/4;
-                    ay[i] += (initialY[i+2] - ay[i]) * easing/4;
+            frameRate(1000);
+        }
+        
+        function draw() {
+            background(43);
+            
+            // Atualiza as posições
+            for (let i = 1; i < num; i++) {
+                ax[i - 1] = ax[i];
+                ay[i - 1] = ay[i];
+            }
+            
+            // Mistura o movimento aleatório com a posição do mouse
+            ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.05);
+            ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.05);
+            
+            // Constrange as posições
+            ax[num - 1] = constrain(ax[num - 1], 0, width);
+            ay[num - 1] = constrain(ay[num - 1], 0, height);
+            
+            // Desenha as linhas
+            for (let i = 1; i < num; i++) {
+                let val = float(i) / num * 100.0 + 3;
+                stroke(val);
+                line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+            }
+        
+            // Gerar linhas extras
+            for (let j = 1; j < extraLines; j++) {
+                ax[j - 1] = ax[j];
+                ay[j - 1] = ay[j];
+            }
+            
+            ax[extraLines - 1] += (random(-range, range) + (mouseX - ax[extraLines - 1]) * 0.05);
+            ay[extraLines - 1] += (random(-range, range) + (mouseY - ay[extraLines - 1]) * 0.05);
+            
+            // Constrange as posições das linhas extras
+            ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+            ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+            
+            // Desenha as linhas extras
+            for (let j = 1; j < num; j++) {
+                let val = float(j) / num * 200.0 + 3;
+                stroke(val, 22, 44442, 2 * (j + 4));
+                line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+            }
+            
+            // Se uma explosão estiver ativa, afasta as linhas da posição do clique
+            if (explosion) {
+                for (let i = 0; i < num; i++) {
+                    let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
+                    ax[i] += cos(angle) * explosionStrength;
+                    ay[i] += sin(angle) * explosionStrength;
                 }
-    
-
-                let r = map(mouseX, 0, width, 0, 255);
-    let g = map(mouseY, 0, height, 0, 255);
-    let b = map(mouseX + mouseY, 0, width + height, 0, 255);
                 
-                for (let j = -451; j < num ; j++) {
-                    let val = float(j) / num * 200.0 ;
-                    strokeWeight(1);
-                    // Geração de cores aleatórias
-                    // Mapeia a posição do mouse para os componentes de cor RGB
-
-
-                    strokeWeight(1);
-                    if (isMousePressed) {
-                        stroke(r, g, b, 43); // Usar a cor aleatória gerada
-                    } else {
-                        stroke(r, g, b); // Usar a cor aleatória gerada
-                    }
-
-                    line(ax[j + 100], ay[j + 100], ax[j + 1], ay[j - 10]);
-    }
-}
-    
-          
-
-            // Atualiza o tamanho do canvas quando a janela é redimensionada
-// Atualiza o tamanho do canvas quando a janela é redimensionada
-background(0); // Exemplo de fundo cinza
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  redraw(); // Garante que o canvas seja redesenhado
-}
+                // Redefine a explosão após um tempo
+                if (frameCount % 10 === 0) {
+                    explosionStrength *= 0.95; // diminui a força da explosão ao longo do tempo
+                }
+                
+                // Para a explosão após um tempo
+                if (explosionStrength < 1) {
+                    explosion = false;
+                    explosionStrength = 10; // Reseta a força para o próximo clique
+                }
+            }
+        }
+        
+        function mousePressed() {
+            explosion = true; // Ativa a explosão
+        }
+        
         </script>
 
 
