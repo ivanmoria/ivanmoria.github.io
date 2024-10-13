@@ -441,13 +441,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             preventPullToRefresh(document);
         });
-        let num = 200;
+ 
+        let num = 300;
         let range = 20;
         let ax = [];
         let ay = [];
-        let extraLines = 200;
+        let ax2 = [];
+        let ay2 = [];
+        let extraLines = 300;
         let explosion = false;
-        let explosionStrength = 10;
+        let explosionStrength = 8;
         
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
@@ -455,6 +458,8 @@
             for (let i = 0; i < num; i++) {
                 ax[i] = width / 2;
                 ay[i] = height / 2;
+                ax2[i] = width / 2; // Inicia a segunda linha
+                ay2[i] = height / 2; // Inicia a segunda linha
             }
             frameRate(1000);
         }
@@ -462,53 +467,58 @@
         function draw() {
             background(43);
             
-            // Atualiza as posições
+            // Atualiza as posições da primeira linha
             for (let i = 1; i < num; i++) {
                 ax[i - 1] = ax[i];
                 ay[i - 1] = ay[i];
             }
-            
-            // Mistura o movimento aleatório com a posição do mouse
+        
+            // Atualiza as posições da segunda linha
+            for (let i = 1; i < num; i++) {
+                ax2[i - 1] = ax2[i];
+                ay2[i - 1] = ay2[i];
+            }
+        
+            // Mistura o movimento aleatório com a posição do mouse para a primeira linha
             ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.05);
             ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.05);
             
-            // Constrange as posições
+            // Mistura o movimento aleatório com a posição do mouse para a segunda linha
+            ax2[num - 1] += (random(-range, range) + (mouseX - ax2[num - 1]) * 0.05);
+            ay2[num - 1] += (random(-range, range) + (mouseY - ay2[num - 1]) * 0.05);
+            
+            // Constrange as posições da primeira linha
             ax[num - 1] = constrain(ax[num - 1], 0, width);
             ay[num - 1] = constrain(ay[num - 1], 0, height);
-            
-            // Desenha as linhas
+        
+            // Constrange as posições da segunda linha
+            ax2[num - 1] = constrain(ax2[num - 1], 0, width);
+            ay2[num - 1] = constrain(ay2[num - 1], 0, height);
+        
+            // Desenha a primeira linha
             for (let i = 1; i < num; i++) {
                 let val = float(i) / num * 100.0 + 3;
-                stroke(val);
+                stroke(val, 22, 192, 2 * (i + 4));
                 line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
             }
         
-            // Gerar linhas extras
-            for (let j = 1; j < extraLines; j++) {
-                ax[j - 1] = ax[j];
-                ay[j - 1] = ay[j];
+            // Desenha a segunda linha
+            for (let i = 1; i < num; i++) {
+                let val = float(i) / num * 200.0 + 3;
+                stroke(val, 72, 4222, 2 * (i + 4));
+                line(ax2[i - 1], ay2[i - 1], ax2[i], ay2[i]);
             }
-            
-            ax[extraLines - 1] += (random(-range, range) + (mouseX - ax[extraLines - 1]) * 0.05);
-            ay[extraLines - 1] += (random(-range, range) + (mouseY - ay[extraLines - 1]) * 0.05);
-            
-            // Constrange as posições das linhas extras
-            ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-            ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-            
-            // Desenha as linhas extras
-            for (let j = 1; j < num; j++) {
-                let val = float(j) / num * 200.0 + 3;
-                stroke(val, 22, 44442, 2 * (j + 4));
-                line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
-            }
-            
+        
             // Se uma explosão estiver ativa, afasta as linhas da posição do clique
             if (explosion) {
                 for (let i = 0; i < num; i++) {
                     let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
                     ax[i] += cos(angle) * explosionStrength;
                     ay[i] += sin(angle) * explosionStrength;
+        
+                    let angle2 = atan2(ay2[i] - mouseY, ax2[i] - mouseX);
+                    ax2[i] += 2*cos(angle2) * explosionStrength;
+                    ay2[i] += 2*sin(angle2) * explosionStrength;
                 }
                 
                 // Redefine a explosão após um tempo
@@ -528,6 +538,10 @@
             explosion = true; // Ativa a explosão
         }
         
+
+
+
+
         </script>
 
 
