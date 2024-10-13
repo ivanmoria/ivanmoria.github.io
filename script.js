@@ -169,3 +169,18 @@ wavesurfer.on('ready', function() {
   }
   
 
+
+
+  const label = document.querySelector('.sub-circle label');
+
+label.addEventListener('mousemove', (e) => {
+  const { clientX, clientY } = e;
+  const x = Math.round((clientX / window.innerWidth) * 255);
+  const y = Math.round((clientY / window.innerHeight) * 255);
+  
+  label.style.backgroundColor = `rgba(${x}, ${y}, 159, 0.664)`; // Ajuste os valores conforme necessário
+});
+
+label.addEventListener('mouseleave', () => {
+  label.style.backgroundColor = ''; // Reseta a cor quando o mouse sai
+});
