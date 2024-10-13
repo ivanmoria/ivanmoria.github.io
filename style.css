@@ -1284,11 +1284,12 @@ footer .demo a {
   z-index: 98;
   margin: 0 auto;
   -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(249, 223, 223, 0.306);
   border-radius: 50%;
   height: 60px;
   width: 80px;
-  background-color: var(--black);
+  background-color: rgba(0, 0, 0, 0.598);
+ 
   transition: 0.2s;
   text-align: center;
 }
@@ -1296,14 +1297,16 @@ footer .demo a {
 .circle:active {
   transform: scale(0.9);
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.3);
-  background-color:rgb(36, 116, 30);;
-  
+  background-color:rgb(36, 116, 30);
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 .circle:hover {
   cursor: pointer;
-  background-color: rgb(36, 116, 30);
-  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.3);
+  background-color: rgba(63, 189, 54, 0.697);
+
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(255, 255, 255, 0.668);
 }
 
 .circle .svg {
@@ -1331,7 +1334,9 @@ footer .demo a {
   background-color: var(--eer-black);
   padding: 0;
   margin: 0;
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+
+  -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0px 10px 10px rgba(182, 11, 209, 0.284);
   border: none;
 }
 
@@ -1346,8 +1351,10 @@ footer .demo a {
 }
 
 .sub-circle label:hover {
-  cursor: pointer;
+  cursor:cell;
   background-color: rgb(36, 116, 30);
+  
+  
 }
 
 .subs {
