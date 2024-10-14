@@ -458,7 +458,7 @@
         let ay6 = [];
         let extraLines = 300;
         let explosion = false;
-        let explosionStrength = 8;
+        let explosionStrength = 4;
         
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
@@ -474,8 +474,8 @@
                 ay4[i] = height / 8; // Inicia a segunda linha
                 ax5[i] = width / 8; // Inicia a segunda linha
                 ay5[i] = height / 8; // Inicia a segunda linha
-                ax6[i] = width / 8; // Inicia a segunda linha
-                ay6[i] = height / 8; // Inicia a segunda linha
+                ax6[i] = width / 2; // Inicia a segunda linha
+                ay6[i] = height / 2; // Inicia a segunda linha
             }
             frameRate(1000);
         }
@@ -543,8 +543,8 @@
             ay4[num - 1] = constrain(ay4[num - 1], 0, height);
             ax5[num - 1] = constrain(ax5[num - 1], 0, width);
             ay5[num - 1] = constrain(ay5[num - 1], 0, height);
-            ax6[num - 1] = constrain(ax6[num - 1], 0, width);
-            ay6[num - 1] = constrain(ay6[num - 1], 0, height);
+            ax6[num - 1] = constrain(ax6[num - 1], 0, -width);
+            ay6[num - 1] = constrain(ay6[num - 1], 0, -height);
             // Desenha a primeira linha
             for (let i = 1; i < num; i++) {
                 let val = float(i) / num * 100.0 + 3;
@@ -623,8 +623,8 @@ for (let i = 1; i < num; i++) {
                     ay5[i] += 4*sin(angle4) * explosionStrength;
 
                     let angle5 = atan2(ay6[i] - mouseY, ax6[i] - mouseX);
-                    ax6[i] += 8*cos(angle5) * explosionStrength;
-                    ay6[i] += 8*sin(angle5) * explosionStrength;
+                    ax6[i] += 6*cos(angle5) * explosionStrength;
+                    ay6[i] += 6*sin(angle5) * explosionStrength;
                 }
                 
                 // Redefine a explosão após um tempo
