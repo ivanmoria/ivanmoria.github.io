@@ -448,6 +448,10 @@
         let ay = [];
         let ax2 = [];
         let ay2 = [];
+        let ax3 = [];
+        let ay3 = [];
+        let ax4 = [];
+        let ay4 = [];
         let extraLines = 300;
         let explosion = false;
         let explosionStrength = 8;
@@ -460,6 +464,10 @@
                 ay[i] = height / 2;
                 ax2[i] = width / 2; // Inicia a segunda linha
                 ay2[i] = height / 2; // Inicia a segunda linha
+                ax3[i] = width / 4; // Inicia a segunda linha
+                ay3[i] = height / 4; // Inicia a segunda linha
+                ax4[i] = width / 8; // Inicia a segunda linha
+                ay4[i] = height / 8; // Inicia a segunda linha
             }
             frameRate(1000);
         }
@@ -478,7 +486,16 @@
                 ax2[i - 1] = ax2[i];
                 ay2[i - 1] = ay2[i];
             }
-        
+                // Atualiza as posições da segunda linha
+            for (let i = 1; i < num; i++) {
+                ax3[i - 1] = ax3[i];
+                ay3[i - 1] = ay3[i];
+              }
+                              // Atualiza as posições da segunda linha
+            for (let i = 1; i < num; i++) {
+                ax4[i - 1] = ax4[i];
+                ay4[i - 1] = ay4[i];
+               }
             // Mistura o movimento aleatório com a posição do mouse para a primeira linha
             ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.05);
             ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.05);
@@ -486,7 +503,13 @@
             // Mistura o movimento aleatório com a posição do mouse para a segunda linha
             ax2[num - 1] += (random(-range, range) + (mouseX - ax2[num - 1]) * 0.05);
             ay2[num - 1] += (random(-range, range) + (mouseY - ay2[num - 1]) * 0.05);
-            
+                        // Mistura o movimento aleatório com a posição do mouse para a segunda linha
+            ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 1]) * 0.05);
+            ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.05);
+                                // Mistura o movimento aleatório com a posição do mouse para a segunda linha
+                                ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 0.05);
+                                ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 1]) * 0.05);
+                                
             // Constrange as posições da primeira linha
             ax[num - 1] = constrain(ax[num - 1], 0, width);
             ay[num - 1] = constrain(ay[num - 1], 0, height);
@@ -494,7 +517,10 @@
             // Constrange as posições da segunda linha
             ax2[num - 1] = constrain(ax2[num - 1], 0, width);
             ay2[num - 1] = constrain(ay2[num - 1], 0, height);
-        
+            ax3[num - 1] = constrain(ax3[num - 1], 0, width);
+            ay3[num - 1] = constrain(ay3[num - 1], 0, height);
+            ax4[num - 1] = constrain(ax4[num - 1], 0, width);
+            ay4[num - 1] = constrain(ay4[num - 1], 0, height);
             // Desenha a primeira linha
             for (let i = 1; i < num; i++) {
                 let val = float(i) / num * 100.0 + 3;
@@ -508,8 +534,25 @@
                 stroke(val, 72, 4222, 2 * (i + 4));
                 line(ax2[i - 1], ay2[i - 1], ax2[i], ay2[i]);
             }
-        
-            // Se uma explosão estiver ativa, afasta as linhas da posição do clique
+                    // Desenha a segunda linha
+                    for (let i = 1; i < num; i++) {
+                      let val = float(i) / num * 200.0 + 3;
+                      stroke(val, 7, 42, 0.5 * (i + 4));
+                      line(ax3[i - 1], ay3[i - 1], ax3[i], ay3[i]);
+                  }
+                                      // Desenha a segunda linha
+// Desenha a segunda linha
+for (let i = 1; i < num; i++) {
+  let val = float(i) / num * 200.0 + 3;
+  // Muda a cor em relação à posição do mouse
+  let red = map(mouseX, 0, width, 0, 255);
+  let green = map(mouseY, 0, height, 0, 255);
+  stroke(red, green, 42, 0.5 * (i + 4));
+  line(ax4[i - 1], ay4[i - 1], ax4[i], ay4[i]);
+}
+
+// Se uma explosão estiver ativa, afasta as linhas
+
             if (explosion) {
                 for (let i = 0; i < num; i++) {
                     let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
@@ -519,6 +562,11 @@
                     let angle2 = atan2(ay2[i] - mouseY, ax2[i] - mouseX);
                     ax2[i] += 2*cos(angle2) * explosionStrength;
                     ay2[i] += 2*sin(angle2) * explosionStrength;
+
+                         
+                    let angle3 = atan2(ay3[i] - mouseY, ax3[i] - mouseX);
+                    ax3[i] += 4*cos(angle3) * explosionStrength;
+                    ay3[i] += 4*sin(angle3) * explosionStrength;
                 }
                 
                 // Redefine a explosão após um tempo
