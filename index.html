@@ -428,7 +428,7 @@
       });
 
       let num = 300;
-      let range = 20;
+      let range = 6;
       let ax = [];
       let ay = [];
       let ax2 = [];
@@ -442,7 +442,7 @@
       let ax6 = [];
       let ay6 = [];
       let explosion = false;
-      let explosionStrength = 2; // Reduzido para acalmar a explosão
+      let explosionStrength = 8; // Reduzido para acalmar a explosão
 
       function setup() {
           let canvas = createCanvas(windowWidth, windowHeight);
@@ -455,11 +455,11 @@
               ax3[i] = width / 4;
               ay3[i] = height / 4;
               ax4[i] = width / 8;
-              ay4[i] = height / 82;
-              ax5[i] = width / 82;
+              ay4[i] = height / 2;
+              ax5[i] = width / 2;
               ay5[i] = height / 8;
-              ax6[i] = width / -10;
-              ay6[i] = height / -10;
+              ax6[i] = width / -6;
+              ay6[i] = height / -6;
           }
           frameRate(60); // Ajustado para um valor mais comum
       }
@@ -482,12 +482,12 @@
           constrainPositions();
 
           // Desenha as linhas
-          drawLines(ax, ay, color(2552, 192, 233));
-          drawLines(ax2, ay2, color(7332, 423322, 2));
-          drawLines(ax3, ay3, color(4332, 1, 2));
-          drawLines(ax4, ay4, color(402, 122, 2));
-          drawLines(ax5, ay5, color(42, 1333, 2));
-          drawLines(ax6, ay6, color(7332, 4322, 2));
+          drawLines(ax, ay, color(1000, 1000, 1000, 1000));
+          drawLines(ax2, ay2, color(650, 1000, 1000, 1000));
+          drawLines(ax3, ay3, color(22, 100, 120, 1000));
+          drawLines(ax4, ay4, color(22, 100, 120, 1000));
+          drawLines(ax5, ay5, color(22, 100, 120, 1000));
+          drawLines(ax6, ay6, color(5440, 1000, 1000, 1000));
 
           // Se uma explosão estiver ativa
           if (explosion) {
@@ -516,6 +516,12 @@
       function updateWithMouse(ax, ay) {
           ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.02); // Reduzido para 0.02
           ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.02); // Reduzido para 0.02
+          ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 1]) * 0.02); // Reduzido para 0.02
+          ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.02); // Reduzido para 0.02
+          ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 0.02); // Reduzido para 0.02
+          ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 1]) * 0.02); // Reduzido para 0.02
+          ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.02); // Reduzido para 0.02
+          ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 1]) * 0.02); // Reduzido para 0.02
       }
 
       function constrainPositions() {
@@ -545,24 +551,24 @@
       function explodeLines() {
           for (let i = 0; i < num; i++) {
               let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
-              ax[i] += cos(angle) * explosionStrength * 0.5; // Reduzido
-              ay[i] += sin(angle) * explosionStrength * 0.5; // Reduzido
+              ax[i] += 2*cos(angle) * explosionStrength * 0.5; // Reduzido
+              ay[i] += 2*sin(angle) * explosionStrength * 0.5; // Reduzido
 
               let angle2 = atan2(ay2[i] - mouseY, ax2[i] - mouseX);
               ax2[i] += 2 * cos(angle2) * explosionStrength * 0.5; // Reduzido
               ay2[i] += 2 * sin(angle2) * explosionStrength * 0.5; // Reduzido
 
               let angle3 = atan2(ay3[i] - mouseY, ax3[i] - mouseX);
-              ax3[i] += 4 * cos(angle3) * explosionStrength * 0.5; // Reduzido
-              ay3[i] += 4 * sin(angle3) * explosionStrength * 0.5; // Reduzido
+              ax3[i] += 2 * cos(angle3) * explosionStrength * 0.5; // Reduzido
+              ay3[i] += 2 * sin(angle3) * explosionStrength * 0.5; // Reduzido
 
               let angle4 = atan2(ay5[i] - mouseY, ax5[i] - mouseX);
-              ax5[i] += 43 * cos(angle4) * explosionStrength * 0.5; // Reduzido
-              ay5[i] += 43 * sin(angle4) * explosionStrength * 0.5; // Reduzido
+              ax5[i] += 2 * cos(angle4) * explosionStrength * 0.5; // Reduzido
+              ay5[i] += 2 * sin(angle4) * explosionStrength * 0.5; // Reduzido
 
               let angle5 = atan2(ay6[i] - mouseY, ax6[i] - mouseX);
-              ax6[i] += 6 * cos(angle5) * explosionStrength * 0.5; // Reduzido
-              ay6[i] += 6 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
+              ax6[i] += 2 * cos(angle5) * explosionStrength * 0.5; // Reduzido
+              ay6[i] += 2 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
           }
 
           // Redefine a explosão após um tempo
