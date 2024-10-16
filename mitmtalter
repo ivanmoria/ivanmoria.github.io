@@ -923,27 +923,59 @@ font-size: 20px;
           </style>
           
 
-
-
 <!-- JavaScript para manipular a exibição dos iframes -->
 <script>
+  // Função para mostrar o preview correspondente e parar os outros
   function showPreview(previewId) {
     // Esconde todos os iframes
     var iframes = document.querySelectorAll('.iframe-preview');
     iframes.forEach(function(iframe) {
-      iframe.style.display = 'none';
+      iframe.style.display = 'none'; // Esconde o iframe
+      
+      // Tenta pausar o áudio se existir
+      try {
+        var audio = iframe.contentWindow.document.querySelector('audio');
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0; // Reseta o tempo de reprodução
+        }
+      } catch (e) {
+        console.log('Não foi possível acessar o áudio:', e);
+      }
     });
 
     // Mostra o iframe correspondente
     var selectedIframe = document.getElementById(previewId);
-    selectedIframe.style.display = 'block';
+    selectedIframe.style.display = 'block'; // Mostra o iframe selecionado
+
+    // Tenta iniciar a reprodução do áudio se existir
+    try {
+      var selectedAudio = selectedIframe.contentWindow.document.querySelector('audio');
+      if (selectedAudio) {
+        selectedAudio.play();
+      }
+    } catch (e) {
+      console.log('Não foi possível iniciar o áudio:', e);
+    }
   }
 
+  // Função para esconder todos os previews
   function hidePreview() {
     // Esconde todos os iframes
     var iframes = document.querySelectorAll('.iframe-preview');
     iframes.forEach(function(iframe) {
-      iframe.style.display = 'none';
+      iframe.style.display = 'none'; // Esconde o iframe
+      
+      // Tenta pausar o áudio se existir
+      try {
+        var audio = iframe.contentWindow.document.querySelector('audio');
+        if (audio) {
+          audio.pause(); // Para a reprodução do áudio
+          audio.currentTime = 0; // Reseta o tempo de reprodução
+        }
+      } catch (e) {
+        console.log('Não foi possível acessar o áudio:', e);
+      }
     });
   }
 </script>
@@ -956,25 +988,37 @@ font-size: 20px;
   <tr>
     <td class="piece-cell">
       <button class="uias-btn" 
-
-         onclick="window.location.href='ventometrico.preview.html'"
-        onmouseover="showPreview('preview0')" style="color: #c2eebd;">
-      Vento Métrico
+        onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'" 
+        onmouseover="showPreview('preview0')" 
+        style="color: #c2eebd;">
+        Vento Métrico
       </button>
     </td>
-    <td rowspan="6" class="preview-cell">
-      <iframe id="preview0" class="iframe-preview" src="ventometrico.preview.html"></iframe>
-      <iframe id="preview1" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
-      <iframe id="preview2" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
-      <iframe id="preview3" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
-      <iframe id="preview4" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
+    <td rowspan="7" class="preview-cell">
+      <iframe id="preview0" class="iframe-preview" 
+        src="ventometrico.preview.html" 
+        style="width: 100%; height: 500px; display: none;border:0px;">
+      </iframe>
+      <iframe id="preview1" class="iframe-preview" 
+        src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed" 
+        style="display: none;border:0px;"></iframe>
+      <iframe id="preview2" class="iframe-preview" 
+        src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed" 
+        style="display: none;border:0px;"></iframe>
+      <iframe id="preview3" class="iframe-preview" 
+        src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed" 
+        style="display: none;border:0px;"></iframe>
+      <iframe id="preview4" class="iframe-preview" 
+        src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed" 
+        style="display: none;border:0px;"></iframe>
     </td>
   </tr>
   <tr>
     <td class="piece-cell">
       <button class="uias-btn" 
         onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'"
-        onmouseover="showPreview('preview1')" style="color: #c2eebd;">
+        onmouseover="showPreview('preview1')" 
+        style="color: #c2eebd;">
         AllaTurca A (Original)
       </button>
     </td>
@@ -983,7 +1027,8 @@ font-size: 20px;
     <td class="piece-cell">
       <button class="uias-btn" 
         onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'"
-        onmouseover="showPreview('preview2')" style="color: #c2eebd;">
+        onmouseover="showPreview('preview2')" 
+        style="color: #c2eebd;">
         AllaTurca A (in 3 with a jazz-style cadence)
       </button>
     </td>
@@ -992,7 +1037,8 @@ font-size: 20px;
     <td class="piece-cell">
       <button class="uias-btn" 
         onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'"
-        onmouseover="showPreview('preview3')" style="color: #c2eebd;">
+        onmouseover="showPreview('preview3')" 
+        style="color: #c2eebd;">
         AllaTurca A (changing the beat in jazz style)
       </button>
     </td>
@@ -1007,19 +1053,16 @@ font-size: 20px;
       </button>
     </td>
   </tr>
-  
   <tr>
-    <td class="piece-cellu" >
-      <button class="uias-btn onmouseover="hidePreview()" 
+    <td class="piece-cell">
+      <button class="uias-btn" 
         onmouseover="hidePreview()" 
         style="font-size:20px;color: #fbdc3f97;">
-      Close Preview 
+        Close Preview 
       </button>
     </td>
   </tr>
 </table>
-
-
 
 
 
