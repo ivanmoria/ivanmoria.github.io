@@ -145,6 +145,11 @@
 
 
 </style>
+<script>// Impede o recarregamento da página
+    window.addEventListener('beforeunload', function (event) {
+        event.preventDefault(); // Padrão para impedir o recarregamento
+        event.returnValue = ''; // Para alguns navegadores, isso é necessário
+    });</script>
 </head>
 <body>
     <div class="assinatura-container">
