@@ -28,15 +28,28 @@
         padding: 0;
         width: 100%; /* Garante que o conteúdo ocupe apenas a largura da tela */
     }
-    
-body {
-  position: relative;
 
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-      user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
-    }
+    body {
+      position: relative;
+      overflow: hidden; /* Remove a barra de rolagem horizontal e vertical */
+  
+      -webkit-user-select: text; /* Safari */
+      -moz-user-select: text; /* Firefox */
+      -ms-user-select: text; /* Internet Explorer/Edge */
+      user-select: text; /* Non-prefixed version */
+  }
+  
+  /* Estilo para seleção de texto */
+  ::selection {
+      background-color: #ffd900a5; /* Cor de fundo do texto selecionado */
+      color: #000; /* Cor do texto selecionado */
+  }
+  
+  /* Versão para navegadores WebKit */
+  ::-webkit-selection {
+      background-color: #ffd900a5;
+      color: #000;
+  }
     p20{
   font-family: 'Poiret One', cursive;
 
@@ -475,7 +488,7 @@ background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -40px;color:rgb(2
 <div class="container">
 <div class="leffft-column">
   <div style="display: flex; flex-direction: column; align-items: flex-start; width: 90%;margin-top: 15px; margin-left: 0px">
-    <span  class="content-text" style="text-align: justify; width: 97%; margin-top: -10px;">  
+    <span  class="contente-text" style="text-align: justify; width: 97%; margin-top: -10px;">  
 
       <div style="display: flex; justify-content: center;">
 
@@ -523,7 +536,7 @@ background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -40px;color:rgb(2
     <p20>Ivan Moriá Borges Rodrigues</p20>
   </div>
   <br>
-</span><span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"> 
+</span><span  class="contente-text" style="text-align: justify; width: 85%; margin-top: -10px;"> 
   <div style="display: flex; margin-bottom: 15px;flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">   
 
       <p11 style="color: rgba(118, 157, 191, 0.716); text-align: justify;">
@@ -620,7 +633,7 @@ Banner Preview
   
 
         <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; margin-right: -20px">
-          <span  class="content-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
+          <span  class="contente-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
 
 <p2 style=" color: rgb(146, 184, 171); color:#00000037 font-size = 20px ">
         <br>Given the vast potential for the collection and analysis of musical 
@@ -637,7 +650,7 @@ Banner Preview
         <div class="midddle-column">
 
           <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; margin-right: -20px">
-            <span  class="content-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
+            <span  class="contente-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
 
        
 
@@ -662,7 +675,7 @@ feedback on this ongoing research.
         Downloadable Files  </p2>     
     </div>
 
-   <span  class="content-text" style="text-align: justify; width: 85%; margin-top: -10px;"
+   <span  class="contente-text" style="text-align: justify; width: 85%; margin-top: -10px;"
    > 
    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">            
 

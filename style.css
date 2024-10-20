@@ -892,7 +892,14 @@ color: #000000;
 background-color: rgba(94, 94, 94, 0.613);
 
 }
+.contente-text{
+  text-decoration: none;
+  color: #ffffff68;
+      font-size: 18px;
+      font-weight: 200;
+      font-family: "Mina", sans-serif;
 
+}
 
 .ui-btn{
   font-family: 'Poiret One', cursive;
