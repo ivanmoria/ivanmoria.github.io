@@ -886,6 +886,13 @@ p2, p4{
       font-family: "Mina", sans-serif;
 
 }
+.content-text:hover {
+  font-weight: 400;
+color: #000000;
+background-color: rgba(94, 94, 94, 0.613);
+
+}
+
 
 .ui-btn{
   font-family: 'Poiret One', cursive;
