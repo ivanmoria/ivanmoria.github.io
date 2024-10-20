@@ -57,19 +57,125 @@ background-color: transparent;
 
 
 <div class="container">
-<div class="lefffte-column">
+    <style>
+        .author-name {
+            cursor: pointer; /* Muda o cursor para indicar interatividade */
+            position: relative;
+            color: rgb(255, 175, 54); /* Cor do texto original */
+            display: inline; /* Mantém os autores na mesma linha */
+        }
+      
+        .popup {
+            visibility: hidden; /* Esconde o texto popup por padrão */
+            background-color: rgb(12, 12, 12);
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 30px;
+            padding: 5px;
+            position: absolute;
+            bottom: 10%; /* Ajusta a posição do popup */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s; /* Efeito de transição */
+        }
+      
+        .author-name:hover .popup {
+            visibility: visible; /* Mostra o popup ao passar o mouse */
+            opacity: 1; /* Torna o popup visível */
+        }
+      </style>
+      
  <br>
  <br>
 
+<div style=" width:100%;margin-top:-30px;margin-bottom: -4px;"></div>
 
-        <p2 style=" margin-top:10px; font-size:25px "> 
- Painel interativo   </p2>     
-      </div><br>
+<span    class="content-text" id="content-to-copy" style="text-align: justify; font-size:30px;width: 100%; margin-top: -30px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
+ Painel interativo</span><br>
+    
+    <div style="width: 100%;">
+<span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%; margin-top: -50px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
+   As cores dos links possuem definições e comportamentos diferentes. 
+   <br> </span><br> <span    class="content-text" id="content-to-copy" style="font-size:30px;text-align: justify; width: 100%; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
 
-      
+    Links externos:</span>
+<br>
+<div class="content-text">
+<p2 style="font-size: 20px; width: 100%;color: rgba(175, 255, 54, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+ class="preview-link">
+Nível acadêmico <span class="popup"> 
+  External PDF</span> </p2>  
+-
+<p2 style="font-size: 20px; color:  rgba(107, 170, 225, 0.721) ;transition:color 0.3s
+    ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color=' rgba(107, 170, 225, 0.721) '"class="author-name"          
+   class="preview-link">
+  Artigo em periódico <span class="popup"> 
+  External PDF</span> </p2>
+-
+  <p2 style="font-size: 20px;width: 100%; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"
+  onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+   class="preview-link">
+Congresso  <span class="popup"> 
+External PDF</span> </p2>
 
-                    
-                 
-      
+-
+<a href=""class="popup-link" return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+Periódico <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+  External link</span>   </a>
+
+</div><br>
+<span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%;font-size:17px; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
+    Os links externos hospedam arquivos PDF e links para o site da instituição, evento ou apresentação;</span><br>
+<br>
+    <span    class="content-text" id="content-to-copy" style="text-align: justify; font-size:30px;width: 100%; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
+        Preview dentro desta página:</span><br>
+        <div class="content-text">
+<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+        data-src="" class="preview-link">
+    Local, ano 
+        <span class="popup"> 
+      Preview PDF</span> </p2></p2> 
+      -
+
+      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+        data-src="" class="preview-link">
+  Nome do Congresso
+        <span class="popup"> 
+      Preview link</span> </p2></p2>
+      -
+      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      data-src="" class="preview-link">
+Ano
+      <span class="popup"> 
+  Certificado</span> </p2></div><br>
+  <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%;font-size:17px; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
+     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
+ 
+    Os previews dentro desta página hospedam o texto em PDF, certificados e previews de websites, que são exibidos neste lado da página. </span><br>
+<br>
+<br>
+<br>  
+
+<br>
+
+<br>
+
+</p2>   <div style="width: 100%;"><br>
+    <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%; margin-top: 10px;">
+
+       <br> </span><br> 
+    <br>
+
+</div></div>  </p2>
 </body>
 </html>
