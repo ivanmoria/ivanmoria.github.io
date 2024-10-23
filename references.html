@@ -476,93 +476,87 @@ ivan moriá borges rodrigues
   
 </div></div></div></a></div>
 <div id="canvas-container">
-    <script>
-
-
-        let num = 400;
-        let range = 60;
-        let ax = [];
-        let ay = [];
-        let extraLines = 300;
-
-        function setup() {
-            let canvas = createCanvas(windowWidth, windowHeight);
-            canvas.parent('canvas-container');
-            for (let i = 0; i < num; i++) {
-                ax[i] = width / 10;
-                ay[i] = height / 24;
-            }
-            for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 22;
-                ay[j] = height / 22;
-            }
-
-            frameRate(30);
-
-       
-
-
     
-   
+
+
+  <script>
+    let num = 400;
+    let range = 60;
+    let ax = [];
+    let ay = [];
+    let extraLines = 300;
+    let mouseInfluence = 0.1; // Define a força com que o mouse influencia o movimento
+
+    function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent('canvas-container');
+        for (let i = 0; i < num; i++) {
+            ax[i] = width / 10;
+            ay[i] = height / 24;
         }
-    
-        function draw() {
-            
-    background(43);
+        for (let j = 0; j < num + extraLines; j++) {
+            ax[j] = width / 22;
+            ay[j] = height / 22;
+        }
 
-  
-    for (let i = 1; i < num; i++) {
-        ax[i - 1] = ax[i];
-        ay[i - 1] = ay[i];
-    }
-    ax[num - 1] +=-random(-range, range);
-    ay[num - 1] += random(-range, range);
-    ax[num - 1] = constrain(ax[num - 1], 0, width);
-    ay[num - 1] = constrain(ay[num - 1], 0, height);
-    
-    
- 
-    
-    
-    
-    for (let i = 1; i < num ; i++) {
-        let val0 = float(i) / num * 200.0 + 3 ;
-        let val = map(ax[i], 0, width, 0, 255);
-        let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 80);
-        line(ax[i-4], ay[i-1], ax[i], ay[i]);
-        
+        frameRate(30);
     }
 
-    for (let j = 1; j < extraLines; j++) {
-        ax[j - 1] = ax[j];
-        ay[j - 1] = ay[j];
+    function draw() {
+        background(43);
+
+        // Atualiza as coordenadas das linhas principais
+        for (let i = 1; i < num; i++) {
+            ax[i - 1] = ax[i];
+            ay[i - 1] = ay[i];
+        }
+        // Adiciona movimento aleatório e influência do mouse
+        ax[num - 1] += random(-range, range) + (mouseX - ax[num - 1]) * mouseInfluence;
+        ay[num - 1] += random(-range, range) + (mouseY - ay[num - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[num - 1] = constrain(ax[num - 1], 0, width);
+        ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+        // Desenha as linhas principais
+        for (let i = 1; i < num; i++) {
+            let val0 = float(i) / num * 200.0 + 3;
+            let val = map(ax[i], 0, width, 0, 255);
+            let val2 = map(ay[i], 0, height, 0, 255);
+            stroke(val0, val, val2, 80);
+            line(ax[i - 4], ay[i - 1], ax[i], ay[i]);
+        }
+
+        // Atualiza as coordenadas das linhas extras
+        for (let j = 1; j < extraLines; j++) {
+            ax[j - 1] = ax[j];
+            ay[j - 1] = ay[j];
+        }
+        // Adiciona movimento aleatório e influência do mouse nas linhas extras
+        ax[extraLines - 1] += random(-range, range) + (mouseX - ax[extraLines - 1]) * mouseInfluence;
+        ay[extraLines - 1] += random(-range, range) + (mouseY - ay[extraLines - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+        ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+
+        // Desenha as linhas extras
+        for (let j = 1; j < num; j++) {
+            let val1 = float(j) / num * 200.0 + 3;
+            let val3 = map(ax[j], 0, width, 0, 255);
+            let val4 = map(ay[j], 0, height, 0, 255);
+
+            stroke(val1, val3, val4, 50);
+            line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+        }
     }
-    ax[extraLines - 1] += random(-range, range);
-    ay[extraLines - 1] += random(range, - range);
-    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-    for (let j = 1; j < num; j++) {
-        let val1 = float(j) / num * 200.0 + 3 ;
-        let val3 = map(ax[j], 0, width, 0, 255);
-        let val4 = map(ay[j],0, height, 0, 255);
 
-        stroke(val1,val3,val4, 50);
-
-        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        redraw(); // Garante que o canvas seja redesenhado
     }
+</script>
 
-
-
-}
-background(0); // Exemplo de fundo cinza
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  redraw(); // Garante que o canvas seja redesenhado
-
-}
-
-    </script>
 
 
 </div>
