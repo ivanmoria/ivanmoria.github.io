@@ -899,7 +899,7 @@ p2, p4{
       }
 .content-text{
   text-decoration: none;
-  color: #ffffff68;
+  color: #a39f9f;
       font-size: 18px;
       font-weight: 200;
       font-family: "Mina", sans-serif;
@@ -907,7 +907,7 @@ p2, p4{
 }
 .content-text:hover {
   font-weight: 400;
-color: #000000;
+color: #24c226b1;
 background-color: rgba(94, 94, 94, 0.613);
 
 }
