@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Chorodito - Um grupo de choro Belo Horizontino">
+    <title>CHORODITO</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+ 
+</div></div></a></div>
+<div id="canvas-container">
+    
+
+
+  <script>
+    let num = 400;
+    let range = 60;
+    let ax = [];
+    let ay = [];
+    let extraLines = 300;
+    let mouseInfluence = 0.1; // Define a força com que o mouse influencia o movimento
+
+    function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent('canvas-container');
+        for (let i = 0; i < num; i++) {
+            ax[i] = width / 10;
+            ay[i] = height / 24;
+        }
+        for (let j = 0; j < num + extraLines; j++) {
+            ax[j] = width / 22;
+            ay[j] = height / 22;
+        }
+
+        frameRate(30);
+    }
+
+    function draw() {
+        background(43);
+
+        // Atualiza as coordenadas das linhas principais
+        for (let i = 1; i < num; i++) {
+            ax[i - 1] = ax[i];
+            ay[i - 1] = ay[i];
+        }
+        // Adiciona movimento aleatório e influência do mouse
+        ax[num - 1] += random(-range, range) + (mouseX - ax[num - 1]) * mouseInfluence;
+        ay[num - 1] += random(-range, range) + (mouseY - ay[num - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[num - 1] = constrain(ax[num - 1], 0, width);
+        ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+        // Desenha as linhas principais
+        for (let i = 1; i < num; i++) {
+            let val0 = float(i) / num * 200.0 + 3;
+            let val = map(ax[i], 0, width, 0, 255);
+            let val2 = map(ay[i], 0, height, 0, 255);
+            stroke(val0, val, val2, 80);
+            line(ax[i - 4], ay[i - 1], ax[i], ay[i]);
+        }
+
+        // Atualiza as coordenadas das linhas extras
+        for (let j = 1; j < extraLines; j++) {
+            ax[j - 1] = ax[j];
+            ay[j - 1] = ay[j];
+        }
+        // Adiciona movimento aleatório e influência do mouse nas linhas extras
+        ax[extraLines - 1] += random(-range, range) + (mouseX - ax[extraLines - 1]) * mouseInfluence;
+        ay[extraLines - 1] += random(-range, range) + (mouseY - ay[extraLines - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+        ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+
+        // Desenha as linhas extras
+        for (let j = 1; j < num; j++) {
+            let val1 = float(j) / num * 200.0 + 3;
+            let val3 = map(ax[j], 0, width, 0, 255);
+            let val4 = map(ay[j], 0, height, 0, 255);
+
+            stroke(val1, val3, val4, 50);
+            line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+        }
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        redraw(); // Garante que o canvas seja redesenhado
+    }
+</script>
+
+
+
+</div>
+<div id="left-column"
+<div id="container-nav" >
+<nav id="navbar-items" style="margin-bottom:10px;">
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='/contato.html'">
+    <span>Contato</span>
+</button>
+
+
+  </div>
+</nav>
+</div>
+
+<div class="container">
+<div class="left-column">
+
+
+
+ 
+
+
+    <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display:
+        flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative;
+         display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: -20px;"><div>
+           <p2 style="font-size: 35px;  color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"
+           onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+       onclick="window.open('https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ');" class="preview-link">
+       Chorodito<span class="popup"> 
+    
+    
+   YouTube</span> </p2></div></div> 
+   
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;">
+    <div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"
+        onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+     data-src="https://www.youtube.com/embed/videoseries?si=zAICwRe2w05x-1-v&amp;list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj" class="preview-link">
+     2022 - atual <span class="popup"> Preview YT</span> </p2></p2> </div>  </div><br>  
+    
+    
+    
+     <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+      
+      
+        Um grupo de choro de cordas de Belo Horizonte, com foco no repertório clássico do choro como Jacob do Bandolim, Waldir Azevedo, Pixinguinha, como
+        também "Choros eruditos", presentes nas músicas de Guinga, Douglas Lora e outros.   
+        <br>O grupo é criado pelos integrantes:
+        
+
+    </span> 
+        <div></div>
+
+
+
+
+        <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;">
+
+
+
+     <span class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: 10px;">
+  Ivan Moriá Borges - bandolim</span>
+  <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: 10px;">
+  Sebastian Barroso - violão</span>
+  <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: 10px;">
+  Rafael Raffles - cavaquinho</span>
+  <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: 10px;">
+  Marcelo Luiz Barbosa - contrabaixo acústico</span>
+  <span class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: 10px;">
+    Mariana Carvalho (<em>in memorian</em>) - pandeiro
+  </span>
+  
+<br>
+        </div>
+
+
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;">
+    <div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"
+        onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+     data-src="" class="preview-link">
+    Performances <span class="popup"> Lista abaixo</span> </p2></p2> </div>  </div><br>  
+     <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+      
+      
+
+            <a href="/media/documents/certificados/choroditolivrariadarua2023.jpeg"
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=400,height=430'); return false;"
+           >
+            Chorodito:    </a> 
+          
+            <a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
+            class="popup-link"
+            onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+            Livraria da Rua,   
+            </a> 
+       
+        </span></span></div>
+
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;">
+
+    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 100%; ">
+    <img src="/media/documents/certificados/choroditolivrariadarua2023.jpeg" 
+    alt="Chorodito flyer" style="width:300px;height:300px;">
+ <br><br><br>
+    <img src="/media/img/chorodito2.png" 
+    alt="Chorodito flyer" style="width:300px;height:300px;">
+ 
+
+
+
+
+    </div><br> 
+</div>
+
+
+
+
+
+<div style="position: relative; display: flex; flex-direction: column;margin-top:-680px; align-items: flex-end; width: 100%; ">
+  
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/smYeSQoH9Dc?si=gsB6nX8yLiAzKzHC" class="preview-link">
+Meu Chorinho <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/smYeSQoH9Dc?si=gsB6nX8yLiAzKzHC');" class="preview-link">
+Jonas Silva<span class="popup"> YouTube</span> </p2>
+    
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/CdAiP-OVUKw?si=kgmXZH3tXJmejZgM" class="preview-link">
+Tico-tico no fubá <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/CdAiP-OVUKw?si=kgmXZH3tXJmejZgM');" class="preview-link">
+Zequinha de Abreu<span class="popup"> YouTube</span> </p2>
+      
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/EqFiUly95DQ?si=Aw74qeoagnnGUZoD" class="preview-link">
+Doce de Côco<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/EqFiUly95DQ?si=Aw74qeoagnnGUZoD');" class="preview-link">
+Jacob do Bandolim<span class="popup"> YouTube</span> </p2>
+ 
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/vz__NXxkTKk?si=H0GhuH1RXXZfZikj&amp;start=22" class="preview-link">
+Noites Cariocas  <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/vz__NXxkTKk?si=H0GhuH1RXXZfZikj&amp;start=22');" class="preview-link">
+Jacob do Bandolim<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/ZdKqUQYckT8?si=NDCy1IryS_N1qqVy" class="preview-link">
+Delicado    <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/ZdKqUQYckT8?si=NDCy1IryS_N1qqVy');" class="preview-link">
+Waldir Azevedo<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/O4VM1ZnuxS8?si=tjF4GMtJ_AjQo2se" class="preview-link">
+Um a Zero   <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/O4VM1ZnuxS8?si=tjF4GMtJ_AjQo2se');" class="preview-link">
+Pixinguinha<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/0aLGXVbd4r8?si=hmWTTlnGL0yF1POk" class="preview-link">
+Assanhado <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/0aLGXVbd4r8?si=hmWTTlnGL0yF1POk');" class="preview-link">
+Jacob do Bandolim<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/MT30ztB20GM?si=jOwV-qBra3986L_r" class="preview-link">
+Sonoroso <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/MT30ztB20GM?si=jOwV-qBra3986L_r');" class="preview-link">
+K-Ximbinho<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/vtkV_VF7rJU?si=7Gfywc4O2m0qiAPE" class="preview-link">
+Alvorada <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/vtkV_VF7rJU?si=7Gfywc4O2m0qiAPE');" class="preview-link">
+Jacob do Bandolim<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/Ba2om_3QN3A?si=yXYGrgjiAC-HfOrX" class="preview-link">
+Já te digo <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/Ba2om_3QN3A?si=yXYGrgjiAC-HfOrX');" class="preview-link">
+Pixinguinha<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/c5dbPo2Lhmg?si=mKrnfQDaekLDM10Z" class="preview-link">
+Carinhoso<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/c5dbPo2Lhmg?si=mKrnfQDaekLDM10Z');" class="preview-link">
+Pixinguinha<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/SxHVvvoJBks?si=x4ZY_zDdGYztnuJq" class="preview-link">
+Manga Rosa<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/SxHVvvoJBks?si=x4ZY_zDdGYztnuJq');" class="preview-link">
+Jonas Silva<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/JL0mmXdshfw?si=3v30sQKldDpXi9GS" class="preview-link">
+Carioquinha<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/JL0mmXdshfw?si=3v30sQKldDpXi9GS');" class="preview-link">
+Waldir Azevedo<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/xS-QHbwqIcw?si=OXhPJx8hTwu4HXEu" class="preview-link">
+Pedacinhos do Céu<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/EqFiUly95DQ?si=Aw74qeoagnnGUZoD');" class="preview-link">
+Waldir Azevedo<span class="popup"> YouTube</span> </p2>
+   
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/Gq9xbUQAEB4?si=zifEVWpcucJ4tGUr" class="preview-link">
+Baião Caraivana<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/Gq9xbUQAEB4?si=zifEVWpcucJ4tGUr');" class="preview-link">
+Douglas Lora e Dudu Maia<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/m4nC5Ee-lPE?si=6knvrxUk4j-e6h2r" class="preview-link">
+Os Carioquinhas no Choro <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/m4nC5Ee-lPE?si=6knvrxUk4j-e6h2r');" class="preview-link">
+Maurício Carrilho<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/6ZbxF7RL1Yo?si=DkdYnHwj4VwdFaNU" class="preview-link">
+Sons de Carrilhões  <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/6ZbxF7RL1Yo?si=DkdYnHwj4VwdFaNU');" class="preview-link">
+João Pernambuco<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/4rNnM8B9b0E?si=FYBYTObsh2-olpHp" class="preview-link">
+Gaúcho/Corta-Jaca<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/4rNnM8B9b0E?si=FYBYTObsh2-olpHp');" class="preview-link">
+Chiquinha Gonzaga<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/m_AMtjg0Wn8?si=9mLKJRWi0VV0EhzZ" class="preview-link">
+Di menor - SoulJazz <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/m_AMtjg0Wn8?si=9mLKJRWi0VV0EhzZ');" class="preview-link">
+Guinga<span class="popup"> YouTube</span> </p2>
+
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/FTotTNApiqM?si=Aajy4kQGFoAf4A79" class="preview-link">
+Di menor - Livraria da Rua <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/FTotTNApiqM?si=Aajy4kQGFoAf4A79');" class="preview-link">
+Guinga<span class="popup"> YouTube</span> </p2>
+    
+<p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
+data-src="https://www.youtube.com/embed/YtCBmyBM30M?si=lsMA76dsmHLv7oDO" class="preview-link">
+Um Choro pro Waldir     <span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
+onclick="window.open('https://www.youtube.com/embed/YtCBmyBM30M?si=lsMA76dsmHLv7oDO');" class="preview-link">
+Paulinho da Viola e Cristóvão Bastos<span class="popup"> YouTube</span> </p2>
+      
+
+
+
+<br>
+
+<p2 onclick="window.location.href=' https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=xLMs-HRfUcTvsuz3', '_blank';" 
+style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
+onmouseover="this.style.color='rgb(255, 211, 134)'" 
+onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+class="author-name preview-link">
+YT Playlist<span class="popup"> External YT</span></p2></div>  
+
+<br>    <br>  
+
+</div>
+
+
+
+            <br>
+              <p2 style="font-size: 14px; color: rgb(246, 148, 148);text-align: justify; width: 95%;">
+                Aviso: Alguns dispositivos podem ter dificuldade em acessar arquivos multimídia na pré-visualização. 
+                Se isso acontecer, clique no link no título de cada referência para acessar o arquivo externamente
+                 como um arquivo PDF ou um site externo. Para uma melhor experiência,
+                 tente girar seu dispositivo para o modo paisagem ou acesse esta página por meio de um computador.
+            </p2>
+            
+
+
+
+<br><br><br><br><br></div><br><br>
+
+
+
+  <div class="middle-column">
+    
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: -45px; ">
+      <div style="display: flex; flex-direction: row; align-items: flex-start; margin-bottom: -15px;">
+        <button id="toggle-preview-button" style="z-index: 922999;">Hide Preview</button>
+
+      </div>
+  </div>
+
+  <iframe id="preview-iframe" src="" style="width: 90%; z-index: 999999;height: 88vh; border: none; display: block;"></iframe>
+
+
+</p2>   <div style="width: 100%;"><br>
+    <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%; margin-left:20px;margin-top: 10px;">
+     <br><br><br>
+
+
+        <img src="/media/img/chorodito.png" 
+        alt="Chorodito flyer" style="margin-left:15px;width:590px;height:350px;">
+     
+    
+<br> </span><br> <br></div></div>  </p2></div></div>
+
+<script>
+    // Obter todos os links de preview e botões
+    const previewLinks = document.querySelectorAll('[data-src]');
+    const iframe = document.getElementById('preview-iframe');
+    const toggleButton = document.getElementById('toggle-preview-button');
+  
+    // Inicialização do iframe
+    iframe.style.display = 'none'; // Esconde o iframe no carregamento
+    toggleButton.textContent = 'Show Preview'; // Define o texto inicial do botão
+    iframe.src = '';  // Define a URL inicial do arquivo a ser mostrado no iframe
+  
+    // Adicionar evento de clique a cada link de preview
+    previewLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        iframe.src = link.getAttribute('data-src'); // Altera o src do iframe para o link do artigo
+        iframe.style.display = 'block'; // Mostra o iframe quando um link é clicado
+        toggleButton.textContent = 'Hide Preview'; // Atualiza o texto do botão
+      });
+    });
+  
+    // Alternar a visibilidade do iframe ao clicar no botão de alternância
+    toggleButton.addEventListener('click', () => {
+      const isHidden = iframe.style.display === 'none';
+      iframe.style.display = isHidden ? 'block' : 'none'; // Alterna a visibilidade do iframe
+      toggleButton.textContent = isHidden ? 'Hide Preview' : 'Show Preview'; // Atualiza o texto do botão
+    });
+  </script>
+  
+</body>
+</html>
+
+
+
