@@ -100,6 +100,52 @@
             border: none;
             padding: 4px;
         }
+
+
+
+        @media (min-width: 1024px) {
+            .left-column {
+                flex: 1 0 50%;
+                margin: 0px;
+                margin-left: 0px;
+                margin-right: -300px;
+            }
+            .middle-column {
+                flex: 0 1 50%;
+                margin-left: 300px;
+                margin-right: 0px;
+            }
+          }
+          
+          @media (max-width: 1024px) {
+            .left-column, .middle-column, .right-column {
+                flex: 1 1 100%;
+                margin: 0;
+            }
+          }
+
+
+          @media (min-width: 1024px) {
+            .left-column {
+                flex: 1 0 50%;
+                margin: 0px;
+                margin-left: 0px;
+                margin-right: -300px;
+            }
+            .middle-column {
+                flex: 0 1 50%;
+                margin-left: 300px;
+                margin-right: 0px;
+            }
+          }
+          
+          @media (max-width: 1024px) {
+            .left-column, .middle-column, .right-column {
+                flex: 1 1 100%;
+                margin: 0;
+            }
+          }
+
     </style>
 
 
@@ -252,7 +298,7 @@
         
       </span>  <span id="content-to-copy"class="content-text" 
       id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
-   Sábado -  às 19h no 
+   Sábado   às 19h no 
     Soul Jazz Santa Tereza  
   </span></div>      </div>
 </p2>
@@ -352,7 +398,7 @@ Performances <span class="popup"> Lista abaixo</span> </p2></p2> </div>  </div><
             Baião Caraivana<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
                 onclick="window.open('https://www.youtube.com/embed/Gq9xbUQAEB4?si=zifEVWpcucJ4tGUr');" class="preview-link">
             Douglas Lora e Dudu Maia<span class="popup"> YouTube</span> </p2>
-                  
+               <br>   
                 <p2 style="font-size: 25px; color: rgba(157, 246, 56, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(157, 246, 56, 0.699) '"class="author-name"  
                 data-src="https://www.youtube.com/embed/xS-QHbwqIcw?si=OXhPJx8hTwu4HXEu" class="preview-link">
             Pedacinhos do Céu<span class="popup"> Preview Video</span> </p2><br><p2 style="font-size: 20px; color: rgba(185, 232, 174, 0.539) ;margin-left: 10px;margin-top:-20px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgba(139, 230, 116, 0.699)  '"class="author-name"  
@@ -482,11 +528,12 @@ Performances <span class="popup"> Lista abaixo</span> </p2></p2> </div>  </div><
   <div class="middle-column" style="     
         user-select: none; ">
     
-    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: -45px; ">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: -25px; ">
       <div style="display: flex; flex-direction: row; align-items: flex-start; margin-bottom: -15px;">
         <button id="toggle-preview-button" style="z-index: 922999;">Hide Preview</button></div></div>
 
-  <iframe id="preview-iframe" src="" style="width: 90%; z-index: 999999;height: 88vh; border: none; display: block;"></iframe>
+  <iframe id="preview-iframe" src="" style="width: 90%;margin-left:25px; 
+  z-index: 999999;height: 75vh; margin-top:30px;border: none; display: block;"></iframe>
 
 
 </p2> <div style="width: 100%;"><br>
@@ -494,7 +541,7 @@ Performances <span class="popup"> Lista abaixo</span> </p2></p2> </div>  </div><
      <br><br><br>
 
         <img src="/media/img/chorodito.png" 
-        alt="Chorodito flyer" style="margin-left:80px;width:450px;height:250px;">
+        alt="Chorodito flyer" style="margin-left:40px;width:450px;height:250px;">
 
 <br> </span><br> <br></div></div>  </p2></div></div>
 
