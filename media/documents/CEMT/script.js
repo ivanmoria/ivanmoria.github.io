@@ -77,3 +77,5 @@ resizeCanvas(2000,100);
 redraw(); // Garante que o canvas seja redesenhado
 
 }
+
+
