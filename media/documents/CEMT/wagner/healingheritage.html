@@ -745,6 +745,7 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
 
 
 
+<script src="https://unpkg.com/wavesurfer.js"></script>
 
 
 
@@ -756,25 +757,33 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
       
     </div>
     
-    <p2 style="font-size: 18px;">Todas as faixas foram gravadas utilizando um microfone Audio Technica AT2020 e um bandolim de 10 cordas. </p2>
+
+
+    <p2 style="font-size: 18px;">Todas as faixas foram gravadas utilizando um microfone Audio Technica AT2020 e um acordeon Mastercraft Spinet 120 bx. </p2>
     <br><br>
-    <button id="playStopButton" onclick="togglePlay()">Iniciar Áudio</button>
-    <button onclick="updateSelection()">Atualizar Seleção</button>
+    <button id="playStopButton1" onclick="togglePlay1()">Iniciar Áudio</button>
+    <button onclick="updateSelection1()">Atualizar Seleção</button>
     
-    <p>Tempo decorrido: <span id="timer">0:00</span></p>
-    
+    <p>Tempo decorrido: <span id="timer-1">0:00</span></p>
+
+
     
     <div style="display: flex; justify-content: space-between; width: 90%;">
+
+
+
         <table style="width: 60%; border-collapse: collapse;">
             <tr>
                 <th style="width: 50%; text-align: center;"></th>
                 <th style="width: 25%; text-align: center;"></th>
                 <th style="width: 25%; text-align: center;"></th>
             </tr>
+        
+            <!-- Linha para 1ª voz -->
             <tr class="playlist-item">
                 <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/Bbm79.wav">
-                    Bbm7(9)
+                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/1_voz.wav">
+                    1ª Voz
                 </td>
                 <td>
                     <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
@@ -783,10 +792,12 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                     <div class="waveform" id="waveform-10"></div>
                 </td>
             </tr>
+        
+            <!-- Linha para 2ª voz -->
             <tr class="playlist-item">
                 <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/eb7(13).wav">
-                    Eb7(13)
+                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/2_voz.wav">
+                    2ª Voz
                 </td>
                 <td>
                     <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
@@ -795,10 +806,12 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                     <div class="waveform" id="waveform-11"></div>
                 </td>
             </tr>
+        
+            <!-- Linha para 3ª voz -->
             <tr class="playlist-item">
                 <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/dm7.wav">
-                    Dm7
+                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/3_voz.wav">
+                    3ª Voz
                 </td>
                 <td>
                     <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
@@ -807,10 +820,12 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                     <div class="waveform" id="waveform-12"></div>
                 </td>
             </tr>
+        
+            <!-- Linha para 4ª voz -->
             <tr class="playlist-item">
                 <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/dm74(9).wav">
-                    Db74(9)
+                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/4_voz.wav">
+                    4ª Voz
                 </td>
                 <td>
                     <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
@@ -819,10 +834,12 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                     <div class="waveform" id="waveform-13"></div>
                 </td>
             </tr>
+        
+            <!-- Linha para mudança de compassos geral -->
             <tr class="playlist-item">
                 <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/cm7.wav">
-                    Cm7
+                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/mudanca_compassos_geral.wav">
+                    Mudança de Compassos (Geral)
                 </td>
                 <td>
                     <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
@@ -831,45 +848,9 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                     <div class="waveform" id="waveform-14"></div>
                 </td>
             </tr>
-            <tr class="playlist-item">
-                <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/B74(9).wav">
-                    B74(9)
-                </td>
-                <td>
-                    <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
-                </td>
-                <td>
-                    <div class="waveform" id="waveform-15"></div>
-                </td>
-            </tr>
-            <tr class="playlist-item">
-                <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/bbm7.wav">
-                    Bbm7
-                </td>
-                <td>
-                    <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
-                </td>
-                <td>
-                    <div class="waveform" id="waveform-16"></div>
-                </td>
-            </tr>
-            <tr class="playlist-item">
-                <td>
-                    <input type="checkbox" class="instrument-select" data-src="/media/documents/CEMT/wagner/dominguinhos/eb7(13)2.wav">
-                    Eb7(13)
-                </td>
-                <td>
-                    <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider">
-                </td>
-                <td>
-                    <div class="waveform" id="waveform-17"></div>
-                </td>
-            </tr>
-  
-           
         </table>
+        
+        
     
         <div style="width: 100%; height: 500px; overflow: hidden;">
             <iframe 
@@ -902,11 +883,11 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
 </p><br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/rrDZvcG6Lng?si=LNq_O1ShFwRhfkT-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <br><br>
+
+
+
+
 <script>
-
-
-
-    
     const audios = new Map();
     let timerInterval;
     let duration = 0; // Duração do áudio em milissegundos
@@ -918,60 +899,58 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
 
     function initializeWaveforms() {
         const instruments = document.querySelectorAll(".instrument-select");
-        
+
         instruments.forEach((instrument, index) => {
             const audioSrc = instrument.getAttribute("data-src");
             const waveformElement = document.getElementById(`waveform-${index}`);
-    
+
             // Verifica se o contêiner do waveform existe
             if (waveformElement) {
                 // Inicializa o WaveSurfer
                 const wavesurfer = WaveSurfer.create({
                     container: waveformElement,
-                    waveColor: '#FFA500', // Laranja padrão
-                    progressColor: '#32CD32', // Laranja avermelhado (OrangeRed)
+                    waveColor: '#FFA500', // Cor da onda
+                    progressColor: '#32CD32', // Cor do progresso
                     cursorWidth: 5,
-                    cursorColor: '#FFA500', // Corrigido para cursorColor
+                    cursorColor: '#FFA500', // Cor do cursor
                     height: 40,
-                    barWidth: 0.04,
+                    barWidth: 0.31, // Espessura das barras
                 });
-    
+
                 // Carrega o áudio no WaveSurfer
                 wavesurfer.load(audioSrc);
-                waveSurfers.set(audioSrc, wavesurfer); // Armazena a instância
+                waveSurfers.set(audioSrc, wavesurfer); // Armazena a instância com o caminho do áudio como chave
             } else {
                 console.error(`Elemento de waveform com ID waveform-${index} não encontrado.`);
             }
         });
     }
-    
+
     function startSynchronized() {
         stopAll();
         audios.clear();
         currentTime = 0;
         isPlaying = true;
         document.getElementById("playStopButton").textContent = "Parar";
-
+        document.getElementById("playStopButton1").textContent = "Parar";
         const selectedInstruments = document.querySelectorAll(".instrument-select:checked");
         selectedInstruments.forEach((instrument, index) => {
             const audioSrc = instrument.getAttribute("data-src");
             const audio = new Audio(audioSrc);
-            
-            // Define a duração
+
             audio.addEventListener("loadedmetadata", () => {
                 if (!duration) duration = audio.duration * 1000; // Converte para milissegundos
             });
-        
+
             audio.currentTime = 0;
             audio.volume = parseFloat(document.querySelectorAll(".volume-slider")[index].value); // Ajusta o volume
             audio.play();
             audios.set(audioSrc, audio);
-        
+
             // Atualiza o progresso do waveform
             const wavesurfer = waveSurfers.get(audioSrc);
             if (wavesurfer) {
                 audio.addEventListener('timeupdate', () => {
-                    currentTime = audio.currentTime * 1000; // Atualiza o tempo decorrido
                     wavesurfer.seekTo(audio.currentTime / audio.duration);
                 });
             }
@@ -983,7 +962,6 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
     function updateSelection() {
         const selectedInstruments = document.querySelectorAll(".instrument-select:checked");
 
-        // Para garantir que todos os áudios selecionados sejam sincronizados corretamente
         selectedInstruments.forEach((instrument, index) => {
             const audioSrc = instrument.getAttribute("data-src");
             if (!audios.has(audioSrc) && isPlaying) {
@@ -992,20 +970,38 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
                 audio.volume = parseFloat(document.querySelectorAll(".volume-slider")[index].value);
                 audio.play();
                 audios.set(audioSrc, audio);
-            
-                // Atualiza o progresso do waveform
+
                 const wavesurfer = waveSurfers.get(audioSrc);
                 if (wavesurfer) {
                     audio.addEventListener('timeupdate', () => {
-                        currentTime = audio.currentTime * 1000; // Atualiza o tempo decorrido
                         wavesurfer.seekTo(audio.currentTime / audio.duration);
                     });
                 }
             }
         });
     }
+    function updateSelection1() {
+        const selectedInstruments = document.querySelectorAll(".instrument-select:checked");
 
-    // Adiciona um evento de mudança para cada slider de volume
+        selectedInstruments.forEach((instrument, index) => {
+            const audioSrc = instrument.getAttribute("data-src");
+            if (!audios.has(audioSrc) && isPlaying) {
+                const audio = new Audio(audioSrc);
+                audio.currentTime = currentTime / 1000; // Sincroniza com o tempo atual
+                audio.volume = parseFloat(document.querySelectorAll(".volume-slider")[index].value);
+                audio.play();
+                audios.set(audioSrc, audio);
+
+                const wavesurfer = waveSurfers.get(audioSrc);
+                if (wavesurfer) {
+                    audio.addEventListener('timeupdate', () => {
+                        wavesurfer.seekTo(audio.currentTime / audio.duration);
+                    });
+                }
+            }
+        });
+    }
+    // Evento de mudança para cada slider de volume
     document.querySelectorAll(".volume-slider").forEach((slider, index) => {
         slider.addEventListener("input", function () {
             const audioSrc = document.querySelectorAll(".instrument-select")[index].getAttribute("data-src");
@@ -1025,8 +1021,10 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
         clearInterval(timerInterval);
         currentTime = 0;
         document.getElementById("timer").textContent = "0:00";
-        isPlaying = false; // Reinicia o estado de reprodução
+        document.getElementById("timer-1").textContent = "0:00";
+        isPlaying = false;
         document.getElementById("playStopButton").textContent = "Iniciar Áudio";
+        document.getElementById("playStopButton1").textContent = "Iniciar Áudio";
     }
 
     function startTimer() {
@@ -1036,6 +1034,7 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
             const minutes = Math.floor(currentTime / 60000);
             const seconds = Math.floor((currentTime % 60000) / 1000);
             document.getElementById("timer").textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            document.getElementById("timer-1").textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
             if (currentTime >= duration) {
                 stopAll();
             }
@@ -1050,8 +1049,15 @@ Ao lado direito, há um iframe com o trecho desta partitura para promover outro 
         }
     }
 
+    function togglePlay1() {
+        if (isPlaying) {
+            stopAll();
+        } else {
+            startSynchronized();
+        }
+    }
     document.addEventListener('DOMContentLoaded', function () {
-        initializeWaveforms(); // Inicializa os waveforms
+        initializeWaveforms();
     });
 </script>
 
