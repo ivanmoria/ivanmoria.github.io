@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner Semanal com Seleção e Mesclagem de Células</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    textarea {
+        width: 100%; /* Garante que o textarea ocupe 100% da largura da célula */
+        height: 100%; /* Garante que o textarea ocupe 100% da altura da célula */
+        resize: none; /* Impede o redimensionamento manual */
+        padding: 8px; /* Adiciona um pouco de espaçamento interno */
+        box-sizing: border-box; /* Garante que o padding não afete a largura total */
+      }
+      
+    h1 {
+      color: #4A90E2;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #4A90E2;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #357ABD;
+    }
+
+    table {
+        width: 95vw;
+        max-width: none;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: linear-gradient(to bottom, 
+          rgba(255, 223, 186, 0.8) 0%, 
+          rgba(255, 204, 102, 0.8) 30%, 
+          rgba(255, 178, 0, 0.3) 50%, 
+          rgba(255, 102, 0, 0.3) 70%, 
+          rgba(204, 102, 255, 0.7) 85%, 
+          rgba(51, 51, 255, 0.3) 100%
+        );
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #e0e0e0;
+      position: relative;
+    }
+
+    th {
+      background-color: #4A90E2;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    td:first-child {
+      font-weight: bold;
+      background-color: #f3f4f6;
+    }
+
+    textarea {
+      width: 100%;
+      height: 60px;
+      resize: none;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: box-shadow 0.3s;
+    }
+
+    textarea:focus {
+      outline: none;
+      box-shadow: 0px 0px 5px #4A90E2;
+    }
+
+    .selected {
+      background-color: #D3E8FC;
+    }
+
+    .current-time {
+      background-color: rgba(255, 0, 0, 0.3);
+      border: 2px solid red;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <button id="merge-cells">Mesclar Células Selecionadas</button>
+        <button id="save-schedule">Salvar Tabela</button>
+        <button id="export-csv">Exportar para CSV</button>
+        <button id="reset-table">Resetar Tabela</button> <!-- Botão para resetar a tabela -->
+    </div>
+      
+  <table id="schedule-table">
+    <thead>
+      <tr>
+        <th>Horário</th>
+        <th>Segunda</th>
+        <th>Terça</th>
+        <th>Quarta</th>
+        <th>Quinta</th>
+        <th>Sexata</th>
+        <th>Sábado</th>
+        <th>Domingo</th>
+      </tr>
+    </thead>
+    <tbody id="schedule"></tbody>
+  </table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const days = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+        const startHour = 7;
+        const endHour = 22;
+        const tableBody = document.getElementById("schedule");
+        let isSelecting = false;
+        let startCell = null;
+    
+        // Gera a tabela de horários
+        for (let hour = startHour; hour <= endHour; hour++) {
+            const row = document.createElement("tr");
+            const timeCell = document.createElement("td");
+            timeCell.textContent = `${hour}:00`;
+            row.appendChild(timeCell);
+    
+            days.forEach((day, index) => {
+                const cell = document.createElement("td");
+                const textarea = document.createElement("textarea");
+                textarea.id = `${day}-${hour}`;
+    
+                const savedTask = localStorage.getItem(`${day}-${hour}`);
+                if (savedTask) {
+                    textarea.value = savedTask;
+                }
+    
+                textarea.addEventListener('input', () => {
+                    localStorage.setItem(`${day}-${hour}`, textarea.value);
+                });
+    
+                cell.appendChild(textarea);
+                cell.classList.add("activity-cell");
+                cell.dataset.day = day;
+                cell.dataset.hour = hour;
+    
+                if (index === days.length - 1) {
+                    cell.classList.add("last-column");
+                }
+    
+                row.appendChild(cell);
+            });
+    
+            tableBody.appendChild(row);
+        }
+        
+
+        // Marca a linha atual
+        const currentHour = new Date().getHours();
+        const currentRow = tableBody.rows[currentHour - startHour];
+        if (currentRow) {
+            currentRow.classList.add("current-time");
+        }
+    
+
+// Função de Salvar Tabela
+document.getElementById("save-schedule").addEventListener("click", () => {
+    const scheduleData = [];
+    const mergedCells = [];
+
+      // Itera sobre cada linha da tabela
+      const rows = tableBody.querySelectorAll("tr");
+      rows.forEach((row, rowIndex) => {
+          const rowData = [];
+          
+          // Itera sobre cada célula da linha
+          const cells = row.querySelectorAll("td");
+          cells.forEach((cell, cellIndex) => {
+              // Se a célula tem um rowSpan, pegamos o valor do textarea e o somamos
+              if (cell.rowSpan > 1) {
+                  rowData.push(cell.querySelector("textarea").value);
+                  mergedCells.push({ row: rowIndex, column: cellIndex, rowSpan: cell.rowSpan });
+                  for (let i = 1; i < cell.rowSpan; i++) {
+                      rowData.push(""); // Adiciona espaços vazios
+                  }
+              } else {
+                  rowData.push(cell.querySelector("textarea") ? cell.querySelector("textarea").value : cell.textContent);
+              }
+          });
+          
+          scheduleData.push(rowData);
+      });
+
+      // Salva os dados em Local Storage
+      localStorage.setItem("scheduleData", JSON.stringify(scheduleData));
+      localStorage.setItem("mergedCells", JSON.stringify(mergedCells));
+      
+      alert("Tabela salva com sucesso!");
+  });
+
+
+
+
+
+
+        // Funções de Seleção e Mesclagem
+        tableBody.addEventListener("mousedown", (e) => {
+            if (e.target.tagName === "TD") {
+                isSelecting = true;
+                startCell = e.target;
+                toggleSelect(startCell);
+            }
+        });
+    
+        tableBody.addEventListener("mouseover", (e) => {
+            if (isSelecting && e.target.tagName === "TD") {
+                toggleSelect(e.target);
+            }
+        });
+    
+        document.addEventListener("mouseup", () => {
+            isSelecting = false;
+            startCell = null;
+        });
+    
+        function toggleSelect(cell) {
+            cell.classList.toggle("selected");
+        }
+    
+        document.getElementById("merge-cells").addEventListener("click", () => {
+            const selectedCells = Array.from(document.querySelectorAll(".selected"));
+            if (selectedCells.length === 0) return alert("Nenhuma célula selecionada!");
+    
+            const groupedByDay = selectedCells.reduce((acc, cell) => {
+                const day = cell.dataset.day;
+                if (!acc[day]) acc[day] = [];
+                acc[day].push(cell);
+                return acc;
+            }, {});
+    
+            Object.keys(groupedByDay).forEach(day => {
+                const cells = groupedByDay[day];
+                cells.sort((a, b) => a.dataset.hour - b.dataset.hour);
+    
+                const hours = cells.map(cell => parseInt(cell.dataset.hour));
+                const allConsecutive = hours.every((h, i) => i === 0 || h === hours[i - 1] + 1);
+    
+                if (!allConsecutive) {
+                    alert("Selecione horas consecutivas para mesclagem.");
+                    return;
+                }
+    
+                const firstCell = cells[0];
+                firstCell.rowSpan = cells.length;
+                const textarea = firstCell.querySelector("textarea");
+                const firstTextAreaValue = textarea.value;
+                textarea.value = firstTextAreaValue;
+    
+                for (let i = 1; i < cells.length; i++) {
+                    const targetCell = cells[i];
+                    targetCell.remove(); // Remove a célula mesclada
+                }
+            });
+    
+            selectedCells.forEach(cell => cell.classList.remove("selected"));
+        });
+
+        // Resetar Tabela
+        document.getElementById("reset-table").addEventListener("click", () => {
+            const textareas = document.querySelectorAll("textarea");
+            textareas.forEach(textarea => {
+                textarea.value = ""; // Limpa o conteúdo de cada textarea
+            });
+
+            // Desfaz mesclagens de células
+            const mergedCells = tableBody.querySelectorAll("td[rowSpan]");
+            mergedCells.forEach(cell => {
+                const rowSpan = cell.rowSpan; // Salva o rowSpan
+                const day = cell.dataset.day;
+                const hour = cell.dataset.hour;
+
+                for (let i = 1; i < rowSpan; i++) {
+                    const newCell = document.createElement("td");
+                    const newTextArea = document.createElement("textarea");
+                    newTextArea.id = `${day}-${hour + i}`;
+                    newCell.appendChild(newTextArea);
+                    newCell.classList.add("activity-cell");
+                    tableBody.rows[hour + i - startHour].appendChild(newCell);
+                }
+
+                cell.rowSpan = 1; // Reseta o rowSpan
+            });
+
+            // Limpa o armazenamento local
+            localStorage.clear();
+        });
+
+        // Exportar para CSV
+        document.getElementById("export-csv").addEventListener("click", () => {
+            const rows = Array.from(document.querySelectorAll("#schedule-table tr"));
+            const csvContent = rows.map(row => {
+                const cells = Array.from(row.querySelectorAll("td, th"))
+                    .map(cell => `"${cell.querySelector("textarea") ? cell.querySelector("textarea").value : cell.textContent}"`)
+                    .join(",");
+                return cells;
+            }).join("\n");
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.setAttribute("download", "planner_semanal.csv");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    });
+</script>
+
+</body>
+</html>
