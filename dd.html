@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Ivan Moriá - Publicações</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+
+    <link rel="icon" href=" https://img.icons8.com/?size=100&id=NtPsIUpSJUG1&format=png&color=000000" type="image/x-icon">
+    <link rel="apple-touch-icon" href=" https://img.icons8.com/?size=100&id=NtPsIUpSJUG1&format=png&color=000000">
+
+   
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <style>
+      html, body {
+        overflow-x: hidden; /* Esconde a barra de rolagem horizontal */
+        margin: 0;
+        padding: 0;
+        width: 100%; /* Garante que o conteúdo ocupe apenas a largura da tela */
+        height: 100%; /* Garante que o corpo ocupe a altura total da tela */
+        
+    }
+        .miniatura {
+            display: none;
+            position: relative;
+            width: 110%;
+
+            z-index: 5000;
+        }
+
+
+        .buttoon-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .buttoon-container:hover .miniatura {
+            display: block;
+            position: absolute;
+        }
+        .left-column {
+          width: 50%; /* Ajusta a largura para caber 50% da tela */
+          height: 100vh; /* Garante que a altura seja a altura total da viewport */
+          overflow-y: auto; /* Permite a rolagem vertical */
+          padding: 20px;
+          z-index: 9999;
+    
+      }
+    /* Estilizando a barra de rolagem */
+    .left-column::-webkit-scrollbar {
+      width: 12px; /* Largura da barra de rolagem */
+    }
+    
+    .left-column::-webkit-scrollbar-track {
+      background: #f0f0f000; /* Cor de fundo da pista da barra de rolagem */
+    }
+    
+    .left-column::-webkit-scrollbar-thumb {
+      background-color: #ffffff74; /* Cor da barra de rolagem */
+      border-radius: 10px; /* Arredonda as bordas da barra de rolagem */
+    }
+    
+    .left-column::-webkit-scrollbar-thumb:hover {
+      background-color:  #d9ac1a; /* Cor da barra de rolagem quando está sendo hover */
+    }
+    
+    
+      .midddlee-column {
+          width: 20%;
+          position: fixed;
+          right: 0;
+          top: 0;
+    
+          bottom:0;
+          height: 100vh; /* Ocupa a altura total da viewport */
+    
+    
+          margin-top: 0; /* Remova a margem superior para alinhar corretamente */
+          z-index: 9999;
+      }
+      
+    
+      
+    
+      body {
+          position: relative;
+          overflow: hidden; /* Remove a barra de rolagem horizontal e vertical */
+      
+          -webkit-user-select: text; /* Safari */
+          -moz-user-select: text; /* Firefox */
+          -ms-user-select: text; /* Internet Explorer/Edge */
+          user-select: text; /* Non-prefixed version */
+      }
+      
+      /* Estilo para seleção de texto */
+      ::selection {
+          background-color: #ffd900a5; /* Cor de fundo do texto selecionado */
+          color: #000; /* Cor do texto selecionado */
+      }
+      
+      /* Versão para navegadores WebKit */
+      ::-webkit-selection {
+          background-color: #ffd900a5;
+          color: #000;
+      }
+      
+      /* Estilos para elementos personalizados */
+      p20 {
+          font-family: 'Poiret One', cursive;
+          font-size: 20px;
+          font-weight: bold;
+          color: rgb(246, 148, 148);
+      }
+      
+      p18, p182 {
+          font-family: 'Poiret One', cursive;
+          font-size: 20px;
+          color: rgba(255, 255, 255, 0.357);
+      }
+      
+      p33 {
+          font-family: 'Poiret One', cursive;
+          font-size: 15px;
+          color: rgba(221, 164, 164, 0.872);
+      }
+      
+      p11 {
+          font-family: 'Poiret One', cursive;
+          font-size: 20px;
+          font-weight: 600;
+          color: rgba(131, 159, 144, 0.801);
+      }
+      
+      iframe {
+          width: 100%; /* Ajuste para ocupar a largura total da coluna */
+          height: 100vh; /* Ajusta a altura para caber no viewport */
+          border: none; /* Remove a borda para um visual mais limpo */
+          padding-right: 0; /* Remove margens extras */
+      }
+    /* Media query para telas menores */
+    @media (max-width: 768px) {
+      iframe {
+          display: none; /* Remove o iframe em telas pequenas */
+      }
+    
+      .left-column {
+          width: 100%; /* Aumenta a largura da coluna lefffte para 100% */
+          overflow-y: auto; /* Permite a rolagem vertical */
+          overflow-x: auto; /* Permite a rolagem horizontal */
+    
+      }
+    }
+    
+ #video-preview {
+    display: none;
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    z-index: 1000; /* Garante que o preview apareça acima de outros elementos */
+    padding: 10px; /* Adiciona um pouco de espaço ao redor do preview */
+}
+
+ #video-preview img {
+    width: 200px;
+    height: auto;
+}
+.pdf-preview {
+    display: none;
+    position: absolute;
+margin-left: -50px;
+    z-index: 1000; /* Garante que o preview apareça acima de outros elementos */
+
+}
+
+.pdf-preview img{
+    width: 200px;
+    height: auto;
+}
+
+
+    </style>
+    
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+ var players = {};
+
+function onYouTubeIframeAPIReady() {
+    document.querySelectorAll('.buttoon-container').forEach(function(container, index) {
+        var playerId = 'player' + index;
+        var videoId = container.querySelector('.uia-btn').getAttribute('data-video-id');
+        var playerElement = document.createElement('div'); // Cria um elemento div para o player
+        playerElement.id = playerId;
+        container.querySelector('.miniatura').appendChild(playerElement); // Adiciona a div ao container da miniatura
+
+        players[playerId] = new YT.Player(playerId, {
+            height: '200',
+            width: '460',
+            videoId: videoId,
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    });
+}
+
+function onPlayerReady(event) {
+    var player = event.target;
+    var container = player.getIframe().closest('.buttoon-container');
+    var button = container.querySelector('.uia-btn');
+    var miniatura = container.querySelector('.miniatura');
+    
+
+    function playVideo() {
+        player.playVideo();
+    }
+
+    function pauseVideo() {
+        player.pauseVideo();
+    }
+
+    button.addEventListener('mouseenter', playVideo);
+    button.addEventListener('mouseleave', pauseVideo);
+    miniatura.addEventListener('mouseenter', playVideo);
+    miniatura.addEventListener('mouseleave', pauseVideo);
+    
+}
+
+function showPreview(event, previewId) {
+    var preview = document.getElementById(previewId);
+    if (preview) {
+        preview.style.left = (event.pageX + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.top = (event.pageY + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.display = 'block';
+    }
+}
+
+function hidePreview() {
+    var previews = document.querySelectorAll('.pdf-preview, .video-preview');
+    previews.forEach(preview => preview.style.display = 'none');
+}
+
+
+</script>
+
+
+
+
+</head>
+<body>
+
+  <div class="assinatura-container">
+    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
+        <div class="assinatura" id="assinatura">
+          <div class="texto-animado" id="texto-animado">
+ivan moriá borges rodrigues
+    </div>
+    </div>
+
+</a>
+
+</div>
+
+<div class="button-container">
+  <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+    <svg
+   
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="22px"
+      height="22px"
+      class="btn-svg"
+    >
+      <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
+    </svg>
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>email [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+  </button>
+  <button class="button flex-center" onclick="window.location.href='https://wa.me/5531984667554'">
+
+    <svg xmlns="http://www.w3.org/2000/svg" 
+    width="32" viewBox="0 0 32 32" 
+    height="32" fill="none" 
+    fill="#fff"
+    class="svg-icon">
+    <style>
+      .svg-icon:hover path {
+          fill: #000; /* Altera a cor de preenchimento para preto no hover */
+      }
+  </style>
+    <path stroke-width="2"
+        stroke-linecap="round"
+        stroke="#fff" 
+        fill-rule="evenodd" 
+        d="M24.8868 19.1288c-1.0274-.1308-2.036-.3815-3.0052-.7467-.7878-.29-1.6724-.1034-2.276.48-.797.8075-2.0493.9936-2.9664.3258-1.4484-1.055-2.7233-2.3295-3.7783-3.7776-.6681-.9168-.4819-2.1691.3255-2.9659.5728-.6019.7584-1.4748.4802-2.2577-.3987-.98875-.6792-2.02109-.8358-3.07557-.2043-1.03534-1.1138-1.7807-2.1694-1.77778h-3.18289c-.60654-.00074-1.18614.25037-1.60035.69334-.40152.44503-.59539 1.03943-.53345 1.63555.344 3.31056 1.47164 6.49166 3.28961 9.27986 1.64878 2.5904 3.84608 4.7872 6.43688 6.4356 2.7927 1.797 5.9636 2.9227 9.2644 3.289h.1778c.5409.0036 1.0626-.2 1.4581-.569.444-.406.6957-.9806.6935-1.5822v-3.1821c.0429-1.0763-.7171-2.0185-1.7782-2.2046z" 
+        clip-rule="evenodd">
+    </path>
+</svg>
+
+  </button>
+  <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
+    <svg
+      viewBox="0 0 24 24"
+      class="btn-svg"
+      width="22px"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+          fill="#fff"
+        ></path>
+        <path
+          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+          fill="#fff"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+          fill="#fff"
+        ></path>
+      </g>
+    </svg>
+  </button>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.facebook.com/moriahivan/'">
+    <svg
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -2 20 20"
+    >
+    <path d="M9 8H7V10H9V19H12V10H14.5L15 8H12V6.5C12 6 12 5 13 5H15V2H12.5C10 2 9 3.5 9 5.5V8Z" fill="#fff"/>
+  </svg>
+  
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>facebook [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+  </button>
+
+  <button class="button flex-center" onclick="window.location.href='https://github.com/ivanmoria'">
+    <svg
+      viewBox="0 0 20 20"
+      width="22px"
+      class="btn-svg"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      fill="#fff"
+      stroke="#fff"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>github [#fff142]</title>
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            id="Dribbble-Light-Preview"
+            transform="translate(-140.000000, -7559.000000)"
+            fill="#fff"
+          >
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+              <path
+                d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                id="github-[#fff142]"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
+   
+    <svg
+      stroke="#fff"
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -3 20 20"
+    >
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>youtube [#fff168]</title>
+     
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        >
+          <g
+            fill="#fff"
+            transform="translate(-300.000000, -7442.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="youtube-[#fff168]"
+                d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
+</a>
+
+
+  
+</div></div></div></a></div>
+<div id="canvas-container">
+    <script>
+
+
+        let num = 400;
+        let range = 60;
+        let ax = [];
+        let ay = [];
+        let extraLines = 300;
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 10;
+                ay[i] = height / 24;
+            }
+            for (let j = 0; j < num + extraLines; j++) {
+                ax[j] = width / 22;
+                ay[j] = height / 22;
+            }
+
+            frameRate(30);
+
+       
+
+
+    
+   
+        }
+    
+        function draw() {
+            
+    background(43);
+
+  
+    for (let i = 1; i < num; i++) {
+        ax[i - 1] = ax[i];
+        ay[i - 1] = ay[i];
+    }
+    ax[num - 1] +=-random(-range, range);
+    ay[num - 1] += random(-range, range);
+    ax[num - 1] = constrain(ax[num - 1], 0, width);
+    ay[num - 1] = constrain(ay[num - 1], 0, height);
+    
+    
+ 
+    
+    
+    
+    for (let i = 1; i < num ; i++) {
+        let val0 = float(i) / num * 200.0 + 3 ;
+        let val = map(ax[i], 0, width, 0, 255);
+        let val2 = map(ay[i],0, height, 0, 255);
+        stroke(val0,val,val2, 80);
+        line(ax[i-4], ay[i-1], ax[i], ay[i]);
+        
+    }
+
+    for (let j = 1; j < extraLines; j++) {
+        ax[j - 1] = ax[j];
+        ay[j - 1] = ay[j];
+    }
+    ax[extraLines - 1] += random(-range, range);
+    ay[extraLines - 1] += random(range, - range);
+    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+    for (let j = 1; j < num; j++) {
+        let val1 = float(j) / num * 200.0 + 3 ;
+        let val3 = map(ax[j], 0, width, 0, 255);
+        let val4 = map(ay[j],0, height, 0, 255);
+
+        stroke(val1,val3,val4, 50);
+
+        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+    }
+
+
+
+}
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw(); // Garante que o canvas seja redesenhado
+
+}
+
+    </script>
+
+
+</div>
+<div id="container-nav">
+<nav id="navbar-items">
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='index.html'">
+    <span>Index</span>
+</button>
+
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='references.html'">
+    <span>Bib</span>
+  </button>
+ 
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='tecnicas.html'">
+    <span>Tec</span>
+  </button>
+  <button class="ui-btn"  style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;background-color: rgba(0, 0, 0, 0.577);font-size:30px; margin-bottom: -40px;color:rgb(255, 255, 255)"  onclick="window.location.href='artisticas.html'">
+    <span>Artísticas</span>
+  </button>
+
+    <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='mirmt.html'">
+      <span>MIRMT</span>
+    </button>
+
+
+
+
+
+
+</nav>
+
+
+
+<div class="left-column" style ="margin-left:30px;">
+
+<div style="display: flex; justify-content: center;">
+
+  <p4 style="  font-size:25px; margin-top:-20px; "> 
+    Performances  </p4>     
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 15px;">
+
+
+ 
+  <div       style="position: relative; display: flex; flex-direction: column; align-items:flex-start;text-align:justify; width: 85%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+    data-src="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf" class="preview-link">
+    Concerto for two cellos in G minor.<span class="popup"> 
+      Preview score</span> 
+    </p2></div> 
+<br><div></div>
+<div>
+       <span   class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+       >MORIÁ, IVAN; BUTTROS, J.       
+       </span>
+
+
+
+       
+       
+        <a   onmouseout="hidePreview(event, 'previewcello')"   onmouseover="showPreview
+        (event,'previewcello')"  href="https://www.luanovacultural.com/orquestra-415"
+        class="popup-link"
+        onclick="window.open(this.href); return false;">
+       Orquestra 415 de Musica Antiga.       </a> <br>
+       <span   class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+     >  Teatro da Biblioteca Publica de Belo Horizonte - MG,
+          Interpretação: Violoncelo.
+          2024.   
+       </span>
+   
+
+       <div id="preview2cello" class="pdf-preview" style="display: none; background-color: #ccc;">
+         <img src="https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf" alt="PDF Preview 1" style="width: 300px; height: auto;"></div>
+   
+        </div>
+
+       </div>
+
+
+       <div id="previewcello" class="pdf-preview" style="display: fixed;">
+        <img src="media/documents/certificados/concerto2cellos.pdf" 
+        alt="PDF Preview 1" style="width: 300px; margin-top:-240px;height: 100%;"></div>
+
+
+
+
+       <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 15px;">
+
+
+
+        <div       style="position: relative; display: flex; flex-direction: column; 
+        align-items:flex-start;text-align:justify; width: 85%; margin-top: 15px;
+        "><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left:
+           10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+          data-src="https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ" class="preview-link">
+ Performance Chorodito <span class="popup"> 
+            Preview score</span> 
+          </p2></div> 
+
+
+
+        <span   class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+      >MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
+      <a href="media/documents/certificados/choroditolivrariadarua2023.jpeg"
+      class="popup-link"
+      onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+      data-preview="previewchoro" onmouseover="showPreview(event, 'previewchoro')" onmouseout="hidePreview()">
+      Chorodito:    </a> um grupo de choro de cordas de Belo Horizonte. 
+      
+      
+      
+      
+      <a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
+      class="popup-link"
+      onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+
+      Livraria da Rua,   
+      </a> 120 min, Interpretação: Bandolim.  2023. 
+      <div id="previewchoro" class="pdf-preview" style="display: none;">
+        <img src="media/documents/certificados/choroditolivrariadarua2023.jpeg" alt="PDF Preview 1" style="width: 300px; height: auto;"></div>
+  
+      </div>
+
+
+
+
+
+
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 15px;">
+  <div onmouseout="hidePreview(event, 'vpreview1')"  class="buttoon-container"><button class="uia-btn" 
+    data-video-id="8WFYDplZeY4" onmouseover="showPreview(event, 'vpreview1')" 
+    onclick="window.open('https://youtube.com/playlist?list=PLlu-VJj3dpCsqVv2_KLEbvZEQDJmIQyNF&si=rri702QI7SQO0Hn9', 'popup', 'width=505,height=525');">
+
+
+
+    
+    <div class="checkbox-wrapper">
+      <input type="checkbox" class="check" id="check1-22">
+      <label for="check1-22" class="label">
+        <svg width="45" height="45" viewBox="0 0 95 95">
+    
+          <rect cx="45" cy="45" r="25" stroke="white" fill="white"></rect>
+          <image x="0" y="20" width="40" height="45" href="media/yt.png"></image>
+          <g transform="translate(0,-952.36222)">
+            <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="orange" stroke-width="10" fill="none" class="path1"></path>
+          </g>
+        </svg>
+        <span>Orquestra de Choro UFMG</span> </button> 
+      </label>
+    
+    
+
+
+<div id="vpreview1" class="video-preview" style="display: none;">
+<iframe   width="560" height="220" 
+ata-src="https://www.youtube.com/embed/8WFYDplZeY4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <div  onmouseover="showPreview(event, 'vpreview1')"  class="miniatura" style="margin-top: -310px;"></div></div>
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;">
+MORIÁ, IVAN; FLÁVIO. A importância do gênero musical Choro e seu ensino na UFMG. Arranjos do Pixinguinha para orquestra.
+<a href="https://musica.ufmg.br/wp-content/uploads/2023/05/11-VivaMusica-17-maio-Marcos-Flavio-1.pdf" 
+class="popup-link" 
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+
+Projeto Viva Música,</a>
+Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+<div id="preview1" class="pdf-preview" style="display: none;">
+<img src="https://musica.ufmg.br/wp-content/uploads/2023/05/10-VivaMusica-17-maio-23-Marcos-Flavio-cartaz.webp" alt="PDF Preview 1" style="width: 200px; height: auto;"></div></div>
+    
+
+
+
+
+
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-top: 15px;">
+      <div onmouseout="hidePreview(event, 'vpreview2')"  class="buttoon-container"><button class="uia-btn" 
+      data-video-id="-c08ORMHvrA" onmouseover="showPreview(event, 'vpreview2')" 
+      onclick="window.open('https://youtu.be/-c08ORMHvrA?si=sVXhndTU12RPbsqJ', 'popup', 'width=505,height=525');">
+     
+     
+      <div class="checkbox-wrapper">
+        <input type="checkbox" class="check" id="check1-11">
+        <label for="check1-11" class="label">
+          <svg width="45" height="45" viewBox="0 0 95 95">
+      
+            <rect cx="45" cy="45" r="25" stroke="white" fill="white"></rect>
+            <image x="0" y="20" width="40" height="45" href="media/yt.png"></image>
+            <g transform="translate(0,-952.36222)">
+              <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="orange" stroke-width="10" fill="none" class="path1"></path>
+            </g>
+          </svg>
+          <span>Orquestra de Choro UFMG</span> </button> 
+        </label>
+      
+
+  <div id="vpreview2" class="video-preview" style="display: none;">
+  <iframe   width="560" height="220" data-src="https://www.youtube.com/embed/8WFYDplZeY4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <div  onmouseover="showPreview(event, 'vpreview2')"  class="miniatura" style="margin-top: -310px;"></div></div><span  class="content-text" style="text-align: justify;
+     width: 100%; margin-top: -10px;">
+      MORIÁ, IVAN; FLÁVIO, M. ZADOROSNY, I. O Choro orquestrado na Era de Ouro da Rádio Inconfidência: reflexões sobre 4 obras de compositores da Rádio Inconfidência.
+  <a href="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-Camerata-Orquestra-de-Choro.pdf" 
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+   data-preview="preview2" onmouseover="showPreview(event, 'preview2')" onmouseout="hidePreview()">
+  Projeto Viva Música,</a>
+  Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+  <div id="preview2" class="pdf-preview" style="display: none;">
+  <img src="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-22-novembro-2023-Orquestra-de-Choro-cartaz.webp" alt="PDF Preview 2" style="
+  width: 200px; height: auto;"></div></div>
+      
+  
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.jpeg', 'popup', 'width=348,height=375');">
+<span> Concerto</span> 
+  </button>
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN; SALLES-COELHO, ANDRE. Les Plaisirs de L'île Enchantée
+<a href="https://s9.imslp.org/files/imglnks/usimg/e/ea/IMSLP30653-PMLP05443-LWV22LesPlaisirsDeLIleEnchantee.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+LWV 22
+</a> de Jean-Baptiste Lully.
+
+
+
+
+
+
+
+
+
+<a href="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Sala Juvenal Dias.
+</a> 
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.        </a>
+
+Interpretação: Violoncelo. 
+ 2022.
+</div> 
+
+
+
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('media/documents/certificados/ProgramaBacheFrederico.jpeg', 'popup', 'width=410,height=610');">
+<span> Concerto</span> 
+  </button>
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN; CANEDO, S.; LUPPI, L.; ZERLOTINI; M.; SALLES-COELHO, ANDRE. Concerto Cênico-musical Bach e Frederico.
+
+Trechos da Orchestral Suite n2
+<a href="https://ks15.imslp.org/files/imglnks/usimg/9/98/IMSLP01467-BWV1067.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+BWV 1067
+</a> e Orchestral Suite n1 
+
+<a href="https://s9.imslp.org/files/imglnks/usimg/e/e1/IMSLP01466-BWV1066.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+BWV 1066
+</a>. Peças da Oferenda Musical 
+
+<a href="https://s9.imslp.org/files/imglnks/usimg/5/55/IMSLP10042-BWV1079-b.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+BWV 1079
+</a>. 
+
+
+
+<a href="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Sala Juvenal Dias.
+</a> 
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.        </a>
+
+Interpretação: Violoncelo. 
+ 2022.
+
+</div> 
+
+
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('media/documents/certificados/cantatadocafe.jpeg', 'popup', 'width=300,height=570');">
+<span> Concerto</span> 
+  </button>
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN; BRANT, ANDRE; PASSINI, HENRIQUE; CORREA, CAMILA; SOARES, WAGNER; FERNANDO, ANDRE; SALLES-COELHO, ANDRE. A Cantata do Café 
+<a href="https://s9.imslp.org/files/imglnks/usimg/e/ed/IMSLP279740-PMLP126904-Kaffee-Kantate_211_Partitur_Eulenburg.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+ BWV 211
+</a> de J.S. Bach.
+
+<a href="media/documents/certificados/cantatadocafe.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Teatro João Ceschiatti.
+</a> 
+
+
+
+
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.        </a>
+
+Interpretação: Violoncelo. 
+ 2022.
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://youtu.be/7mM-Yurc4po?si=YtHIpfC1LeXALRkd', 'popup', 'width=505,height=525');">
+
+
+
+    
+<div class="checkbox-wrapper">
+  <input type="checkbox" class="check" id="check1-95">
+  <label for="check1-95" class="label">
+    <svg width="45" height="45" viewBox="0 0 95 95">
+
+      <rect cx="45" cy="45" r="25" stroke="white" fill="white"></rect>
+      <image x="0" y="20" width="40" height="45" href="media/yt.png"></image>
+      <g transform="translate(0,-952.36222)">
+        <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="orange" stroke-width="10" fill="none" class="path1"></path>
+      </g>
+    </svg>
+    <span>Orquestra de Choro UFMG</span> </button> 
+  </label>
+
+
+
+<span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+
+
+
+
+
+
+
+
+
+
+>MORIÁ, IVAN; FLÁVIO, M. Solo de <a href='media/audio/partituras/JacobdoBandolim-Assanhado.pdf' class="popup-link"
+onclick="window.open(this.href, 'popup','width=465,height=660' ); return false;">
+Assanhado - Jacob do Bandolim, </a> para bandolim e orquestra. 
+
+
+<a href="https://musica.ufmg.br/blog/2022/07/04/vivamusica-06-04-22/" class="popup-link"
+onclick="window.open(this.href, 'popup','width=420,height=620' ); return false;">
+Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpretação: Bandolim. 2022.
+</div> 
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn">
+<span> Orquestra de Choro da UFMG</span> </button> <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN;  BRUEKERS, M; FLÁVIO, M. Solo de <a href='media/audio/partituras/LuizAmericano-NumaserestaF.pdf' class="popup-link"
+onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+Numa Seresta - Luiz Americano, </a> 
+para acordeon, flauta e orquestra. 
+<a href='http://www.clubedochorodebh.com.br/2022/09/orquestra-de-choro-da-ufmg-se-apresenta.html' class="popup-link"
+onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+Seresta & Serenata Popular e Imperial.</a> 
+
+ Mariana: Praça da Sé. 
+ Interpretação: Acordeon. 2022.
+</div> 
+
+
+
+
+
+
+       
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://www.youtube.com/watch?v=tHAdjTTRWI8', 'popup', 'width=505,height=525');">
+
+
+<div class="checkbox-wrapper">
+  <input type="checkbox" class="check" id="check1-56">
+  <label for="check1-56" class="label">
+    <svg width="45" height="45" viewBox="0 0 95 95">
+
+      <rect cx="45" cy="45" r="25" stroke="white" fill="white"></rect>
+      <image x="0" y="20" width="40" height="45" href="media/yt.png"></image>
+      <g transform="translate(0,-952.36222)">
+        <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="orange" stroke-width="10" fill="none" class="path1"></path>
+      </g>
+    </svg>
+    <span>Concerto Orquestra 415</span> </button> 
+  </label>
+
+
+
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I. VIANNA, J.        <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b2/IMSLP597607-PMLP88554-TELEMANN_Don_Quichotte.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+Suite "Burlesque de Quixotte".
+</a> TWV 55:G10. Telemann, G. P.
+
+
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.      </a>
+Online,
+Interpretação: Violoncelo.  
+2021.
+</div> 
+
+
+
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; ">
+  <button class="uia-btn" onclick="window.open
+  ('https://www.youtube.com/watch?v=x4UdMfbglBE', 'popup', 'width=505,height=525');">
+
+
+<div class="checkbox-wrapper">
+  <input type="checkbox" class="check" id="check1-57">
+  <label for="check1-57" class="label">
+    <svg width="45" height="45" viewBox="0 0 95 95">
+
+      <rect cx="45" cy="45" r="25" stroke="white" fill="white"></rect>
+      <image x="0" y="20" width="40" height="45" href="media/yt.png"></image>
+      <g transform="translate(0,-952.36222)">
+        <path d="m 56,963 c -102,122 6,9 7,9 17,-5 -66,69 -38,52 122,-77 -7,14 18,4 29,-11 45,-43 23,-4" stroke="orange" stroke-width="10" fill="none" class="path1"></path>
+      </g>
+    </svg>
+    <span>Concerto Orquestra 415</span> </button> 
+  </label>
+
+
+  <span  class="content-text" style="text-align: justify; width: 100%; margin-top: -10px;"
+>MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I.  VIANNA, J. Concertos     <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b3/IMSLP388872-PMLP59201-vivaldi_concerto_per_due_oboi_RV_535_score.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+ RV 535 
+</a> e 
+
+<a href="https://vmirror.imslp.org/files/imglnks/usimg/2/26/IMSLP255285-PMLP400426-Vivaldi_Konzert_in_F_dur.pdf"
+class="popup-link"
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+RV 434,
+</a>   Antonio Vivaldi.
+
+
+
+
+<a href="https://www.luanovacultural.com/orquestra-415"
+class="popup-link"
+onclick="window.open(this.href); return false;">
+Orquestra 415 de Musica Antiga.        </a>
+Online,
+Interpretação: Violoncelo. 
+ 2021.
+</div> 
+
+<script>
+
+function toggleOptions() {
+  const container = document.querySelector('.setting-container');
+  container.classList.toggle('open');
+}
+</script>
+
+<style>
+  .author-name {
+      cursor: pointer; /* Muda o cursor para indicar interatividade */
+      position: relative;
+      color: rgb(255, 175, 54); /* Cor do texto original */
+      display: inline; /* Mantém os autores na mesma linha */
+  }
+
+  .popup {
+      visibility: hidden; /* Esconde o texto popup por padrão */
+      background-color: rgb(12, 12, 12);
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 30px;
+      padding: 5px;
+      position: absolute;
+      bottom: 10%; /* Ajusta a posição do popup */
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s; /* Efeito de transição */
+  }
+
+  .author-name:hover .popup {
+      visibility: visible; /* Mostra o popup ao passar o mouse */
+      opacity: 1; /* Torna o popup visível */
+  }
+</style>
+
+<div class="midddlee-column">
+  <br><br><br><br>
+
+<div style="margin-left:-300px;margin-top:-70px;">
+
+
+      <button id="toggle-preview-button" style="z-index: 922999;">Hide Preview</button>
+      <button id="previous-preview-button" style="z-index: 922999;">Previous</button>
+
+      <button id="abo-preview-button" style="z-index: 922999; margin-right: 10px;">Home</button>
+      <button id="next-preview-button" style="z-index: 922999;">Next</button>
+
+</div>
+<iframe id="preview-iframe" src="" style="margin-left:-330px;width: 200%; height: 82vh; border: none; display: block;"></iframe>
+</div>
+<script>
+  // Lista de arquivos PDF
+  const pdfFiles = ['abo.html', 'https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ', 
+  'media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf',
+   'pdf-preview4.pdf',
+   'media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf',
+   'media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf',
+   'media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf',
+   'media/documents/textos/PosterBerlin2024.pdf',
+   'media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496',
+   'media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223',
+   'media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf',
+   'media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25',
+   'media/documents/textos/ENPEMT_2022_poster.pdf'
+   
+   
+   ]; // Adicione os arquivos PDF conforme necessário
+  let currentPdfIndex = 0; // Índice atual do PDF
+
+  // Obter todos os botões e o iframe
+
+  const prevButton = document.getElementById('previous-preview-button');
+  const nextButton = document.getElementById('next-preview-button');
+
+  // Função para atualizar o iframe com o PDF atual
+  const updateIframe = () => {
+    iframe.src = pdfFiles[currentPdfIndex];
+  };
+
+  // Evento para avançar para o próximo PDF
+  nextButton.addEventListener('click', () => {
+    if (currentPdfIndex < pdfFiles.length - 1) {
+      currentPdfIndex++;
+      updateIframe();
+    }
+  });
+
+  // Evento para retroceder para o PDF anterior
+  prevButton.addEventListener('click', () => {
+    if (currentPdfIndex > 0) {
+      currentPdfIndex--;
+      updateIframe();
+    }
+  });
+
+  // Evento de clique para o botão Home
+  aboButton.addEventListener('click', () => {
+    iframe.src = 'abo.html';
+    iframe.style.display = 'block';
+    toggleButton.textContent = 'Hide Preview';
+  });
+
+  // Alternar a visibilidade do iframe ao clicar no botão de alternância
+  toggleButton.addEventListener('click', () => {
+    const isHidden = iframe.style.display === 'none';
+    iframe.style.display = isHidden ? 'block' : 'none';
+    toggleButton.textContent = isHidden ? 'Hide Preview' : 'Show Preview';
+  });
+</script>
+
+
+
+
+<script>
+// Obter todos os links de preview e botões
+const previewLinks = document.querySelectorAll('[data-src]');
+const iframe = document.getElementById('preview-iframe');
+const toggleButton = document.getElementById('toggle-preview-button');
+const aboButton = document.getElementById('abo-preview-button');
+
+// Adicionar evento de clique ao botão Show Abo Preview
+aboButton.addEventListener('click', () => {
+  iframe.src = 'abo.html'; // Define o src do iframe para 'abo.html'
+  iframe.style.display = 'block'; // Mostra o iframe
+  toggleButton.textContent = 'Hide Preview'; // Atualiza o texto do botão de alternância
+});
+
+// Adicionar evento de clique a cada link de preview
+previewLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    iframe.src = link.getAttribute('data-src'); // Altera o src do iframe para o link do artigo
+    iframe.style.display = 'block'; // Mostra o iframe quando um link é clicado
+    toggleButton.textContent = 'Hide Preview'; // Atualiza o texto do botão
+  });
+});
+
+// Alternar a visibilidade do iframe ao clicar no botão de alternância
+toggleButton.addEventListener('click', () => {
+  const isHidden = iframe.style.display === 'none';
+  iframe.style.display = isHidden ? 'block' : 'none';
+  toggleButton.textContent = isHidden ? 'Hide Preview' : 'Show Preview';
+});
+</script>
+
+<style>
+#abo-preview-button, #toggle-preview-button, #next-preview-button,#previous-preview-button {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.357);
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Poiret One', cursive;
+  font-size: 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#abo-preview-button:hover, #toggle-preview-button:hover,#next-preview-button:hover,#previous-preview-button:hover {
+  color: rgb(255, 255, 255);
+}
+</style>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
