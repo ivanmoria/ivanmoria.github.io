@@ -214,3 +214,4 @@ label.addEventListener('mouseleave', () => {
   document.addEventListener('DOMContentLoaded', function() {
     showAllPublications();  // Exibe todas as publicações ao carregar
 });
+
