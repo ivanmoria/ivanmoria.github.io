@@ -463,11 +463,11 @@ Tec
           let canvas = createCanvas(windowWidth, windowHeight);
           canvas.parent('canvas-container');
           for (let i = 0; i < num; i++) {
-              ax[i] = width / 2;
+         
               ay[i] = height / 2;
               ax2[i] = width / 2;
               ay2[i] = height / 2;
-              ax3[i] = width / 4;
+
               ay3[i] = height / 4;
               ax4[i] = width / 8;
               ay4[i] = height / 2;
@@ -512,7 +512,7 @@ Tec
     }
 
       function updatePositions() {
-          for (let i = 1; i < num; i++) {
+          for (let i = 0; i < num; i++) {
               ax[i - 1] = ax[i];
               ay[i - 1] = ay[i];
               ax2[i - 1] = ax2[i];
@@ -529,14 +529,14 @@ Tec
       }
 
       function updateWithMouse(ax, ay) {
-          ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.02); // Reduzido para 0.02
+          ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.2); // Reduzido para 0.02
           ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.02); // Reduzido para 0.02
-          ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 1]) * 0.02); // Reduzido para 0.02
+          ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 31]) * 30.02); // Reduzido para 0.02
           ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.02); // Reduzido para 0.02
-          ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 0.02); // Reduzido para 0.02
-          ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 1]) * 0.02); // Reduzido para 0.02
+          ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 30.02); // Reduzido para 0.02
+          ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 31]) * 30.02); // Reduzido para 0.02
           ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.02); // Reduzido para 0.02
-          ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 1]) * 0.02); // Reduzido para 0.02
+          ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 313]) * 30.02); // Reduzido para 0.02
       }
 
       function constrainPositions() {
