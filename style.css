@@ -1508,3 +1508,62 @@ footer .demo a {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 9999;
 }
+
+
+
+  /* Estilo do botão inspirado no site Gumroad */
+  .button5 {
+    --bg: #000;
+    --hover-bg: #ff90e8;
+    --hover-text: #000;
+    color: #fff;
+    cursor: pointer;
+
+    border: 1px solid var(--bg);
+    border-radius: 40px;
+    padding: 0.5em 1.5em;
+    background: var(--bg);
+    transition: 0.2s;
+    font-size: 1rem;
+    white-space: nowrap;
+    margin: -3px;
+    display: inline-block;
+    text-align: center;
+}
+
+.button5:hover {
+    color: var(--hover-text);
+    transform: translate(-0.25rem, -0.25rem);
+    background: var(--hover-bg);
+    box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button5:active {
+    transform: translate(0);
+    box-shadow: none;
+}
+
+/* Estilo do botão ativo */
+.active-button {
+    background: var(--hover-bg);
+    color: var(--hover-text);
+}
+
+/* Container dos botões dos anos */
+.year-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha se necessário */
+
+}
+
+/* Estilo das publicações */
+.publications {
+    display: none; /* Inicialmente as publicações são ocultadas */
+    margin-top: 10px;
+}
+      /* Estilo de todas as publicações */
+      .all-publications {
+        display: block; /* Exibe todas as publicações ao clicar em 'Mostrar todos os anos' */
+    }

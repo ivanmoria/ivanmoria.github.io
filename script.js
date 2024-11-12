@@ -184,3 +184,33 @@ label.addEventListener('mousemove', (e) => {
 label.addEventListener('mouseleave', () => {
   label.style.backgroundColor = ''; // Reseta a cor quando o mouse sai
 });
+
+
+
+    // Exibe publicações de um ano específico
+    function showPublications(year) {
+      document.querySelectorAll('.publications').forEach(pub => {
+          pub.style.display = 'none';  // Esconde todas as publicações
+      });
+      
+      // Exibe as publicações do ano selecionado
+      let publications = document.querySelectorAll(`[data-year="${year}"]`);
+      publications.forEach(pub => {
+          pub.style.display = 'block';  // Exibe a publicação do ano selecionado
+      });
+  }
+
+  // Exibe todas as publicações
+  function showAllPublications() {
+      document.querySelectorAll('.publications').forEach(pub => {
+          pub.style.display = 'block';  // Exibe todas as publicações
+      });
+  }
+
+  // Ao carregar a página, exibe todas as publicações
+  window.onload = function() {
+      showAllPublications();  // Exibe todas as publicações ao carregar
+  };
+  document.addEventListener('DOMContentLoaded', function() {
+    showAllPublications();  // Exibe todas as publicações ao carregar
+});
