@@ -613,7 +613,7 @@ ivan moriá borges rodrigues
 
 
   <button class="ui-btn"   style=" height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
-  background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -40px;color:rgb(255, 255, 255)"  onclick="window.location.href='artisticas.html'">
+  background-color: rgb(89, 114, 84);font-size:20px; margin-bottom: -40px;color:rgb(255, 255, 255)"  onclick="window.location.href='artisticas.html'">
     <span>Artísticas</span>
   </button>
 
@@ -622,9 +622,16 @@ ivan moriá borges rodrigues
       <span>MIRMT</span>
     </button>
 
-
-
-
+<br>
+<br>
+</nav>
+<div style="   margin-left: 15px; align-items: center;  justify-content: center;">
+<button class="button5" id="button-2024" onclick="showPublications(2024)">2024</button>
+<button class="button5" id="button-2023" onclick="showPublications(2023)">2023</button>
+<button class="button5" id="button-2022" onclick="showPublications(2022)">2022</button>
+<button class="button5" id="button-2021" onclick="showPublications(2021)">2021</button>
+<button class="button5" id="button-all" onclick="showAllPublications()">Todos</button> 
+</div>
 
   </div>
 
@@ -1023,62 +1030,7 @@ Acesse aqui todas as produções artísticas
 
 
 <style>
-  /* Estilo do botão inspirado no site Gumroad */
-  .button5 {
-      --bg: #000;
-      --hover-bg: #ff90e8;
-      --hover-text: #000;
-      color: #fff;
-      cursor: pointer;
 
-      border: 1px solid var(--bg);
-      border-radius: 40px;
-      padding: 0.5em 1.5em;
-      background: var(--bg);
-      transition: 0.2s;
-      font-size: 1rem;
-      white-space: nowrap;
-      margin: -3px;
-      display: inline-block;
-      text-align: center;
-  }
-
-  .button5:hover {
-      color: var(--hover-text);
-      transform: translate(-0.25rem, -0.25rem);
-      background: var(--hover-bg);
-      box-shadow: 0.25rem 0.25rem var(--bg);
-  }
-
-  .button5:active {
-      transform: translate(0);
-      box-shadow: none;
-  }
-
-  /* Estilo do botão ativo */
-  .active-button {
-      background: var(--hover-bg);
-      color: var(--hover-text);
-  }
-
-  /* Container dos botões dos anos */
-  .year-buttons {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha se necessário */
- 
-  }
-
-  /* Estilo das publicações */
-  .publications {
-      display: none; /* Inicialmente as publicações são ocultadas */
-      margin-top: 10px;
-  }
-        /* Estilo de todas as publicações */
-        .all-publications {
-          display: block; /* Exibe todas as publicações ao clicar em 'Mostrar todos os anos' */
-      }
 </style>
 
   <script>
@@ -1111,15 +1063,7 @@ Acesse aqui todas as produções artísticas
   });
   </script>
   
-<div class="year-buttons">
 
-  <button class="button5" id="button-2024" onclick="showPublications(2024)">2024</button>
-  <button class="button5" id="button-2023" onclick="showPublications(2023)">2023</button>
-  <button class="button5" id="button-2022" onclick="showPublications(2022)">2022</button>
-  <button class="button5" id="button-2021" onclick="showPublications(2021)">2021</button>
-  <button class="button5" id="button-all" onclick="showAllPublications()">Todos</button> 
-   
-</div>
 
 <div data-year="2024" class="publications">
 
@@ -1873,6 +1817,11 @@ Interpretação: Violoncelo.
       <div style="display: flex; flex-direction: row; align-items: flex-start; margin-bottom: -15px;">
         <button id="toggle-preview-button" style="z-index: 922999;">Hide Preview</button>
 
+        <div class="year-buttons" style="padding: 50px; margin-bottom: 35px;text-align: center; position: fixed;display: flex;  gap: 10px;">
+     
+         
+           
+        </div>
       </div>
   </div>
 
