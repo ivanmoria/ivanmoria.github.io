@@ -961,19 +961,35 @@ IR
         }
 
         function saveResponsesToCSV() {
-            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-            let csvContent = "data:text/csv;charset=utf-8,Pergunta Resposta\n";
-            answers.forEach((answer, index) => {
-                const answerText = ['0', '1', '2', '3'][answer] || 'Sem resposta';
-                csvContent += `${index + 1} ${answerText}\n`;
-            });
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "respostas_dass21_take_.csv");
-            document.body.appendChild(link);
-            link.click();
-        }
+          // Solicitar nome e idade do participante
+          const participantName = prompt("Digite seu nome:");
+          const participantAge = prompt("Digite sua idade:");
+      
+          // Verificar se os campos foram preenchidos
+          if (!participantName || !participantAge) {
+              alert("Por favor, preencha tanto o nome quanto a idade.");
+              return;
+          }
+      
+
+          // Criar conteúdo CSV
+          let csvContent = "data:text/csv;charset=utf-8,";
+          csvContent += "Pergunta Resposta\n"; // Cabeçalhos para respostas
+      
+          // Adicionar respostas
+          answers.forEach((answer, index) => {
+              const answerText = ['0', '1', '2', '3'][answer] || 'Sem resposta';
+              csvContent += `${index + 1} ${answerText}\n`;
+          });
+      
+          // Codificar URI e baixar o arquivo
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", `respostas_dass21_${participantName}_${participantAge}.csv`);
+          document.body.appendChild(link);
+          link.click();
+      }
 
         document.addEventListener('keydown', (event) => {
             if (event.key >= '1' && event.key <= '4') {
@@ -1031,6 +1047,8 @@ IR
         }
 
         function processCSV() {
+          csvContent
+          encodedUri
             const fileInput = document.getElementById('csvFile');
             const file = fileInput.files[0];
 
@@ -1073,3 +1091,4 @@ IR
     </script>
     <br>    <br>   
 </body>
+
