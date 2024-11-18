@@ -2,8 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste DASS-21</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Ivan Moriá - Produções técnicas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=vjy99_yvYQXH&format=png&color=000000" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=vjy99_yvYQXH&format=png&color=000000">
+
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         body {
@@ -54,7 +75,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0a3cff;
+    background-color: #c3ccef;
     z-index: -1;
     transform: scaleX(0);
     transform-origin: left;
@@ -95,14 +116,14 @@
   .menu .item:hover .submenu {
     opacity: 1;
     text-align: left;
- 
+    margin-left:-75px;
     background-color: rgb(171, 171, 171);
     visibility: visible;
     width:270px;
     transform: translateY(0);
     pointer-events: auto;
     border-top: transparent;
-    border-color: #0a3cff;
+    border-color: #a4b6fc;
   }
   
   .menu .item:hover .link {
@@ -148,7 +169,7 @@
     transform: scaleX(0);
     width: 100%;
     height: 100%;
-    background-color: #0a3cff;
+    background-color: #5959598b;
     z-index: -1;
     transform-origin: left;
     transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
@@ -217,7 +238,7 @@ button {
     /* Variables */
     --button_radius: 0.75em;
     --button_color: #e8e8e8;
-    --button_outline_color: #000000;
+    --button_outline_color: #00000063;
     font-size: 17px;
     font-weight: bold;
     border: none;
@@ -232,8 +253,8 @@ button {
     width: 5px;
     border: 2px solid var(--button_outline_color);
     border-radius: var(--button_radius);
-    padding: 0.6em 1.2em;
-    background: var(--button_color);
+    padding: 0.2em 0.4em;
+    background: rgba(200, 200, 200, 0.895);
     color: var(--button_outline_color);
     transform: translateY(-0.2em);
     transition: transform 0.1s ease;
@@ -251,19 +272,372 @@ button {
   
   
     </style>
+    <style>
+    html, body {
+      overflow-x: hidden; /* Esconde a barra de rolagem horizontal */
+      background-color:white;
+
+  }
+  .left-column {
+      width: 90%; /* Ajusta a largura para caber 50% da tela */
+      height: 100vh; /* Garante que a altura seja a altura total da viewport */
+      overflow-y: auto; /* Permite a rolagem vertical */
+      padding: 20px;
+      z-index: 9999;
+
+  }
+/* Estilizando a barra de rolagem */
+.left-column::-webkit-scrollbar {
+  width: 12px; /* Largura da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-track {
+  background: #f0f0f000; /* Cor de fundo da pista da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-thumb {
+  background-color: #ffffff74; /* Cor da barra de rolagem */
+  border-radius: 10px; /* Arredonda as bordas da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-thumb:hover {
+  background-color:  #d9ac1a; /* Cor da barra de rolagem quando está sendo hover */
+}
+
+
+  .midddlee-column {
+      width: 20%;
+      position: fixed;
+      right: 0;
+      top: 0;
+
+      bottom:0;
+      height: 100vh; /* Ocupa a altura total da viewport */
+
+
+      margin-top: 0; /* Remova a margem superior para alinhar corretamente */
+      z-index: 9999;
+  }
+  
+
+  
+
+  body {
+      position: relative;
+      overflow: hidden; /* Remove a barra de rolagem horizontal e vertical */
+  
+      -webkit-user-select: text; /* Safari */
+      -moz-user-select: text; /* Firefox */
+      -ms-user-select: text; /* Internet Explorer/Edge */
+      user-select: text; /* Non-prefixed version */
+  }
+  
+  /* Estilo para seleção de texto */
+  ::selection {
+      background-color: #ffd900a5; /* Cor de fundo do texto selecionado */
+      color: #000; /* Cor do texto selecionado */
+  }
+  
+  /* Versão para navegadores WebKit */
+  ::-webkit-selection {
+      background-color: #ffd900a5;
+      color: #000;
+  }
+  
+  /* Estilos para elementos personalizados */
+  p20 {
+      font-family: 'Poiret One', cursive;
+      font-size: 20px;
+      font-weight: bold;
+      color: rgb(246, 148, 148);
+  }
+  
+  p18, p182 {
+      font-family: 'Poiret One', cursive;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.357);
+  }
+  
+  p33 {
+      font-family: 'Poiret One', cursive;
+      font-size: 15px;
+      color: rgba(221, 164, 164, 0.872);
+  }
+  
+  p11 {
+      font-family: 'Poiret One', cursive;
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(131, 159, 144, 0.801);
+  }
+  
+  iframe {
+      width: 100%; /* Ajuste para ocupar a largura total da coluna */
+      height: 100vh; /* Ajusta a altura para caber no viewport */
+      border: none; /* Remove a borda para um visual mais limpo */
+      padding-right: 0; /* Remove margens extras */
+  }
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  iframe {
+      display: none; /* Remove o iframe em telas pequenas */
+  }
+
+  .left-column {
+      width: 100%; /* Aumenta a largura da coluna lefffte para 100% */
+      overflow-y: auto; /* Permite a rolagem vertical */
+      overflow-x: auto; /* Permite a rolagem horizontal */
+
+  }
+}
+
+
+</style>
+    
+
+<style>
+  .author-name {
+      cursor: pointer; /* Muda o cursor para indicar interatividade */
+      position: relative;
+      color: rgb(255, 175, 54); /* Cor do texto original */
+      display: inline; /* Mantém os autores na mesma linha */
+  }
+
+  .popup {
+      visibility: hidden; /* Esconde o texto popup por padrão */
+      background-color: rgb(12, 12, 12);
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 30px;
+      padding: 5px;
+      position: absolute;
+      bottom: 10%; /* Ajusta a posição do popup */
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s; /* Efeito de transição */
+  }
+
+  .author-name:hover .popup {
+      visibility: visible; /* Mostra o popup ao passar o mouse */
+      opacity: 1; /* Torna o popup visível */
+  }
+
+
+  /* From Uiverse.io by Dhanya4 */ 
+.btn-class-name {
+  --color: 250, 255, 100;
+  border-radius: 0.5em;
+  transition: 0.3s;
+  background-color: black;
+  color: white;
+  fill: rgb(var(--color));
+  font-family: monospace;
+  font-weight: bolder;
+  font-size: x-large;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border: 2px solid rgb(188, 188, 188);
+  box-shadow: 0 0 10px black;
+  outline: none;
+  display: flex;
+  align-items: center;
+  padding: 0.5em 1em;
+}
+
+.btn-class-name:hover {
+  box-shadow: 0 0 0 5px rgba(var(--color), 0.5);
+}
+
+.btn-class-name span {
+  transform: scale(0.8);
+  transition: 0.3s;
+}
+
+.btn-class-name:hover span {
+  transform: scale(1);
+}
+
+.btn-class-name svg {
+  font-size: 0;
+  transform: scale(0.5) translateX(0%) rotate(-180deg);
+  transition: 0.3s;
+}
+
+.btn-class-name:hover svg {
+  font-size: 20px;
+  transform: scale(1) translateX(20%) rotate(0deg);
+}
+
+.btn-class-name:active {
+  transition: 0s;
+  box-shadow: 0 0 0 5px rgb(var(--color));
+}
+
+</style>
+
+
+
+
 </head>
 <body>
-    <h1>Teste DASS 21</h1>
-
-    <div  style="font-size: 12px;" class="instructions">
-        Use as teclas 1-4 para responder e pressione a tecla espaço (botão >) para passar para a próxima pergunta.
-    </div>
-    <br>
 
 
+</a>
+
+</div>
+
+<div class="button-container">
+  <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+    <svg
+   
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="22px"
+      height="22px"
+      class="btn-svg"
+    >
+      <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
+    </svg>
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>email [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+  </button>
+  <button class="button flex-center" onclick="window.location.href='https://wa.me/5531984667554'">
+
+    <svg xmlns="http://www.w3.org/2000/svg" 
+    width="32" viewBox="0 0 32 32" 
+    height="32" fill="none" 
+    fill="#fff"
+    class="svg-icon">
+    <style>
+      .svg-icon:hover path {
+          fill: #000; /* Altera a cor de preenchimento para preto no hover */
+      }
+  </style>
+    <path stroke-width="2"
+        stroke-linecap="round"
+        stroke="#fff" 
+        fill-rule="evenodd" 
+        d="M24.8868 19.1288c-1.0274-.1308-2.036-.3815-3.0052-.7467-.7878-.29-1.6724-.1034-2.276.48-.797.8075-2.0493.9936-2.9664.3258-1.4484-1.055-2.7233-2.3295-3.7783-3.7776-.6681-.9168-.4819-2.1691.3255-2.9659.5728-.6019.7584-1.4748.4802-2.2577-.3987-.98875-.6792-2.02109-.8358-3.07557-.2043-1.03534-1.1138-1.7807-2.1694-1.77778h-3.18289c-.60654-.00074-1.18614.25037-1.60035.69334-.40152.44503-.59539 1.03943-.53345 1.63555.344 3.31056 1.47164 6.49166 3.28961 9.27986 1.64878 2.5904 3.84608 4.7872 6.43688 6.4356 2.7927 1.797 5.9636 2.9227 9.2644 3.289h.1778c.5409.0036 1.0626-.2 1.4581-.569.444-.406.6957-.9806.6935-1.5822v-3.1821c.0429-1.0763-.7171-2.0185-1.7782-2.2046z" 
+        clip-rule="evenodd">
+    </path>
+</svg>
+
+  </button>
+  <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
+    <svg
+      viewBox="0 0 24 24"
+      class="btn-svg"
+      width="22px"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+          fill="#fff"
+        ></path>
+        <path
+          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+          fill="#fff"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+          fill="#fff"
+        ></path>
+      </g>
+    </svg>
+  </button>
+
+  <br>
+
+<br>
+<br>
+<br>
+<br>
 
 
-    <div class="menu">
+
+  
+</div></div></div></a></div>
+
+
+
+
+<div class="container">
+
+  <div style="display: flex; justify-content: center;">
+
+
+  </div>
+
+
+  <div style="display: flex;z-index:9999999; flex-direction: column; align-items: center; width: 100%;margin-left:40 px; ">
+
+<br>
+
+        <p4 style="font-size: 45px; margin-top: -25px;color: rgba(255, 175, 54, 0.699) ";> DASS - 21</p4>
+
+
+
+    
+<br>
+
+
+<div class="instructions" style="text-align: justify;">
+ 
+      <p2 style="color:black; font-size: 16px;"> Selecione o tipo de áudio, use as teclas 1-4 para 
+        responder e pressione a tecla espaço (ou botão IR) para passar para a próxima pergunta.</p2> 
+
+
+
+    <div  style="margin-top: -10px; display: block; margin-left: auto; margin-right: auto;"  class="menu">
       <div class="item">
         <a href="#" class="link">
           <span> Audio </span>
@@ -300,70 +674,82 @@ button {
         </div>
       </div>
     
+    </div>
+    <br>
 
 
 
-<button onclick="nextQuestion()" class="Btn-Container">
 
-    <span class="icon-Container">
-      <svg
-        width="16"
-        height="19"
-        viewBox="0 0 16 19"
-        fill="nones"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle cx="1.61321" cy="1.61321" r="1.5" fill="black"></circle>
-        <circle cx="5.73583" cy="1.61321" r="1.5" fill="black"></circle>
-        <circle cx="5.73583" cy="5.5566" r="1.5" fill="black"></circle>
-        <circle cx="9.85851" cy="5.5566" r="1.5" fill="black"></circle>
-        <circle cx="9.85851" cy="9.5" r="1.5" fill="black"></circle>
-        <circle cx="13.9811" cy="9.5" r="1.5" fill="black"></circle>
-        <circle cx="5.73583" cy="13.4434" r="1.5" fill="black"></circle>
-        <circle cx="9.85851" cy="13.4434" r="1.5" fill="black"></circle>
-        <circle cx="1.61321" cy="17.3868" r="1.5" fill="black"></circle>
-        <circle cx="5.73583" cy="17.3868" r="1.5" fill="black"></circle>
-      </svg>
-    </span>
-  </button>
+
+
+
+
   
   
     </div>
     
 
 
-    <div style="width:270px; height:150px;">
+
+
 
 <br>
-        <p style="border: black; border-radius:2px;"   class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p>
 
-    </div>
+
+
+<div  style="font-size: 12px; background-color:rgba(0, 0, 0, 0.292);" class="instructions">
+  <p2   style="color:black;"  style="border: black; border-radius:2px; "   class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p2>
+</div>
+
+
+      <br>
+      <br>
+      <br>
+
+      <br>
+      <br>
+
+
+
+
+
+
     
     
-    <div style="margin-left:-10px;">
-        <p class="answer" id="selectedAnswer">Selecione uma resposta </p>
-        <button onclick="selectAnswer(0)">
+    <div >
+        <p2   style="color:black;margin-left:-10px;" class="answer" id="selectedAnswer">Selecione uma resposta </p2>
+        <br><br>
+    </div><div>
+        <button  style="margin-left:-20px;" onclick="selectAnswer(0)">
           <span class="button_top"> 1 </span>
         </button>
 
-<button onclick="selectAnswer(1)">
+<button style="margin-left:15px;"  onclick="selectAnswer(1)">
   <span class="button_top"> 2 </span>
 </button>
 
-<button onclick="selectAnswer(2)">
+<button   style="margin-left:30px;" onclick="selectAnswer(2)">
   <span class="button_top"> 3  </span>
 </button>
 
-<button onclick="selectAnswer(3)">
+<button style="margin-left:35px;"  onclick="selectAnswer(3)">
   <span class="button_top"> 4 </span>
 </button>
 
+<br>
+
+
+<p2  style="color:black;font-size: 14px; margin-left: -20px;"   id="selectedAnswer"> Nunca Às vezes  Freqüentemente  Sempre </p2>
 
 
 
-<p style="font-size: 12px; margin-left: -5px;"   id="selectedAnswer"> Nunca | Às vezes | Freqüentemente | Sempre </p>
-
-
+<br><br>
+<button 
+    style="margin-top: -10px; display: block; margin-left: auto; margin-right: auto;" 
+    class="btn-class-name" 
+    onclick="nextQuestion()">
+IR
+</button>
 
 
     </div>
@@ -615,23 +1001,23 @@ button {
         showQuestion();
     </script>
 
-
-    <h1 style="font-size: 20px;">Calcular DASS-21</h1>
-    <form id="dassForm">
+<br>
+    <p2 style="font-size: 30px; color:black;">Calcular DASS-21</p2><br>
+    <form style="color:black;margin-left:-20px;" id="dassForm">
 
         <input type="file" id="csvFile" accept=".csv" required>
-        <br>        <br>
+<br><br>
         <button  style="background-color: white;"  onclick="processCSV()">
             <span > Calcular</span>
           </button>
-
     </form>
 
-    <div id="results" class="results" style="display: none;">
-        <h2>Resultados</h2>
-        <p><strong>Depressão:</strong> <span id="depressao"></span></p>
-        <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
-        <p><strong>Estresse:</strong> <span id="estresse"></span></p>
+    <div id="results" class="results" style="display: none; margin-bottom:20px;">
+        <p2 style="color: black;">Resultados</p2><br>
+        <p2 style="color: black;"><strong>Depressão:</strong> <span id="depressao"></span></p2><br>
+        <p2 style="color: black;"><strong>Ansiedade:</strong> <span id="ansiedade"></span></p2><br>
+        <p2 style="color: black;"><strong>Estresse:</strong> <span id="estresse"></span></p2>
+
     </div>
 
     <script>
@@ -700,5 +1086,5 @@ button {
             });
         }
     </script>
-    <br>    <br>    <br>    <br>    <br>    <br>
+    <br>    <br>   
 </body>
