@@ -2,29 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-    <meta name="theme-color" content="#2d2b2b">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="Personal projects of Ivan Moriá">
-    <title>Ivan Moriá - Produções técnicas</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://img.icons8.com/?size=100&id=vjy99_yvYQXH&format=png&color=000000" type="image/x-icon">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=vjy99_yvYQXH&format=png&color=000000">
-
-  
+    <title>Teste DASS-21</title>
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://unpkg.com/wavesurfer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <style>
         body {
@@ -37,706 +17,315 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-        /* From Uiverse.io by gharsh11032000 */ 
-.menu {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #000000;
-    
-    width: fit-content;
-    display: flex;
-    list-style: none;
-  }
-  
-  .menu a {
-    text-decoration: none;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  }
-  
-  .menu .link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 12px 36px;
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .menu .link::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #c3ccef;
-    z-index: -1;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .menu .link svg {
-    width: 14px;
-    height: 14px;
-    fill: #000000;
-    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .menu .item {
-    position: relative;
-  }
-  
-  .menu .item .submenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    top: 100%;
-    border-radius: 0 0 16px 16px;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid #cccccc;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-12px);
-    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-    z-index: 1;
-    pointer-events: none;
-    list-style: none;
-  }
-  
-  .menu .item:hover .submenu {
-    opacity: 1;
-    text-align: left;
-    margin-left:-75px;
-    background-color: rgb(171, 171, 171);
-    visibility: visible;
-    width:270px;
-    transform: translateY(0);
-    pointer-events: auto;
-    border-top: transparent;
-    border-color: #a4b6fc;
-  }
-  
-  .menu .item:hover .link {
-    color: #ffffff;
+        
 
-    border-radius: 16px 16px 0 0;
-  }
-  
-  .menu .item:hover .link::after {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-  
-  .menu .item:hover .link svg {
-    fill: #ffffff;
-    transform: rotate(-180deg);
-  }
-  
-  .submenu .submenu-item {
-    width: 100%;
-    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .submenu .submenu-link {
-    display: block;
-    padding: 2px 4px;
-    margin-left:0px;
-    width: 100%;
-    position: relative;
-    text-align: center;
-    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .submenu .submenu-item:last-child .submenu-link {
-    border-bottom: none;
-  }
-  
-  .submenu .submenu-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scaleX(0);
-    width: 100%;
-    height: 100%;
-    background-color: #5959598b;
-    z-index: -1;
-    transform-origin: left;
-    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  
-  .submenu .submenu-link:hover:before {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-  
-  .submenu .submenu-link:hover {
-    color: #ffffff;
-  }
-  /* From Uiverse.io by vinodjangid07 */ 
-.Btn-Container {
-    display: flex;
-    width: 60px;
-    height: fit-content;
-    background-color: #1d2129;
-    border-radius: 50px;
-    box-shadow: 0px 5px 10px #bebebe;
-    justify-content: space-between;
-    align-items: center;
-    border: none;
-    cursor: pointer;
-  }
-  .icon-Container {
-    width: 60px;
-    height: 45px;
-    background-color: #f59aff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 3px solid #1d2129;
-  }
-  .text {
-    width: calc(170px - 45px);
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.1em;
-    letter-spacing: 1.2px;
-  }
-  .icon-Container svg {
-    transition-duration: 1.5s;
-  }
-  .Btn-Container:hover .icon-Container svg {
-    transition-duration: 1.5s;
-    animation: arrow 1s linear infinite;
-  }
-  @keyframes arrow {
-    0% {
-      opacity: 0;
-      margin-left: 0px;
-    }
-    100% {
-      opacity: 1;
-      margin-left: 10px;
-    }
-  }
-  /* From Uiverse.io by Voxybuns */ 
-button {
-    /* Variables */
-    --button_radius: 0.75em;
-    --button_color: #e8e8e8;
-    --button_outline_color: #00000063;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: var(--button_radius);
-    background: var(--button_outline_color);
-  }
-  
-  .button_top {
-    display: block;
-    box-sizing:content-box;
-    width: 5px;
-    border: 2px solid var(--button_outline_color);
-    border-radius: var(--button_radius);
-    padding: 0.2em 0.4em;
-    background: rgba(200, 200, 200, 0.895);
-    color: var(--button_outline_color);
-    transform: translateY(-0.2em);
-    transition: transform 0.1s ease;
-  }
-  
-  button:hover .button_top {
-    /* Pull the button upwards when hovered */
-    transform: translateY(-0.33em);
-  }
-  
-  button:active .button_top {
-    /* Push the button downwards when pressed */
-    transform: translateY(0);
-  }
-  
-  
-    </style>
-    <style>
-    html, body {
-      overflow-x: hidden; /* Esconde a barra de rolagem horizontal */
-      background-color:white;
 
-  }
-  .left-column {
-      width: 90%; /* Ajusta a largura para caber 50% da tela */
-      height: 100vh; /* Garante que a altura seja a altura total da viewport */
-      overflow-y: auto; /* Permite a rolagem vertical */
-      padding: 20px;
-      z-index: 9999;
+        /* From Uiverse.io by Galahhad */ 
+/* radio settings 👇 */
 
-  }
-/* Estilizando a barra de rolagem */
-.left-column::-webkit-scrollbar {
-  width: 12px; /* Largura da barra de rolagem */
+.theme-popup {
+  /* total */
+  --total_text_color: #e0e0e0;
+  --total_font_family: Menlo, Roboto Mono, monospace;
+  /* button */
+  --btn_bg: #3A3A3A;
+  --btn_padding: 0.5em;
+  --btn_height: 2em;
+  --btn_border_radius: 0.3125em;
+  --btn_outline_width: 0.0625em;
+  --btn_outline_color: #A0A0A0;
+  --btn_outline_offset: 0.0625em;
+  --btn_gap: 0.3125em;
+  /* list */
+  --list_padding: 0.5em;
+  --list_bg: var(--btn_bg);
+  --list_border_radius: var(--btn_border_radius);
+  --list_gap: 0.1875em;
+  --list_btn_hover_bg: #5A5656;
+  --list_btn_active: #b9b9b970;
+  --list_btn_border_radius: 0.25em;
+  --list_btn_padding: 0.35em 1em;
+  --list_btn_gap: 0.4375em;
+  --list_btn_outline_width: 0.0625em;
+  --list_btn_outline_color: rgb(212, 210, 210);
+  --list_offset: 0.35em;
+  --list_btn_font_size: 14px;
+  --list_position_left: 0;
+  --list_position_right: unset;
+  /* 👆 if you want to change sides just switch one property */
+  /* from properties to "unset" and the other to 0 */
 }
 
-.left-column::-webkit-scrollbar-track {
-  background: #f0f0f000; /* Cor de fundo da pista da barra de rolagem */
+.theme-popup__button .theme-popup__icons svg,
+#light,
+#dark, 
+#default, 
+#checkbox,
+.theme-popup__list-container {
+  display: none;
 }
 
-.left-column::-webkit-scrollbar-thumb {
-  background-color: #ffffff74; /* Cor da barra de rolagem */
-  border-radius: 10px; /* Arredonda as bordas da barra de rolagem */
+.theme-popup {
+  color: var(--total_text_color);
+  font-family: var(--total_font_family);
+  position: relative;
+  user-select: none;
 }
 
-.left-column::-webkit-scrollbar-thumb:hover {
-  background-color:  #d9ac1a; /* Cor da barra de rolagem quando está sendo hover */
+.theme-popup__list-container {
+  position: absolute;
+  left: var(--list_position_left);
+  right: var(--list_position_right);
+  top: calc(var(--btn_height) + var(--list_offset));
 }
 
-
-  .midddlee-column {
-      width: 20%;
-      position: fixed;
-      right: 0;
-      top: 0;
-
-      bottom:0;
-      height: 100vh; /* Ocupa a altura total da viewport */
-
-
-      margin-top: 0; /* Remova a margem superior para alinhar corretamente */
-      z-index: 9999;
-  }
-  
-
-  
-
-  body {
-      position: relative;
-      overflow: hidden; /* Remove a barra de rolagem horizontal e vertical */
-  
-      -webkit-user-select: text; /* Safari */
-      -moz-user-select: text; /* Firefox */
-      -ms-user-select: text; /* Internet Explorer/Edge */
-      user-select: text; /* Non-prefixed version */
-  }
-  
-  /* Estilo para seleção de texto */
-  ::selection {
-      background-color: #ffd900a5; /* Cor de fundo do texto selecionado */
-      color: #000; /* Cor do texto selecionado */
-  }
-  
-  /* Versão para navegadores WebKit */
-  ::-webkit-selection {
-      background-color: #ffd900a5;
-      color: #000;
-  }
-  
-  /* Estilos para elementos personalizados */
-  p20 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: bold;
-      color: rgb(246, 148, 148);
-  }
-  
-  p18, p182 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.357);
-  }
-  
-  p33 {
-      font-family: 'Poiret One', cursive;
-      font-size: 15px;
-      color: rgba(221, 164, 164, 0.872);
-  }
-  
-  p11 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(131, 159, 144, 0.801);
-  }
-  
-  iframe {
-      width: 100%; /* Ajuste para ocupar a largura total da coluna */
-      height: 100vh; /* Ajusta a altura para caber no viewport */
-      border: none; /* Remove a borda para um visual mais limpo */
-      padding-right: 0; /* Remove margens extras */
-  }
-/* Media query para telas menores */
-@media (max-width: 768px) {
-  iframe {
-      display: none; /* Remove o iframe em telas pequenas */
-  }
-
-  .left-column {
-      width: 100%; /* Aumenta a largura da coluna lefffte para 100% */
-      overflow-y: auto; /* Permite a rolagem vertical */
-      overflow-x: auto; /* Permite a rolagem horizontal */
-
-  }
-}
-
-
-</style>
-    
-
-<style>
-  .author-name {
-      cursor: pointer; /* Muda o cursor para indicar interatividade */
-      position: relative;
-      color: rgb(255, 175, 54); /* Cor do texto original */
-      display: inline; /* Mantém os autores na mesma linha */
-  }
-
-  .popup {
-      visibility: hidden; /* Esconde o texto popup por padrão */
-      background-color: rgb(12, 12, 12);
-      color: #fff;
-      text-align: center;
-      border-radius: 5px;
-      font-size: 30px;
-      padding: 5px;
-      position: absolute;
-      bottom: 10%; /* Ajusta a posição do popup */
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      z-index: 9999;
-      opacity: 0;
-      transition: opacity 0.3s; /* Efeito de transição */
-  }
-
-  .author-name:hover .popup {
-      visibility: visible; /* Mostra o popup ao passar o mouse */
-      opacity: 1; /* Torna o popup visível */
-  }
-
-
-  /* From Uiverse.io by Dhanya4 */ 
-.btn-class-name {
-  --color: 250, 255, 100;
-  border-radius: 0.5em;
-  transition: 0.3s;
-  background-color: black;
-  color: white;
-  fill: rgb(var(--color));
-  font-family: monospace;
-  font-weight: bolder;
-  font-size: x-large;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  border: 2px solid rgb(188, 188, 188);
-  box-shadow: 0 0 10px black;
-  outline: none;
+.theme-popup__icons {
   display: flex;
   align-items: center;
-  padding: 0.5em 1em;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
 }
 
-.btn-class-name:hover {
-  box-shadow: 0 0 0 5px rgba(var(--color), 0.5);
+.theme-popup__button {
+  line-height: var(--btn_height);
+  background-color: var(--btn_bg);
+  padding: 0 var(--btn_padding);
+  display: inline-flex;
+  align-items: center;
+  column-gap: var(--btn_gap);
+  border-radius: var(--btn_border_radius);
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  outline: none;
+  font-weight: bold;
 }
 
-.btn-class-name span {
-  transform: scale(0.8);
-  transition: 0.3s;
+.theme-popup__list {
+  margin: 0;
+  list-style-type: none;
+  padding: var(--list_padding);
+  border-radius: var(--list_border_radius);
+  background-color: var(--list_bg);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--list_gap);
 }
 
-.btn-class-name:hover span {
-  transform: scale(1);
+.theme-popup__list label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: var(--list_btn_gap);
+  padding: var(--list_btn_padding);
+  border-radius: var(--list_btn_border_radius);
+  white-space: nowrap;
 }
 
-.btn-class-name svg {
-  font-size: 0;
-  transform: scale(0.5) translateX(0%) rotate(-180deg);
-  transition: 0.3s;
+.theme-popup__list label span {
+  font-size: var(--list_btn_font_size);
 }
 
-.btn-class-name:hover svg {
-  font-size: 20px;
-  transform: scale(1) translateX(20%) rotate(0deg);
+/* actions */
+
+#checkbox:checked~.theme-popup__button {
+  outline: var(--btn_outline_width) solid var(--btn_outline_color);
+  outline-offset: var(--btn_outline_offset);
 }
 
-.btn-class-name:active {
-  transition: 0s;
-  box-shadow: 0 0 0 5px rgb(var(--color));
+#checkbox:checked~.theme-popup__list-container {
+  display: block;
 }
 
-</style>
+.theme-popup__list label:hover,
+.theme-popup__button:hover,
+#checkbox:checked~.theme-popup__button {
+  background-color: var(--list_btn_hover_bg);
+}
+
+#default:checked~.theme-popup__list-container label[for="default"],
+#light:checked~.theme-popup__list-container label[for="light"],
+#dark:checked~.theme-popup__list-container label[for="dark"] {
+  background-color: var(--list_btn_active);
+  outline: var(--list_btn_outline_width) solid var(--list_btn_outline_color);
+}
+
+#default:checked~label svg.default,
+#light:checked~label svg.sun,
+#dark:checked~label svg.moon {
+  display: block;
+}
 
 
 
+  /* Estilo do botão inspirado no site Gumroad */
+  .button5 {
+    --bg: #000;
+    --hover-bg: #ff90e8;
+    --hover-text: #000;
+    color: #fff;
+    cursor: pointer;
 
+    border: 1px solid var(--bg);
+    border-radius: 10px;
+    padding: 1em 1em;
+    background: var(--bg);
+    transition: 0.2s;
+    font-size: 1rem;
+    white-space: nowrap;
+    margin: 1px;
+    display: inline-block;
+    text-align: center;
+}
+
+.button5:hover {
+    color: var(--hover-text);
+    transform: translate(-0.25rem, -0.25rem);
+    background: var(--hover-bg);
+    box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button5:active {
+    transform: translate(0);
+    box-shadow: none;
+}
+p11 {
+  font-family: 'Poiret One', cursive;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(131, 159, 144, 0.801);
+}
+    </style>
 </head>
 <body>
 
 
-</a>
 
+  <div>
+  <div class="theme-popup">
+    <input type="radio" name="theme" id="default" checked="">
+    <input type="radio" name="theme" id="light">
+    <input type="radio" name="theme" id="dark">
+    <input type="radio" name="theme" id="dark">
+    <input type="checkbox" id="checkbox">
+  <label for="checkbox" class="theme-popup__button">
+    <span class="theme-popup__icons">
+      <svg class="default" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 2.52267C6.13332 2.64713 4.86254 3.27802 3.9372 4.29146C3.01186 5.3049 2.49882 6.62766 2.49882 8C2.49882 9.37234 3.01186 10.6951 3.9372 11.7085C4.86254 12.722 6.13332 13.3529 7.5 13.4773V2.52267ZM1.5 8C1.5 4.41 4.41 1.5 8 1.5C11.59 1.5 14.5 4.41 14.5 8C14.5 11.59 11.59 14.5 8 14.5C4.41 14.5 1.5 11.59 1.5 8Z" fill="currentColor"></path>
+      </svg>
+      <svg class="sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_78_63)">
+          <path d="M7.99998 3.99256C5.79024 3.99256 3.99254 5.79061 3.99254 8.00035C3.99254 10.2101 5.79024 12.0081 7.99998 12.0081C10.2094 12.0081 12.0074 10.2105 12.0074 8.00035C12.0074 5.79026 10.2094 3.99256 7.99998 3.99256ZM7.99998 2.81453C7.79266 2.81453 7.59383 2.73219 7.4472 2.58563C7.30057 2.43907 7.21814 2.24027 7.21805 2.03295V0.781931C7.21805 0.57455 7.30043 0.375663 7.44707 0.229022C7.59371 0.0823818 7.7926 0 7.99998 0C8.20736 0 8.40625 0.0823818 8.55289 0.229022C8.69953 0.375663 8.78191 0.57455 8.78191 0.781931V2.03295C8.78182 2.24027 8.6994 2.43907 8.55276 2.58563C8.40613 2.73219 8.2073 2.81453 7.99998 2.81453ZM7.99998 13.1851C7.8973 13.1851 7.79562 13.2053 7.70075 13.2446C7.60588 13.2839 7.51968 13.3415 7.44707 13.4141C7.37446 13.4868 7.31687 13.573 7.27757 13.6678C7.23828 13.7627 7.21805 13.8644 7.21805 13.9671V15.2177C7.21805 15.4251 7.30043 15.624 7.44707 15.7706C7.59371 15.9173 7.7926 15.9996 7.99998 15.9996C8.20736 15.9996 8.40625 15.9173 8.55289 15.7706C8.69953 15.624 8.78191 15.4251 8.78191 15.2177V13.9671C8.78182 13.7597 8.69941 13.5609 8.55279 13.4142C8.40617 13.2676 8.20733 13.1852 7.99998 13.1851ZM11.6662 4.33339C11.5197 4.18671 11.4374 3.98785 11.4374 3.78051C11.4374 3.57318 11.5197 3.37432 11.6662 3.22764L12.5509 2.34296C12.6232 2.26911 12.7095 2.21033 12.8047 2.17003C12.8999 2.12972 13.0021 2.1087 13.1055 2.10816C13.2088 2.10762 13.3113 2.12758 13.4069 2.16689C13.5025 2.2062 13.5894 2.26408 13.6625 2.33717C13.7356 2.41026 13.7934 2.49712 13.8327 2.59273C13.872 2.68833 13.892 2.79078 13.8915 2.89415C13.8909 2.99752 13.8699 3.09976 13.8296 3.19494C13.7893 3.29013 13.7305 3.37639 13.6567 3.44872L12.772 4.33339C12.6254 4.48001 12.4265 4.56238 12.2191 4.56238C12.0117 4.56238 11.8129 4.48001 11.6662 4.33339ZM4.33337 11.667C4.26081 11.5943 4.17463 11.5366 4.07976 11.4973C3.98489 11.4579 3.8832 11.4377 3.78049 11.4377C3.67779 11.4377 3.5761 11.4579 3.48123 11.4973C3.38636 11.5366 3.30018 11.5943 3.22762 11.667L2.34294 12.5513C2.19882 12.6984 2.11858 12.8965 2.11966 13.1025C2.12073 13.3084 2.20303 13.5057 2.34867 13.6513C2.49431 13.797 2.69154 13.8793 2.8975 13.8803C3.10347 13.8814 3.30154 13.8012 3.4487 13.657L4.33337 12.772C4.40599 12.6995 4.46361 12.6134 4.50291 12.5186C4.54222 12.4237 4.56245 12.3221 4.56245 12.2195C4.56245 12.1169 4.54222 12.0152 4.50291 11.9204C4.46361 11.8256 4.40599 11.7395 4.33337 11.667ZM13.1851 8C13.1851 7.56811 13.5351 7.21807 13.967 7.21807H15.218C15.3221 7.21585 15.4256 7.23444 15.5224 7.27273C15.6191 7.31102 15.7073 7.36825 15.7817 7.44106C15.8561 7.51387 15.9152 7.6008 15.9555 7.69675C15.9958 7.7927 16.0166 7.89574 16.0166 7.99982C16.0166 8.10391 15.9958 8.20695 15.9555 8.3029C15.9152 8.39884 15.8561 8.48577 15.7817 8.55859C15.7073 8.6314 15.6191 8.68863 15.5224 8.72692C15.4256 8.76521 15.3221 8.78379 15.218 8.78158H13.967C13.8644 8.78162 13.7627 8.76144 13.6678 8.72218C13.573 8.68293 13.4868 8.62536 13.4141 8.55278C13.3415 8.4802 13.2839 8.39403 13.2446 8.29918C13.2053 8.20433 13.1851 8.10267 13.1851 8ZM2.81451 8C2.81451 7.89732 2.79428 7.79564 2.75499 7.70077C2.71569 7.6059 2.65809 7.5197 2.58548 7.44709C2.51288 7.37448 2.42668 7.31689 2.33181 7.27759C2.23694 7.23829 2.13526 7.21807 2.03258 7.21807H0.781912C0.67785 7.21585 0.574393 7.23444 0.477607 7.27273C0.380821 7.31102 0.292654 7.36825 0.218276 7.44106C0.143897 7.51387 0.0848039 7.6008 0.044461 7.69675C0.00411808 7.7927 -0.0166626 7.89574 -0.0166626 7.99982C-0.0166626 8.10391 0.00411808 8.20695 0.044461 8.3029C0.0848039 8.39884 0.143897 8.48577 0.218276 8.55859C0.292654 8.6314 0.380821 8.68863 0.477607 8.72692C0.574393 8.76521 0.67785 8.78379 0.781912 8.78158H2.03293C2.24022 8.78158 2.43901 8.69923 2.58559 8.55266C2.73216 8.40608 2.81451 8.20729 2.81451 8ZM11.6662 11.667C11.8129 11.5204 12.0118 11.4381 12.2191 11.4381C12.4264 11.4381 12.6253 11.5204 12.772 11.667L13.6567 12.5516C13.8033 12.6983 13.8856 12.8971 13.8856 13.1045C13.8855 13.3118 13.8031 13.5106 13.6565 13.6572C13.5839 13.7298 13.4977 13.7874 13.4028 13.8266C13.308 13.8659 13.2063 13.8861 13.1037 13.8861C12.8963 13.8861 12.6975 13.8037 12.5509 13.657L11.6662 12.7724C11.5936 12.6998 11.536 12.6137 11.4967 12.5188C11.4574 12.424 11.4371 12.3223 11.4371 12.2197C11.4371 12.117 11.4574 12.0153 11.4967 11.9205C11.536 11.8257 11.5936 11.7395 11.6662 11.667ZM4.33337 4.33339C4.48 4.18675 4.56237 3.98788 4.56237 3.78051C4.56237 3.57315 4.48 3.37427 4.33337 3.22764L3.4487 2.34331C3.3011 2.20166 3.10386 2.12349 2.89929 2.12558C2.69473 2.12766 2.49913 2.20983 2.35445 2.35447C2.20976 2.4991 2.12753 2.69468 2.12538 2.89924C2.12323 3.10381 2.20133 3.30107 2.34294 3.44872L3.22762 4.33339C3.30018 4.40608 3.38636 4.46374 3.48123 4.50308C3.5761 4.54243 3.67779 4.56268 3.78049 4.56268C3.8832 4.56268 3.98489 4.54243 4.07976 4.50308C4.17463 4.46374 4.26081 4.40608 4.33337 4.33339Z" fill="currentColor"></path>
+        </g>
+        <defs>
+          <clipPath>
+            <rect width="16" height="16" fill="currentColor"></rect>
+          </clipPath>
+        </defs>
+      </svg>
+      <svg class="moon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_78_60)">
+          <path d="M7.24135 14C10.1123 13.9981 12.6803 12.2445 13.7367 9.59537C13.7953 9.44832 13.727 9.39266 13.5866 9.46575C12.7818 9.88471 11.888 10.1036 10.9806 10.104C7.86082 10.1042 5.33169 7.57506 5.33188 4.45524C5.3323 3.64636 5.50645 2.84701 5.84254 2.11127C6.17863 1.37552 6.66883 0.720544 7.27996 0.190644C7.42672 0.0486062 7.38444 -0.0171645 7.09498 0.00382823C3.42058 0.029058 0.24231 3.13569 0.24231 7.00113C0.24231 10.8666 3.3758 14.0002 7.24135 14Z" fill="currentColor"></path>
+        </g>
+        <defs>
+          <clipPath>
+            <rect width="14" height="14" fill="currentColor"></rect>
+          </clipPath>
+        </defs>
+      </svg>
+    </span>
+Audio
+  </label>
+  <br>
+  <div style="text-align: center;margin-left:85px;margin-top:-40px;">
+    <p11 style="font-size: 40px; color: black;">DASS - 21</p11>
 </div>
 
-<div class="button-container">
-  <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
-    <svg
-   
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      width="22px"
-      height="22px"
-      class="btn-svg"
-    >
-      <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
-    </svg>
-      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
-      <g
-        stroke-linejoin="round"
-        stroke-linecap="round"
-        id="SVGRepo_tracerCarrier"
-      ></g>
-      <g id="SVGRepo_iconCarrier">
-        <title>email [154#]</title>
+  <div class="theme-popup__list-container">
+    <ul class="theme-popup__list">
+      <li>
+        <label for="default">
+          <span>
+            <input type="radio" name="voiceType" value="homem" checked> Voz de Homem
+          </span>
+        </label>
+      </li>
 
-        <defs></defs>
-        <g
-          fill-rule="evenodd"
-          fill="none"
-          stroke-width="1"
-          stroke="none"
-          id="Page-1"
+
+
+      <li>
+        <label for="light">
+         
+          <span>
+            <input type="radio" name="voiceType" value="mulher"> Voz de Mulher
+          </span>
+        </label>
+      </li>
+
+
+      <li>
+        <label for="dark">
         
-          <g
-            fill="#fff"
-            transform="translate(-60.000000, -7521.000000)"
-            id="Dribbble-Light-Preview"
-          >
-            <g transform="translate(56.000000, 160.000000)" id="icons">
-              <path
-                id="twitter-[#154]"
-                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
-              ></path>
-              
-            </g>
-          </g>
-        </g>
-      </g>
-    </svg>
-    
-  </button>
-  <button class="button flex-center" onclick="window.location.href='https://wa.me/5531984667554'">
+          <span>
+            <input type="radio" name="gender" value="masculino" checked> Perguntas no Gênero Masculino
+          </span>
+        </label>
+      </li>
 
-    <svg xmlns="http://www.w3.org/2000/svg" 
-    width="32" viewBox="0 0 32 32" 
-    height="32" fill="none" 
-    fill="#fff"
-    class="svg-icon">
-    <style>
-      .svg-icon:hover path {
-          fill: #000; /* Altera a cor de preenchimento para preto no hover */
-      }
-  </style>
-    <path stroke-width="2"
-        stroke-linecap="round"
-        stroke="#fff" 
-        fill-rule="evenodd" 
-        d="M24.8868 19.1288c-1.0274-.1308-2.036-.3815-3.0052-.7467-.7878-.29-1.6724-.1034-2.276.48-.797.8075-2.0493.9936-2.9664.3258-1.4484-1.055-2.7233-2.3295-3.7783-3.7776-.6681-.9168-.4819-2.1691.3255-2.9659.5728-.6019.7584-1.4748.4802-2.2577-.3987-.98875-.6792-2.02109-.8358-3.07557-.2043-1.03534-1.1138-1.7807-2.1694-1.77778h-3.18289c-.60654-.00074-1.18614.25037-1.60035.69334-.40152.44503-.59539 1.03943-.53345 1.63555.344 3.31056 1.47164 6.49166 3.28961 9.27986 1.64878 2.5904 3.84608 4.7872 6.43688 6.4356 2.7927 1.797 5.9636 2.9227 9.2644 3.289h.1778c.5409.0036 1.0626-.2 1.4581-.569.444-.406.6957-.9806.6935-1.5822v-3.1821c.0429-1.0763-.7171-2.0185-1.7782-2.2046z" 
-        clip-rule="evenodd">
-    </path>
-</svg>
-
-  </button>
-  <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
-    <svg
-      viewBox="0 0 24 24"
-      class="btn-svg"
-      width="22px"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
-      <g id="SVGRepo_iconCarrier">
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
-          fill="#fff"
-        ></path>
-        <path
-          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
-          fill="#fff"
-        ></path>
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
-          fill="#fff"
-        ></path>
-      </g>
-    </svg>
-  </button>
-
-  <br>
-
-<br>
-<br>
-<br>
-<br>
+      <li>
+        <label for="darke">
+        
+          <span>
+            <input type="radio" name="gender" value="feminino"> Perguntas no Gênero Feminino
+          </span>
+        </label>
+      </li>
 
 
-
-  
-</div></div></div></a></div>
-
-
-
-
-<div class="container">
-
-  <div style="display: flex; justify-content: center;">
-
-
+    </ul>
+  </div>
   </div>
 
-
-  <div style="display: flex;z-index:9999999; flex-direction: column; align-items: center; width: 100%;margin-left:40 px; ">
-
-<br>
-
-        <p4 style="font-size: 45px; margin-top: -25px;color: rgba(255, 175, 54, 0.699) ";> DASS - 21</p4>
-
-
-
-    
+  </div>
 <br>
 
 
-<div class="instructions" style="text-align: justify;">
- 
-      <p2 style="color:black; font-size: 12px;"> Selecione o tipo de áudio, use as teclas 1-4 para 
-        responder e pressione a tecla espaço (ou botão IR) para passar para a próxima pergunta.</p2> 
 
 
 
-    <div  style="margin-top: -10px; display: block; margin-left: auto; margin-right: auto;"  class="menu">
-      <div class="item">
-        <a href="#" class="link">
-          <span> Audio </span>
-          <svg viewBox="0 0 360 360" xml:space="preserve">
-            <g id="SVGRepo_iconCarrier">
-              <path
-                id="XMLID_225_"
-                d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"
-              ></path>
-            </g>
-          </svg>
-        </a>
-        <div class="submenu">
-          <div class="submenu-item">
-            <a href="#" class="submenu-link">         <label>
-                <input type="radio" name="voiceType" value="homem" checked> Voz de Homem
-            </label></a>
-          </div>
-          <div class="submenu-item">
-            <a href="#" class="submenu-link">  <label>
-                <input type="radio" name="voiceType" value="mulher"> Voz de Mulher
-            </label> </a>
-          </div>
-          <div class="submenu-item">
-            <a href="#" class="submenu-link">        <label>
-                <input type="radio" name="gender" value="masculino" checked> Perguntas no Gênero Masculino
-            </label></a>
-          </div>
-          <div class="submenu-item">
-            <a href="#" class="submenu-link">         <label>
-                <input type="radio" name="gender" value="feminino"> Perguntas no Gênero Feminino
-            </label></a>
-          </div>
+
+
+
+
+    <div style="font-size:25px; width:100%;height:300px;background-color:rgba(194, 194, 194, 0.498);    
+    border-radius: 20px;" >
+        <p11 style="margin-left:30px; font-size:25px; color:black; "  class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p11>
+       </div>
+       <br><br>
+        <div>
+
+        <p class="answer" id="selectedAnswer" style="margin-top:-20px;">Resposta: Nenhuma</p>
+
+<br>
+
+        <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;align-items: center;  justify-content: center;">
+          <button class="button5" id="button-2024" onclick="selectAnswer(0)">1 </button>
+          <button class="button5" id="button-2023" onclick="selectAnswer(1)">2 </button>
+          <button class="button5" id="button-2022" onclick="selectAnswer(2)">3 </button>
+          <button class="button5" id="button-2021" onclick="selectAnswer(3)">4 </button>
+          <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
         </div>
-      </div>
-    
-    </div>
-
-
-  
-  
-    </div>
-    
-
-
-
-
-
-
-<div style="height:250px; background-color:rgba(184, 184, 184, 0.475);" class="instructions">
-
-  
-  <p2   style="color:black;"  style="border: black; border-radius:2px; "   class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p2>
-</div>
-
-
-
-
-
-
-
-    
-    
-    <div >
-        <p2   style="color:black;margin-left:-10px;" class="answer" id="selectedAnswer">Selecione uma resposta </p2>
-        <br>
-    </div><div>
-        <button  style="margin-left:-20px;" onclick="selectAnswer(0)">
-          <span class="button_top"> 1 </span>
-        </button>
-
-<button style="margin-left:15px;"  onclick="selectAnswer(1)">
-  <span class="button_top"> 2 </span>
-</button>
-
-<button   style="margin-left:30px;" onclick="selectAnswer(2)">
-  <span class="button_top"> 3  </span>
-</button>
-
-<button style="margin-left:35px;"  onclick="selectAnswer(3)">
-  <span class="button_top"> 4 </span>
-</button>
-
+        <br><div style="  width:100%; ">
+          1 - Nunca 
+          2 - Às vezes <br>
+          3 - Frequentemente 
+          4 - Sempre
 <br>
-
-
-<p2  style="color:black;font-size: 14px; margin-left: -20px;"   id="selectedAnswer"> Nunca Às vezes  Freqüentemente  Sempre </p2>
-
-
-
-<br><br>
-<button 
-    style="margin-top: -10px; display: block; margin-left: auto; margin-right: auto;" 
-    class="btn-class-name" 
-    onclick="nextQuestion()">
-IR
-</button>
-
-
+     <!-- Elemento que exibe a legenda -->
+     <p id="selectedAnswer">Selecione uma resposta acima.</p>
+ 
+    </div>
     </div>
     <!-- Elemento de áudio (oculto) -->
     <audio id="audioPlayer" controls style="display: none;"></audio>
@@ -748,6 +337,18 @@ IR
 
 
     
+
+    <div  style="width:100%" class="instructions">
+      <p11 style="font-size: 16px; color:black;">  Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
+         a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
+        No final, será salvo um arquivo (.csv) que deverá ser carregado para realizar o cálculo.</p11>
+    </div>
+
+
+
+
+
+
     <script>
         const questions = {
             masculino: [
@@ -904,8 +505,8 @@ IR
 
         function showQuestion() {
             const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-            document.getElementById('questionText').textContent = `Pergunta ${currentQuestionIndex + 1}: ${questions[selectedGender][currentQuestionIndex]}`;
-            document.getElementById('selectedAnswer').textContent = 'Selecione uma resposta ';
+            document.getElementById('questionText').textContent = ` ${currentQuestionIndex + 1}: ${questions[selectedGender][currentQuestionIndex]}`;
+            document.getElementById('selectedAnswer').textContent = 'Resposta: Nenhuma';
             playAudio();
         }
 
@@ -927,7 +528,7 @@ IR
             const selectedAnswerElement = document.getElementById('selectedAnswer');
 
             // Atualiza o texto da legenda
-            selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Às vezes', 'Freqüentemente', 'Quase sempre'][value]}`;
+            selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Às vezes', 'Frequentemente', 'Sempre'][value]}`;
 
             // Adiciona a classe de destaque
             selectedAnswerElement.classList.add('highlight');
@@ -961,35 +562,19 @@ IR
         }
 
         function saveResponsesToCSV() {
-          // Solicitar nome e idade do participante
-          const participantName = prompt("Digite seu nome:");
-          const participantAge = prompt("Digite sua idade:");
-      
-          // Verificar se os campos foram preenchidos
-          if (!participantName || !participantAge) {
-              alert("Por favor, preencha tanto o nome quanto a idade.");
-              return;
-          }
-      
-
-          // Criar conteúdo CSV
-          let csvContent = "data:text/csv;charset=utf-8,";
-          csvContent += "Pergunta Resposta\n"; // Cabeçalhos para respostas
-      
-          // Adicionar respostas
-          answers.forEach((answer, index) => {
-              const answerText = ['0', '1', '2', '3'][answer] || 'Sem resposta';
-              csvContent += `${index + 1} ${answerText}\n`;
-          });
-      
-          // Codificar URI e baixar o arquivo
-          const encodedUri = encodeURI(csvContent);
-          const link = document.createElement("a");
-          link.setAttribute("href", encodedUri);
-          link.setAttribute("download", `respostas_dass21_${participantName}_${participantAge}.csv`);
-          document.body.appendChild(link);
-          link.click();
-      }
+            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+            let csvContent = "data:text/csv;charset=utf-8,Pergunta Resposta\n";
+            answers.forEach((answer, index) => {
+                const answerText = ['0', '1', '2', '3'][answer] || 'Sem resposta';
+                csvContent += `${index + 1} ${answerText}\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "respostas_dass21_take_.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
 
         document.addEventListener('keydown', (event) => {
             if (event.key >= '1' && event.key <= '4') {
@@ -1001,24 +586,21 @@ IR
 
         showQuestion();
     </script>
-
 <br>
-    <p2 style="font-size: 30px; color:black;">Calcular DASS-21</p2><br>
-    <form style="color:black;margin-left:-20px;" id="dassForm">
 
+    <p11 style="font-size: 30px;color:black;">Calcular DASS-21</p11>
+    <form id="dassForm">
+<br>
         <input type="file" id="csvFile" accept=".csv" required>
-<br><br>
-        <button  style="background-color: white;"  onclick="processCSV()">
-            <span > Calcular</span>
-          </button>
+        <br><br>
+        <button type="button" onclick="processCSV()">Calcular</button>
     </form>
 
-    <div id="results" class="results" style="display: none; margin-bottom:20px;">
-        <p2 style="color: black;">Resultados</p2><br>
-        <p2 style="color: black;"><strong>Depressão:</strong> <span id="depressao"></span></p2><br>
-        <p2 style="color: black;"><strong>Ansiedade:</strong> <span id="ansiedade"></span></p2><br>
-        <p2 style="color: black;"><strong>Estresse:</strong> <span id="estresse"></span></p2>
-
+    <div id="results" class="results" style="display: none;">
+        <h2>Resultados</h2>
+        <p><strong>Depressão:</strong> <span id="depressao"></span></p>
+        <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
+        <p><strong>Estresse:</strong> <span id="estresse"></span></p>
     </div>
 
     <script>
@@ -1047,8 +629,6 @@ IR
         }
 
         function processCSV() {
-          csvContent
-          encodedUri
             const fileInput = document.getElementById('csvFile');
             const file = fileInput.files[0];
 
@@ -1089,6 +669,4 @@ IR
             });
         }
     </script>
-    <br>    <br>   
 </body>
-
