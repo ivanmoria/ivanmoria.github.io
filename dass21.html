@@ -316,14 +316,17 @@ Audio
           <button class="button5" id="button-2021" onclick="selectAnswer(3)">4 </button>
           <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
         </div>
-        <br><div style="  width:100%; ">
+        <br>
+        
+      <div style="display: flex; width:100%;justify-content: center;">
+        
+
           1 - Nunca 
           2 - Às vezes <br>
           3 - Frequentemente 
           4 - Sempre
-<br>
-     <!-- Elemento que exibe a legenda -->
-     <p id="selectedAnswer">Selecione uma resposta acima.</p>
+<br><br></div><br>
+
  
     </div>
     </div>
@@ -341,10 +344,10 @@ Audio
     <div  style="width:100%" class="instructions">
       <p11 style="font-size: 16px; color:black;">  Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
          a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
-        No final, será salvo um arquivo (.csv) que deverá ser carregado para realizar o cálculo.</p11>
+        No final, será salvo um arquivo (.csv) que deverá ser carregado para realizar o cálculo logo abaixo.</p11>
     </div>
 
-
+    <br>
 
 
 
@@ -602,7 +605,7 @@ Audio
         <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
         <p><strong>Estresse:</strong> <span id="estresse"></span></p>
     </div>
-
+    <br><br>
     <script>
         function classifyDepression(score) {
             if (score < 10) return 'Normal';
@@ -668,5 +671,17 @@ Audio
                 }
             });
         }
-    </script>
+    </script><br>
+    <div style="display: flex; justify-content: center;">
+      <p2 style="  font-size:16px;color:rgb(173, 164, 191);"> 
+        © 2024 Ivan Moriá Borges </p2></div>
+
+      <div style="display: flex; justify-content: center;">
+        <button class="ui-btn" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+      
+       
+          <span>ivanmoriabr@gmail.com</span>
+      </button>
+      </div>
 </body>
+</html>
