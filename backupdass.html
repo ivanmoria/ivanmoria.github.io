@@ -2,7 +2,7 @@
     <h1>Teste DASS 21</h1>
 
     <div class="instructions">
-        Use as teclas 1-4 para responder e pressione a tecla Espaço para passar para a próxima pergunta.
+        Use as teclas 1-4 para responder e pressione a tecla espaço (OK) para passar para a próxima pergunta.
     </div>
     <br>
 
@@ -36,6 +36,9 @@
      <button onclick="selectAnswer(1)">2 - Às vezes</button>
      <button onclick="selectAnswer(2)">3 - Freqüentemente</button>
      <button onclick="selectAnswer(3)">4 - Quase sempre</button>
+         <!-- Botão adicional para simular a tecla espaço -->
+         <button onclick="nextQuestion()">OK</button>
+
      <p class="answer" id="selectedAnswer">Resposta: Nenhuma</p>
      <!-- Elemento que exibe a legenda -->
      <p id="selectedAnswer">Selecione uma resposta acima.</p>
