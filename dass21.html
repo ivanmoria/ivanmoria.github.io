@@ -1,0 +1,290 @@
+<body>
+    <h1>Teste DASS 21</h1>
+
+    <div class="instructions">
+        Use as teclas 1-4 para responder e pressione a tecla Espaço para passar para a próxima pergunta.
+    </div>
+    <br>
+
+    <div>
+        <label>
+            <input type="radio" name="voiceType" value="homem" checked> Voz de Homem
+        </label>
+        <label>
+            <input type="radio" name="voiceType" value="mulher"> Voz de Mulher
+        </label>
+    </div>
+    <br>
+    <div>
+        <label>
+            <input type="radio" name="gender" value="masculino" checked> Perguntas no Gênero Masculino
+        </label>
+        <br>
+        <label>
+            <input type="radio" name="gender" value="feminino"> Perguntas no Gênero Feminino
+        </label>
+    </div>
+    <br>
+
+    <div>
+        <p style="font-size:30px;" class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p>
+       
+
+
+     <!-- Botões para selecionar respostas -->
+     <button onclick="selectAnswer(0)">1 - Nunca</button>
+     <button onclick="selectAnswer(1)">2 - Às vezes</button>
+     <button onclick="selectAnswer(2)">3 - Freqüentemente</button>
+     <button onclick="selectAnswer(3)">4 - Quase sempre</button>
+     <p class="answer" id="selectedAnswer">Resposta: Nenhuma</p>
+     <!-- Elemento que exibe a legenda -->
+     <p id="selectedAnswer">Selecione uma resposta acima.</p>
+ 
+
+    </div>
+    <!-- Elemento de áudio (oculto) -->
+    <audio id="audioPlayer" controls style="display: none;"></audio>
+
+    <!-- Elemento de mensagem de alerta -->
+    <div id="alertMessage" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+        Você deve selecionar uma resposta antes de continuar.
+    </div>
+
+    <script>
+        const questions = {
+            masculino: [
+                "Achei difícil me acalmar.",
+                "Senti minha boca seca.",
+                "Não consegui vivenciar nenhum sentimento positivo.",
+                "Tive dificuldade em respirar em alguns momentos (por exemplo respiração ofegante ou falta de ar - sem ter feito nenhum esforço físico).",
+                "Achei difícil ter iniciativa para fazer as coisas.",
+                "Tive a tendência de reagir de forma exagerada às situações.",
+                "Senti tremores (por exemplo - nas mãos).",
+                "Senti que estava sempre nervoso.",
+                "Preocupei-me com situações em que eu pudesse entrar em pânico e parecesse ridículo.",
+                "Senti que não tinha nada a desejar.",
+                "Senti-me agitado.",
+                "Achei difícil relaxar.",
+                "Senti-me depressivo ou sem ânimo.",
+                "Fui intolerante com as coisas que me impediam de continuar o que eu estava fazendo.",
+                "Senti que ia entrar em pânico.",
+                "Não consegui me entusiasmar com nada.",
+                "Senti que não tinha valor como pessoa.",
+                "Senti que estava um pouco emotivo ou sensível demais.",
+                "Sabia que meu coração estava alterado mesmo não tendo feito nenhum esforço físico (por exemplo aumento da frequência cardíaca ou disritmia cardíaca).",
+                "Senti medo sem motivo.",
+                "Senti que a vida não tinha sentido."
+            ],
+            feminino: [
+                "Achei difícil me acalmar.",
+                "Senti minha boca seca.",
+                "Não consegui vivenciar nenhum sentimento positivo.",
+                "Tive dificuldade em respirar em alguns momentos (por exemplo respiração ofegante ou falta de ar - sem ter feito nenhum esforço físico).",
+                "Achei difícil ter iniciativa para fazer as coisas.",
+                "Tive a tendência de reagir de forma exagerada às situações.",
+                "Senti tremores (por exemplo - nas mãos).",
+                "Senti que estava sempre nervosa.",
+                "Preocupei-me com situações em que eu pudesse entrar em pânico e parecesse ridícula.",
+                "Senti que não tinha nada a desejar.",
+                "Senti-me agitada.",
+                "Achei difícil relaxar.",
+                "Senti-me depressiva ou sem ânimo.",
+                "Fui intolerante com as coisas que me impediam de continuar o que eu estava fazendo.",
+                "Senti que ia entrar em pânico.",
+                "Não consegui me entusiasmar com nada.",
+                "Senti que não tinha valor como pessoa.",
+                "Senti que estava um pouco emotiva ou sensível demais.",
+                "Sabia que meu coração estava alterado mesmo não tendo feito nenhum esforço físico (por exemplo aumento da frequência cardíaca ou disritmia cardíaca).",
+                "Senti medo sem motivo.",
+                "Senti que a vida não tinha sentido."
+            ]
+        };
+
+
+        
+        // Definir caminhos dos áudios por pergunta, separados por tipo de voz e gênero
+        const audios = {
+            homem_masculino: [
+                'media/audio/audiosdass21/danielmasc/danm1.wav', 
+                'media/audio/audiosdass21/danielmasc/danm2.wav', 
+                'media/audio/audiosdass21/danielmasc/danm3.wav', 
+                'media/audio/audiosdass21/danielmasc/danm4.wav', 
+                'media/audio/audiosdass21/danielmasc/danm5.wav', 
+                'media/audio/audiosdass21/danielmasc/danm6.wav',
+                'media/audio/audiosdass21/danielmasc/danm7.wav',
+                'media/audio/audiosdass21/danielmasc/danm8.wav', 
+                'media/audio/audiosdass21/danielmasc/danm9.wav', 
+                'media/audio/audiosdass21/danielmasc/danm10.wav', 
+                'media/audio/audiosdass21/danielmasc/danm11.wav', 
+                'media/audio/audiosdass21/danielmasc/danm12.wav', 
+                'media/audio/audiosdass21/danielmasc/danm13.wav', 
+                'media/audio/audiosdass21/danielmasc/danm14.wav', 
+                'media/audio/audiosdass21/danielmasc/danm15.wav', 
+                'media/audio/audiosdass21/danielmasc/danm16.wav', 
+                'media/audio/audiosdass21/danielmasc/danm17.wav', 
+                'media/audio/audiosdass21/danielmasc/danm18.wav', 
+                'media/audio/audiosdass21/danielmasc/danm19.wav', 
+                'media/audio/audiosdass21/danielmasc/danm20.wav', 
+                'media/audio/audiosdass21/danielmasc/danm21.wav',
+       
+               
+            ],
+            homem_feminino: [
+                'media/audio/audiosdass21/danielmasc/danm1.wav', 
+                'media/audio/audiosdass21/danielmasc/danm2.wav', 
+                'media/audio/audiosdass21/danielmasc/danm3.wav', 
+                'media/audio/audiosdass21/danielmasc/danm4.wav', 
+                'media/audio/audiosdass21/danielmasc/danm5.wav', 
+                'media/audio/audiosdass21/danielmasc/danm6.wav',
+                'media/audio/audiosdass21/danielmasc/danm7.wav',
+                'media/audio/audiosdass21/danielfem/danielfem1.wav', 
+                'media/audio/audiosdass21/danielfem/danielfem2.wav', 
+                'media/audio/audiosdass21/danielmasc/danm10.wav', 
+                'media/audio/audiosdass21/danielfem/danielfem3.wav', 
+                'media/audio/audiosdass21/danielmasc/danm12.wav', 
+                'media/audio/audiosdass21/danielfem/danielfem4.wav', 
+                'media/audio/audiosdass21/danielmasc/danm14.wav', 
+                'media/audio/audiosdass21/danielmasc/danm15.wav', 
+                'media/audio/audiosdass21/danielmasc/danm16.wav', 
+                'media/audio/audiosdass21/danielmasc/danm17.wav', 
+                'media/audio/audiosdass21/danielfem/danielfem5.wav', 
+                'media/audio/audiosdass21/danielmasc/danm19.wav', 
+                'media/audio/audiosdass21/danielmasc/danm20.wav', 
+                'media/audio/audiosdass21/danielmasc/danm21.wav',
+            ],
+            mulher_masculino: [
+                'media/audio/audiosdass21/lilyfem/lilyfem1.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem2.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem3.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem4.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem5.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem6.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem7.wav',
+                'media/audio/audiosdass21/lilymasc/lilymasc8.wav',
+                'media/audio/audiosdass21/lilymasc/lilymasc9.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem10.wav',
+                'media/audio/audiosdass21/lilymasc/lilymasc11.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem12.wav',
+                'media/audio/audiosdass21/lilymasc/lilymasc13.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem14.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem15.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem16.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem17.wav',
+                'media/audio/audiosdass21/lilymasc/lilymasc18.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem19.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem20.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem21.wav',
+            ],
+            mulher_feminino: [
+                'media/audio/audiosdass21/lilyfem/lilyfem1.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem2.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem3.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem4.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem5.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem6.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem7.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem8.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem9.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem10.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem11.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem12.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem13.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem14.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem15.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem16.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem17.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem18.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem19.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem20.wav',
+                'media/audio/audiosdass21/lilyfem/lilyfem21.wav',
+            ]
+        };
+
+
+        let currentQuestionIndex = 0;
+        const answers = [];
+
+        function showQuestion() {
+            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+            document.getElementById('questionText').textContent = `Pergunta ${currentQuestionIndex + 1}: ${questions[selectedGender][currentQuestionIndex]}`;
+            document.getElementById('selectedAnswer').textContent = 'Resposta: Nenhuma';
+            playAudio();
+        }
+
+        function playAudio() {
+            const selectedVoice = document.querySelector('input[name="voiceType"]:checked').value;
+            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+            const audioPlayer = document.getElementById('audioPlayer');
+            const audioKey = `${selectedVoice}_${selectedGender}`;
+            audioPlayer.src = audios[audioKey][currentQuestionIndex];
+            audioPlayer.play();
+        }
+
+
+         // Função para atualizar a legenda e destacar a resposta
+         function selectAnswer(value) {
+            answers[currentQuestionIndex] = value; // Armazena a resposta
+
+            // Obtém o elemento da legenda
+            const selectedAnswerElement = document.getElementById('selectedAnswer');
+
+            // Atualiza o texto da legenda
+            selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Às vezes', 'Freqüentemente', 'Quase sempre'][value]}`;
+
+            // Adiciona a classe de destaque
+            selectedAnswerElement.classList.add('highlight');
+        }
+
+        function showAlertMessage(message) {
+            const alertDiv = document.getElementById('alertMessage');
+            alertDiv.textContent = message;
+            alertDiv.style.display = 'block';
+
+            // Esconde a mensagem após 3 segundos
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestionIndex] === undefined) {
+                playAudio();
+                showAlertMessage('Você deve selecionar uma resposta antes de continuar.');
+                return;
+            }
+
+            if (currentQuestionIndex < questions.masculino.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                alert('Teste concluído! Obrigado por responder.');
+                saveResponsesToCSV();
+            }
+        }
+
+        function saveResponsesToCSV() {
+            const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+            let csvContent = "data:text/csv;charset=utf-8,Pergunta,Resposta\n";
+            answers.forEach((answer, index) => {
+                const answerText = ['0', '1', '2', '3'][answer] || 'Sem resposta';
+                csvContent += `${index + 1},${answerText}\n`;
+            });
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "respostas_dass21.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key >= '1' && event.key <= '4') {
+                selectAnswer(parseInt(event.key) - 1);
+            } else if (event.key === ' ') {
+                nextQuestion();
+            }
+        });
+
+        showQuestion();
+    </script>
+</body>
