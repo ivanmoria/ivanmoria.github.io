@@ -68,6 +68,7 @@
             }
 
             Papa.parse(file, {
+                delimiter: " ",  // Specifies that the delimiter is a space
                 header: true,
                 dynamicTyping: true,
                 complete: function(results) {
