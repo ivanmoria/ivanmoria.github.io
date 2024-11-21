@@ -202,7 +202,9 @@ p11 {
     </style>
 </head>
 <body>
-
+  <div style="text-align: center;margin-top:-15px;">
+    <p11 style="font-size: 40px; color: black;">DASS - 21</p11>
+</div>
 
 
   <div>
@@ -241,9 +243,19 @@ p11 {
 Audio
   </label>
   <br>
-  <div style="text-align: center;margin-left:85px;margin-top:-40px;">
-    <p11 style="font-size: 40px; color: black;">DASS - 21</p11>
-</div>
+
+
+
+
+<div class="menu-text" id="menuButton" style="text-align: center;margin-left:85px;margin-top:-25px; margin-bottom:0px;">
+  Informações
+  <div class="tooltip">
+    Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
+    a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
+    No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.
+  </div>
+  </div>
+
 
 
 <style>
@@ -299,14 +311,51 @@ Audio
     }
 </style>
 
-<p2 style="color:black;      display: flex;
-      justify-content: center;
-      align-items: center;" class="hover-text">
-  Informações
-  <span class="tooltip">Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
-    a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
-   No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.</span>
-</p2>
+
+
+<style>
+
+
+  .menu-text {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .tooltip {
+    display: none;
+    position:absolute;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    text-align: left;
+    margin-left: -140px;
+    width: 280px;
+  }
+
+  .menu-text.active .tooltip {
+    display: block;
+  }
+</style>
+
+
+
+
+<script>
+const menuButton = document.getElementById('menuButton');
+
+menuButton.addEventListener('click', () => {
+  menuButton.classList.toggle('active');
+});
+</script>
+
+
 
 
 
@@ -834,9 +883,9 @@ Audio
 
     <p2 style="color:black;      display: flex;
     justify-content: center; margin-top:10px;
-    align-items: center;color:rgb(173, 164, 191);" class="hover-text">
+    align-items: center;color:rgb(173, 164, 191);" >
     © 2024 Ivan Moriá Borges 
-<span class="tooltipe">Me mande um e-mail! ivanmoriabr@gmail.com</span>
+
 </p2>
 
 
