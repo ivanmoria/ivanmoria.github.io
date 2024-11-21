@@ -12,6 +12,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            
         }
         .results {
             margin-top: 20px;
@@ -244,6 +245,71 @@ Audio
     <p11 style="font-size: 40px; color: black;">DASS - 21</p11>
 </div>
 
+
+<style>
+  .hover-text {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .hover-text .tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    margin-left: 85px;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Exibe o balão acima do texto */
+    left: 20%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .hover-text:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  .hover-text .tooltipe {
+    visibility: hidden;
+    width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    margin-left: 85px;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Exibe o balão acima do texto */
+    left: 20%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .hover-text:hover .tooltipe {
+    visibility: visible;
+    opacity: 1;
+    }
+</style>
+
+<p2 style="color:black;      display: flex;
+      justify-content: center;
+      align-items: center;" class="hover-text">
+  Informações
+  <span class="tooltip">Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
+    a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
+   No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.</span>
+</p2>
+
+
+
   <div class="theme-popup__list-container">
     <ul class="theme-popup__list">
       <li>
@@ -300,14 +366,14 @@ Audio
 
 
 
-    <div style="font-size:25px; width:100%;height:300px;background-color:rgba(194, 194, 194, 0.498);    
+    <div style="font-size:25px; width:100%;height:250px;background-color:rgba(194, 194, 194, 0.498);    
     border-radius: 20px;" >
         <p11 style="margin-left:30px; font-size:25px; color:black; "  class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p11>
        </div>
-       <br><br>
+       <br>
         <div>
 
-        <p class="answer" id="selectedAnswer" style="margin-top:-20px;">Resposta: Nenhuma</p>
+        <p class="answer" id="selectedAnswer" style="margin-top:-10px;">Resposta: Nenhuma</p>
 
 <br>
 
@@ -318,16 +384,16 @@ Audio
           <button class="button5" id="button-2021" onclick="selectAnswer(3)">4 </button>
           <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
         </div>
-        <br>
+   
         
-      <div style="display: flex; width:100%;justify-content: center;">
+      <div style="display: flex; width:100%;justify-content: center; margin-top:0px;">
         
 
           1 - Nunca 
           2 - Às vezes <br>
           3 - Frequentemente 
           4 - Sempre
-<br></div><br>
+</div>
 
  
     </div>
@@ -340,16 +406,6 @@ Audio
         Você deve selecionar uma resposta antes de continuar.
     </div>
 
-
-    
-
-    <div  style="width:100%; text-align: justify;"   class="instructions">
-      <p11 style="font-size: 16px; color:black;">  Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
-         a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
-        No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.</p11>
-    </div>
-
-    <br>
 
 
 
@@ -652,16 +708,15 @@ Audio
 
 
 
-<br><br>
-
-
       <form id="dassForm">
-        <p2> Calculadora DASS-21</p2><br><br>
-        <input type="file" id="csvFile" accept=".csv" required>
-        <br><br>
+        <p2> Calculadora DASS-21</p2>
+           
         <button type="button" onclick="processCSV()">Calcular</button>
+        <input type="file" id="csvFile" accept=".csv" required>
+  
 
     </form>
+ 
 
     <div id="results" class="results" style="display: none;">
         <h2>Resultados</h2>
@@ -777,21 +832,17 @@ Audio
 
 
 
+    <p2 style="color:black;      display: flex;
+    justify-content: center; margin-top:10px;
+    align-items: center;color:rgb(173, 164, 191);" class="hover-text">
+    © 2024 Ivan Moriá Borges 
+<span class="tooltipe">Me mande um e-mail! ivanmoriabr@gmail.com</span>
+</p2>
 
 
 
 
 
-           <div style="display: flex; justify-content: center; margin-bottom:5px;" 
-           <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;
-           transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
-           onclick="window.location.href='mailto:ivanmoriabr@gmail.com'"> ivanmoriabr@gmail.com
-          </p2></div>
 
-          <div style="display: flex; justify-content: center;">
-            <p2 style="  font-size:16px;color:rgb(173, 164, 191);"> 
-              © 2024 Ivan Moriá Borges </p2></div>
-
-  
 </body>
 </html>
