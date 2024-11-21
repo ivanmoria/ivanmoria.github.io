@@ -745,18 +745,6 @@ menuButton.addEventListener('click', () => {
           <audio id="audioPlayer"></audio>
           <div id="alertMessage" style="display:none; color: red;"></div>
       </div>
-      
-      <div id="results" class="results" style="display: none;">
-          <h2>Resultados</h2>
-          <p><strong>Depressão:</strong> <span id="depressao"></span></p>
-          <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
-          <p><strong>Estresse:</strong> <span id="estresse"></span></p>
-        <button id="exportButton" onclick="exportResultsToCSV()">Exportar Resultados</button>
-      </div>
-      
-
-
-
       <form id="dassForm">
         <p2> Calculadora DASS-21</p2>
            
@@ -765,6 +753,33 @@ menuButton.addEventListener('click', () => {
   
 
     </form>
+
+    <script>
+      // Função para mostrar os resultados
+      function mostrarResultados() {
+        var resultsDiv = document.getElementById('results');
+        if (resultsDiv.style.display === "none") {
+          resultsDiv.style.display = "block";
+        } else {
+          resultsDiv.style.display = "none";
+        }
+      }
+    </script>
+
+<!-- Botão para mostrar ou esconder os resultados -->
+
+
+<!-- Seção dos resultados, inicialmente escondida -->
+<div id="results" class="results" style="display: none;">
+  <h2>Resultados</h2>
+  <p><strong>Depressão:</strong> <span id="depressao"></span></p>
+  <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
+  <p><strong>Estresse:</strong> <span id="estresse"></span></p>
+  <button type="button" id="exportButton" onclick="exportResultsToCSV()">Exportar Resultados</button>
+</div>
+
+
+
  
 
     <div id="results" class="results" style="display: none;">
@@ -836,12 +851,15 @@ menuButton.addEventListener('click', () => {
                         ansiedade: { score: ansiedade, classificacao: classifyAnxiety(ansiedade) },
                         estresse: { score: estresse, classificacao: classifyStress(estresse) },
                     };
+                    function exibirBotao() {
 
+                    }
                     // Exibir resultados
                     document.getElementById('depressao').textContent = `${depressao} - ${resultados.depressao.classificacao}`;
                     document.getElementById('ansiedade').textContent = `${ansiedade} - ${resultados.ansiedade.classificacao}`;
                     document.getElementById('estresse').textContent = `${estresse} - ${resultados.estresse.classificacao}`;
 
+                  
                     document.getElementById('results').style.display = 'block';
                     document.getElementById('exportCSV').style.display = 'inline-block';
                 },
@@ -870,7 +888,20 @@ menuButton.addEventListener('click', () => {
       
           const link = document.createElement('a');
           link.setAttribute('href', url);
-          link.setAttribute('download', 'resultados_dass21.csv');
+          
+          // Solicita o nome do arquivo ao usuário (sem a extensão)
+          let fileName = prompt("Digite o nome para o arquivo:", "resultados_dass21");
+          
+          // Adiciona a extensão `.csv` automaticamente
+          if (!fileName) {
+              fileName = 'resultados_dass21';
+          }
+          fileName += '.csv';
+          
+          link.setAttribute('download', fileName);
+          link.click();
+          
+
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
