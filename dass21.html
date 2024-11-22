@@ -250,18 +250,12 @@ Audio
 <div class="menu-text" id="menuButton" style="text-align: center;margin-left:85px;margin-top:-25px; margin-bottom:0px;">
   Instruções
   <div class="tooltip">
-    Por favor, leia cada afirmação e pressione uma resposta que indique o quanto a afirmação se aplicou a você na semana passada.
-  <br>  <br> Não há respostas certas ou erradas.  Não gaste muito tempo em nenhuma afirmação.  <br>   <br> 
-NUNCA - Não se aplicou a mim de forma alguma;  <br>   <br> 
-ÀS VEZES - Aplicou-se a mim em algum grau, ou algumas vezes;   <br>   <br> 
-FREQUENTEMENTE - Aplicou-se a mim em um grau considerável, ou uma boa parte do tempo;  <br>   <br> 
- QUASE SEMPRE - Aplicou-se a mim muito, ou na maioria das vezes;
- <br>   <br> 
-
+   
     Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
     a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
     No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.
     <br><br>
+    Clique em Iniciar para começar.<br><br>
     <p2> Referência: Lovibond, S.H.; Lovibond, P.F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). 
     </p2>
    
@@ -321,6 +315,28 @@ FREQUENTEMENTE - Aplicou-se a mim em um grau considerável, ou uma boa parte do 
     visibility: visible;
     opacity: 1;
     }
+
+    #modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #modalContent {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 300px;
+    }
+    
 </style>
 
 
@@ -367,11 +383,14 @@ menuButton.addEventListener('click', () => {
 });
 </script>
 
-
-
+<div style="text-align: center;">
+<!-- Botão para iniciar o teste -->
+<button id="startButton" onclick="startTest()">Iniciar Teste</button>
+</div>
 
 
   <div class="theme-popup__list-container">
+    
     <ul class="theme-popup__list">
       <li>
         <label for="default">
@@ -414,56 +433,82 @@ menuButton.addEventListener('click', () => {
 
     </ul>
   </div>
-  </div>
 
+  </div>
   </div>
 <br>
 
 
 
+<!-- Janela Modal -->
+<div id="modal" style="display: none;">
+  <div id="modalContent">
+    <h2>Informações</h2>
+    <label for="nameInput">Nome:</label>
+    <input type="text" id="nameInput" placeholder="Digite seu nome" /><br /><br />
+
+    <label for="genderInput">Gênero:</label>
+    <input type="text" id="genderInput" placeholder="Masculino, Feminino, Outro" /><br /><br />
+
+    <label for="ageInput">Idade:</label>
+    <input type="number" id="ageInput" placeholder="Digite sua idade" /><br /><br />
+
+    <label for="dateInput">Data do Teste:</label>
+    <input type="date" id="dateInput" /><br /><br />
+
+    <button onclick="submitParticipantInfo()">Iniciar Teste</button>
+  </div>
+</div>
+
+
+<div id="testContainer" style="display: none;">
 
 
 
 
 
+  <!-- Elemento de áudio (oculto) -->
+  <audio id="audioPlayer" controls style="display: none;"></audio>
 
-    <div style="font-size:25px; width:100%;height:250px;background-color:rgba(194, 194, 194, 0.498);    
-    border-radius: 20px;" >
-        <p11 style="margin-left:30px; font-size:25px; color:black; "  class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p11>
-       </div>
-       <br>
-        <div>
 
-        <p class="answer" id="selectedAnswer" style="margin-top:-10px;">Resposta: Nenhuma</p>
+      <!-- Elemento de mensagem de alerta -->
+<div id="alertMessage" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+  Você deve selecionar uma resposta antes de continuar.
+</div>
+
+
+
+<div style="font-size:25px; width:100%;height:250px;background-color:rgba(194, 194, 194, 0.498);    
+border-radius: 20px;" >
+    <p11 style="margin-left:30px; font-size:25px; color:black; "  class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p11>
+   </div>
+   <br>
+    <div>
+
+    <p class="answer" id="selectedAnswer" style="margin-top:-10px;">Resposta: Nenhuma</p>
 
 <br>
 
-        <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;margin-bottom:-10px;align-items: center;  justify-content: center;">
-          <button class="button5" id="button-2024" onclick="selectAnswer(0)">0 </button>
-          <button class="button5" id="button-2023" onclick="selectAnswer(1)">1 </button>
-          <button class="button5" id="button-2022" onclick="selectAnswer(2)">2 </button>
-          <button class="button5" id="button-2021" onclick="selectAnswer(3)">3 </button>
-          <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
-        </div>
-   
-        
-        <br>  
- 
-    </div>
-    </div>
-    <!-- Elemento de áudio (oculto) -->
-    <audio id="audioPlayer" controls style="display: none;"></audio>
-
-    <!-- Elemento de mensagem de alerta -->
-    <div id="alertMessage" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
-        Você deve selecionar uma resposta antes de continuar.
+    <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;margin-bottom:-10px;align-items: center;  justify-content: center;">
+      <button class="button5" id="button-2024" onclick="selectAnswer(0)">0 </button>
+      <button class="button5" id="button-2023" onclick="selectAnswer(1)">1 </button>
+      <button class="button5" id="button-2022" onclick="selectAnswer(2)">2 </button>
+      <button class="button5" id="button-2021" onclick="selectAnswer(3)">3 </button>
+      <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
     </div>
 
 
 
+    <br>  
+  </div>
+</div>
+</div>
 
 
     <script>
+
+
+      
         const questions = {
             masculino: [
                 "Achei difícil me acalmar.",
@@ -617,14 +662,91 @@ menuButton.addEventListener('click', () => {
       
           let currentQuestionIndex = 0;
           const answers = [];
-      
-          function showQuestion() {
-              const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-              document.getElementById('questionText').textContent = ` ${currentQuestionIndex + 1}: ${questions[selectedGender][currentQuestionIndex]}`;
-              document.getElementById('selectedAnswer').textContent = 'Resposta: Nenhuma';
-              playAudio();
+          let participantName = '';
+          let participantAge = '';
+          let participantGender = '';
+          let testDate = '';
+
+          function startTest() {
+            // Mostrar o modal para coletar dados
+            const modal = document.getElementById('modal');
+            modal.style.display = 'flex';
           }
-      
+          
+          function submitParticipantInfo() {
+            // Obter os valores dos campos de entrada
+            const nameInput = document.getElementById('nameInput');
+            const genderInput = document.getElementById('genderInput');
+            const ageInput = document.getElementById('ageInput');
+            const dateInput = document.getElementById('dateInput');
+          
+            participantName = nameInput.value.trim();
+            participantGender = genderInput.value.trim();
+            participantAge = ageInput.value.trim();
+            const rawDate = dateInput.value;
+          
+            // Validar os campos
+            if (!participantName) {
+              alert('Por favor, insira seu nome.');
+              return;
+            }
+            if (!participantGender) {
+              alert('Por favor, insira seu gênero.');
+              return;
+            }
+            if (!participantAge || isNaN(participantAge)) {
+              alert('Por favor, insira uma idade válida.');
+              return;
+            }
+            if (!rawDate) {
+              alert('Por favor, selecione uma data para o teste.');
+              return;
+            }
+            // Formatar a data para dia-mês-ano
+            const [year, month, day] = rawDate.split('-');
+            testDate = `${day}-${month}-${year}`;
+
+            // Fechar o modal
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.getElementById("testContainer").style.display = "block";
+          
+            // Exibir mensagem de boas-vindas
+            alert(`Bem-vindo, ${participantName}.
+          Por favor, leia cada afirmação e pressione uma resposta que indique o quanto a afirmação se aplicou a você na semana passada. Não há respostas certas ou erradas. Não gaste muito tempo em nenhuma afirmação. 
+          NUNCA - Não se aplicou a mim de forma alguma;  
+          ÀS VEZES - Aplicou-se a mim em algum grau, ou algumas vezes;  
+          FREQUENTEMENTE - Aplicou-se a mim em um grau considerável, ou uma boa parte do tempo; 
+          QUASE SEMPRE - Aplicou-se a mim muito, ou na maioria das vezes;
+          
+          O teste vai começar agora.`);
+          
+            // Tocar o primeiro áudio
+            showQuestion();
+          }
+          
+          function showQuestion() {
+            // Obter o gênero selecionado
+            const selectedGender = document.querySelector('input[name="gender"]:checked');
+            if (!selectedGender) {
+                alert('Por favor, selecione um gênero antes de continuar.');
+                return;
+            }
+        
+            // Atualizar o texto da pergunta com base no gênero selecionado
+            const genderValue = selectedGender.value; // Masculino, Feminino, Outro
+            const currentQuestionText = questions[genderValue][currentQuestionIndex];
+            
+            // Exibir a pergunta
+            document.getElementById('questionText').textContent = `${currentQuestionIndex + 1}: ${currentQuestionText}`;
+            
+            // Exibir a resposta selecionada como padrão
+            document.getElementById('selectedAnswer').textContent = 'Resposta: Nenhuma';
+            
+            // Tocar o áudio correspondente
+            playAudio();
+        }
+        
           function playAudio() {
               const selectedVoice = document.querySelector('input[name="voiceType"]:checked').value;
               const selectedGender = document.querySelector('input[name="gender"]:checked').value;
@@ -675,7 +797,9 @@ menuButton.addEventListener('click', () => {
               const depressao = depressaoIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
               const ansiedade = ansiedadeIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
               const estresse = estresseIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
-      
+
+              document.getElementById('nome').textContent = ` ${participantName}, `;
+              document.getElementById('idade').textContent = ` ${participantAge}`;
               document.getElementById('depressao').textContent = `${depressao} - ${classifyDepression(depressao)}`;
               document.getElementById('ansiedade').textContent = `${ansiedade} - ${classifyAnxiety(ansiedade)}`;
               document.getElementById('estresse').textContent = `${estresse} - ${classifyStress(estresse)}`;
@@ -715,32 +839,18 @@ menuButton.addEventListener('click', () => {
               }
           });
 
-          function exportResultsToCSV() {
-            const results = [
-                ['Pergunta',   'Resposta'],
-                ...answers.map((answer, index) => [index + 1, ['0', '1', '2', '3'][answer] || 'Sem resposta']),
-            ];
         
-            results.push([], ['Resultados']);
- 
-            results.push(['Depressão', document.getElementById('depressao').textContent.split(' - ')[0], document.getElementById('depressao').textContent.split(' - ')[1]]);
-            results.push(['Ansiedade', document.getElementById('ansiedade').textContent.split(' - ')[0], document.getElementById('ansiedade').textContent.split(' - ')[1]]);
-            results.push(['Estresse', document.getElementById('estresse').textContent.split(' - ')[0], document.getElementById('estresse').textContent.split(' - ')[1]]);
-        
-            const csvContent = results.map(row => row.join(',')).join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-        
-            const link = document.createElement('a');
-            link.setAttribute('href', url);
-            link.setAttribute('download', 'resultados_dass21.csv');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
         
       
           showQuestion();
+          function showAlertMessage(message) {
+            const alertDiv = document.getElementById('alertMessage');
+            alertDiv.textContent = message;
+            alertDiv.style.display = 'block';
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 3000);
+        }
       </script>
       
       <div>
@@ -776,7 +886,11 @@ menuButton.addEventListener('click', () => {
 
 <!-- Seção dos resultados, inicialmente escondida -->
 <div id="results" class="results" style="display: none;">
+
   <h2>Resultados</h2>
+  <div style="display: flex; gap: 10px;"> <p id="nome"></p>
+    <p id="idade"></p></div>
+
   <p><strong>Depressão:</strong> <span id="depressao"></span></p>
   <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
   <p><strong>Estresse:</strong> <span id="estresse"></span></p>
@@ -787,12 +901,6 @@ menuButton.addEventListener('click', () => {
 
  
 
-    <div id="results" class="results" style="display: none;">
-        <h2>Resultados</h2>
-        <p><strong>Depressão:</strong> <span id="depressao"></span></p>
-        <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
-        <p><strong>Estresse:</strong> <span id="estresse"></span></p>
-    </div>
 
     <script>
         let respostas = [];
@@ -878,39 +986,37 @@ menuButton.addEventListener('click', () => {
           const results = [
               ['Pergunta', 'Resposta'],
               ...answers.map((answer, index) => [index + 1, ['0', '1', '2', '3'][answer] || 'Sem resposta']),
+              [], // Linha em branco para separar as seções
+              ['Nome', , 'Gênero','Idade', 'Data do Teste'],
+              [participantName,participantGender, participantAge,testDate],
+              [],
+              ['Resultados'],
           ];
       
-          results.push([], ['Resultados']);
-      
+          // Adiciona os resultados de Depressão, Ansiedade, Estresse
           results.push(['Depressão', document.getElementById('depressao').textContent.split(' - ')[0], document.getElementById('depressao').textContent.split(' - ')[1]]);
           results.push(['Ansiedade', document.getElementById('ansiedade').textContent.split(' - ')[0], document.getElementById('ansiedade').textContent.split(' - ')[1]]);
           results.push(['Estresse', document.getElementById('estresse').textContent.split(' - ')[0], document.getElementById('estresse').textContent.split(' - ')[1]]);
       
-          // Transforma os dados em linhas separadas por espaço
+          // Cria o conteúdo CSV com espaço como separador
           const csvContent = results.map(row => row.join(' ')).join('\n');
-          const blob = new Blob([csvContent], { type: 'text/plain;charset=utf-8;' });
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
           const url = URL.createObjectURL(blob);
       
+          // Cria o link para download
           const link = document.createElement('a');
           link.setAttribute('href', url);
-          
-          // Solicita o nome do arquivo ao usuário (sem a extensão)
-          let fileName = prompt("Digite o nome para o arquivo:", "resultados_dass21");
-          
-          // Adiciona a extensão `.csv` automaticamente
-          if (!fileName) {
-              fileName = 'resultados_dass21';
-          }
-          fileName += '.csv';
-          
+      
+          // Usa o nome e idade do participante para nomear o arquivo, com a estrutura 'nome_idade.csv'
+          const fileName = `DASS21_${testDate}_${participantName}.csv`;
           link.setAttribute('download', fileName);
-          link.click();
-          
-
+      
+          // Aciona o download
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
       }
+      
       
     </script>
 
@@ -928,8 +1034,17 @@ menuButton.addEventListener('click', () => {
     });
 </script>
 
+<br>
 
 
+
+<br>
+
+
+<br>
+
+
+<br>
 
 
 
