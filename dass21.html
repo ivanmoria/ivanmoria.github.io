@@ -248,11 +248,20 @@ Audio
 
 
 <div class="menu-text" id="menuButton" style="text-align: center;margin-left:85px;margin-top:-25px; margin-bottom:0px;">
-  Informações
+  Instruções
   <div class="tooltip">
+    Por favor, leia cada afirmação e pressione uma resposta que indique o quanto a afirmação se aplicou a você na semana passada.
+  <br>  <br> Não há respostas certas ou erradas.  Não gaste muito tempo em nenhuma afirmação.  <br>   <br> 
+NUNCA - Não se aplicou a mim de forma alguma;  <br>   <br> 
+ÀS VEZES - Aplicou-se a mim em algum grau, ou algumas vezes;   <br>   <br> 
+FREQUENTEMENTE - Aplicou-se a mim em um grau considerável, ou uma boa parte do tempo;  <br>   <br> 
+ QUASE SEMPRE - Aplicou-se a mim muito, ou na maioria das vezes;
+ <br>   <br> 
+
     Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
     a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
     No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.
+   
   </div>
   </div>
 
@@ -426,24 +435,16 @@ menuButton.addEventListener('click', () => {
 
 <br>
 
-        <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;align-items: center;  justify-content: center;">
-          <button class="button5" id="button-2024" onclick="selectAnswer(0)">1 </button>
-          <button class="button5" id="button-2023" onclick="selectAnswer(1)">2 </button>
-          <button class="button5" id="button-2022" onclick="selectAnswer(2)">3 </button>
-          <button class="button5" id="button-2021" onclick="selectAnswer(3)">4 </button>
+        <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;margin-bottom:-10px;align-items: center;  justify-content: center;">
+          <button class="button5" id="button-2024" onclick="selectAnswer(0)">0 </button>
+          <button class="button5" id="button-2023" onclick="selectAnswer(1)">1 </button>
+          <button class="button5" id="button-2022" onclick="selectAnswer(2)">2 </button>
+          <button class="button5" id="button-2021" onclick="selectAnswer(3)">3 </button>
           <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
         </div>
    
         
-      <div style="display: flex; width:100%;justify-content: center; margin-top:0px;">
-        
-
-          1 - Nunca 
-          2 - Às vezes <br>
-          3 - Frequentemente 
-          4 - Sempre
-</div>
-
+        <br>  
  
     </div>
     </div>
@@ -634,7 +635,7 @@ menuButton.addEventListener('click', () => {
           function selectAnswer(value) {
               answers[currentQuestionIndex] = value; // Armazena a resposta
               const selectedAnswerElement = document.getElementById('selectedAnswer');
-              selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Às vezes', 'Frequentemente', 'Sempre'][value]}`;
+              selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Às vezes', 'Frequentemente', 'Quase sempre'][value]}`;
               selectedAnswerElement.classList.add('highlight');
           }
       
@@ -749,6 +750,7 @@ menuButton.addEventListener('click', () => {
         <p2> Calculadora DASS-21</p2>
            
         <button type="button" onclick="processCSV()">Calcular</button>
+        <br>
         <input type="file" id="csvFile" accept=".csv" required>
   
 
@@ -910,14 +912,19 @@ menuButton.addEventListener('click', () => {
     </script>
 
 
+    <br> 
 
-
-    <p2 style="color:black;      display: flex;
-    justify-content: center; margin-top:10px;
-    align-items: center;color:rgb(173, 164, 191);" >
-    © 2024 Ivan Moriá Borges 
-
+    <p2 style="color: black; display: flex; justify-content: center; margin-top: 10px; align-items: center; color: rgb(173, 164, 191); cursor: pointer;" 
+    id="emailSender">
+    © 2024 Ivan Moriá Borges
 </p2>
+
+<script>
+    document.getElementById('emailSender').addEventListener('click', function() {
+        window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
+    });
+</script>
+
 
 
 
