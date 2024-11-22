@@ -114,6 +114,7 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--list_gap);
+
 }
 
 .theme-popup__list label {
@@ -193,7 +194,7 @@
     transform: translate(0);
     box-shadow: none;
 }
-p11 {
+.p11 {
   font-family: 'Poiret One', cursive;
   font-size: 16px;
   font-weight: 600;
@@ -207,68 +208,205 @@ p11 {
 </div>
 
 
-  <div>
-  <div class="theme-popup">
-    <input type="radio" name="theme" id="default" checked="">
-    <input type="radio" name="theme" id="light">
-    <input type="radio" name="theme" id="dark">
-    <input type="radio" name="theme" id="dark">
-    <input type="checkbox" id="checkbox">
-  <label for="checkbox" class="theme-popup__button">
-    <span class="theme-popup__icons">
-      <svg class="default" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 2.52267C6.13332 2.64713 4.86254 3.27802 3.9372 4.29146C3.01186 5.3049 2.49882 6.62766 2.49882 8C2.49882 9.37234 3.01186 10.6951 3.9372 11.7085C4.86254 12.722 6.13332 13.3529 7.5 13.4773V2.52267ZM1.5 8C1.5 4.41 4.41 1.5 8 1.5C11.59 1.5 14.5 4.41 14.5 8C14.5 11.59 11.59 14.5 8 14.5C4.41 14.5 1.5 11.59 1.5 8Z" fill="currentColor"></path>
-      </svg>
-      <svg class="sun" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_78_63)">
-          <path d="M7.99998 3.99256C5.79024 3.99256 3.99254 5.79061 3.99254 8.00035C3.99254 10.2101 5.79024 12.0081 7.99998 12.0081C10.2094 12.0081 12.0074 10.2105 12.0074 8.00035C12.0074 5.79026 10.2094 3.99256 7.99998 3.99256ZM7.99998 2.81453C7.79266 2.81453 7.59383 2.73219 7.4472 2.58563C7.30057 2.43907 7.21814 2.24027 7.21805 2.03295V0.781931C7.21805 0.57455 7.30043 0.375663 7.44707 0.229022C7.59371 0.0823818 7.7926 0 7.99998 0C8.20736 0 8.40625 0.0823818 8.55289 0.229022C8.69953 0.375663 8.78191 0.57455 8.78191 0.781931V2.03295C8.78182 2.24027 8.6994 2.43907 8.55276 2.58563C8.40613 2.73219 8.2073 2.81453 7.99998 2.81453ZM7.99998 13.1851C7.8973 13.1851 7.79562 13.2053 7.70075 13.2446C7.60588 13.2839 7.51968 13.3415 7.44707 13.4141C7.37446 13.4868 7.31687 13.573 7.27757 13.6678C7.23828 13.7627 7.21805 13.8644 7.21805 13.9671V15.2177C7.21805 15.4251 7.30043 15.624 7.44707 15.7706C7.59371 15.9173 7.7926 15.9996 7.99998 15.9996C8.20736 15.9996 8.40625 15.9173 8.55289 15.7706C8.69953 15.624 8.78191 15.4251 8.78191 15.2177V13.9671C8.78182 13.7597 8.69941 13.5609 8.55279 13.4142C8.40617 13.2676 8.20733 13.1852 7.99998 13.1851ZM11.6662 4.33339C11.5197 4.18671 11.4374 3.98785 11.4374 3.78051C11.4374 3.57318 11.5197 3.37432 11.6662 3.22764L12.5509 2.34296C12.6232 2.26911 12.7095 2.21033 12.8047 2.17003C12.8999 2.12972 13.0021 2.1087 13.1055 2.10816C13.2088 2.10762 13.3113 2.12758 13.4069 2.16689C13.5025 2.2062 13.5894 2.26408 13.6625 2.33717C13.7356 2.41026 13.7934 2.49712 13.8327 2.59273C13.872 2.68833 13.892 2.79078 13.8915 2.89415C13.8909 2.99752 13.8699 3.09976 13.8296 3.19494C13.7893 3.29013 13.7305 3.37639 13.6567 3.44872L12.772 4.33339C12.6254 4.48001 12.4265 4.56238 12.2191 4.56238C12.0117 4.56238 11.8129 4.48001 11.6662 4.33339ZM4.33337 11.667C4.26081 11.5943 4.17463 11.5366 4.07976 11.4973C3.98489 11.4579 3.8832 11.4377 3.78049 11.4377C3.67779 11.4377 3.5761 11.4579 3.48123 11.4973C3.38636 11.5366 3.30018 11.5943 3.22762 11.667L2.34294 12.5513C2.19882 12.6984 2.11858 12.8965 2.11966 13.1025C2.12073 13.3084 2.20303 13.5057 2.34867 13.6513C2.49431 13.797 2.69154 13.8793 2.8975 13.8803C3.10347 13.8814 3.30154 13.8012 3.4487 13.657L4.33337 12.772C4.40599 12.6995 4.46361 12.6134 4.50291 12.5186C4.54222 12.4237 4.56245 12.3221 4.56245 12.2195C4.56245 12.1169 4.54222 12.0152 4.50291 11.9204C4.46361 11.8256 4.40599 11.7395 4.33337 11.667ZM13.1851 8C13.1851 7.56811 13.5351 7.21807 13.967 7.21807H15.218C15.3221 7.21585 15.4256 7.23444 15.5224 7.27273C15.6191 7.31102 15.7073 7.36825 15.7817 7.44106C15.8561 7.51387 15.9152 7.6008 15.9555 7.69675C15.9958 7.7927 16.0166 7.89574 16.0166 7.99982C16.0166 8.10391 15.9958 8.20695 15.9555 8.3029C15.9152 8.39884 15.8561 8.48577 15.7817 8.55859C15.7073 8.6314 15.6191 8.68863 15.5224 8.72692C15.4256 8.76521 15.3221 8.78379 15.218 8.78158H13.967C13.8644 8.78162 13.7627 8.76144 13.6678 8.72218C13.573 8.68293 13.4868 8.62536 13.4141 8.55278C13.3415 8.4802 13.2839 8.39403 13.2446 8.29918C13.2053 8.20433 13.1851 8.10267 13.1851 8ZM2.81451 8C2.81451 7.89732 2.79428 7.79564 2.75499 7.70077C2.71569 7.6059 2.65809 7.5197 2.58548 7.44709C2.51288 7.37448 2.42668 7.31689 2.33181 7.27759C2.23694 7.23829 2.13526 7.21807 2.03258 7.21807H0.781912C0.67785 7.21585 0.574393 7.23444 0.477607 7.27273C0.380821 7.31102 0.292654 7.36825 0.218276 7.44106C0.143897 7.51387 0.0848039 7.6008 0.044461 7.69675C0.00411808 7.7927 -0.0166626 7.89574 -0.0166626 7.99982C-0.0166626 8.10391 0.00411808 8.20695 0.044461 8.3029C0.0848039 8.39884 0.143897 8.48577 0.218276 8.55859C0.292654 8.6314 0.380821 8.68863 0.477607 8.72692C0.574393 8.76521 0.67785 8.78379 0.781912 8.78158H2.03293C2.24022 8.78158 2.43901 8.69923 2.58559 8.55266C2.73216 8.40608 2.81451 8.20729 2.81451 8ZM11.6662 11.667C11.8129 11.5204 12.0118 11.4381 12.2191 11.4381C12.4264 11.4381 12.6253 11.5204 12.772 11.667L13.6567 12.5516C13.8033 12.6983 13.8856 12.8971 13.8856 13.1045C13.8855 13.3118 13.8031 13.5106 13.6565 13.6572C13.5839 13.7298 13.4977 13.7874 13.4028 13.8266C13.308 13.8659 13.2063 13.8861 13.1037 13.8861C12.8963 13.8861 12.6975 13.8037 12.5509 13.657L11.6662 12.7724C11.5936 12.6998 11.536 12.6137 11.4967 12.5188C11.4574 12.424 11.4371 12.3223 11.4371 12.2197C11.4371 12.117 11.4574 12.0153 11.4967 11.9205C11.536 11.8257 11.5936 11.7395 11.6662 11.667ZM4.33337 4.33339C4.48 4.18675 4.56237 3.98788 4.56237 3.78051C4.56237 3.57315 4.48 3.37427 4.33337 3.22764L3.4487 2.34331C3.3011 2.20166 3.10386 2.12349 2.89929 2.12558C2.69473 2.12766 2.49913 2.20983 2.35445 2.35447C2.20976 2.4991 2.12753 2.69468 2.12538 2.89924C2.12323 3.10381 2.20133 3.30107 2.34294 3.44872L3.22762 4.33339C3.30018 4.40608 3.38636 4.46374 3.48123 4.50308C3.5761 4.54243 3.67779 4.56268 3.78049 4.56268C3.8832 4.56268 3.98489 4.54243 4.07976 4.50308C4.17463 4.46374 4.26081 4.40608 4.33337 4.33339Z" fill="currentColor"></path>
-        </g>
-        <defs>
-          <clipPath>
-            <rect width="16" height="16" fill="currentColor"></rect>
-          </clipPath>
-        </defs>
-      </svg>
-      <svg class="moon" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_78_60)">
-          <path d="M7.24135 14C10.1123 13.9981 12.6803 12.2445 13.7367 9.59537C13.7953 9.44832 13.727 9.39266 13.5866 9.46575C12.7818 9.88471 11.888 10.1036 10.9806 10.104C7.86082 10.1042 5.33169 7.57506 5.33188 4.45524C5.3323 3.64636 5.50645 2.84701 5.84254 2.11127C6.17863 1.37552 6.66883 0.720544 7.27996 0.190644C7.42672 0.0486062 7.38444 -0.0171645 7.09498 0.00382823C3.42058 0.029058 0.24231 3.13569 0.24231 7.00113C0.24231 10.8666 3.3758 14.0002 7.24135 14Z" fill="currentColor"></path>
-        </g>
-        <defs>
-          <clipPath>
-            <rect width="14" height="14" fill="currentColor"></rect>
-          </clipPath>
-        </defs>
-      </svg>
-    </span>
-Audio
-  </label>
-  <br>
+<div>
+  <div class="theme-popup"id="instructionsSection">
+    <div class="menu-text" id="menuButton">
+      <h3 style="margin-top:-10px;">Instruções</h3>
+      <div class="tooltip" >
+        <p>
+          Se estiver no computador use as teclas <b>1-4</b> para escolher a resposta
+          e pressione <b>espaço</b> para avançar.<br><br>
+           Se estiver no celular, utilize os <b>botões numéricos</b> para escolher a resposta e pressione <b>OK</b> para avançar.
+        </p><br>
+        <p>
+          No final, os resultados aparecem automaticamente. Você também poderá exportar 
+          os resultados e calculá-los posteriormente logo abaixo.
+        </p><br>
+       <p> Você pode optar por ouvir as perguntas do teste.
+        <label for="audioCheckbox">
+        
+        </label>
+        
+        <form>
+          <fieldset>
+      
+            <label>
+              <input type="checkbox" id="audioCheckbox" checked> Ativar Áudio
+            </label>
+         
+          </fieldset>
+        </form>
 
 
 
 
-<div class="menu-text" id="menuButton" style="text-align: center;margin-left:85px;margin-top:-25px; margin-bottom:0px;">
-  Instruções
-  <div class="tooltip">
-   
-    Selecione o tipo de áudio de referência, use as teclas 1-4 para responder e pressione
-    a tecla espaço (OK) para passar para a próxima pergunta. <br><br>
-    No final, os resultados aparecem automaticamente. Você também poderá exportar os resultados, e calculá-los posteriormente logo abaixo.
-    <br><br>
-    Clique em Iniciar para começar.<br><br>
-    <p2> Referência: Lovibond, S.H.; Lovibond, P.F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.). 
-    </p2>
-   
+
+
+        Selecione o tipo de Voz e escolha o Gênero das perguntas. </p>
+        <form>
+          <fieldset>
+            <legend>Voz de referência</legend>
+            <label>
+              <input type="radio" name="voiceType" value="homem" checked>
+              Voz de Homem
+            </label><br>
+            <label>
+              <input type="radio" name="voiceType" value="mulher">
+              Voz de Mulher
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Gênero das perguntas</legend>
+            <label>
+              <input type="radio" name="gender" value="masculino" checked>
+              Masculino
+            </label><br>
+            <label>
+              <input type="radio" name="gender" value="feminino">
+              Feminino
+            </label>
+<br>
+
+
+            
+          </fieldset>
+        </form>
+
+        <div class="button-container">
+          <button id="startButton" onclick="startTest()">Clique aqui para começar</button>
+        </div>
+
+        <footer>
+          <p class="reference">
+            Referência: Lovibond, S.H.; Lovibond, P.F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.).
+          </p>
+        </footer>
+        <p2 
+  
+    id="emailSender">
+    © 2024 Ivan Moriá Borges
+</p2>
+
+<script>
+    document.getElementById('emailSender').addEventListener('click', function() {
+        window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
+    });
+</script>
+
+
+  <style>
+      @media (max-width: 600px) {
+          #emailSender {
+              font-size: 12px; /* Ajusta o tamanho da fonte em telas pequenas */
+          }
+      }
+  </style>
+        <br> <br> <br> <br> <br>
+      </div>
+    </div>
   </div>
-  </div>
+</div>
 
-
-
+<br><br><br><br>
+<script>document.querySelector('.tooltip').addEventListener('click', function(event) {
+  event.stopPropagation();  // Impede que o clique se propague para o elemento pai
+});
+</script>
 <style>
+
+/* Estilo para o theme-popup */
+.theme-popup {
+  position:absolute;          /* Permite que o popup fique fixo na tela */
+margin-top:30px;
+  left: 50%;                 /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajuste para garantir que o centro do popup esteja na tela */
+  
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  height:5%;
+  width: 50%;           /* Largura do popup, pode ser ajustada conforme necessário */
+  max-width: 600px;          /* Largura máxima para garantir que o popup não fique muito grande */
+  box-sizing: border-box;    /* Inclui o padding no cálculo da largura total */
+}
+
+  
+  .tooltip p {
+    margin: 1px ;
+    left:50%;
+    line-height: 1.5;
+    width: 100%; /* O tooltip agora ocupa 100% da largura da tela */
+    max-width: 100%; /* Impede que o tooltip exceda os limites da tela */
+ 
+ 
+  }
+
+  fieldset {
+    border: 1px solid #ddd; /* Borda suave ao redor do fieldset */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin: 10px 0; /* Margem para separação */
+    
+    background-color: #f9f9f9; /* Cor de fundo clara */
+  }
+  
+  legend {
+    font-size: 16px; /* Tamanho da fonte do título do fieldset */
+    font-weight: bold; /* Tornar o título mais forte */
+    color: #333; /* Cor suave para o texto */
+    margin-right: 15px; /* Espaçamento entre o legend e os inputs */
+    margin-left:-20px;
+  }
+
+  label {
+    display: block; /* Faz os labels se alinharem verticalmente */
+    margin-bottom: 8px; /* Espaçamento entre os labels */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #555; /* Cor de texto suave */
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px; /* Espaçamento entre o botão de rádio e o texto */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    background-color: #FF5733;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #e04b29;
+  }
+  
+  footer {
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
+    color: #555;
+  }
+  
   .hover-text {
     position: relative;
     display: inline-block;
     cursor: pointer;
+
   }
 
   .hover-text .tooltip {
@@ -292,6 +430,7 @@ Audio
   .hover-text:hover .tooltip {
     visibility: visible;
     opacity: 1;
+    
   }
   .hover-text .tooltipe {
     visibility: hidden;
@@ -322,7 +461,7 @@ Audio
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(210, 8, 8, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -349,6 +488,8 @@ Audio
     display: flex;
     flex-direction: column;
     align-items: center;
+
+  
     cursor: pointer;
     text-align: center;
   }
@@ -356,20 +497,28 @@ Audio
   .tooltip {
     display: none;
     position:absolute;
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: 25px;
+    padding: 5px;
     border: 1px solid #ddd;
     background-color: #f0f0f0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-    text-align: left;
-    margin-left: -140px;
+
+    cursor: pointer;
+
+
     width: 280px;
   }
 
   .menu-text.active .tooltip {
     display: block;
+
+    width: 95vw; /* O tooltip agora ocupa 90% da largura da tela */
+    max-width: 95vw; /* Impede que o tooltip exceda 90% da tela */
+    margin: -20px auto; /* Centraliza horizontalmente o tooltip */
+
   }
+  
 </style>
 
 
@@ -383,60 +532,7 @@ menuButton.addEventListener('click', () => {
 });
 </script>
 
-<div style="text-align: center;">
-<!-- Botão para iniciar o teste -->
-<button id="startButton" onclick="startTest()">Iniciar Teste</button>
-</div>
 
-
-  <div class="theme-popup__list-container">
-    
-    <ul class="theme-popup__list">
-      <li>
-        <label for="default">
-          <span>
-            <input type="radio" name="voiceType" value="homem" checked> Voz de Homem
-          </span>
-        </label>
-      </li>
-
-
-
-      <li>
-        <label for="light">
-         
-          <span>
-            <input type="radio" name="voiceType" value="mulher"> Voz de Mulher
-          </span>
-        </label>
-      </li>
-
-
-      <li>
-        <label for="dark">
-        
-          <span>
-            <input type="radio" name="gender" value="masculino" checked> Perguntas no Gênero Masculino
-          </span>
-        </label>
-      </li>
-
-      <li>
-        <label for="darke">
-        
-          <span>
-            <input type="radio" name="gender" value="feminino"> Perguntas no Gênero Feminino
-          </span>
-        </label>
-      </li>
-
-
-    </ul>
-  </div>
-
-  </div>
-  </div>
-<br>
 
 
 
@@ -471,14 +567,32 @@ menuButton.addEventListener('click', () => {
   <audio id="audioPlayer" controls style="display: none;"></audio>
 
 
-      <!-- Elemento de mensagem de alerta -->
+<!-- Elemento de mensagem de alerta -->
 <div id="alertMessage" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
   Você deve selecionar uma resposta antes de continuar.
 </div>
 
+<style>#alertMessage {
+  display: none;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  text-align: center;
+  
+  /* Posição fixa no topo da página, para não afetar o layout */
+  position: fixed;
+  top: 20%;  /* Distância do topo */
+  left: 50%;
+  transform: translateX(-50%);  /* Centraliza horizontalmente */
+  z-index: 1000;  /* Coloca o alerta acima de outros elementos */
+  width: 80%;  /* Tamanho do alerta */
+  max-width: 400px;  /* Largura máxima */
+}</style>
 
-
-<div style="font-size:25px; width:100%;height:250px;background-color:rgba(194, 194, 194, 0.498);    
+<div style="font-size:25px;margin-top:-60px; width:100%;height:250px;background-color:rgba(194, 194, 194, 0.498);    
 border-radius: 20px;" >
     <p11 style="margin-left:30px; font-size:25px; color:black; "  class="question" id="questionText">Pergunta 1: Achei difícil me acalmar.</p11>
    </div>
@@ -488,7 +602,7 @@ border-radius: 20px;" >
     <p class="answer" id="selectedAnswer" style="margin-top:-10px;">Resposta: Nenhuma</p>
 
 <br>
-
+<br>
     <div style="  width:100%; text-align:center; margin-left: -15px; margin-top:-30px;margin-bottom:-10px;align-items: center;  justify-content: center;">
       <button class="button5" id="button-2024" onclick="selectAnswer(0)">0 </button>
       <button class="button5" id="button-2023" onclick="selectAnswer(1)">1 </button>
@@ -499,7 +613,6 @@ border-radius: 20px;" >
 
 
 
-    <br>  
   </div>
 </div>
 </div>
@@ -659,20 +772,41 @@ border-radius: 20px;" >
         };
 
 
-      
+
           let currentQuestionIndex = 0;
           const answers = [];
           let participantName = '';
           let participantAge = '';
           let participantGender = '';
           let testDate = '';
-
           function startTest() {
             // Mostrar o modal para coletar dados
             const modal = document.getElementById('modal');
             modal.style.display = 'flex';
+        
+            // Ocultar a seção de instruções e tooltip
+            const instructionsSection = document.getElementById('instructionsSection');
+            instructionsSection.style.display = 'none';
+
+        
+            // Ocultar o restante do conteúdo (como perguntas, resposta, áudio e formulário)
+            const testContent = document.getElementById('testContent');
+            const dassForm = document.getElementById('dassForm');
+            const dassFormt = document.getElementById('dassFormt');
+        
+            // Verifique se a seleção do conteúdo está correta e defina o display como 'none'
+            if (testContent) {
+                testContent.style.display = 'none';  // Oculta o bloco com as perguntas e o formulário
+            }
+        
+            if (dassForm) {
+                dassForm.style.display = 'none';  // Também oculta o formulário
+            }
+            if (dassFormt) {
+              dassFormt.style.display = 'none';  // Também oculta o formulário
           }
-          
+        }
+        
           function submitParticipantInfo() {
             // Obter os valores dos campos de entrada
             const nameInput = document.getElementById('nameInput');
@@ -746,15 +880,31 @@ border-radius: 20px;" >
             // Tocar o áudio correspondente
             playAudio();
         }
-        
-          function playAudio() {
-              const selectedVoice = document.querySelector('input[name="voiceType"]:checked').value;
-              const selectedGender = document.querySelector('input[name="gender"]:checked').value;
-              const audioPlayer = document.getElementById('audioPlayer');
-              const audioKey = `${selectedVoice}_${selectedGender}`;
-              audioPlayer.src = audios[audioKey][currentQuestionIndex];
-              audioPlayer.play();
-          }
+     // Variável para controlar se o alerta já foi exibido
+let alertShown = false;
+
+function playAudio() {
+  const audioCheckbox = document.getElementById('audioCheckbox'); // Obter o checkbox
+  
+  if (!audioCheckbox.checked) {
+    if (!alertShown) {
+      alert("Áudio desativado. Marque a caixa para ouvir."); // Avisar se o áudio estiver desativado
+      alertShown = true; // Definir que o alerta já foi mostrado
+    }
+    return;  // Se o checkbox não estiver marcado, não reproduz o áudio
+  }
+
+  // Lógica normal para reproduzir o áudio
+  const selectedVoice = document.querySelector('input[name="voiceType"]:checked').value;
+  const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+  const audioPlayer = document.getElementById('audioPlayer');
+  const audioKey = `${selectedVoice}_${selectedGender}`;
+
+  // Define o áudio a ser tocado
+  audioPlayer.src = audios[audioKey][currentQuestionIndex];
+  audioPlayer.play();
+}
+
       
           // Função para atualizar a legenda e destacar a resposta
           function selectAnswer(value) {
@@ -772,22 +922,25 @@ border-radius: 20px;" >
                   alertDiv.style.display = 'none';
               }, 3000);
           }
-      
           function nextQuestion() {
-              if (answers[currentQuestionIndex] === undefined) {
-                  playAudio();
-                  showAlertMessage('Você deve selecionar uma resposta antes de continuar.');
-                  return;
-              }
-      
-              if (currentQuestionIndex < questions.masculino.length - 1) {
-                  currentQuestionIndex++;
-                  showQuestion();
-              } else {
-                  alert('Teste concluído! Obrigado por responder.');
-                  processResponses();
-              }
-          }
+            // Verifica se a resposta da pergunta atual foi selecionada
+            if (answers[currentQuestionIndex] === undefined) {
+                playAudio();
+                showAlertMessage('Você deve selecionar uma resposta antes de continuar.');
+                return;
+            }
+        
+            // Se não for a última pergunta, avança para a próxima
+            if (currentQuestionIndex < questions.masculino.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                // Se todas as perguntas foram respondidas, mostra mensagem de conclusão
+                alert('Teste concluído! Obrigado por responder.');
+                processResponses();
+            }
+        }
+        
       
           function processResponses() {
               const depressaoIndices = [2, 4, 9, 12, 15, 16, 20];
@@ -852,13 +1005,24 @@ border-radius: 20px;" >
             }, 3000);
         }
       </script>
-      
-      <div>
+      <div style="display: flex; justify-content: center; align-items: center; text-align: center; padding: 0px;" id="dassFormt">
+        <p2 style="font-size: 18px;text-align: justify; max-width: 100%; font-family:'Poiret One', cursive;">  
+            
+            A escala de estresse de ansiedade de depressão - forma curta (DASS-21), é uma medida de autorrelato de 21 itens, projetada para avaliar a gravidade do sofrimento psicológico geral e os sintomas relacionados à depressão, ansiedade e estresse em adolescentes mais velhos (17 anos +).
+        </p2>
+    </div>
+
+    <br>    
+    <br>
+      <div style="display: flex; justify-content: center; align-items: center;background-color: #f3f3f3;border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+
+      <div style="margin-top:-20px;"id="testContent">
           <p id="questionText"></p>
           <p id="selectedAnswer"></p>
           <audio id="audioPlayer"></audio>
           <div id="alertMessage" style="display:none; color: red;"></div>
       </div>
+      
       <form id="dassForm">
         <p2> Calculadora DASS-21</p2>
            
@@ -869,6 +1033,7 @@ border-radius: 20px;" >
 
     </form>
 
+ </div>
     <script>
       // Função para mostrar os resultados
       function mostrarResultados() {
@@ -897,9 +1062,13 @@ border-radius: 20px;" >
   <button type="button" id="exportButton" onclick="exportResultsToCSV()">Exportar Resultados</button>
 </div>
 
+<br><br>
+<br>
 
 
- 
+<br><br>
+<br>
+
 
 
     <script>
@@ -1019,32 +1188,10 @@ border-radius: 20px;" >
       
       
     </script>
+    
+    
+  
 
-
-    <br> 
-
-    <p2 style="color: black; display: flex; justify-content: center; margin-top: 10px; align-items: center; color: rgb(173, 164, 191); cursor: pointer;" 
-    id="emailSender">
-    © 2024 Ivan Moriá Borges
-</p2>
-
-<script>
-    document.getElementById('emailSender').addEventListener('click', function() {
-        window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
-    });
-</script>
-
-<br>
-
-
-
-<br>
-
-
-<br>
-
-
-<br>
 
 
 
