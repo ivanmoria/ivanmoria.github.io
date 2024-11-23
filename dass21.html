@@ -175,10 +175,10 @@
 
     border: 1px solid var(--bg);
     border-radius: 10px;
-    padding: 1em 1em;
+    padding: 0.2em 0.2em;
     background: var(--bg);
     transition: 0.2s;
-    font-size: 1rem;
+    font-size: 12px;
     white-space: nowrap;
     margin: 1px;
     display: inline-block;
@@ -195,6 +195,37 @@
 .button5:active {
     transform: translate(0);
     box-shadow: none;
+}
+
+.button50 {
+  --bg: #000;
+  --hover-bg: #3fb85b;
+  --hover-text: #000;
+  color: #fff;
+  cursor: pointer;
+
+  border: 1px solid var(--bg);
+  border-radius: 10px;
+  padding: 0.4em 0.4em;
+  background: var(--bg);
+  transition: 0.2s;
+  font-size: 12px;
+  white-space: nowrap;
+  margin: 1px;
+  display: inline-block;
+  text-align: center;
+}
+
+.button50:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button50:active {
+  transform: translate(0);
+  box-shadow: none;
 }
 .p11 {
   font-family: 'Poiret One', cursive;
@@ -662,25 +693,28 @@ menuButton.addEventListener('click', () => {
    ">
        Resposta: Nenhuma
    </p>
-
+<br>
    <div style="
        display: flex; 
         margin-top: -20px;
        justify-content: center;
        align-items: center;
    ">
-       <button class="button5" id="button-2024" onclick="selectAnswer(0)">0</button>
-       <button class="button5" id="button-2023" onclick="selectAnswer(1)">1</button>
-       <button class="button5" id="button-2022" onclick="selectAnswer(2)">2</button>
-       <button class="button5" id="button-2021" onclick="selectAnswer(3)">3</button>
-       <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
+       <button class="button5" id="button-2024" onclick="selectAnswer(0)">Nunca</button>
+       <button class="button5" id="button-2023" onclick="selectAnswer(1)">Às vezes</button>
+       <button class="button5" id="button-2022" onclick="selectAnswer(2)">Frequentemente</button>
+       <button class="button5" id="button-2021" onclick="selectAnswer(3)">Quase sempre</button>
+
    </div>
-
-   0 - Nunca
-   1 - Às vezes
-   2 - Frequentemente
-   3 - Quase sempre
-
+<br><br>
+   <div style="
+       display: flex; 
+        margin-top: -20px;
+       justify-content: center;
+       align-items: center;
+   ">
+   <button style="width:300px;"class="button50" id="button-all" onclick="nextQuestion()">OK</button>
+   </div>
 </div>
 
 
