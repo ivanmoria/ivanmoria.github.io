@@ -980,6 +980,12 @@ function playAudio() {
             } else {
                 // Se todas as perguntas foram respondidas, mostra mensagem de conclusão
                 alert('Teste concluído! Obrigado por responder.');
+                // Oculta os dois divs
+              const questionDiv = document.getElementById('questionText').parentElement;  // Pega o <div> que contém a pergunta
+              const answerDiv = document.getElementById('selectedAnswer').parentElement;  // Pega o <div> que contém as respostas
+      
+              questionDiv.style.display = 'none';  // Oculta a div da pergunta
+              answerDiv.style.display = 'none';  // Oculta a div das respostas
                 processResponses();
             }
         }
@@ -1089,16 +1095,47 @@ function playAudio() {
       }
     </script>
 
-<!-- Botão para mostrar ou esconder os resultados -->
- <!-- Seção dos resultados -->
- <div id="results" class="results">
+
+
+    <style>
+      /* Centralizando o conteúdo da div 'results' */
+      #results {
+     margin-top:-120px;
+        flex-direction: column;
+        align-items: center;  /* Centraliza horizontalmente */
+        justify-content: center;  /* Centraliza verticalmente */
+        height: 50vh;  /* Altura da tela inteira */
+        text-align: justify;  /* Centraliza o texto dentro dos elementos */
+        padding: 20px;
+      }
+    
+      /* Garantir que o botão e outros elementos dentro de 'results' tenham algum espaçamento */
+      #results button {
+        margin-top: 10px;
+      }
+    
+      /* Estilo para o container de detalhes */
+      .results-details {
+        margin-top: 20px;
+      }
+    
+      /* Para os parágrafos dentro de 'results-details' */
+      .results-details p {
+        margin: 5px 0;
+        text-align: justify;  /* Justifica o texto nos parágrafos */
+      }
+    </style>
+
+
+
+
+<div id="results" class="results">
   <h2>Resultados</h2>
   <button type="button" id="showResultsButton" onclick="showResultsDetails()">Mostrar Resultados</button>
 
-
   <!-- Detalhes dos resultados, inicialmente escondidos -->
   <div class="results-details" id="resultsDetails">
-      <div style="display: flex; gap: 10px;">
+      <div style="display: flex;">
           <p id="nome"></p>
           <p id="idade"></p>
       </div>
@@ -1108,9 +1145,10 @@ function playAudio() {
   </div>
 
   <button type="button" id="exportButton" onclick="exportResultsToCSV()">Exportar Resultados</button>
+</div>
 
 </div>
-<br>  <br>  <br>  <br>  
+
 <style>
   .results {
       display: none; /* Inicialmente oculta toda a seção */
