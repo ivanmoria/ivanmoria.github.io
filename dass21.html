@@ -14,7 +14,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            
+  
         }
         .results {
             margin-top: 20px;
@@ -208,7 +208,7 @@
   <div style="text-align: center;margin-top:-15px;">
     <p11 style="font-size: 40px; color: black;">DASS - 21</p11>
 </div>
-
+<br>
 
 <div>
   <div class="theme-popup"id="instructionsSection">
@@ -216,7 +216,7 @@
       <h3 style="margin-top:-10px;">Instruções</h3>
       <div class="tooltip" id="balao">
         <p>
-          Se estiver no computador use as teclas <b>1-4</b> para escolher a resposta
+          Se estiver no computador, use as teclas <b>1-4</b> para escolher a resposta
           e pressione <b>espaço</b> para avançar.<br><br>
            Se estiver no celular, utilize os <b>botões numéricos</b> para escolher a resposta e pressione <b>OK</b> para avançar.
         </p><br>
@@ -283,18 +283,42 @@
           <p class="reference">
             Referência: Lovibond, S.H.; Lovibond, P.F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.).
           </p>
+          <footer>
+            <p2 id="emailSender">
+                © 2024 Ivan Moriá Borges
+            </p2>
         </footer>
-        <p2 
-  
-    id="emailSender">
-    © 2024 Ivan Moriá Borges
-</p2>
-
-<script>
-    document.getElementById('emailSender').addEventListener('click', function() {
-        window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
-    });
-</script>
+        
+        <script>
+            document.getElementById('emailSender').addEventListener('click', function() {
+                window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
+            });
+        </script>
+        
+        <style>footer {
+          
+            color: black; /* Cor do texto */
+            text-align: center; /* Centraliza o texto */
+            padding: 0px 0; /* Espaçamento interno */
+            position: flex; /* Fixa o footer na parte inferior da página */
+            width: 100%; /* Largura do footer */
+            bottom: 0; /* Coloca o footer na parte inferior */
+            margin-bottom:-60px;
+            z-index: 99999;
+        }
+        
+        #emailSender {
+            font-size: 14px; /* Tamanho da fonte */
+            cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+            text-decoration: none; /* Remove sublinhado */
+            color:black; /* Cor do texto */
+            transition: color 0.3s; /* Animação de transição para a cor */
+        }
+        
+        #emailSender:hover {
+            color: #ffcc00; /* Cor ao passar o mouse */
+        }
+        </style>
 
 
   <style>
@@ -304,7 +328,7 @@
           }
       }
   </style>
-        <br> <br> <br> <br> <br>
+        <br> <br> <br> <br> <br><br><br><br><br><br>
       </div>
     </div>
   </div>
@@ -525,7 +549,7 @@
 }
   .menu-text.active .tooltip {
     display: block;
-
+    height: 620px;
     width: 95vw; /* O tooltip agora ocupa 90% da largura da tela */
     max-width: 95vw; /* Impede que o tooltip exceda 90% da tela */
     margin: 5px auto; /* Centraliza horizontalmente o tooltip */
@@ -641,7 +665,7 @@ menuButton.addEventListener('click', () => {
 
    <div style="
        display: flex; 
-
+        margin-top: -20px;
        justify-content: center;
        align-items: center;
    ">
@@ -651,6 +675,12 @@ menuButton.addEventListener('click', () => {
        <button class="button5" id="button-2021" onclick="selectAnswer(3)">3</button>
        <button class="button5" id="button-all" onclick="nextQuestion()">OK</button>
    </div>
+
+   0 - Nunca
+   1 - Às vezes
+   2 - Frequentemente
+   3 - Quase sempre
+
 </div>
 
 
@@ -890,7 +920,10 @@ menuButton.addEventListener('click', () => {
           
             // Exibir mensagem de boas-vindas
             alert(`Bem-vindo, ${participantName}.
-          Por favor, leia cada afirmação e pressione uma resposta que indique o quanto a afirmação se aplicou a você na semana passada. Não há respostas certas ou erradas. Não gaste muito tempo em nenhuma afirmação. 
+          Por favor, leia cada afirmação e pressione uma resposta que indique o quanto a afirmação se aplicou a você na semana passada. 
+          Não há respostas certas ou erradas. 
+          Não gaste muito tempo em nenhuma afirmação. 
+
           NUNCA - Não se aplicou a mim de forma alguma;  
           ÀS VEZES - Aplicou-se a mim em algum grau, ou algumas vezes;  
           FREQUENTEMENTE - Aplicou-se a mim em um grau considerável, ou uma boa parte do tempo; 
@@ -1054,35 +1087,59 @@ function playAudio() {
             }, 3000);
         }
       </script>
-      <div style="display: flex; justify-content: center; align-items: center; text-align: center; padding: 0px;" id="dassFormt">
+      <div style="display: flex; justify-content: center; align-items: center; text-align: center;margin-top:-20px; padding: 0px;" id="dassFormt">
         <p2 style="font-size: 18px;text-align: justify; max-width: 100%; font-family:'Poiret One', cursive;">  
             
-            A escala de estresse de ansiedade de depressão - forma curta (DASS-21), é uma medida de autorrelato de 21 itens, projetada para avaliar a gravidade do sofrimento psicológico geral e os sintomas relacionados à depressão, ansiedade e estresse em adolescentes mais velhos (17 anos +).
+            A escala de estresse de ansiedade de depressão - forma curta (DASS-21),
+             é uma medida de autorrelato de 21 itens, projetada para avaliar a gravidade do sofrimento
+              psicológico geral e os sintomas relacionados à depressão,
+               ansiedade e estresse em adolescentes mais velhos (+17).<br><br>
+
+             
+<p2 style="color:red;font-weight: bold;">
+               Para iniciar o teste, clique no menu "Instruções", localizado na parte superior da página.
         </p2>
-    </div>
+<br><br>
+        Para calcular um teste realizado anteriormente, utilize a
+        <p2 style="font-size:25px;font-weight: bold;" id="daaa">
+     
+            Calculadora DASS-21.
+      </p2>
+<br><br><br>
+      <p2 >   Referência: Lovibond, S.H.; Lovibond, P.F. (1995). Manual for the Depression Anxiety Stress Scales (2nd ed.)
 
-    <br>    
-    <br>
-      <div style="display: flex; justify-content: center; align-items: center;background-color: #f3f3f3;border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-
-      <div style="margin-top:-20px;"id="testContent">
-          <p id="questionText"></p>
-          <p id="selectedAnswer"></p>
-          <audio id="audioPlayer"></audio>
-          <div id="alertMessage" style="display:none; color: red;"></div>
-      </div>
-      
-      <form id="dassForm">
-        <p2> Calculadora DASS-21</p2>
-           
-        <button type="button" onclick="processCSV()">Calcular</button>
-        <br>
-        <input type="file" id="csvFile" accept=".csv" required>
+      </p2>
+      <br><br>
+  <script>
+    document.getElementById('daaa').addEventListener('click', function() {
+        window.location.href = 'calculardass21.html';
+    });
+</script>
+<style>
+  #daaa {
+      font-size: 14px; /* Tamanho da fonte */
+      cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+      text-decoration: none; /* Remove sublinhado */
+      color:black; /* Cor do texto */
+      transition: color 0.3s; /* Animação de transição para a cor */
+  }
   
+  #daaa:hover {
+      color: #ffcc00; /* Cor ao passar o mouse */
+  }</style>
 
-    </form>
+
+        <br></p2>
+      </div>
+      <br><br>
+
+      
+    
+
 
  </div>
+<br>
+ 
     <script>
       // Função para mostrar os resultados
       function mostrarResultados() {
@@ -1297,7 +1354,6 @@ function playAudio() {
     
     
   
-
 
 
 
