@@ -1,608 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-  
-        <head>
-  
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação - Ivan Moriá Borges Rodrigues</title>
+    <style>
+        /* Estilo básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
-                <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-                <meta name="theme-color" content="#2d2b2b">
-                <meta name="apple-mobile-web-app-capable" content="yes">
-            <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
-            <meta name="theme-color" content="#2d2b2b">
-            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-                <meta name="description" content="Ivan Moriá">
-                <title>Ivan Moriá Borges Rodrigues</title>
-                <link rel="stylesheet" href="style.css">
-                <script src="script.js" defer></script> 
-                <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
-                <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
-                <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
-            
-                <script src="https://unpkg.com/wavesurfer.js"></script>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 200vh;
+            padding: 50px;
+        }
 
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #ff7eb3, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fade 3s ease-in-out infinite;
+        }
 
-            </head>
-            <body>
+        @keyframes fade {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
 
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-<div id="container-nav">
+        .content p {
+            margin: 20px 0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
 
-    <nav id="navbar-items">
- 
-
-<div style="display: flex; gap: 10px;">
-
-
-
-
-
-
-  <img  style="padding-left: 30px;padding-top:20px" src="https://hitwebcounter.com/counter/counter.php?page=16308682&style=0024&nbdigits=5&type=ip&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="0" />
-
-
-    </nav>
-
-</div>
- 
-<br>
-
-<div style = "right: 10px;" class="assinatura-container">
-    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
-        <div class="assinatura" id="assinatura">
-             <div  class="texto-animado" id="texto-animado">
-                Ivan Moriá Borges Rodrigues
-
-    
-    
-            </div>
-    
-
-            
-        </div>
-
-
-
-
-    </a></div>
-
-
-
-        <div class="button-container" >
-          <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
-            <svg
-           
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="22px"
-              height="22px"
-              class="btn-svg"
-            >
-              <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
-            </svg>
-              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
-              <g
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                id="SVGRepo_tracerCarrier"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <title>email [154#]</title>
-        
-                <defs></defs>
-                <g
-                  fill-rule="evenodd"
-                  fill="none"
-                  stroke-width="1"
-                  stroke="none"
-                  id="Page-1"
-                
-                  <g
-                    fill="#fff"
-                    transform="translate(-60.000000, -7521.000000)"
-                    id="Dribbble-Light-Preview"
-                  >
-                    <g transform="translate(56.000000, 160.000000)" id="icons">
-                      <path
-                        id="twitter-[#154]"
-                        d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
-                      ></path>
-                      
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-            
-          </button>
-          <button class="button flex-center" onclick="window.location.href='https://wa.me/5531984667554'">
-        
-            <svg xmlns="http://www.w3.org/2000/svg" 
-            width="32" viewBox="0 0 32 32" 
-            height="32" fill="none" 
-            fill="#fff"
-            class="svg-icon">
-            <style>
-              .svg-icon:hover path {
-                  fill: #000;
-              }
-          </style>
-            <path stroke-width="2"
-                stroke-linecap="round"
-                stroke="#fff" 
-                fill-rule="evenodd" 
-                d="M24.8868 19.1288c-1.0274-.1308-2.036-.3815-3.0052-.7467-.7878-.29-1.6724-.1034-2.276.48-.797.8075-2.0493.9936-2.9664.3258-1.4484-1.055-2.7233-2.3295-3.7783-3.7776-.6681-.9168-.4819-2.1691.3255-2.9659.5728-.6019.7584-1.4748.4802-2.2577-.3987-.98875-.6792-2.02109-.8358-3.07557-.2043-1.03534-1.1138-1.7807-2.1694-1.77778h-3.18289c-.60654-.00074-1.18614.25037-1.60035.69334-.40152.44503-.59539 1.03943-.53345 1.63555.344 3.31056 1.47164 6.49166 3.28961 9.27986 1.64878 2.5904 3.84608 4.7872 6.43688 6.4356 2.7927 1.797 5.9636 2.9227 9.2644 3.289h.1778c.5409.0036 1.0626-.2 1.4581-.569.444-.406.6957-.9806.6935-1.5822v-3.1821c.0429-1.0763-.7171-2.0185-1.7782-2.2046z" 
-                clip-rule="evenodd">
-            </path>
-        </svg>
-        
-          </button>
-          <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
-            <svg
-              viewBox="0 0 24 24"
-              class="btn-svg"
-              width="22px"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
-                  fill="#fff"
-                ></path>
-                <path
-                  d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
-                  fill="#fff"
-                ></path>
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
-                  fill="#fff"
-                ></path>
-              </g>
-            </svg>
-          </button>
-        
-          <button class="button flex-center"onclick="window.location.href='https://www.facebook.com/moriahivan/'">
-            <svg
-              fill="#fff"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xmlns="http://www.w3.org/2000/svg"
-              version="1.1"
-              class="btn-svg"
-              width="22px"
-              viewBox="0 -2 20 20"
-            >
-            <path d="M9 8H7V10H9V19H12V10H14.5L15 8H12V6.5C12 6 12 5 13 5H15V2H12.5C10 2 9 3.5 9 5.5V8Z" fill="#fff"/>
-          </svg>
-          
-              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
-              <g
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                id="SVGRepo_tracerCarrier"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <title>facebook [154#]</title>
-        
-                <defs></defs>
-                <g
-                  fill-rule="evenodd"
-                  fill="none"
-                  stroke-width="1"
-                  stroke="none"
-                  id="Page-1"
-                
-                  <g
-                    fill="#fff"
-                    transform="translate(-60.000000, -7521.000000)"
-                    id="Dribbble-Light-Preview"
-                  >
-                    <g transform="translate(56.000000, 160.000000)" id="icons">
-                      <path
-                        id="twitter-[#154]"
-                        d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
-                      ></path>
-                      
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-            
-          </button>
-        
-          <button class="button flex-center" onclick="window.location.href='https://github.com/ivanmoria'">
-            <svg
-              viewBox="0 0 20 20"
-              width="22px"
-              class="btn-svg"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              fill="#fff"
-              stroke="#fff"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <title>github [#fff142]</title>
-                <desc>Created with Sketch.</desc>
-                <defs></defs>
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
-                  <g
-                    id="Dribbble-Light-Preview"
-                    transform="translate(-140.000000, -7559.000000)"
-                    fill="#fff"
-                  >
-                    <g id="icons" transform="translate(56.000000, 160.000000)">
-                      <path
-                        d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
-                        id="github-[#fff142]"
-                      ></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </button>
-        
-          <button class="button flex-center"onclick="window.location.href='https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
-           
-            <svg
-              stroke="#fff"
-              fill="#fff"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xmlns="http://www.w3.org/2000/svg"
-              version="1.1"
-              class="btn-svg"
-              width="22px"
-              viewBox="0 -3 20 20"
-            >
-              <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
-              <g
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                id="SVGRepo_tracerCarrier"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <title>youtube [#fff168]</title>
-             
-                <defs></defs>
-                <g
-                  fill-rule="evenodd"
-                  fill="none"
-                  stroke-width="1"
-                  stroke="none"
-                  id="Page-1"
-                >
-                  <g
-                    fill="#fff"
-                    transform="translate(-300.000000, -7442.000000)"
-                    id="Dribbble-Light-Preview"
-                  >
-                    <g transform="translate(56.000000, 160.000000)" id="icons">
-                      <path
-                        id="youtube-[#fff168]"
-                        d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
-                      ></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </button>
-        </a>
-        
-        
-</div>
-    
-</div>
-
-
-
-
-
-
-<div class="wrapper">
-  <input class="hidden-trigger" id="toogle" type="checkbox">
-  <label class="circle" for="toogle">
-<svg viewBox="0 0 48 48" version="1.1" xml:space="preserve" height="48" width="48" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="svg">
-    <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC" height="48" width="48"></image>
-  </svg>
-  </label>
-  
-  <div class="subs">
-
-
-
-
-
-    
-    <button class="sub-circle" >
-      <input value="1" name="sub-circle" type="radio" id="sub1" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub1">
-       </label>
-    </button>
-    <button class="sub-circle" onclick="window.location.href='mirmt.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub2" class="hidden-sub-trigger">
-      <label   style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub2">
-        MIRMT</label>
-    </button>
-
-    <button class="sub-circle" onclick="window.location.href='media/documents/outros_htmls/chorodito.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub3" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 26px;font-family: 'Poiret One', cursive;"for="sub3">
-      Chorodito  </label>
-    </button>
-
-
-    
-    <button class="sub-circle" onclick="window.location.href='contato.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub4" class="hidden-sub-trigger">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub4">
-        Contato</label>
-    </button>
-
-    <button class="sub-circle"onclick="window.location.href='tecnicas.html'"style= "margin-left: -10px;">
-      <input class="hidden-sub-trigger" id="sub5" type="radio" name="sub-circle" value="1">
-      <label style="color:white; font-size: 30px;font-family: 'Poiret One', cursive;" for="sub5">
-Tec
-      </label>
-
-
-
-    </button>
-
-
-    <button class="sub-circle"onclick="window.location.href='projetos.html'"style= "margin-left: -10px;">
-      <input class="hidden-sub-trigger" id="sub6" type="radio" name="sub-circle" value="1">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub6">
-        Projetcs
-      </label>
-    </button>
-
-    <button class="sub-circle">
-      <input class="hidden-sub-trigger" id="sub7" type="radio" name="sub-circle" value="1">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub7">
-
-      </label>
-    </button>
-    <button class="sub-circle"onclick="window.location.href='references.html'">
-      <input class="hidden-sub-trigger" id="sub8" type="radio" name="sub-circle" value="1">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub8">
-        Refs
-      </label>
-    </button>
-   </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+        /* Fundo animado */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+        }
+    </style>
+</head>
 <body>
-  <div id="canvas-container"></div>
- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-<body>
-  <div id="canvas-container"></div>
-  <script>
-      // Função para impedir o recarregamento por pull-to-refresh
-      function preventPullToRefresh(element) {
-          let prevent = false;
+    <!-- Fundo animado -->
+    <div class="background"></div>
 
-          element.addEventListener('touchstart', function(e) {
-              if (e.touches.length !== 1) return;
-              const scrollY = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
-              prevent = (scrollY === 0);
-          });
+    <!-- Conteúdo principal -->
+    <h1>Ivan Moriá Borges Rodrigues</h1>
+    <div class="content">
+        <p>Eu sou Ivan Moriá Borges Rodrigues, músico multi-instrumentista, Musicoterapeuta com prática clínica há 7 anos, mestre em Neurociências pela UFMG e atualmente doutorando em Música pela mesma instituição.</p>
+        <p>Ingressei no doutorado em Música no ano de 2021, pela linha de pesquisa Educação Musical, sabendo que teria que adaptar meu projeto de pesquisa - relacionado a Musicoterapia - nesta nova linha.</p>
+        <p>No primeiro ano, cumpri os créditos obrigatórios e decidi migrar para a linha Sonologia, para ampliar algumas possibilidades que estava buscando na minha pesquisa...</p>
+        <p>Durante minha trajetória no curso busquei participar de eventos nacionais e internacionais, com comunicações orais e pôsteres...</p>
+        <p>Os frutos deste tipo de produção e participação em eventos internacionais são inúmeros. Por exemplo, após alguns dias após o congresso de Berlin 2024, recebi um e-mail do Prof. Jörg Fachner...</p>
+        <p>Como violoncelista, participo da Orquestra 415 de Música Antiga...</p>
+        <p>Como acordeonista, participo da Orquestra de Choro da UFMG...</p>
+        <p>Como bandolinista, já me apresentei como solista na Orquestra de Choro da UFMG...</p>
+    </div>
 
-          element.addEventListener('touchmove', function(e) {
-              if (prevent) {
-                  prevent = false;
-                  e.preventDefault();
-              }
-          });
-      }
+    <script>
+        // Selecionar os parágrafos
+        const paragraphs = document.querySelectorAll('.content p');
 
-      document.addEventListener('DOMContentLoaded', function() {
-          preventPullToRefresh(document);
-      });
+        // Função para verificar a posição dos elementos na tela
+        function animateOnScroll() {
+            const scrollTop = window.scrollY; // Posição de rolagem
+            const windowHeight = window.innerHeight; // Altura da janela
 
-      let num = 300;
-      let range = 6;
-      let ax = [];
-      let ay = [];
-      let ax2 = [];
-      let ay2 = [];
-      let ax3 = [];
-      let ay3 = [];
-      let ax4 = [];
-      let ay4 = [];
-      let ax5 = [];
-      let ay5 = [];
-      let ax6 = [];
-      let ay6 = [];
-      let explosion = false;
-      let explosionStrength = 8; // Reduzido para acalmar a explosão
+            paragraphs.forEach(paragraph => {
+                const paragraphTop = paragraph.getBoundingClientRect().top; // Distância do topo do elemento até a janela
 
-      function setup() {
-          let canvas = createCanvas(windowWidth, windowHeight);
-          canvas.parent('canvas-container');
-          for (let i = 0; i < num; i++) {
-         
-              ay[i] = height / 2;
-              ax2[i] = width / 2;
-              ay2[i] = height / 2;
+                // Se o parágrafo está visível, aplicar animação
+                if (paragraphTop < windowHeight - 100) {
+                    paragraph.style.opacity = 1;
+                    paragraph.style.transform = 'translateY(0)';
+                }
+            });
+        }
 
-              ay3[i] = height / 4;
-              ax4[i] = width / 8;
-              ay4[i] = height / 2;
-              ax5[i] = width / 2;
-              ay5[i] = height / 8;
-              ax6[i] = width / -6;
-              ay6[i] = height / -6;
-          }
-          frameRate(60); // Ajustado para um valor mais comum
-      }
+        // Adicionar evento de scroll
+        window.addEventListener('scroll', animateOnScroll);
 
-      function draw() {
-          background(43);
-
-          // Atualiza as posições
-          updatePositions();
-
-          // Mistura o movimento aleatório com a posição do mouse
-          updateWithMouse(ax, ay);
-          updateWithMouse(ax2, ay2);
-          updateWithMouse(ax3, ay3);
-          updateWithMouse(ax4, ay4);
-          updateWithMouse(ax5, ay5);
-          updateWithMouse(ax6, ay6);
-
-          // Constrange as posições
-          constrainPositions();
-
-          // Desenha as linhas
-          drawLines(ax, ay, color(1000, 1000, 1000, 1000));
-          drawLines(ax2, ay2, color(650, 1000, 1000, 1000));
-          drawLines(ax3, ay3, color(22, 100, 120, 1000));
-          drawLines(ax4, ay4, color(22, 100, 120, 1000));
-          drawLines(ax5, ay5, color(22, 100, 120, 1000));
-          drawLines(ax6, ay6, color(5440, 1000, 1000, 1000));
-
-          // Se uma explosão estiver ativa
-          if (explosion) {
-              explodeLines();
-          }
-      
-    }
-
-      function updatePositions() {
-          for (let i = 0; i < num; i++) {
-              ax[i - 1] = ax[i];
-              ay[i - 1] = ay[i];
-              ax2[i - 1] = ax2[i];
-              ay2[i - 1] = ay2[i];
-              ax3[i - 1] = ax3[i];
-              ay3[i - 1] = ay3[i];
-              ax4[i - 1] = ax4[i];
-              ay4[i - 1] = ay4[i];
-              ax5[i - 1] = ax5[i];
-              ay5[i - 1] = ay5[i];
-              ax6[i - 1] = ax6[i];
-              ay6[i - 1] = ay6[i];
-          }
-      }
-
-      function updateWithMouse(ax, ay) {
-          ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.2); // Reduzido para 0.02
-          ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.02); // Reduzido para 0.02
-          ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 31]) * 30.02); // Reduzido para 0.02
-          ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.02); // Reduzido para 0.02
-          ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 30.02); // Reduzido para 0.02
-          ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 31]) * 30.02); // Reduzido para 0.02
-          ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.02); // Reduzido para 0.02
-          ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 313]) * 30.02); // Reduzido para 0.02
-      }
-
-      function constrainPositions() {
-          for (let i = 0; i < num; i++) {
-              ax[i] = constrain(ax[i], 0, width);
-              ay[i] = constrain(ay[i], 0, height);
-              ax2[i] = constrain(ax2[i], 0, width);
-              ay2[i] = constrain(ay2[i], 0, height);
-              ax3[i] = constrain(ax3[i], 0, width);
-              ay3[i] = constrain(ay3[i], 0, height);
-              ax4[i] = constrain(ax4[i], 0, width);
-              ay4[i] = constrain(ay4[i], 0, height);
-              ax5[i] = constrain(ax5[i], 0, width);
-              ay5[i] = constrain(ay5[i], 0, height);
-              ax6[i] = constrain(ax6[i], 0, width);
-              ay6[i] = constrain(ay6[i], 0, height);
-          }
-      }
-
-      function drawLines(ax, ay, color) {
-          for (let i = 1; i < num; i++) {
-              stroke(color.levels[0], color.levels[1], color.levels[2], 2 * (i + 4));
-              line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
-          }
-      }
-
-      function explodeLines() {
-          for (let i = 0; i < num; i++) {
-              let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
-              ax[i] += 2*cos(angle) * explosionStrength * 0.5; // Reduzido
-              ay[i] += 2*sin(angle) * explosionStrength * 0.5; // Reduzido
-
-              let angle2 = atan2(ay2[i] - mouseY, ax2[i] - mouseX);
-              ax2[i] += 2 * cos(angle2) * explosionStrength * 0.5; // Reduzido
-              ay2[i] += 2 * sin(angle2) * explosionStrength * 0.5; // Reduzido
-
-              let angle3 = atan2(ay3[i] - mouseY, ax3[i] - mouseX);
-              ax3[i] += 2 * cos(angle3) * explosionStrength * 0.5; // Reduzido
-              ay3[i] += 2 * sin(angle3) * explosionStrength * 0.5; // Reduzido
-
-              let angle4 = atan2(ay5[i] - mouseY, ax5[i] - mouseX);
-              ax5[i] += 2 * cos(angle4) * explosionStrength * 0.5; // Reduzido
-              ay5[i] += 2 * sin(angle4) * explosionStrength * 0.5; // Reduzido
-
-              let angle5 = atan2(ay6[i] - mouseY, ax6[i] - mouseX);
-              ax6[i] += 2 * cos(angle5) * explosionStrength * 0.5; // Reduzido
-              ay6[i] += 2 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
-          }
-
-          // Redefine a explosão após um tempo
-          if (frameCount % 10 === 0) {
-              explosionStrength *= 0.95; // Diminui a força da explosão ao longo do tempo
-          }
-
-          // Para a explosão após um tempo
-          if (explosionStrength < 0.5) {
-              explosion = false;
-              explosionStrength = 2; // Reseta a força para o próximo clique
-          }
-      }
-
-      function mousePressed() {
-          explosion = true; // Ativa a explosão
-      }
-  </script>
-
-
+        // Chamar a função na primeira vez
+        animateOnScroll();
+    </script>
 </body>
 </html>
