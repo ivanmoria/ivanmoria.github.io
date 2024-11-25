@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Áudio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+        audio {
+            margin: 10px 0;
+            width: 80%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .button5 {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button5:hover {
+            background-color: #e0e0e0;
+        }
+        .selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste de Áudio</h1>
+
+    <div id="participant-info">
+        <h2>Informações do Participante</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required /><br>
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" required /><br>
+        <label for="data">Data:</label>
+        <input type="date" id="data" required /><br>
+        <button class="button5" onclick="iniciarTeste()">Iniciar</button>
+    </div>
+
+    <div id="test-container" class="hidden">
+        <div class="container">
+            <img id="image" src="" alt="Imagem do áudio" />
+            <audio id="audio" controls preload="auto"></audio>
+            <div>
+                <p id="pergunta">Pergunta 1: Como você avalia este áudio?</p>
+                <div class="buttons">
+                    <button class="button5" id="button-1" onclick="selectAnswer(1)">1</button>
+                    <button class="button5" id="button-2" onclick="selectAnswer(2)">2</button>
+                    <button class="button5" id="button-3" onclick="selectAnswer(3)">3</button>
+                    <button class="button5" id="button-4" onclick="selectAnswer(4)">4</button>
+                    <button class="button5" id="button-5" onclick="selectAnswer(5)">5</button>
+                </div>
+                <button class="button5" onclick="proximoAudio()">Ok</button>
+            </div>
+        </div>
+        <button class="button5 hidden" id="exportar-btn" onclick="exportarCSV()">Exportar Resultados</button>
+    </div>
+
+    <script>
+        const dados = [
+            { 
+                imagem: "trecho1.png", 
+                audio: "gustavo_take_2.wav", 
+                perguntas: [
+                    "Como você avalia este áudio?",
+                    "O áudio está claro para você?",
+                    "Você consegue ouvir todos os detalhes?",
+                ]
+            },
+            { 
+                imagem: "trecho2.png", 
+                audio: "gustavo_take_2.wav", 
+                perguntas: [
+                    "Como você avalia este áudio?",
+                    "O áudio está claro para você?",
+                    "Você consegue ouvir todos os detalhes?",
+                    "A voz está agradável?"
+                ]
+            },
+            { 
+                imagem: "imagem3.jpg", 
+                audio: "audio3.mp3", 
+                perguntas: [
+                    "Como você avalia este áudio?",
+                    "O áudio está claro para você?",
+                    "Você consegue ouvir todos os detalhes?",
+                ]
+            }
+        ];
+
+        let indexAtual = 0;
+        let perguntaAtual = 0;
+        const respostas = [];
+        let notaSelecionada = null;
+        const participante = {};
+
+        function iniciarTeste() {
+            const nome = document.getElementById("nome").value.trim();
+            const idade = document.getElementById("idade").value.trim();
+            const data = document.getElementById("data").value.trim();
+
+            if (!nome || !idade || !data) {
+                alert("Por favor, preencha todas as informações do participante.");
+                return;
+            }
+
+            participante.nome = nome;
+            participante.idade = idade;
+            participante.data = data;
+
+            document.getElementById("participant-info").classList.add("hidden");
+            document.getElementById("test-container").classList.remove("hidden");
+            carregarDados(indexAtual, perguntaAtual);
+        }
+
+        function carregarDados(index, perguntaIndex) {
+            if (index >= dados.length) {
+                alert("Fim do teste! Você pode exportar os resultados.");
+                document.getElementById("exportar-btn").classList.remove("hidden");
+                return;
+            }
+
+            const audioData = dados[index];
+            document.getElementById("image").src = audioData.imagem;
+            const audioElement = document.getElementById("audio");
+            audioElement.src = audioData.audio;
+            audioElement.play();
+
+            document.getElementById("pergunta").innerText = `Pergunta ${perguntaIndex + 1}: ${audioData.perguntas[perguntaIndex]}`;
+
+            notaSelecionada = null;
+            atualizarBotoes();
+        }
+
+        function atualizarBotoes() {
+            for (let i = 1; i <= 5; i++) {
+                const button = document.getElementById(`button-${i}`);
+                button.classList.toggle("selected", notaSelecionada === i);
+            }
+        }
+
+        function selectAnswer(nota) {
+            notaSelecionada = nota;
+            atualizarBotoes();
+        }
+
+        function proximoAudio() {
+            if (notaSelecionada === null) {
+                alert("Por favor, selecione uma nota antes de continuar.");
+                return;
+            }
+            const audioData = dados[indexAtual];
+            respostas.push({
+                pergunta: perguntaAtual + 1,
+                audio: audioData.audio,
+                nota: notaSelecionada
+            });
+
+            perguntaAtual++;
+
+            if (perguntaAtual >= audioData.perguntas.length) {
+                perguntaAtual = 0;
+                indexAtual++;
+            }
+
+            carregarDados(indexAtual, perguntaAtual);
+        }
+
+        function exportarCSV() {
+            if (respostas.length === 0) {
+                alert("Nenhuma resposta foi registrada.");
+                return;
+            }
+            let csvContent = "data:text/csv;charset=utf-8,Número da Pergunta,Nome do Áudio,Nota\n";
+            respostas.forEach(item => {
+                csvContent += `${item.pergunta},${item.audio},${item.nota}\n`;
+            });
+
+            csvContent += `\nInformações do Participante\nNome:${participante.nome},Idade:${participante.idade},Data:${participante.data}`;
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${participante.nome.replace(/\s+/g, "_")}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        carregarDados(indexAtual, perguntaAtual);
+    </script>
+</body>
+</html>
