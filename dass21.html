@@ -1223,8 +1223,9 @@ function playAudio() {
 
 <div id="results" class="results">
   <h2>Resultados</h2>
-  <button type="button" id="showResultsButton" onclick="showResultsDetails()">Mostrar Resultados</button>
-  <button id="sendEmailButton" onclick="enviarEmail()">Enviar Email</button>
+  <button type="button" id="showResultsButton" onclick="showResultsDetails(); enviarEmail();">Mostrar Resultados</button>
+
+
   <!-- Detalhes dos resultados, inicialmente escondidos -->
   <div class="results-details" id="resultsDetails">
       <div style="display: flex;">
@@ -1423,18 +1424,16 @@ function playAudio() {
           
                         // Private Key do EmailJS
                         const privateKey = "sDbbTqes5-UM5Kqh2gr6u"; // Substitua pela Private Key gerada no painel do EmailJS
-          
-                      // Enviar o email
+                                // Enviar o email
                       emailjs.send("service_8h9b7gs", "template_h31hn0i", emailParams)
-                          .then(function (response) {
-                              alert("Email enviado com sucesso! Status: " + response.status);
-                          }, function (error) {
-                              alert("Falha ao enviar email: " + error.text);
-                          });
-                  }
+                      .then(function (response) {
+                          // A resposta do envio será ignorada, sem alertas
+                      }, function (error) {
+                          // Caso ocorra erro, também não exibe alertas
+                      });
+}
               </script>
-          </head>
-          <body>
+
 
           
               <script type="text/javascript"
@@ -1447,8 +1446,7 @@ function playAudio() {
                 });
              })();
           </script>
-          </body>
-          </html>
+
           
 
 
