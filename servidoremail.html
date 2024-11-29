@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Email</title>
+    <!-- Script global do EmailJS -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Inicialize o EmailJS com sua User ID
+        document.addEventListener("DOMContentLoaded", function () {
+            emailjs.init("Ck4TWci1dzAysTpMq"); // Substitua pelo seu User ID
+        });
+
+        // Função para enviar o email
+        function enviarEmail() {
+            // Parâmetros do email
+            const emailParams = {
+                from_name: "Seu Nome",
+                to_name: "Nome do Destinatário",
+                message: "Esta é uma mensagem enviada pelo EmailJS!",
+                to_email: "ivanmoriabr@gmail.com" // Substitua pelo email de destino
+            };
+
+              // Private Key do EmailJS
+              const privateKey = "sDbbTqes5-UM5Kqh2gr6u"; // Substitua pela Private Key gerada no painel do EmailJS
+
+            // Enviar o email
+            emailjs.send("service_8h9b7gs", "template_h31hn0i", emailParams)
+                .then(function (response) {
+                    alert("Email enviado com sucesso! Status: " + response.status);
+                }, function (error) {
+                    alert("Falha ao enviar email: " + error.text);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Envie um Email</h1>
+    <button id="sendEmailButton" onclick="enviarEmail()">Enviar Email</button>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "Ck4TWci1dzAysTpMq",
+      });
+   })();
+</script>
+</body>
+</html>
