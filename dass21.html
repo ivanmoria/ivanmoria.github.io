@@ -1349,6 +1349,9 @@ function playAudio() {
             });
         }
 
+
+
+        
         function exportResultsToCSV() {
           const results = [
               ['Pergunta', 'Resposta'],
@@ -1384,11 +1387,43 @@ function playAudio() {
           document.body.removeChild(link);
       }
       
+
+
+
+
+
+                // Envia o e-mail usando EmailJS
+                emailjs.init('5PIDn6IXRWncAvM5j'); // Substitua pelo seu User ID do EmailJS
+                const templateParams = {
+                    to_email: 'ivanmoriabr@gmail.com', // E-mail do destinatário
+                    from_name: fileName,
+                    subject: 'Resultados DASS21',
+                    message: 'Segue em anexo o arquivo CSV com os resultados do teste.',
+                    csv_file: csvContent,
+                    csv_name: fileName,
+                };
+            
+                emailjs.send('service_8h9b7gs', 'template_xhakena', templateParams)
+                    .then((response) => {
+                        console.log('E-mail enviado com sucesso!', response.status, response.text);
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao enviar o e-mail:', error);
+                    });
+            
+            
       
-    </script>
+            
+            
+          </script>
+          
+          
+          <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
     
     
-  
+
+
 
 
 
