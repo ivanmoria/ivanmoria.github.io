@@ -1,0 +1,28 @@
+name: Update Last Modified Date
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-date:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Get last commit date
+        run: echo "::set-output name=date::$(git log -1 --format=%cs)"
+        id: get_date
+
+      - name: Update last-modified file
+        run: echo "LAST_UPDATED=$(date '+%Y-%m-%d')" > last-modified.txt
+
+      - name: Commit updated date
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add last-modified.txt
+          git commit -m "Update last modified date"
+          git push
