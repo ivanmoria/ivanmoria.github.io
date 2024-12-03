@@ -24,25 +24,23 @@
                 <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
             
                 <script src="https://unpkg.com/wavesurfer.js"></script>
+<style>body {
+  user-select: none; /* Impede seleção de texto em navegadores modernos */
+}</style>
+<script>document.addEventListener("contextmenu", function(e) {
+  e.preventDefault(); // Bloqueia o menu de contexto
+});
 
-
+document.addEventListener("copy", function(e) {
+  e.preventDefault(); // Bloqueia a ação de copiar
+});
+</script>
             </head>
             <body>
 
 
 <div id="container-nav">
 
-    <nav id="navbar-items">
- 
-
-<div style="display: flex; gap: 10px;">
-
-
-
-
-
-
-  <img  style="padding-left: 30px;padding-top:20px" src="https://hitwebcounter.com/counter/counter.php?page=16308682&style=0024&nbdigits=5&type=ip&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="0" />
 
 
     </nav>
@@ -51,14 +49,17 @@
  
 <br>
 
-<div style = "right: 10px;" class="assinatura-container">
+<div style = "right: 10px; bottom:36%;" class="assinatura-container2">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
-        <div class="assinatura" id="assinatura">
+        <div class="assinatura2" id="assinatura">
              <div  class="texto-animado" id="texto-animado">
-                Ivan Moriá Borges Rodrigues
+Ivan Moriá Borges Rodrigues
 
     
     
+<br>
+
+
             </div>
     
 
@@ -72,7 +73,7 @@
 
 
 
-        <div class="button-container" >
+        <div class="button-container2" >
           <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
             <svg
            
@@ -327,79 +328,98 @@
 
 
 
-<div class="wrapper">
-  <input class="hidden-trigger" id="toogle" type="checkbox">
-  <label class="circle" for="toogle">
-<svg viewBox="0 0 48 48" version="1.1" xml:space="preserve" height="48" width="48" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="svg">
-    <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAbElEQVR4Ae3XwQnFQAiE4eVVsGAP1mkPFjwvQvYSWCQYCYGZv4Dv5MGB5ghcIiDQI+kCftCzNsAR8y5gYu2rwCBAgMBTgEC3rek2yQEtAZoDjso8AyaKexmIDJUZD40AAQIE0gwx449GgMC9/t0b7GTsa7J+AAAAAElFTkSuQmCC" height="48" width="48"></image>
-  </svg>
-  </label>
+
+
+
+
+<style>
+  /* From Uiverse.io by biswacpcode */ 
+.button1 {
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button1::before {
+  margin-left: auto;
+}
+
+.button1::after, .button1::before {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #ffffff;
+  display: block;
+  transition: 0.5s;
+}
+
+.button1:hover::after, .button1:hover::before {
+  width: 100%;
+}
+
+.button1-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;  /* Alinha os botões verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;     /* Centraliza verticalmente */
+  gap: 10px;               /* Espaço entre os botões */
+  top:0%;
+
+
+}
+.button1 label {
+  color: white;
+  font-size: 25px;
+  font-family: 'Poiret One', cursive;
+}
+
+/* Adiciona um efeito visual ao passar o mouse */
+.button1:hover {
+  background-color: #00000093;
+}
+</style>
+<div class="wrapper" style="top:29%;">
+
+<div class="button1-container">
+
+
+  <button class="button1" onclick="window.location.href='mirmt.html'">
+      <label>MIRMT</label>
+  </button>
+
+  <button class="button1" onclick="window.location.href='references.html'">
+    <label>Referências</label>
+</button>
+
+<button class="button1" onclick="window.location.href='projetos.html'">
+  <label>Projetos</label>
+</button>
+
+
+  <button class="button1" onclick="window.location.href='media/documents/outros_htmls/chorodito.html'">
+      <label>Chorodito</label>
+  </button>
+
+
   
-  <div class="subs">
 
 
+  <button class="button1" onclick="window.location.href='dass21.html'">
+    <label>DASS21</label>
+</button>
 
-
-
-    
-    <button class="sub-circle" onclick="window.location.href='dass21.html'">
-      <input value="1" name="sub-circle" type="radio" id="sub1" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub1">
-      DASS-21 </label>
-    </button>
-    <button class="sub-circle" onclick="window.location.href='mirmt.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub2" class="hidden-sub-trigger">
-      <label   style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub2">
-        MIRMT</label>
-    </button>
-
-    <button class="sub-circle" onclick="window.location.href='media/documents/outros_htmls/chorodito.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub3" class="hidden-sub-trigger">
-      <label style="color:white; font-size: 26px;font-family: 'Poiret One', cursive;"for="sub3">
-      Chorodito  </label>
-    </button>
-
-
-    
-    <button class="sub-circle" onclick="window.location.href='contato.html'"style= "margin-left: -10px;">
-      <input value="1" name="sub-circle" type="radio" id="sub4" class="hidden-sub-trigger">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub4">
-        Contato</label>
-    </button>
-
-    <button class="sub-circle"onclick="window.location.href='tecnicas.html'"style= "margin-left: -10px;">
-      <input class="hidden-sub-trigger" id="sub5" type="radio" name="sub-circle" value="1">
-      <label style="color:white; font-size: 30px;font-family: 'Poiret One', cursive;" for="sub5">
-Tec
-      </label>
-
-
-
-    </button>
-
-
-    <button class="sub-circle"onclick="window.location.href='projetos.html'"style= "margin-left: -10px;">
-      <input class="hidden-sub-trigger" id="sub6" type="radio" name="sub-circle" value="1">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub6">
-        Projects
-      </label>
-    </button>
-
-    <button class="sub-circle" onclick="window.location.href='tte.html'">
-      <input class="hidden-sub-trigger" id="sub7" type="radio" name="sub-circle" value="1">
-      <label style="color:white; font-size: 16px;font-family: 'Poiret One', cursive;"for="sub7">
-TTE
-      </label>
-    </button>
-    <button class="sub-circle"onclick="window.location.href='references.html'">
-      <input class="hidden-sub-trigger" id="sub8" type="radio" name="sub-circle" value="1">
-      <label style="margin-top: 0px;color:white; font-size: 30px;font-family: 'Poiret One', cursive;"for="sub8">
-        Refs
-      </label>
-    </button>
-   </div>
+  <button class="button1" onclick="window.location.href='contato.html'">
+    <label>Contato</label>
+</button>
 </div>
 
+
+</div>
 
 
 
@@ -442,7 +462,7 @@ TTE
           preventPullToRefresh(document);
       });
 
-      let num = 300;
+      let num = 30;
       let range = 6;
       let ax = [];
       let ay = [];
@@ -462,25 +482,25 @@ TTE
       function setup() {
           let canvas = createCanvas(windowWidth, windowHeight);
           canvas.parent('canvas-container');
-          for (let i = 0; i < num; i++) {
+          for (let i = 10; i < num; i++) {
          
-              ay[i] = height / 2;
-              ax2[i] = width / 2;
-              ay2[i] = height / 2;
+              ay[i] = height * 2;
+              ax2[i] = width * 2;
+              ay2[i] = height * 2;
 
-              ay3[i] = height / 4;
-              ax4[i] = width / 8;
-              ay4[i] = height / 2;
-              ax5[i] = width / 2;
-              ay5[i] = height / 8;
-              ax6[i] = width / -6;
-              ay6[i] = height / -6;
+              ay3[i] = height * 2;
+              ax4[i] = width * 2;
+              ay4[i] = height * 2;
+              ax5[i] = width * 2;
+              ay5[i] = height * 2;
+              ax6[i] = width * 2;
+              ay6[i] = height * 2;
           }
           frameRate(60); // Ajustado para um valor mais comum
       }
 
       function draw() {
-          background(43);
+          background( 183);
 
           // Atualiza as posições
           updatePositions();
@@ -497,12 +517,12 @@ TTE
           constrainPositions();
 
           // Desenha as linhas
-          drawLines(ax, ay, color(1000, 1000, 1000, 1000));
-          drawLines(ax2, ay2, color(650, 1000, 1000, 1000));
-          drawLines(ax3, ay3, color(22, 100, 120, 1000));
-          drawLines(ax4, ay4, color(22, 100, 120, 1000));
-          drawLines(ax5, ay5, color(22, 100, 120, 1000));
-          drawLines(ax6, ay6, color(5440, 1000, 1000, 1000));
+          drawLines(ax, ay, color(10, 10, 10, 10));
+          drawLines(ax2, ay2, color(10, 10, 10, 10));
+          drawLines(ax3, ay3, color(10, 10, 10, 10));
+          drawLines(ax4, ay4, color(10, 10, 10, 10));
+          drawLines(ax5, ay5,color(10, 10, 10, 10));
+          drawLines(ax6, ay6, color(10, 10, 10, 10));
 
           // Se uma explosão estiver ativa
           if (explosion) {
@@ -527,29 +547,39 @@ TTE
               ay6[i - 1] = ay6[i];
           }
       }
-
       function updateWithMouse(ax, ay) {
-          ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.2); // Reduzido para 0.02
-          ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.02); // Reduzido para 0.02
-          ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 31]) * 30.02); // Reduzido para 0.02
-          ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.02); // Reduzido para 0.02
-          ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 30.02); // Reduzido para 0.02
-          ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 31]) * 30.02); // Reduzido para 0.02
-          ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.02); // Reduzido para 0.02
-          ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 313]) * 30.02); // Reduzido para 0.02
-      }
+        // Aplique um fator de suavização entre o mouse e as linhas.
+        ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.105);  // Ajuste para 0.05
+        ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.05);  // Ajuste para 0.05
+        
+        ax2[num - 1] += (random(-range, range) + (mouseX - ax2[num - 1]) * 0.105);  // Ajuste para 0.05
+        ay2[num - 1] += (random(-range, range) + (mouseY - ay2[num - 1]) * 0.05);  // Ajuste para 0.05
+    
+        ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 1]) * 0.05);  // Ajuste para 0.05
+        ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.05);  // Ajuste para 0.05
+    
+        ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 0.05);  // Ajuste para 0.05
+        ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 1]) * 0.05);  // Ajuste para 0.05
+    
+        ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.05);  // Ajuste para 0.05
+        ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 1]) * 0.05);  // Ajuste para 0.05
+    
+        ax6[num - 1] += (random(-range, range) + (mouseX - ax6[num - 1]) * 0.05);  // Ajuste para 0.05
+        ay6[num - 1] += (random(-range, range) + (mouseY - ay6[num - 1]) * 0.05);  // Ajuste para 0.05
+    }
+    
 
       function constrainPositions() {
           for (let i = 0; i < num; i++) {
-              ax[i] = constrain(ax[i], 0, width);
-              ay[i] = constrain(ay[i], 0, height);
+              ax[i] = constrain(ax[i], 20, width);
+              ay[i] = constrain(ay[i], 20, height);
               ax2[i] = constrain(ax2[i], 0, width);
               ay2[i] = constrain(ay2[i], 0, height);
-              ax3[i] = constrain(ax3[i], 0, width);
+              ax3[i] = constrain(ax3[i], 20, width);
               ay3[i] = constrain(ay3[i], 0, height);
-              ax4[i] = constrain(ax4[i], 0, width);
+              ax4[i] = constrain(ax4[i], 20, width);
               ay4[i] = constrain(ay4[i], 0, height);
-              ax5[i] = constrain(ax5[i], 0, width);
+              ax5[i] = constrain(ax5[i], 20, width);
               ay5[i] = constrain(ay5[i], 0, height);
               ax6[i] = constrain(ax6[i], 0, width);
               ay6[i] = constrain(ay6[i], 0, height);
@@ -557,11 +587,13 @@ TTE
       }
 
       function drawLines(ax, ay, color) {
-          for (let i = 1; i < num; i++) {
-              stroke(color.levels[0], color.levels[1], color.levels[2], 2 * (i + 4));
-              line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
-          }
-      }
+        for (let i = 1; i < num; i++) {
+            // Diminuindo a intensidade das cores e aumentando a opacidade
+            stroke(color.levels[30] * 0.2, color.levels[1] * 0.2, color.levels[2] * 0.2, 20); // Opacidade maior
+            line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+        }
+    }
+    
 
       function explodeLines() {
           for (let i = 0; i < num; i++) {
@@ -574,25 +606,25 @@ TTE
               ay2[i] += 2 * sin(angle2) * explosionStrength * 0.5; // Reduzido
 
               let angle3 = atan2(ay3[i] - mouseY, ax3[i] - mouseX);
-              ax3[i] += 2 * cos(angle3) * explosionStrength * 0.5; // Reduzido
-              ay3[i] += 2 * sin(angle3) * explosionStrength * 0.5; // Reduzido
+              ax3[i] += 1 * cos(angle3) * explosionStrength * 0.5; // Reduzido
+              ay3[i] += 1 * sin(angle3) * explosionStrength * 0.5; // Reduzido
 
               let angle4 = atan2(ay5[i] - mouseY, ax5[i] - mouseX);
-              ax5[i] += 2 * cos(angle4) * explosionStrength * 0.5; // Reduzido
-              ay5[i] += 2 * sin(angle4) * explosionStrength * 0.5; // Reduzido
+              ax5[i] += 1 * cos(angle4) * explosionStrength * 0.5; // Reduzido
+              ay5[i] += 1 * sin(angle4) * explosionStrength * 0.5; // Reduzido
 
               let angle5 = atan2(ay6[i] - mouseY, ax6[i] - mouseX);
-              ax6[i] += 2 * cos(angle5) * explosionStrength * 0.5; // Reduzido
-              ay6[i] += 2 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
+              ax6[i] += 1 * cos(angle5) * explosionStrength * 0.5; // Reduzido
+              ay6[i] += 1 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
           }
 
           // Redefine a explosão após um tempo
           if (frameCount % 10 === 0) {
-              explosionStrength *= 0.95; // Diminui a força da explosão ao longo do tempo
+              explosionStrength *= 0.89; // Diminui a força da explosão ao longo do tempo
           }
 
           // Para a explosão após um tempo
-          if (explosionStrength < 0.5) {
+          if (explosionStrength < 0.1) {
               explosion = false;
               explosionStrength = 2; // Reseta a força para o próximo clique
           }

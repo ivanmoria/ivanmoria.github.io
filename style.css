@@ -576,6 +576,27 @@ width: 35px;
   transform: translateY(-50%) rotate(90deg); /* Rotaciona o texto em 90 graus e centraliza verticalmente */
 
 }
+.assinatura-container2 {
+  position: fixed; /* Define o posicionamento fixo */
+  left: 50%; /* Posiciona horizontalmente no centro da tela */
+  top: 87%; /* Posiciona verticalmente no centro da tela */
+  transform: translate(-25%, 25%); /* Ajusta o centro do elemento para o meio da tela */
+  display: inline-block; /* Permite o alinhamento lado a lado */
+  z-index: 1000; /* Garante que a assinatura esteja acima de outros conteúdos */
+}
+
+
+.assinatura2 {
+  font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.836);
+  white-space: nowrap; /* Mantém o texto em uma linha */
+  overflow: hidden; /* Esconde o conteúdo que excede a largura */
+  border-right: .15em solid transparent; /* Efeito de cursor inicialmente invisível */
+  display: block; /* Para que o cursor se aplique corretamente */
+  animation: escrever 4s steps(40, end) forwards, piscar-cursor .5s step-end infinite;
+  transform-origin: left top; /* Define o ponto de origem da rotação */
+}
 
 .assinatura {
   font-family: "Rock Salt", cursive; /* Aplica a fonte Rock Salt */
@@ -588,8 +609,6 @@ width: 35px;
   animation: escrever 4s steps(40, end) forwards, piscar-cursor .5s step-end infinite;
   transform-origin: left top; /* Define o ponto de origem da rotação */
 }
-
-
 
 @keyframes escrever {
   from {
@@ -619,6 +638,16 @@ width: 35px;
   z-index: 1000;
   margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
 }
+.button-container2 {
+  position: fixed; /* Define o posicionamento fixo */
+  left: 50%; /* Posiciona horizontalmente no centro da tela */
+  bottom: 15%; /* Posiciona verticalmente na parte inferior */
+  transform: translateX(-50%) translateY(50%); /* Ajusta o centro do elemento para o meio da tela */
+  display: flex; /* Permite o alinhamento lado a lado */
+  z-index: 1000; /* Garante que o botão esteja acima de outros conteúdos */
+  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
+}
+
 .setting-container {
   position: fixed; /* Define o posicionamento fixo */
   top: 1px; /* Alinha com a assinatura verticalmente */
@@ -1275,7 +1304,22 @@ iframe {
   --af-white: #f3f3f3;
   --ch-white: #e1e1e1;
 }
-
+.wrapper2 {
+  position: absolute;
+  top: 5.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1010px;
+  z-index: 9999;
+  height: 1010px;
+  --black: #000000;
+  --ch-black: #141414;
+  --eer-black: #1b1b1b;
+  --night-rider: #2e2e2e;
+  --white: #ffffff;
+  --af-white: #f3f3f3;
+  --ch-white: #e1e1e1;
+}
 footer .demo {
   position: absolute;
   bottom: 10px;
