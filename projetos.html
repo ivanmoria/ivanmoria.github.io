@@ -491,13 +491,70 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write;
 </div>
 
 
+<style>
+  /* From Uiverse.io by biswacpcode */ 
+.button1 {
+  color: white;
+  text-decoration: none;
+  font-size: 25px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+
+.button1::before {
+  margin-left: auto;
+}
+
+.button1::after, .button1::before {
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #ffffff;
+  display: block;
+  transition: 0.5s;
+}
+
+.button1:hover::after, .button1:hover::before {
+  width: 100%;
+}
+
+.button1-container {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;  /* Alinha os botões verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;     /* Centraliza verticalmente */
+  gap: 10px;               /* Espaço entre os botões */
+  top:0%;
+
+
+}
+.button1 label {
+  color: white;
+  font-size: 25px;
+  font-family: 'Poiret One', cursive;
+}
+
+/* Adiciona um efeito visual ao passar o mouse */
+.button1:hover {
+  background-color: #00000093;
+}
+</style>
+
 
         </div>
         <div class="midddle-column">
 
 
-            
-          <p2 style="margin-top: 200px; margin-left: 0px"> Chorodito</p2>
+          <button class="button1" onclick="window.location.href='media/documents/outros_htmls/chorodito.html'">
+            <label> <p2 style="margin-top: 200px; margin-left: 0px"> Chorodito</p2></label>
+        </button>
+       
+         
+
+
 <br>
     <br>
     <div class="containerr" style="margin-right: 50px; margin-bottom: 15px;">
