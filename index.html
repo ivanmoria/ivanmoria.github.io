@@ -24,10 +24,33 @@
                 <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
             
                 <script src="https://unpkg.com/wavesurfer.js"></script>
-<style>body {
+<style>
+  body {
   user-select: none; /* Impede seleção de texto em navegadores modernos */
-}</style>
-<script>document.addEventListener("contextmenu", function(e) {
+}
+/* Mudar a cor do texto e fundo quando selecionado */
+::selection {
+  
+  background-color: white; /* Cor de fundo */
+  color: #333333; /* Cor do texto */
+}
+
+/* Para navegadores mais antigos, você pode adicionar os prefixos */
+::-moz-selection {
+  background-color: white;
+  color: #333333;
+}
+
+::-webkit-selection {
+  background-color: white;
+  color: #333333;
+}
+
+
+
+</style>
+<script>
+  document.addEventListener("contextmenu", function(e) {
   e.preventDefault(); // Bloqueia o menu de contexto
 });
 

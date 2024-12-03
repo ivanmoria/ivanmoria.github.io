@@ -218,16 +218,15 @@ function hidePreview() {
 <body>
 
   <div class="assinatura-container">
-    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
+    <a href="#" id="assinatura-link" onmouseover="animateSignature()" onclick="window.location.href='index.html'; return false;"> <!-- Redireciona ao clicar -->
         <div class="assinatura" id="assinatura">
           <div class="texto-animado" id="texto-animado">
-ivan moriá borges rodrigues
-    </div>
-    </div>
-
-</a>
-
-</div>
+            ivan moriá borges rodrigues
+          </div>
+        </div>
+    </a>
+  </div>
+  
 
 <div class="button-container">
   <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
