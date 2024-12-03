@@ -49,27 +49,10 @@ document.addEventListener("copy", function(e) {
  
 <br>
 
-<div style = "right: 10px; bottom:36%;" class="assinatura-container2">
-    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
-        <div class="assinatura2" id="assinatura">
-             <div  class="texto-animado" id="texto-animado">
-Ivan Moriá Borges Rodrigues
+<script>
+  
+</script>
 
-    
-    
-<br>
-
-
-            </div>
-    
-
-            
-        </div>
-
-
-
-
-    </a></div>
 
 
 
@@ -319,6 +302,27 @@ Ivan Moriá Borges Rodrigues
         </a>
         
         
+<div style="margin-left:-22%;" class="assinatura-container2">
+
+  <div class="assinatura2" id="assinatura">
+       <div  class="texto-animado1" id="texto-animado1">
+Ivan Moriá Borges 
+
+
+
+<br>
+
+
+      </div>
+
+
+      
+  </div>
+
+
+
+
+</a></div>
 </div>
     
 </div>
@@ -339,20 +343,26 @@ Ivan Moriá Borges Rodrigues
   text-decoration: none;
   font-size: 25px;
   border: none;
+  margin-top:-30px;
   background: none;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
+  padding: 20px 20px; /* Adiciona algum preenchimento para o botão */
+    cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+    transition: all 0.3s ease; /* Suaviza a transição */
+  
 }
 
 .button1::before {
   margin-left: auto;
+  color:white;
 }
 
 .button1::after, .button1::before {
   content: '';
   width: 0%;
   height: 2px;
-  background: #ffffff;
+  background: #000000;
   display: block;
   transition: 0.5s;
 }
@@ -372,16 +382,21 @@ Ivan Moriá Borges Rodrigues
 
 
 }
-.button1 label {
-  color: white;
-  font-size: 25px;
-  font-family: 'Poiret One', cursive;
-}
+  /* Estilo do texto dentro dos botões */
+  .button1 label {
+    color: inherit; /* Herda a cor do botão (branco normalmente, preto no hover) */
+    font-size: 25px;
+    font-family: 'Poiret One', cursive;
+  }
 
-/* Adiciona um efeito visual ao passar o mouse */
-.button1:hover {
-  background-color: #00000093;
-}
+  /* Estilo do botão ao passar o mouse */
+  .button1:hover {
+    background-color: rgba(255, 255, 255, 0.757); /* Cor de fundo branca ao passar o mouse */
+    color: black; /* Cor da fonte preta ao passar o mouse */
+    border-color: black; /* Muda a cor da borda para preta */
+    transition: all 0.3s ease; /* Suaviza a transição */
+  }
+
 </style>
 <div class="wrapper" style="top:29%;">
 
