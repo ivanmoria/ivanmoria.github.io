@@ -115,26 +115,13 @@ Dinâmica: avalie a variação de intensidade.
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     <div id="test-container" class="hidden">
         <div class="container">
+            <label for="auto-play">
+                <input type="checkbox" id="auto-play" />
+               Auto-Play
+            </label>
             <img id="image" src="" alt="Imagem do áudio" />
             <audio id="audio" controls preload="auto"></audio>
             <div>
@@ -149,9 +136,12 @@ Dinâmica: avalie a variação de intensidade.
                     <button class="button5" id="button-4" onclick="selectAnswer(4)">4</button>
                     <button class="button5" id="button-5" onclick="selectAnswer(5)">5</button>
                 </div>
+         
                 <button class="button5" onclick="proximoAudio()">Ok</button>
             </div>
         </div>
+    </div>
+    
  <!-- Div que contém o campo de crítica -->
 <div id="form-critica" style="display: none;">
     <label for="critica">Você tem alguma dica ou crítica sobre o conteúdo apresentado neste formulário? Se sim, descreva a seguir:</label><br>

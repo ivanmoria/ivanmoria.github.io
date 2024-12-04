@@ -1,12 +1,16 @@
-// Função para gerar os dados com base no prefixo e nos 8 takes
-function criarDados(prefixo, imagens, audioBasePath) {
-    // O primeiro take do prefixo não terá número (ex: "TA")
+// Função para gerar os dados com base no prefixo e nas imagens (para MAHLER_4 ou SERIE_4)
+function criarDados(prefixo, imagens, audioBasePath, tipoAudio) {
     const dados = [];
-            // Para cada imagem, gera-se um objeto com a imagem e o áudio correspondente, além das perguntas
+    
+    // Define o tipo de áudio: MAHLER_4 ou SERIE_4
+    const tipoAudioFinal = tipoAudio === 'exercicio' ? '_SERIE_4' : '_MAHLER_4';
+
+    
+    // Para cada imagem, gera-se um objeto com a imagem e o áudio correspondente, além das perguntas
     for (let i = 0; i < imagens.length; i++) {
         dados.push({
             imagem: imagens[i],  // A imagem correspondente ao número do take
-            audio: `${audioBasePath}/${prefixo}_MAHLER_4.wav`, // O mesmo áudio para cada prefixo
+            audio: `${audioBasePath}/${prefixo}${tipoAudioFinal}.wav`, // Áudio específico (MAHLER_4 ou SERIE_4)
             perguntas: perguntas.map(p => `${prefixo} ${p}`)  // As perguntas permanecem iguais para todos os takes
         });
     }
@@ -14,15 +18,25 @@ function criarDados(prefixo, imagens, audioBasePath) {
     return dados;
 }
 
-
-// Lista das 8 imagens que serão usadas para todos os prefixos
+// Lista das 8 imagens que serão usadas para todos os prefixos (para MAHLER_4)
 const imagens = [
     "/media/audio/trompete/MAHLER_1.jpg",
     "/media/audio/trompete/MAHLER_2.jpg",
     "/media/audio/trompete/MAHLER_3.jpg",
     "/media/audio/trompete/MAHLER_4.jpg",
- 
-]
+];
+
+// Lista das 8 imagens que serão usadas para os exercícios (para SERIE_4)
+const imagensExercicio = [
+    "/media/audio/trompete/SERIE_1.jpg",
+    "/media/audio/trompete/SERIE_2.jpg",
+    "/media/audio/trompete/SERIE_3.jpg",
+    "/media/audio/trompete/SERIE_4.jpg",
+    "/media/audio/trompete/SERIE_5.jpg",
+    "/media/audio/trompete/SERIE_6.jpg",
+    "/media/audio/trompete/SERIE_7.jpg",
+    "/media/audio/trompete/SERIE_8.jpg"
+];
 
 // Definindo as perguntas
 const perguntas = [
@@ -32,23 +46,29 @@ const perguntas = [
     "Dinâmica"
 ];
 
-// Definindo os dados com 8 takes para cada prefixo (TA, TB, TC, TD, etc.)
-// Cada take tem uma imagem e um áudio correspondente
+// Gerando os dados com os prefixos "TA", "TB", "TC", etc., para MAHLER_4
 const dados = [
     // Dados com prefixo "TA" (primeiro sem número, depois TA1, TA2, ..., TA8)
-    ...criarDados("TA", imagens, "/media/audio/trompete/mahler"),
- 
+    ...criarDados("TA", imagens, "/media/audio/trompete/mahler", 'mahler'),
 
     // Dados com prefixo "TB" (8 takes numerados)
-    ...criarDados("TB", imagens, "/media/audio/trompete/mahler"),
+    ...criarDados("TB", imagens, "/media/audio/trompete/mahler", 'mahler'),
     // Dados com prefixo "TC" (8 takes numerados)
-    ...criarDados("TC", imagens, "/media/audio/trompete/mahler"),
+    ...criarDados("TC", imagens, "/media/audio/trompete/mahler", 'mahler'),
     // Dados com prefixo "TD" (8 takes numerados)
-    ...criarDados("TD", imagens, "/media/audio/trompete/mahler"),
+    ...criarDados("TD", imagens, "/media/audio/trompete/mahler", 'mahler'),
     // Dados com prefixo "TE" (8 takes numerados)
-    ...criarDados("TE", imagens, "/media/audio/trompete/mahler"),
+    ...criarDados("TE", imagens, "/media/audio/trompete/mahler", 'mahler'),
     // Dados com prefixo "TF" (8 takes numerados)
-    ...criarDados("TF", imagens, "/media/audio/trompete/mahler")
+    ...criarDados("TF", imagens, "/media/audio/trompete/mahler", 'mahler'),
+
+    // Dados com a serie_4 para os prefixos TA2, TB2, TC2, etc.
+    ...criarDados("TA", imagensExercicio, "/media/audio/trompete/serie", 'exercicio'),
+    ...criarDados("TB", imagensExercicio, "/media/audio/trompete/serie", 'exercicio'),
+    ...criarDados("TC", imagensExercicio, "/media/audio/trompete/serie", 'exercicio'),
+    ...criarDados("TD", imagensExercicio, "/media/audio/trompete/serie", 'exercicio'),
+    ...criarDados("TE", imagensExercicio, "/media/audio/trompete/serie", 'exercicio'),
+    ...criarDados("TF", imagensExercicio, "/media/audio/trompete/serie", 'exercicio')
 ];
 
 // Variáveis para controlar o fluxo do teste
@@ -100,9 +120,10 @@ function carregarDados(index, perguntaIndex) {
         document.getElementById("form-critica").style.display = 'block';
         document.getElementById("proximo-btn").disabled = true;
 
-        audioElement.pause();
-        audioElement.currentTime = 0;
-        audioElement.setAttribute("controls", false);
+        if (audioElement) {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+        }
         return;
     }
 
@@ -112,18 +133,33 @@ function carregarDados(index, perguntaIndex) {
     audioElement = document.getElementById("audio");
     audioElement.src = audioData.audio;
     
-    // Adiciona um ouvinte de evento para garantir que o áudio foi carregado antes de tocar
-    audioElement.load(); // Carrega o áudio
-    audioElement.play().catch(error => {
-        console.error("Erro ao tentar tocar o áudio:", error);
-        alert("Houve um erro ao tentar reproduzir o áudio.");
-    });
+    // Não toca o áudio automaticamente, só o prepara
+    audioElement.load();  // Carrega o áudio
 
+    // Atualiza a pergunta
     document.getElementById("pergunta").innerText = `Pergunta ${perguntaIndex + 1}: ${audioData.perguntas[perguntaIndex]}`;
     document.getElementById("selectAnswer").textContent = "Resposta: Nenhuma";
 
     notaSelecionada = null;
     atualizarBotoes();
+
+    // Verifica o estado do checkbox de play automático
+    const autoPlay = document.getElementById("auto-play").checked;
+
+    if (autoPlay) {
+        // Se o checkbox estiver marcado, toca o áudio automaticamente
+        playAudio();
+    }
+}
+
+// Função para tocar o áudio quando o usuário clicar no botão de play
+function playAudio() {
+    if (audioElement) {
+        audioElement.play().catch(error => {
+            console.error("Erro ao tentar tocar o áudio:", error);
+            alert("Houve um erro ao tentar reproduzir o áudio.");
+        });
+    }
 }
 
 
@@ -138,10 +174,23 @@ function atualizarBotoes() {
 
 // Função para selecionar a nota
 function selectAnswer(nota) {
+    // Mapeando a nota para a resposta qualitativa
+    const respostasQualitativas = {
+        1: "Ruim",
+        2: "Razoável",
+        3: "Médio",
+        4: "Bom",
+        5: "Ótimo"
+    };
+
+    // Verifica se a nota é válida e seleciona a resposta correspondente
+    const resposta = respostasQualitativas[nota] || "Resposta inválida"; // Caso a nota não seja 1-5
+
     notaSelecionada = nota;
     atualizarBotoes();
-    document.getElementById("selectAnswer").textContent = `Resposta: ${nota}`;
+    document.getElementById("selectAnswer").textContent = `Resposta: ${resposta}`;
 }
+
 
 // Função para avançar para o próximo áudio
 function proximoAudio() {
@@ -274,6 +323,9 @@ document.addEventListener('keydown', function(event) {
             break;
         case ' ':
             proximoAudio();  // Avança para o próximo áudio
+            break;
+        case 'Enter':
+            playAudio();  // Dá play no áudio quando Enter for pressionado
             break;
     }
 });
