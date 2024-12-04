@@ -10,6 +10,7 @@
       background-color: #b1b1b1;
       margin: 0;
       padding: 0;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -35,6 +36,13 @@
     }
 
   </style>
+  <script>document.body.style.overflow = 'hidden';
+    window.addEventListener('beforeunload', function (e) {
+      e.preventDefault();
+      e.returnValue = ''; // Exibe o aviso de confirmação (em alguns navegadores)
+    });
+    
+  </script>
 </head>
 <body>
   <div class="container">
