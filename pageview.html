@@ -14,15 +14,18 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      min-height: 100px;
     }
 
     .container {
       text-align: center;
-      padding: 5%;
-      width: 90%;
-      max-width: 600px;
-
+      padding: 2%;
+      margin-top:150px;
+      width: 60%;
+      max-width: 100%;
+      display: flex;
+      justify-content: center; /* Alinha horizontalmente no centro */
+      align-items: center;     /* Alinha verticalmente no centro */
 
     }
 
@@ -31,19 +34,6 @@
       margin-bottom: 20px;
     }
 
-    @media (min-width: 768px) {
-      .container {
-        padding: 40px;
-        width: 70%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .container {
-        width: 50%;
-        max-width: 800px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -51,8 +41,7 @@
 
     <!-- ClustrMaps script with fallback -->
 
-    <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=c7c7c7&w=a&t=tt&d=NihUgb3VsqnCpiRC42SlDjSyXb1QiR0Ruc_U51ICCnw&co=ffffff00&cmo=000000&cmn=6e6e6e&ct=ffffff'></script>
-   
+    <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=NihUgb3VsqnCpiRC42SlDjSyXb1QiR0Ruc_U51ICCnw"></script>
     <noscript>
         <a href='https://clustrmaps.com/site/1c2xm'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=c7c7c7&w=a&t=tt&d=NihUgb3VsqnCpiRC42SlDjSyXb1QiR0Ruc_U51ICCnw&co=ffffff&ct=ffffff'/></a>
     </noscript>
