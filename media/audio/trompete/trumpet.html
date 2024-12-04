@@ -152,7 +152,16 @@ Dinâmica: avalie a variação de intensidade.
                 <button class="button5" onclick="proximoAudio()">Ok</button>
             </div>
         </div>
+ <!-- Div que contém o campo de crítica -->
+<div id="form-critica" style="display: none;">
+    <label for="critica">Você tem alguma dica ou crítica sobre o conteúdo apresentado neste formulário? Se sim, descreva a seguir:</label><br>
+    <textarea id="critica" name="critica" rows="4" cols="50" placeholder="Digite sua crítica ou sugestão aqui..."></textarea>
+    
+    <!-- Botão para enviar a crítica -->
+    <button id="enviar-critica-btn" onclick="finalizarTeste()">Enviar Crítica</button>
+</div>
 
+        
         <button id="exportar-btn" class="hidden" onclick="exportarResultados()">Exportar Resultados</button>
         <button id="enviarEmail-btn" class="hidden">Enviar Resultados por E-mail</button>
         
