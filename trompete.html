@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Áudio</title>
+    <title>Teste Subjetivo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,14 +49,31 @@
     </style>
 </head>
 <body>
-    <h1>Teste de Áudio</h1>
+    <h1>Teste Subjetivo</h1>
+    <p>
+        Escute atentamente cada áudio apresentado abaixo e avalie a qualidade de cada critério de acordo com a a escala de 1 a 5, onde 1 significa ruim e 5 excelente. Para acessar os áudios é necessário clicar no link respectivo ao áudio, por exemplo: "Áudio 1". Ouça atentamente cada áudio quantas vezes julgar necessário.
+
+Tente ser o mais objetivo possível em sua avaliação, levando em conta apenas os critérios descritos abaixo:
+
+Precisão de afinação: avalie o desvio de afinação para o alcance da nota alvo.
+
+Agilidade de mudança (duração de transição): avalie o tempo gasto na mudança de nota.
+
+Andamento: avalie a manutenção do andamento.
+
+Dinâmica: avalie a variação de intensidade.
+    </p>
 
     <div id="participant-info">
-        <h2>Informações do Participante</h2>
+        <h2>Informações do Avaliador</h2>
         <label for="nome">Nome:</label>
         <input type="text" id="nome" required /><br>
-        <label for="idade">Idade:</label>
-        <input type="number" id="idade" required /><br>
+
+        <div id="anos-estudo-container">
+            <label for="anos-estudo">Quantos anos você estudou trompete?</label>
+            <input type="number" id="anos-estudo" min="0" placeholder="Ex.: 3" /><br><br>
+        </div>
+
         <label for="data">Data:</label>
         <input type="date" id="data" required /><br>
         <button class="button5" onclick="iniciarTeste()">Iniciar</button>
@@ -68,6 +85,9 @@
             <audio id="audio" controls preload="auto"></audio>
             <div>
                 <p id="pergunta">Pergunta 1: Como você avalia este áudio?</p>
+                <p class="answer" id="selectAnswer" style="margin-bottom: 20px; font-size: 18px; text-align: center;">
+                    Resposta: Nenhuma
+                </p>
                 <div class="buttons">
                     <button class="button5" id="button-1" onclick="selectAnswer(1)">1</button>
                     <button class="button5" id="button-2" onclick="selectAnswer(2)">2</button>
@@ -78,37 +98,153 @@
                 <button class="button5" onclick="proximoAudio()">Ok</button>
             </div>
         </div>
-        <button class="button5 hidden" id="exportar-btn" onclick="exportarCSV()">Exportar Resultados</button>
+        <button class="button5 hidden" id="exportar-btn" onclick="exportarResultados();">Exportar Resultados</button>
     </div>
 
     <script>
         const dados = [
             { 
-                imagem: "trecho1.png", 
-                audio: "gustavo_take_2.wav", 
+                imagem: "media/audio/trompete/imagem1-1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4-1.wav", 
                 perguntas: [
-                    "Como você avalia este áudio?",
-                    "O áudio está claro para você?",
-                    "Você consegue ouvir todos os detalhes?",
+                    "TA Precisão de afinação?",
+                    "Agilidade de Mudança",
+                    "Andamento",
+                    "Dinâmica",
                 ]
             },
             { 
-                imagem: "trecho2.png", 
-                audio: "gustavo_take_2.wav", 
+            imagem: "media/audio/trompete/imagem1-2.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-3.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-4.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-5.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-6.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-2.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+        { 
+            imagem: "media/audio/trompete/imagem1-2.jpeg", 
+            audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav", 
+            perguntas: [
+                "TA Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+            ]
+        },
+
+     
+
+
+
+
+
+
+
+
+
+
+
+            {
+                imagem: "media/audio/trompete/imagem2.jpeg",
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TB_SERIE_4.wav",
                 perguntas: [
-                    "Como você avalia este áudio?",
-                    "O áudio está claro para você?",
-                    "Você consegue ouvir todos os detalhes?",
-                    "A voz está agradável?"
+                "TB Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
                 ]
             },
             { 
-                imagem: "imagem3.jpg", 
-                audio: "audio3.mp3", 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TC_SERIE_4.wav", 
                 perguntas: [
-                    "Como você avalia este áudio?",
-                    "O áudio está claro para você?",
-                    "Você consegue ouvir todos os detalhes?",
+                "TC Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+                ]
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TD_SERIE_4.wav", 
+                perguntas: [
+                "TD Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+                ]
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TE_SERIE_4.wav", 
+                perguntas: [
+                "TE Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
+                ]
+            },
+            {
+                
+                imagem: "trecho3.png",
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TF_SERIE_4.wav",
+                perguntas: [
+                "TF Precisão de afinação?",
+                "Agilidade de Mudança",
+                "Andamento",
+                "Dinâmica",
                 ]
             }
         ];
@@ -118,21 +254,22 @@
         const respostas = [];
         let notaSelecionada = null;
         const participante = {};
+        let audioElement;
 
         function iniciarTeste() {
             const nome = document.getElementById("nome").value.trim();
-            const idade = document.getElementById("idade").value.trim();
             const data = document.getElementById("data").value.trim();
-
-            if (!nome || !idade || !data) {
+            const anosEstudo = document.getElementById("anos-estudo").value.trim();
+        
+            if (!nome || !data || !anosEstudo) {
                 alert("Por favor, preencha todas as informações do participante.");
                 return;
             }
-
+        
             participante.nome = nome;
-            participante.idade = idade;
             participante.data = data;
-
+            participante.anosEstudo = anosEstudo;
+        
             document.getElementById("participant-info").classList.add("hidden");
             document.getElementById("test-container").classList.remove("hidden");
             carregarDados(indexAtual, perguntaAtual);
@@ -142,16 +279,20 @@
             if (index >= dados.length) {
                 alert("Fim do teste! Você pode exportar os resultados.");
                 document.getElementById("exportar-btn").classList.remove("hidden");
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                audioElement.setAttribute("controls", false);  // Desabilita controles
                 return;
             }
 
             const audioData = dados[index];
             document.getElementById("image").src = audioData.imagem;
-            const audioElement = document.getElementById("audio");
+            audioElement = document.getElementById("audio");
             audioElement.src = audioData.audio;
             audioElement.play();
 
             document.getElementById("pergunta").innerText = `Pergunta ${perguntaIndex + 1}: ${audioData.perguntas[perguntaIndex]}`;
+            document.getElementById("selectAnswer").textContent = "Resposta: Nenhuma";
 
             notaSelecionada = null;
             atualizarBotoes();
@@ -167,6 +308,7 @@
         function selectAnswer(nota) {
             notaSelecionada = nota;
             atualizarBotoes();
+            document.getElementById("selectAnswer").textContent = `Resposta: ${nota}`;
         }
 
         function proximoAudio() {
@@ -191,28 +333,39 @@
             carregarDados(indexAtual, perguntaAtual);
         }
 
-        function exportarCSV() {
-            if (respostas.length === 0) {
-                alert("Nenhuma resposta foi registrada.");
-                return;
-            }
-            let csvContent = "data:text/csv;charset=utf-8,Número da Pergunta,Nome do Áudio,Nota\n";
-            respostas.forEach(item => {
-                csvContent += `${item.pergunta},${item.audio},${item.nota}\n`;
+        function exportarResultados() {
+            // Criar o conteúdo CSV com apenas o número da nota
+            const headers = ["Nome", "Data", "Anos de Estudo", "Pergunta", "Áudio", "Nota"];
+            let csvContent = "data:text/csv;charset=utf-8," + headers.join(",") + "\n";
+            
+            respostas.forEach(resposta => {
+                const row = [
+                    participante.nome,
+                    participante.data,
+                    participante.anosEstudo,
+                    resposta.pergunta,
+                    resposta.audio,
+                    resposta.nota  // Apenas o número da nota
+                ];
+                csvContent += row.join(",") + "\n";
             });
-
-            csvContent += `\nInformações do Participante\nNome:${participante.nome},Idade:${participante.idade},Data:${participante.data}`;
-
+        
+            // Criar o link para download do CSV
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
+            
+            // Definir o nome do arquivo com base no nome do participante
+            const nomeArquivo = `${participante.nome}.csv`;
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `${participante.nome.replace(/\s+/g, "_")}.csv`);
+            link.setAttribute("download", nomeArquivo);
             document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
+        
+            // Bloquear a exportação após o download
+            alert("Resultados exportados!");
+            document.getElementById("exportar-btn").disabled = true;  // Bloqueia o botão de exportação
         }
-
-        carregarDados(indexAtual, perguntaAtual);
+        
     </script>
 </body>
 </html>
