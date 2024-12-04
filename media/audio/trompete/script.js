@@ -72,12 +72,17 @@ if (formacao.includes("Outros") && outrosTexto) {
     document.getElementById("test-container").classList.remove("hidden");
     carregarDados(indexAtual, perguntaAtual);
 }
-
 // Função para carregar os dados do áudio e perguntas
 function carregarDados(index, perguntaIndex) {
     if (index >= dados.length) {
-        alert("Fim do teste! Você pode exportar os resultados.");
-        document.getElementById("exportar-btn").classList.remove("hidden");
+        alert("Fim do teste! Você pode agora fornecer sua crítica ou sugestão.");
+        
+        // Exibir o campo para a crítica ou sugestão
+        document.getElementById("form-critica").style.display = 'block';
+        
+        // Desabilitar o botão de "Próximo" para evitar que o participante avance sem enviar a crítica
+        document.getElementById("proximo-btn").disabled = true;
+
         audioElement.pause();
         audioElement.currentTime = 0;
         audioElement.setAttribute("controls", false);  // Desabilita controles
@@ -96,6 +101,7 @@ function carregarDados(index, perguntaIndex) {
     notaSelecionada = null;
     atualizarBotoes();
 }
+
 
 // Função para atualizar os botões de seleção de nota
 function atualizarBotoes() {
@@ -161,10 +167,9 @@ function enviarResultadosPorEmail() {
     window.location.href = `mailto:gustavomacholi@gmail.com?subject=Resultados da Pesquisa de Flexibilidade no Trompete&body=${corpoEmail}`;
 }
 
-// Alteração na função de exportar para CSV, com opções de enviar por e-mail
 function exportarResultados() {
     // Cabeçalhos do CSV para informações do participante
-    const participanteHeader = ["Nome", "Data", "Anos de Estudo", "Atuacao", "Formacao"];
+    const participanteHeader = ["Nome", "Data", "Anos de Estudo", "Atuacao", "Formacao", "Critica/Sugestao"];
     let csvContent = "data:text/csv;charset=utf-8," + participanteHeader.join(",") + "\n";
     
     // Adicionar as informações do participante na primeira linha
@@ -173,10 +178,11 @@ function exportarResultados() {
         participante.data,
         participante.anosEstudo,
         participante.atuacao,
-        participante.formacao
+        participante.formacao,
+        criticaOuSugestao // Adiciona a crítica/sugestão ao CSV
     ];
     
-    // Adiciona as informações do participante
+    // Adicionar as informações do participante
     csvContent += participanteInfo.join(",") + "\n\n";  // Adiciona uma linha em branco após as informações do participante
     
     // Cabeçalhos para as respostas
@@ -206,12 +212,13 @@ function exportarResultados() {
     link.click();
 
     // Exibir alerta e desabilitar botão de exportação
-    alert("Resultados exportados!");
+    alert("Resultados exportados com sucesso!");
     document.getElementById("exportar-btn").disabled = true;
     
     // Exibir a opção de enviar os resultados por e-mail após a exportação
     document.getElementById("enviarEmail-btn").classList.remove("hidden");
 }
+
 
 // Adicionando a funcionalidade para enviar os resultados por e-mail
 document.getElementById("enviarEmail-btn").addEventListener("click", enviarResultadosPorEmail);
@@ -265,3 +272,47 @@ document.getElementById("welcomeModal").classList.add("show");
 document.getElementById("closeModalBtn").addEventListener("click", function() {
     document.getElementById("welcomeModal").classList.remove("show");
 });
+function finalizarTeste() {
+    // Coletar a crítica ou sugestão
+    criticaOuSugestao = document.getElementById("critica").value.trim();
+
+    if (!criticaOuSugestao) {
+        alert("Por favor, insira uma crítica ou sugestão antes de finalizar.");
+        return;
+    }
+
+    // Exibir os botões de exportação e envio por e-mail
+    document.getElementById("exportar-btn").classList.remove("hidden");
+    document.getElementById("enviarEmail-btn").classList.remove("hidden");
+
+    // Desabilitar o botão de "Próximo" pois o teste foi finalizado
+    document.getElementById("proximo-btn").disabled = true;
+
+    // Mostrar alert para indicar que o teste foi finalizado
+    alert("Teste finalizado! Você pode agora exportar os resultados ou enviá-los por e-mail.");
+}
+function enviarResultadosPorEmail() {
+    // Cabeçalho para os dados do participante
+    const participanteTexto = `
+        Nome: ${participante.nome}
+        Data: ${participante.data}
+        Anos de Estudo: ${participante.anosEstudo}
+        Atuação: ${participante.atuacao}
+        Formação: ${participante.formacao}
+        Crítica/Sugestão: ${criticaOuSugestao}  
+    `;
+    
+    // Corpo da mensagem com as respostas
+    let respostasTexto = "\nRespostas:\n";
+    respostas.forEach(resposta => {
+        // Extrair o nome do arquivo de áudio
+        const nomeAudio = resposta.audio.split('/').pop();  // Pega o nome do arquivo sem o caminho completo
+        respostasTexto += `Pergunta ${resposta.pergunta}: Áudio: ${nomeAudio}, Nota: ${resposta.nota}\n`;
+    });
+    
+    // Gerar o corpo do e-mail com todos os dados
+    const corpoEmail = encodeURIComponent(participanteTexto + respostasTexto);
+    
+    // Abrir o cliente de e-mail com a mensagem
+    window.location.href = `mailto:gustavomacholi@gmail.com?subject=Resultados da Pesquisa de Flexibilidade no Trompete&body=${corpoEmail}`;
+}
