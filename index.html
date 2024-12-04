@@ -24,9 +24,17 @@
                 <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
             
                 <script src="https://unpkg.com/wavesurfer.js"></script>
+                <script>document.body.style.overflow = 'hidden';
+                  window.addEventListener('beforeunload', function (e) {
+                    e.preventDefault();
+                    e.returnValue = ''; // Exibe o aviso de confirmação (em alguns navegadores)
+                  });
+                  
+                </script>
 <style>
   body {
   user-select: none; /* Impede seleção de texto em navegadores modernos */
+  overflow: hidden;
 }
 /* Mudar a cor do texto e fundo quando selecionado */
 ::selection {
