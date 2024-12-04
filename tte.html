@@ -8,17 +8,55 @@
   <title>Teste do Tempo Espontâneo</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </head>
 <body>
+    <script>
+        document.getElementById("exportPdfButton").addEventListener("click", function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Pegando os elementos da página
+            const totalTimeElement = document.getElementById("totalTime");
+            const bpmElement = document.getElementById("bpm");
+            const foiChartCanvas = document.getElementById("foiChart");
+            const beatTimes = []; // Essa variável deve conter os tempos das batidas
+        
+            // Adicionando título
+            doc.setFontSize(22);
+            doc.text("Teste do Tempo Espontâneo", 20, 20);
+            
+            // Adicionando o tempo total
+            doc.setFontSize(16);
+            doc.text(`Tempo Total: ${totalTimeElement.textContent} ms`, 20, 40);
+            doc.text(`BPM: ${bpmElement.textContent}`, 20, 50);
+        
+            // Adicionando o gráfico
+            const imgData = foiChartCanvas.toDataURL("image/png");
+            doc.addImage(imgData, "PNG", 20, 60, 180, 100);
+        
+            // Adicionando os tempos das batidas
+            doc.text("Instantes das batidas:", 20, 170);
+            beatTimes.forEach((time, index) => {
+                doc.text(`Batida ${index + 1}: ${time} ms`, 20, 180 + (index * 10));
+            });
+        
+            // Salvando o PDF
+            doc.save("resultado_tempo_espontaneo.pdf");
+        });
+        </script>
+        
     <div class="container" style="align-items: center;">
         <h1>Teste do Tempo Espontâneo</h1>
 
- 
+
         <p>Pressione o botão abaixo ou a tecla <strong>espaço</strong> 21 vezes para marcar sua pulsação. O tempo será calculado automaticamente.</p>
    <br><br><br>
         <button style="width: 200px; height:200px;" id="pulseButton">Clique para marcar a batida</button>
         <div id="result" class="hidden">
+            <button id="exportPdfButton" style="margin-top: 20px; background-color: #28a745;">Exportar para PDF</button>
+
             <p>Tempo total: <span id="totalTime">0</span></p>
             <p>BPM: <span id="bpm">0</span></p>
             
@@ -30,6 +68,7 @@
           </div>
           <p id="instructions">Batidas: <span id="count">0</span>/21</p>
         </div>
+       
       <style>.hidden {
         display: none;
       }
@@ -37,6 +76,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  user-select: none; /* Impede seleção de texto em navegadores modernos */
   padding: 0;
   background-color: #f5f5f5;
   color: #333;
