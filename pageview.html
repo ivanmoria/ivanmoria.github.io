@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive ClustrMaps Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 5%;
+      width: 90%;
+      max-width: 600px;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333333;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 40px;
+        width: 70%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        width: 50%;
+        max-width: 800px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ClustrMaps script with fallback -->
+    <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=NihUgb3VsqnCpiRC42SlDjSyXb1QiR0Ruc_U51ICCnw&cl=ffffff&w=a"></script>
+    <noscript>
+      <a href="https://clustrmaps.com/site/1c2xm" title="Visit tracker">
+        <img src="//www.clustrmaps.com/map_v2.png?d=NihUgb3VsqnCpiRC42SlDjSyXb1QiR0Ruc_U51ICCnw&cl=ffffff" alt="ClustrMaps visitor map">
+      </a>
+    </noscript>
+  </div>
+</body>
+</html>
