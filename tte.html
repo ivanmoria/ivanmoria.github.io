@@ -2,75 +2,33 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-
   <title>Teste do Tempo Espontâneo</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 <body>
-    <script>
-        document.getElementById("exportPdfButton").addEventListener("click", function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Pegando os elementos da página
-            const totalTimeElement = document.getElementById("totalTime");
-            const bpmElement = document.getElementById("bpm");
-            const foiChartCanvas = document.getElementById("foiChart");
-            const beatTimes = []; // Essa variável deve conter os tempos das batidas
-        
-            // Adicionando título
-            doc.setFontSize(22);
-            doc.text("Teste do Tempo Espontâneo", 20, 20);
-            
-            // Adicionando o tempo total
-            doc.setFontSize(16);
-            doc.text(`Tempo Total: ${totalTimeElement.textContent} ms`, 20, 40);
-            doc.text(`BPM: ${bpmElement.textContent}`, 20, 50);
-        
-            // Adicionando o gráfico
-            const imgData = foiChartCanvas.toDataURL("image/png");
-            doc.addImage(imgData, "PNG", 20, 60, 180, 100);
-        
-            // Adicionando os tempos das batidas
-            doc.text("Instantes das batidas:", 20, 170);
-            beatTimes.forEach((time, index) => {
-                doc.text(`Batida ${index + 1}: ${time} ms`, 20, 180 + (index * 10));
-            });
-        
-            // Salvando o PDF
-            doc.save("resultado_tempo_espontaneo.pdf");
-        });
-        </script>
-        
-    <div class="container" style="align-items: center;">
-        <h1>Teste do Tempo Espontâneo</h1>
 
 
-        <p>Pressione o botão abaixo ou a tecla <strong>espaço</strong> 21 vezes para marcar sua pulsação. O tempo será calculado automaticamente.</p>
-   <br><br><br>
-        <button style="width: 200px; height:200px;" id="pulseButton">Clique para marcar a batida</button>
-        <div id="result" class="hidden">
-            <button id="exportPdfButton" style="margin-top: 20px; background-color: #28a745;">Exportar para PDF</button>
-
-            <p>Tempo total: <span id="totalTime">0</span></p>
-            <p>BPM: <span id="bpm">0</span></p>
-            
-            <h2>Gráfico de Batidas e IOI</h2>
-            <canvas id="foiChart" width="500" height="300"></canvas>
-            <p id="analysis-text"></p>
-            <h2>Instantes das batidas:</h2>
-            <ul id="timeList"></ul>
-          </div>
-          <p id="instructions">Batidas: <span id="count">0</span>/21</p>
-        </div>
-       
-      <style>.hidden {
+    <style>
+        .hidden {
         display: none;
+      }
+      .collapsible {
+        cursor: pointer;
+        background-color: #f1f1f1;
+        padding: 10px;
+        text-align: left;
+        font-size: 18px;
+        border: 1px solid #ccc;
+      }
+      
+      .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f9f9f9;
       }
 /* styles.css */
 body {
@@ -184,8 +142,39 @@ canvas {
 
 
       </style>
+    <div class="container" style="align-items: center;">
+        <h1>Teste do Tempo Espontâneo</h1>
+        <p>Pressione o botão abaixo ou a tecla <strong>espaço</strong> 21 vezes para marcar sua pulsação. O tempo será calculado automaticamente.</p>
+        <br><br><br>
+        <button style="width: 200px; height:200px;" id="pulseButton">Clique para marcar a batida</button>
 
-      <script>
+        <div id="result" class="hidden">
+            <p>Tempo total: <span id="totalTime">0</span></p>
+            <p>BPM: <span id="bpm">0</span></p>
+
+            <h2 class="collapsible">Gráfico de Batidas e IOI</h2>
+            <div class="content">
+                <canvas id="foiChart" width="500" height="300"></canvas>
+                <p id="analysis-text"></p>
+            </div>
+
+            <h2 class="collapsible">Instantes das batidas:</h2>
+            <div class="content">
+                <ul id="timeList"></ul>
+            </div>
+        </div>
+        
+        <p id="instructions">Batidas: <span id="count">0</span>/21</p>
+    </div>
+
+    <script>
+        // Função para alternar a visibilidade dos itens
+        document.querySelectorAll('.collapsible').forEach(function (element) {
+            element.addEventListener('click', function () {
+                var content = this.nextElementSibling;
+                content.style.display = (content.style.display === "block") ? "none" : "block";
+            });
+        });
 
         document.addEventListener("DOMContentLoaded", () => {
             const pulseButton = document.getElementById("pulseButton");
@@ -197,9 +186,32 @@ canvas {
             const instructions = document.getElementById("instructions");
             const foiChartCanvas = document.getElementById("foiChart");
         
+            // Elementos que você quer esconder
+            const title = document.getElementById("title");
+            const subtitle = document.getElementById("subtitle");
+            const buttonContainer = document.getElementById("buttonContainer"); // Contêiner do botão de "Apertar"
+        
             let count = 0;
             let startTime = null;
             const beatTimes = []; // Armazena os instantes de cada batida em milissegundos
+        
+            // Função para reiniciar o teste
+            function resetTest() {
+                count = 0;
+                startTime = null;
+                beatTimes.length = 0; // Limpar os tempos das batidas
+                timeList.innerHTML = ''; // Limpar a lista de tempos
+                totalTimeElement.textContent = '0';
+                bpmElement.textContent = '0';
+                countElement.textContent = '0';
+                result.classList.add("hidden"); // Esconder o resultado
+                instructions.style.display = 'block'; // Exibir as instruções
+                pulseButton.disabled = false; // Habilitar o botão novamente
+                // Reexibir o título, subtítulo e o botão
+                title.style.display = 'block';
+                subtitle.style.display = 'block';
+                buttonContainer.style.display = 'block';
+            }
         
             // Função para registrar a batida
             function markPulse() {
@@ -252,10 +264,14 @@ canvas {
                     // Plotar o gráfico de IOI e aceleração/desaceleração
                     plotFOIChart(foi, rateOfChange, beatTimes);
         
-                    // Mostrar o resultado e desabilitar o botão
+                    // Esconder o título, subtítulo e o botão, e mostrar os resultados
+                    title.style.display = 'none';
+                    subtitle.style.display = 'none';
+                    buttonContainer.style.display = 'none';
+        
                     result.classList.remove("hidden");
+                    instructions.style.display = 'none'; // Esconder as instruções
                     pulseButton.disabled = true;
-                    instructions.textContent = "Teste concluído!";
                 }
             }
         
@@ -353,20 +369,12 @@ canvas {
                         },
                         scales: {
                             x: {
-                                title: { display: true, text: "Tempo Total da Atividade (ms)" },
-                                ticks: {
-                                    autoSkip: true,
-                                    maxRotation: 0,
-                                    minRotation: 0,
-                                    stepSize: Math.floor(timeLabels.length / 10),
-                                },
+                                title: { display: true, text: "Tempo (ms)" },
+                                beginAtZero: false,
                             },
-                            y1: {
+                            y: {
                                 title: { display: true, text: "Valor (ms)" },
-                                max: Math.max(...foi, ...rateOfChange) * 1.2,
-                                ticks: {
-                                    stepSize: Math.floor(Math.max(...foi, ...rateOfChange) / 10),
-                                },
+                                beginAtZero: false,
                             },
                         },
                     },
@@ -374,46 +382,47 @@ canvas {
             }
         
             // Função para calcular a média
-            function calculateMean(data) {
-                const sum = data.reduce((acc, value) => acc + value, 0);
-                return sum / data.length;
+            function calculateMean(arr) {
+                const sum = arr.reduce((acc, value) => acc + value, 0);
+                return sum / arr.length;
             }
         
             // Função para calcular o desvio padrão
-            function calculateStdDev(data) {
-                const mean = calculateMean(data);
-                const variance = data.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / data.length;
-                return Math.sqrt(variance);
+            function calculateStdDev(arr) {
+                const mean = calculateMean(arr);
+                const squareDiffs = arr.map(value => Math.pow(value - mean, 2));
+                const meanSquareDiff = calculateMean(squareDiffs);
+                return Math.sqrt(meanSquareDiff);
             }
         
             // Função para calcular a regressão linear
-            function calculateLinearRegression(data, timeLabels) {
-                const n = data.length;
-                const sumX = timeLabels.reduce((acc, _, i) => acc + i, 0);
-                const sumY = data.reduce((acc, val) => acc + val, 0);
-                const sumXY = data.reduce((acc, val, i) => acc + i * val, 0);
-                const sumX2 = timeLabels.reduce((acc, _, i) => acc + i * i, 0);
+            function calculateLinearRegression(y, x) {
+                const n = x.length;
+                const xMean = calculateMean(x);
+                const yMean = calculateMean(y);
+                const numerator = x.reduce((sum, xi, i) => sum + (xi - xMean) * (y[i] - yMean), 0);
+                const denominator = x.reduce((sum, xi) => sum + Math.pow(xi - xMean, 2), 0);
+                const slope = numerator / denominator;
+                const intercept = yMean - slope * xMean;
         
-                const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-                const intercept = (sumY - slope * sumX) / n;
-        
-                // Gerando os dados da linha de regressão
-                const lineData = timeLabels.map((_, i) => slope * i + intercept);
+                const lineData = x.map(value => slope * value + intercept);
         
                 return { slope, intercept, lineData };
             }
         
-            // Permitir clique ou tecla espaço
+            // Adicionando o ouvinte de evento para o botão
             pulseButton.addEventListener("click", markPulse);
-            document.addEventListener("keydown", (event) => {
-                if (event.key === " " && !pulseButton.disabled) { // Se a tecla espaço for pressionada
+        
+            // Caso o usuário pressione a tecla "espaço"
+            document.addEventListener("keydown", function (e) {
+                if (e.key === " ") {
                     markPulse();
                 }
             });
         });
         
-      </script>
+     
+    </script>
 
-   
-</body>
-</html>
+    </body>
+    </html>

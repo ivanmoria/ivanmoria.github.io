@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Subjetivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+        audio {
+            margin: 10px 0;
+            width: 80%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .button5 {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button5:hover {
+            background-color: #e0e0e0;
+        }
+        .selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    <style>
+        #participant-info {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        #participant-info h2 {
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        #participant-info label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        #participant-info input[type="text"],
+        #participant-info input[type="email"],
+        #participant-info input[type="number"],
+        #participant-info input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #participant-info input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        #participant-info button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #participant-info div input,
+#participant-info div label {
+    margin-right: 10px;
+}
+
+
+        #participant-info button:hover {
+            background-color: #45a049;
+        }
+
+        #participant-info .form-group {
+            margin-bottom: 15px;
+        }
+
+        #participant-info .form-group input {
+            width: calc(100% - 20px);
+        }
+
+        #participant-info .form-group label {
+            font-size: 0.9em;
+        }
+
+        #participant-info .justified {
+            text-align: justify;
+        }
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        td {
+            padding-right: 20px;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px; /* Alinha o checkbox à esquerda */
+        }
+        
+        .checkbox-container label {
+            display: flex;
+            align-items: center; /* Alinha o texto com o checkbox */
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <h1>Teste Subjetivo</h1>
+    <p id="instrucoes-teste" style="display:none;">
+
+        
+        Escute atentamente cada áudio apresentado abaixo e avalie a qualidade de cada critério de acordo com a a escala de 1 a 5, onde 1 significa ruim e 5 excelente. Para acessar os áudios é necessário clicar no link respectivo ao áudio, por exemplo: "Áudio 1". Ouça atentamente cada áudio quantas vezes julgar necessário.
+
+Tente ser o mais objetivo possível em sua avaliação, levando em conta apenas os critérios descritos abaixo:
+
+Precisão de afinação: avalie o desvio de afinação para o alcance da nota alvo.
+
+Agilidade de mudança (duração de transição): avalie o tempo gasto na mudança de nota.
+
+Andamento: avalie a manutenção do andamento.
+
+Dinâmica: avalie a variação de intensidade.
+    </p>
+
+    <div id="participant-info" class="justified">
+        <h2>Informações do Avaliador</h2>
+        <div class="form-group">
+            <label for="nome">Nome completo:</label>
+            <input type="text" id="nome" required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" min="1" required />
+        </div>
+
+       
+        
+
+        <div class="form-group">
+            <label for="anos-estudo">Quantos anos você toca trompete profissionalmente?</label>
+            <input type="number" id="anos-profissionais" min="0" placeholder="Ex.: 3" />
+        </div>
+
+        <div class="form-group">
+            <label for="atuacao">Qual a sua atuação profissional?</label><br>
+            <input type="text" id="atuacao" placeholder="Ex.: Professor, músico freelance..." />
+        </div>
+        <div class="form-group">
+            <label for="formacao">Qual sua formação? (Você pode marcar mais de uma opção)</label>
+            <table>
+                <tr><br>
+                    <td>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="formacao-conservatorio" name="formacao" value="Conservatório">
+                            <label for="formacao-conservatorio" style="margin-top:-15px; margin-left:10px;">Conservatório</label><br>
+                            <input type="checkbox" id="formacao-escola" name="formacao" value="Escola de Música Municipal ou Estadual">
+                            <label for="formacao-escola" style="margin-top:-15px;margin-left:10px;">Escola de Música Municipal ou Estadual</label><br>
+                            <input type="checkbox" id="formacao-academia" name="formacao" value="Academia de Música">
+                            <label for="formacao-academia" style="margin-top:-15px;margin-left:10px;">Academia de Música</label><br>
+                            <input type="checkbox" id="formacao-especializacao" name="formacao" value="Especialização (pós-graduação)">
+                            <label for="formacao-especializacao" style="margin-top:-15px;margin-left:10px;">Especialização (pós-graduação)</label><br>
+                            <input type="checkbox" id="formacao-doutorado" name="formacao" value="Doutorado">
+                            <label for="formacao-doutorado" style="margin-top:-15px;margin-left:10px;">Doutorado</label><br>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="formacao-banda" name="formacao" value="Banda de Música">
+                            <label for="formacao-banda"style="margin-top:-15px;margin-left:10px;">Banda de Música</label><br>
+                            <input type="checkbox" id="formacao-graduacao-inc" name="formacao" value="Graduação Incompleta">
+                            <label for="formacao-graduacao-inc"style="margin-top:-15px;margin-left:10px;">Graduação Incompleta</label><br>
+                            <input type="checkbox" id="formacao-graduacao-com" name="formacao" value="Graduação Completa">
+                            <label for="formacao-graduacao-com"style="margin-top:-15px;margin-left:10px;">Graduação Completa</label><br>
+                            <input type="checkbox" id="formacao-mestrado" name="formacao" value="Mestrado">
+                            <label for="formacao-mestrado"style="margin-top:-15px;margin-left:10px;">Mestrado</label><br>
+                            <input type="checkbox" id="formacao-outros" name="formacao" value="outros" onclick="toggleOutroText()">
+                            <label for="formacao-outros" style="margin-top:-15px;margin-left:10px;">Outros</label><br>
+                            <input type="text" id="outros-texto" name="outros-texto" placeholder="Especifique..." style="display:none; margin-top: 5px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            function toggleOutroText() {
+                var outrosCheckbox = document.getElementById("formacao-outros");
+                var outrosTexto = document.getElementById("outros-texto");
+            
+                if (outrosCheckbox.checked) {
+                    outrosTexto.style.display = "inline-block"; // Exibe o campo de texto
+                } else {
+                    outrosTexto.style.display = "none"; // Oculta o campo de texto
+                }
+            }
+            
+        </script>
+        
+
+        <div class="form-group">
+            <label for="data">Data:</label>
+            <input type="date" id="data" required />
+        </div>
+
+        <button class="button5" onclick="iniciarTeste()">Iniciar</button>
+    </div>
+    
+
+    <div id="test-container" class="hidden">
+        <div class="container">
+            <img id="image" src="" alt="Imagem do áudio" />
+            <audio id="audio" controls preload="auto"></audio>
+            <div>
+                <p id="pergunta">Pergunta 1: Como você avalia este áudio?</p>
+                <p class="answer" id="selectAnswer" style="margin-bottom: 20px; font-size: 18px; text-align: center;">
+                    Resposta: Nenhuma
+                </p>
+                <div class="buttons">
+                    <button class="button5" id="button-1" onclick="selectAnswer(1)">1</button>
+                    <button class="button5" id="button-2" onclick="selectAnswer(2)">2</button>
+                    <button class="button5" id="button-3" onclick="selectAnswer(3)">3</button>
+                    <button class="button5" id="button-4" onclick="selectAnswer(4)">4</button>
+                    <button class="button5" id="button-5" onclick="selectAnswer(5)">5</button>
+                </div>
+                <button class="button5" onclick="proximoAudio()">Ok</button>
+            </div>
+        </div>
+        <button class="button5 hidden" id="exportar-btn" onclick="exportarResultados();">Exportar Resultados</button>
+    </div>
+
+    <script>
+        const perguntas = [
+            "Precisão de afinação?",
+            "Agilidade de Mudança",
+            "Andamento",
+            "Dinâmica"
+        ];
+    
+        const dados = [
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4-1.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem2.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem2.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem2.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem2.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TA_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem2.jpeg",
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TB_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TC_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TD_SERIE_4.wav",
+            },
+            { 
+                imagem: "media/audio/trompete/imagem1.jpeg", 
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TE_SERIE_4.wav",
+            },
+            {
+                imagem: "trecho3.png",
+                audio: "media/audio/trompete/OneDrive_23_04-12-2024/TF_SERIE_4.wav",
+            }
+        ];
+    
+        let indexAtual = 0;
+        let perguntaAtual = 0;
+        const respostas = [];
+        let notaSelecionada = null;
+        const participante = {};
+        let audioElement;
+    
+        function iniciarTeste() {
+            const nome = document.getElementById("nome").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const idade = document.getElementById("idade").value.trim();
+            const sexoMasc = document.getElementById("sexo-masc").checked;
+            const sexoFem = document.getElementById("sexo-fem").checked;
+            const anosProfissionais = document.getElementById("anos-profissionais").value.trim();
+            const atuacao = document.getElementById("atuacao").value.trim();
+            const formacao = Array.from(document.querySelectorAll('input[name="formacao"]:checked')).map(input => input.value);
+            const data = document.getElementById("data").value.trim();
+        
+            if (!nome || !email || !idade || !anosProfissionais || !data) {
+                alert("Por favor, preencha todas as informações do participante.");
+                return;
+            }
+        
+            // Atualizando o objeto participante com os novos dados
+            participante.nome = nome;
+            participante.email = email;
+            participante.idade = idade;
+            participante.sexo = sexoMasc ? "Masculino" : sexoFem ? "Feminino" : "Não especificado";
+            participante.anosProfissionais = anosProfissionais;
+            participante.atuacao = atuacao;
+            participante.formacao = formacao;
+            participante.data = data;
+        
+            // Escondendo o formulário e iniciando o teste
+            document.getElementById("participant-info").classList.add("hidden");
+            document.getElementById("test-container").classList.remove("hidden");
+    
+            // Exibindo o texto de instruções
+            document.getElementById("instrucoes-teste").style.display = "block";
+            carregarDados(indexAtual, perguntaAtual);
+        }
+    
+        function carregarDados(index, perguntaIndex) {
+            if (index >= dados.length) {
+                alert("Fim do teste! Você pode exportar os resultados.");
+                document.getElementById("exportar-btn").classList.remove("hidden");
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                audioElement.setAttribute("controls", false);  // Desabilita controles
+                return;
+            }
+    
+            const audioData = dados[index];
+            document.getElementById("image").src = audioData.imagem;
+            audioElement = document.getElementById("audio");
+            audioElement.src = audioData.audio;
+            audioElement.play();
+    
+            document.getElementById("pergunta").innerText = Pergunta ${perguntaIndex + 1}: ${perguntas[perguntaIndex]};
+            document.getElementById("selectAnswer").textContent = "Resposta: Nenhuma";
+    
+            notaSelecionada = null;
+            atualizarBotoes();
+        }
+    
+        function atualizarBotoes() {
+            for (let i = 1; i <= 5; i++) {
+                const button = document.getElementById(button-${i});
+                button.classList.toggle("selected", notaSelecionada === i);
+            }
+        }
+    
+        function selectAnswer(nota) {
+            notaSelecionada = nota;
+            atualizarBotoes();
+            document.getElementById("selectAnswer").textContent = Resposta: ${nota};
+        }
+    
+        function proximoAudio() {
+            if (notaSelecionada === null) {
+                alert("Por favor, selecione uma nota antes de continuar.");
+                return;
+            }
+            const audioData = dados[indexAtual];
+            respostas.push({
+                pergunta: perguntaAtual + 1,
+                audio: audioData.audio,
+                nota: notaSelecionada
+            });
+    
+            perguntaAtual++;
+    
+            if (perguntaAtual >= perguntas.length) {
+                perguntaAtual = 0;
+                indexAtual++;
+            }
+    
+            carregarDados(indexAtual, perguntaAtual);
+        }
+    
+        function exportarResultados() {
+            // Criar o conteúdo CSV com apenas o número da nota
+            const headers = ["Nome", "Data", "Anos de Estudo", "Pergunta", "Áudio", "Nota"];
+            let csvContent = "data:text/csv;charset=utf-8," + headers.join(",") + "\n";
+            
+            respostas.forEach(resposta => {
+                csvContent += [
+                    participante.nome,
+                    participante.data,
+                    participante.anosProfissionais,
+                    resposta.pergunta,
+                    resposta.audio,
+                    resposta.nota
+                ].join(",") + "\n";
+            });
+    
+            // Criar link para download
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", resultados_${participante.nome}.csv);
+            document.body.appendChild(link);
+            link.click();
+        }
+    
+        // Iniciar o teste
+        document.getElementById("iniciar-btn").addEventListener("click", iniciarTeste);
+    </script>
+    
+</body>
+</html>
