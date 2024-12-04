@@ -134,10 +134,37 @@ function proximoAudio() {
 
     carregarDados(indexAtual, perguntaAtual);
 }
-// Função para exportar os resultados em CSV
+
+// Função para enviar os resultados por e-mail
+function enviarResultadosPorEmail() {
+    // Cabeçalho para os dados do participante
+    const participanteTexto = `
+        Nome: ${participante.nome}
+        Data: ${participante.data}
+        Anos de Estudo: ${participante.anosEstudo}
+        Atuação: ${participante.atuacao}
+        Formação: ${participante.formacao}
+    `;
+    
+    // Corpo da mensagem com as respostas
+    let respostasTexto = "\nRespostas:\n";
+    respostas.forEach(resposta => {
+        // Extrair o nome do arquivo de áudio
+        const nomeAudio = resposta.audio.split('/').pop();  // Pega o nome do arquivo sem o caminho completo
+        respostasTexto += `Pergunta ${resposta.pergunta}: Áudio: ${nomeAudio}, Nota: ${resposta.nota}\n`;
+    });
+    
+    // Gerar o corpo do e-mail com todos os dados
+    const corpoEmail = encodeURIComponent(participanteTexto + respostasTexto);
+    
+    // Abrir o cliente de e-mail com a mensagem
+    window.location.href = `mailto:gustavomacholi@gmail.com?subject=Resultados da Pesquisa de Flexibilidade no Trompete&body=${corpoEmail}`;
+}
+
+// Alteração na função de exportar para CSV, com opções de enviar por e-mail
 function exportarResultados() {
     // Cabeçalhos do CSV para informações do participante
-    const participanteHeader = ["Nome", "Data", "Anos de Estudo", "Atuacao","Formacao"];
+    const participanteHeader = ["Nome", "Data", "Anos de Estudo", "Atuacao", "Formacao"];
     let csvContent = "data:text/csv;charset=utf-8," + participanteHeader.join(",") + "\n";
     
     // Adicionar as informações do participante na primeira linha
@@ -181,7 +208,13 @@ function exportarResultados() {
     // Exibir alerta e desabilitar botão de exportação
     alert("Resultados exportados!");
     document.getElementById("exportar-btn").disabled = true;
+    
+    // Exibir a opção de enviar os resultados por e-mail após a exportação
+    document.getElementById("enviarEmail-btn").classList.remove("hidden");
 }
+
+// Adicionando a funcionalidade para enviar os resultados por e-mail
+document.getElementById("enviarEmail-btn").addEventListener("click", enviarResultadosPorEmail);
 
 
 
