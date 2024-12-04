@@ -1,34 +1,55 @@
+// Função para gerar os dados com base no prefixo e nos 8 takes
+function criarDados(prefixo, imagens, audioBasePath) {
+    // O primeiro take do prefixo não terá número (ex: "TA")
+    const dados = [];
+            // Para cada imagem, gera-se um objeto com a imagem e o áudio correspondente, além das perguntas
+    for (let i = 0; i < imagens.length; i++) {
+        dados.push({
+            imagem: imagens[i],  // A imagem correspondente ao número do take
+            audio: `${audioBasePath}/${prefixo}_MAHLER_4.wav`, // O mesmo áudio para cada prefixo
+            perguntas: perguntas.map(p => `${prefixo} ${p}`)  // As perguntas permanecem iguais para todos os takes
+        });
+    }
+
+    return dados;
+}
+
+
+// Lista das 8 imagens que serão usadas para todos os prefixos
+const imagens = [
+    "/media/audio/trompete/MAHLER_1.jpg",
+    "/media/audio/trompete/MAHLER_2.jpg",
+    "/media/audio/trompete/MAHLER_3.jpg",
+    "/media/audio/trompete/MAHLER_4.jpg",
+ 
+]
+
+// Definindo as perguntas
 const perguntas = [
-    "Precisão de afinação?",
+    "Precisão de afinação",
     "Agilidade de Mudança",
     "Andamento",
     "Dinâmica"
 ];
 
-// Função para gerar o objeto de dados com base no prefixo
-function criarDados(prefixo, imagem, audioBasePath) {
-    return {
-        imagem: imagem,
-        audio: `${audioBasePath}/${prefixo}_MAHLER_4.wav`,
-        perguntas: perguntas.map(p => `${prefixo} ${p}`)
-    };
-}
-
-// Definindo os dados
+// Definindo os dados com 8 takes para cada prefixo (TA, TB, TC, TD, etc.)
+// Cada take tem uma imagem e um áudio correspondente
 const dados = [
-    criarDados("TA", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TB", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TC", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TD", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TE", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TF", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_24_04-12-2024"),
-    criarDados("TB", "/media/audio/trompete/imagem2.jpeg", "/media/audio/trompete/OneDrive_23_04-12-2024"),
-    criarDados("TC", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_23_04-12-2024"),
-    criarDados("TD", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_23_04-12-2024"),
-    criarDados("TE", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_23_04-12-2024"),
-    criarDados("TF", "/media/audio/trompete/imagem1.jpeg", "/media/audio/trompete/OneDrive_23_04-12-2024")
-];
+    // Dados com prefixo "TA" (primeiro sem número, depois TA1, TA2, ..., TA8)
+    ...criarDados("TA", imagens, "/media/audio/trompete/mahler"),
+ 
 
+    // Dados com prefixo "TB" (8 takes numerados)
+    ...criarDados("TB", imagens, "/media/audio/trompete/mahler"),
+    // Dados com prefixo "TC" (8 takes numerados)
+    ...criarDados("TC", imagens, "/media/audio/trompete/mahler"),
+    // Dados com prefixo "TD" (8 takes numerados)
+    ...criarDados("TD", imagens, "/media/audio/trompete/mahler"),
+    // Dados com prefixo "TE" (8 takes numerados)
+    ...criarDados("TE", imagens, "/media/audio/trompete/mahler"),
+    // Dados com prefixo "TF" (8 takes numerados)
+    ...criarDados("TF", imagens, "/media/audio/trompete/mahler")
+];
 
 // Variáveis para controlar o fluxo do teste
 let indexAtual = 0;
@@ -76,24 +97,27 @@ if (formacao.includes("Outros") && outrosTexto) {
 function carregarDados(index, perguntaIndex) {
     if (index >= dados.length) {
         alert("Fim do teste! Você pode agora fornecer sua crítica ou sugestão.");
-        
-        // Exibir o campo para a crítica ou sugestão
         document.getElementById("form-critica").style.display = 'block';
-        
-        // Desabilitar o botão de "Próximo" para evitar que o participante avance sem enviar a crítica
         document.getElementById("proximo-btn").disabled = true;
 
         audioElement.pause();
         audioElement.currentTime = 0;
-        audioElement.setAttribute("controls", false);  // Desabilita controles
+        audioElement.setAttribute("controls", false);
         return;
     }
 
     const audioData = dados[index];
     document.getElementById("image").src = audioData.imagem;
+
     audioElement = document.getElementById("audio");
     audioElement.src = audioData.audio;
-    audioElement.play();
+    
+    // Adiciona um ouvinte de evento para garantir que o áudio foi carregado antes de tocar
+    audioElement.load(); // Carrega o áudio
+    audioElement.play().catch(error => {
+        console.error("Erro ao tentar tocar o áudio:", error);
+        alert("Houve um erro ao tentar reproduzir o áudio.");
+    });
 
     document.getElementById("pergunta").innerText = `Pergunta ${perguntaIndex + 1}: ${audioData.perguntas[perguntaIndex]}`;
     document.getElementById("selectAnswer").textContent = "Resposta: Nenhuma";
@@ -101,6 +125,7 @@ function carregarDados(index, perguntaIndex) {
     notaSelecionada = null;
     atualizarBotoes();
 }
+
 
 
 // Função para atualizar os botões de seleção de nota
