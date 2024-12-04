@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <title>ivan moriá borges</title>
   <style>
     body {
@@ -16,6 +16,8 @@
       align-items: center;
       justify-content: center;
       min-height: 100px;
+      touch-action: none; /* Desabilita gestos de zoom e rolagem */
+      -ms-touch-action: none; /* Para dispositivos com Windows */
     }
 
     .container {
