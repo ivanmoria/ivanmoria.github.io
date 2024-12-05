@@ -641,7 +641,7 @@ width: 35px;
 .button-container2 {
   position: fixed; /* Define o posicionamento fixo */
   left: 50%; /* Posiciona horizontalmente no centro da tela */
-  bottom: 15%; /* Posiciona verticalmente na parte inferior */
+  bottom: 20%; /* Posiciona verticalmente na parte inferior */
   transform: translateX(-50%) translateY(50%); /* Ajusta o centro do elemento para o meio da tela */
   display: flex; /* Permite o alinhamento lado a lado */
   z-index: 1000; /* Garante que o botão esteja acima de outros conteúdos */
