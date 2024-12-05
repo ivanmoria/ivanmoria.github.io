@@ -17,77 +17,26 @@
                 <meta name="description" content="Ivan Moriá">
                 <title>Ivan Moriá Borges Rodrigues</title>
                 <link rel="stylesheet" href="style.css">
+                <link rel="stylesheet" href="styleindex.css">
                 <script src="script.js" defer></script> 
+                <script src="scriptindex.js" defer></script> 
                 <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
                 <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
                 <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
             
                 <script src="https://unpkg.com/wavesurfer.js"></script>
-                <script>document.body.style.overflow = 'hidden';
-                  window.addEventListener('beforeunload', function (e) {
-                    e.preventDefault();
-                    e.returnValue = ''; // Exibe o aviso de confirmação (em alguns navegadores)
-                  });
-                  
-                </script>
-<style>
-  body {
-  user-select: none; /* Impede seleção de texto em navegadores modernos */
-  overflow: hidden;
-  touch-action: none; /* Desabilita gestos de zoom e rolagem */
-  -ms-touch-action: none; /* Para dispositivos com Windows */
-}
-/* Mudar a cor do texto e fundo quando selecionado */
-::selection {
-  
-  background-color: white; /* Cor de fundo */
-  color: #333333; /* Cor do texto */
-}
-
-/* Para navegadores mais antigos, você pode adicionar os prefixos */
-::-moz-selection {
-  background-color: white;
-  color: #333333;
-}
-
-::-webkit-selection {
-  background-color: white;
-  color: #333333;
-}
-
-
-
-</style>
-<script>
-  document.addEventListener("contextmenu", function(e) {
-  e.preventDefault(); // Bloqueia o menu de contexto
-});
-
-document.addEventListener("copy", function(e) {
-  e.preventDefault(); // Bloqueia a ação de copiar
-});
-</script>
+            
             </head>
             <body>
 
-
+            
 <div id="container-nav">
 
-
-
     </nav>
-
 </div>
- 
 <br>
-
-
-
-
-
-
-        <div class="button-container2" >
+        <div class="button-container2"  >
 
           <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
             <svg
@@ -341,84 +290,49 @@ document.addEventListener("copy", function(e) {
             </div>
           </div>
 
-        
+
+
+          <div class="theme-switch" style="margin-top: -250%;">
+            <input type="checkbox" id="theme-checkbox" >
+            <label for="theme-checkbox">
+              <div></div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
+       
+</div> 
 
         
+
+<script src="scriptindex.js"></script>
+
 </div>
-    
-</div>
 
-
-
-
-
-
-
-
-
-
-<style>
-  /* From Uiverse.io by biswacpcode */ 
-.button1 {
-  color: white;
-  text-decoration: none;
-  font-size: 25px;
-  border: none;
-  margin-top:-30px;
-  background: none;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  padding: 20px 20px; /* Adiciona algum preenchimento para o botão */
-    cursor: pointer; /* Aponta o cursor para indicar que é clicável */
-    transition: all 0.3s ease; /* Suaviza a transição */
-  
-}
-
-.button1::before {
-  margin-left: auto;
-  color:white;
-}
-
-.button1::after, .button1::before {
-  content: '';
-  width: 0%;
-  height: 2px;
-  background: #000000;
-  display: block;
-  transition: 0.5s;
-}
-
-.button1:hover::after, .button1:hover::before {
-  width: 100%;
-}
-
-.button1-container {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;  /* Alinha os botões verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center;     /* Centraliza verticalmente */
-  gap: 10px;               /* Espaço entre os botões */
-  top:0%;
-
-
-}
-  /* Estilo do texto dentro dos botões */
-  .button1 label {
-    color: inherit; /* Herda a cor do botão (branco normalmente, preto no hover) */
-    font-size: 25px;
-    font-family: 'Poiret One', cursive;
-  }
-
-  /* Estilo do botão ao passar o mouse */
-  .button1:hover {
-    background-color: rgba(255, 255, 255, 0.757); /* Cor de fundo branca ao passar o mouse */
-    color: black; /* Cor da fonte preta ao passar o mouse */
-    border-color: black; /* Muda a cor da borda para preta */
-    transition: all 0.3s ease; /* Suaviza a transição */
-  }
-
-</style>
 <div class="wrapper" style="top:29%;">
 
 <div class="button1-container">
@@ -457,219 +371,13 @@ document.addEventListener("copy", function(e) {
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <body>
   <div id="canvas-container"></div>
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <body>
   <div id="canvas-container"></div>
-  <script>
-      // Função para impedir o recarregamento por pull-to-refresh
-      function preventPullToRefresh(element) {
-          let prevent = false;
 
-          element.addEventListener('touchstart', function(e) {
-              if (e.touches.length !== 1) return;
-              const scrollY = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
-              prevent = (scrollY === 0);
-          });
-
-          element.addEventListener('touchmove', function(e) {
-              if (prevent) {
-                  prevent = false;
-                  e.preventDefault();
-              }
-          });
-      }
-
-      document.addEventListener('DOMContentLoaded', function() {
-          preventPullToRefresh(document);
-      });
-
-      let num = 30;
-      let range = 6;
-      let ax = [];
-      let ay = [];
-      let ax2 = [];
-      let ay2 = [];
-      let ax3 = [];
-      let ay3 = [];
-      let ax4 = [];
-      let ay4 = [];
-      let ax5 = [];
-      let ay5 = [];
-      let ax6 = [];
-      let ay6 = [];
-      let explosion = false;
-      let explosionStrength = 8; // Reduzido para acalmar a explosão
-
-      function setup() {
-          let canvas = createCanvas(windowWidth, windowHeight);
-          canvas.parent('canvas-container');
-          for (let i = 10; i < num; i++) {
-         
-              ay[i] = height * 2;
-              ax2[i] = width * 2;
-              ay2[i] = height * 2;
-
-              ay3[i] = height * 2;
-              ax4[i] = width * 2;
-              ay4[i] = height * 2;
-              ax5[i] = width * 2;
-              ay5[i] = height * 2;
-              ax6[i] = width * 2;
-              ay6[i] = height * 2;
-          }
-          frameRate(60); // Ajustado para um valor mais comum
-      }
-
-      function draw() {
-          background( 183);
-
-          // Atualiza as posições
-          updatePositions();
-
-          // Mistura o movimento aleatório com a posição do mouse
-          updateWithMouse(ax, ay);
-          updateWithMouse(ax2, ay2);
-          updateWithMouse(ax3, ay3);
-          updateWithMouse(ax4, ay4);
-          updateWithMouse(ax5, ay5);
-          updateWithMouse(ax6, ay6);
-
-          // Constrange as posições
-          constrainPositions();
-
-          // Desenha as linhas
-          drawLines(ax, ay, color(10, 10, 10, 10));
-          drawLines(ax2, ay2, color(10, 10, 10, 10));
-          drawLines(ax3, ay3, color(10, 10, 10, 10));
-          drawLines(ax4, ay4, color(10, 10, 10, 10));
-          drawLines(ax5, ay5,color(10, 10, 10, 10));
-          drawLines(ax6, ay6, color(10, 10, 10, 10));
-
-          // Se uma explosão estiver ativa
-          if (explosion) {
-              explodeLines();
-          }
-      
-    }
-
-      function updatePositions() {
-          for (let i = 0; i < num; i++) {
-              ax[i - 1] = ax[i];
-              ay[i - 1] = ay[i];
-              ax2[i - 1] = ax2[i];
-              ay2[i - 1] = ay2[i];
-              ax3[i - 1] = ax3[i];
-              ay3[i - 1] = ay3[i];
-              ax4[i - 1] = ax4[i];
-              ay4[i - 1] = ay4[i];
-              ax5[i - 1] = ax5[i];
-              ay5[i - 1] = ay5[i];
-              ax6[i - 1] = ax6[i];
-              ay6[i - 1] = ay6[i];
-          }
-      }
-      function updateWithMouse(ax, ay) {
-        // Aplique um fator de suavização entre o mouse e as linhas.
-        ax[num - 1] += (random(-range, range) + (mouseX - ax[num - 1]) * 0.105);  // Ajuste para 0.05
-        ay[num - 1] += (random(-range, range) + (mouseY - ay[num - 1]) * 0.05);  // Ajuste para 0.05
-        
-        ax2[num - 1] += (random(-range, range) + (mouseX - ax2[num - 1]) * 0.105);  // Ajuste para 0.05
-        ay2[num - 1] += (random(-range, range) + (mouseY - ay2[num - 1]) * 0.05);  // Ajuste para 0.05
-    
-        ax3[num - 1] += (random(-range, range) + (mouseX - ax3[num - 1]) * 0.05);  // Ajuste para 0.05
-        ay3[num - 1] += (random(-range, range) + (mouseY - ay3[num - 1]) * 0.05);  // Ajuste para 0.05
-    
-        ax4[num - 1] += (random(-range, range) + (mouseX - ax4[num - 1]) * 0.05);  // Ajuste para 0.05
-        ay4[num - 1] += (random(-range, range) + (mouseY - ay4[num - 1]) * 0.05);  // Ajuste para 0.05
-    
-        ax5[num - 1] += (random(-range, range) + (mouseX - ax5[num - 1]) * 0.05);  // Ajuste para 0.05
-        ay5[num - 1] += (random(-range, range) + (mouseY - ay5[num - 1]) * 0.05);  // Ajuste para 0.05
-    
-        ax6[num - 1] += (random(-range, range) + (mouseX - ax6[num - 1]) * 0.05);  // Ajuste para 0.05
-        ay6[num - 1] += (random(-range, range) + (mouseY - ay6[num - 1]) * 0.05);  // Ajuste para 0.05
-    }
-    
-
-      function constrainPositions() {
-          for (let i = 0; i < num; i++) {
-              ax[i] = constrain(ax[i], 20, width);
-              ay[i] = constrain(ay[i], 20, height);
-              ax2[i] = constrain(ax2[i], 0, width);
-              ay2[i] = constrain(ay2[i], 0, height);
-              ax3[i] = constrain(ax3[i], 20, width);
-              ay3[i] = constrain(ay3[i], 0, height);
-              ax4[i] = constrain(ax4[i], 20, width);
-              ay4[i] = constrain(ay4[i], 0, height);
-              ax5[i] = constrain(ax5[i], 20, width);
-              ay5[i] = constrain(ay5[i], 0, height);
-              ax6[i] = constrain(ax6[i], 0, width);
-              ay6[i] = constrain(ay6[i], 0, height);
-          }
-      }
-
-      function drawLines(ax, ay, color) {
-        for (let i = 1; i < num; i++) {
-            // Diminuindo a intensidade das cores e aumentando a opacidade
-            stroke(color.levels[30] * 0.2, color.levels[1] * 0.2, color.levels[2] * 0.2, 20); // Opacidade maior
-            line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
-        }
-    }
-    
-
-      function explodeLines() {
-          for (let i = 0; i < num; i++) {
-              let angle = atan2(ay[i] - mouseY, ax[i] - mouseX);
-              ax[i] += 2*cos(angle) * explosionStrength * 0.5; // Reduzido
-              ay[i] += 2*sin(angle) * explosionStrength * 0.5; // Reduzido
-
-              let angle2 = atan2(ay2[i] - mouseY, ax2[i] - mouseX);
-              ax2[i] += 2 * cos(angle2) * explosionStrength * 0.5; // Reduzido
-              ay2[i] += 2 * sin(angle2) * explosionStrength * 0.5; // Reduzido
-
-              let angle3 = atan2(ay3[i] - mouseY, ax3[i] - mouseX);
-              ax3[i] += 1 * cos(angle3) * explosionStrength * 0.5; // Reduzido
-              ay3[i] += 1 * sin(angle3) * explosionStrength * 0.5; // Reduzido
-
-              let angle4 = atan2(ay5[i] - mouseY, ax5[i] - mouseX);
-              ax5[i] += 1 * cos(angle4) * explosionStrength * 0.5; // Reduzido
-              ay5[i] += 1 * sin(angle4) * explosionStrength * 0.5; // Reduzido
-
-              let angle5 = atan2(ay6[i] - mouseY, ax6[i] - mouseX);
-              ax6[i] += 1 * cos(angle5) * explosionStrength * 0.5; // Reduzido
-              ay6[i] += 1 * sin(angle5) * explosionStrength * 0.5; // Reduzido;
-          }
-
-          // Redefine a explosão após um tempo
-          if (frameCount % 10 === 0) {
-              explosionStrength *= 0.89; // Diminui a força da explosão ao longo do tempo
-          }
-
-          // Para a explosão após um tempo
-          if (explosionStrength < 0.1) {
-              explosion = false;
-              explosionStrength = 2; // Reseta a força para o próximo clique
-          }
-      }
-
-      function mousePressed() {
-          explosion = true; // Ativa a explosão
-      }
-  </script>
 
 
 </body>
