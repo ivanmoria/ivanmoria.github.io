@@ -32,7 +32,7 @@ body {
     background: none;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    padding: 10px 10px; /* Adiciona algum preenchimento para o botão */
+    padding: 15px 15px; /* Adiciona algum preenchimento para o botão */
       cursor: pointer; /* Aponta o cursor para indicar que é clicável */
       transition: all 0.3s ease; /* Suaviza a transição */
     
