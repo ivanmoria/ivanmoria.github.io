@@ -1,17 +1,42 @@
-
+// Impede o scroll
 document.body.style.overflow = 'hidden';
-                  window.addEventListener('beforeunload', function (e) {
-                    e.preventDefault();
-                    e.returnValue = ''; // Exibe o aviso de confirmação (em alguns navegadores)
-                  });
-                  
-                  document.addEventListener("contextmenu", function(e) {
-                    e.preventDefault(); // Bloqueia o menu de contexto
-                  });
-                  
-                  document.addEventListener("copy", function(e) {
-                    e.preventDefault(); // Bloqueia a ação de copiar
-                  });
+
+// Remove qualquer evento `beforeunload` registrado previamente
+window.onbeforeunload = null;
+
+// Bloqueia o menu de contexto
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+});
+
+// Bloqueia a ação de copiar
+document.addEventListener("copy", function(e) {
+    e.preventDefault();
+});
+
+// Impede a seleção de texto
+document.addEventListener("selectstart", function(e) {
+    e.preventDefault();
+});
+
+// Impede o uso de teclas de rolagem (como setas ou PageDown)
+document.addEventListener("keydown", function(e) {
+    const forbiddenKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "];
+    if (forbiddenKeys.includes(e.key)) {
+        e.preventDefault();
+    }
+});
+
+// Impede rolagem via mouse
+document.addEventListener("wheel", function(e) {
+    e.preventDefault();
+}, { passive: false });
+
+// Impede a manipulação direta do scrollbar
+document.documentElement.style.overflow = 'hidden'; // Para todo o documento
+document.documentElement.style.userSelect = 'none'; // Impede seleção de texto via CSS
+document.body.style.userSelect = 'none'; // Complementa para o body
+
 
 
 
