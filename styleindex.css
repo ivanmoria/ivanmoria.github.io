@@ -58,6 +58,7 @@ body {
   
   .button1-container {
     display: flex;
+    margin-top:30px;
     flex-wrap: nowrap;
     flex-direction: column;  /* Alinha os botões verticalmente */
     justify-content: center; /* Centraliza horizontalmente */
@@ -160,7 +161,7 @@ body.dark-mode {
 .theme-switch {
     position: relative;
     display: flex;
-   margin-top: -215%;
+   margin-top: -505px;
     justify-content: center;
     direction: rtl;
   }
