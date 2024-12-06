@@ -1841,16 +1841,7 @@ p20{
   z-index: 9999;
 }
 
-
-
-/* Animação de rotação */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-
-/* Aqui está o CSS para o novo ícone de hamster */
+/* From Uiverse.io by Nawsome */ 
 .wheel-and-hamster {
   --dur: 1s;
   position: relative;
@@ -1896,7 +1887,7 @@ p20{
   background: hsl(30,90%,55%);
   border-radius: 70% 30% 0 100% / 40% 25% 25% 60%;
   box-shadow: 0 -0.25em 0 hsl(30,90%,80%) inset,
-    0.75em -1.55em 0 hsl(30,90%,90%) inset;
+		0.75em -1.55em 0 hsl(30,90%,90%) inset;
   top: 0;
   left: -2em;
   width: 2.75em;
@@ -1940,7 +1931,7 @@ p20{
   background: hsl(30,90%,90%);
   border-radius: 50% 30% 50% 30% / 15% 60% 40% 40%;
   box-shadow: 0.1em 0.75em 0 hsl(30,90%,55%) inset,
-    0.15em -0.5em 0 hsl(30,90%,80%) inset;
+		0.15em -0.5em 0 hsl(30,90%,80%) inset;
   top: 0.25em;
   left: 2em;
   width: 4.5em;
@@ -2010,10 +2001,10 @@ p20{
 .spoke {
   animation: spoke var(--dur) linear infinite;
   background: radial-gradient(100% 100% at center,hsl(0,0%,60%) 4.8%,hsla(0,0%,60%,0) 5%),
-    linear-gradient(hsla(0,0%,55%,0) 46.9%,hsl(0,0%,65%) 47% 52.9%,hsla(0,0%,65%,0) 53%) 50% 50% / 99% 99% no-repeat;
+		linear-gradient(hsla(0,0%,55%,0) 46.9%,hsl(0,0%,65%) 47% 52.9%,hsla(0,0%,65%,0) 53%) 50% 50% / 99% 99% no-repeat;
 }
 
-/* Animações */
+/* Animations */
 @keyframes hamster {
   from, to {
     transform: rotate(4deg) translate(-0.8em,1.85em);
@@ -2050,76 +2041,78 @@ p20{
   }
 
   12.5%, 37.5%, 62.5%, 87.5% {
-    transform: rotate(8deg);
+    transform: rotate(12deg);
   }
 }
 
 @keyframes hamsterBody {
-  from, to {
-    transform: rotate(0deg);
+  from, 25%, 50%, 75%, to {
+    transform: rotate(0);
   }
 
-  25%, 75% {
+  12.5%, 37.5%, 62.5%, 87.5% {
     transform: rotate(-2deg);
   }
 }
 
 @keyframes hamsterFRLimb {
-  from, 50%, 100% {
-    transform: rotate(15deg) translateZ(-1px);
+  from, 25%, 50%, 75%, to {
+    transform: rotate(50deg) translateZ(-1px);
   }
 
-  25%, 75% {
-    transform: rotate(25deg) translateZ(-1px);
-  }
-}
-
-@keyframes hamsterFLLimb {
-  from, 50%, 100% {
-    transform: rotate(15deg);
-  }
-
-  25%, 75% {
-    transform: rotate(25deg);
-  }
-}
-
-@keyframes hamsterBRLimb {
-  from, 50%, 100% {
-    transform: rotate(-25deg) translateZ(-1px);
-  }
-
-  25%, 75% {
-    transform: rotate(-15deg) translateZ(-1px);
-  }
-}
-
-@keyframes hamsterBLLimb {
-  from, 50%, 100% {
-    transform: rotate(-25deg);
-  }
-
-  25%, 75% {
-    transform: rotate(-15deg);
-  }
-}
-
-@keyframes hamsterTail {
-  from, to {
-    transform: rotate(30deg) translateZ(-1px);
-  }
-
-  50% {
+  12.5%, 37.5%, 62.5%, 87.5% {
     transform: rotate(-30deg) translateZ(-1px);
   }
 }
 
-@keyframes spoke {
-  0% {
-    transform: rotate(0deg);
+@keyframes hamsterFLLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(-30deg);
   }
 
-  100% {
-    transform: rotate(360deg);
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(50deg);
   }
 }
+
+@keyframes hamsterBRLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(-60deg) translateZ(-1px);
+  }
+
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(20deg) translateZ(-1px);
+  }
+}
+
+@keyframes hamsterBLLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(20deg);
+  }
+
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(-60deg);
+  }
+}
+
+@keyframes hamsterTail {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(30deg) translateZ(-1px);
+  }
+
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(10deg) translateZ(-1px);
+  }
+}
+
+@keyframes spoke {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(-1turn);
+  }
+}
+
+
