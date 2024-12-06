@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<div>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,26 +24,12 @@
     <link rel="icon" href="  https://img.icons8.com/?size=100&id=90&format=png&color=000000" type="image/x-icon">
     <link rel="apple-touch-icon" href="  https://img.icons8.com/?size=100&id=90&format=png&color=000000">
 
-<style>
-
-.button-container2 {
-
-  position: fixed; /* Define o posicionamento fixo */
-  left: 50%; /* Posiciona horizontalmente no centro da tela */
-  bottom: 90%; /* Posiciona verticalmente na parte inferior */
-  transform: translateX(-50%) translateY(50%); /* Ajusta o centro do elemento para o meio da tela */
-  display: flex; /* Permite o alinhamento lado a lado */
-  z-index: 1000; /* Garante que o botão esteja acima de outros conteúdos */
-  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
-  z-index: 1000;
- /* Espaçamento entre os botões e a assinatura */
-}
-</style>
-
-<div class="button-container2" style="margin-left:-00px;">
-  <div class="theme-switch" style="margin-top:00px;">
-  
-
+  <style>
+    
+  </style>
+<div class="button-container">
+   
+    <div class="theme-switch" >
         <input type="checkbox" id="theme-checkbox" >
         <label for="theme-checkbox">
           <div></div>
@@ -76,7 +62,7 @@
         </label>
       </div>
   </div>
-</div>
+
   
   <style>
     html, body {
@@ -457,7 +443,7 @@ color: rgba(131, 159, 144, 0.801);
 </div>
 <div id="canvas-container">
 <script>
-    let isDarkMode = true; // Definir o modo padrão como claro
+    let isDarkMode = false; // Definir o modo padrão como claro
     function toggleTheme() {
         isDarkMode = !isDarkMode; // Alterna o estado do tema
       }
@@ -490,15 +476,7 @@ color: rgba(131, 159, 144, 0.801);
   document.getElementById("theme-checkbox").addEventListener("click", function() {
     toggleTheme();  // Alterna o tema quando o botão é clicado
   });
-  // Seleciona o checkbox e o body
-const themeCheckbox = document.getElementById("theme-checkbox");
-const body = document.body;
-
-// Função para alternar o tema
-themeCheckbox.addEventListener("click", () => {
-    body.classList.toggle("dark-theme");
-});
-
+  
   function draw() {
     if (isDarkMode) {
         background(50);  // Cor de fundo escura (modo escuro)
@@ -572,24 +550,24 @@ redraw(); // Garante que o canvas seja redesenhado
 
 
   <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='index.html'">
-    <span><p2>Index</p2></span>
+    <span>Index</span>
 </button>
 
 
 <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"  onclick="window.location.href='references.html'">
-<span><p2>bib</p2></span>
+<span>bib</span>
 </button>
 
 <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='projetos.html'">
-<span><p2>projects</p2></span>
+<span>projects</span>
 </button>
 <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"onclick="window.location.href='contato.html'">
-<span><p2>contact</p2></span>
+<span>contact</span>
 </button>
 
 <button class="ui-btn" style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
-background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -30px;color:rgb(255, 255, 255)"  onclick="window.location.href='mirmt.html'">
-<span><p20>MIRMT</p20></span>
+background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -40px;color:rgb(255, 255, 255)"  onclick="window.location.href='mirmt.html'">
+<span>MIRMT</span>
 </button>
 
 
@@ -626,9 +604,9 @@ background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -30px;color:rgb(2
 
 
 <br>
-<br>
 
-<p2 style="font-size:25px; margin-top:20px;">
+
+<p2 style="color: rgb(73, 203, 205);font-size:25px; margin-top:20px;">
 Technologies for Extraction and Processing of Musical Information in Music Therapy: 
 Microanalysis of Musical Traces and Possible Interfaces with Social Cognition
 <br><br></p2>
@@ -747,13 +725,11 @@ body.dark-mode p2, body.dark-mode p20 {
 
 
 
-
-
 </style>
 <span  class="contente-text" style="text-align: justify; width: 85%; margin-top: -10px;"> 
 <div style="display: flex; margin-bottom: 15px;flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">   
 
-  <p style=" text-align: justify;">
+  <p11 style="color: rgba(118, 157, 191, 0.716); text-align: justify;">
     Data collection for the analysis of music therapy sessions can be conducted in various ways. There is an abundance of qualitative studies that narrate the functioning of sessions observationally, supported by music therapy evaluation scales.
     <br><br>
     There is a lack of publications in Brazil that utilize quantitative methods for data collection and analysis in Music Therapy using digital equipment, such as musical instruments that transmit information via MIDI (Musical Instrument Digital Interface) to electronic processing.
@@ -769,11 +745,11 @@ body.dark-mode p2, body.dark-mode p20 {
     We hope that this experiment will enable us to quantitatively visualize levels of perception among participants and the relationship between various musical stimuli and musical responses, specifically related to rhythmic aspects such as anticipation, delay, synchronization, perception, memory, and understanding of symbolic structures, among others.
     <br><br>
     This project will contribute to the development of new tools for data collection in Music Therapy, also identifying potential factors that hinder access to this form of data collection and exploring ways to develop more accessible methods for use by music therapists in Brazil.
-  </p>
-
+  </p11>
+  <br>
   <div>
- <p2 > Keywords: </p2> <p18>Music Information Retrieval, Music Therapy, Music and Technology, Music Therapy Analysis.</p18>
- 
+  <p2 >Keywords:</p2>  <p11 style="color: rgba(118, 157, 191, 0.716); text-align: justify;">Music Information Retrieval, Music Therapy, Music and Technology, Music Therapy Analysis.
+  </p11>
 <br><br>
 
 <div style="display: flex; ">
@@ -858,7 +834,7 @@ Banner Preview
     <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; margin-right: -20px">
       <span  class="contente-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
 
-<p style="  color:#00000037 font-size = 20px ">
+<p2 style=" color: rgb(146, 184, 171); color:#00000037 font-size = 20px ">
     <br>Given the vast potential for the collection and analysis of musical 
     data from Music Therapy <p20 style="font-size: 22px;">(MT)</p20> sessions using MIDI, 
     through Music Information Retrieval <p20 style="font-size: 22px;">(MIR)</p20> techniques, 
@@ -867,18 +843,18 @@ Banner Preview
     This research project aims to identify factors that hinder access to this wealth of data,
      explore ways to make these tools more accessible for music therapists in Brazil,
      and investigate opportunities for the ongoing development of platforms that utilize MIDI technology for research.
-  </p>
+  </p2>
   <br>
   <br> 
 
 <p4> Research Timeline</p4><br><br>
-<p20 style="font-size: 20px;">  (2023 – 2024)</p20>&nbsp; <p2 style="   font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
+<p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style=" color: rgb(146, 184, 171);  font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
 and the use of technological tools in Music Therapy;
 <br>
-<br>  <p20 style="font-size: 20px;"> (2021 – 2025)</p20>&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
+<br>  <p2 style="font-size: 20px;"> (2021 – 2025)</p2>&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
 and Python for processing MIDI data and creating visual and statistical analysis;<br>
-<br><p20 style="font-size: 20px;"> (2024 – 2025)</p20>&nbsp; Advancement of an intuitive visual interface to ensure accessibility for all users and researchers;
-<br><br><p20 style="font-size: 20px;"> (2024 – 2025)</p20>&nbsp; Interviews with experts in music therapy to explore their use of technological tools and collect evaluative 
+<br><p2 style="font-size: 20px;"> (2024 – 2025)</p2>&nbsp; Advancement of an intuitive visual interface to ensure accessibility for all users and researchers;
+<br><br><p2 style="font-size: 20px;"> (2024 – 2025)</p2>&nbsp; Interviews with experts in music therapy to explore their use of technological tools and collect evaluative 
 feedback on this ongoing research.
 
 </p2>
@@ -1079,9 +1055,9 @@ Music excerpts for rhythm evaluation  </p2>
 </div>
 <div style="display: flex; align-items: center; margin-top: 15px;">
 
-<p style = "font-size: 12px;"> 
+<p2 style = "font-size: 16px; color: rgb(246, 148, 148);"> 
 Notice: Some devices may have difficulty accessing multimedia files. If this happens, please click the link in the title of each piece to access the score directly on MuseScore's website.
-</p>
+</p2>
 
       </div>
       <br>
@@ -1207,8 +1183,8 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn" 
 
      onclick="window.location.href='ventometrico.preview.html'"
-    onmouseover="showPreview('preview0')" >
-  <p20>Vento Métrico</p20>
+    onmouseover="showPreview('preview0')" style="color: #c2eebd;">
+  Vento Métrico
   </button>
 </td>
 <td rowspan="6" class="preview-cell">
@@ -1224,7 +1200,7 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'"
     onmouseover="showPreview('preview1')" style="color: #c2eebd;">
-   <p20> AllaTurca A (Original)</p20>
+    AllaTurca A (Original)
   </button>
 </td>
 </tr>
@@ -1233,7 +1209,7 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'"
     onmouseover="showPreview('preview2')" style="color: #c2eebd;">
-  <p20> AllaTurca A (in 3 with a jazz-style cadence)</p20>
+    AllaTurca A (in 3 with a jazz-style cadence)
   </button>
 </td>
 </tr>
@@ -1242,7 +1218,7 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'"
     onmouseover="showPreview('preview3')" style="color: #c2eebd;">
-  <p20> AllaTurca A (changing the beat in jazz style)</p20>
+    AllaTurca A (changing the beat in jazz style)
   </button>
 </td>
 </tr>
@@ -1252,7 +1228,7 @@ iframes.forEach(function(iframe) {
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'" 
     onmouseover="showPreview('preview4')" 
     style="color: #c2eebd;">
-  <p20> AllaTurca B (adapted to Brazilian Baião rhythm)</p20>
+    AllaTurca B (adapted to Brazilian Baião rhythm)
   </button>
 </td>
 </tr>
@@ -1262,7 +1238,7 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn onmouseover="hidePreview()" 
     onmouseover="hidePreview()" 
     style="font-size:20px;color: #fbdc3f97;">
-  <p20>Close Preview </p20>
+  Close Preview 
   </button>
 </td>
 </tr>
@@ -1477,23 +1453,13 @@ are modular and return a detailed dictionary with all metrics,
 <div style="display: flex; justify-content: center;">
 
 </div><div style="display: flex; justify-content: center;">
-<p223 style="  font-size:20px;"> 
-© 2024 Ivan Moriá Borges. All rights reserved. </p223>
+<p2 style="  font-size:20px;color:rgb(193, 164, 255);"> 
+© 2024 Ivan Moriá Borges. All rights reserved. </p2>
 
 <br></div><div style="display: flex; justify-content: center;">
-<p223 style="  margin-top:0px;font-size:14px;"> 
-GIFs created with Gifski, canvas created with Processing. </p223>
+<p2 style="  margin-top:0px;font-size:14px;color:rgb(193, 164, 255);"> 
+GIFs created with Gifski, canvas created with Processing. </p2>
 </div>
-<style>
-  p223{
-    font-family: 'Poiret One', cursive;
-    
-    font-size: 20px;
-    font-weight: 200;
-    font-style:bold;
-    color:rgb(193, 164, 255);;
-    }
 
-</style>
 </body>
 </html>
