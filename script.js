@@ -1,3 +1,14 @@
+// script.js
+
+// Aguardar o carregamento completo da página e recursos
+window.addEventListener('load', function() {
+  // Remover o overlay após o carregamento completo da página
+  document.getElementById('overlay').style.display = 'none';  
+  
+  // Exibir o conteúdo da página
+  document.getElementById('content').style.display = 'block';  
+});
+
 
 
 function downloadFile(fileUrl, fileName) {
@@ -214,4 +225,6 @@ label.addEventListener('mouseleave', () => {
   document.addEventListener('DOMContentLoaded', function() {
     showAllPublications();  // Exibe todas as publicações ao carregar
 });
+
+// script.js
 
