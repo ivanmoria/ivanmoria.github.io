@@ -42,6 +42,31 @@ body {
 </head>
 <body>
 
+  <div id="overlay" class="overlay">
+
+ 
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+      <div class="wheel"></div>
+      <div class="hamster">
+        <div class="hamster__body">
+          <div class="hamster__head">
+            <div class="hamster__ear"></div>
+            <div class="hamster__eye"></div>
+            <div class="hamster__nose"></div>
+          </div>
+          <div class="hamster__limb hamster__limb--fr"></div>
+          <div class="hamster__limb hamster__limb--fl"></div>
+          <div class="hamster__limb hamster__limb--br"></div>
+          <div class="hamster__limb hamster__limb--bl"></div>
+          <div class="hamster__tail"></div>
+        </div>
+      </div>
+      <div class="spoke"></div>
+
+
+  </div>
+</div>
+
   <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()" onclick="window.location.href='index.html'; return false;"> <!-- Redireciona ao clicar -->
         <div class="assinatura" id="assinatura">
@@ -50,6 +75,45 @@ body {
           </div>
         </div>
     </a>
+    <div class="button-container3" style="margin-left:-00px;">
+      <div class="theme-switch" style="margin-top:0px;">
+      
+    
+            <input type="checkbox" id="theme-checkbox" >
+            <label for="theme-checkbox">
+              <div></div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
   </div>
   
 
@@ -316,7 +380,23 @@ body {
 
 <script>
 
-
+  let isDarkMode = false;  // Defina 'false' para o modo claro padrão
+      
+  const themeCheckbox = document.getElementById("theme-checkbox");
+  const body = document.body;
+  
+  function toggleTheme() {
+    isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+  
+    if (isDarkMode) {
+      body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+    } else {
+      body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+    }
+  }
+  
+  // Adiciona o evento de clique ao checkbox
+  themeCheckbox.addEventListener("click", toggleTheme);
   let num = 400;
   let range = 60;
   let ax = [];
@@ -346,7 +426,14 @@ body {
 
   function draw() {
       
-background(43);
+    if (isDarkMode) {
+      background(50);  // Cor de fundo escura (modo escuro)
+      fill(255);  // Cor do texto clara (modo escuro)
+
+  } else {
+      background(183);  // Cor de fundo clara (modo claro)
+      fill(0);  // Cor do texto escura (modo claro)
+      }
 
 
 for (let i = 13; i < num; i++) {
@@ -405,20 +492,31 @@ redraw(); // Garante que o canvas seja redesenhado
     <div id="container-nav">
     <nav id="navbar-items">
 
-    <button class="ui-btn" onclick="window.location.href='index.html'">
-        <span>Index</span>
+      <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+        <span><p29>⇦</p29></span>
+    </button>
+    
+    
+    <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+    <span><p29>bib</p29></span>
+    </button>
+  
+
+    <button class="ui-btn" style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+    font-size:30px; margin-bottom: -30px;margin-right:-20px;"  onclick="window.location.href='projetos.html'"
+    <span><p28>proj</p28></span>
     </button>
 
-    <button class="ui-btn" onclick="window.location.href='references.html'">
-      <span>Referências</span>
-  </button>
-  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='mirmt.html'">
-    <span>MIRMT</span>
-  </button>
-  <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='contato.html'">
-    <span>Contato</span>
-</button>
+    <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"onclick="window.location.href='contato.html'">
+    <span><p29>contact</p29></span>
+    </button>
+    
+    <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"onclick="window.location.href='mirmt.html'">
+      <span><p29>MIRMT</p29></span>
+      </button>
 
+
+    
 
 
 
@@ -480,12 +578,6 @@ redraw(); // Garante que o canvas seja redesenhado
 <li class="playlist-item" data-src="media/audio/orq_multiplayer/Tormenta_Desafio_dos_Deuses.mp3">Tormenta - Desafio dos Deuses</li>
 <div class="containerr" style="margin-right: 50px; margin-top: 15px;">
    
-<iframe width="560" height="315" 
-src="https://www.youtube.com/embed/pAuNBokYN7w?si=Tjiz6mss9eEr-Q8H" 
-title="YouTube video player" 
-frameborder="0" allow="accelerometer; autoplay; clipboard-write;
- encrypted-media; gyroscope; picture-in-picture; web-share" 
- referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 
@@ -572,6 +664,22 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write;
 <iframe width="260" height="315"  src="https://www.youtube.com/embed/8VU9WUUmFnA?si=jV3xVec2-c9IeezQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 </div>
+
+
+<p2 style="margin-top: 200px; margin-left: 0px ;margin-top: 15px"> Orquestra Multiplayer</p2>
+<br>
+    <br>
+<div class="containerr" style="margin-right: 50px;">
+
+  <iframe width="560" height="315" 
+  src="https://www.youtube.com/embed/pAuNBokYN7w?si=Tjiz6mss9eEr-Q8H" 
+  title="YouTube video player" 
+  frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+   encrypted-media; gyroscope; picture-in-picture; web-share" 
+   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
+
 </body>
 </html>
 

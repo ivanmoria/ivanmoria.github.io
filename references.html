@@ -216,6 +216,30 @@ function hidePreview() {
 
 </head>
 <body>
+  <div id="overlay" class="overlay">
+
+ 
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" class="wheel-and-hamster">
+      <div class="wheel"></div>
+      <div class="hamster">
+        <div class="hamster__body">
+          <div class="hamster__head">
+            <div class="hamster__ear"></div>
+            <div class="hamster__eye"></div>
+            <div class="hamster__nose"></div>
+          </div>
+          <div class="hamster__limb hamster__limb--fr"></div>
+          <div class="hamster__limb hamster__limb--fl"></div>
+          <div class="hamster__limb hamster__limb--br"></div>
+          <div class="hamster__limb hamster__limb--bl"></div>
+          <div class="hamster__tail"></div>
+        </div>
+      </div>
+      <div class="spoke"></div>
+
+
+  </div>
+</div>
 
   <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()" onclick="window.location.href='index.html'; return false;"> <!-- Redireciona ao clicar -->
@@ -225,6 +249,44 @@ function hidePreview() {
           </div>
         </div>
     </a>
+    <div class="button-container3" style="margin-left:-00px;">
+      <div class="theme-switch" style="margin-top:00px;">
+      
+    
+            <input type="checkbox" id="theme-checkbox" >
+            <label for="theme-checkbox">
+              <div></div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div>
   </div>
   
 
@@ -481,81 +543,113 @@ function hidePreview() {
 
 
   <script>
-    let num = 400;
-    let range = 60;
-    let ax = [];
-    let ay = [];
-    let extraLines = 300;
-    let mouseInfluence = 0.1; // Define a força com que o mouse influencia o movimento
-
-    function setup() {
-        let canvas = createCanvas(windowWidth, windowHeight);
-        canvas.parent('canvas-container');
-        for (let i = 0; i < num; i++) {
-            ax[i] = width / 10;
-            ay[i] = height / 24;
-        }
-        for (let j = 0; j < num + extraLines; j++) {
-            ax[j] = width / 22;
-            ay[j] = height / 22;
-        }
-
-        frameRate(30);
+   
+  let isDarkMode = true;  // Defina 'false' para o modo claro padrão
+      
+  const themeCheckbox = document.getElementById("theme-checkbox");
+  const body = document.body;
+  
+  function toggleTheme() {
+    isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+  
+    if (isDarkMode) {
+      body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+    } else {
+      body.classList.remove("dark-theme"); // Remove a classe de tema escuro
     }
+  }
+  
+  // Adiciona o evento de clique ao checkbox
+  themeCheckbox.addEventListener("click", toggleTheme);
+  let num = 400;
+  let range = 60;
+  let ax = [];
+  let ay = [];
+  let extraLines = 30;
 
-    function draw() {
-        background(43);
+  function setup() {
+      let canvas = createCanvas(windowWidth, windowHeight);
+      canvas.parent('canvas-container');
+      for (let i = 1; i < num; i++) {
+          ax[i] = width / 2;
+          ay[i] = height / 2;
+      }
+      for (let j = 1; j < num + extraLines; j++) {
+          ax[j] = width / 2;
+          ay[j] = height / 2;
+      }
 
-        // Atualiza as coordenadas das linhas principais
-        for (let i = 1; i < num; i++) {
-            ax[i - 1] = ax[i];
-            ay[i - 1] = ay[i];
-        }
-        // Adiciona movimento aleatório e influência do mouse
-        ax[num - 1] += random(-range, range) + (mouseX - ax[num - 1]) * mouseInfluence;
-        ay[num - 1] += random(-range, range) + (mouseY - ay[num - 1]) * mouseInfluence;
+      frameRate(30);
 
-        // Restringe o movimento às dimensões da tela
-        ax[num - 1] = constrain(ax[num - 1], 0, width);
-        ay[num - 1] = constrain(ay[num - 1], 0, height);
+ 
 
-        // Desenha as linhas principais
-        for (let i = 1; i < num; i++) {
-            let val0 = float(i) / num * 200.0 + 3;
-            let val = map(ax[i], 0, width, 0, 255);
-            let val2 = map(ay[i], 0, height, 0, 255);
-            stroke(val0, val, val2, 80);
-            line(ax[i - 4], ay[i - 1], ax[i], ay[i]);
-        }
 
-        // Atualiza as coordenadas das linhas extras
-        for (let j = 1; j < extraLines; j++) {
-            ax[j - 1] = ax[j];
-            ay[j - 1] = ay[j];
-        }
-        // Adiciona movimento aleatório e influência do mouse nas linhas extras
-        ax[extraLines - 1] += random(-range, range) + (mouseX - ax[extraLines - 1]) * mouseInfluence;
-        ay[extraLines - 1] += random(-range, range) + (mouseY - ay[extraLines - 1]) * mouseInfluence;
 
-        // Restringe o movimento às dimensões da tela
-        ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-        ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
 
-        // Desenha as linhas extras
-        for (let j = 1; j < num; j++) {
-            let val1 = float(j) / num * 200.0 + 3;
-            let val3 = map(ax[j], 0, width, 0, 255);
-            let val4 = map(ay[j], 0, height, 0, 255);
+  }
 
-            stroke(val1, val3, val4, 50);
-            line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-        }
-    }
+  function draw() {
+      
+    if (isDarkMode) {
+      background(50);  // Cor de fundo escura (modo escuro)
+      fill(255);  // Cor do texto clara (modo escuro)
 
-    function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
-        redraw(); // Garante que o canvas seja redesenhado
-    }
+  } else {
+      background(183);  // Cor de fundo clara (modo claro)
+      fill(0);  // Cor do texto escura (modo claro)
+      }
+
+
+for (let i = 13; i < num; i++) {
+  ax[i - 1] = ax[i];
+  ay[i - 1] = ay[i];
+}
+ax[num - 1] +=-random(-range, range);
+ay[num - 1] += random(-range, range);
+ax[num - 1] = constrain(ax[num - 1], 0, width);
+ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+
+
+
+
+
+for (let i = 31; i < num ; i++) {
+  let val0 = float(i) / num * 200.0 + 3 ;
+  let val = map(ax[i], 0, width, 0, 255);
+  let val2 = map(ay[i],0, height, 0, 255);
+  stroke(val0,val,val2, 80);
+  line(ax[i-4], ay[i-1], ax[i], ay[i]);
+  
+}
+
+for (let j = 1; j < extraLines; j++) {
+  ax[j - 1] = ax[j];
+  ay[j - 1] = ay[j];
+}
+ax[extraLines - 13] += random(-range, range);
+ay[extraLines - 13] += random(range, - range);
+ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+for (let j = 1; j < num; j++) {
+  let val1 = float(j) / num * 200.0 + 3 ;
+  let val3 = map(ax[j], 0, width, 0, 255);
+  let val4 = map(ay[j],0, height, 0, 255);
+
+  stroke(val1,val3,val4, 50);
+
+  line(ax[j - 1], ay[j - 3], ax[j-2], ay[j-2]);
+}
+
+
+
+}
+background(0); // Exemplo de fundo cinza
+function windowResized() {
+resizeCanvas(windowWidth, windowHeight);
+redraw(); // Garante que o canvas seja redesenhado
+
+}
 </script>
 
 
@@ -593,25 +687,28 @@ function hidePreview() {
 <div id="left-column"
 <div id="container-nav" >
 <nav id="navbar-items" style="margin-bottom:10px;">
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='index.html'">
-    <span>Index</span>
+
+
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+    <span><p29>⇦</p29></span>
 </button>
-  <button class="ui-btn"   style=" height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
-  background-color: rgba(0, 0, 0);font-size:30px; margin-bottom: -40px;color:rgb(255, 255, 255)"  onclick="window.location.href='references.html'">
-    <span>Bib</span>
-  </button>
- 
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='tecnicas.html'">
-    <span>Tec</span>
-  </button>
-  <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"onclick="window.location.href='artisticas.html'">
-    <span>Art</span>
-  </button>
 
-    <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='mirmt.html'">
-      <span>MIRMT</span>
-    </button>
 
+<button class="ui-btn"  style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+font-size:30px; margin-bottom: -30px;margin-right:-20px;"  onclick="window.location.href='references.html'">
+<span><p28>bib</p28></span>
+</button>
+
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='projetos.html'">
+<span><p29>proj</p29></span>
+</button>
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='contato.html'">
+<span><p29>contact</p29></span>
+</button>
+
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"class="ui-btn"  onclick="window.location.href='mirmt.html'">
+<span><p29>MIRMT</p29></span>
+</button>
 
 
 

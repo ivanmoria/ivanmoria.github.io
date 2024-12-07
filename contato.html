@@ -35,12 +35,50 @@
 
   <div class="assinatura-container">
     <a href="#" id="assinatura-link" onmouseover="animateSignature()" onclick="window.location.href='index.html'; return false;"> <!-- Redireciona ao clicar -->
-        <div class="assinatura" id="assinatura">
+        <div class="assinatura" id="assinatura" >
           <div class="texto-animado" id="texto-animado">
             ivan moriá borges rodrigues
           </div>
         </div>
     </a>
+    <div class="button-container3" style="margin-left:-0px;">
+      <div class="theme-switch" style="margin-top:20px;">
+      
+    
+            <input type="checkbox" id="theme-checkbox" >
+            <label for="theme-checkbox">
+              <div></div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div>
   </div>
   
 
@@ -56,115 +94,155 @@
 
     <div id="canvas-container">
 
-    <script>
-
-
-        let num = 400;
-        let range = 60;
+      <script>
+        let isDarkMode = false;  // Defina 'false' para o modo claro padrão
+      
+      const themeCheckbox = document.getElementById("theme-checkbox");
+      const body = document.body;
+      
+      function toggleTheme() {
+        isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+      
+        if (isDarkMode) {
+          body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+        } else {
+          body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+        }
+      }
+      
+      // Adiciona o evento de clique ao checkbox
+      themeCheckbox.addEventListener("click", toggleTheme);
+      
+      // Verifica o estado inicial do tema
+      if (body.classList.contains("dark-theme")) {
+        themeCheckbox.checked = true;
+      } else {
+        themeCheckbox.checked = false;
+      }
+        let num = 600;
+        let range = 30;
         let ax = [];
         let ay = [];
         let extraLines = 300;
-
+        let t = 0; // Variável de tempo para a oscilação das cores
+      
+      
         function setup() {
             let canvas = createCanvas(windowWidth, windowHeight);
             canvas.parent('canvas-container');
-            for (let i = 0; i < num; i++) {
-                ax[i] = width / 10;
-                ay[i] = height / 24;
+            for (let i = 1; i < num; i++) {
+                ax[i] = width / 32;
+                ay[i] = height / 2;
             }
-            for (let j = 0; j < num + extraLines; j++) {
-                ax[j] = width / 22;
-                ay[j] = height / 22;
+            for (let j = 1; j < num + extraLines; j++) {
+                ax[j] = width / -22;
+                ay[j] = height / -2;
             }
-
+      
             frameRate(30);
-
+      
        
-
-
-    
-   
+      
+      
+      
+      
         }
-    
+      
+      
+      
         function draw() {
-            
-    background(43);
-
-  
-    for (let i = 1; i < num; i++) {
+          if (isDarkMode) {
+              background(50);  // Cor de fundo escura (modo escuro)
+              fill(255);  // Cor do texto clara (modo escuro)
+      
+          } else {
+              background(183);  // Cor de fundo clara (modo claro)
+              fill(0);  // Cor do texto escura (modo claro)
+      
+          }
+      
+      
+      
+      
+      for (let i = 1; i < num; i++) {
         ax[i - 1] = ax[i];
         ay[i - 1] = ay[i];
-    }
-    ax[num - 1] +=-random(-range, range);
-    ay[num - 1] += random(-range, range);
-    ax[num - 1] = constrain(ax[num - 1], 0, width);
-    ay[num - 1] = constrain(ay[num - 1], 0, height);
-    
-    
- 
-    
-    
-    
-    for (let i = 1; i < num ; i++) {
+      }
+      ax[num - 1] +=-random(-range, range);
+      ay[num - 1] += random(-range, range);
+      ax[num - 1] = constrain(ax[num - 1], 0, width);
+      ay[num - 1] = constrain(ay[num - 1], 0, height);
+      
+      
+      
+      
+      
+      
+      for (let i = 1; i < num ; i++) {
         let val0 = float(i) / num * 200.0 + 3 ;
         let val = map(ax[i], 0, width, 0, 255);
         let val2 = map(ay[i],0, height, 0, 255);
-        stroke(val0,val,val2, 80);
-        line(ax[i-4], ay[i-1], ax[i], ay[i]);
+        stroke(val0,val,val2, 10);
+        line(ax[i-2], ay[i-2], ax[i-2], ay[i-4]);
         
-    }
-
-    for (let j = 1; j < extraLines; j++) {
-        ax[j - 1] = ax[j];
-        ay[j - 1] = ay[j];
-    }
-    ax[extraLines - 1] += random(-range, range);
-    ay[extraLines - 1] += random(range, - range);
-    ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-    ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
-    for (let j = 1; j < num; j++) {
+      }
+      
+      for (let j = 1; j < extraLines; j++) {
+        ax[j - 1232] = ax[j];
+        ay[j - 13232] = ay[j];
+      }
+      ax[extraLines - 332] += random(-range, range);
+      ay[extraLines - 123] += random(range, - range);
+      ax[extraLines - 132] = constrain(ax[extraLines - 1], 0, width);
+      ay[extraLines - 332] = constrain(ay[extraLines - 1], 0, height);
+      for (let j = 1; j < num; j++) {
         let val1 = float(j) / num * 200.0 + 3 ;
         let val3 = map(ax[j], 0, width, 0, 255);
         let val4 = map(ay[j],0, height, 0, 255);
-
-        stroke(val1,val3,val4, 50);
-
-        line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
-    }
-
-
-
-}
-background(0); // Exemplo de fundo cinza
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  redraw(); // Garante que o canvas seja redesenhado
-
-}
-
-    </script>
-
-
-
+      
+        stroke(val1,val3,val4, 40);
+      
+        line(ax[j - 13], ay[j - 1], ax[j], ay[j]);
+      }
+      
+      
+      
+      }
+      background(0); // Exemplo de fundo cinza
+      function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+      redraw(); // Garante que o canvas seja redesenhado
+      
+      }
+      
+      </script>
 
 
 
     </div>
     <div id="container-nav">
       <nav id="navbar-items">
-   
-      <button class="ui-btn" onclick="window.location.href='index.html'">
-          <span>Index</span>
+        <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+          <span><p29>⇦</p29></span>
       </button>
-      <button class="ui-btn" onclick="window.location.href='references.html'">
-        <span>Referências</span>
-    </button>
-    <button class="ui-btn" style = "margin-right: 20px;" onclick="window.location.href='mirmt.html'">
-      <span>MIRMT</span>
-    </button>
-    <button class="ui-btn" onclick="window.location.href='projetos.html'">
-      <span>Projetos</span>
-    </button>
+      
+      
+      <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+      <span><p29>bib</p29></span>
+      </button>
+      
+      <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='projetos.html'">
+      <span><p29>proj</p29></span>
+      </button>
+      <button class="ui-btn"  style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+      font-size:30px; margin-bottom: -30px;margin-right:-20px;" onclick="window.location.href='contato.html'">
+      <span><p28>contact</p28></span>
+      </button>
+      
+      <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"class="ui-btn"  onclick="window.location.href='mirmt.html'">
+      <span><p29>MIRMT</p29></span>
+      </button>
+      
   
   </div>
   
@@ -217,7 +295,13 @@ function windowResized() {
         </g>
       </g>
     </svg>
+
   </button>
+  <button style="margin-top:-51px; margin-left:15px;" class="ui-btn" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+
+ 
+    <span ><p2 style="font-size:22px ;">ivanmoriabr@gmail.com</p2></span>
+</button>
   <br>
   <button class="button flex-center" onclick="window.location.href='https://wa.me/5531984667554'">
 
@@ -240,6 +324,9 @@ function windowResized() {
     </path>
 </svg>
 
+<button style="margin-top:-51px; margin-left:25px;" class="ui-btn" onclick="window.location.href=' https://wa.me/5531984667554'">
+  <span><p2 style="font-size:22px ;">+55 31 9 8466 7554</p2></span>
+</button>
   </button>
 
 <br>
@@ -277,6 +364,10 @@ function windowResized() {
         ></path>
       </g>
     </svg>
+
+<button style="margin-top:-51px; margin-left:25px;"  class="ui-btn" onclick="window.location.href=' https://www.instagram.com/ivanmoria'">
+  <span><p2>@ivanmoria</p2></span>
+</button>
   </button>
 
 <br>
@@ -328,6 +419,10 @@ function windowResized() {
       </g>
     </svg>
     
+<button style="margin-top:-46px; margin-left:25px;"class="ui-btn" onclick="window.location.href=' https://www.facebook.com/moriahivan'">
+  <span><p2>Ivan Moriá Borges</p2></span>
+</button>
+
   </button>
 
 <br>
@@ -375,6 +470,10 @@ function windowResized() {
         </g>
       </g>
     </svg>
+
+<button style="margin-top:-50px; margin-left:25px;"class="ui-btn" onclick="window.location.href=' https://github.com/ivanmoria'">
+  <span><p2>ivanmoria</p2></span>
+</button>
   </button>
 
 <br>
@@ -423,6 +522,10 @@ function windowResized() {
         </g>
       </g>
     </svg>
+
+<button style="margin-top:-50px; margin-left:25px;" class="ui-btn" onclick="window.location.href=' https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
+  <span><p2>Ivan Moriá Borges</p2></span>
+</button>
   </button>
 
 
@@ -430,31 +533,8 @@ function windowResized() {
 
 </div>
 
-    <div class="containeer">
-  <button class="ui-btn" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
 
- 
-    <span>ivanmoriabr@gmail.com</span>
-</button>
 
-<button class="ui-btn" onclick="window.location.href=' https://wa.me/5531984667554'">
-  <span>+55 31 9 8466 7554</span>
-</button>
-
-<button class="ui-btn" onclick="window.location.href=' https://www.instagram.com/ivanmoria'">
-  <span>@ivanmoria</span>
-</button>
-
-<button class="ui-btn" onclick="window.location.href=' https://www.facebook.com/moriahivan'">
-  <span>Ivan Moriá Borges</span>
-</button>
-
-<button class="ui-btn" onclick="window.location.href=' https://github.com/ivanmoria'">
-  <span>ivanmoria</span>
-</button>
-<button class="ui-btn" onclick="window.location.href=' https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
-  <span>Ivan Moriá Borges</span>
-</button>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -484,19 +564,77 @@ function windowResized() {
             });
     }
 </script>
-</head>
-<body>
 
-<form id="formContato" onsubmit="enviarEmail(event)">
-    <label for="email"><p2>e-mail:</p2></label><br>
+
+<form  id="formContato" onsubmit="enviarEmail(event)">
+    <label for="email"><p18>e-mail:</p18></label><br>
     <input type="email" id="email" name="email" required><br><br>
 
-    <label for="mensagem"><p2>Menssage:</p2></label><br>
+    <label for="mensagem"><p18>Mensagem:</p1></label><br>
     <textarea id="mensagem" name="mensagem" rows="5" cols="40" required></textarea><br><br>
 
     <input type="submit" value="Send">
 </form>
-</body>
+<style> /* Container do formulário */
+  form {
+    background: #ffffff77;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+height:350px;
+    width: 65%;
+    z-index: 999999;
+    transition: transform 0.2s ease;
+  }
+
+  form:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Estilização para os elementos internos do formulário */
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  input[type="email"],
+  textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s ease;
+  }
+
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+
+  /* Botão de envio */
+  input[type="submit"] {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-top:-20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #003d7a;
+  }
+</style>
 
 </div>
 </div>
