@@ -903,9 +903,8 @@ p2, p4{
   font-family: 'Poiret One', cursive;
 
   font-size: 24px;
-  font-weight: 200;
-
-  color: rgba(0, 0, 0, 0.863);
+  font-weight: 500;
+  color: rgba(50, 50, 50, 1); /* Cinza escuro */
 }
 
 .uia-btn {
@@ -1720,16 +1719,20 @@ body.dark-mode p2, body.dark-mode p20 {
 /* Estilo do tema escuro */
 .dark-theme {
   background-color: #2d2b2b; /* Fundo escuro */
-  color: #f0f0f0; /* Texto claro */
+  color: rgb(200, 200, 200);
+
 }
 
 /* Ajuste das cores para elementos específicos */
 .dark-theme p2 {
-  color: #c3c3c3;
+  color: rgb(200, 200, 200);
+
 }
 /* Ajuste das cores para elementos específicos */
 .dark-theme p20 {
-  color: #3fe13096;
+  color: rgba(255, 182, 193, 0.8); /* Rosa claro */
+
+
 
 }
 .dark-theme p {
@@ -1744,8 +1747,14 @@ body.dark-mode p2, body.dark-mode p20 {
   color: rgba(255, 255, 255, 0.8);
   font-weight: 550;
 }
+.dark-theme p0 {
+  color: rgba(176, 224, 230, 0.8); /* Azul claro pastel */
+
+}
+
+
 .dark-theme p25 {
-  color: #3fe13096;
+  color: rgba(144, 238, 144, 0.8); /* Verde claro */
 
 }
 .dark-theme p223 {
@@ -1761,21 +1770,72 @@ body.dark-mode p2, body.dark-mode p20 {
 .dark-theme p11 {
   color: rgba(200, 250, 200, 0.9);
 }
+.dark-theme p23 {
+  color: rgba(221, 160, 221, 0.8); /* Roxo claro pastel */
+}
+.dark-theme p233 {
+  color: rgba(144, 238, 144, 0.8); /* Verde claro */
+}
+.dark-theme p24 {
+  color: rgba(176, 224, 230, 0.8); /* Azul claro pastel */
+}
+.dark-theme p200 {
+  color: rgba(255, 250, 200, 0.8); /* Amarelo pastel */
+
+}
+
+p23{
+
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 500;
+
+  font-weight: 200;
+color:rgb(166, 107, 222)
+  }
+  p24{
+
+    font-family: 'Poiret One', cursive;
+  
+    font-size: 24px;
+    font-weight: 500;
+  
+    font-weight: 200;
+    color:rgb(107, 113, 222)
+    }
+
+p0{
 
 
+  font-weight: 200;
+  color: rgba(0, 0, 0, 0.8); /* Preto suave */
+  }
+  p77{
+
+
+    font-weight: 200;
+    color: rgb(7, 89, 19)
+    }
 
 p20{
 
 
   font-weight: 200;
-  color: rgb(7, 89, 19)
+  color: rgba(139, 0, 0, 0.8); /* Vermelho vinho */
   }
+  p200{
+
+font-family: 'Poiret One';
+    font-weight: 300;
+    color: rgba(50, 50, 50, 0.8); /* Cinza escuro */
+    }
   p25{
 
     
     font-size: 26px;
     font-weight: 400;
-    color: rgb(7, 89, 19)
+    color: rgba(34, 139, 34, 0.8); /* Verde floresta */
     }
   p18{
     font-family: 'Poiret One', cursive;
