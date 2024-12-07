@@ -248,116 +248,6 @@ canvas {
 
 
 
-.audio-player {
-
-  color: #16ad0eaa;
-
-      font-family: "Mina", sans-serif;
-      white-space: nowrap; /* Mantém o texto em uma linha */
-margin-right: 50px;
-margin-left: 50px;
-background-color: rgba(0, 0, 0, 0.16) !important;
-
-  
-border-radius: 22px;
-
-  position: relative;
-  flex: 1 0 10%;
-
-  z-index: 100300;
-
-
-
-}
-
-.playlist-item{
-
-  font-size: 18px;
-  font-weight: 200;
-  font-family: 'Poiret One', cursive;
-  color: rgba(109, 137, 150, 0.747);
-  cursor:crosshair !important;
-  
-}
-
-.playlist-item:hover {
-  color: rgb(138, 182, 205);
-  font-weight: 400;
-}
-
-
-.controls {
-
-
-  z-index: 100300;
-}
-.track-info {
-  margin-top: 5px;
-padding:2px;
-  border-radius: 20px;
-  margin-left: 15px;
-  position: relative;
-  z-index: 100300;
-  background: rgba(0, 0, 0, 0.369);
-  margin-right: 13%;
-padding-left: 10px;
-  font-family: 'Poiret One', cursive;
-color:rgba(38, 177, 38, 0.634);
-
-}
-
-
-.controls button {
-  border-radius: 40px;
-  position: relative;
-  padding-left: 8px;
-  padding-top: 4px;
-left:0px;
-top:78px;
-height: 35px;
-width: 35px;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.711);
-  font-size: 25px; /* Ajuste o tamanho da fonte conforme necessário */
-  cursor: pointer;
-  justify-content: center;
-  position: relative;
-
-  color: #ffffff5a; /* Cor do ícone ao passar o mouse */
-  z-index: 1003300;
-}
-
-.controls button:hover {
-  color: #04ff575a; /* Cor do ícone ao passar o mouse */
-  z-index: 100300;
-}
-
-/* Exemplo de estilos para o ícone de play */
-.play-icon::before {
-  content: '\u25B6';/* Símbolo de play */
-}
-
-/* Exemplo de estilos para o ícone de pause */
-.pause-icon::before {
-
-  content:'ll';
-
-}
-.waveform{
-  z-index: 600400;
-}
-
-
-
-
-
-#playBtn, #playBtn2 {
-  position: absolute;
-  margin-top:-120px;
-  margin-left: 0px;
-  z-index: 1; /* Garante que o botão fique sobreposto */
-}
-
 
 .editBtn {
   width: 35px;
@@ -1773,6 +1663,7 @@ body.dark-mode p2, body.dark-mode p20 {
 .dark-theme p23 {
   color: rgba(221, 160, 221, 0.8); /* Roxo claro pastel */
 }
+
 .dark-theme p233 {
   color: rgba(144, 238, 144, 0.8); /* Verde claro */
 }
@@ -2176,3 +2067,230 @@ font-family: 'Poiret One';
 }
 
 
+
+p29{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(50, 50, 50, 1); /* Cinza escuro */
+}
+
+
+     /* Lógica de hover para p2 */
+     p29:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+
+
+    p28{
+
+      font-family: 'Poiret One', cursive;
+    
+      font-size: 24px;
+      font-weight: 500;
+    
+      font-weight: 200;
+    color:rgb(166, 107, 222)
+      }
+     /* Lógica de hover para p2 */
+     p28:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+
+    .dark-theme p28 {
+      color: rgba(221, 160, 221, 0.8); /* Roxo claro pastel */
+    }
+    .dark-theme p29 {
+      color: rgb(200, 200, 200);
+    
+    }
+
+
+
+
+
+
+.audio-player {
+
+  color: #16ad0eaa;
+
+      font-family: "Mina", sans-serif;
+      white-space: nowrap; /* Mantém o texto em uma linha */
+margin-right: 50px;
+margin-left: 50px;
+background-color: rgba(0, 0, 0, 0.16) !important;
+
+  
+border-radius: 22px;
+
+  position: relative;
+  flex: 1 0 10%;
+
+  z-index: 100300;
+
+
+
+}
+.dark-theme .playlist-item {
+  color:  rgba(109, 137, 150, 0.747);
+
+}
+.dark-theme .track-info {
+  margin-top: 5px;
+padding:2px;
+  border-radius: 20px;
+  margin-left: 15px;
+  position: relative;
+  z-index: 100300;
+  background: rgba(0, 0, 0, 0.369);
+  margin-right: 13%;
+padding-left: 10px;
+  font-family: 'Poiret One', cursive;
+color:rgba(38, 177, 38, 0.634);
+
+}
+
+
+
+.playlist-item{
+
+  font-size: 20px;
+  font-weight: 500;
+  font-family: 'Poiret One', cursive;
+  color: rgba(74, 74, 74, 0.992);
+  cursor:crosshair !important;
+  
+}
+
+.playlist-item:hover {
+  color: rgb(103, 90, 240);
+  font-weight: 400;
+}
+
+
+.controls {
+
+
+  z-index: 100300;
+}
+.track-info {
+  margin-top: 5px;
+padding:2px;
+  border-radius: 20px;
+  margin-left: 15px;
+  position: relative;
+  z-index: 100300;
+  background: rgba(0, 0, 0, 0.369);
+  margin-right: 13%;
+padding-left: 10px;
+  font-family: 'Poiret One', cursive;
+color:rgb(255, 255, 255);
+
+}
+
+
+.controls button {
+  border-radius: 40px;
+  position: relative;
+  padding-left: 8px;
+  padding-top: 4px;
+left:0px;
+top:78px;
+height: 35px;
+width: 35px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.711);
+  font-size: 25px; /* Ajuste o tamanho da fonte conforme necessário */
+  cursor: pointer;
+  justify-content: center;
+  position: relative;
+
+  color: #ffffff5a; /* Cor do ícone ao passar o mouse */
+  z-index: 1003300;
+}
+
+.controls button:hover {
+  color: #04ff575a; /* Cor do ícone ao passar o mouse */
+  z-index: 100300;
+}
+
+/* Exemplo de estilos para o ícone de play */
+.play-icon::before {
+  content: '\u25B6';/* Símbolo de play */
+}
+
+/* Exemplo de estilos para o ícone de pause */
+.pause-icon::before {
+
+  content:'ll';
+
+}
+.waveform{
+  z-index: 600400;
+}
+
+
+
+
+
+#playBtn, #playBtn2 {
+  position: absolute;
+  margin-top:-120px;
+  margin-left: 0px;
+  z-index: 1; /* Garante que o botão fique sobreposto */
+}
+
+
+
+
+
+p27{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(50, 50, 50, 1); /* Cinza escuro */
+}
+
+
+     /* Lógica de hover para p2 */
+     p27:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+
+
+    p26{
+
+      font-family: 'Poiret One', cursive;
+    
+      font-size: 24px;
+      font-weight: 500;
+    
+      font-weight: 200;
+    color:rgb(166, 107, 222)
+      }
+     /* Lógica de hover para p2 */
+     p26:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+
+    .dark-theme p26 {
+      color: rgba(221, 160, 221, 0.8); /* Roxo claro pastel */
+    }
+    .dark-theme p27 {
+      color: rgb(200, 200, 200);
+    
+    }

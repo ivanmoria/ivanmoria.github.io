@@ -496,7 +496,7 @@ if (body.classList.contains("dark-theme")) {
           ay[i] = height / 2;
       }
       for (let j = 1; j < num + extraLines; j++) {
-          ax[j] = width / -2;
+          ax[j] = width / -22;
           ay[j] = height / -2;
       }
 
@@ -583,25 +583,25 @@ redraw(); // Garante que o canvas seja redesenhado
 <nav id="navbar-items">
 
 
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='index.html'">
-    <span><p2>Index</p2></span>
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+    <span><p29>⇦</p29></span>
 </button>
 
 
-<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"  onclick="window.location.href='references.html'">
-<span><p2>bib</p2></span>
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+<span><p29>bib</p29></span>
 </button>
 
-<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='projetos.html'">
-<span><p2>projects</p2></span>
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='projetos.html'">
+<span><p29>proj</p29></span>
 </button>
-<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"onclick="window.location.href='contato.html'">
-<span><p2>contact</p2></span>
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"onclick="window.location.href='contato.html'">
+<span><p29>contact</p29></span>
 </button>
 
 <button class="ui-btn" style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
 font-size:30px; margin-bottom: -30px;"  onclick="window.location.href='mirmt.html'">
-<span><p20>MIRMT</p20></span>
+<span><p28>MIRMT</p28></span>
 </button>
 
 
@@ -636,11 +636,11 @@ body {
 
 
 
-<p2 >Location:</p2><p20> Universidade Federal de Minas Gerais, Brazil</p20><br>
-<p2>Research Line:</p2> <p20>Music therapy, Sonology</p20><br>
-<p2> Program  Duration:  </p2> <p20> 2021 - 2025 </p20>   <br>
-<p2> Supervisor:</p2> <p20>Renato Tocantins Sampaio</p2></p20>
-<br><p2> Co-supervisor: </p2> <p20>Sérgio Freire Garcia</p20>
+<p2 >Location:</p2><p18> Universidade Federal de Minas Gerais, Brazil</p18><br>
+<p2>Research Line:</p2> <p18>Music therapy, Sonology</p18><br>
+<p2> Program  Duration:  </p2> <p18> 2021 - 2025 </p18>   <br>
+<p2> Supervisor:</p2> <p18>Renato Tocantins Sampaio</p18></p2>
+<br><p2> Co-supervisor: </p2> <p18>Sérgio Freire Garcia</p18>
 
 
 <br>
@@ -839,7 +839,7 @@ feedback on this ongoing research.
               </div>
             <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; ">
               Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information: 
-            </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: 0px;font-size: 16px; ">
+            </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px; ">
       Velocity (to measure the strength of pressed notes),
       Key pressed and
       Duration of the key pressed (to estimate the density).
@@ -850,7 +850,7 @@ feedback on this ongoing research.
       
       All of this information is sent to a Coll object patch (the next one available for download) and then saved as a .csv list, to be processed in other environments such as Python scripts.
             </p>
-      <br>
+
         <a href="media/maxmsp/pad.maxpat" download="pad.maxpat" id="downloadLink4" style="display:none;"></a>
 
       
@@ -872,7 +872,8 @@ feedback on this ongoing research.
                   </div>
           
                 <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">Patch with the main function of 
-                  recording multiple audio buffers and easily playing them back by selecting the buffer number. </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: 0px;font-size: 16px; ">
+                  recording multiple audio buffers and easily playing them back by selecting the buffer number. </div> 
+                  <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px; ">
                     Recordings are triggered by a pedal, which automatically trims the buffer to the total duration of the file. 
                   It is also possible to simultaneously play multiple buffers and loop them, enabling live sound experimentation. 
                   The patch was designed for the concert for bandoneon and electronics by the Contemporary Music Research Center 
@@ -880,7 +881,6 @@ feedback on this ongoing research.
                   by José Padovani and Rogério Vasconcelos. </p>
             <a href="media/maxmsp/PoLYBUFF5.maxpat" download="polybuffer.maxpat" id="downloadLink1" style="display:none;"></a>
 
-<br>
 
 
 <div style="display: flex; align-items: center; margin-top: -15px;">
@@ -902,7 +902,7 @@ feedback on this ongoing research.
      to calculate the mean and standard deviation.</p>
 </div>
 <a href="media/maxmsp/media_e_desvio.maxpat" download="media_e_desvio.maxpat" id="downloadLink2" style="display:none;"></a>
-<br><br>
+<br>
 
 
 
@@ -925,7 +925,7 @@ feedback on this ongoing research.
   <p style=" margin-right: 13%; margin-left: 2%;font-size: 16px; ">Simple Audio Envelope with Attack and Release Buttons – Configure values in the abstraction's name.</p> 
 </div>
     <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
-<br><br>
+<br>
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -948,11 +948,6 @@ feedback on this ongoing research.
 
 <a href="media/maxmsp/c0ll.maxpat" download="c0ll.maxpat" id="downloadLink5" style="display:none;"></a>
 
-
-
-
-
-<br>
 <br>
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -976,11 +971,6 @@ feedback on this ongoing research.
 <a href="media/maxmsp/savefiles.maxpat" download="savefiles.maxpat" id="downloadLink6" style="display:none;"></a>
 
 
-
-
-
-
-<br>
 </div></span>
 <div style="display: flex; justify-content: center;">
 
@@ -1200,7 +1190,7 @@ iframes.forEach(function(iframe) {
     <div style="display: flex; align-items: center;">
       
           <img src="media/carbon.png" alt="Print Python" style="margin-bottom:-10px; margin-top: 10px;
-          margin-right: 2px;    margin-left: 2px;width: 85%; height: 200%;">
+          margin-right: 2px;    margin-left: 2px;width: 90%; height: 200%;">
     
       </div>
 
@@ -1240,13 +1230,12 @@ iframes.forEach(function(iframe) {
   
       
       </p>
-                  </div> <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+                  </div> <p style="margin-right: 13%; margin-top:-15px;margin-left: 2%; font-size: 16px;">
                      TimerApp  and    also other statistical calculations in the calculations library.
      The DataFrame for plotting files was selected at the MiRMt.py interface. There is also an animated table with timer that plot tha graphs visually better for research.    </p>
             
               <a href="media/documents/CEMT/files/csvcreatorr.py" download="csvcreator.py" id="downloadLink41" style="display:none;"></a></p20>
-   
-<br><br>
+
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -1268,10 +1257,10 @@ iframes.forEach(function(iframe) {
   
 The heart of this PhD research. An funtional PyQt5 interface for all users.    With MiRMt is very  easy use statisticals tools like as plotting graphs, calculating Inter-onset_Intervals,  mean,
 </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+  </div> <p style="margin-right: 13%; margin-left: 2%;margin-top:-15px; font-size: 16px;">
  density, and many other things. Comming soon an video with explanation.  
   
-  </p><br>
+  </p>
 
 </p20>
 
@@ -1297,7 +1286,7 @@ The heart of this PhD research. An funtional PyQt5 interface for all users.    W
     The code implements a stopwatch application using PyQt5, 
     with the TimerApp class inheriting from QWidget to create an interactive graphical 
    </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
+  </div> <p style="margin-right: 13%; margin-left: 2%;margin-top:-15px;font-size: 16px;">
     interface. TimerApp is useful for task timing, musical practice, and activity monitoring.
      Its modular structure allows for easy extensions, such as animations and additional functionalities.
     Timers and buttons make the interface intuitive and responsive, ensuring a pleasant user experience.
@@ -1306,7 +1295,6 @@ The heart of this PhD research. An funtional PyQt5 interface for all users.    W
 
 <a href="media/documents/CEMT/files/timer.py" download="timerapp.py" id="downloadLink61" style="display:none;"></a></p20>
 
-<br><br>
 
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
@@ -1329,17 +1317,16 @@ The heart of this PhD research. An funtional PyQt5 interface for all users.    W
   
     The code reads a DASS responses CSV file into a pandas DataFrame, which must contain two columns: one for questions and another for response numbers. 
     It defines a function to   </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
+  </div> <p style="margin-right: 13%; margin-left: 2%;margin-top:-15px;font-size: 16px;">
     calculate scores for depression, anxiety, and stress, 
     doubling the scores based on specific indices and classifying them into categorie   (Normal, Mild, Moderate, Severe, Extremely Severe) using separate classification functions. 
     The final results include the total scores and classifications for each psychological condition. </p>
-<p style="margin-right: 13%; margin-left: 2%; font-size: 10px;">
-Teste DASS 21 de Escala de Depressão, Ansiedade e Estresse. Lovibond, S.H. & Lovibond, P.F. (1995).<br>
-AHMED, Oli et al. The psychometric properties of the depression anxiety stress scale-21 (DASS-21) <br>
-Bangla version. Acta Psychologica, v. 223, p. 103509, 2022.</p>
+<p style="margin-right: 13%; margin-left: 2%; font-size: 10px; margin-top:-15px;">
+  Lovibond, S.H. & Lovibond, P.F. (1995). Teste DASS 21 de Escala de Depressão, Ansiedade e Estresse. <br>
+AHMED, Oli et al. (2022). The psychometric properties of the depression anxiety stress scale-21 (DASS-21) <br>
+ </p>
 <a href="media/documents/CEMT/files/dass_calculo.py" download="dass_calculo.py" id="downloadLink71" style="display:none;"></a></p20>
 
-<br><br>
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -1361,7 +1348,7 @@ Bangla version. Acta Psychologica, v. 223, p. 103509, 2022.</p>
     This code calculates various statistics on key press data, including average and standard deviation of velocities, 
     frequency of each key press, BPM (beats per minute), time intervals, density of presses, and key variation.         Functions
    </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
+  </div> <p style="margin-right: 13%; margin-left: 2%;font-size: 16px;margin-top:-15px;">
 are modular and return a detailed dictionary with all metrics,
      providing insights into dynamics, timing, and rhythm patterns in key press data.
   
@@ -1380,7 +1367,7 @@ are modular and return a detailed dictionary with all metrics,
 
 <!-- Footer -->
  
-<footer>
+<footer style="margin-top:70px;">
 
   <p2 style="margin: 0; font-size: 20px; ">© 2024 Ivan Moriá Borges</p2>
   <br>
