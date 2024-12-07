@@ -480,22 +480,24 @@ if (body.classList.contains("dark-theme")) {
 } else {
   themeCheckbox.checked = false;
 }
-  let num = 400;
-  let range = 60;
+  let num = 1000;
+  let range = 30;
   let ax = [];
   let ay = [];
-  let extraLines = 30;
+  let extraLines = 300;
+  let t = 0; // Variável de tempo para a oscilação das cores
+
 
   function setup() {
       let canvas = createCanvas(windowWidth, windowHeight);
       canvas.parent('canvas-container');
       for (let i = 1; i < num; i++) {
-          ax[i] = width / 2;
+          ax[i] = width / 32;
           ay[i] = height / 2;
       }
       for (let j = 1; j < num + extraLines; j++) {
-          ax[j] = width / 2;
-          ay[j] = height / 2;
+          ax[j] = width / -2;
+          ay[j] = height / -2;
       }
 
       frameRate(30);
@@ -523,7 +525,7 @@ if (body.classList.contains("dark-theme")) {
 
 
 
-for (let i = 13; i < num; i++) {
+for (let i = 1; i < num; i++) {
   ax[i - 1] = ax[i];
   ay[i - 1] = ay[i];
 }
@@ -537,31 +539,31 @@ ay[num - 1] = constrain(ay[num - 1], 0, height);
 
 
 
-for (let i = 31; i < num ; i++) {
+for (let i = 1; i < num ; i++) {
   let val0 = float(i) / num * 200.0 + 3 ;
   let val = map(ax[i], 0, width, 0, 255);
   let val2 = map(ay[i],0, height, 0, 255);
-  stroke(val0,val,val2, 80);
-  line(ax[i-4], ay[i-1], ax[i], ay[i]);
+  stroke(val0,val,val2, 10);
+  line(ax[i-2], ay[i-2], ax[i-2], ay[i-4]);
   
 }
 
 for (let j = 1; j < extraLines; j++) {
-  ax[j - 1] = ax[j];
-  ay[j - 1] = ay[j];
+  ax[j - 1232] = ax[j];
+  ay[j - 13232] = ay[j];
 }
-ax[extraLines - 13] += random(-range, range);
-ay[extraLines - 13] += random(range, - range);
-ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
-ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+ax[extraLines - 332] += random(-range, range);
+ay[extraLines - 123] += random(range, - range);
+ax[extraLines - 132] = constrain(ax[extraLines - 1], 0, width);
+ay[extraLines - 332] = constrain(ay[extraLines - 1], 0, height);
 for (let j = 1; j < num; j++) {
   let val1 = float(j) / num * 200.0 + 3 ;
   let val3 = map(ax[j], 0, width, 0, 255);
   let val4 = map(ay[j],0, height, 0, 255);
 
-  stroke(val1,val3,val4, 50);
+  stroke(val1,val3,val4, 40);
 
-  line(ax[j - 1], ay[j - 3], ax[j-2], ay[j-2]);
+  line(ax[j - 13], ay[j - 1], ax[j], ay[j]);
 }
 
 
@@ -624,7 +626,13 @@ font-size:30px; margin-bottom: -30px;"  onclick="window.location.href='mirmt.htm
       Overview of PhD Music Research Project   </p2>     
   </div>
 
+<style>
+  html,
+body {
+  overflow-x: hidden; /* Remove a rolagem horizontal */
+}
 
+</style>
 
 
 
@@ -787,9 +795,7 @@ feedback on this ongoing research.
 
 </p>
 
-<br> <br>
-  
-  <br>    <br>
+
 </div>
 </div>
 
@@ -804,8 +810,8 @@ feedback on this ongoing research.
 
 <div style="display: flex; justify-content: center;">
 
-  <p2 style="font-size:30px; color:rgb(166, 107, 222)"> 
-    Downloadable Files  </p2>     
+  <p23 style="font-size:30px; "> 
+    Downloadable Files  </p23>     
 </div>
 
 <span  class="contente-text" style="text-align: justify; width: 85%; margin-top: -10px;"
@@ -813,7 +819,7 @@ feedback on this ongoing research.
 <div style="display: flex; flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">            
 
 
-      <p4 style="font-size:30px; color:rgb(107, 113, 222)">MAX/MSP</p4>
+      <p24 style="font-size:30px; ">MAX/MSP</p24>
 
 <br>
       <div style="display: flex; align-items: center;margin-top: -20px;">
@@ -831,9 +837,9 @@ feedback on this ongoing research.
                 <div class="hovver-content"style="margin-left: -45%; margin-top: -60%;width: 400px;height: 300px;">
                   <img src="media/maxmsp/midicapture.gif"></div>
               </div>
-            <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
-              Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information:  </p>
-            </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+            <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;; ">
+              Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information: 
+            </div> <p0 style="margin-right: 13%; margin-left: 2%; margin-top: 0px;font-size: 16px; ">
       Velocity (to measure the strength of pressed notes),
       Key pressed and
       Duration of the key pressed (to estimate the density).
@@ -843,8 +849,8 @@ feedback on this ongoing research.
       
       
       All of this information is sent to a Coll object patch (the next one available for download) and then saved as a .csv list, to be processed in other environments such as Python scripts.
-            </p>
-      
+            </p0>
+      <br>
         <a href="media/maxmsp/pad.maxpat" download="pad.maxpat" id="downloadLink4" style="display:none;"></a>
 
       
@@ -865,16 +871,16 @@ feedback on this ongoing research.
                       <img src="media/maxmsp/polybuff.png"  ></div>
                   </div>
           
-                <p style="margin-right: 13%; margin-left: 2%; font-size: 16px; color: rgb(43, 144, 127) ;">Patch with the main function of 
-                  recording multiple audio buffers and easily playing them back by selecting the buffer number. </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px; color: rgb(43, 144, 127) ;">
+                <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">Patch with the main function of 
+                  recording multiple audio buffers and easily playing them back by selecting the buffer number. </div> <p0 style="margin-right: 13%; margin-left: 2%; margin-top: 0px;font-size: 16px; ">
                     Recordings are triggered by a pedal, which automatically trims the buffer to the total duration of the file. 
                   It is also possible to simultaneously play multiple buffers and loop them, enabling live sound experimentation. 
                   The patch was designed for the concert for bandoneon and electronics by the Contemporary Music Research Center 
                   held in December 2023, as part of the Electroacoustic Music Workshop course taught 
-                  by José Padovani and Rogério Vasconcelos. </p>
+                  by José Padovani and Rogério Vasconcelos. </p0>
             <a href="media/maxmsp/PoLYBUFF5.maxpat" download="polybuffer.maxpat" id="downloadLink1" style="display:none;"></a>
 
-
+<br>
 
 
 <div style="display: flex; align-items: center; margin-top: -15px;">
@@ -889,14 +895,14 @@ feedback on this ongoing research.
               </svg>
           </span>
       </button>
-      <div class="hovver-content"style="margin-left: 22%; margin-top: -300px;width: 220px;height: 505px;">
+      <div class="hovver-content"style="margin-left: 22%; margin-top: -250px;width: 220px;height: 505px;">
         <img src="media/maxmsp/media_e_desvio.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">Patch created by Sérgio Freire 
-     to calculate the mean and standard deviation, with outputs on outlets 1 and 2, respectively.</p>
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px; margin-top:15px;">Patch created by Sérgio Freire 
+     to calculate the mean and standard deviation.</p0>
 </div>
 <a href="media/maxmsp/media_e_desvio.maxpat" download="media_e_desvio.maxpat" id="downloadLink2" style="display:none;"></a>
-<br>
+<br><br>
 
 
 
@@ -916,10 +922,10 @@ feedback on this ongoing research.
       <div class="hovver-content"style="margin-left: 22%; margin-top: -270px;width: 220px;height: 510px;">
         <img src="media/maxmsp/envelope.gif"></div>
     </div>
-  <p style=" margin-right: 13%; margin-left: 2%;font-size: 16px; color: rgb(43, 144, 127) ;">Simple Audio Envelope with Attack and Release Buttons – Easy to Configure with Values Included in the Abstraction's Name.</p> 
+  <p0 style=" margin-right: 13%; margin-left: 2%;font-size: 16px; ">Simple Audio Envelope with Attack and Release Buttons – Configure values in the abstraction's name.</p0> 
 </div>
     <a href="media/maxmsp/envelope.maxpat" download="envelope.maxpat" id="downloadLink3" style="display:none;"></a>
-<br>
+<br><br>
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -936,8 +942,8 @@ feedback on this ongoing research.
       <div class="hovver-content"style="margin-left: -45%; margin-top: -180px;width: 400px;height: 340px;">
         <img src="media/maxmsp/c0ll.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
-    This is the core of the coll object, which sends a list with a title to a text object. This object receives information from the MIDI Capture objects and processes it after the input of on or off.  </p>
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+    This is the core of the coll object, which sends a list with a title to a text object. This object receives information from the MIDI Capture objects and processes it after the input of on or off.  </p0>
   </div> 
 
 <a href="media/maxmsp/c0ll.maxpat" download="c0ll.maxpat" id="downloadLink5" style="display:none;"></a>
@@ -946,7 +952,7 @@ feedback on this ongoing research.
 
 
 
-
+<br>
 <br>
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -963,8 +969,8 @@ feedback on this ongoing research.
       <div class="hovver-content"style="margin-left: -45%; margin-top: -250px;width: 400px;height: 300px;">
         <img src="media/maxmsp/savefiles.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
-    Patch that uses on ON_OFF button to record .csv files and .aiff files. There is others subpatches as PAD and Coll, and will be implemented at an library later.   </p>
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+    Patch that uses on ON_OFF button to record .csv files and .aiff files. There is others subpatches as PAD and Coll, and will be implemented at an library later.   </p0>
   </div> 
 
 <a href="media/maxmsp/savefiles.maxpat" download="savefiles.maxpat" id="downloadLink6" style="display:none;"></a>
@@ -1112,7 +1118,7 @@ iframes.forEach(function(iframe) {
 
      onclick="window.location.href='ventometrico.preview.html'"
     onmouseover="showPreview('preview0')" >
-  <p20>Vento Métrico</p20>
+  <p200 style="font-size:20px;">Vento Métrico</p200>
   </button>
 </td>
 <td rowspan="6" class="preview-cell">
@@ -1127,8 +1133,8 @@ iframes.forEach(function(iframe) {
 <td class="piece-cell">
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed'"
-    onmouseover="showPreview('preview1')" style="color: #c2eebd;">
-   <p20> AllaTurca A (Original)</p20>
+    onmouseover="showPreview('preview1')">
+   <p200> AllaTurca A (Original)</p20>
   </button>
 </td>
 </tr>
@@ -1136,8 +1142,8 @@ iframes.forEach(function(iframe) {
 <td class="piece-cell">
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed'"
-    onmouseover="showPreview('preview2')" style="color: #c2eebd;">
-  <p20> AllaTurca A (in 3 with a jazz-style cadence)</p20>
+    onmouseover="showPreview('preview2')">
+  <p200> AllaTurca A (in 3 with a jazz-style cadence)</p200>
   </button>
 </td>
 </tr>
@@ -1145,8 +1151,8 @@ iframes.forEach(function(iframe) {
 <td class="piece-cell">
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed'"
-    onmouseover="showPreview('preview3')" style="color: #c2eebd;">
-  <p20> AllaTurca A (changing the beat in jazz style)</p20>
+    onmouseover="showPreview('preview3')" ">
+  <p200> AllaTurca A (changing the beat in jazz style)</p200>
   </button>
 </td>
 </tr>
@@ -1155,8 +1161,8 @@ iframes.forEach(function(iframe) {
   <button class="uias-btn" 
     onclick="window.location.href='https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed'" 
     onmouseover="showPreview('preview4')" 
-    style="color: #c2eebd;">
-  <p20> AllaTurca B (adapted to Brazilian Baião rhythm)</p20>
+    >
+  <p200> AllaTurca B (adapted to Brazilian Baião rhythm)</p200>
   </button>
 </td>
 </tr>
@@ -1165,8 +1171,8 @@ iframes.forEach(function(iframe) {
 <td class="piece-cellu" >
   <button class="uias-btn onmouseover="hidePreview()" 
     onmouseover="hidePreview()" 
-    style="font-size:20px;color: #fbdc3f97;">
-  <p20>Close Preview </p20>
+    style="font-size:20px;">
+  <p200>Close Preview </p200>
   </button>
 </td>
 </tr>
@@ -1187,7 +1193,7 @@ iframes.forEach(function(iframe) {
 <br>
     </div>
 
-    <p4 style="font-size:30px; color:rgb(107, 113, 222)"> Python scripts</p4>
+    <p24 style="font-size:30px; "> Python scripts</p24>
 
 
 
@@ -1197,7 +1203,7 @@ iframes.forEach(function(iframe) {
           margin-right: 2px;    margin-left: 2px;width: 85%; height: 200%;">
     
       </div>
-      <div class="midddle-column">
+
 
         <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: 15px; margin-right: -20px">
           <span  class="contente-text" style="text-align: justify; width: 90%; margin-top: -15px;"  >
@@ -1208,7 +1214,7 @@ iframes.forEach(function(iframe) {
      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 115%;  margin-top: 15px; margin-left: 0px">            
   
   <br>
-            <p4 style="font-size:30px; color:rgb(107, 113, 222)">Download</p4>
+            <p24 style="font-size:30px;">Download</p24>
   
   <br>
             <div style="display: flex; align-items: center;margin-top: -20px;">
@@ -1226,21 +1232,21 @@ iframes.forEach(function(iframe) {
                       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 255px;">
                         <img src="media/documents/CEMT/files/rewrew.gif"></div>
                     </div>
-                  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+                  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
                    
                   
         A Python code using the matplotlib, numpy, pandas, os, sys, csv, scipy libraries, as well as the
-        libraries developed to perform the calculations, suchas the DASS-21 calculation, a TimerApp  and 
+        libraries developed to perform the calculations, suchas the DASS-21 calculation, a
   
       
-      </p>
-                  </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
-                    also other statistical calculations in the calculations library.
-     The DataFrame for plotting files was selected at the MiRMt.py interface. There is also an animated table with timer that plot tha graphs visually better for research.    </p>
+      </p0>
+                  </div> <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+                     TimerApp  and    also other statistical calculations in the calculations library.
+     The DataFrame for plotting files was selected at the MiRMt.py interface. There is also an animated table with timer that plot tha graphs visually better for research.    </p0>
             
               <a href="media/documents/CEMT/files/csvcreatorr.py" download="csvcreator.py" id="downloadLink41" style="display:none;"></a></p20>
    
-<br>
+<br><br>
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -1257,15 +1263,15 @@ iframes.forEach(function(iframe) {
       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 335px;">
         <img src="media/documents/CEMT/files/hfgh.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;; ">
    
   
-The heart of this PhD research. An funtional PyQt5 interface for all users.    With MiRMt is very  easy use statisticals tools like as plotting     graphs,
-</p>
-  </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
-calculating Inter-onset_Intervals, mean, density, and many other things. Comming soon an video with explanation.  
+The heart of this PhD research. An funtional PyQt5 interface for all users.    With MiRMt is very  easy use statisticals tools like as plotting graphs, calculating Inter-onset_Intervals,  mean,
+</p0>
+  </div> <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
+ density, and many other things. Comming soon an video with explanation.  
   
-  </p>
+  </p0><br>
 
 </p20>
 
@@ -1285,22 +1291,22 @@ calculating Inter-onset_Intervals, mean, density, and many other things. Comming
       <div class="hovver-content"style="margin-left: -45%; margin-top: -100px;width: 380px;height: 105px;">
         <img src="media/documents/CEMT/files/timerapp.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
   
     The code implements a stopwatch application using PyQt5, 
     with the TimerApp class inheriting from QWidget to create an interactive graphical 
-   </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+   </p0>
+  </div> <p0 style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
     interface. TimerApp is useful for task timing, musical practice, and activity monitoring.
      Its modular structure allows for easy extensions, such as animations and additional functionalities.
     Timers and buttons make the interface intuitive and responsive, ensuring a pleasant user experience.
   
-  </p>
+  </p0>
 
 <a href="media/documents/CEMT/files/timer.py" download="timerapp.py" id="downloadLink61" style="display:none;"></a></p20>
 
-<br>
+<br><br>
 
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
@@ -1318,22 +1324,22 @@ calculating Inter-onset_Intervals, mean, density, and many other things. Comming
       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 330px;">
         <img src="media/documents/CEMT/files/dass-calc.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
   
     The code reads a DASS responses CSV file into a pandas DataFrame, which must contain two columns: one for questions and another for response numbers. 
-    It defines a function to   </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+    It defines a function to   </p0>
+  </div> <p0 style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
     calculate scores for depression, anxiety, and stress, 
     doubling the scores based on specific indices and classifying them into categorie   (Normal, Mild, Moderate, Severe, Extremely Severe) using separate classification functions. 
-    The final results include the total scores and classifications for each psychological condition. </p>
-<p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;color: rgb(43, 144, 127) ;font-size: 10px;">
+    The final results include the total scores and classifications for each psychological condition. </p0>
+<p0 style="margin-right: 13%; margin-left: 2%; font-size: 10px;">
 Teste DASS 21 de Escala de Depressão, Ansiedade e Estresse. Lovibond, S.H. & Lovibond, P.F. (1995).<br>
 AHMED, Oli et al. The psychometric properties of the depression anxiety stress scale-21 (DASS-21) <br>
-Bangla version. Acta Psychologica, v. 223, p. 103509, 2022.</p>
+Bangla version. Acta Psychologica, v. 223, p. 103509, 2022.</p0>
 <a href="media/documents/CEMT/files/dass_calculo.py" download="dass_calculo.py" id="downloadLink71" style="display:none;"></a></p20>
 
-<br>
+<br><br>
 
 <div style="display: flex; align-items: center;margin-top: -20px;">
 <div class="buttton-container">
@@ -1350,45 +1356,53 @@ Bangla version. Acta Psychologica, v. 223, p. 103509, 2022.</p>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -100px;width: 380px;height: 265px;">
         <img src="media/documents/CEMT/files/calculos.gif"></div>
     </div>
-  <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; color: rgb(43, 144, 127) ;">
+  <p0 style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
     This code calculates various statistics on key press data, including average and standard deviation of velocities, 
     frequency of each key press, BPM (beats per minute), time intervals, density of presses, and key variation.         Functions
-   </p>
-  </div> <p style="margin-right: 13%; margin-left: 2%; margin-top: -15px;font-size: 16px;; color: rgb(43, 144, 127) ;">
+   </p0>
+  </div> <p0 style="margin-right: 13%; margin-left: 2%;font-size: 16px;">
 are modular and return a detailed dictionary with all metrics,
      providing insights into dynamics, timing, and rhythm patterns in key press data.
   
-  </p>
+  </p0>
 
 <a href="media/documents/CEMT/files/calculos.py" download="calculos.py" id="downloadLink81" style="display:none;"></a></p20>
 
+<br>
 
-
-
+<div style="display: flex; justify-content: center;">
 <button class="uia-btn" onclick="window.location.href='contato.html'"> 
-  <p class="button-text">Contact me</p>
+  <p class="button-text" style="font-size: 30px;">Contact me</p>
 
 </button> 
-      <br>
+</div>
 
-<div style="display: flex; justify-content: center;">
-<div style="display: flex; justify-content: center;">
-</div></div><div style="display: flex; justify-content: center;">
+<!-- Footer -->
+ 
+<footer>
 
-</div></div></div></div>
+  <p233 style="margin: 0; font-size: 20px; ">© 2024 Ivan Moriá Borges.</p23>
+  <br>
+  <p233 style="margin: 5px 0; font-size: 16px; ">All rights reserved.</p233>
+  <br>
+  <p233 style="margin: 5px 0; font-size: 12px;">
+    GIFs created with Gifski, canvas created with Processing.
+  </p233>
 
-
-<div style="display: flex; justify-content: center;">
-
-</div><div style="display: flex; justify-content: center;">
-<p223 style="  margin-top:140px;font-size:20px;"> 
-© 2024 Ivan Moriá Borges. All rights reserved. </p223>
-
-<br></div><div style="display: flex; justify-content: center;">
-<p223 style=" font-size:14px;"> 
-GIFs created with Gifski, canvas created with Processing. </p223>
-</div></div>
+</footer>
+<style> footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+ 
+  padding: 15px 0;
+  text-align: center;
+  border-top: 1px solid #ccc;
+  font-size: 16px;
+  color: #555;
+}</style>
 
 </body>
 </html>
