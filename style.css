@@ -435,15 +435,7 @@ canvas {
       z-index: 2;
   }
 
-  .popup-link {
-      color: #ffffff7d;
-      text-decoration: none;
-  }
-
-  .popup-link:hover {
-      color: #e1ff0081;
-      text-decoration: none;
-  }
+  
   .navbar-items{
     z-index: 3;
   }
@@ -808,18 +800,25 @@ p2, p4{
       }
 .content-text{
   text-decoration: none;
-  color: #ffffff68;
+  color: #000000;
       font-size: 18px;
       font-weight: 200;
       font-family: "Mina", sans-serif;
 
 }
 .content-text:hover {
-  font-weight: 400;
+
 color: #000000;
-background-color: rgba(94, 94, 94, 0.613);
 
 }
+
+
+.dark-theme .content-text {
+  color: rgb(200, 200, 200);
+
+}
+
+
 .contente-text{
   text-decoration: none;
   color: #ffffff68;
@@ -836,21 +835,21 @@ background-color: rgba(94, 94, 94, 0.613);
   font-weight: 200;
 
 }
-.popup-link {
-      color: hsla(48, 27%, 67%, 0.481);
-      font-weight: 800;
-font-size: 18px;
-      font-family: 'Poiret One', cursive;
-    
 
-  }
 
   .popup-link:hover {
       color: #e1ff00a6;
       text-decoration: none;
      
   }
-
+  .dark-theme:hover .popup-link:hover{
+    color: #e1ff00a6;
+    text-decoration: none;
+   
+}
+  .dark-theme .popup-link {
+    color: rgba(221, 160, 221, 0.8); /* Roxo claro pastel */
+  }
 
 .button {
   cursor: pointer;
@@ -1414,6 +1413,7 @@ footer .demo a {
 .popup-link {
   position: relative;
   text-decoration: none;
+  color:rgb(81, 34, 138);
 }
 
 .tooltip {

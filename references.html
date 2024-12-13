@@ -98,34 +98,8 @@
       background-color: #ffd900a5;
       color: #000;
   }
-  
-  /* Estilos para elementos personalizados */
-  p20 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: bold;
-      color: rgb(246, 148, 148);
-  }
-  
-  p18, p182 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.357);
-  }
-  
-  p33 {
-      font-family: 'Poiret One', cursive;
-      font-size: 15px;
-      color: rgba(221, 164, 164, 0.872);
-  }
-  
-  p11 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(131, 159, 144, 0.801);
-  }
-  
+
+
   iframe {
       width: 100%; /* Ajuste para ocupar a largura total da coluna */
       height: 100vh; /* Ajusta a altura para caber no viewport */
@@ -257,6 +231,7 @@ function hidePreview() {
             <label for="theme-checkbox">
               <div></div>
               <span>
+                
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -544,18 +519,25 @@ function hidePreview() {
 
   <script>
    
-  let isDarkMode = true;  // Defina 'false' para o modo claro padrão
+  let isDarkMode = false;  // Defina 'false' para o modo claro padrão
       
   const themeCheckbox = document.getElementById("theme-checkbox");
   const body = document.body;
+  const lightIcon = document.getElementById("theme-icon-light");  // Ícone para o modo claro
+  const darkIcon = document.getElementById("theme-icon-dark");    // Ícone para o modo escuro
+  
   
   function toggleTheme() {
     isDarkMode = !isDarkMode; // Alterna entre os estados do tema
   
     if (isDarkMode) {
       body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+      lightIcon.style.display = "none";  // Esconde o ícone do tema claro
+      darkIcon.style.display = "inline";  // Exibe o ícone do tema escuro
     } else {
       body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+      lightIcon.style.display = "inline";  // Exibe o ícone do tema claro
+      darkIcon.style.display = "none";  // Esconde o ícone do tema escuro
     }
   }
   
@@ -618,7 +600,7 @@ for (let i = 31; i < num ; i++) {
   let val0 = float(i) / num * 200.0 + 3 ;
   let val = map(ax[i], 0, width, 0, 255);
   let val2 = map(ay[i],0, height, 0, 255);
-  stroke(val0,val,val2, 80);
+  stroke(val0,val,val2,40);
   line(ax[i-4], ay[i-1], ax[i], ay[i]);
   
 }
@@ -636,7 +618,7 @@ for (let j = 1; j < num; j++) {
   let val3 = map(ax[j], 0, width, 0, 255);
   let val4 = map(ay[j],0, height, 0, 255);
 
-  stroke(val1,val3,val4, 50);
+  stroke(val1,val3,val4, 20);
 
   line(ax[j - 1], ay[j - 3], ax[j-2], ay[j-2]);
 }
@@ -684,51 +666,31 @@ redraw(); // Garante que o canvas seja redesenhado
 </script>
 
 </div>
-<div id="left-column"
+<div id="left-column">
 <div id="container-nav" >
 <nav id="navbar-items" style="margin-bottom:10px;">
-
-
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
-    <span><p29>⇦</p29></span>
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+<span><p29>⇦</p29></span>
 </button>
-
-
 <button class="ui-btn"  style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
 font-size:30px; margin-bottom: -30px;margin-right:-20px;"  onclick="window.location.href='references.html'">
 <span><p28>bib</p28></span>
 </button>
-
 <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='projetos.html'">
 <span><p29>proj</p29></span>
 </button>
 <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='contato.html'">
 <span><p29>contact</p29></span>
 </button>
-
 <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"class="ui-btn"  onclick="window.location.href='mirmt.html'">
 <span><p29>MIRMT</p29></span>
 </button>
-
-
-
-
-  </div>
-
-
-
-
 </nav>
+</div>
 </div>
 
 
 <style>
-  /* Estiliza o texto principal */
-  p2 {
-
-    position: relative;
-    cursor: pointer;
-  }
 
 
   /* Estiliza o texto de apresentação que será mostrado/ocultado */
@@ -755,30 +717,41 @@ font-size:30px; margin-bottom: -30px;margin-right:-20px;"  onclick="window.locat
 
 
 
+  <style>
+    .author-name.preview-link {
+      font-size: 25px;
+      color: rgb(0, 0, 0); /* Cor padrão para links */
+      text-decoration: underline; /* Sublinhado como links */
+      cursor: pointer; /* Cursor de mão ao passar o mouse */
+  }
+
+  .author-name.preview-link:hover {
+      color: rgb(255, 255, 255); /* Cor ao passar o mouse */
+      text-decoration: none; /* Retira o sublinhado no hover */
+  }
+  
+  .dark-theme .author-name.preview-link {
+      color: rgb(200, 200, 200); /* Cor para o tema escuro */
+  }
+  
+</style>
 
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
   margin-top: 00px;"><div>
 
-<p2 style="font-size: 25px; color: rgba(249, 207, 138, 0.699); transition: color 0.3s ease;"
-     onmouseover="this.style.color='rgb(0, 0, 0)'"
-     onmouseout="this.style.color='rgba(254, 186, 75, 0.699)'"
-     class="author-name preview-link">
-    Texto de 
+<p2 style="font-size: 25px;"
+     class="author-name preview-link"onclick="toggleMenu();" >
+    Texto de Apresentação
     <a href="media/documents/textos/ref.pdf" target="_blank" style="color: inherit; text-decoration: none;">
-        <span class="popup">Externo</span>
+        <span class="popup" style="font-size:14px;">Clique com o botão do meio do mouse</span>
     </a>
 </p2>
 
 
-<p2 onclick="toggleMenu();" 
-style="font-size: 25px; color: rgba(254, 186, 75, 0.699); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(0, 0, 0)'" 
-onmouseout="this.style.color=' rgba(249, 207, 138, 0.699)'" 
-class="author-name preview-link">
-Apresentação
-<span class="popup">Exibir aqui</span>
-</p2>
+
+
+
 
   
   </div></div>  
@@ -790,20 +763,17 @@ Apresentação
 
 
 
-
+    
 
       <p2>
         Eu sou </p2>
 
 
         <p2 onclick="window.location.href='contato.html', '_blank';" 
-        style="font-size: 25px; color: rgb(255, 233, 196); transition: color 0.3s ease;" 
-        onmouseover="this.style.color='rgb(255, 211, 134)'" 
-        onmouseout="this.style.color=' rgba(236, 214, 177, 0.816)'" 
+        style="font-size: 25px;" 
         class="author-name preview-link">
-        Ivan Moriá Borges Rodrigues,
-        <span class="popup">Contato</span>
-        </p2><p2>  músico multi-instrumentista, 
+        Ivan Moriá Borges Rodrigues,<span class="popup">Contato</span></p2>
+      <p2>  músico multi-instrumentista, 
       
         Musicoterapeuta com prática clínica há 7 anos, 
         mestre em Neurociências pela UFMG e atualmente doutorando em Música pela mesma instituição.
@@ -844,9 +814,7 @@ Quando possível, sempre me voluntariei para auxiliar em algum congresso presenc
 
   <br><br>
  <p2 onclick="window.location.href='media/documents/outros_htmls/edinburgh2022.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 12th European Music Therapy Conference   <span class="popup">Link externo</span>
 </p2>
@@ -855,8 +823,7 @@ class="author-name preview-link">
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/outros_htmls/edinburgh2022.html" class="preview-link">
 Edinburgh 2022
 <span class="popup"> 
@@ -867,9 +834,7 @@ Preview</span> </p2>
  
 
 <p2 onclick="window.location.href='media/documents/outros_htmls/vancouver2023.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 17th World Congress of Music Therapy   <span class="popup">Link externo</span>
 </p2>
@@ -878,8 +843,7 @@ class="author-name preview-link">
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; ;margin-left: 0px;"class="author-name"  
 data-src="media/documents/outros_htmls/vancouver2023.html" class="preview-link">
 Vancouver 2023
 <span class="popup"> 
@@ -891,9 +855,7 @@ Preview</span> </p2>
 
 
 <p2 onclick="window.location.href='media/documents/outros_htmls/Berlin2024.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 IAMM & ISfAM Congress  <span class="popup">Link externo</span>
 </p2>
@@ -902,8 +864,7 @@ IAMM & ISfAM Congress  <span class="popup">Link externo</span>
 
 <br>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/outros_htmls/Berlin2024.html" class="preview-link">
 Berlin 2024 
 <span class="popup"> 
@@ -917,16 +878,13 @@ Os frutos deste tipo de produção e participação em eventos internacionais s�
   que assistiu a minha apresentação e me convidou para avaliar um artigo em sua revista 
   
 <p2 onclick="window.location.href='media/documents/textos/fachner_invitation1.pdf', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 (Music & Science<span class="popup">Carta convite</span></p2>
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/fachner_invitation1.pdf" class="preview-link">
 - UK)
 <span class="popup"> 
@@ -937,14 +895,11 @@ Publiquei um
 
 
 <p2 onclick="window.location.href='media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 artigo<span class="popup">PDF Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" class="preview-link">
 (2022)
 <span class="popup"> 
@@ -960,7 +915,7 @@ artigo neste período, existe um outro artigo aceito para publicação e em fase
 A seguir, uma proposta de cronograma em andamento para a conclusão desta pesquisa. 
 <br>
 <br>
-   <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style=" color: rgb(146, 184, 171);  font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
+   <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style="  font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
 and the use of technological tools in Music Therapy;
 <br>
 <br>  <p2 style="font-size: 20px;"> (2021 – 2025)</p2>&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
@@ -979,14 +934,11 @@ Além das produções teóricas, citadas até aqui, existem também as produçõ
 Como violoncelista, participo da
 
 <p2 onclick="window.location.href='https://www.luanovacultural.com', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 Orquestra 415 <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="https://www.luanovacultural.com" class="preview-link">
 
 de Música Antiga<span class="popup"> 
@@ -1003,14 +955,11 @@ Como acordeonista, participo da
 
 
 <p2 onclick="window.location.href='https://musica.ufmg.br/ggi-grupo-de-choro/', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 Orquestra de Choro <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="https://musica.ufmg.br/ggi-grupo-de-choro/" class="preview-link">
 
 da UFMG<span class="popup"> 
@@ -1021,14 +970,11 @@ Como bandolinista,
   já me apresentei como solista na Orquestra de Choro da UFMG e também no grupo independente de choro intitulado
   
   <p2 onclick="window.location.href='media/documents/outros_htmls/chorodito.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; " 
 class="author-name preview-link">
 Chorodito <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/outros_htmls/chorodito.html" class="preview-link">
 
 - BH<span class="popup"> 
@@ -1038,14 +984,11 @@ onde ocasionalmente ocorrem apresentações em alguns palcos conhecidos da cidad
   
 
 
-/Users/ivanmoriaborges/Documents/GitHub/ivanmoria.github.io/media/documents/outros_htmls/chorodito.html
-
 
 <br>
       
-<p2 onclick="window.location.href='artisticas.html'" style="font-size: 25px; color: rgba(99, 216, 175, 0.699) ;transition:color
-0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color=' rgba(99, 216, 175, 0.699) '"class="author-name"          
-" class="preview-link">
+<p2 onclick="window.location.href='artisticas.html'" style="font-size: 25px;"   
+"      class="author-name preview-link">
 Acesse aqui todas as produções artísticas
 <span class="popup">Acessar link externo</span>
 </p2>
@@ -1055,11 +998,9 @@ Acesse aqui todas as produções artísticas
 <br>
 <br>
 
-      <p2 onclick="toggleMenu()" style="font-size: 25px; color: rgba(254, 186, 75, 0.699) ;transition:color
-      0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color=' rgba(254, 186, 75, 0.699) '"class="author-name"          
-     " class="preview-link">
-      Texto de apresentação
-      <span class="popup">Clique para fechar</span>
+      <p2 onclick="toggleMenu()" style="font-size: 25px; "     class="author-name preview-link">  
+Fechar
+
   </p2>
   
 
@@ -1097,7 +1038,7 @@ Acesse aqui todas as produções artísticas
   </script>
   
 <br>
-  <p2 style="font-size: 14px; color: rgb(246, 148, 148);text-align: justify; width: 95%;">
+  <p2 style="font-size: 14px; text-align: justify; width: 95%;">
     Aviso: Alguns dispositivos podem ter dificuldade em acessar arquivos multimídia na pré-visualização. 
     Se isso acontecer, clique no link no título de cada referência para acessar o arquivo externamente
      como um arquivo PDF ou um site externo. Para uma melhor experiência,
@@ -1105,17 +1046,34 @@ Acesse aqui todas as produções artísticas
 </p2>
 
 <br>
+<style>
+  p38, .preview-link, .author-name{
 
-<p2>Formação</p2><br>
+    font-family: 'Poiret One', cursive;
+  
+    font-size: 24px;
+    font-weight: 500;
+  
+    font-weight: 200;
+
+    }
+   /* Lógica de hover para p2 */
+   p38:hover {
+    color: #f1f1f1; /* Cor diferente no hover */
+    transform: scale(1.1); /* Efeito de zoom suave */
+    
+
+  }
+</style>
+<p20 style="font-size: 20px;">Formação</p20><br>
 
       <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-       margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-         0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+       margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
         onclick="window.location.href='mirmt.html'" class="preview-link">
         Doutorado em  Música<span class="popup"> 
-      External PDF</span> </p2></div></div>  
+      External PDF</span> </p38></div></div>  
 <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:-10px;"><div>
-   <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+   <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/projetodepesquisarevisadoivan.pdf" class="preview-link">
  UFMG, 2025
     <span class="popup"> 
@@ -1130,9 +1088,13 @@ Acesse aqui todas as produções artísticas
   .author-name {
       cursor: pointer; /* Muda o cursor para indicar interatividade */
       position: relative;
-      color: rgb(255, 175, 54); /* Cor do texto original */
+      color: rgb(21, 141, 10); /* Cor do texto original */
       display: inline; /* Mantém os autores na mesma linha */
   }
+  .dark-theme .author-name {
+    color: rgba(39, 242, 21, 0.69); /* Cor do texto original */
+  }
+
 
   .popup {
       visibility: hidden; /* Esconde o texto popup por padrão */
@@ -1151,14 +1113,21 @@ Acesse aqui todas as produções artísticas
       opacity: 0;
       transition: opacity 0.3s; /* Efeito de transição */
   }
+  .dark-theme  .popup {
+    color: rgba(0, 0, 0, 0.8); /* Roxo claro pastel */
+    background-color: rgb(255, 255, 255);
+  }
 
   .author-name:hover .popup {
       visibility: visible; /* Mostra o popup ao passar o mouse */
       opacity: 1; /* Torna o popup visível */
   }
-</style>
+  .dark-theme:hover  .popup {
+    color: rgba(0, 0, 0, 0.8); /* Roxo claro pastel */
 
-           
+  }
+</style>
+   
       <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
       >[No prelo] Tecnologias de Extração e Processamento de Informações
       Musicais em Musicoterapia: Microanálises de Vestígios Musicais
@@ -1170,14 +1139,12 @@ Acesse aqui todas as produções artísticas
    </span>
 
    <div style="margin-bottom: 0px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-left:-20px;
-   margin-top: 0px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+   margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
 onclick="window.open ('media/documents/textos/Dissertacao_Ivan-Moria.pdf');" class="preview-link">
   Mestrado em Neurociências <span class="popup"> 
-  External PDF</span> </p2></div></div>  
+  External PDF</span> </p38></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: -15px;"><div> 
-    <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: 
-    color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+    <p2 style="font-size: 25px; "class="author-name"  
   data-src="media/documents/textos/Dissertacao_Ivan-Moria.pdf" class="preview-link">
  UFMG, 2021
 <span class="popup"> 
@@ -1196,17 +1163,18 @@ Programa de Pós-Graduação em Neurociências.    <span class="tooltip" style="
   External website</span>    </a>    114 f, 2021. </span>
 
   <div style="margin-bottom: 0px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-left:-20px;
-  margin-top: 0px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
 onclick="window.open
   ('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf');" class="preview-link">
 Graduação em Musicoterapia<span class="popup"> 
-External PDF</span> </p2></div></div>  
+External PDF</span> </p38></div></div>  
 
-<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: -15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: -15px;"><div> 
+  <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" class="preview-link">
 UFMG, 2017
 <span class="popup"> 
-Preview PDF</span> </p2></p2> </div>  </div>
+Preview PDF</span> </p2> </div>  </div>
 
 <br>
 
@@ -1215,7 +1183,7 @@ Preview PDF</span> </p2></p2> </div>  </div>
 <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
   MORIÁ, IVAN; CORDEIRO, Rodrigo. Musicoterapia e Saúde Mental: um encontro através do cantar [manuscrito]. 
 
-<a href="http://dx.doi.org/10.13140/RG.2.2.25059.27682/2"class="popup-link"onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+<a href="http://dx.doi.org/10.13140/RG.2.2.25059.27682/2"class="popup-link">
   Monografia (graduação em Musicoterapia)  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
 External PDF</span>   </a>   – Universidade Federal de Minas Gerais, Escola de Música.
 
@@ -1225,7 +1193,7 @@ External website</span>    </a>    114 f, 2021. </span>
 
 
 <br>
-<p4 style="margin-top: 0px;">Produções Bibliográficas</p4>
+<p20 style="font-size: 20px;">Produções Bibliográficas</p20>
 
 
 
@@ -1251,20 +1219,20 @@ External website</span>    </a>    114 f, 2021. </span>
 
 <div data-year="2024" class="publications">
 
-
-
-
+  <img id="theme-icon-light" src="media/icons8-documento-50.png" style="width: 36px; height: 36px; vertical-align: middle;">
+  <img id="theme-icon-dark" src="media/icons8-documento-50-2.png" style="width: 36px; height: 36px; vertical-align: middle;display: none; ">
+  
            
     <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex;
        flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
        flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-        <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-          7 </p2><p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+        <p style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+          7 </p><p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw');" class="preview-link">
       IAMM & ISfAM Congress  <span class="popup"> 
     External PDF</span> </p2></div></div>  
     
-      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px;"class="author-name"  
       data-src="https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw" class="preview-link">
      Berlin, 2024 
       <span class="popup"> 
@@ -1272,16 +1240,20 @@ External website</span>    </a>    114 f, 2021. </span>
       MORIÁ, IVAN. SAMPAIO, R. An Music therapeutical perspective on social cognition and music:
       interactive musical improvisation. In:
     
-    
-      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-      data-src="https://iammonline.com/berlin2024/" class="preview-link">
-      "The Future of Music and Arts in Medicine and Health",   <span class="popup">Preview website</span></p2>IAMM & ISfAM,  
-           
-    
-    
-    <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+
+      <a href="https://iammonline.com/berlin2024/"class="popup-link" class="author-name" data-src="https://iammonline.com/berlin2024/" class="preview-link">
+        "The Future of Music and Arts in Medicine and Health",
+        <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;"> Preview website</span>   </a> IAMM & ISfAM,  
+
+
+      <a class="popup-link" class="author-name" 
       data-src="media/documents/certificados/IAMM_ISfAM_certificate_of_attendance_Moriá.pdf" class="preview-link">
-      2024.  <span class="popup">Certificado PDF</span></p2>  
+        2024.<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+          Certificado PDF</span>   </a> 
+
+
+    
+
            
     </div></div>
 
@@ -1292,27 +1264,30 @@ External website</span>    </a>    114 f, 2021. </span>
     <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; 
       flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: 
       flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
-        <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-          6 </p2> <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+        <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+          6 </p2> <p2 style="font-size: 25px;"class="author-name"          
          onclick="window.open('https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw');" class="preview-link">
       IAMM & ISfAM Congress  <span class="popup"> 
     External PDF</span> </p2></div></div>  
     
-      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div>
+         <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/PosterBerlin2024.pdf" class="preview-link">
        Berlin, 2024 
       <span class="popup"> 
     Preview Banner</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN. SAMPAIO, R. FREIRE, S. The use of MIDI data for music therapy research. In:
     
-      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-      data-src="https://iammonline.com/berlin2024/" class="preview-link">
-      "The Future of Music and Arts in Medicine and Health",   <span class="popup">Preview website</span></p2>IAMM & ISfAM,  
-    
-    <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-      data-src="media/documents/certificados/IAMM_ISfAM_certificate_of_attendance_Moriá.pdf" class="preview-link">
-      2024.  <span class="popup">Certificado PDF</span>    
-    </p2> 
+
+      <a href="https://iammonline.com/berlin2024/"class="popup-link" class="author-name" data-src="https://iammonline.com/berlin2024/" class="preview-link">
+        "The Future of Music and Arts in Medicine and Health",
+        <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;"> Preview website</span>   </a> IAMM & ISfAM,  
+
+    <a class="popup-link" class="author-name" 
+    data-src="media/documents/certificados/IAMM_ISfAM_certificate_of_attendance_Moriá.pdf" class="preview-link">
+      2024.<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+        Certificado PDF</span>   </a> 
+
            </div></div>
     
            
@@ -1328,26 +1303,27 @@ External website</span>    </a>    114 f, 2021. </span>
     right; width: 100%; margin-top: 15px;">
     <div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; 
     align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-    <p2 style="font-size: 40px;margin-left:-20px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
+    <p2 style="font-size: 40px;margin-left:-20px; margin-left:-20px;"class="author-name"  >
       4 </p2>
       
-      <p2 style="font-size: 25px; color: rgba(107, 170, 225, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(107, 170, 225, 0.721) '"class="author-name"          
+      <p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('https://doi.org/10.33871/2317417X.2023.19.2.9444');" class="preview-link">
     Revista Incantare  <span class="popup"> 
     External PDF</span> </p2></div></div>  
 
-      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
+        <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/certificados/1+-+Musicoterapia+e+Dependência+Química.pdf" class="preview-link">
     Artigo, 2023 
     <span class="popup"> 
     Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
     
-      MORIÁ, IVAN; RAMOS, P.; PEDROSA, F.  Musicoterapia e Dependência Química relato de experiência em um CERSAM AD em Belo Horizonte. 
-    In: 
+     BORGES, Ivan Moriá; RAMOS, P; PEDROSA, F.  Musicoterapia e Dependência Química relato de experiência em um CERSAM AD em Belo Horizonte. 
+  
     
-    <a href="https://periodicos.unespar.edu.br/incantare/index"class="popup-link"onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-    Revista Incantare <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
-    External link</span>   </a> 2023.</span></div></div><br>
+    <a href="https://periodicos.unespar.edu.br/incantare/index"class="popup-link" ><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+    Revista Incantare, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+    External link</span>   </a>Curitiba. v.19, p. 1-15, dez, 2023. ISSN 2317-417X.</span></div></div><br>
     
 
      
@@ -1356,71 +1332,72 @@ External website</span>    </a>    114 f, 2021. </span>
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; 
    flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
     flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-     <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-       5 </p2>  <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+     <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+       5 </p2>  <p2 style="font-size: 25px; "class="author-name"          
    onclick="window.open('https://my.ltb.io/#/viewStack/ABSRD');" class="preview-link">
 17th World Congress of Music Therapy  <span class="popup"> 
 External e-poster</span> </p2></div></div>  
 
-<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
+  <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496" class="preview-link">
 Vancouver,   2023
 <span class="popup"> 
 Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
 MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
-In:   Proceedings of the
+In:  
+<div>
+<a href="https://issuu.com/presidentwfmt/docs/mt_today_vol.18_no._1"class="popup-link" >
+  Proceedings of the 17th WFMT World Congress of Music Therapy.  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+    External link</span>   </a>Special Issue of </span>  <a href="https://www.wfmt.info/music-therapy-today"class="popup-link" >
+      Music Therapy Today,   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+        External link</span>   </a>18(1).  p. 459-460, Vancouver, Canada.  </span>
+       
+        <a class="popup-link" class="author-name" 
+    data-src="media/documents/certificados/certificadowcmt.pdf" class="preview-link">
+      2023.<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+        Certificado PDF</span>   </a> 
 
 
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="https://issuu.com/presidentwfmt/docs/mt_today_vol.18_no._1" class="preview-link">
-17th WFMT World Congress of Music Therapy,   <span class="popup">Preview website</span></p2>
-
-Special Issue of 
+      </div>
+  
+    
 
 
-<a href="https://www.wfmt.info/music-therapy-today"class="popup-link" return false;">
-Music Therapy Today.    <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
-External link</span>  </a>       
-
-
-18(1), <a >  Vancouver, Canada.</a> p. 459-460,
-
-
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="media/documents/certificados/certificadowcmt.pdf" class="preview-link">
-2023.         <span class="popup">Certificado PDF</span></p2>
 
 
 </span></div></div>
 
-      
+
 <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: 
   flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
-   flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>   <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-    4 </p2> <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+   flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>   <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+    4 </p2> <p2 style="font-size: 25px; "class="author-name"          
   onclick="window.open('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf');" class="preview-link">
 9º Nas Nuvens...  <span class="popup"> 
-External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf" class="preview-link">
 UFMG, 2023 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy"
  style="text-align: justify; width: 95%; margin-top: -10px;">
+ <div>
   MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
   In: Anais do 
-  <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-  data-src="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2024/04/35-A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf" class="preview-link">
-  9º Nas Nuvens...      <span class="popup">Preview link</span></p2>
-  
-   Congresso de Música, UFMG, UEMG E KING'S COLLEGE, Online. 
-           
+
+  <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2024/04/35-A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf"
+  class="popup-link" >
+   9º Nas Nuvens...   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+   External link</span>   </a>   Congresso de Música, UFMG, UEMG E KING'S COLLEGE. </span>
 
 
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="media/documents/certificados/2023-9nasnuvens.pdf" class="preview-link">
-2023.    <span class="popup">Certificado PDF</span></p2>
+   <a class="popup-link" class="author-name" 
+   data-src="media/documents/certificados/2023-9nasnuvens.pdf" class="preview-link"  >
+     2023.<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+       Certificado PDF</span>   </a> 
 
 
 
 
+      </div>
 
           
 
@@ -1432,31 +1409,38 @@ data-src="media/documents/certificados/2023-9nasnuvens.pdf" class="preview-link"
 <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative;
   display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: 
   relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
-   <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-     3 </p2> <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+   <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+     3 </p2> <p2 style="font-size: 25px; "class="author-name"          
  onclick="window.open('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25');" class="preview-link">
  XXIII ENPEMT  <span class="popup"> 
-External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
+  <p2 style="font-size: 25px;"class="author-name"  
 data-src="media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25" class="preview-link">
 UBAM, 2023 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
 style="text-align: justify; width: 95%; margin-top: -10px;">
 
 
+<div>
    
 
  MORIÁ, I; ACOSTA, C.S.G. ; ZANINI, C.R.O ; GIFFONI, Y ; ANSAY, N.
  Panorama do XVII Congresso Mundial de Musicoterapia: relatos de experiências de Musicoterapeutas no Brasil.
  In: Anais do XXIII ENPEMT - </p2>       
 
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="https://ubammusicoterapia.com.br/wp-content/uploads/2023/11/Anais-XXIII-EPEMT-04-11-2023.pdf" class="preview-link">
-Encontro Nacional de Pesquisa em Musicoterapia,    <span class="popup">Preview link</span></p2>     p. 25-26. 
 
 
+<a href="https://ubammusicoterapia.com.br/wp-content/uploads/2023/11/Anais-XXIII-EPEMT-04-11-2023.pdf"
+class="popup-link" >
+Encontro Nacional de Pesquisa em Musicoterapia,    <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+ External link</span>   </a>  p. 25-26.  </span>
 
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="media/documents/certificados/enpemt2023.pdf" class="preview-link">
-2023.    <span class="popup">Certificado PDF</span></p2>
+
+ <a class="popup-link" class="author-name" 
+ data-src="media/documents/certificados/enpemt2023.pdf" class="preview-link"  >
+   2023.<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+     Certificado PDF</span>   </a> 
+
+    </div>
 
 </div></div>
 
@@ -1468,13 +1452,14 @@ data-src="media/documents/certificados/enpemt2023.pdf" class="preview-link">
 
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
     <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-      <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-        3 </p2><p2 style="font-size: 25px; color: rgba(107, 170, 225, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(107, 170, 225, 0.721) '"class="author-name"          
+      <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+        3 </p2><p2 style="font-size: 25px; "class="author-name"          
     onclick="window.open('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf');" class="preview-link">
     8º Nas Nuvens...  <span class="popup"> 
     External PDF</span> </p2></div></div>  
     
-    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
+      <p2 style="font-size: 25px; "class="author-name"  
     data-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" class="preview-link">
     Artigo,  2022 
       <span class="popup"> 
@@ -1484,15 +1469,15 @@ data-src="media/documents/certificados/enpemt2023.pdf" class="preview-link">
       
       In: 
     <a href="https://musica.ufmg.br/nasnuvens/wp-content/uploads/sites/5/2022/12/43-Musicoterapia-e-performance-musical-a-improvisac
-    ao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf"class="popup-link" return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+    ao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf"class="popup-link" >
       Anais do 8º Nas Nuvens...  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
     External link</span>   </a>  Congresso de Música, UFMG, UEMG E KING'S COLLEGE,v. 8. p. 1-13, 
     
-    <a href="media/documents/certificados/2022-8nasnuvens.pdf"
-    class="popup-link"onclick="window.open(this.href, 'popup', 'width=420,height=330'); return false;">
-    
-    2022. <span class="tooltip">Certificado</span> </a></span></div></div><br>
 
+    <a class="popup-link" class="author-name" 
+    data-src="media/documents/certificados/2022-8nasnuvens.pdf" class="preview-link"  >
+      2022.<span class="tooltip" >
+        Certificado</span>   </a> </span></div></div><br>
 
 
 
@@ -1500,65 +1485,65 @@ data-src="media/documents/certificados/enpemt2023.pdf" class="preview-link">
     <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display:
        flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative;
         display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-          <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-            2 </p2>  <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+          <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+            2 </p2>  <p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223');" class="preview-link">
     12th European Music Therapy Conference<span class="popup"> 
-    External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+    External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; "class="author-name"  
     data-src="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223" class="preview-link">
     Edinburgh, 2022 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
     style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, 
       social cognition and neurocognition. In:   Proceedings of the
     
-      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-      data-src="https://www.qmu.ac.uk/conferences-and-events/emtc-2022/programme-book-of-abstracts/" class="preview-link">
-      12th European Music Therapy Conference,     <span class="popup">Preview link</span></p2>
+
       
-      
+      <a href="https://www.qmu.ac.uk/conferences-and-events/emtc-2022/programme-book-of-abstracts/"class="popup-link" >
+        12th European Music Therapy Conference,  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+      External link</span>   </a>   Edinburgh, Scotland. p. 222, 
+
     
     
+      <a class="popup-link" class="author-name" 
+      data-src="media/documents/certificados/2022emtccertificate.pdf" class="preview-link"  >
+        2022.<span class="tooltip" >
+          Certificado</span>   </a> </span></div></div><br>
+  
+
     
-    
-    <a >   Edinburgh, Scotland, </a> p. 222,
-    
-    <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-    data-src="media/documents/certificados/2022emtccertificate.pdf" class="preview-link">
-    2022.          <span class="popup">Certificado PDF</span></p2>
-    
-    
-    
-    
-    
-    
-    </span></div></div>
+
 
          
 <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex;
   flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; 
   display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
-   <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-     1 </p2> <p2 style="font-size: 25px; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
+   <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+     1 </p2> <p2 style="font-size: 25px; "class="author-name"          
  onclick="window.open('media/documents/textos/ENPEMT_2022_poster.pdf');" class="preview-link">
  XXII ENPEMT  <span class="popup"> 
-External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div>
+  <p2 style="font-size: 25px;"class="author-name"  
 data-src="media/documents/textos/ENPEMT_2022_poster.pdf" class="preview-link">
 UBAM, 2022 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
 style="text-align: justify; width: 95%; margin-top: -10px;">
- MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M.
+<div> MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M.
  Tradução e Validação da Escala Interest in Music para o português brasileiro.
  In:  Anais do XXII ENPEMT - 
 
- <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="https://ubammusicoterapia.com.br/wp-content/uploads/2023/03/Anais-XXII-enpemt-2022.pdf" class="preview-link">
-Encontro Nacional de Pesquisa em Musicoterapia,     <span class="popup">Preview link</span></p2>
 
-           p. 25-26. 
-    
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link">
-2022.    <span class="popup">Certificado PDF</span></p2>
 
+<a href="https://ubammusicoterapia.com.br/wp-content/uploads/2023/03/Anais-XXII-enpemt-2022.pdf"class="popup-link" >
+  Encontro Nacional de Pesquisa em Musicoterapia,     <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+External link</span>   </a>   p. 25-26. 
+
+
+
+<a class="popup-link" class="author-name" 
+data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
+  2022.<span class="tooltip" >
+    Certificado</span>   </a> 
+
+</div>
 
 
 </div>
@@ -1587,21 +1572,22 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link">
 
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
     <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-      <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-        2 </p2><p2 style="font-size: 25px; color: rgba(107, 170, 225, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(107, 170, 225, 0.721) '"class="author-name"          
+      <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+        2 </p2><p2 style="font-size: 25px; "class="author-name"          
      
         onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf');" class="preview-link">
     Revista Percepta  <span class="popup"> 
     External PDF</span> </p2></div></div>  
     
-      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div>
+         <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf" class="preview-link">
     Artigo, 2021 
       <span class="popup"> 
     Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. 
     
-    <a href="https://doi.org/10.34018/2318-891X.8(2)53-74"class="popup-link" return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+    <a href="https://doi.org/10.34018/2318-891X.8(2)53-74"class="popup-link" return false;><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
       Percepta - Revista de Cognição Musical,  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
     External link</span>   </a>   v. 8, n. 2, p. 53–74, 2021.
     
@@ -1615,20 +1601,21 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link">
       <div style="position: relative; display: flex; flex-direction: column; align-items: 
     right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; 
     align-items: flex-start; width: 85%; margin-top: 20px;"><div>
-      <p2 style="font-size: 40px; margin-left:-20px;color: rgba(198, 223, 107, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgba(252, 151, 0, 0.721)'"onmouseout="this.style.color='rgba(198, 223, 107, 0.721)'"class="author-name"  >
-        1 </p2><p2 style="font-size: 25px; color: rgba(107, 170, 225, 0.721) ;transition:color 
-      0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(107, 170, 225, 0.721) '"class="author-name"          
+      <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
+        1 </p2><p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf');" class="preview-link">
     Brazilian Journal of Musictherapy  <span class="popup"> 
     External PDF</span> </p2></div></div>  
     
-      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
+        <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf" class="preview-link">
     Artigo, 2021 
       <span class="popup"> 
     Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
-      MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial.
-    <a href="https://doi.org/10.51914/brjmt.31.2021.87"class="popup-link" return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+      MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial. <img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+    <a href="https://doi.org/10.51914/brjmt.31.2021.87"class="popup-link" return false;>
+      
       Brazilian Journal of Music Therapy,   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
     External link</span>   </a>   n. 31, p. 24-38, 2021.
     
