@@ -521,8 +521,7 @@ function hidePreview() {
       
   const themeCheckbox = document.getElementById("theme-checkbox");
   const body = document.body;
-  const lightIcon = document.getElementById("theme-icon-light");  // Ícone para o modo claro
-  const darkIcon = document.getElementById("theme-icon-dark");    // Ícone para o modo escuro
+
   
   
   function toggleTheme() {
@@ -530,12 +529,13 @@ function hidePreview() {
   
     if (isDarkMode) {
       body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
-      lightIcon.style.display = "none";  // Esconde o ícone do tema claro
-      darkIcon.style.display = "inline";  // Exibe o ícone do tema escuro
+
+   
+
     } else {
       body.classList.remove("dark-theme"); // Remove a classe de tema escuro
-      lightIcon.style.display = "inline";  // Exibe o ícone do tema claro
-      darkIcon.style.display = "none";  // Esconde o ícone do tema escuro
+
+
     }
   }
   
@@ -746,12 +746,12 @@ font-size:30px; margin-bottom: -30px;margin-right:-20px;"  onclick="window.locat
   <a href="media/documents/textos/ref.pdf" data-src="media/documents/textos/ref.pdf"
   onclick="window.open(this.href, 'popup', 'width=600,height=800'); return false;" onclick="toggleMenu();"
   style="font-size: 25px;margin-left:15px;margin-top:-310px;"
-  class="author-name preview-link" class="popup-link">Texto de Apresentação<span class="popup">Texto externo</span></a>
+  class="author-name preview-link" class="popup-link">Texto de Apresentação<span class="popup">Link externo</span></a>
   
      
 
 <button onclick="toggleMenu();" style="background-color: rgba(255, 255, 255, 0);margin-left:15px;">
-  <span><p29>    ⇩</p29></span>
+  <span><p29>    ⇩ </p29></span>
   </button>
 
 
@@ -1080,15 +1080,50 @@ Fechar
       <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
        margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
         onclick="window.location.href='mirmt.html'" class="preview-link">
-        Doutorado em  Música<span class="popup"> 
-      External PDF</span> </p38></div></div>  
+        <img 
+        id="theme-icon-light" 
+        src="      
+            media/icons8-universidade-100.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+        
+      <img 
+        id="theme-icon-dark" 
+        src="
+           media/icons8-universidade-100-2.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+
+      
+    
+        Doutorado em  Música<span class="popup"  style=" font-family: 'Mina', sans-serif; font-size:16px;"> 
+    
+          <img 
+          id="theme-icon-dark"      
+          src="
+           media/icons8-letras-miúdas-100.png" 
+          style="width: 66px; height: 66px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+           media/icons8-letras-miúdas-100-2.png" 
+          style="width: 66px; height: 66px; vertical-align: middle;"><br>
+    Link
+        </span> </p38></div></div>  
 <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:-10px;"><div>
    <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/projetodepesquisarevisadoivan.pdf" class="preview-link">
  UFMG, 2025
-    <span class="popup"> 
-      Preview PDF</span> </p2>
-    
+    <span class="popup" style="font-size: 16px;   font-family: 'Mina', sans-serif;"> 
+      <img 
+      id="theme-icon-dark"      
+      src="
+      media/icons8-pdf-2-100.png" 
+      style="width: 58px; height: 58px; vertical-align: middle;">
+      <img 
+      id="theme-icon-light"      
+      src="
+      media/icons8-pdf-2-100-2.png" 
+      style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </p2>
+     
             </p2> 
     </div>  </div>
     
@@ -1151,14 +1186,50 @@ Fechar
    <div style="margin-bottom: 0px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%;margin-left:-20px;
    margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
 onclick="window.open ('media/documents/textos/Dissertacao_Ivan-Moria.pdf');" class="preview-link">
-  Mestrado em Neurociências <span class="popup"> 
-  External PDF</span> </p38></div></div>  
+<img 
+id="theme-icon-light" 
+src="      
+    media/icons8-universidade-100.png" 
+style="width: 36px; height: 36px; vertical-align: middle;">
+
+<img 
+id="theme-icon-dark" 
+src="
+   media/icons8-universidade-100-2.png" 
+style="width: 36px; height: 36px; vertical-align: middle;">
+
+
+Mestrado em Neurociências <span class="popup"> 
+    <span class="popup"  style=" font-family: 'Mina', sans-serif; font-size:16px;"> 
+    
+      <img 
+      id="theme-icon-dark"      
+      src="
+              media/icons8-diploma-2-100.png  " 
+      style="width: 66px; height: 66px; vertical-align: middle;">
+      <img 
+      id="theme-icon-light"      
+      src="
+               media/icons8-diploma-2-100-2.png  " 
+      style="width: 66px; height: 66px; vertical-align: middle;"><br>
+Dissertação
+    </span></span> </p38></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: -15px;"><div> 
     <p2 style="font-size: 25px; "class="author-name"  
   data-src="media/documents/textos/Dissertacao_Ivan-Moria.pdf" class="preview-link">
  UFMG, 2021
 <span class="popup"> 
-  Preview PDF</span> </p2></div></div><br>
+  <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+    <img 
+    id="theme-icon-dark"      
+    src="
+    media/icons8-pdf-2-100.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;">
+    <img 
+    id="theme-icon-light"      
+    src="
+    media/icons8-pdf-2-100-2.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></div></div><br>
 
 
 <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
@@ -1176,15 +1247,59 @@ Programa de Pós-Graduação em Neurociências.    <span class="tooltip" style="
   margin-top: 0px;"><div><p38 style="font-size: 25px; "class="author-name"          
 onclick="window.open
   ('media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf');" class="preview-link">
+
+       
+  <img 
+  id="theme-icon-light" 
+  src="      
+      media/icons8-universidade-100.png" 
+  style="width: 36px; height: 36px; vertical-align: middle;">
+  
+<img 
+  id="theme-icon-dark" 
+  src="
+     media/icons8-universidade-100-2.png" 
+  style="width: 36px; height: 36px; vertical-align: middle;">
+
+
+
 Graduação em Musicoterapia<span class="popup"> 
-External PDF</span> </p38></div></div>  
+  <span class="popup"  style=" font-family: 'Mina', sans-serif; font-size:16px;"> 
+    
+    <img 
+      id="theme-icon-dark"      
+      src="
+              media/icons8-diploma-2-100.png  " 
+      style="width: 66px; height: 66px; vertical-align: middle;">
+      <img 
+      id="theme-icon-light"      
+      src="
+               media/icons8-diploma-2-100-2.png  " 
+      style="width: 66px; height: 66px; vertical-align: middle;"><br>
+Monografia
+  </span></span> </p38></div></div>  
 
 <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: -15px;"><div> 
   <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" class="preview-link">
 UFMG, 2017
+
+
+
+
+
 <span class="popup"> 
-Preview PDF</span> </p2> </div>  </div>
+  <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+    <img 
+    id="theme-icon-dark"      
+    src="
+    media/icons8-pdf-2-100.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;">
+    <img 
+    id="theme-icon-light"      
+    src="
+    media/icons8-pdf-2-100-2.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span></span> </p2> </div>  </div>
 
 <br>
 
@@ -1193,9 +1308,13 @@ Preview PDF</span> </p2> </div>  </div>
 <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
   MORIÁ, IVAN; CORDEIRO, Rodrigo. Musicoterapia e Saúde Mental: um encontro através do cantar [manuscrito]. 
 
-<a href="http://dx.doi.org/10.13140/RG.2.2.25059.27682/2"class="popup-link">
-  Monografia (graduação em Musicoterapia)  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
-External PDF</span>   </a>   – Universidade Federal de Minas Gerais, Escola de Música.
+
+
+<a href="http://dx.doi.org/10.13140/RG.2.2.25059.27682/2"class="popup-link"onclick="window.open(this.href, 'popup', 'width=600,height=600'); return false;">
+  Monografia (graduação em Musicoterapia)   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
+    External PDF</span>   </a>    –   Universidade Federal de Minas Gerais,  Escola de Música.
+
+
 
 <a href="https://musica.ufmg.br/musicoterapia/"class="popup-link"onclick="window.open(this.href); return false;">
   Graduação em Música – hab. em Musicoterapia.    <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
@@ -1229,18 +1348,69 @@ External website</span>    </a>    114 f, 2021. </span>
 
 <div data-year="2024" class="publications">
 
-  <img id="theme-icon-light" src="media/icons8-documento-50.png" style="width: 36px; height: 36px; vertical-align: middle;">
-  <img id="theme-icon-dark" src="media/icons8-documento-50-2.png" style="width: 36px; height: 36px; vertical-align: middle;display: none; ">
+
+
+  <style>
+
+
+
+    #theme-icon-light {
+ display:inline;
   
-           
+    }
+
+    #theme-icon-dark {
+      display:none;
+       
+         }
+
+    .dark-theme  #theme-icon-dark {
+      display:inline;
+    }
+
+    .dark-theme  #theme-icon-light {
+      display:none;
+    }
+    </style>
+
+
     <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex;
        flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
        flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
         <p style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-          7 </p><p2 style="font-size: 25px; "class="author-name"          
+
+       
+          <img 
+          id="theme-icon-light" 
+          src="      
+             media/icons8-professor-50.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+          
+        <img 
+          id="theme-icon-dark" 
+          src="
+             media/icons8-professor-50-2.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+  
+
+
+
+
+</p><p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw');" class="preview-link">
       IAMM & ISfAM Congress  <span class="popup"> 
-    External PDF</span> </p2></div></div>  
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+            <img 
+            id="theme-icon-dark"      
+            src="
+             media/icons8-ampliação-100.png" 
+            style="width: 58px; height: 58px; vertical-align: middle;">
+            <img 
+            id="theme-icon-light"      
+            src="
+        media/icons8-ampliação-100-2.png" 
+            style="width: 58px; height: 58px; vertical-align: middle;"><br>Zoom Link</span> </span> </p2></div></div>  
     
       <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px;"class="author-name"  
       data-src="https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw" class="preview-link">
@@ -1275,17 +1445,52 @@ External website</span>    </a>    114 f, 2021. </span>
       flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: 
       flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
         <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-          6 </p2> <p2 style="font-size: 25px;"class="author-name"          
+
+          <img 
+          id="theme-icon-light" 
+          src="      
+             media/icons8-professor-50.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+          
+        <img 
+          id="theme-icon-dark" 
+          src="
+             media/icons8-professor-50-2.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+   </p2> <p2 style="font-size: 25px;"class="author-name"          
          onclick="window.open('https://events.zoom.us/egj/AgUrDwz2aA2aRwrnmg5QE7uuHgsPYZqsgClpM-Vm8fJT2fwsI6Uj~A-WDvYCD6iowQ-XL-oGlL-V2AR5gQJTbW-hIHN3eNC9e7vBvqc-7mDhSPlKzw');" class="preview-link">
       IAMM & ISfAM Congress  <span class="popup"> 
-    External PDF</span> </p2></div></div>  
-    
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <img 
+          id="theme-icon-dark"      
+          src="
+           media/icons8-ampliação-100.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+      media/icons8-ampliação-100-2.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;"><br>Zoom Link</span> 
+
+
+ </span> </p2></div></div>  
+  
       <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div>
          <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/textos/PosterBerlin2024.pdf" class="preview-link">
        Berlin, 2024 
       <span class="popup"> 
-    Preview Banner</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <img 
+          id="theme-icon-dark"      
+          src="
+          media/icons8-pdf-2-100.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+          media/icons8-pdf-2-100-2.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;"><br>Poster Preview</span> </span></span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN. SAMPAIO, R. FREIRE, S. The use of MIDI data for music therapy research. In:
     
 
@@ -1314,19 +1519,48 @@ External website</span>    </a>    114 f, 2021. </span>
     <div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; 
     align-items: flex-start; width: 85%; margin-top: 20px;"><div>
     <p2 style="font-size: 40px;margin-left:-20px; margin-left:-20px;"class="author-name"  >
-      4 </p2>
+      <img 
+      id="theme-icon-light" 
+      src="media/icons8-documento-50.png" 
+      style="width: 36px; height: 36px; vertical-align: middle;">
+      
+    <img 
+      id="theme-icon-dark" 
+      src="media/icons8-documento-50-2.png" 
+      style="width: 36px; height: 36px; vertical-align: middle;">
+     </p2>
       
       <p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('https://doi.org/10.33871/2317417X.2023.19.2.9444');" class="preview-link">
     Revista Incantare  <span class="popup"> 
-    External PDF</span> </p2></div></div>  
+      <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+        <img 
+        id="theme-icon-dark"      
+        src="
+          media/icons8-link-externo-100.png" 
+        style="width: 58px; height: 58px; vertical-align: middle;">
+        <img 
+        id="theme-icon-light"      
+        src="
+          media/icons8-link-externo-100-2.png" 
+        style="width: 58px; height: 58px; vertical-align: middle;"><br>Link</span> </span> </p2></div></div>  
 
       <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
         <p2 style="font-size: 25px; "class="author-name"  
       data-src="media/documents/certificados/1+-+Musicoterapia+e+Dependência+Química.pdf" class="preview-link">
     Artigo, 2023 
     <span class="popup"> 
-    Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+      <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+        <img 
+        id="theme-icon-dark"      
+        src="
+        media/icons8-pdf-2-100.png" 
+        style="width: 58px; height: 58px; vertical-align: middle;">
+        <img 
+        id="theme-icon-light"      
+        src="
+        media/icons8-pdf-2-100-2.png" 
+        style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
     
      BORGES, Ivan Moriá; RAMOS, P; PEDROSA, F.  Musicoterapia e Dependência Química relato de experiência em um CERSAM AD em Belo Horizonte. 
   
@@ -1343,17 +1577,56 @@ External website</span>    </a>    114 f, 2021. </span>
    flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
     flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
      <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-       5 </p2>  <p2 style="font-size: 25px; "class="author-name"          
+
+      <img 
+      id="theme-icon-light" 
+      src="      
+         media/icons8-professor-50.png" 
+      style="width: 36px; height: 36px; vertical-align: middle;">
+      
+    <img 
+      id="theme-icon-dark" 
+      src="
+         media/icons8-professor-50-2.png" 
+      style="width: 36px; height: 36px; vertical-align: middle;">
+</p2>  <p2 style="font-size: 25px; "class="author-name"          
    onclick="window.open('https://my.ltb.io/#/viewStack/ABSRD');" class="preview-link">
 17th World Congress of Music Therapy  <span class="popup"> 
-External e-poster</span> </p2></div></div>  
+  <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+    <img 
+    id="theme-icon-dark"      
+    src="
+  media/icons8-ampliação-100.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;">
+    <img 
+    id="theme-icon-light"      
+    src="
+  media/icons8-ampliação-100-2.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;"><br>e-Poster</span></span> </p2></div></div>  
+
+
+
+
+
+
+
 
 <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
   <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496" class="preview-link">
 Vancouver,   2023
 <span class="popup"> 
-Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+  <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+    <img 
+    id="theme-icon-dark"      
+    src="
+    media/icons8-pdf-2-100.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;">
+    <img 
+    id="theme-icon-light"      
+    src="
+    media/icons8-pdf-2-100-2.png" 
+    style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
 MORIÁ, IVAN. Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health. 
 In:  
 <div>
@@ -1382,12 +1655,34 @@ In:
 <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: 
   flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex;
    flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>   <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-    4 </p2> <p2 style="font-size: 25px; "class="author-name"          
+
+    <img 
+    id="theme-icon-light" 
+    src="      
+       media/icons8-professor-50.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+    
+  <img 
+    id="theme-icon-dark" 
+    src="
+       media/icons8-professor-50-2.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+</p2> <p2 style="font-size: 25px; "class="author-name"          
   onclick="window.open('media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf');" class="preview-link">
 9º Nas Nuvens...  <span class="popup"> 
 External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; "class="author-name"  
 data-src="media/documents/textos/A-utilizacao-de-dados-MIDI-para-pesquisa-em-Musicoterapia.pdf" class="preview-link">
-UFMG, 2023 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy"
+UFMG, 2023 <span class="popup">   <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+  <img 
+  id="theme-icon-dark"      
+  src="
+  media/icons8-pdf-2-100.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;">
+  <img 
+  id="theme-icon-light"      
+  src="
+  media/icons8-pdf-2-100-2.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy"
  style="text-align: justify; width: 95%; margin-top: -10px;">
  <div>
   MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. A utilização de dados MIDI para pesquisa em Musicoterapia. 
@@ -1420,13 +1715,35 @@ UFMG, 2023 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br>
   display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: 
   relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
    <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-     3 </p2> <p2 style="font-size: 25px; "class="author-name"          
+
+    <img 
+    id="theme-icon-light" 
+    src="      
+       media/icons8-professor-50.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+    
+  <img 
+    id="theme-icon-dark" 
+    src="
+       media/icons8-professor-50-2.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+</p2> <p2 style="font-size: 25px; "class="author-name"          
  onclick="window.open('media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25');" class="preview-link">
  XXIII ENPEMT  <span class="popup"> 
 External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> 
   <p2 style="font-size: 25px;"class="author-name"  
 data-src="media/documents/textos/Anais-XXIII-EPEMT-04-11-2023.pdf#page=25" class="preview-link">
-UBAM, 2023 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
+UBAM, 2023 <span class="popup">   <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+  <img 
+  id="theme-icon-dark"      
+  src="
+  media/icons8-pdf-2-100.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;">
+  <img 
+  id="theme-icon-light"      
+  src="
+  media/icons8-pdf-2-100-2.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
 style="text-align: justify; width: 95%; margin-top: -10px;">
 
 
@@ -1463,7 +1780,29 @@ Encontro Nacional de Pesquisa em Musicoterapia,    <span class="tooltip" style="
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
     <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
       <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-        3 </p2><p2 style="font-size: 25px; "class="author-name"          
+        <img 
+        id="theme-icon-light" 
+        src="media/icons8-documento-50.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+        
+      <img 
+        id="theme-icon-dark" 
+        src="media/icons8-documento-50-2.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+
+        <img 
+        id="theme-icon-light" 
+        src="      
+           media/icons8-professor-50.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+        
+      <img 
+        id="theme-icon-dark" 
+        src="
+           media/icons8-professor-50-2.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+
+       </p2><p2 style="font-size: 25px; "class="author-name"          
     onclick="window.open('media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf');" class="preview-link">
     8º Nas Nuvens...  <span class="popup"> 
     External PDF</span> </p2></div></div>  
@@ -1473,7 +1812,17 @@ Encontro Nacional de Pesquisa em Musicoterapia,    <span class="tooltip" style="
     data-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" class="preview-link">
     Artigo,  2022 
       <span class="popup"> 
-    Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <img 
+          id="theme-icon-dark"      
+          src="
+          media/icons8-pdf-2-100.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+          media/icons8-pdf-2-100-2.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       
       MORIÁ, IVAN; BARROSO, SEBASTIAN. Musicoterapia e performance musical: a improvisação musical terapêutica como ferramenta no tratamento da ansiedade. 
       
@@ -1496,12 +1845,44 @@ Encontro Nacional de Pesquisa em Musicoterapia,    <span class="tooltip" style="
        flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative;
         display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
           <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-            2 </p2>  <p2 style="font-size: 25px; "class="author-name"          
+            <img 
+            id="theme-icon-light" 
+            src="media/icons8-documento-50.png" 
+            style="width: 36px; height: 36px; vertical-align: middle;">
+            
+          <img 
+            id="theme-icon-dark" 
+            src="media/icons8-documento-50-2.png" 
+            style="width: 36px; height: 36px; vertical-align: middle;">
+
+          <img 
+          id="theme-icon-light" 
+          src="      
+             media/icons8-professor-50.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+          
+        <img 
+          id="theme-icon-dark" 
+          src="
+             media/icons8-professor-50-2.png" 
+          style="width: 36px; height: 36px; vertical-align: middle;">
+  
+           </p2>  <p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223');" class="preview-link">
     12th European Music Therapy Conference<span class="popup"> 
     External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div> <p2 style="font-size: 25px; "class="author-name"  
     data-src="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223" class="preview-link">
-    Edinburgh, 2022 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
+    Edinburgh, 2022 <span class="popup">   <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+      <img 
+      id="theme-icon-dark"      
+      src="
+      media/icons8-pdf-2-100.png" 
+      style="width: 58px; height: 58px; vertical-align: middle;">
+      <img 
+      id="theme-icon-light"      
+      src="
+      media/icons8-pdf-2-100-2.png" 
+      style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
     style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, 
       social cognition and neurocognition. In:   Proceedings of the
@@ -1528,13 +1909,35 @@ Encontro Nacional de Pesquisa em Musicoterapia,    <span class="tooltip" style="
   flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; 
   display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div> 
    <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-     1 </p2> <p2 style="font-size: 25px; "class="author-name"          
+
+    <img 
+    id="theme-icon-light" 
+    src="      
+       media/icons8-professor-50.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+    
+  <img 
+    id="theme-icon-dark" 
+    src="
+       media/icons8-professor-50-2.png" 
+    style="width: 36px; height: 36px; vertical-align: middle;">
+</p2> <p2 style="font-size: 25px; "class="author-name"          
  onclick="window.open('media/documents/textos/ENPEMT_2022_poster.pdf');" class="preview-link">
  XXII ENPEMT  <span class="popup"> 
 External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top: 15px;"><div>
   <p2 style="font-size: 25px;"class="author-name"  
 data-src="media/documents/textos/ENPEMT_2022_poster.pdf" class="preview-link">
-UBAM, 2022 <span class="popup"> Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
+UBAM, 2022 <span class="popup">   <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+  <img 
+  id="theme-icon-dark"      
+  src="
+  media/icons8-pdf-2-100.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;">
+  <img 
+  id="theme-icon-light"      
+  src="
+  media/icons8-pdf-2-100-2.png" 
+  style="width: 58px; height: 58px; vertical-align: middle;"><br>Poster Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" 
 style="text-align: justify; width: 95%; margin-top: -10px;">
 <div> MORIÁ, I;  PEDROSA, F; PINHO, M. L ; STENICO, M.
  Tradução e Validação da Escala Interest in Music para o português brasileiro.
@@ -1583,7 +1986,19 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
     <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div>
       <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-        2 </p2><p2 style="font-size: 25px; "class="author-name"          
+        <img 
+        id="theme-icon-light" 
+        src="media/icons8-documento-50.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+        
+      <img 
+        id="theme-icon-dark" 
+        src="media/icons8-documento-50-2.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+      
+
+
+       </p2><p2 style="font-size: 25px; "class="author-name"          
      
         onclick="window.open('media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf');" class="preview-link">
     Revista Percepta  <span class="popup"> 
@@ -1594,7 +2009,17 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
       data-src="media/documents/textos/Percepta_Ivan_Moriá_e_Renato_Sampaio.pdf" class="preview-link">
     Artigo, 2021 
       <span class="popup"> 
-    Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <img 
+          id="theme-icon-dark"      
+          src="
+          media/icons8-pdf-2-100.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+          media/icons8-pdf-2-100-2.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS. Revisão sistemática sobre a cognição social em musicoterapia: Perspectivas e relações. 
     
     <a href="https://doi.org/10.34018/2318-891X.8(2)53-74"class="popup-link" return false;><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
@@ -1612,7 +2037,16 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
     right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; 
     align-items: flex-start; width: 85%; margin-top: 20px;"><div>
       <p2 style="font-size: 40px; margin-left:-20px;"class="author-name"  >
-        1 </p2><p2 style="font-size: 25px; "class="author-name"          
+        <img 
+        id="theme-icon-light" 
+        src="media/icons8-documento-50.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+        
+      <img 
+        id="theme-icon-dark" 
+        src="media/icons8-documento-50-2.png" 
+        style="width: 36px; height: 36px; vertical-align: middle;">
+       </p2><p2 style="font-size: 25px; "class="author-name"          
       onclick="window.open('media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf');" class="preview-link">
     Brazilian Journal of Musictherapy  <span class="popup"> 
     External PDF</span> </p2></div></div>  
@@ -1622,7 +2056,17 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
       data-src="media/documents/textos/Moria_I_Sampaio_R_antimanicomial.pdf" class="preview-link">
     Artigo, 2021 
       <span class="popup"> 
-    Preview PDF</span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
+        <span class="popup" style="font-size: 16px;     font-family: 'Mina', sans-serif;"> 
+          <img 
+          id="theme-icon-dark"      
+          src="
+          media/icons8-pdf-2-100.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;">
+          <img 
+          id="theme-icon-light"      
+          src="
+          media/icons8-pdf-2-100-2.png" 
+          style="width: 58px; height: 58px; vertical-align: middle;"><br>Preview</span> </span> </p2></p2> </div>  </div><br> <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 95%; margin-top: -10px;">
       MORIÁ, IVAN; SAMPAIO, RENATO TOCANTINS.  A Musicoterapia em Saúde Mental: Perspectivas de uma prática antimanicomial. <img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
     <a href="https://doi.org/10.51914/brjmt.31.2021.87"class="popup-link" return false;>
       
@@ -1664,81 +2108,6 @@ data-src="media/documents/certificados/2022-enpemt.pdf" class="preview-link"  >
 
 <div style=" z-index:888888;width:100%;margin-top:-30px;margin-bottom: -4px;"></div>
 
-<span    class="content-text" id="content-to-copy" style="text-align: justify; font-size:30px;width: 100%; margin-top: -30px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
- Painel interativo</span><br>
-    
-    <div style="width: 100%;">
-<span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%; margin-top: -50px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
-   As cores dos links possuem definições e comportamentos diferentes. 
-   <br> </span><br> <span    class="content-text" id="content-to-copy" style="font-size:30px;text-align: justify; width: 100%; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
-
-    Links externos:</span>
-<br>
-<div class="content-text">
-<p2 style="font-size: 20px; width: 100%;color: rgba(175, 255, 54, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
- class="preview-link">
-Nível acadêmico <span class="popup"> 
-  External PDF</span> </p2>  
--
-<p2 style="font-size: 20px; color:  rgba(107, 170, 225, 0.721) ;transition:color 0.3s
-    ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color=' rgba(107, 170, 225, 0.721) '"class="author-name"          
-   class="preview-link">
-  Artigo em periódico <span class="popup"> 
-  External PDF</span> </p2>
--
-  <p2 style="font-size: 20px;width: 100%; color: rgba(166, 92, 230, 0.721) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"
-  onmouseout="this.style.color='rgba(166, 92, 230, 0.721) '"class="author-name"          
-   class="preview-link">
-Congresso  <span class="popup"> 
-External PDF</span> </p2>
-
--
-<a href=""class="popup-link" return false;"><img src="media/doi_logo_icon_170235.png" alt="DOI Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-Periódico <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">
-  External link</span>   </a>
-
-</div><br>
-<span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%;font-size:17px; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
-    Os links externos hospedam arquivos PDF e links para o site da instituição, evento ou apresentação;</span><br>
-<br>
-    <span    class="content-text" id="content-to-copy" style="text-align: justify; font-size:30px;width: 100%; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
-        Preview dentro desta página:</span><br>
-        <div class="content-text">
-<p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-        data-src="" class="preview-link">
-    Local, ano 
-        <span class="popup"> 
-      Preview PDF</span> </p2></p2> 
-      -
-
-      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-        data-src="" class="preview-link">
-  Nome do Congresso
-        <span class="popup"> 
-      Preview link</span> </p2></p2>
-      -
-      <p2 style="font-size: 20px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-      data-src="" class="preview-link">
-Ano
-      <span class="popup"> 
-  Certificado</span> </p2></div><br>
-  <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%;font-size:17px; margin-top: 10px;color: rgba(169, 169, 169, 0.699) ;transition:color 0.3s
-     ease;"onmouseover="this.style.color=' rgba(77, 237, 33, 0.699)'"onmouseout="this.style.color='rgba(169, 169, 169, 0.699) '">
- 
-    Os previews dentro desta página hospedam o texto em PDF, certificados e previews de websites, que são exibidos neste lado da página. </span><br>
-<br>
-<br>
-<br>  
-
-<br>
-
-<br>
 
 </p2>   <div style="width: 100%;"><br>
     <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 100%; margin-top: 10px;">
