@@ -2112,6 +2112,22 @@ p29{
     
     }
 
+    .dark-theme:hover  p28:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+    .dark-theme:hover  p29:hover {
+      color: #dcf405; /* Cor diferente no hover */
+      transform: scale(1.1); /* Efeito de zoom suave */
+      
+  
+    }
+
+
+   
+
 
 
 
