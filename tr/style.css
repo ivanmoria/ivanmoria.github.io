@@ -1,0 +1,263 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+.container {
+    margin-top: 20px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+}
+audio {
+    margin: 10px 0;
+    width: 80%;
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+.button5 {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.button5:hover {
+    background-color: #e0e0e0;
+}
+.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+.hidden {
+    display: none;
+}
+#participant-info {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+#participant-info h2 {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#participant-info label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+#participant-info input[type="text"],
+#participant-info input[type="email"],
+#participant-info input[type="number"],
+#participant-info input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#participant-info input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#participant-info button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#participant-info button:hover {
+    background-color: #45a049;
+}
+
+#participant-info .form-group {
+    margin-bottom: 15px;
+}
+
+#participant-info .form-group input {
+    width: calc(100% - 20px);
+}
+
+#participant-info .form-group label {
+    font-size: 0.9em;
+}
+
+#participant-info .justified {
+    text-align: justify;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+td {
+    padding-right: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+    /* Estilos gerais para o modal */
+#welcomeModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: hidden; /* Inicialmente invisível */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Quando o modal estiver visível */
+#welcomeModal.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Conteúdo do modal */
+#modalContent {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 800px;
+    width: 90%; /* Responsividade para telas pequenas */
+    overflow-y: auto;
+    text-align: justify; /* Justificar o texto */
+    max-height: 90%; /* Impede que o conteúdo ultrapasse a tela */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Título */
+#modalContent h1 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Parágrafos */
+#modalContent p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+/* Links */
+#modalContent a {
+    color: #0066cc;
+    text-decoration: none;
+    white-space: nowrap; /* Evita quebra de linha nos links */
+}
+
+#modalContent a:hover {
+    text-decoration: underline;
+}
+
+/* Botão de fechar */
+#closeModalBtn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+#closeModalBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    #modalContent {
+        width: 95%;
+        padding: 15px;
+    }
+
+    #modalContent h1 {
+        font-size: 1.3em;
+    }
+
+    #modalContent p {
+        font-size: 0.9em;
+    }
+
+    #closeModalBtn {
+        padding: 12px;
+        font-size: 1em;
+    }
+}
+
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+    display: none; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Conteúdo do Modal */
+#modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+}
+
+textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}

@@ -1,0 +1,22 @@
+{
+    "pt-BR": {
+        "femininas": [
+            { "nome": "Joana", "api_url": "https://api.voz.com/pt/joana" },
+            { "nome": "Camila", "api_url": "https://api.voz.com/pt/camila" }
+        ],
+        "masculinas": [
+            { "nome": "João", "api_url": "https://api.voz.com/pt/joao" },
+            { "nome": "Carlos", "api_url": "https://api.voz.com/pt/carlos" }
+        ]
+    },
+    "en-US": {
+        "femininas": [
+            { "nome": "Emma", "api_url": "https://api.voz.com/en/emma" },
+            { "nome": "Sophia", "api_url": "https://api.voz.com/en/sophia" }
+        ],
+        "masculinas": [
+            { "nome": "Michael", "api_url": "https://api.voz.com/en/michael" },
+            { "nome": "James", "api_url": "https://api.voz.com/en/james" }
+        ]
+    }
+}
