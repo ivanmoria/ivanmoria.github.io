@@ -92,6 +92,17 @@
     </script>
 </head>
 <body>
+    <script>
+        Notification.requestPermission().then((permission) => {
+            if (permission !== 'granted') {
+                return;
+            }
+            const notification = new Notification('To do list', {
+                body: 'Unread message(2)',
+       
+            });
+        });
+    </script>
     <div id="canvas-container"></div>
 </body>
 </html>
