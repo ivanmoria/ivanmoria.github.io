@@ -1,142 +1,41 @@
 // Dados das perguntas e respostas
 const questions = [
-    {
-        question: "Nome",  // Primeira pergunta que usará um input de texto
-        answers: []  // Não há opções de resposta, pois é uma entrada de texto
-    },
-    {
-        question: "Idade",  // Primeira pergunta que usará um input de texto
-        answers: []  // Não há opções de resposta, pois é uma entrada de texto
-    },
-    {
-        question: "Gênero",  // Primeira pergunta que usará um input de texto
-        answers: []  // Não há opções de resposta, pois é uma entrada de texto
-    },
-    {
-        question: "Data do teste",  // Primeira pergunta que usará um input de texto
-        answers: []  // Não há opções de resposta, pois é uma entrada de texto
-    },
-    {
-        question: "Apresenta algum problema de audição?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Acompanhamento médico?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Toma alguma medicação?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Apresenta algum diagnóstico em alguma condição de saúde?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Formação escolar/acadêmica",
-        answers: []
-    },
-    {
-        question: "Participa de atividades musicais?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Sons que gosta",
-        answers: []
-    },
-    {
-        question: "Sons que não gosta",
-        answers: []
-    },
-    {
-        question: "Possui iniciação musical?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Toca algum instrumento?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Canta?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Com que frequência você cantou?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Como foi essa experiência?",
-        answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']
-    },
-    {
-        question: "Com que frequência você tocou instrumentos musicais ou digitais?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Como foi essa experiência?",
-        answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']
-    },
-    {
-        question: "Quantas vezes você ouviu música?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Como foi essa experiência?",
-        answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']
-    },
-    {
-        question: "Alguém da sua família ou residência toca algum instrumento musical?",
-        answers: ['Sim', 'Não']
-    },
-    {
-        question: "Quantas vezes você presenciou alguém tocar instrumentos?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Como foi essa experiência?",
-        answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']
-    },
+    {question: "Nome",  answers: [] },
+    {question: "Idade", answers: []  },
+    {question: "Gênero",  answers: [] },
+    {question: "Data do teste",answers: []  },
+    {question: "Apresenta algum problema de audição?",answers: ['Sim', 'Não']},
+    {question: "Acompanhamento médico?",answers: ['Sim', 'Não']},{question: "Toma alguma medicação?",answers: ['Sim', 'Não']},
+    {question: "Apresenta algum diagnóstico em alguma condição de saúde?",answers: ['Sim', 'Não']},
+    {question: "Formação escolar/acadêmica",answers: []},
+    {question: "Participa de atividades musicais?",answers: ['Sim', 'Não']},
+    {question: "Sons que gosta",answers: []},
+    {question: "Sons que não gosta",answers: []},
+    {question: "Possui iniciação musical?",answers: ['Sim', 'Não']},
+    {question: "Toca algum instrumento?",answers: ['Sim', 'Não']},
+    {question: "Canta?", answers: ['Sim', 'Não']},
+    {question: "Com que frequência você cantou?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Como foi essa experiência?",answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']},
+    {question: "Com que frequência você tocou instrumentos musicais ou digitais?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Como foi essa experiência?",answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']},
+    {question: "Quantas vezes você ouviu música?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Como foi essa experiência?",answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']},
+    {question: "Alguém da sua família ou residência toca algum instrumento musical?",answers: ['Sim', 'Não']},
+    {question: "Quantas vezes você presenciou alguém tocar instrumentos?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Como foi essa experiência?",answers: ['Incrível', 'Muito positiva', 'Pouco positiva', 'Neutra', 'Negativa']},
     // Perguntas sobre a frequência de audição para cada estilo musical
-    {
-        question: "Qual o tipo de música você e/ou sua fam[ilia ouviu?",
-        answers: ['Regionalista/Folclore', 'Clássica', 'Jazz', 'Músicas infantis', 'Pop Music','Relaxamento (New-Age)', 'Dance Music']
-    },
-    {
-        question: "Com que frequência você ouviu música regionalista ou do seu folclore?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu música clássica?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu jazz?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu músicas infantis?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu pop music?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu música de relaxamento?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Com que frequência você ouviu dance music?",
-        answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']
-    },
-    {
-        question: "Você ouviu outro tipo de música, qual foi e com que frequência?",
-        answers: ['Sim', 'Não']
-    }
+    {question: "Qual o tipo de música você e/ou sua fam[ilia ouviu?",answers: ['Regionalista/Folclore', 'Clássica', 'Jazz', 'Músicas infantis', 'Pop Music','Relaxamento (New-Age)', 'Dance Music']},
+    {question: "Com que frequência você ouviu música regionalista ou do seu folclore?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu música clássica?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu jazz?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu músicas infantis?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu pop music?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu música de relaxamento?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Com que frequência você ouviu dance music?",answers: ['Todos os dias', 'Quase todos os dias', 'Alguns dias', 'Um dia', 'Nenhum dia']},
+    {question: "Você ouviu outro tipo de música, qual foi e com que frequência?",answers: ['Sim', 'Não']}
 ];
 
 let currentQuestionIndex = 0;
-// Array para armazenar as respostas
 let responses = [];
 
 // Função para coletar e salvar as respostas
@@ -261,9 +160,7 @@ function showQuestion(index) {
         });
     }
 
-    // Focar no primeiro botão de resposta ao mostrar a pergunta
-    const firstButton = buttonsContainer.querySelector('button');
-    if (firstButton) firstButton.focus();
+
 }
 
 
@@ -321,18 +218,19 @@ if (answer === "Sim") {
         additionalInput.innerHTML = '<input type="text" class="text-input" id="sings" placeholder="Qual gênero, e por quanto tempo?">';
     }
 
-    // Após a inserção do input de texto, coloca o foco no campo de entrada
+    // Após a inserção do input de texto, coloca o foco no campo de entrada e seleciona o texto
     const textInput = additionalInput.querySelector('input');
     if (textInput) {
         textInput.focus();  // Coloca o foco no campo de texto
+        textInput.select(); // Seleciona o texto dentro do campo
     }
 
 } else {
     // Caso contrário, oculta o campo de texto adicional
     additionalInput.innerHTML = '';
 }
-}
 
+}
 
 
 
@@ -484,7 +382,6 @@ function saveCSV() {
     document.body.appendChild(link);  // Necessário para o link ser clicável
     link.click();  // Simula o clique no link para baixar o arquivo
 }
-
 // Adicionando evento de teclado para interagir com os botões
 document.addEventListener("keydown", function (event) {
     const buttons = document.querySelectorAll('.button');
@@ -494,12 +391,18 @@ document.addEventListener("keydown", function (event) {
     if (event.key >= '1' && event.key <= '5') {
         const index = parseInt(event.key) - 1;
         if (buttons[index]) {
-            buttons[index].click(); // Simula o clique no botão
+            buttons[index].click(); // Simula o primeiro clique no botão
+            buttons[index].focus(); // Atualiza o foco no botão pressionado
+
+            // Simula o segundo clique após um pequeno atraso
+            setTimeout(() => {
+                buttons[index].click(); // Simula o segundo clique no botão
+            }, 200); // Ajuste o tempo do atraso (em milissegundos)
         }
     }
 
-    // Para passar para a próxima pergunta com a tecla "espaço"
-    if (event.key === " ") {
+    // Para passar para a próxima pergunta com a tecla "Enter"
+    if (event.key === "Enter") {
         nextButton.click(); // Simula o clique no botão de próxima pergunta
     }
 });
@@ -508,5 +411,8 @@ document.addEventListener("keydown", function (event) {
 
 
 
+
+
 // Inicializa a primeira pergunta
 showQuestion(currentQuestionIndex);
+
