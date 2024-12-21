@@ -100,33 +100,6 @@
       color: #000;
   }
   
-  /* Estilos para elementos personalizados */
-  p20 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: bold;
-      color: rgb(246, 148, 148);
-  }
-  
-  p18, p182 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      color: rgba(255, 255, 255, 0.357);
-  }
-  
-  p33 {
-      font-family: 'Poiret One', cursive;
-      font-size: 15px;
-      color: rgba(221, 164, 164, 0.872);
-  }
-  
-  p11 {
-      font-family: 'Poiret One', cursive;
-      font-size: 20px;
-      font-weight: 600;
-      color: rgba(131, 159, 144, 0.801);
-  }
-  
   iframe {
       width: 100%; /* Ajuste para ocupar a largura total da coluna */
       height: 100vh; /* Ajusta a altura para caber no viewport */
@@ -261,6 +234,46 @@ ivan moriá borges rodrigues
     </div>
 
 </a>
+
+<div class="button-container3" style="margin-left:10px;">
+
+  <div class="theme-switch" style="margin-top:-0px;">
+  
+
+        <input type="checkbox" id="theme-checkbox" >
+        <label for="theme-checkbox">
+          <div></div>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+              ></path>
+            </svg>
+          </span>
+        </label>
+      </div>
+  </div>
+</div>
+</div>
 
 </div>
 
@@ -514,7 +527,30 @@ ivan moriá borges rodrigues
 </div></div></div></a></div>
 <div id="canvas-container">
     <script>
+      let isDarkMode = false;  // Defina 'false' para o modo claro padrão
 
+      const themeCheckbox = document.getElementById("theme-checkbox");
+      const body = document.body;
+      
+      function toggleTheme() {
+        isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+      
+        if (isDarkMode) {
+          body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+        } else {
+          body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+        }
+      }
+      
+      // Adiciona o evento de clique ao checkbox
+      themeCheckbox.addEventListener("click", toggleTheme);
+      
+      // Verifica o estado inicial do tema
+      if (body.classList.contains("dark-theme")) {
+        themeCheckbox.checked = true;
+      } else {
+        themeCheckbox.checked = false;
+      }
 
         let num = 400;
         let range = 60;
@@ -543,9 +579,20 @@ ivan moriá borges rodrigues
    
         }
     
-        function draw() {
-            
-    background(43);
+
+  function draw() {
+    if (isDarkMode) {
+        background(50);  // Cor de fundo escura (modo escuro)
+        fill(255);  // Cor do texto clara (modo escuro)
+
+    } else {
+        background(183);  // Cor de fundo clara (modo claro)
+        fill(0);  // Cor do texto escura (modo claro)
+
+    }
+
+
+
 
   
     for (let i = 1; i < num; i++) {
@@ -606,28 +653,29 @@ function windowResized() {
 <div id="left-column"
 <div id="container-nav">
 <nav id="navbar-items">
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0); "onclick="window.location.href='index.html'">
-    <span>index</span>
+
+
+
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+    <span><p29>⇦</p29></span>
 </button>
- 
-  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);"onclick="window.location.href='references.html'">
-    <span>bib</span>
-  </button>
- 
-  <button class="ui-btn" style="height:80px; margin-top:20px;
-  height: 40px;border:3px; border-radius: 50px;
-  background-color: rgb(177, 185, 159);font-size:20px;
-   margin-bottom: 10px;color:rgb(255, 255, 255)" onclick="window.location.href='tecnicas.html'">
-    <span>Técnicas</span>
-  </button>
-  <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);"onclick="window.location.href='artisticas.html'">
-    <span>art</span>
+
+
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+<span><p29>bib</p29></span>
+</button>
+
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='artisticas.html'">
+<span><p29>art</p29></span>
+</button>
+<button class="ui-btn" style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+font-size:30px; margin-right: -20px;"  onclick="window.location.href='tecnicas.html'">
+<span><p28>tec</p28></span>
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"onclick="window.location.href='mirmt.html'">
+  <span><p29>MIRMT</p29></span>
   </button>
 
-    <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);" onclick="window.location.href='mirmt.html'">
-      <span>MIRMT</span>
-    </button>
-
+</button>
 
 
 
@@ -648,17 +696,17 @@ function windowResized() {
 
   </div>
 
+  <p23> APPS</p23>
 
-  <p4> APPS</p4>
 
 
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
     <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
-    onclick="window.open('dass21.html')">
+    onclick="window.open('calculardass21.html')">
     Teste DASS - 21 <span class="popup"> 
   External Link</span> </p2></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 85%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
-  data-src="dass21.html" class="preview-link">
+  data-src="calculardass21.html" class="preview-link">
   2024 <span class="popup"> 
    Preview</span> </p2></div>  </div><br> <div style="width: 85%;text-align: justify;">
 <p18  >
@@ -666,7 +714,22 @@ function windowResized() {
 as respostas são salvas em um arquivo (.csv), que posteriormente são carregadas no final da página para a realização do cálculo. </p18></div></div>
 </div>
 <br>
-        <p4> Revisor de Periódicos</p4>
+
+<div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
+  <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
+  onclick="window.open('/mel/meladapt.html')">
+ Music in Everyday Life - Adaptado <span class="popup"> 
+External Link</span> </p2></div></div>  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 85%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+data-src="/mel/meladapt.html" class="preview-link">
+2024 <span class="popup"> 
+ Preview</span> </p2></div>  </div><br> <div style="width: 85%;text-align: justify;">
+<p18  >
+Automatização da aplicação do questionário Music in Everyday Life (MEL), em html,
+as respostas são salvas em um arquivo (.csv). </p18></div></div>
+</div>
+<br>
+        <p23> Revisor de Periódicos</p23>
 
 
 <div>
@@ -718,7 +781,7 @@ as respostas são salvas em um arquivo (.csv), que posteriormente são carregada
 
 
   </div><br>
-  <p4> União Brasileira de Associações de Musicoterapia</p4>
+  <p23> União Brasileira de Associações de Musicoterapia</p2>
 
   
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
@@ -756,7 +819,7 @@ as respostas são salvas em um arquivo (.csv), que posteriormente são carregada
   
 <br>
 
-  <p4> Avaliação de Projetos</p4>
+  <p23> Avaliação de Projetos</p2>
 
 
   <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
@@ -776,7 +839,7 @@ as respostas são salvas em um arquivo (.csv), que posteriormente são carregada
 
 
 
-      <p4> Participação em Bancas de Graduação</p4>
+      <p23> Participação em Bancas de Graduação</p2>
 
 
       <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
@@ -827,13 +890,15 @@ as respostas são salvas em um arquivo (.csv), que posteriormente são carregada
 
 
 
-  <p4> Outras produções</p4>
+  <p23> Outras produções</p23>
 
 
 
 
 
-  <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; "><div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;"><div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
+  <div style="display: flex; flex-direction: column; align-items: right; width: 100%;margin-left:-40 px; ">
+    <div style="position: relative; display: flex; flex-direction: column; align-items: right; width: 100%; margin-top: 15px;">
+      <div style="margin-bottom: -20px;position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85%; margin-top: 20px;"><div><p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;transition:color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"          
     onclick="window.open('media/documents/certificados/aulamttec.pdf')">
 Aula ofertada  <span class="popup"> 
   External PDF</span> </p2></div></div>  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 85%; margin-top: 15px;"><div> <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
@@ -841,9 +906,9 @@ Aula ofertada  <span class="popup">
  2024 <span class="popup"> 
   Certificado</span> </p2></p2> </div>  </div><br> 
 <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;">
-  Aula ofertada na disciplina Música, Cognição e Musicoterapia, do curso de Musicoterapia da Universidade Federal de Minas Gerais, sobre o tema "Musicoterapia e Tecnologias", com carga horária de 4h.
+  <p18>Aula ofertada na disciplina Música, Cognição e Musicoterapia, do curso de Musicoterapia da Universidade Federal de Minas Gerais, sobre o tema "Musicoterapia e Tecnologias", com carga horária de 4h.
 
-  
+  </p18>
   </span></div></div>
 
 
@@ -863,12 +928,12 @@ Aula ofertada  <span class="popup">
   data-src="" class="preview-link">
  2022 </p2></p2> </div>  </div><br> 
 <span    class="content-text" id="content-to-copy" style="text-align: justify; width: 85%; margin-top: -10px;">
-    TATI, Cristina. O Planeta Azul. Transcrição musical de 43 canções. In: 
+   <p18> TATI, Cristina. O Planeta Azul. Transcrição musical de 43 canções. In: 
   <a href="
   https://hinario.cristinatati.com.br/index.php/hinarios/80-hinarios/72-planeta-azul"class="popup-link" return false;">
   O Planeta Azul,   <span class="popup" style="margin-bottom: -6%;margin-left:-20%;">
   External link</span>  </a>                São Paulo: Indepente, 2022.  
-              
+</p18>
   
   
   </span></div></div>
@@ -876,7 +941,7 @@ Aula ofertada  <span class="popup">
 
       <br>
 
-<p4> Curriculum Vitae</p4>
+<p23> Curriculum Vitae</p>
 
 
 

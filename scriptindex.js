@@ -86,6 +86,9 @@ document.body.style.userSelect = 'none'; // Complementa para o body
     function setup() {
         let canvas = createCanvas(windowWidth, windowHeight);
         canvas.parent('canvas-container');
+        initializePositions(); // Função para inicializar as posições dos elementos
+        }
+        function initializePositions() {
         for (let i = 10; i < num; i++) {
        
             ay[i] = height * 2;
@@ -101,6 +104,13 @@ document.body.style.userSelect = 'none'; // Complementa para o body
             ay6[i] = height * 2;
         }
         frameRate(60); // Ajustado para um valor mais comum
+
+
+        
+    }
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight); // Atualiza o tamanho do canvas
+        initializePositions(); // Reposiciona elementos ao redimensionar
     }
     function draw() {
         if (isDarkMode) {
