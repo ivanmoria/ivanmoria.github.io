@@ -9,7 +9,11 @@ window.addEventListener('load', function() {
   document.getElementById('content').style.display = 'block';  
 });
 
-
+// Garantir que o overlay dure no máximo 4 segundos
+setTimeout(function() {
+  document.getElementById('overlay').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+}, 4000); // 4000ms = 4 segundos
 
 function downloadFile(fileUrl, fileName) {
   var a = document.createElement("a");
