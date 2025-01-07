@@ -1,8 +1,7 @@
 body {
     user-select: none; /* Impede seleção de texto em navegadores modernos */
-    overflow: hidden;
-    touch-action: none; /* Desabilita gestos de zoom e rolagem */
-    -ms-touch-action: none; /* Para dispositivos com Windows */
+
+
   }
   /* Mudar a cor do texto e fundo quando selecionado */
   ::selection {
