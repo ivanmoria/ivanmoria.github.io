@@ -1634,7 +1634,11 @@ body.dark-mode p2, body.dark-mode p20 {
   font-weight: 550;
 }
 .dark-theme p4 {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(53, 199, 56);
+  font-weight: 550;
+}
+.dark-theme p2 {
+  color: rgb(112, 162, 113);
   font-weight: 550;
 }
 .dark-theme p0 {

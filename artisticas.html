@@ -31,17 +31,24 @@
       .author-name {
           cursor: pointer; /* Muda o cursor para indicar interatividade */
           position: relative;
-          color: rgb(255, 175, 54); /* Cor do texto original */
+          font-size: 28px;
+          font-weight: 500;
+          color: rgb(86, 124, 45); /* Cor do texto original */
           display: inline; /* Mantém os autores na mesma linha */
       }
-    
+      .author-name:hover {
+        cursor: pointer; /* Muda o cursor para indicar interatividade */
+        position: relative;
+        color: rgb(255, 175, 54); /* Cor do texto original */
+        display: inline; /* Mantém os autores na mesma linha */
+    }
       .popup {
           visibility: hidden; /* Esconde o texto popup por padrão */
           background-color: rgb(12, 12, 12);
           color: #fff;
           text-align: center;
           border-radius: 5px;
-          font-size: 30px;
+          font-size: 20px;
           padding: 5px;
           position: absolute;
           bottom: 10%; /* Ajusta a posição do popup */
@@ -739,9 +746,8 @@ font-size:30px; margin-right: -20px;"  onclick="window.location.href='artisticas
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
   margin-top: 00px;"><div>
 
-<p2 style="font-size: 25px; color: rgba(249, 207, 138, 0.699); transition: color 0.3s ease;"
-     onmouseover="this.style.color='rgb(0, 0, 0)'"
-     onmouseout="this.style.color='rgba(254, 186, 75, 0.699)'"
+<p2 style="font-size: 25px;  transition: color 0.3s ease;"
+    
      class="author-name preview-link">
     Texto de 
     <a href="media/documents/textos/ref.pdf" target="_blank" style="color: inherit; text-decoration: none;">
@@ -751,9 +757,8 @@ font-size:30px; margin-right: -20px;"  onclick="window.location.href='artisticas
 
 
 <p2 onclick="toggleMenu();" 
-style="font-size: 25px; color: rgba(254, 186, 75, 0.699); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(0, 0, 0)'" 
-onmouseout="this.style.color=' rgba(249, 207, 138, 0.699)'" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 Apresentação
 <span class="popup">Exibir aqui</span>
@@ -776,9 +781,8 @@ Apresentação
 
 
         <p2 onclick="window.location.href='contato.html', '_blank';" 
-        style="font-size: 25px; color: rgb(255, 233, 196); transition: color 0.3s ease;" 
-        onmouseover="this.style.color='rgb(255, 211, 134)'" 
-        onmouseout="this.style.color=' rgba(236, 214, 177, 0.816)'" 
+        style="font-size: 25px; transition: color 0.3s ease;" 
+
         class="author-name preview-link">
         Ivan Moriá Borges Rodrigues,
         <span class="popup">Contato</span>
@@ -823,9 +827,8 @@ Quando possível, sempre me voluntariei para auxiliar em algum congresso presenc
 
   <br><br>
  <p2 onclick="window.location.href='media/documents/outros_htmls/edinburgh2022.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 12th European Music Therapy Conference   <span class="popup">Link externo</span>
 </p2>
@@ -834,8 +837,8 @@ class="author-name preview-link">
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/outros_htmls/edinburgh2022.html" class="preview-link">
 Edinburgh 2022
 <span class="popup"> 
@@ -846,9 +849,8 @@ Preview</span> </p2>
  
 
 <p2 onclick="window.location.href='media/documents/outros_htmls/vancouver2023.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 17th World Congress of Music Therapy   <span class="popup">Link externo</span>
 </p2>
@@ -857,8 +859,8 @@ class="author-name preview-link">
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/outros_htmls/vancouver2023.html" class="preview-link">
 Vancouver 2023
 <span class="popup"> 
@@ -870,9 +872,8 @@ Preview</span> </p2>
 
 
 <p2 onclick="window.location.href='media/documents/outros_htmls/Berlin2024.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 IAMM & ISfAM Congress  <span class="popup">Link externo</span>
 </p2>
@@ -881,8 +882,8 @@ IAMM & ISfAM Congress  <span class="popup">Link externo</span>
 
 <br>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/outros_htmls/Berlin2024.html" class="preview-link">
 Berlin 2024 
 <span class="popup"> 
@@ -896,16 +897,15 @@ Os frutos deste tipo de produção e participação em eventos internacionais s�
   que assistiu a minha apresentação e me convidou para avaliar um artigo em sua revista 
   
 <p2 onclick="window.location.href='media/documents/textos/fachner_invitation1.pdf', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 (Music & Science<span class="popup">Carta convite</span></p2>
 
 
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px;margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/textos/fachner_invitation1.pdf" class="preview-link">
 - UK)
 <span class="popup"> 
@@ -916,14 +916,13 @@ Publiquei um
 
 
 <p2 onclick="window.location.href='media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 artigo<span class="popup">PDF Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" class="preview-link">
 (2022)
 <span class="popup"> 
@@ -939,7 +938,7 @@ artigo neste período, existe um outro artigo aceito para publicação e em fase
 A seguir, uma proposta de cronograma em andamento para a conclusão desta pesquisa. 
 <br>
 <br>
-   <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style=" color: rgb(146, 184, 171);  font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
+   <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style="   font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
 and the use of technological tools in Music Therapy;
 <br>
 <br>  <p2 style="font-size: 20px;"> (2021 – 2025)</p2>&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
@@ -958,14 +957,13 @@ Além das produções teóricas, citadas até aqui, existem também as produçõ
 Como violoncelista, participo da
 
 <p2 onclick="window.location.href='https://www.luanovacultural.com', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 Orquestra 415 <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="https://www.luanovacultural.com" class="preview-link">
 
 de Música Antiga<span class="popup"> 
@@ -982,14 +980,13 @@ Como acordeonista, participo da
 
 
 <p2 onclick="window.location.href='https://musica.ufmg.br/ggi-grupo-de-choro/', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px;transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 Orquestra de Choro <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px;margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="https://musica.ufmg.br/ggi-grupo-de-choro/" class="preview-link">
 
 da UFMG<span class="popup"> 
@@ -1000,14 +997,13 @@ Como bandolinista,
   já me apresentei como solista na Orquestra de Choro da UFMG e também no grupo independente de choro intitulado
   
   <p2 onclick="window.location.href='media/documents/outros_htmls/chorodito.html', '_blank';" 
-style="font-size: 25px; color: rgb(190, 207, 93); transition: color 0.3s ease;" 
-onmouseover="this.style.color='rgb(255, 211, 134)'" 
-onmouseout="this.style.color=' rgb(190, 207, 93)'" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
 class="author-name preview-link">
 Chorodito <span class="popup">Link Externo</span></p2>
 
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 0px;transition: 
-color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
 data-src="media/documents/outros_htmls/chorodito.html" class="preview-link">
 
 - BH<span class="popup"> 
@@ -1021,8 +1017,8 @@ onde ocasionalmente ocorrem apresentações em alguns palcos conhecidos da cidad
 
 <br>
       
-<p2 onclick="window.location.href='artisticas.html'" style="font-size: 25px; color: rgba(99, 216, 175, 0.699) ;transition:color
-0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color=' rgba(99, 216, 175, 0.699) '"class="author-name"          
+<p2 onclick="window.location.href='artisticas.html'" style="font-size: 25px; transition:color
+0.3s ease;"class="author-name"          
 " class="preview-link">
 Acesse aqui todas as produções artísticas
 <span class="popup">Acessar link externo</span>
@@ -1033,8 +1029,8 @@ Acesse aqui todas as produções artísticas
 <br>
 <br>
 
-      <p2 onclick="toggleMenu()" style="font-size: 25px; color: rgba(254, 186, 75, 0.699) ;transition:color
-      0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color=' rgba(254, 186, 75, 0.699) '"class="author-name"          
+      <p2 onclick="toggleMenu()" style="font-size: 25px; transition:color
+      0.3s ease;"class="author-name"          
      " class="preview-link">
       Texto de apresentação
       <span class="popup">Clique para fechar</span>
@@ -1128,21 +1124,15 @@ Acesse aqui todas as produções artísticas
 
 
 
-  <p4 style="margin-top: 0px;">Orquestra 415 de Música Antiga</p4><br>
-
-
-
-
-
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; ;transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/ALBINONI.png'" class="preview-link">
    Concerto Cênico-musical<span class="popup"> 
-  Preview score PDF</span> </p2></div></div>  
-  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  Preview score PDF</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 105%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; ;margin-left: 10px;transition: color 0.3s ease;" class="author-name"  
   data-src="media/documents/certificados/ALBINONI.png" class="preview-link">
   Orquestra 415, 2024
   <span class="popup"> 
@@ -1161,16 +1151,17 @@ Acesse aqui todas as produções artísticas
   2024.   
   </span>
   
-  
+  <br>  
+  <br>
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/vozes.png'" class="preview-link">
    Concerto Vozes Barrocas<span class="popup"> 
-  Preview score PDF</span> </p2></div></div>  
+  Preview score PDF</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/vozes.png" class="preview-link">
   Orquestra 415, 2024
   <span class="popup"> 
@@ -1193,7 +1184,9 @@ Acesse aqui todas as produções artísticas
   
   
   
-  
+    
+  <br>  
+  <br>
   
   
   
@@ -1203,13 +1196,13 @@ Acesse aqui todas as produções artísticas
   
   
         <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-         margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-           0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+         margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+           0.3s ease;"class="author-name"          
           onclick="window.location.href='https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf'" class="preview-link">
           Concerto for two cellos in G minor<span class="popup"> 
-         Preview score PDF</span> </p2></div></div>  
+         Preview score PDF</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-     <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+     <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
         data-src="media/documents/certificados/concerto2cellos.pdf" class="preview-link">
    Orquestra 415, 2024
       <span class="popup"> 
@@ -1226,17 +1219,19 @@ Acesse aqui todas as produções artísticas
   
   
   
-     
+       
+  <br>  
+  <br>
      
      
      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-     margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-       0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+     margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+       0.3s ease; "class="author-name"  
       onclick="window.location.href='media/documents/certificados/prisao.png'" class="preview-link">
       Concerto Cênico-Musical <span class="popup"> 
-     External PDF Flyer</span> </p2></div></div>  
+     External PDF Flyer</span> </p4></div></div>  
      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-     <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+     <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
      data-src="media/documents/certificados/prisao.png" class="preview-link">
      Orquestra 415 , 2024
      <span class="popup"> 
@@ -1255,17 +1250,19 @@ Acesse aqui todas as produções artísticas
      </span>
      
      
-     
+       
+  <br>  
+  <br>
      
      
      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-     margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-       0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+     margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+       0.3s ease;"class="author-name"          
       onclick="window.location.href='media/documents/certificados/gloria.png'" class="preview-link">
       Glória de Vivaldi <span class="popup"> 
-     External PDF Flyer</span> </p2></div></div>  
+     External PDF Flyer</span> </p4></div></div>  
      <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-     <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+     <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
      data-src="media/documents/certificados/gloria.png" class="preview-link">
      Orquestra 415 , 2024
      <span class="popup"> 
@@ -1285,19 +1282,18 @@ Acesse aqui todas as produções artísticas
      
      
 
-   <p4 style="margin-top: 0px;">Orquestra de Choro da UFMG</p4><br>
-
-
-
+  
+     <br>  
+     <br>
 
    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-   margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-     0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+   margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+     0.3s ease;"class="author-name"          
     onclick="window.location.href='https://musica.ufmg.br/blog/2024/09/27/viva-musica-02-10-2024-orquestra-de-choro-da-escola-de-musica-da-ufmg-lancamento-do-livro-o-trombone-no-choro-de-autoria-do-prof-marcos-flavio/'" class="preview-link">
     Concerto Viva-Música<span class="popup"> 
-   Preview</span> </p2></div></div>  
+   Preview</span> </p4></div></div>  
    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-   <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+   <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
    data-src="media/documents/certificados/02-VivaMusica-02-OUTUBRO-Marcos-Flavio-lancamento-livro-cartaz1-1446x2048.webp" class="preview-link">
    Orquestra de Choro da UFMG, 2024
    <span class="popup"> 
@@ -1310,16 +1306,18 @@ Acesse aqui todas as produções artísticas
    
    Projeto Viva Música, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External flyer PDF</span> </a>
    Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
-   
+     
+  <br>  
+  <br>
 
    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-   margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-     0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+   margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+     0.3s ease;"class="author-name"          
     onclick="window.location.href='https://www.instagram.com/reel/C_bI0BLKiZ8/'" class="preview-link">
     XIII Festival BH Choro<span class="popup"> 
-   Preview score PDF</span> </p2></div></div>  
+   Preview score PDF</span> </p4></div></div>  
    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-   <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+   <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
    data-src="media/documents/certificados/bhchoro.png" class="preview-link">
    Orquestra de Choro da UFMG, 2024
    <span class="popup"> 
@@ -1339,16 +1337,14 @@ Praça Santa Tereza, Interpretação: Acordeon. 2024.</span>
 
 
 
-  <p4 style="margin-top: 0px;">Orquestra 415 de Música Antiga</p4><br>
-
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/mozart.png'" class="preview-link">
   Concerto Mozart Essencial <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/mozart.png" class="preview-link">
   Orquestra 415 , 2023
   <span class="popup"> 
@@ -1370,16 +1366,18 @@ Interpretação: Violoncelo.
 
 
 
-
+  
+  <br>  
+  <br>
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/tiradentes.png'" class="preview-link">
   Concerto Cênico-Musical <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/tiradentes.png" class="preview-link">
   Orquestra 415 , 2023
   <span class="popup"> 
@@ -1400,15 +1398,17 @@ Interpretação: Violoncelo.
 
 
 
-
+  
+  <br>  
+  <br>
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/noitebarr.png'" class="preview-link">
   Concerto A Noite Barroca <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/noitebarr.png" class="preview-link">
   Orquestra 415 , 2023
   <span class="popup"> 
@@ -1428,16 +1428,18 @@ Interpretação: Violoncelo.
 
 
 
-
+  
+  <br>  
+  <br>
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/poetico.png'" class="preview-link">
   Concerto Poético-Musical <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/poetico.png" class="preview-link">
   Orquestra 415 , 2023
   <span class="popup"> 
@@ -1457,20 +1459,18 @@ Interpretação: Violoncelo.
   
   </span>
 
-
-
-
-  <p4 style="margin-top: 0px;">Orquestra de Choro da UFMG</p4><br>
-
+  
+  <br>  
+  <br>
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://youtube.com/playlist?list=PLlu-VJj3dpCsqVv2_KLEbvZEQDJmIQyNF&si=rri702QI7SQO0Hn9'" class="preview-link">
    Concerto Viva-Música<span class="popup"> 
-  Preview score PDF</span> </p2></div></div>  
+  Preview score PDF</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/B9v8JmKTEm4?si=XhWeOfoOw-IZnAKS" class="preview-link">
   Orquestra de Choro da UFMG, 2023
   <span class="popup"> 
@@ -1485,18 +1485,20 @@ Interpretação: Violoncelo.
   Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
   
   
-  
+    
+  <br>  
+  <br>
   
   
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://www.youtube.com/embed/eVjuj1DkgEk?si=e7TzvudmLPoUWvu_'" class="preview-link">
    Concerto Viva-Música<span class="popup"> 
-  Preview Youtube</span> </p2></div></div>  
+  Preview Youtube</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/eVjuj1DkgEk?si=e7TzvudmLPoUWvu_" class="preview-link">
   Orquestra de Choro da UFMG, 2023
   <span class="popup"> 
@@ -1516,18 +1518,19 @@ Interpretação: Violoncelo.
   Interpretação: <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">Download Flyer</span>  </a> Solo de Acordeon na música "Choro Stacatto - Elias Salomé". 2023.</span>
   
 
-
-  <p4 style="margin-top: 0px;">CHORODITO</p4><br>
+  
+  <br>  
+  <br>
 
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ'" class="preview-link">
 Show na Livraria da Rua<span class="popup"> 
-  Preview score PDF</span> </p2></div></div>  
+  Preview score PDF</span> </p4></div></div>  
 <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-<p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+<p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
  data-src="https://www.youtube.com/embed/YtCBmyBM30M?si=rkV5ndmO7Yo_wvfl" class="preview-link">
 Chorodito, 2023
 <span class="popup"> 
@@ -1552,22 +1555,22 @@ Chorodito, 2023
 
 
 
-  <p4 style="margin-top: 0px;">Orquestra 415 de Música Antiga</p4><br>
 
 
 
 
-
+  
+  <br>
 
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/10anos.png'" class="preview-link">
   Concerto 10 anos de Orquestra 415 <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/10anos.png" class="preview-link">
   Orquestra 415 , 2022
   <span class="popup"> 
@@ -1588,18 +1591,20 @@ Interpretação: Violoncelo.
   </span>
 
 
-
+  
+  <br>  
+  <br>
 
 
 
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.jpeg'" class="preview-link">
    Concerto Jean-Baptiste Lully<span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.jpeg" class="preview-link">
   Orquestra 415 , 2022
   <span class="popup"> 
@@ -1616,18 +1621,20 @@ Interpretação: Violoncelo.
   
   </span>
   
-  
+    
+  <br>  
+  <br>
   
   
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf'" class="preview-link">
    Concerto Cênico-musical<span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/ProgramaBacheFrederico.jpeg" class="preview-link">
   Orquestra 415 , 2022
   <span class="popup"> 
@@ -1671,18 +1678,20 @@ Interpretação: Violoncelo.
   </span>
   
   
-  
+    
+  <br>  
+  <br>
   
   
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='media/documents/certificados/cantatadocafe.jpeg'" class="preview-link">
    Concerto A Cantata do Café <span class="popup"> 
-  External PDF Flyer</span> </p2></div></div>  
+  External PDF Flyer</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="media/documents/certificados/cantatadocafe.jpeg" class="preview-link">
   Orquestra 415 , 2022
   <span class="popup"> 
@@ -1713,19 +1722,19 @@ Interpretação: Violoncelo.
   
   </span>
   
-
-  <p4 style="margin-top: 0px;">Orquestra de Choro da UFMG</p4><br>
-
+  
+  <br>  
+  <br>
 
    
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://youtube.com/playlist?https://youtu.be/-c08ORMHvrA?si=sVXhndTU12RPbsqJ'" class="preview-link">
    Concerto Viva-Música<span class="popup"> 
-  Preview Youtube</span> </p2></div></div>  
+  Preview Youtube</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/7mM-Yurc4po?si=EybGhS4cwTpZspJy" class="preview-link">
   Orquestra de Choro da UFMG, 2022
   <span class="popup"> 
@@ -1742,17 +1751,19 @@ Interpretação: Violoncelo.
   </span>
   
   
-  
+    
+  <br>  
+  <br>
   
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://www.youtube.com/embed/WxK-m9WGX5s?si=rMldcJ8ews7tdlj4'" class="preview-link">
    Seresta & Serenata Popular e Imperial<span class="popup"> 
-  Preview Youtube</span> </p2></div></div>  
+  Preview Youtube</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/WxK-m9WGX5s?si=rMldcJ8ews7tdlj4" class="preview-link">
   Orquestra de Choro da UFMG, 2022
   <span class="popup"> 
@@ -1779,20 +1790,20 @@ Interpretação: Violoncelo.
 
 <div data-year="2021" class="publications">
 
-  <p4 style="margin-top: 0px;">Orquestra 415 de Música Antiga</p4><br>
+
 
 
    
 
    
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://youtu.be/tHAdjTTRWI8?si=y_zHmI2P3YDmgpGn'" class="preview-link">
   Concerto Online<span class="popup"> 
-  Preview Youtube</span> </p2></div></div>  
+  Preview Youtube</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/tHAdjTTRWI8?si=_ZP1ZqMBM89XCVEu" class="preview-link">
    Orquestra 415, 2021
   <span class="popup"> 
@@ -1813,16 +1824,18 @@ Interpretação: Violoncelo.
   </span>
   
   
-  
+    
+  <br>  
+  <br>
   
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
-  margin-top: 00px;"><div><p2 style="font-size: 25px; color: rgba(175, 255, 54, 0.699) ;transition:color
-    0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'"onmouseout="this.style.color='rgba(175, 255, 54, 0.699) '"class="author-name"          
+  margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+    0.3s ease;"class="author-name"          
    onclick="window.location.href='https://www.youtube.com/embed/x4UdMfbglBE?si=by8tLCOx3TK1zzql'" class="preview-link">
   Concerto Online<span class="popup"> 
-  Preview Youtube</span> </p2></div></div>  
+  Preview Youtube</span> </p4></div></div>  
   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
-  <p2 style="font-size: 25px; color: rgba(255, 175, 54, 0.699) ;margin-left: 10px;transition: color 0.3s ease;"onmouseover="this.style.color=' rgb(0, 0, 0)'" onmouseout="this.style.color='rgb(255, 175, 54) '"class="author-name"  
+  <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
   data-src="https://www.youtube.com/embed/x4UdMfbglBE?si=by8tLCOx3TK1zzql" class="preview-link">
    Orquestra 415, 2021
   <span class="popup"> 
