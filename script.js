@@ -50,9 +50,10 @@ function adjustSignatureText() {
       assinatura.style.fontSize = '20px';
       
     } else {
-      assinatura.textContent = 'Ivan Moriá Borges  ';
-      container.style.bottom = '32%'; 
-      assinatura.style.fontSize = '20px';
+      assinatura.textContent = 'Ivan Moriá Borges';
+      container.style.bottom = '35%'; 
+      assinatura.style.fontSize = '18px'
+      assinatura.style.marginLeft = '50px';
     }
   } else {
     assinatura.textContent = 'Ivan Moriá Borges ';
