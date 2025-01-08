@@ -2267,16 +2267,31 @@ width: 35px;
   z-index: 1; /* Garante que o botão fique sobreposto */
 }
 
-
+.dark-theme   .popup {
+  visibility: hidden; /* Esconde o texto popup por padrão */
+  background-color: rgb(255, 255, 255);
+  color: #000000;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px;
+  position: absolute;
+  bottom: 10%; /* Ajusta a posição do popup */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s; /* Efeito de transição */
+}
 
 
 
 p27{
   font-family: 'Poiret One', cursive;
-
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 500;
-  color: rgba(50, 50, 50, 1); /* Cinza escuro */
+  color: rgb(0, 0, 0); /* Cinza escuro */
 }
 
 
