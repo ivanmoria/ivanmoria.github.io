@@ -21,8 +21,8 @@ jobs:
 
       - name: Commit updated date
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "ivanmoria"
+          git config user.email "ivanmoriabr@gmail.com"
           git add last-modified.txt
           git commit -m "Update last modified date"
       - name: Push changes
