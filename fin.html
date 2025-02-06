@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Depósitos</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { display: none; }
+        .login-container { margin-top: 50px; }
+        .deposit-container { margin-top: 20px; display: flex; flex-direction: column; justify-content: center; gap: 10px; align-items: center; }
+        .deposit-inputs { display: flex; justify-content: space-between; gap: 10px; width: 100%; max-width: 500px; }
+        .hidden { display: none; }
+        .total-container { margin-top: 20px; font-size: 18px; font-weight: bold; }
+        .comment-input { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Usuário"><br><br>
+        <input type="password" id="password" placeholder="Senha"><br><br>
+        <button onclick="login()">Entrar</button><br><br>
+    </div>
+    
+    <div class="container">
+        <h2>Registros de Depósitos</h2>
+        <div id="deposits"></div>
+        <button onclick="addDeposit()">+</button>
+        <div class="total-container">Total: R$ <span id="total-value">0,00</span></div>
+    </div>
+
+    <script>
+        const user = "admin";
+        const pass = "060296";
+        let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === user && password === pass) {
+                document.querySelector(".login-container").classList.add("hidden");
+                document.querySelector(".container").style.display = "block";
+                renderDeposits();
+            } else {
+                alert("Usuário ou senha incorretos");
+            }
+        }
+
+        function addDeposit() {
+            const deposit = { value: 0, date: "", comment: "" };
+            deposits.push(deposit);
+            saveDeposits();
+            renderDeposits();
+        }
+
+        function removeDeposit(index) {
+            deposits.splice(index, 1);
+            saveDeposits();
+            renderDeposits();
+        }
+
+        function saveDeposits() {
+            localStorage.setItem("deposits", JSON.stringify(deposits));
+        }
+
+        function calculateTotal() {
+            const total = deposits.reduce((sum, deposit) => sum + (deposit.value || 0), 0);
+            document.getElementById("total-value").textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        function renderDeposits() {
+            const depositsDiv = document.getElementById("deposits");
+            depositsDiv.innerHTML = "";
+            deposits.forEach((deposit, index) => {
+                const depositDiv = document.createElement("div");
+                depositDiv.classList.add("deposit-container");
+                
+                const depositInputs = document.createElement("div");
+                depositInputs.classList.add("deposit-inputs");
+
+                const inputValue = document.createElement("input");
+                inputValue.type = "text";
+                inputValue.placeholder = "Valor (R$)";
+                inputValue.value = formatCurrency(deposit.value);
+                inputValue.oninput = (e) => {
+                    let inputValue = e.target.value.replace(/\D/g, '');  // Remove tudo que não for número
+                    let formattedValue = formatCurrency(parseInt(inputValue) || 0);
+                    e.target.value = formattedValue;
+                    deposits[index].value = parseInt(inputValue) / 100;  // Armazena o valor em centavos
+                    saveDeposits();
+                    calculateTotal();
+                };
+
+                const inputDate = document.createElement("input");
+                inputDate.type = "date";
+                inputDate.value = deposit.date;
+                inputDate.oninput = (e) => {
+                    deposits[index].date = e.target.value;
+                    saveDeposits();
+                };
+
+                // Ícone do botão de adicionar comentário
+                const commentButton = document.createElement("button");
+                commentButton.innerHTML = `
+                    <svg
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        height="24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-8 hover:scale-125 duration-200 hover:stroke-blue-500"
+                        fill="none"
+                    >
+                        <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                        <path d="M8 9h8"></path>
+                        <path d="M8 13h6"></path>
+                        <path
+                            d="M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z"
+                        ></path>
+                    </svg>
+                `;
+                commentButton.onclick = () => {
+                    inputComment.classList.toggle("hidden");
+                };
+                
+                const inputComment = document.createElement("input");
+                inputComment.type = "text";
+                inputComment.placeholder = "Comentário (opcional)";
+                inputComment.value = deposit.comment;
+                inputComment.classList.add("hidden");
+                inputComment.oninput = (e) => {
+                    deposits[index].comment = e.target.value;
+                    saveDeposits();
+                };
+
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "-";
+                removeButton.onclick = () => {
+                    removeDeposit(index);
+                    calculateTotal();
+                };
+                
+                depositInputs.appendChild(inputValue);
+                depositInputs.appendChild(inputDate);
+                depositInputs.appendChild(commentButton); 
+                depositInputs.appendChild(removeButton); 
+                
+                depositDiv.appendChild(depositInputs);
+                depositDiv.appendChild(inputComment); 
+                depositsDiv.appendChild(depositDiv);
+            });
+            calculateTotal();
+        }
+
+        function formatCurrency(value) {
+            return "R$ " + (value / 100).toFixed(2).replace(".", ",");
+        }
+
+        renderDeposits();
+    </script>
+</body>
+</html>
