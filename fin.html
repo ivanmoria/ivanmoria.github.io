@@ -287,7 +287,9 @@
                 // Novo botão de remover
                 const removeButton = document.createElement("button");
                 removeButton.classList.add("remove-button");
-                removeButton.innerText = "Remover";
+                removeButton.innerText = "-";
+                removeButton.style.marginLeft = "-60px";  // Alinha à esquerda
+                removeButton.style.marginRight = "60px";  // Alinha à esquerda
                 removeButton.onclick = () => removeDeposit(index);
 
                 depositInputs.append(inputValue, inputDate, toggleButton, removeButton);
