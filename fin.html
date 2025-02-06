@@ -105,7 +105,7 @@
         }
 
         .remove-button {
-            background-color: #d35a51;
+            background-color: #e6b367c9;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -145,6 +145,48 @@
             height: 24px;
             cursor: pointer;
         }
+
+        /* Media query para telas pequenas */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;  /* Reduz a fonte para melhor leitura em telas pequenas */
+            }
+
+            .container {
+                width: 90%; /* Aumenta a largura da container para se ajustar melhor em telas pequenas */
+                margin: 10px auto;
+            }
+
+            .login-container input {
+                width: 80%;  /* Ajusta a largura dos inputs para telas menores */
+            }
+
+            .deposit-inputs input {
+                width: 100%;  /* Faz os campos de depósito ocuparem a largura inteira */
+            }
+
+            .comment-input textarea {
+                width: 100%;  /* Ajusta o campo de comentário para a largura total */
+                margin-left: 0; /* Remove o deslocamento do campo de comentário */
+                margin-top: 10px;
+            }
+
+            .remove-button {
+                margin-left: 0;  /* Ajusta o botão de remover para telas menores */
+                margin-right: 0;
+            }
+
+            button {
+                width: 100%; /* Botões ocupando toda a largura em dispositivos móveis */
+                padding: 15px 0; /* Aumenta a altura do botão para facilitar o toque */
+            }
+
+            .deposit-inputs {
+                flex-direction: column; /* Organiza os inputs em coluna para telas pequenas */
+                align-items: center;
+            }
+        }
+
     </style>
     
 </head>
@@ -287,10 +329,21 @@
                 // Novo botão de remover
                 const removeButton = document.createElement("button");
                 removeButton.classList.add("remove-button");
-                removeButton.innerText = "-";
+                
+                // Criando o elemento de imagem
+                const img = document.createElement("img");
+                img.src = "https://symbl-world.akamaized.net/i/webp/ab/36eed0d0eae6aadc2bb389e2f699e4.webp";
+                img.alt = "Remove"; // Texto alternativo para acessibilidade
+                img.style.width = "20px";  // Tamanho da imagem (ajuste conforme necessário)
+                img.style.height = "20px"; // Tamanho da imagem (ajuste conforme necessário)
+                
+                // Adicionando a imagem ao botão
+                removeButton.appendChild(img);
+                
                 removeButton.style.marginLeft = "-60px";  // Alinha à esquerda
                 removeButton.style.marginRight = "60px";  // Alinha à esquerda
                 removeButton.onclick = () => removeDeposit(index);
+                
 
                 depositInputs.append(inputValue, inputDate, toggleButton, removeButton);
                 depositDiv.append(depositInputs, commentInput);
