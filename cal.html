@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Depósitos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .login-container {
+            margin-top: 50px;
+        }
+
+        .login-container input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .deposit-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .deposit-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .deposit-inputs input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 48%;
+        }
+
+        .total-container {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .positive {
+            background-color: #4caf4f98;
+            color: white;
+            padding: 5px;
+            height: 90px;
+            border-radius: 5px;
+        }
+
+        .negative {
+            background-color: #f443368b;
+            color: white;
+            padding: 5px;
+            height: 90px;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #2c70b8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4992e0;
+        }
+
+        button:active {
+            background-color: #003f7f;
+        }
+
+        .remove-button {
+            background-color: #e6b367c9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-button:hover {
+            background-color: #ea5656;
+        }
+
+        .remove-button:active {
+            background-color: #b71c1c;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .comment-input {
+            margin-top: 65px;
+        }
+
+        .comment-input textarea {
+            width: 100%;
+            padding: 8px;
+
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            resize: vertical;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        /* Media query para telas pequenas */
+        @media (max-width: 600px) {
+            body {
+                font-size: 14px;  /* Reduz a fonte para melhor leitura em telas pequenas */
+            }
+
+            .container {
+                width: 80%; /* Aumenta a largura da container para se ajustar melhor em telas pequenas */
+                margin: 10px auto;
+            }
+
+            .login-container input {
+                width: 80%;  /* Ajusta a largura dos inputs para telas menores */
+            }
+
+            .deposit-inputs input {
+            margin-left: -50%;
+                width: 30%;  /* Faz os campos de depósito ocuparem a largura inteira */
+            }
+
+            .comment-input textarea {
+                width: 80%;  /* Ajusta o campo de comentário para a largura total */
+                margin-top: -300px; /* Remove o deslocamento do campo de comentário */
+                margin-bottom: -100px;
+            }
+
+            .remove-button {
+                width: 80px;
+                margin-left: 600px;
+            /* Ajusta o botão de remover para telas menores */
+                margin-right:330%;
+            }
+
+            button {
+                width: 20%; /* Botões ocupando toda a largura em dispositivos móveis */
+                padding: 15px 0; /* Aumenta a altura do botão para facilitar o toque */
+            }
+
+            .deposit-inputs {
+                flex-direction: column; /* Organiza os inputs em coluna para telas pequenas */
+                align-items: center;
+            }
+        }
+
+    </style>
+    
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Usuário"><br><br>
+        <input type="password" id="password" placeholder="Senha"><br><br>
+        <button onclick="login()">Entrar</button><br><br>
+    </div>
+    
+    <!-- Exibe o total no topo da página, somente após o login -->
+    <div id="total-display" class="total-container hidden">
+        Total: <span id="total-value">0,00</span>
+    </div>
+
+    <div class="container">
+        <h2>
+            Sistema de Depósitos
+
+        </h2>
+        <button style="margin-bottom: 15px;"   onclick="addDeposit()">+</button> <!-- Botão para adicionar novo depósito acima -->
+
+        <div id="deposits"></div> <!-- Div onde os depósitos serão listados -->
+
+    </div>
+
+    <script>
+        const user = "admin";
+        const pass = "060296";
+        let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
+
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === user && password === pass) {
+                document.querySelector(".login-container").classList.add("hidden");
+                document.querySelector(".container").style.display = "block";
+                document.getElementById("total-display").classList.remove("hidden"); // Exibe o total após login
+                renderDeposits();
+            } else {
+                alert("Usuário ou senha incorretos");
+            }
+        }
+        function addDeposit() {
+            const deposit = { value: 0, date: "", comment: "", isPositive: true };  // 'isPositive' para determinar se o valor é positivo ou negativo
+            deposits.unshift(deposit); // Adiciona o novo depósito no topo (primeira posição)
+            saveDeposits();
+            renderDeposits();
+        
+            // Seleciona o campo de valor do último depósito adicionado
+            const depositInputs = document.querySelector(`#deposits div.deposit-container:first-child .deposit-inputs input[type="text"]`);
+            depositInputs.focus();
+        }
+        
+
+        function removeDeposit(index) {
+            deposits.splice(index, 1);
+            saveDeposits();
+            renderDeposits();
+        }
+
+        function saveDeposits() {
+            localStorage.setItem("deposits", JSON.stringify(deposits));
+        }
+
+        function calculateTotal() {
+            const total = deposits.reduce((sum, deposit) => sum + (deposit.isPositive ? deposit.value : -deposit.value), 0);
+            document.getElementById("total-value").textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+            document.getElementById("total-value-header").textContent = `Total: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
+        }
+
+        function renderDeposits() {
+            const depositsDiv = document.getElementById("deposits");
+            depositsDiv.innerHTML = "";
+            deposits.forEach((deposit, index) => {
+                const depositDiv = document.createElement("div");
+                depositDiv.classList.add("deposit-container");
+                
+                // Define a classe de fundo de acordo com o valor positivo ou negativo
+                if (deposit.isPositive) {
+                    depositDiv.classList.add("positive");
+                } else {
+                    depositDiv.classList.add("negative");
+                }
+                
+                const depositInputs = document.createElement("div");
+                depositInputs.classList.add("deposit-inputs");
+
+                const inputValue = document.createElement("input");
+                inputValue.type = "text";
+                inputValue.placeholder = "Valor (R$)";
+                inputValue.value = formatCurrency(deposit.value);
+                inputValue.oninput = (e) => {
+                    let inputValue = e.target.value.replace(/\D/g, '');  // Remove tudo que não for número
+                    let parsedValue = parseInt(inputValue) || 0;
+                    deposits[index].value = parsedValue / 100;  // Armazena o valor em centavos
+                    e.target.value = formatCurrency(deposits[index].value); // Atualiza o campo com a formatação correta
+                    saveDeposits();
+                    calculateTotal();
+                };
+
+                const inputDate = document.createElement("input");
+                inputDate.type = "date";
+                inputDate.value = deposit.date;
+                inputDate.oninput = (e) => {
+                    deposits[index].date = e.target.value;
+                    saveDeposits();
+                };
+
+                // Campo de comentário
+                const commentInput = document.createElement("div");
+                commentInput.classList.add("comment-input");
+                const inputComment = document.createElement("textarea");
+                inputComment.placeholder = "Comentário";
+                inputComment.value = deposit.comment;
+                inputComment.oninput = (e) => {
+                    deposits[index].comment = e.target.value;
+                    saveDeposits();
+                };
+
+                // Define o tamanho do campo de comentário
+                inputComment.style.width = "40%";  // Largura total disponível
+                inputComment.style.height = "20px";  // Altura do campo (pode ajustar o valor conforme necessário)
+                inputComment.style.marginLeft = "55%";
+                inputComment.style.marginTop = "-40%";
+                inputComment.style.marginBottom = "15.5%";
+                commentInput.appendChild(inputComment);
+
+                // Botão para alternar entre positivo e negativo
+                const toggleButton = document.createElement("button");
+                toggleButton.innerHTML = deposit.isPositive ? "Crédito" : "Débito";
+                toggleButton.onclick = () => {
+                    deposits[index].isPositive = !deposits[index].isPositive; // Alterna o valor de isPositive
+                    saveDeposits();
+                    renderDeposits(); // Re-renderiza para aplicar a mudança de fundo
+                };
+
+                // Novo botão de remover
+                const removeButton = document.createElement("button");
+                removeButton.classList.add("remove-button");
+                
+                // Criando o elemento de imagem
+                const img = document.createElement("img");
+                img.src = "https://symbl-world.akamaized.net/i/webp/ab/36eed0d0eae6aadc2bb389e2f699e4.webp";
+                img.alt = "Remove"; // Texto alternativo para acessibilidade
+                img.style.width = "20px";  // Tamanho da imagem (ajuste conforme necessário)
+                img.style.height = "20px"; // Tamanho da imagem (ajuste conforme necessário)
+                
+                // Adicionando a imagem ao botão
+                removeButton.appendChild(img);
+                
+                removeButton.style.marginLeft = "-60px";  // Alinha à esquerda
+                removeButton.style.marginRight = "60px";  // Alinha à esquerda
+                removeButton.onclick = () => removeDeposit(index);
+                
+
+                depositInputs.append(inputValue, inputDate, toggleButton, removeButton);
+                depositDiv.append(depositInputs, commentInput);
+                depositsDiv.appendChild(depositDiv);
+            });
+            calculateTotal();
+        }
+
+        function formatCurrency(value) {
+            return (value).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        renderDeposits();
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

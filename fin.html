@@ -1,224 +1,273 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Depósitos</title>
+    <title>Calendário Atualizado</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            overflow-y: hidden;
         }
-
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
         .container {
-            display: none;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 1000px;
-            margin: 20px auto;
-        }
-
-        .login-container {
-            margin-top: 50px;
-        }
-
-        .login-container input {
-            padding: 10px;
-            margin: 10px 0;
-            width: 250px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .deposit-container {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            gap: 20px;
+            width: 70%;
+        }
+        .saldo-container {
             margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: green;
         }
-
-        .deposit-inputs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: space-between;
+        small {
+            display: inline-block;
+            margin-top: -10%;
+            font-size: 0.4em;
+        }
+        
+        .calendar-container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .month-header {
+            font-size: 1.5em;
+            font-weight: bold;
             margin-bottom: 10px;
         }
-
-        .deposit-inputs input {
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+        .day {
             padding: 10px;
             border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 48%;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            position: relative;
         }
-
-        .total-container {
-            margin-top: 20px;
-            font-size: 18px;
+        .today {
+            background-color: #ffcc00 !important;
             font-weight: bold;
         }
-
-        .positive {
-            background-color: #4caf4f98;
-            color: white;
-            padding: 5px;
-            height: 90px;
-            border-radius: 5px;
+        .selected-day {
+            background-color: #b3e0ff;
+            font-weight: bold;
         }
-
-        .negative {
-            background-color: #f443368b;
-            color: white;
-            padding: 5px;
-            height: 90px;
-            border-radius: 5px;
+        .day-with-info::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            right: 15px;
+            width: 3px;
+            height: 3px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 50%;
         }
-
+        .buttons {
+            margin-top: 10px;
+        }
         button {
-            background-color: #2c70b8;
-            color: white;
+            margin: 5px;
+            padding: 10px;
             border: none;
-            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
         }
-
         button:hover {
-            background-color: #4992e0;
+            background-color: #0056b3;
         }
-
-        button:active {
-            background-color: #003f7f;
-        }
-
-        .remove-button {
-            background-color: #e6b367c9;
-            color: white;
+        #buttona {
+            margin: 5px;
+    
+            padding: 5px;
             border: none;
-            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            width:4px;
+            height:4px;
+            
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
         }
-
-        .remove-button:hover {
-            background-color: #ea5656;
+        #buttona:hover {
+ 
+            background-color: #ff0000;
         }
-
-        .remove-button:active {
-            background-color: #b71c1c;
+        .details-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            height: 400px;
+            width: 50%;
+            overflow-y: auto;
         }
-
+        input, textarea {
+            width: 60%;
+            margin-top: 5px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 30px;
+            width: 90%;
+            margin-left: 5px;
+        }
+        .details-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-width: 250px;
+            overflow: hidden;
+        }
+        .cheque-list {
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .cheque-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
         .hidden {
             display: none;
         }
-
-        .comment-input {
-            margin-top: 65px;
-        }
-
-        .comment-input textarea {
-            width: 100%;
-            padding: 8px;
-
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-top: 10px;
-            resize: vertical;
-        }
-
-        svg {
-            width: 24px;
-            height: 24px;
+        .toggle-button {
+            display: inline-flex;
+            align-items: center;
             cursor: pointer;
+            margin-top: 10px;
         }
-
-        /* Media query para telas pequenas */
-        @media (max-width: 600px) {
-            body {
-                font-size: 14px;  /* Reduz a fonte para melhor leitura em telas pequenas */
-            }
-
-            .container {
-                width: 80%; /* Aumenta a largura da container para se ajustar melhor em telas pequenas */
-                margin: 10px auto;
-            }
-
-            .login-container input {
-                width: 80%;  /* Ajusta a largura dos inputs para telas menores */
-            }
-
-            .deposit-inputs input {
-            margin-left: -50%;
-                width: 30%;  /* Faz os campos de depósito ocuparem a largura inteira */
-            }
-
-            .comment-input textarea {
-                width: 80%;  /* Ajusta o campo de comentário para a largura total */
-                margin-top: -300px; /* Remove o deslocamento do campo de comentário */
-                margin-bottom: -100px;
-            }
-
-            .remove-button {
-                width: 80px;
-                margin-left: 600px;
-            /* Ajusta o botão de remover para telas menores */
-                margin-right:330%;
-            }
-
-            button {
-                width: 20%; /* Botões ocupando toda a largura em dispositivos móveis */
-                padding: 15px 0; /* Aumenta a altura do botão para facilitar o toque */
-            }
-
-            .deposit-inputs {
-                flex-direction: column; /* Organiza os inputs em coluna para telas pequenas */
-                align-items: center;
-            }
+        .toggle-button button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            color: white;
+            transition: all 0.3s ease;
         }
-
+        .toggle-button button.green {
+            background-color: green;
+        }
+        .toggle-button button.red {
+            background-color: red;
+        }
     </style>
-    
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Usuário"><br><br>
-        <input type="password" id="password" placeholder="Senha"><br><br>
-        <button onclick="login()">Entrar</button><br><br>
+
+        <input type="text" id="username" placeholder="Oi, Ivan"><br><br>
+        <input type="password" id="password" placeholder="Não me esqueça!"><br><br>
+        <button style="margin-left:20px;" onclick="login()">Vamos lá</button><br><br>
     </div>
     
     <!-- Exibe o total no topo da página, somente após o login -->
     <div id="total-display" class="total-container hidden">
-        Total: <span id="total-value">0,00</span>
-    </div>
+
+
 
     <div class="container">
-        <h2>
-            Sistema de Depósitos
+        <div class="calendar-container">
+            <div class="month-header" id="monthHeader">Carregando...</div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <div class="buttons">
+                <button onclick="changeMonth(-1)"><</button>
+                <button onclick="changeMonth(1)">></button>
+                <br>
+                <div class="saldo-container">
+                    <span id="saldoTotal"></span>
+                </div>
+                <button onclick="toggleSaldo()"></button>
 
-        </h2>
-        <button style="margin-bottom: 15px;"   onclick="addDeposit()">+</button> <!-- Botão para adicionar novo depósito acima -->
+            </div>
+        </div>
+        <div class="details-container" id="detailsContainer">
+  
+            <div style="display: flex; align-items: center; margin-bottom:-30px;">
+                <h3 id="dayTitle">Carregando...</h3>
+                <button  onclick="toggleInputFields()" id="addInfoButton" style="margin-left: 60px;">$</button>
+ 
 
-        <div id="deposits"></div> <!-- Div onde os depósitos serão listados -->
+            </div>
+            <p id="dayOfWeek">Carregando...</p>
 
+            
+            <div id="inputFields" class="hidden">
+                <div class="toggle-button">
+                    <button id="toggleValueSign" class="green" onclick="toggleValueSign()">+</button>
+                </div>
+                <input type="text" id="depositValue" placeholder="Digite o valor (R$)" oninput="formatarValor(this)">
+   
+               <button onclick="saveDetails()">Salvar</button>
+                <textarea id="comment" placeholder="Adicione um comentário"></textarea>
+                <br>
+            
+            </div>
+            
+            <div class="cheque-list" id="chequeList"></div>
+        </div>
     </div>
-
+</div>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            toggleSaldo(); // Ativa automaticamente ao carregar a página
+        });
+        
+        function toggleSaldo() {
+            var saldo = document.getElementById("saldoTotal");
+            var button = document.getElementById("toggleButton");
+        
+            if (saldo.style.display === "none") {
+                saldo.style.display = "inline";
+                button.textContent = "Ocultar Saldo";
+            } else {
+                saldo.style.display = "none";
+                button.textContent = "Exibir Saldo";
+            }
+        }
         const user = "admin";
         const pass = "060296";
         let deposits = JSON.parse(localStorage.getItem("deposits")) || [];
@@ -229,139 +278,200 @@
             
             if (username === user && password === pass) {
                 document.querySelector(".login-container").classList.add("hidden");
-                document.querySelector(".container").style.display = "block";
+                document.querySelector(".container").style.display = "flex";
                 document.getElementById("total-display").classList.remove("hidden"); // Exibe o total após login
                 renderDeposits();
             } else {
                 alert("Usuário ou senha incorretos");
             }
         }
-        function addDeposit() {
-            const deposit = { value: 0, date: "", comment: "", isPositive: true };  // 'isPositive' para determinar se o valor é positivo ou negativo
-            deposits.unshift(deposit); // Adiciona o novo depósito no topo (primeira posição)
-            saveDeposits();
-            renderDeposits();
-        
-            // Seleciona o campo de valor do último depósito adicionado
-            const depositInputs = document.querySelector(`#deposits div.deposit-container:first-child .deposit-inputs input[type="text"]`);
-            depositInputs.focus();
-        }
-        
 
-        function removeDeposit(index) {
-            deposits.splice(index, 1);
-            saveDeposits();
-            renderDeposits();
-        }
-
-        function saveDeposits() {
-            localStorage.setItem("deposits", JSON.stringify(deposits));
-        }
-
-        function calculateTotal() {
-            const total = deposits.reduce((sum, deposit) => sum + (deposit.isPositive ? deposit.value : -deposit.value), 0);
-            document.getElementById("total-value").textContent = total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-            document.getElementById("total-value-header").textContent = `Total: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
-        }
-
-        function renderDeposits() {
-            const depositsDiv = document.getElementById("deposits");
-            depositsDiv.innerHTML = "";
-            deposits.forEach((deposit, index) => {
-                const depositDiv = document.createElement("div");
-                depositDiv.classList.add("deposit-container");
-                
-                // Define a classe de fundo de acordo com o valor positivo ou negativo
-                if (deposit.isPositive) {
-                    depositDiv.classList.add("positive");
-                } else {
-                    depositDiv.classList.add("negative");
+        let currentDate = new Date();
+        let today = new Date();
+        let savedData = JSON.parse(localStorage.getItem('savedData')) || {};
+        let selectedDay = null; 
+    
+        function calcularSaldoTotal() {
+            let saldoTotal = 0;
+            for (let key in savedData) {
+                if (Array.isArray(savedData[key])) {
+                    savedData[key].forEach(entry => {
+                        let valorConvertido = parseFloat(entry.value);
+                        if (!isNaN(valorConvertido)) {
+                            saldoTotal += valorConvertido;
+                        }
+                    });
                 }
-                
-                const depositInputs = document.createElement("div");
-                depositInputs.classList.add("deposit-inputs");
+            }
+            document.getElementById('saldoTotal').textContent = `Saldo Total: ${saldoTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
 
-                const inputValue = document.createElement("input");
-                inputValue.type = "text";
-                inputValue.placeholder = "Valor (R$)";
-                inputValue.value = formatCurrency(deposit.value);
-                inputValue.oninput = (e) => {
-                    let inputValue = e.target.value.replace(/\D/g, '');  // Remove tudo que não for número
-                    let parsedValue = parseInt(inputValue) || 0;
-                    deposits[index].value = parsedValue / 100;  // Armazena o valor em centavos
-                    e.target.value = formatCurrency(deposits[index].value); // Atualiza o campo com a formatação correta
-                    saveDeposits();
-                    calculateTotal();
-                };
-
-                const inputDate = document.createElement("input");
-                inputDate.type = "date";
-                inputDate.value = deposit.date;
-                inputDate.oninput = (e) => {
-                    deposits[index].date = e.target.value;
-                    saveDeposits();
-                };
-
-                // Campo de comentário
-                const commentInput = document.createElement("div");
-                commentInput.classList.add("comment-input");
-                const inputComment = document.createElement("textarea");
-                inputComment.placeholder = "Comentário";
-                inputComment.value = deposit.comment;
-                inputComment.oninput = (e) => {
-                    deposits[index].comment = e.target.value;
-                    saveDeposits();
-                };
-
-                // Define o tamanho do campo de comentário
-                inputComment.style.width = "40%";  // Largura total disponível
-                inputComment.style.height = "20px";  // Altura do campo (pode ajustar o valor conforme necessário)
-                inputComment.style.marginLeft = "55%";
-                inputComment.style.marginTop = "-40%";
-                inputComment.style.marginBottom = "15.5%";
-                commentInput.appendChild(inputComment);
-
-                // Botão para alternar entre positivo e negativo
-                const toggleButton = document.createElement("button");
-                toggleButton.innerHTML = deposit.isPositive ? "Crédito" : "Débito";
-                toggleButton.onclick = () => {
-                    deposits[index].isPositive = !deposits[index].isPositive; // Alterna o valor de isPositive
-                    saveDeposits();
-                    renderDeposits(); // Re-renderiza para aplicar a mudança de fundo
-                };
-
-                // Novo botão de remover
-                const removeButton = document.createElement("button");
-                removeButton.classList.add("remove-button");
-                
-                // Criando o elemento de imagem
-                const img = document.createElement("img");
-                img.src = "https://symbl-world.akamaized.net/i/webp/ab/36eed0d0eae6aadc2bb389e2f699e4.webp";
-                img.alt = "Remove"; // Texto alternativo para acessibilidade
-                img.style.width = "20px";  // Tamanho da imagem (ajuste conforme necessário)
-                img.style.height = "20px"; // Tamanho da imagem (ajuste conforme necessário)
-                
-                // Adicionando a imagem ao botão
-                removeButton.appendChild(img);
-                
-                removeButton.style.marginLeft = "-60px";  // Alinha à esquerda
-                removeButton.style.marginRight = "60px";  // Alinha à esquerda
-                removeButton.onclick = () => removeDeposit(index);
-                
-
-                depositInputs.append(inputValue, inputDate, toggleButton, removeButton);
-                depositDiv.append(depositInputs, commentInput);
-                depositsDiv.appendChild(depositDiv);
+        }
+        
+        function updateCalendar() {
+            const monthHeader = document.getElementById('monthHeader');
+            const calendarGrid = document.getElementById('calendarGrid');
+            
+            let formattedMonth = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(currentDate);
+            formattedMonth = formattedMonth.charAt(0).toUpperCase() + formattedMonth.slice(1).toLowerCase();
+            monthHeader.textContent = formattedMonth;
+            
+            
+            monthHeader.textContent = formattedMonth;
+            
+            calendarGrid.innerHTML = '';
+            let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
+            let daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+            
+            for (let i = 0; i < firstDay; i++) {
+                let emptyCell = document.createElement('div');
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                let dayCell = document.createElement('button');
+                dayCell.textContent = day;
+                dayCell.classList.add('day');
+                dayCell.onclick = () => showDetails(day);
+    
+                let dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+                if (savedData[dateKey]) {
+                    dayCell.classList.add('day-with-info');
+                }
+    
+                if (day === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+                    dayCell.classList.add('today');
+                }
+    
+                calendarGrid.appendChild(dayCell);
+            }
+    
+            if (currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
+                showDetails(today.getDate());
+            }
+    
+            calcularSaldoTotal(); 
+        }
+    
+        function changeMonth(value) {
+            currentDate.setMonth(currentDate.getMonth() + value);
+            updateCalendar();
+        }
+    
+        function showDetails(day) {
+            let selectedDate = document.getElementById('dayTitle');
+            let dayOfWeek = document.getElementById('dayOfWeek');
+            let dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${day}`;
+    
+            selectedDate.textContent = `Dia ${day} de ${new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(currentDate)} de ${currentDate.getFullYear()}`;
+            dayOfWeek.textContent = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' }).format(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
+            
+            updateChequeList(dateKey);
+    
+            let allDays = document.querySelectorAll('.day');
+            allDays.forEach(dayButton => {
+                dayButton.classList.remove('selected-day');
             });
-            calculateTotal();
+    
+            let clickedDayButton = Array.from(allDays).find(button => button.textContent == day);
+            if (clickedDayButton) {
+                clickedDayButton.classList.add('selected-day');
+            }
         }
-
-        function formatCurrency(value) {
-            return (value).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    
+        function toggleInputFields() {
+            const inputFields = document.getElementById('inputFields');
+            inputFields.classList.toggle('hidden');
         }
+    
+        function formatarValor(input) {
+            let valor = input.value.replace(/\D/g, '');
+            if (valor.length > 2) {
+                valor = valor.slice(0, valor.length - 2) + ',' + valor.slice(valor.length - 2);
+            }
+            valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            input.value = valor;
+        }
+    
+        function saveDetails() {
+            let selectedDate = document.getElementById('dayTitle').textContent;
+            let depositValue = document.getElementById('depositValue').value;
+            let comment = document.getElementById('comment').value;
+            let dateKey = `${currentDate.getFullYear()}-${currentDate.getMonth()}-${selectedDate.split(' ')[1]}`;
+    
+            const toggleButton = document.getElementById('toggleValueSign');
+            let valueSign = toggleButton.textContent === '-' ? -1 : 1; 
+    
+depositValue = parseFloat(depositValue.replace(/\./g, '').replace(',', '.')) * valueSign;
 
-        renderDeposits();
+    
+            if (!savedData[dateKey]) {
+                savedData[dateKey] = [];
+            }
+    
+            savedData[dateKey].push({
+                value: depositValue.toFixed(2),
+                comment: comment,
+                timestamp: new Date().toLocaleString()
+            });
+    
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+            updateChequeList(dateKey);
+            calcularSaldoTotal(); 
+    
+            document.getElementById('depositValue').value = '';
+            document.getElementById('comment').value = '';
+            toggleInputFields();
+        }
+    
+        function updateChequeList(dateKey) {
+            let chequeList = document.getElementById('chequeList');
+            chequeList.innerHTML = '';
+    
+            if (savedData[dateKey]) {
+                savedData[dateKey].forEach((entry, index) => {
+                    let chequeItem = document.createElement('div');
+                    chequeItem.classList.add('cheque-item');
+                    chequeItem.innerHTML = `
+                        <button id=buttona onclick="deleteChequeEntry('${dateKey}', ${index})"></button>
+<strong>Valor:</strong> ${parseFloat(entry.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}<br>
+
+                        ${entry.comment}<br>
+                        <small>Salvo em: ${entry.timestamp}</small><br>
+                    `;
+                    chequeList.appendChild(chequeItem);
+                });
+            }
+        }
+    
+        function deleteChequeEntry(dateKey, index) {
+            savedData[dateKey].splice(index, 1);
+    
+            if (savedData[dateKey].length === 0) {
+                delete savedData[dateKey];
+            }
+    
+            localStorage.setItem('savedData', JSON.stringify(savedData));
+            updateChequeList(dateKey);
+            calcularSaldoTotal(); 
+        }
+    
+        function toggleValueSign() {
+            const toggleButton = document.getElementById('toggleValueSign');
+            if (toggleButton.textContent === '+') {
+                toggleButton.textContent = '-';
+                toggleButton.classList.remove('green');
+                toggleButton.classList.add('red');
+            } else {
+                toggleButton.textContent = '+';
+                toggleButton.classList.remove('red');
+                toggleButton.classList.add('green');
+            }
+        }
+    
+        updateCalendar();
     </script>
-
+    
 </body>
 </html>
+
+
