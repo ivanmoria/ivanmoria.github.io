@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Efeito de Entrada Interativo com Imagem</title>
+  <style>
+    /* Estilo básico da página */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      overflow: hidden;
+    }
+
+    /* Estilo da imagem */
+    .imagem {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 1s ease-out;
+    }
+
+    /* Efeito de entrada */
+    .imagem.entrar {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Animação do fundo */
+    .fundo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    /* Exibe o fundo após o carregamento */
+    .fundo.mostrar {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fundo escuro que aparece antes da imagem -->
+  <div class="fundo"></div>
+
+  <!-- Imagem a ser animada -->
+  <img src="/media/ivan.png" alt="Imagem Interativa" class="imagem" id="imagem">
+
+  <script>
+    // Função para adicionar o efeito de entrada
+    window.onload = function() {
+      // Adiciona a classe 'mostrar' ao fundo
+      document.querySelector('.fundo').classList.add('mostrar');
+      
+      // Espera 1 segundo para mostrar a imagem com animação
+      setTimeout(function() {
+        document.getElementById('imagem').classList.add('entrar');
+      }, 1000);
+    };
+  </script>
+  
+</body>
+</html>
