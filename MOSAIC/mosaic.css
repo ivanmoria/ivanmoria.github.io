@@ -119,3 +119,44 @@ section h2 {
     color: #333;
 }
 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav {
+    background: #333;
+    padding: 10px;
+}
+.menu {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+}
+.menu li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+.menu-toggle {
+    display: none;
+    background: #444;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        background: #333;
+    }
+    .menu-toggle {
+        display: block;
+    }
+    .menu.active {
+        display: flex;
+    }
+}

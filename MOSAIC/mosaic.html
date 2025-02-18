@@ -16,11 +16,8 @@
                 <p style="font-size: 14px;">Music-Oriented Systems and Artificial Intelligence for Creativity</p>
             </div>
             <nav>
-                <ul>
-                    
-                    
-                    
-          
+                <button class="menu-toggle">☰ Menu</button>
+                <ul class="menu">
                     <li><a href="#presentation">Presentation</a></li>
                     <li><a href="#equipe">Equipe</a></li>
                     <li><a href="#projects">Projects</a></li>
@@ -28,6 +25,12 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
+        
+            <script>
+                document.querySelector('.menu-toggle').addEventListener('click', function() {
+                    document.querySelector('.menu').classList.toggle('active');
+                });
+            </script>
 
             <div class="logos">
                 <a href="https://dcc.ufmg.br" target="_blank">
