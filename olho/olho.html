@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceMesh Control Panel</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { display: flex; flex-direction: column; align-items: center; }
+        .panel { margin-bottom: 20px; }
+        button { margin: 5px; padding: 10px; }
+        .video-container { position: relative; display: none; }
+        video, canvas { position: absolute; top: 0; left: 0; }
+        .oscillation-panel { margin-top: 20px; border: 1px solid #ccc; padding: 10px; width: 300px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FaceMesh Control Panel</h1>
+        <div class="panel">
+            <label>
+                <input type="checkbox" id="showMesh" checked> Mostrar malha facial
+            </label>
+            <label>
+                <input type="checkbox" id="showVideo" checked onchange="toggleVideo()"> Exibir imagem da webcam
+            </label>
+            <br>
+            <button onclick="selectFeature('eyes')">Olhos</button>
+            <button onclick="selectFeature('mouth')">Boca</button>
+            <button onclick="selectFeature('nose')">Nariz</button>
+        </div>
+        <div class="video-container" id="videoContainer">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="output"></canvas>
+        </div>
+        <div class="oscillation-panel">
+            <h3>Oscilações</h3>
+            <p>Olhos: <span id="eyeOscillation">0</span></p>
+            <p>Boca: <span id="mouthOscillation">0</span></p>
+            <p>Nariz: <span id="noseOscillation">0</span></p>
+        </div>
+    </div>
+    
+    <script>
+        const videoElement = document.getElementById('video');
+        const canvasElement = document.getElementById('output');
+        const canvasCtx = canvasElement.getContext('2d');
+        const showMeshCheckbox = document.getElementById('showMesh');
+        const showVideoCheckbox = document.getElementById('showVideo');
+        const eyeOscillation = document.getElementById('eyeOscillation');
+        const mouthOscillation = document.getElementById('mouthOscillation');
+        const noseOscillation = document.getElementById('noseOscillation');
+        const videoContainer = document.getElementById('videoContainer');
+        let selectedFeature = '';
+        
+        function selectFeature(feature) {
+            selectedFeature = feature;
+            console.log("Selecionado:", feature);
+        }
+        
+        function toggleVideo() {
+            videoContainer.style.display = showVideoCheckbox.checked ? 'block' : 'none';
+        }
+        
+        navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+            videoElement.srcObject = stream;
+        });
+        
+        const faceMesh = new FaceMesh({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}` });
+        faceMesh.setOptions({
+            maxNumFaces: 1,
+            refineLandmarks: true,
+            minDetectionConfidence: 0.5,
+            minTrackingConfidence: 0.5
+        });
+        
+        faceMesh.onResults((results) => {
+            canvasElement.width = videoElement.videoWidth;
+            canvasElement.height = videoElement.videoHeight;
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+            
+            if (results.multiFaceLandmarks && showMeshCheckbox.checked) {
+                for (const landmarks of results.multiFaceLandmarks) {
+                    drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, { color: '#00FF00', lineWidth: 1 });
+                    
+                    let eyeMovement = Math.abs(landmarks[159].y - landmarks[145].y);
+                    let mouthMovement = Math.abs(landmarks[13].y - landmarks[14].y);
+                    let noseMovement = Math.abs(landmarks[1].y - landmarks[2].y);
+                    
+                    eyeOscillation.innerText = eyeMovement.toFixed(3);
+                    mouthOscillation.innerText = mouthMovement.toFixed(3);
+                    noseOscillation.innerText = noseMovement.toFixed(3);
+                }
+            }
+        });
+        
+        const camera = new Camera(videoElement, {
+            onFrame: async () => {
+                await faceMesh.send({ image: videoElement });
+            },
+            width: 640,
+            height: 480
+        });
+        camera.start();
+    </script>
+</body>
+</html>
