@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
     <style>
+
         #map { height: 500px; width: 100%; }
         .logo { 
             display: block; 
@@ -37,272 +38,287 @@
             font-family: 'Roboto', sans-serif;
             font-size: 24px;
             font-weight: bold;
+            color:white;
             margin-top: 20px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
+
+<style>     body {
+
+
+    background-image: url('/stellarh/stellarh_cover.jpeg');
+
+}</style>
+
+<div style="text-align: center; display: flex; align-items: center; justify-content: center;">
     <div style="text-align: center;">
         <!-- Logo Image -->
-        <img src="https://ugc.production.linktr.ee/5e058ca5-6820-477c-ba0b-82a0076617bf_DALL-E-2024-11-07-01.51.08---A-professional-logo-of-a-crescent-moon-with-a-central-bright-star-and-s.webp?io=true&size=avatar-v3_0" alt="Logo" class="logo">
+<!-- LinkedIn Link with Logo -->
+<a href="https://www.linkedin.com/company/stellarh/" target="_blank">
+    <img src="https://ugc.production.linktr.ee/5e058ca5-6820-477c-ba0b-82a0076617bf_DALL-E-2024-11-07-01.51.08---A-professional-logo-of-a-crescent-moon-with-a-central-bright-star-and-s.webp?io=true&size=avatar-v3_0" alt="Logo" class="logo">
+</a>
 
-        <!-- LinkedIn Link -->
-        <a style="margin-top:5px;" href="https://www.linkedin.com/company/stellarh/" target="_blank" class="linkedin-link">
-            Stellarh.co
-        </a>
-
+        <a style="color:white;" href="https://linktr.ee/stellarhglobal" class="linkedin-link" target="_blank">Linktree (all roles)</a>
         <!-- Title -->
-        <h1 style="margin-top:-5px;">🌟 Guiding talent to new heights! Below you will find open positions worldwide 👇</h1>
     </div>
+        <h1 style="margin-top:-5px;">🌟 Guiding talent to new heights! Below you will find open positions worldwide 👇</h1>
+       <!-- Password Login Form -->
+       <div class="form-container">
+        <input type="password" id="passwordInput" placeholder="Password for new roles" />
+        <button onclick="checkPassword()">Login</button>
+    </div>
+    </div>
+
+
+<!-- Adicionar Vaga Button, inicialmente hidden -->
+<div class="form-container" id="addVagaContainer" style="display:none;">
+    <h2 id="addPinTitle" style="cursor: pointer;">Adicionar vaga</h2>
+    <button id="deletePinButton" style="display:none;" onclick="deletePin()">Excluir PIN</button>
+</div>
+
+ 
 
     <div id="map"></div>
 
+
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar nova vaga</h2>
+            <form id="addPinForm">
+                <input type="text" id="nome" placeholder="Nome" required><br>
+                <input type="text" id="localizacao" placeholder="Localização" required oninput="suggestLocations()" required oninput="getCoordinates()">
+                <ul id="suggestions" style="list-style-type: none; padding: 0; margin: 0; position: absolute; background-color: white; border: 1px solid #ccc; width: 90%; max-height: 150px; overflow-y: auto;"></ul>
+      
+
+
+                <input type="text" id="salario" placeholder="Salário" required><br>
+                <input type="url" id="link" placeholder="Link" required><br>
+                <input type="number" id="latitude" placeholder="Latitude" step="any" required><br>
+                <input type="number" id="longitude" placeholder="Longitude" step="any" required><br>
+                <button type="submit">Adicionar Pin</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        var map = L.map('map').setView([20, 0], 2); // Ajuste o centro do mapa conforme necessário
+        var map = L.map('map').setView([20, 0], 2); // Adjust the map's center as necessary
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
         var markers = L.markerClusterGroup();
+        
+        // Load pins from LocalStorage
+        function loadPins() {
+            const savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+            savedPins.forEach(vaga => {
+                var popupContent = `<b>${vaga.nome}</b><br>
+                                    <b>Location:</b> ${vaga.localizacao || 'N/A'}<br>
+                                    <b>Payment:</b> ${vaga.salario || 'N/A'}<br>
+                                    <a href="${vaga.link}" target="_blank">Apply Now</a>`;
 
-        // Aqui você pode adicionar os pins manualmente, inserindo a latitude, longitude e dados da vaga
-        var vagas = 
-        [
+                var marker = L.marker([vaga.latitude, vaga.longitude]).bindPopup(popupContent);
+                markers.addLayer(marker);
+            });
+            map.addLayer(markers);
+        }
 
-    {
-        nome: "AI Program Manager",
-        localizacao: "Mexico and Costa Rica",
-        salario: "$187k USD yearly",
-        link: "https://app.high5hire.com/career/jobs/846518817/recruiter/1191625959",
-        latitude: 23.935371902244835,
-        longitude: -102.5763495239869
-    },
-    {
-        nome: "AI Project Coordinator",
-        localizacao: "Mexico and Costa Rica",
-        salario: "$120k USD yearly",
-        link: "https://app.high5hire.com/career/jobs/555898773/recruiter/1191625959",
-        latitude: 23.935371902244835,
-        longitude: -102.5763495239869
-    },
-    {
-        nome: "Power BI Developer",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/585078267/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "Sharepoint Developer",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/597472533/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP Group Reporting Consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/810138720/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP FICA Functional Consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/499711281/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP S/4 HANA CS&CMM Functional Consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/756769666/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP ISU Functional Consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/384960865/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP Sr SD Functional consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/483566655/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP FICO FM & FSCM functional",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/625150640/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "SAP Ariba Consultant",
-        localizacao: "United Arab Emirates",
-        salario: "",
-        link: "https://app.high5hire.com/career/jobs/712860878/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "Data Manager",
-        localizacao: "United Arab Emirates",
-        salario: "540k to 660k AED yearly",
-        link: "https://app.high5hire.com/career/jobs/926544978/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "Enterprise Architecture Manager",
-        localizacao: "United Arab Emirates",
-        salario: "360k to 480k AED yearly",
-        link: "https://app.high5hire.com/career/jobs/764816592/recruiter/1191625959",
-        latitude: 25.2646,
-        longitude: 55.3077
-    },
-    {
-        nome: "Project Management Consultant",
-        localizacao: "South Korea",
-        salario: "$400 USD daily",
-        link: "https://app.high5hire.com/career/jobs/733845392/recruiter/1191625959",
-        latitude: 37.566535,
-        longitude: 126.9779692
-    },
-    {
-        nome: "Applied Mathematician",
-        localizacao: "Thailand",
-        salario: "$19 to $32 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/438399038/recruiter/1191625959",
-        latitude: 13.736717,
-        longitude: 100.523186
-    },
-    {
-        nome: "Coding Expert for AI Training",
-        localizacao: "Thailand",
-        salario: "$16 to $33 hourly",
-        link: "https://app.high5hire.com/career/jobs/592999293/recruiter/1191625959",
-        latitude: 13.736717,
-        longitude: 100.523186
-    },
-    {
-        nome: "Applied Mathematician",
-        localizacao: "Japan",
-        salario: "$30 to $50 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/504821825/recruiter/1191625959",
-        latitude: 37.66311081170466,
-        longitude: 138.06496213270776
-    },
-    {
-        nome: "Applied Mathematician",
-        localizacao: "Japan",
-        salario: "$30 to $40 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/523081147/recruiter/1191625959",
-        latitude: 37.66311081170466,
-        longitude: 138.06496213270776
-    },
-    {
-        nome: "Math Expert for AI Training",
-        localizacao: "Japan",
-        salario: "$30 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/310618675/recruiter/1191625959",
-        latitude: 37.66311081170466,
-        longitude: 138.06496213270776
-    },
-    {
-        nome: "Coding Expert for AI Training",
-        localizacao: "Denmark",
-        salario: "$20 to $50 hourly",
-        link: "https://app.high5hire.com/career/jobs/866657491/recruiter/1191625959",
-        latitude: 55.6763,
-        longitude: 12.5681
-    },
-    {
-        nome: "Applied Mathematician",
-        localizacao: "Denmark",
-        salario: "$30 to $50 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/902046905/recruiter/1191625959",
-        latitude: 55.6763,
-        longitude: 12.5681
-    },
-    {
-        nome: "Applied Mathematician",
-        localizacao: "Denmark",
-        salario: "$30 to $50 USD hourly",
-        link: "https://app.high5hire.com/career/jobs/706827672/recruiter/1191625959",
-        latitude: 55.6763,
-        longitude: 12.5681
-    },
-    {
-        nome: "Power Apps Developer",
-        localizacao: "United States",
-        salario: "$408 daily",
-        link: "https://app.high5hire.com/career/jobs/786802931/recruiter/1191625959",
-        latitude: 38.9041,
-        longitude: -77.0171
-    },
-    {
-        nome: "Travel Pharmacist",
-        localizacao: "United States",
-        salario: "$75 to $90 hourly",
-        link: "https://app.high5hire.com/career/jobs/876390501/recruiter/1191625959",
-        latitude: 38.9041,
-        longitude: -77.0171
-    },
-    {
-        nome: "Travel Pharmacist",
-        localizacao: "United States",
-        salario: "$80 to $90 hourly",
-        link: "https://app.high5hire.com/career/jobs/723716698/recruiter/1191625959",
-        latitude: 38.9041,
-        longitude: -77.0171
-    },
-    {
-        nome: "Travel Tech CT",
-        localizacao: "United States",
-        salario: "$55 to $70 hourly",
-        link: "https://app.high5hire.com/career/jobs/920447417/recruiter/1191625959",
-        latitude: 38.9041,
-        longitude: -77.0171
-    },
-    {
-        nome: "Data Analyst/Developer",
-        localizacao: "United States",
-        salario: "$45 hourly",
-        link: "https://app.high5hire.com/career/jobs/483443263/recruiter/1191625959",
-        latitude: 38.9041,
-        longitude: -77.0171
-    }
-]
+        loadPins();
 
-      
-    
+        // Modal Logic
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("addPinTitle");
+        var span = document.getElementsByClassName("close")[0];
 
-        vagas.forEach(vaga => {
-            var popupContent = `<b>${vaga.nome}</b><br>
-                                <b>Location:</b> ${vaga.localizacao || 'N/A'}<br>
-                                <b>Payment:</b> ${vaga.salario || 'N/A'}<br>
-                                <a href='${vaga.link}' target='_blank'>Apply now!</a>`;
+        // Open the modal when the "Adicionar Novo Pin" title is clicked
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
 
-            // Adiciona o marcador no mapa com as coordenadas fornecidas
-            var marker = L.marker([vaga.latitude, vaga.longitude])
-                .bindPopup(popupContent);
-            markers.addLayer(marker);
+        // Close the modal when the "x" is clicked
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of the modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Handle form submission to add a new pin
+        document.getElementById('addPinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nome = document.getElementById('nome').value;
+            var localizacao = document.getElementById('localizacao').value;
+            var salario = document.getElementById('salario').value;
+            var link = document.getElementById('link').value;
+            var latitude = parseFloat(document.getElementById('latitude').value);
+            var longitude = parseFloat(document.getElementById('longitude').value);
+
+            var newPin = {
+                nome: nome,
+                localizacao: localizacao,
+                salario: salario,
+                link: link,
+                latitude: latitude,
+                longitude: longitude
+            };
+
+            // Add new pin to LocalStorage
+            var savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+            savedPins.push(newPin);
+            localStorage.setItem('pins', JSON.stringify(savedPins));
+
+            // Add the new marker to the map
+            var popupContent = `<b>${nome}</b><br>
+                                <b>Location:</b> ${localizacao || 'N/A'}<br>
+                                <b>Payment:</b> ${salario || 'N/A'}<br>
+                                <a href="${link}" target="_blank">Apply Now</a>`;
+
+            var newMarker = L.marker([latitude, longitude]).bindPopup(popupContent);
+            markers.addLayer(newMarker);
+            map.addLayer(markers);
+
+            // Clear the form fields and close the modal
+            document.getElementById('addPinForm').reset();
+            modal.style.display = "none";
         });
+// Função para sugerir locais enquanto o usuário digita
+function suggestLocations() {
+    var localizacao = document.getElementById('localizacao').value;
+    var suggestionsList = document.getElementById('suggestions');
+    
+    // Limpa a lista de sugestões anteriores
+    suggestionsList.innerHTML = '';
+    
+    // Se o campo de localizacao estiver vazio, não faz nada
+    if (!localizacao) {
+        return;
+    }
 
-        map.addLayer(markers);
+    // URL para a API Nominatim do OpenStreetMap para busca de locais
+    var apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${localizacao}&addressdetails=1&limit=5`;
+
+    // Faz a requisição à API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Se a API retornar resultados, criamos as sugestões
+            if (data.length > 0) {
+                data.forEach(place => {
+                    // Cria o item de sugestão na lista
+                    var li = document.createElement('li');
+                    li.textContent = place.display_name;
+                    li.style.padding = '8px';
+                    li.style.cursor = 'pointer';
+                    li.addEventListener('click', function() {
+                        // Ao clicar na sugestão, preenche a localização e as coordenadas
+                        document.getElementById('localizacao').value = place.display_name;
+                        document.getElementById('latitude').value = place.lat;
+                        document.getElementById('longitude').value = place.lon;
+                        suggestionsList.innerHTML = ''; // Limpa as sugestões
+                    });
+                    suggestionsList.appendChild(li);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+            suggestionsList.innerHTML = '<li>Erro ao buscar sugestões</li>';
+        });
+}
+
+// Função para fechar a lista de sugestões quando o usuário clicar fora
+document.addEventListener('click', function(event) {
+    var suggestionsList = document.getElementById('suggestions');
+    if (!suggestionsList.contains(event.target) && event.target !== document.getElementById('localizacao')) {
+        suggestionsList.innerHTML = '';
+    }
+});
+
+
+// Check password logic
+function checkPassword() {
+    var password = document.getElementById('passwordInput').value;
+    var correctPassword = "stellarh.co"; // Set the correct password here
+    if (password === correctPassword) {
+        document.getElementById("addVagaContainer").style.display = "block"; // Show "Adicionar vaga"
+        document.getElementById("deletePinButton").style.display = "block"; // Show delete button
+    } else {
+        alert("Senha incorreta!"); // Show alert if password is incorrect
+    }
+}
+
+// Function to delete the last pin
+function deletePin() {
+    var savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+    if (savedPins.length > 0) {
+        savedPins.pop(); // Remove the last pin
+        localStorage.setItem('pins', JSON.stringify(savedPins));
+
+        // Reload the map with updated pins
+        markers.clearLayers();
+        loadPins(); // Reload the pins after deletion
+    }
+}
+
     </script>
 </body>
 </html>
