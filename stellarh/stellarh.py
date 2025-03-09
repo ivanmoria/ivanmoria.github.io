@@ -51,8 +51,11 @@ for link in links:
             "localizacao": vaga_localizacao,
             "salario": vaga_salario,
             "link": vaga_url,
-        })
+   
 
+        "latitude": 0,
+        "longitude": 0
+             })
 # Fechar o navegador
 driver.quit()
 
