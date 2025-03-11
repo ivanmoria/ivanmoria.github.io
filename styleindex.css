@@ -251,7 +251,7 @@ body.dark-mode {
   }
 
   .theme-switch {
-      margin-top: -500px; /* Ajusta a posição do switch de tema */
+      margin-top: -480px; /* Ajusta a posição do switch de tema */
   }
 
   #theme-checkbox + label {
