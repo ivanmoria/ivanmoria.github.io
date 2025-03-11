@@ -233,4 +233,38 @@ body.dark-mode {
 
 
 
-  
+  /* Ajustes gerais para telas menores */
+@media screen and (max-width: 480px) {
+  body {
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  .button1, .button2 {
+      font-size: 18px; /* Reduz tamanho da fonte dos botões */
+      padding: 8px 5px; /* Ajusta preenchimento */
+  }
+
+  .button1-container, .button2-container {
+      gap: 5px; /* Diminui o espaço entre os botões */
+      margin-top: 0px;
+  }
+
+  .theme-switch {
+      margin-top: -500px; /* Ajusta a posição do switch de tema */
+  }
+
+  #theme-checkbox + label {
+      font-size: 1.5rem; /* Reduz tamanho do switch */
+  }
+
+  /* Redimensiona o switch do tema */
+  #theme-checkbox + label div {
+      width: 0.7em;
+      height: 0.7em;
+  }
+
+  #theme-checkbox:checked + label div {
+      left: 1.4em;
+  }
+}
