@@ -114,8 +114,8 @@ document.body.style.userSelect = 'none'; // Complementa para o body
     }
     function draw() {
         if (isDarkMode) {
-            background(183);  // Cor de fundo escura (modo escuro)
-            fill(0);  // Cor do texto clara (modo escuro)
+            background(50);  // Cor de fundo escura (modo escuro)
+            fill(255);  // Cor do texto clara (modo escuro)
             // Desenha as linhas com cor branca no modo escuro
             let lineColor = color(255, 255, 255);  // Cor branca sem opacidade
             drawLines(ax, ay, lineColor);
@@ -125,8 +125,8 @@ document.body.style.userSelect = 'none'; // Complementa para o body
             drawLines(ax5, ay5, lineColor);
             drawLines(ax6, ay6, lineColor);
         } else {
-            background(50);  // Cor de fundo clara (modo claro)
-            fill(255);  // Cor do texto escura (modo claro)
+            background(183);  // Cor de fundo clara (modo claro)
+            fill(0);  // Cor do texto escura (modo claro)
             // Desenha as linhas com cor escura no modo claro
             let lineColor = color(10, 10, 10);  // Cor escura sem opacidade
             drawLines(ax, ay, lineColor);
