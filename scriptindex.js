@@ -78,7 +78,7 @@ document.body.style.userSelect = 'none'; // Complementa para o body
     let ay6 = [];
     let explosion = false;
     let explosionStrength = 8; // Reduzido para acalmar a explosão
-    let isDarkMode = false; // Definir o modo padrão como claro
+    let isDarkMode = true; // Definir o modo padrão como claro
     function toggleTheme() {
         isDarkMode = !isDarkMode; // Alterna o estado do tema
       }
