@@ -164,7 +164,7 @@ body.dark-mode {
 .theme-switch {
     position: relative;
     display: flex;
-    margin-top:-565px;
+   ;
     justify-content: center;
     direction: rtl;
   }
