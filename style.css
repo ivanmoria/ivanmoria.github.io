@@ -392,15 +392,9 @@ canvas {
    
   }
 
-  #canvas-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
-  }
+
+
+
   #canvass-container {
     position: fixed;
     top: 0;
@@ -521,15 +515,7 @@ canvas {
   z-index: 1000;
   margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
 }
-.button-container2 {
-  position: fixed; /* Define o posicionamento fixo */
-  left: 50%; /* Posiciona horizontalmente no centro da tela */
-  bottom: 35%; /* Posiciona verticalmente na parte inferior */
-  transform: translateX(-50%) translateY(50%); /* Ajusta o centro do elemento para o meio da tela */
-  display: flex; /* Permite o alinhamento lado a lado */
-  z-index: 1000; /* Garante que o botão esteja acima de outros conteúdos */
-  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
-}
+
 .button-container3 {
   position: fixed; /* Define o posicionamento fixo */
   left: -40%; /* Posiciona horizontalmente no centro da tela */
@@ -1188,12 +1174,18 @@ iframe {
 /* From Uiverse.io by kennyotsu-monochromia */ 
 .wrapper {
   position: absolute;
-  top: 52.5%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
+  width: 10vw;  /* Ajusta a largura conforme a largura da tela */
+  height: 10vw; /* Mantém um formato quadrado proporcional */
+  max-width: 100px; /* Define um limite máximo */
+  max-height: 100px;
+  min-width: 40px; /* Define um limite mínimo */
+  min-height: 40px;
   z-index: 9999;
-  height: 60px;
+  
+  /* Cores */
   --black: #000000;
   --ch-black: #141414;
   --eer-black: #1b1b1b;
@@ -1202,6 +1194,55 @@ iframe {
   --af-white: #f3f3f3;
   --ch-white: #e1e1e1;
 }
+
+/* Ajuste para telas menores */
+@media (max-width: 600px) {
+  .wrapper {
+    top: -20%;
+    left: 45%;
+    width: 20vw;
+    height: 15vw;
+  }
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
+}
+
+/* Ajuste para telas menores */
+@media (min-width: 800px) {
+  #canvas-container {
+    position: fixed;
+    top: -390px;
+    left: -110px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
+  }
+}
+
+.button-container2 {
+  position: fixed; /* Define o posicionamento fixo */
+  left: 50%; /* Posiciona horizontalmente no centro da tela */
+  bottom: 35%; /* Posiciona verticalmente na parte inferior */
+  transform: translateX(-50%) translateY(50%); /* Ajusta o centro do elemento para o meio da tela */
+  display: flex; /* Permite o alinhamento lado a lado */
+  z-index: 1000; /* Garante que o botão esteja acima de outros conteúdos */
+  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
+}
+
+
+
+
+
+
 .wrapper2 {
   position: absolute;
   top: 5.5%;
