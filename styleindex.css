@@ -20,13 +20,14 @@ body {
     background-color: white;
     color: #333333;
   }
-  
+
   .button1 {
     color: white;
     text-decoration: none;
     font-size: 25px;
     border: none;
     margin-top:0px;
+    
     margin-left:-90px;
     border: 1px solid rgba(255, 255, 255, 0);
     background: none;
@@ -128,6 +129,7 @@ body {
     .button2-container {
       display: flex;
       flex-wrap: nowrap;
+      
       flex-direction: column;  /* Alinha os botões verticalmente */
       justify-content: center; /* Centraliza horizontalmente */
       align-items: center;     /* Centraliza verticalmente */
@@ -184,6 +186,7 @@ body.dark-mode {
     justify-content: space-between;
     background-color: #cecece;
     position: relative;
+    
   }
   
   #theme-checkbox:checked + label {
@@ -191,7 +194,7 @@ body.dark-mode {
   }
   
   #theme-checkbox + label:active {
-    transform: scale(0.85);
+    transform: scale(1.5);
     transition: transform 0.2s;
   }
   
@@ -199,6 +202,7 @@ body.dark-mode {
     width: 0.8em;
     height: 0.8em;
     border-radius: inherit;
+    
     position: absolute;
     top: 0.1em;
     left: 0.1em;
@@ -210,6 +214,7 @@ body.dark-mode {
   #theme-checkbox:checked + label div {
     /* left: calc(2.5em - .8em - .1em); */
     left: 1.6em;
+
     background-color: #212121;
   }
   
@@ -221,6 +226,7 @@ body.dark-mode {
     display: inline-block;
     height: 1em;
     width: 1em;
+    
     padding: 0.15em;
     box-sizing: border-box;
   }
