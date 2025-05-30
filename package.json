@@ -15,5 +15,8 @@
     "express": "^4.21.2",
     "firebase": "^11.0.1",
     "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
