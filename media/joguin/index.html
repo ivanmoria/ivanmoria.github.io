@@ -2,97 +2,161 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Jogo com CSV e Áudio</title>
 <style>
-  body { background-color: black; color: white; font-family: Arial, sans-serif; user-select: none; margin: 0; padding: 0; text-align: center;}
-  canvas { background-color: black; display: block; margin: 20px auto;}
-  #score { font-size: 24px; margin: 10px;}
+  body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  /* Canvas responsivo: largura máxima 100%, altura automática */
+  canvas {
+    background-color: black;
+    display: block;
+    margin: 20px auto;
+    width: 90vw;
+    max-width: 640px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+  #score {
+    font-size: 5vw;
+    margin: 10px;
+  }
   #gameOverOverlay {
-    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0,0,0,0.7);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    color: yellow; font-size: 48px; font-weight: bold; visibility: hidden;
+    color: yellow; font-size: 10vw;
+    font-weight: bold;
+    visibility: hidden;
     z-index: 10;
   }
   #restartBtn {
-    margin-top: 20px; padding: 10px 30px; font-size: 24px;
-    background-color: gray; border: none; border-radius: 6px; cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 6vw;
+    background-color: gray;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    touch-action: manipulation;
   }
-  #restartBtn:hover { background-color: darkgray;}
+  #restartBtn:hover {
+    background-color: darkgray;
+  }
   #startOverlay {
     position: fixed; top:0; left:0; width:100vw; height:100vh;
     background: rgba(0,0,0,0.85);
-    color: white; display: flex;
-    justify-content: center; align-items: center;
-    font-size: 32px; cursor: pointer; user-select: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8vw;
+    cursor: pointer;
+    user-select: none;
     z-index: 20;
   }
-</style>
-</head>
-<div id="touchControls">
-  <button onclick="movePlayer('up')">▲</button>
-  <div>
-    <button onclick="movePlayer('left')">◀</button>
-    <button onclick="movePlayer('right')">▶</button>
-  </div>
-  <button onclick="movePlayer('down')">▼</button>
-</div>
-
-<style>
-  #touchControls {
+#touchControls {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  text-align: center;
-  z-index: 30;
-  user-select: none;
-  font-size: 0; /* Remove espaço inline entre botões */
-
+  top: 70%;
+  right: 25%;
+  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0px;
+  z-index: 30;
+  user-select: none;
 }
 
-#touchControls > div {
+/* Botão "para cima" */
+#touchControls > button.up {
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  background-color: gray;
+  border-radius: 50%;
+  color: white;
+  border: none;
+  cursor: pointer;
   display: flex;
   justify-content: center;
-  gap: 40px; /* Espaço entre esquerda e direita */
+  align-items: center;
 }
 
-#touchControls button {
+/* Container do meio com esquerda e direita */
+#touchControls > div.middle-row {
+  display: flex;
+  justify-content: space-between;
+  width: 180px; /* espaço para os dois botões lado a lado */
+}
+
+#touchControls button.left,
+#touchControls button.right,
+#touchControls button.down {
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
   background-color: gray;
-  border: none;
-  border-radius: 8px;
-  padding: 20px 25px;
-  font-size: 28px;
+  border-radius: 50%;
   color: white;
+  border: none;
   cursor: pointer;
-  touch-action: manipulation;
-  user-select: none;
-  width: 60px;
-  height: 60px;
-  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#touchControls button:hover {
+/* Botão para baixo fica abaixo */
+#touchControls > button.down {
+  margin-top: 10px;
+}
+
+/* Hover e foco */
+#touchControls button:hover,
+#touchControls button:focus {
   background-color: darkgray;
+  outline: none;
 }
 
+/* Responsivo */
+@media (max-width: 400px) {
+  #touchControls button {
+    width: 20vw;
+    height: 20vw;
+    font-size: 10vw;
+    max-width: none;
+    max-height: none;
+  }
+}
+
+  
+  
 </style>
-
-
-
-
-
-
+</head>
 <body>
+
+<div id="touchControls" role="group" aria-label="Controles do jogo para toque">
+  <button type="button" aria-label="Mover para cima" class="up" onclick="movePlayer('up')">▲</button>
+  <div class="middle-row">
+    <button type="button" aria-label="Mover para esquerda" class="left" onclick="movePlayer('left')">◀</button>
+    <button type="button" aria-label="Mover para direita" class="right" onclick="movePlayer('right')">▶</button>
+  </div>
+  <button type="button" aria-label="Mover para baixo" class="down" onclick="movePlayer('down')">▼</button>
+</div>
+
 
 <div id="score">Score: 0</div>
 <canvas id="gameCanvas" width="640" height="640"></canvas>
 
-<div id="gameOverOverlay">
+<div id="gameOverOverlay" role="alert" aria-live="assertive">
   GAME OVER!
   <button id="restartBtn">Reiniciar</button>
 </div>
@@ -106,11 +170,22 @@
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
 
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+  }
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    draw();
+  });
+  resizeCanvas();
+
   const ROWS = 8;
   const COLS = 8;
-  const WIDTH = canvas.width;
-  const HEIGHT = canvas.height;
-  const SQUARE_SIZE = WIDTH / COLS;
+  let WIDTH = canvas.width;
+  let HEIGHT = canvas.height;
+  let SQUARE_SIZE = WIDTH / COLS;
 
   const COLORS = {
     YELLOW: '#FFFF00',
@@ -130,7 +205,7 @@
   let score = 0;
   let gameOver = false;
   let laserIndex = 0;
-  let laserTimes = [];  // será carregado do CSV
+  let laserTimes = [];
   let startTime = null;
 
   const scoreDiv = document.getElementById('score');
@@ -139,29 +214,27 @@
   const audioFundo = document.getElementById('audioFundo');
   const startOverlay = document.getElementById('startOverlay');
 
-  // Função para carregar CSV layers.csv e extrair tempos (em segundos)
   async function loadCSV() {
     try {
       const response = await fetch('layers.csv');
       if (!response.ok) throw new Error('Não foi possível carregar layers.csv');
       const text = await response.text();
       const lines = text.trim().split('\n');
-
-      // Supondo que a primeira linha é header e que o CSV tem uma coluna com os tempos (ex: tempo_s)
       laserTimes = lines.slice(1).map(line => {
         const cols = line.split(',');
         return parseFloat(cols[0]);
       }).filter(t => !isNaN(t));
-
       console.log('Tempos carregados do CSV:', laserTimes);
     } catch (error) {
       console.error('Erro ao carregar CSV:', error);
-      // Fallback: tempos fixos para teste
       laserTimes = [2,5,8,12,15];
     }
   }
 
   function drawBoard() {
+    WIDTH = canvas.width;
+    HEIGHT = canvas.height;
+    SQUARE_SIZE = WIDTH / COLS;
     for(let r=0; r<ROWS; r++) {
       for(let c=0; c<COLS; c++) {
         const isLight = (r + c) % 2 === 0;
@@ -207,16 +280,15 @@
   function spawnDangerPositions() {
     const possiblePositions = [];
     for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-        // Só adiciona posições que NÃO sejam onde o jogador está
+      for (let c = 0; c < COLS; c++) {
         if (!(r === playerPos.row && c === playerPos.col)) {
-            possiblePositions.push({ row: r, col: c });
+          possiblePositions.push({ row: r, col: c });
         }
-        }
+      }
     }
     const shuffled = possiblePositions.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 10);  // pega até 5 posições
-    }
+    return shuffled.slice(0, 10);
+  }
 
   function spawnTarget() {
     const possiblePositions = [];
@@ -232,48 +304,46 @@
     return possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
   }
 
-  function movePlayer(direction) {
+  // Função movePlayer global para os botões funcionarem
+  window.movePlayer = function(direction) {
     if (gameOver) return;
     let { row, col } = playerPos;
     if (direction === 'up' && row > 0) row--;
     else if (direction === 'down' && row < ROWS - 1) row++;
     else if (direction === 'left' && col > 0) col--;
     else if (direction === 'right' && col < COLS - 1) col++;
-
     playerPos = { row, col };
-
-    // ✅ Atualiza o jogo logo depois de mover (quando for via touch/mouse)
     update();
     draw();
-    }
+  };
 
   function update() {
-  if (!startTime) startTime = performance.now();
-  const elapsedSeconds = (performance.now() - startTime) / 1000;
+    if (!startTime) startTime = performance.now();
+    const elapsedSeconds = (performance.now() - startTime) / 1000;
 
-  if (!gameOver) {
-    if (laserIndex < laserTimes.length && elapsedSeconds >= laserTimes[laserIndex]) {
-      dangerPositions = spawnDangerPositions();
-      laserIndex++;
-    }
+    if (!gameOver) {
+      if (laserIndex < laserTimes.length && elapsedSeconds >= laserTimes[laserIndex]) {
+        dangerPositions = spawnDangerPositions();
+        laserIndex++;
+      }
 
-    if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
-      score++;
-      targetPos = null;
-      updateScore();
-    }
+      if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
+        score++;
+        targetPos = null;
+        updateScore();
+      }
 
-    if (!targetPos) {
-      targetPos = spawnTarget();
-    }
+      if (!targetPos) {
+        targetPos = spawnTarget();
+      }
 
-    if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
-      gameOver = true;
-      audioFundo.pause();
-      showGameOver();
+      if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
+        gameOver = true;
+        audioFundo.pause();
+        showGameOver();
+      }
     }
   }
-}
 
   function updateScore() {
     scoreDiv.textContent = `Score: ${score}`;
@@ -334,18 +404,18 @@
     resetGame();
   });
 
-  // Ao clicar no overlay inicial, inicia o jogo
-startOverlay.addEventListener('click', () => {
-  loadCSV().then(() => {
-    startOverlay.style.display = 'none';
-    audioFundo.currentTime = 0;
-    audioFundo.play().catch(err => {
-      console.log('Erro ao tocar o áudio:', err);
+  startOverlay.addEventListener('click', () => {
+    loadCSV().then(() => {
+      startOverlay.style.display = 'none';
+      audioFundo.currentTime = 0;
+      audioFundo.play().catch(err => {
+        console.log('Erro ao tocar o áudio:', err);
+      });
+      resetGame();
     });
-    resetGame();
   });
-});
 
+  draw();
 
 })();
 </script>
