@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Pega-pega harmônico</title>
 <style>
+     body, button, div {
+    touch-action: manipulation;
+  }
   body {
     background-color: black;
     color: white;
@@ -140,6 +143,18 @@
   
   
 </style>
+
+<script>
+// Bloqueia double tap zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+  const now = new Date().getTime();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+</script>
 </head>
 <body>
 
@@ -415,7 +430,7 @@
     });
 
     function showGameOver() {
-    gameOverOverlay.innerHTML = `Perdeu!<br>Score: ${score}`;
+    gameOverOverlay.innerHTML = `Fim do Jogo!<br>Score: ${score}`;
     const restartButton = document.createElement('button');
     restartButton.id = 'restartBtn';
     restartButton.textContent = 'Reiniciar';
