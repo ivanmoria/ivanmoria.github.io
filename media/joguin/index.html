@@ -2,284 +2,381 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Pega-pega harmônico</title>
 <style>
-  body, button, div {
-    touch-action: manipulation;
-  }
-  body {
+  html, body {
+    margin: 0; padding: 0;
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
-    user-select: none;
-    margin: 0;
-    padding: 0;
+    overflow-x: hidden;
     text-align: center;
   }
-  canvas {
-    background-color: black;
-    display: block;
-    margin: 20px auto;
+  #gameCanvas {
     width: 90vw;
     max-width: 640px;
-    height: auto;
     aspect-ratio: 1 / 1;
+    display: block;
+    margin: 10px auto;
+    background-color: black;
   }
   #score {
-    font-size: 5vw;
-    margin: 10px;
+    font-size: max(4vw, 16px);
+    margin: 5px 0;
   }
-  #gameOverOverlay {
+  #gameOverOverlay, #startOverlay {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.7);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    color: yellow; font-size: 10vw;
-    font-weight: bold;
-    visibility: hidden;
-    z-index: 10;
-  }
-  #restartBtn {
-    margin-top: 20px;
-    padding: 10px 30px;
-    font-size: 6vw;
-    background-color: gray;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    touch-action: manipulation;
-  }
-  #restartBtn:hover {
-    background-color: darkgray;
-  }
-  #startOverlay {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
-    background: rgba(0,0,0,0.85);
-    color: white;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 6vw;
-    user-select: none;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 10;
+  }
+  #gameOverOverlay {
+    background: rgba(0, 0, 0, 0.7);
+    color: yellow;
+    font-size: max(8vw, 20px);
+    visibility: hidden;
+  }
+  #startOverlay {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-size: max(5vw, 18px);
     z-index: 20;
   }
-  #startOverlay button {
+  #startOverlay button.selected {
+    background-color: green;
+    color: white;
+  }
+  #startOverlay button.music-selected {
+    background-color: blue;
+    color: white;
+  }
+  #startOverlay button, #gameOverOverlay button {
     margin: 10px;
-    padding: 15px 40px;
-    font-size: 6vw;
+    padding: 10px 20px;
+    font-size: max(5vw, 16px);
     background-color: gray;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     color: white;
   }
-  #startOverlay button:hover {
+  #startOverlay button:hover, #gameOverOverlay button:hover {
     background-color: darkgray;
   }
+#touchControls {
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+  grid-template-columns: 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+#touchControls > button {
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #555, #333);
+  border-radius: 10px;
+  color: white;
+  border: 2px solid #999;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#touchControls > button:active {
+  transform: scale(0.9);
+  background: linear-gradient(to bottom, #444, #222);
+}
+
+#touchControls .up    { grid-area: up; }
+#touchControls .down  { grid-area: down; }
+#touchControls .left  { grid-area: left; }
+#touchControls .right { grid-area: right; }
+
+@media (max-width: 400px) {
   #touchControls {
-    position: fixed;
-    top: 80%;
-    right: 15%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0px;
-    z-index: 30;
-    user-select: none;
+    grid-template-columns: 40px 40px 40px;
+    grid-template-rows: 40px 40px 40px;
+    gap: 5px;
   }
-  #touchControls > button,
-  #touchControls button.left,
-  #touchControls button.right,
-  #touchControls button.down {
-    width: 50px;
-    height: 50px;
-    font-size: 40px;
-    background-color: gray;
-    border-radius: 50%;
-    color: white;
-    border: none;
-    cursor: pointer;
+  #touchControls > button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
   }
+}
+
+
+  #startOverlay button.mode-select:hover {
+  background-color: darkgreen;
+}
+
+#startOverlay button.music-select:hover {
+  background-color: darkblue;
+}
+#startOverlay button.selected {
+  background-color: green;
+  color: white;
+}
+
+#startOverlay button.music-selected {
+  background-color: blue;
+  color: white;
+}
+
   @media (max-width: 400px) {
-    #touchControls button {
-      width: 20vw;
-      height: 20vw;
-      font-size: 10vw;
-      max-width: none;
-      max-height: none;
+    #touchControls > button {
+      width: 40px; height: 40px;
+      font-size: 16px;
+    }
+    #startOverlay button, #gameOverOverlay button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+    #score {
+      font-size: 14px;
     }
   }
 </style>
-
-<script>
-document.addEventListener('touchend', function(event) {
-  const now = new Date().getTime();
-  if (now - (window.lastTouchEnd || 0) <= 300) event.preventDefault();
-  window.lastTouchEnd = now;
-}, false);
-</script>
 </head>
 <body>
 
+    <div id="score">Score: 0 | Vidas: 0</div>
+<canvas id="gameCanvas" width="640" height="640"></canvas>
+<div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
+<audio id="audioFundo" preload="auto"></audio>
+
 <div id="touchControls" role="group" aria-label="Controles do jogo para toque">
   <button type="button" class="up" onclick="movePlayer('up')">W</button>
-  <div class="middle-row">
-    <button type="button" class="left" onclick="movePlayer('left')">A</button>
-    <button type="button" class="right" onclick="movePlayer('right')">D</button>
-  </div>
+  <button type="button" class="left" onclick="movePlayer('left')">A</button>
+  <button type="button" class="right" onclick="movePlayer('right')">D</button>
   <button type="button" class="down" onclick="movePlayer('down')">S</button>
 </div>
 
-<div id="score">Score: 0 | Vidas: 0</div>
-<canvas id="gameCanvas" width="640" height="640"></canvas>
 
-<div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
-
-<audio id="audioFundo" src="/media/joguin/musica_fundo.mp3" preload="auto"></audio>
 
 <div id="startOverlay">
   <div>Escolha o modo:</div>
-  <button onclick="startGame('normal')">Modo Normal</button>
-  <button onclick="startGame('hardcore')">Modo Hardcore</button>
+  <button class="mode-select" onclick="setMode('normal')">Modo Normal</button>
+  <button class="mode-select" onclick="setMode('hardcore')">Modo Hardcore</button>
+  <div style="margin-top: 20px;">Escolha a música:</div>
+  <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
+  <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
+  <div id="startButtonContainer" style="margin-top: 20px;"></div>
 </div>
-
-
-
-
-
 <script>
 (() => {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
-
-  let gameMode = 'normal';
-  const ROWS = 8;
-  const COLS = 8;
-  let WIDTH = canvas.width;
-  let HEIGHT = canvas.height;
+  
+  // Configurações iniciais
+  const ROWS = 8, COLS = 8;
+  let WIDTH = canvas.width, HEIGHT = canvas.height;
   let SQUARE_SIZE = WIDTH / COLS;
-  const COLORS = { YELLOW: '#FFFF00', RED: '#FF0000', BLUE: '#0000FF', GREEN: '#00FF00', LIGHT_BROWN: '#DEB887', BROWN: '#8B4513' };
 
-  let dangerPositions = [];
+  const COLORS = {
+    YELLOW: '#FFFF00',
+    RED: '#FF0000',
+    BLUE: '#0000FF',
+    GREEN: '#00FF00',
+    LIGHT_BROWN: '#DEB887',
+    BROWN: '#8B4513'
+  };
+
+  // Estado do jogo
+  let gameMode = null;
+  let musicFile = null;
+  let csvFile = null;
+  let laserTimes = [];
+
   let playerPos = { row: 7, col: 0 };
+  let dangerPositions = [];
   let targetPos = null;
   let greenPos = null;
+
   let score = 0;
   let lives = 0;
   let gameOver = false;
   let laserIndex = 0;
-  let laserTimes = [];
   let startTime = null;
+  let damageCooldown = false;
 
+  // Elementos do DOM
   const scoreDiv = document.getElementById('score');
   const gameOverOverlay = document.getElementById('gameOverOverlay');
   const audioFundo = document.getElementById('audioFundo');
   const startOverlay = document.getElementById('startOverlay');
+  const startButtonContainer = document.getElementById('startButtonContainer');
 
+  // Define modo de jogo e atualiza seleção dos botões
+  function setMode(mode) {
+    gameMode = mode;
+    document.querySelectorAll('#startOverlay button.mode-select').forEach(btn => btn.classList.remove('selected'));
+    document.querySelectorAll('#startOverlay button.mode-select').forEach(btn => {
+      if (btn.textContent.toLowerCase().includes(mode.toLowerCase())) btn.classList.add('selected');
+    });
+    checkStartReady();
+  }
+
+  // Define música e CSV associados, atualiza seleção visual
+  function setMusic(audioSrc, csvSrc) {
+    musicFile = audioSrc;
+    csvFile = csvSrc;
+    document.querySelectorAll('#startOverlay button.music-select').forEach(btn => btn.classList.remove('music-selected'));
+    document.querySelectorAll('#startOverlay button.music-select').forEach(btn => {
+      // Ajuste aqui para que o texto do botão corresponda à música corretamente
+      if ((audioSrc.includes('musica1') && btn.textContent.includes('Música 1')) ||
+          (audioSrc.includes('musica2') && btn.textContent.includes('Música 2'))) {
+        btn.classList.add('music-selected');
+      }
+    });
+    checkStartReady();
+  }
+
+  // Se tudo selecionado, mostra botão iniciar
+  function checkStartReady() {
+    if (gameMode && musicFile && csvFile) {
+      startButtonContainer.innerHTML = '<button onclick="startGame()">Iniciar Jogo</button>';
+    }
+  }
+
+  // Expor para acesso global
+  window.setMode = setMode;
+  window.setMusic = setMusic;
+
+  // Carrega CSV, extrai tempos dos lasers
   async function loadCSV() {
     try {
-      const response = await fetch('layers.csv');
-      if (!response.ok) throw new Error('Erro ao carregar layers.csv');
+      const response = await fetch(csvFile);
+      if (!response.ok) throw new Error('Erro ao carregar CSV');
       const text = await response.text();
       const lines = text.trim().split('\n');
-      laserTimes = lines.slice(1).map(line => parseFloat(line.split(',')[0])).filter(t => !isNaN(t));
-    } catch {
+      // Considera que o CSV tem pelo menos uma coluna numérica na primeira posição
+      laserTimes = lines.slice(1)
+        .map(line => parseFloat(line.split(',')[0]))
+        .filter(t => !isNaN(t));
+    } catch (e) {
+      console.warn('Erro ao carregar CSV, usando valores padrão:', e);
       laserTimes = [2, 5, 8, 12, 15];
     }
   }
 
+  // Desenha tabuleiro xadrez
   function drawBoard() {
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
     SQUARE_SIZE = WIDTH / COLS;
-    for(let r=0; r<ROWS; r++) {
-      for(let c=0; c<COLS; c++) {
-        ctx.fillStyle = (r+c)%2===0 ? COLORS.LIGHT_BROWN : COLORS.BROWN;
-        ctx.fillRect(c*SQUARE_SIZE, r*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        ctx.fillStyle = (r + c) % 2 === 0 ? COLORS.LIGHT_BROWN : COLORS.BROWN;
+        ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
       }
     }
   }
 
+  // Desenha jogador, perigos, alvos e bolinhas verdes
   function drawElements() {
     const radius = SQUARE_SIZE / 3;
 
+    // Perigos (amarelos)
     dangerPositions.forEach(pos => {
       ctx.fillStyle = COLORS.YELLOW;
       ctx.beginPath();
-      ctx.arc(pos.col*SQUARE_SIZE+SQUARE_SIZE/2, pos.row*SQUARE_SIZE+SQUARE_SIZE/2, radius, 0, Math.PI*2);
+      ctx.arc(pos.col * SQUARE_SIZE + SQUARE_SIZE / 2, pos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
     });
 
+    // Alvo (azul)
     if (targetPos) {
       ctx.fillStyle = COLORS.BLUE;
       ctx.beginPath();
-      ctx.arc(targetPos.col*SQUARE_SIZE+SQUARE_SIZE/2, targetPos.row*SQUARE_SIZE+SQUARE_SIZE/2, radius, 0, Math.PI*2);
+      ctx.arc(targetPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, targetPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
     }
 
+    // Bolinha verde
     if (greenPos) {
       ctx.fillStyle = COLORS.GREEN;
       ctx.beginPath();
-      ctx.arc(greenPos.col*SQUARE_SIZE+SQUARE_SIZE/2, greenPos.row*SQUARE_SIZE+SQUARE_SIZE/2, radius, 0, Math.PI*2);
+      ctx.arc(greenPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, greenPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
     }
 
+    // Jogador (vermelho)
     ctx.fillStyle = COLORS.RED;
     ctx.beginPath();
-    ctx.arc(playerPos.col*SQUARE_SIZE+SQUARE_SIZE/2, playerPos.row*SQUARE_SIZE+SQUARE_SIZE/2, radius, 0, Math.PI*2);
+    ctx.arc(playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
     ctx.fill();
   }
 
+  // Movimento do jogador, limites do tabuleiro e atualização
   window.movePlayer = function(direction) {
     if (gameOver) return;
+
     let { row, col } = playerPos;
-    if (direction==='up' && row>0) row--;
-    else if (direction==='down' && row<ROWS-1) row++;
-    else if (direction==='left' && col>0) col--;
-    else if (direction==='right' && col<COLS-1) col++;
+    if (direction === 'up' && row > 0) row--;
+    else if (direction === 'down' && row < ROWS - 1) row++;
+    else if (direction === 'left' && col > 0) col--;
+    else if (direction === 'right' && col < COLS - 1) col++;
+
     playerPos = { row, col };
     update();
     draw();
   };
 
+  // Gera posições perigosas aleatórias, evitando jogador, alvo e verde
   function spawnDangerPositions() {
     const positions = [];
-    for (let r=0; r<ROWS; r++) {
-      for (let c=0; c<COLS; c++) {
-        if ((r!==playerPos.row || c!==playerPos.col) &&
-            (!targetPos || r!==targetPos.row || c!==targetPos.col) &&
-            (!greenPos || r!==greenPos.row || c!==greenPos.col)) {
-          positions.push({row:r, col:c});
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        if ((r !== playerPos.row || c !== playerPos.col) &&
+            (!targetPos || r !== targetPos.row || c !== targetPos.col) &&
+            (!greenPos || r !== greenPos.row || c !== greenPos.col)) {
+          positions.push({ row: r, col: c });
         }
       }
     }
-    return positions.sort(()=>0.5-Math.random()).slice(0,10);
+    // Retorna 10 posições aleatórias
+    return positions.sort(() => 0.5 - Math.random()).slice(0, 10);
   }
 
+  // Gera posição do alvo azul
   function spawnTarget() {
     const positions = [];
-    for (let r=0; r<ROWS; r++) {
-      for (let c=0; c<COLS; c++) {
-        const occupied = (r===playerPos.row && c===playerPos.col) ||
-                         dangerPositions.some(p=>p.row===r && p.col===c) ||
-                         (greenPos && r===greenPos.row && c===greenPos.col);
-        if (!occupied) positions.push({row:r, col:c});
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const occupied = (r === playerPos.row && c === playerPos.col) ||
+                         dangerPositions.some(p => p.row === r && p.col === c) ||
+                         (greenPos && r === greenPos.row && c === greenPos.col);
+        if (!occupied) positions.push({ row: r, col: c });
       }
     }
-    return positions.length ? positions[Math.floor(Math.random()*positions.length)] : null;
+    return positions.length ? positions[Math.floor(Math.random() * positions.length)] : null;
   }
 
+  // Gera posição da bolinha verde
   function spawnGreen() {
     const positions = [];
-    for (let r=0; r<ROWS; r++) {
-      for (let c=0; c<COLS; c++) {
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
         const occupied = (r === playerPos.row && c === playerPos.col) ||
                          (targetPos && r === targetPos.row && c === targetPos.col) ||
                          dangerPositions.some(p => p.row === r && p.col === c);
@@ -289,32 +386,33 @@ document.addEventListener('touchend', function(event) {
     greenPos = positions.length ? positions[Math.floor(Math.random() * positions.length)] : null;
   }
 
+  // Atualiza texto do score e vidas
   function updateScore() {
     scoreDiv.textContent = `Score: ${score} | Vidas: ${lives}`;
   }
 
+  // Lógica de atualização a cada frame
   function update() {
     if (!startTime) startTime = performance.now();
     const elapsed = (performance.now() - startTime) / 1000;
 
     if (!gameOver) {
+      // A cada tempo de laser, gera novas posições perigosas
       if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
         dangerPositions = spawnDangerPositions();
         laserIndex++;
       }
 
-      // Captura da azul
+      // Captura do alvo azul
       if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
         score++;
         targetPos = null;
         updateScore();
-
-        if (score % 10 === 0 && !greenPos) {
-          spawnGreen();
-        }
+        // A cada 10 pontos, gera bolinha verde se não existir
+        if (score % 10 === 0 && !greenPos) spawnGreen();
       }
 
-      // Captura da verde
+      // Captura da bolinha verde
       if (greenPos && playerPos.row === greenPos.row && playerPos.col === greenPos.col) {
         score += 3;
         lives += 1;
@@ -322,50 +420,62 @@ document.addEventListener('touchend', function(event) {
         updateScore();
       }
 
-      // Colisão com amarelas
+      // Tocar em perigo amarelo
       if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
-        if (!damageCooldown) {  // só aplica dano se não estiver em cooldown
-            if (lives > 0) {
-            lives -= 1;
+        if (!damageCooldown) {
+          if (lives > 0) {
+            lives--;
+            score = 0;
+           
             updateScore();
-            } else {
+          } else {
             if (gameMode === 'normal') {
-                score = 0;
-                updateScore();
+              score = 0;
+              updateScore();
             } else if (gameMode === 'hardcore') {
-                gameOver = true;
-                audioFundo.pause();
-                showGameOver();
+              
+          
+              gameOver = true;
+              audioFundo.pause();
+              showGameOver();
             }
-            }
-            damageCooldown = true;  // bloqueia dano imediato
-            // Libera dano após 1 segundo (1000 ms)
-            setTimeout(() => {
-            damageCooldown = false;
-            }, 1000);
+          }
+          damageCooldown = true;
+          setTimeout(() => { damageCooldown = false; }, 1000); // 1s cooldown
         }
-        } else {
-        // Se o jogador não está mais em cima da bolinha amarela, libera para próximo dano
+      } else {
         damageCooldown = false;
-        }
+      }
+
+      // Se não existir alvo, cria um novo
       if (!targetPos) targetPos = spawnTarget();
     }
   }
 
+  // Desenha o estado atual
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     drawBoard();
     drawElements();
   }
 
+  // Loop principal do jogo
   function gameLoop() {
     update();
     draw();
     if (!gameOver) requestAnimationFrame(gameLoop);
   }
 
+  // Mostra overlay de fim de jogo com botão para reiniciar
   function showGameOver() {
-    gameOverOverlay.innerHTML = `Fim do Jogo!<br>Score: ${score}<br>Vidas: ${lives}<br><button id="restartBtn">Reiniciar</button>`;
+    gameOverOverlay.innerHTML = `
+      <div style="text-align:center; color:white; font-size: 24px;">
+        Fim do Jogo!<br>
+        Score: ${score}<br>
+        Vidas: ${lives}<br><br>
+        <button id="restartBtn">Reiniciar</button>
+      </div>
+    `;
     gameOverOverlay.style.visibility = 'visible';
     document.getElementById('restartBtn').onclick = resetGame;
   }
@@ -374,36 +484,38 @@ document.addEventListener('touchend', function(event) {
     gameOverOverlay.style.visibility = 'hidden';
   }
 
+  // Reinicia o estado do jogo
   function resetGame() {
     playerPos = { row: 7, col: 0 };
     score = 0;
     lives = 0;
-    updateScore();
     dangerPositions = [];
     laserIndex = 0;
     targetPos = null;
     greenPos = null;
     startTime = null;
     gameOver = false;
+    damageCooldown = false;
+
+    updateScore();
     hideGameOver();
     audioFundo.currentTime = 0;
     audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
     gameLoop();
   }
 
-  function startGame(mode) {
-    gameMode = mode;
+  // Inicia o jogo após carregar CSV e tocar música
+  window.startGame = function() {
     loadCSV().then(() => {
       startOverlay.style.display = 'none';
+      audioFundo.src = musicFile;
       audioFundo.currentTime = 0;
-      audioFundo.play().catch(err => console.log('Erro ao tocar o áudio:', err));
+      audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
       resetGame();
     });
-  }
+  };
 
-  // Tornar startGame visível globalmente:
-  window.startGame = startGame;
-
+  // Controles do teclado para mover jogador
   window.addEventListener('keydown', e => {
     if (gameOver) return;
     switch (e.key.toLowerCase()) {
@@ -414,6 +526,7 @@ document.addEventListener('touchend', function(event) {
     }
   });
 
+  // Quando a música terminar, finaliza o jogo
   audioFundo.addEventListener('ended', () => {
     if (!gameOver) {
       gameOver = true;
@@ -421,21 +534,10 @@ document.addEventListener('touchend', function(event) {
     }
   });
 
+  // Primeira renderização
   draw();
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
