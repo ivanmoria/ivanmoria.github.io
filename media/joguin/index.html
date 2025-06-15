@@ -493,7 +493,7 @@
         <br>
         <strong>Scores anteriores:</strong><br>
         ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
-        <button id="restartBtn">Reiniciar (space)</button>
+        <button id="restartBtn">Reiniciar (R)</button>
       </div>`;
     gameOverOverlay.style.visibility = 'visible';
     document.getElementById('restartBtn').onclick = resetGame;
@@ -536,7 +536,7 @@
 
   window.addEventListener('keydown', e => {
     if (gameOver) {
-      if (e.code === 'Space') {
+      if (e.code === 'KeyR') {
         const restartBtn = document.getElementById('restartBtn');
         if (restartBtn) restartBtn.click();
       }
