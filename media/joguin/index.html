@@ -187,12 +187,14 @@
   <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
   <div id="startButtonContainer" style="margin-top: 20px;"></div>
 </div>
+
+
+
 <script>
 (() => {
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
-  
-  // Configurações iniciais
+
   const ROWS = 8, COLS = 8;
   let WIDTH = canvas.width, HEIGHT = canvas.height;
   let SQUARE_SIZE = WIDTH / COLS;
@@ -206,7 +208,6 @@
     BROWN: '#8B4513'
   };
 
-  // Estado do jogo
   let gameMode = null;
   let musicFile = null;
   let csvFile = null;
@@ -220,18 +221,31 @@
   let score = 0;
   let lives = 0;
   let gameOver = false;
+  let highScores = [];
+
+  let lastScoreBeforeReset = null;
+
   let laserIndex = 0;
   let startTime = null;
   let damageCooldown = false;
 
-  // Elementos do DOM
   const scoreDiv = document.getElementById('score');
   const gameOverOverlay = document.getElementById('gameOverOverlay');
   const audioFundo = document.getElementById('audioFundo');
   const startOverlay = document.getElementById('startOverlay');
   const startButtonContainer = document.getElementById('startButtonContainer');
+  let gameEnded = false;
 
-  // Define modo de jogo e atualiza seleção dos botões
+  function endGame() {
+    if (!gameEnded) {
+      gameEnded = true;
+      if (score > 0 && !highScores.includes(score)) {
+        highScores.push(score);
+      }
+      showGameOver();
+    }
+  }
+
   function setMode(mode) {
     gameMode = mode;
     document.querySelectorAll('#startOverlay button.mode-select').forEach(btn => btn.classList.remove('selected'));
@@ -241,13 +255,11 @@
     checkStartReady();
   }
 
-  // Define música e CSV associados, atualiza seleção visual
   function setMusic(audioSrc, csvSrc) {
     musicFile = audioSrc;
     csvFile = csvSrc;
     document.querySelectorAll('#startOverlay button.music-select').forEach(btn => btn.classList.remove('music-selected'));
     document.querySelectorAll('#startOverlay button.music-select').forEach(btn => {
-      // Ajuste aqui para que o texto do botão corresponda à música corretamente
       if ((audioSrc.includes('musica1') && btn.textContent.includes('Música 1')) ||
           (audioSrc.includes('musica2') && btn.textContent.includes('Música 2'))) {
         btn.classList.add('music-selected');
@@ -256,25 +268,21 @@
     checkStartReady();
   }
 
-  // Se tudo selecionado, mostra botão iniciar
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
       startButtonContainer.innerHTML = '<button onclick="startGame()">Iniciar Jogo</button>';
     }
   }
 
-  // Expor para acesso global
   window.setMode = setMode;
   window.setMusic = setMusic;
 
-  // Carrega CSV, extrai tempos dos lasers
   async function loadCSV() {
     try {
       const response = await fetch(csvFile);
       if (!response.ok) throw new Error('Erro ao carregar CSV');
       const text = await response.text();
       const lines = text.trim().split('\n');
-      // Considera que o CSV tem pelo menos uma coluna numérica na primeira posição
       laserTimes = lines.slice(1)
         .map(line => parseFloat(line.split(',')[0]))
         .filter(t => !isNaN(t));
@@ -284,7 +292,6 @@
     }
   }
 
-  // Desenha tabuleiro xadrez
   function drawBoard() {
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
@@ -297,11 +304,9 @@
     }
   }
 
-  // Desenha jogador, perigos, alvos e bolinhas verdes
   function drawElements() {
     const radius = SQUARE_SIZE / 3;
 
-    // Perigos (amarelos)
     dangerPositions.forEach(pos => {
       ctx.fillStyle = COLORS.YELLOW;
       ctx.beginPath();
@@ -309,7 +314,6 @@
       ctx.fill();
     });
 
-    // Alvo (azul)
     if (targetPos) {
       ctx.fillStyle = COLORS.BLUE;
       ctx.beginPath();
@@ -317,7 +321,6 @@
       ctx.fill();
     }
 
-    // Bolinha verde
     if (greenPos) {
       ctx.fillStyle = COLORS.GREEN;
       ctx.beginPath();
@@ -325,14 +328,12 @@
       ctx.fill();
     }
 
-    // Jogador (vermelho)
     ctx.fillStyle = COLORS.RED;
     ctx.beginPath();
     ctx.arc(playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Movimento do jogador, limites do tabuleiro e atualização
   window.movePlayer = function(direction) {
     if (gameOver) return;
 
@@ -347,7 +348,6 @@
     draw();
   };
 
-  // Gera posições perigosas aleatórias, evitando jogador, alvo e verde
   function spawnDangerPositions() {
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
@@ -359,11 +359,9 @@
         }
       }
     }
-    // Retorna 10 posições aleatórias
     return positions.sort(() => 0.5 - Math.random()).slice(0, 10);
   }
 
-  // Gera posição do alvo azul
   function spawnTarget() {
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
@@ -377,7 +375,6 @@
     return positions.length ? positions[Math.floor(Math.random() * positions.length)] : null;
   }
 
-  // Gera posição da bolinha verde
   function spawnGreen() {
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
@@ -391,33 +388,33 @@
     greenPos = positions.length ? positions[Math.floor(Math.random() * positions.length)] : null;
   }
 
-  // Atualiza texto do score e vidas
   function updateScore() {
     scoreDiv.textContent = `Score: ${score} | Vidas: ${lives}`;
   }
 
-  // Lógica de atualização a cada frame
   function update() {
     if (!startTime) startTime = performance.now();
     const elapsed = (performance.now() - startTime) / 1000;
 
     if (!gameOver) {
-      // A cada tempo de laser, gera novas posições perigosas
+      // Aparece perigo nos tempos definidos
       if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
         dangerPositions = spawnDangerPositions();
         laserIndex++;
       }
 
-      // Captura do alvo azul
+      // Se não existe target, cria um
+      if (!targetPos) targetPos = spawnTarget();
+
+      // Checagem de colisão com alvo azul
       if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
         score++;
         targetPos = null;
         updateScore();
-        // A cada 10 pontos, gera bolinha verde se não existir
         if (score % 10 === 0 && !greenPos) spawnGreen();
       }
 
-      // Captura da bolinha verde
+      // Checagem de colisão com alvo verde
       if (greenPos && playerPos.row === greenPos.row && playerPos.col === greenPos.col) {
         score += 3;
         lives += 1;
@@ -425,62 +422,79 @@
         updateScore();
       }
 
-      // Tocar em perigo amarelo
+      // Checagem de dano ao colidir com perigo
       if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
         if (!damageCooldown) {
+          lastScoreBeforeReset = score; // guarda o score atual antes da penalidade
+
+          if (gameMode === 'hardcore') {
+            score = 0;
+            updateScore();
+          } else if (gameMode === 'normal') {
+            score = 0;
+            updateScore();
+            damageCooldown = true;
+            setTimeout(() => { damageCooldown = false; }, 1000);
+            return;
+          }
+
           if (lives > 0) {
             lives--;
-            score = 0;
-           
             updateScore();
           } else {
-            if (gameMode === 'normal') {
-              score = 0;
-              updateScore();
-            } else if (gameMode === 'hardcore') {
-              
-          
-              gameOver = true;
-              audioFundo.pause();
-              showGameOver();
+            if (gameMode === 'hardcore') {
+              if (lastScoreBeforeReset && !highScores.includes(lastScoreBeforeReset)) {
+                highScores.push(lastScoreBeforeReset);
+              }
+            } else {
+              if (score > 0 && !highScores.includes(score)) {
+                highScores.push(score);
+              }
             }
+            gameOver = true;
+            audioFundo.pause();
+            showGameOver();
           }
+
           damageCooldown = true;
-          setTimeout(() => { damageCooldown = false; }, 1000); // 1s cooldown
+          setTimeout(() => { damageCooldown = false; }, 1000);
         }
       } else {
         damageCooldown = false;
       }
-
-      // Se não existir alvo, cria um novo
-      if (!targetPos) targetPos = spawnTarget();
     }
   }
 
-  // Desenha o estado atual
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     drawBoard();
     drawElements();
   }
 
-  // Loop principal do jogo
   function gameLoop() {
     update();
     draw();
     if (!gameOver) requestAnimationFrame(gameLoop);
   }
 
-  // Mostra overlay de fim de jogo com botão para reiniciar
   function showGameOver() {
+    const sessionHighScore = Math.max(
+      lastScoreBeforeReset || 0,
+      highScores.length ? Math.max(...highScores) : 0
+    );
+
+    const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
+
     gameOverOverlay.innerHTML = `
       <div style="text-align:center; color:white; font-size: 24px;">
         Fim do Jogo!<br>
-        Score: ${score}<br>
-        Vidas: ${lives}<br><br>
-        <button id="restartBtn">Reiniciar</button>
-      </div>
-    `;
+        Maior Score nesta sessão: ${sessionHighScore}<br>
+        ${lastScoreBeforeReset !== null ? `Último score antes de morrer: ${lastScoreBeforeReset}<br>` : ''}
+        <br>
+        <strong>Scores anteriores:</strong><br>
+        ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
+        <button id="restartBtn">Reiniciar (space)</button>
+      </div>`;
     gameOverOverlay.style.visibility = 'visible';
     document.getElementById('restartBtn').onclick = resetGame;
   }
@@ -489,7 +503,6 @@
     gameOverOverlay.style.visibility = 'hidden';
   }
 
-  // Reinicia o estado do jogo
   function resetGame() {
     playerPos = { row: 7, col: 0 };
     score = 0;
@@ -501,6 +514,8 @@
     startTime = null;
     gameOver = false;
     damageCooldown = false;
+    lastScoreBeforeReset = null;
+    gameEnded = false;
 
     updateScore();
     hideGameOver();
@@ -509,7 +524,6 @@
     gameLoop();
   }
 
-  // Inicia o jogo após carregar CSV e tocar música
   window.startGame = function() {
     loadCSV().then(() => {
       startOverlay.style.display = 'none';
@@ -520,9 +534,15 @@
     });
   };
 
-  // Controles do teclado para mover jogador
   window.addEventListener('keydown', e => {
-    if (gameOver) return;
+    if (gameOver) {
+      if (e.code === 'Space') {
+        const restartBtn = document.getElementById('restartBtn');
+        if (restartBtn) restartBtn.click();
+      }
+      return;
+    }
+
     switch (e.key.toLowerCase()) {
       case 'w': movePlayer('up'); break;
       case 'a': movePlayer('left'); break;
@@ -531,44 +551,25 @@
     }
   });
 
-  // Quando a música terminar, finaliza o jogo
   audioFundo.addEventListener('ended', () => {
     if (!gameOver) {
       gameOver = true;
+      if (score > 0 && !highScores.includes(score)) {
+        highScores.push(score);
+      }
       showGameOver();
     }
   });
 
-  // Primeira renderização
+  // Inicial desenha o tabuleiro
   draw();
 })();
 </script>
 
 
 
-<script>
-// Bloqueia gesto de zoom (pinça)
-document.addEventListener('gesturestart', e => e.preventDefault());
-document.addEventListener('gesturechange', e => e.preventDefault());
-document.addEventListener('gestureend', e => e.preventDefault());
 
-// Bloqueia duplo toque (double-tap)
-let lastTouchEnd = 0;
-document.addEventListener('touchend', event => {
-  const now = new Date().getTime();
-  if (now - lastTouchEnd <= 300) {
-    event.preventDefault();
-  }
-  lastTouchEnd = now;
-}, false);
 
-// Bloqueia Ctrl + Zoom no desktop
-window.addEventListener('wheel', function(e) {
-  if (e.ctrlKey) {
-    e.preventDefault();
-  }
-}, { passive: false });
-</script>
 
 </body>
 </html>
