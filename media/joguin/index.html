@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Jogo com CSV e Áudio</title>
+<title>Pega-pega harmônico</title>
 <style>
   body {
     background-color: black;
@@ -66,7 +66,7 @@
 #touchControls {
   position: fixed;
   top: 70%;
-  right: 25%;
+  right: 5%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -144,12 +144,12 @@
 <body>
 
 <div id="touchControls" role="group" aria-label="Controles do jogo para toque">
-  <button type="button" aria-label="Mover para cima" class="up" onclick="movePlayer('up')">▲</button>
+  <button type="button" aria-label="Mover para cima" class="up" onclick="movePlayer('up')">W</button>
   <div class="middle-row">
-    <button type="button" aria-label="Mover para esquerda" class="left" onclick="movePlayer('left')">◀</button>
-    <button type="button" aria-label="Mover para direita" class="right" onclick="movePlayer('right')">▶</button>
+    <button type="button" aria-label="Mover para esquerda" class="left" onclick="movePlayer('left')">A</button>
+    <button type="button" aria-label="Mover para direita" class="right" onclick="movePlayer('right')">D</button>
   </div>
-  <button type="button" aria-label="Mover para baixo" class="down" onclick="movePlayer('down')">▼</button>
+  <button type="button" aria-label="Mover para baixo" class="down" onclick="movePlayer('down')">S</button>
 </div>
 
 
@@ -157,7 +157,7 @@
 <canvas id="gameCanvas" width="640" height="640"></canvas>
 
 <div id="gameOverOverlay" role="alert" aria-live="assertive">
-  GAME OVER!
+  oooops!
   <button id="restartBtn">Reiniciar</button>
 </div>
 
@@ -278,17 +278,21 @@
   }
 
   function spawnDangerPositions() {
+
     const possiblePositions = [];
     for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        if (!(r === playerPos.row && c === playerPos.col)) {
-          possiblePositions.push({ row: r, col: c });
+        for (let c = 0; c < COLS; c++) {
+        const isPlayer = (r === playerPos.row && c === playerPos.col);
+        const isTarget = targetPos && (r === targetPos.row && c === targetPos.col);
+        if (!isPlayer && !isTarget) {
+            possiblePositions.push({ row: r, col: c });
         }
-      }
+        }
     }
     const shuffled = possiblePositions.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 10);
-  }
+    }
+
 
   function spawnTarget() {
     const possiblePositions = [];
@@ -403,6 +407,31 @@
   restartBtn.addEventListener('click', () => {
     resetGame();
   });
+    audioFundo.addEventListener('ended', () => {
+    if (!gameOver) {
+        gameOver = true;
+        showGameOver();
+    }
+    });
+
+    function showGameOver() {
+    gameOverOverlay.innerHTML = `Perdeu!<br>Score: ${score}`;
+    const restartButton = document.createElement('button');
+    restartButton.id = 'restartBtn';
+    restartButton.textContent = 'Reiniciar';
+    restartButton.style.marginTop = '20px';
+    restartButton.style.padding = '10px 30px';
+    restartButton.style.fontSize = '6vw';
+    restartButton.style.backgroundColor = 'gray';
+    restartButton.style.border = 'none';
+    restartButton.style.borderRadius = '6px';
+    restartButton.style.cursor = 'pointer';
+    restartButton.addEventListener('click', () => {
+        resetGame();
+    });
+    gameOverOverlay.appendChild(restartButton);
+    gameOverOverlay.style.visibility = 'visible';
+    }
 
   startOverlay.addEventListener('click', () => {
     loadCSV().then(() => {
