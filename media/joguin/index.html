@@ -185,6 +185,8 @@
   <div style="margin-top: 20px;">Escolha a música:</div>
   <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
   <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
+    <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
+  <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
   <div id="startButtonContainer" style="margin-top: 20px;"></div>
 </div>
 
@@ -258,15 +260,23 @@
   function setMusic(audioSrc, csvSrc) {
     musicFile = audioSrc;
     csvFile = csvSrc;
+
     document.querySelectorAll('#startOverlay button.music-select').forEach(btn => btn.classList.remove('music-selected'));
+
     document.querySelectorAll('#startOverlay button.music-select').forEach(btn => {
-      if ((audioSrc.includes('musica1') && btn.textContent.includes('Música 1')) ||
-          (audioSrc.includes('musica2') && btn.textContent.includes('Música 2'))) {
+      if (
+        (audioSrc.includes('musica1') && btn.textContent.includes('Música 1')) ||
+        (audioSrc.includes('musica2') && btn.textContent.includes('Música 2')) ||
+        (audioSrc.includes('musica3') && btn.textContent.includes('Música 3')) ||
+        (audioSrc.includes('musica4') && btn.textContent.includes('Música 4'))
+      ) {
         btn.classList.add('music-selected');
       }
     });
+
     checkStartReady();
   }
+
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
