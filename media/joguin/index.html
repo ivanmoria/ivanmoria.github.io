@@ -56,7 +56,7 @@
   }
   #startOverlay button.selected {
     background-color: green;
-    color: white;
+    color: rgb(255, 255, 255);
   }
   #startOverlay button.music-selected {
     background-color: blue;
@@ -65,12 +65,13 @@
   #startOverlay button, #gameOverOverlay button {
     margin: 10px;
     padding: 10px 20px;
-    font-size: max(5vw, 16px);
-    background-color: gray;
+        font-family: 'Courier New', Courier, monospace;
+    font-size: 46px;
+    background-color: rgb(208, 208, 208);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    color: white;
+    color: rgb(0, 0, 0);
   }
   #startOverlay button:hover, #gameOverOverlay button:hover {
     background-color: darkgray;
@@ -83,16 +84,17 @@
     ". down .";
   grid-template-columns: 60px 60px 60px;
   grid-template-rows: 60px 60px 60px;
-  gap: 8px;
+  gap: 68px;
+
   justify-content: center;
   align-items: center;
   margin: 20px auto;
 }
 
 #touchControls > button {
-  width: 60px;
-  height: 60px;
-  font-size: 20px;
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
   font-weight: bold;
   background: linear-gradient(to bottom, #555, #333);
   border-radius: 10px;
@@ -100,6 +102,7 @@
   border: 2px solid #999;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,19 +151,22 @@
 
   #startOverlay button.mode-select:hover {
   background-color: darkgreen;
+  color:white;
 }
 
 #startOverlay button.music-select:hover {
-  background-color: darkblue;
+  background-color: rgb(103, 103, 250);
+  color: white;
 }
 #startOverlay button.selected {
   background-color: green;
-  color: white;
+  color: rgba(255, 255, 255, 0.851);
+
 }
 
 #startOverlay button.music-selected {
-  background-color: blue;
-  color: white;
+  background-color: rgb(96, 96, 171);
+  color: rgb(255, 255, 255);
 }
 
   @media (max-width: 400px) {
@@ -176,22 +182,50 @@
       font-size: 14px;
     }
   }
+
+  #score, #touchControls2 {
+  display: inline-block;
+  vertical-align: middle; /* opcional, para alinhar verticalmente */
+  margin-right: 10px;     /* espaçamento entre eles */
+}
+
+#startButtonContainer button {
+  background-color: #ffffff; /* verde padrão */
+  color: rgb(0, 0, 0);
+  border: none;
+      font-family: 'Courier New', Courier, monospace;
+  padding: 50px 120px;
+  font-size: 56px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#startButtonContainer button:hover {
+  background-color: #ff9100; /* verde mais escuro ao passar o mouse */
+    color: rgb(255, 255, 255);
+
+}
+
+
 </style>
 </head>
 <body>
 
-    <div id="score">Score: 0 | Vidas: 0
+<div id="score" style="display: inline-block; vertical-align: middle; margin-right: 20px;">
+  Score: 0 | Vidas: 0
+</div>
+<div id="touchControls2" role="group" aria-label="Pause (P)" style="display: inline-block; vertical-align: middle;">
+  <button type="button" onclick="togglePause()">Pause (P)</button>
+</div>
 
 
-
-    </div>
-    <div id="touchControls2" role="group" aria-label="Pause (P)">
-    <button type="button" onclick="togglePause()">Pause (P)</button></div>
+   
 <canvas id="gameCanvas" width="640" height="640"></canvas>
 <div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
 <audio id="audioFundo" preload="auto"></audio>
 
-<div id="touchControls" role="group" aria-label="Controles do jogo para toque">
+<div id="touchControls" role="group"  style= "margin-top: 100px; "aria-label="Controles do jogo para toque">
 
 
   <button type="button" class="up" onclick="movePlayer('up')">W</button>
@@ -202,7 +236,7 @@
 
 </div>
 <!-- Assinatura -->
-<footer style="text-align: center; margin-top: 20px; font-family: sans-serif; font-size: 14px; color: #555;">
+<footer style="text-align: center; margin-top: 50px; font-family: sans-serif; font-size: 14px; color: #555;">
   Desenvolvido por <strong>Ivan Moriá Borges</strong> — 
   <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
 </footer>
@@ -222,10 +256,32 @@
     <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
   </div>
 
-  <div id="startButtonContainer" style="margin-top: 20px;"></div>
+  <div id="startButtonContainer"></div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setMusic('musica1.mp3', 'layers1.csv');
+
+    // Marca o botão 'Música 1' como ativo (se quiser destacar visualmente)
+    const musicBtn = document.querySelector("button.music-select[onclick=\"setMusic('musica1.mp3', 'layers1.csv')\"]");
+    if (musicBtn) {
+      musicBtn.classList.add('active'); // classe para estilo ativo, se tiver
+    }
+  });
+</script>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setMode('normal');
+
+    // Marca o botão 'Modo Normal' como ativo (se houver estilo para isso)
+    const normalBtn = document.querySelector("button.mode-select[onclick=\"setMode('normal')\"]");
+    if (normalBtn) {
+      normalBtn.classList.add('active'); // supondo que a classe 'active' destaca o botão
+    }
+  });
+</script>
 
 
 <script>
@@ -360,9 +416,10 @@ window.togglePause = togglePause;
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
-      startButtonContainer.innerHTML = '<button onclick="startGame()">Iniciar Jogo</button>';
+      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo</button>';
     }
   }
+
 
   async function loadCSV() {
     try {
