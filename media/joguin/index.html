@@ -241,11 +241,12 @@
   <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
 </footer>
 <div id="startOverlay">
-  <div style="margin-top: -10%;">Escolha o modo:</div>
-  <button class="mode-select" onclick="setMode('normal')">Modo Normal</button>
-  <button class="mode-select" onclick="setMode('hardcore')">Modo Hardcore</button>
-
-  <div style="margin-top: 20px;">Escolha a música:</div>
+  <div style="margin-top: -10%; font-size:40px;">Escolha o modo:</div><br>
+    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+  <button class="mode-select" onclick="setMode('normal')">Normal</button>
+  <button class="mode-select" onclick="setMode('hardcore')">Hardcore</button>
+</div>
+  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> <br>
 
   <div style="display: flex; gap: 10px; margin-bottom: 10px;">
     <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
@@ -255,7 +256,7 @@
     <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
     <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
   </div>
-
+<br><br><br><br>
   <div id="startButtonContainer"></div>
 </div>
 <script>
@@ -416,7 +417,7 @@ window.togglePause = togglePause;
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
-      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo</button>';
+      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo</button><br><br>';
     }
   }
 
