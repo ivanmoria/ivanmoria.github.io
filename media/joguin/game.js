@@ -229,19 +229,20 @@ let playerColor;
 if (lives > 0) {
   // Degradê de cores baseado em vidas
   if (lives === 1) {
-    playerColor = '#8A2BE2'; // Vibrante: BlueViolet
+    playerColor = '#8A2BE2';
   } else if (lives === 2) {
-    playerColor = '#FFD700'; // Dourado vibrante
+    playerColor = '#FFD700';
   } else if (lives === 3) {
-    playerColor = '#FFFACD'; // LemonChiffon (amarelo claro)
+    playerColor = '#FFFACD'; 
   } else if (lives === 4) {
-    playerColor = '#F5F5F5'; // WhiteSmoke (quase branco)
+    playerColor = '#F5F5F5'; 
   } else {
-    playerColor = '#FFFFFF'; // Branco puro
+    playerColor = '#FFFFFF'; 
   }
 } else {
-playerColor = score < 3 ? '#2F2F2F' : '#696969'; // Cinza quase preto → Cinza escuro
+  playerColor = score < 3 ? '#0000FF' : '#7FDBFF'; // Azul escuro → Azul claro
 }
+
 
   const centerX = playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2;
   const centerY = playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2;
