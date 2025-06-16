@@ -176,19 +176,25 @@
   <button type="button" class="down" onclick="movePlayer('down')">S</button>
 </div>
 
-
-
 <div id="startOverlay">
-  <div>Escolha o modo:</div>
+  <div style="margin-top: -10%;">Escolha o modo:</div>
   <button class="mode-select" onclick="setMode('normal')">Modo Normal</button>
   <button class="mode-select" onclick="setMode('hardcore')">Modo Hardcore</button>
+
   <div style="margin-top: 20px;">Escolha a música:</div>
-  <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
-  <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
+
+  <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+    <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
+    <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
+  </div>
+  <div style="display: flex; gap: 10px;">
     <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
-  <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
+    <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
+  </div>
+
   <div id="startButtonContainer" style="margin-top: 20px;"></div>
 </div>
+
 
 
 
