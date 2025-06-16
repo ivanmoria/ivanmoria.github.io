@@ -111,6 +111,22 @@
   background: linear-gradient(to bottom, #444, #222);
 }
 
+
+#touchControls2 > button {
+  width: 200px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #555, #333);
+  border-radius: 10px;
+  color: white;
+  border: 2px solid #999;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+
+  transition: background 0.2s, transform 0.1s;
+}
+
+
 #touchControls .up    { grid-area: up; }
 #touchControls .down  { grid-area: down; }
 #touchControls .left  { grid-area: left; }
@@ -164,18 +180,32 @@
 </head>
 <body>
 
-    <div id="score">Score: 0 | Vidas: 0</div>
+    <div id="score">Score: 0 | Vidas: 0
+
+
+
+    </div>
+    <div id="touchControls2" role="group" aria-label="Pause (P)">
+    <button type="button" onclick="togglePause()">Pause (P)</button></div>
 <canvas id="gameCanvas" width="640" height="640"></canvas>
 <div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
 <audio id="audioFundo" preload="auto"></audio>
 
 <div id="touchControls" role="group" aria-label="Controles do jogo para toque">
+
+
   <button type="button" class="up" onclick="movePlayer('up')">W</button>
   <button type="button" class="left" onclick="movePlayer('left')">A</button>
   <button type="button" class="right" onclick="movePlayer('right')">D</button>
   <button type="button" class="down" onclick="movePlayer('down')">S</button>
-</div>
 
+
+</div>
+<!-- Assinatura -->
+<footer style="text-align: center; margin-top: 20px; font-family: sans-serif; font-size: 14px; color: #555;">
+  Desenvolvido por <strong>Ivan Moriá Borges</strong> — 
+  <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
+</footer>
 <div id="startOverlay">
   <div style="margin-top: -10%;">Escolha o modo:</div>
   <button class="mode-select" onclick="setMode('normal')">Modo Normal</button>
@@ -236,7 +266,10 @@
   let laserIndex = 0;
   let startTime = null;
   let damageCooldown = false;
+  let pauseStartTime = null;
+  let totalPausedDuration = 0;
 
+  let isPaused = false;
   const scoreDiv = document.getElementById('score');
   const gameOverOverlay = document.getElementById('gameOverOverlay');
   const audioFundo = document.getElementById('audioFundo');
@@ -244,45 +277,86 @@
   const startButtonContainer = document.getElementById('startButtonContainer');
   let gameEnded = false;
 
-  function endGame() {
-    if (!gameEnded) {
-      gameEnded = true;
-      if (score > 0 && !highScores.includes(score)) {
-        highScores.push(score);
-      }
-      showGameOver();
+function togglePause() {
+  const pauseBtn = document.querySelector('button[onclick="togglePause()"]');
+
+  isPaused = !isPaused;
+
+  if (isPaused) {
+    pauseStartTime = performance.now();
+    audioFundo.pause();
+    if (pauseBtn) pauseBtn.textContent = "Pause (P)";
+    
+    // Exibe overlay com scores (tipo tela de game over, mas com "Continuar")
+    const sessionHighScore = Math.max(
+      lastScoreBeforeReset || 0,
+      highScores.length ? Math.max(...highScores) : 0
+    );
+    const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
+
+    gameOverOverlay.innerHTML = `
+      <div style="text-align:center; margin-top: -15%;color:white; font-size: 24px;">
+        <strong>Jogo Pausado</strong><br>
+        Maior Score nesta sessão: ${sessionHighScore}<br>
+        Score atual: ${score}<br>
+        <br>
+        <strong>Scores anteriores:</strong><br>
+        ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
+        <button id="continueBtn">Continuar (P)</button> 
+      </div>`;
+    gameOverOverlay.style.visibility = 'visible';
+
+    // Liga botão continuar
+    const continueBtn = document.getElementById('continueBtn');
+    if (continueBtn) {
+      continueBtn.onclick = () => {
+        isPaused = false;
+        totalPausedDuration += performance.now() - pauseStartTime;
+        pauseStartTime = null;
+        gameOverOverlay.style.visibility = 'hidden';
+        if (pauseBtn) pauseBtn.textContent = "Pause (P)";
+        audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
+        requestAnimationFrame(gameLoop);
+      };
     }
+
+  } else {
+   // Continuar (se chamado por tecla P)
+    isPaused = false;
+    totalPausedDuration += performance.now() - pauseStartTime;
+    pauseStartTime = null;
+    gameOverOverlay.style.visibility = 'hidden';
+    if (pauseBtn) pauseBtn.textContent = "Pause (P)";
+    audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
+    requestAnimationFrame(gameLoop);
   }
 
-  function setMode(mode) {
+  }
+
+
+window.togglePause = togglePause;
+
+  window.setMode = function(mode) {
     gameMode = mode;
-    document.querySelectorAll('#startOverlay button.mode-select').forEach(btn => btn.classList.remove('selected'));
     document.querySelectorAll('#startOverlay button.mode-select').forEach(btn => {
-      if (btn.textContent.toLowerCase().includes(mode.toLowerCase())) btn.classList.add('selected');
+      btn.classList.toggle('selected', btn.textContent.toLowerCase().includes(mode.toLowerCase()));
     });
     checkStartReady();
-  }
+  };
 
-  function setMusic(audioSrc, csvSrc) {
+  window.setMusic = function(audioSrc, csvSrc) {
     musicFile = audioSrc;
     csvFile = csvSrc;
-
-    document.querySelectorAll('#startOverlay button.music-select').forEach(btn => btn.classList.remove('music-selected'));
-
     document.querySelectorAll('#startOverlay button.music-select').forEach(btn => {
-      if (
+      const match =
         (audioSrc.includes('musica1') && btn.textContent.includes('Música 1')) ||
         (audioSrc.includes('musica2') && btn.textContent.includes('Música 2')) ||
         (audioSrc.includes('musica3') && btn.textContent.includes('Música 3')) ||
-        (audioSrc.includes('musica4') && btn.textContent.includes('Música 4'))
-      ) {
-        btn.classList.add('music-selected');
-      }
+        (audioSrc.includes('musica4') && btn.textContent.includes('Música 4'));
+      btn.classList.toggle('music-selected', match);
     });
-
     checkStartReady();
-  }
-
+  };
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
@@ -290,20 +364,14 @@
     }
   }
 
-  window.setMode = setMode;
-  window.setMusic = setMusic;
-
   async function loadCSV() {
     try {
       const response = await fetch(csvFile);
       if (!response.ok) throw new Error('Erro ao carregar CSV');
       const text = await response.text();
       const lines = text.trim().split('\n');
-      laserTimes = lines.slice(1)
-        .map(line => parseFloat(line.split(',')[0]))
-        .filter(t => !isNaN(t));
-    } catch (e) {
-      console.warn('Erro ao carregar CSV, usando valores padrão:', e);
+      laserTimes = lines.slice(1).map(line => parseFloat(line.split(',')[0])).filter(t => !isNaN(t));
+    } catch {
       laserTimes = [2, 5, 8, 12, 15];
     }
   }
@@ -322,57 +390,39 @@
 
   function drawElements() {
     const radius = SQUARE_SIZE / 3;
-
-    dangerPositions.forEach(pos => {
+    for (const pos of dangerPositions) {
       ctx.fillStyle = COLORS.YELLOW;
       ctx.beginPath();
       ctx.arc(pos.col * SQUARE_SIZE + SQUARE_SIZE / 2, pos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
-    });
-
+    }
     if (targetPos) {
       ctx.fillStyle = COLORS.BLUE;
       ctx.beginPath();
       ctx.arc(targetPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, targetPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
     }
-
     if (greenPos) {
       ctx.fillStyle = COLORS.GREEN;
       ctx.beginPath();
       ctx.arc(greenPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, greenPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
       ctx.fill();
     }
-
     ctx.fillStyle = COLORS.RED;
     ctx.beginPath();
     ctx.arc(playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2, playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2, radius, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  window.movePlayer = function(direction) {
-    if (gameOver) return;
-
-    let { row, col } = playerPos;
-    if (direction === 'up' && row > 0) row--;
-    else if (direction === 'down' && row < ROWS - 1) row++;
-    else if (direction === 'left' && col > 0) col--;
-    else if (direction === 'right' && col < COLS - 1) col++;
-
-    playerPos = { row, col };
-    update();
-    draw();
-  };
-
   function spawnDangerPositions() {
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
-        if ((r !== playerPos.row || c !== playerPos.col) &&
-            (!targetPos || r !== targetPos.row || c !== targetPos.col) &&
-            (!greenPos || r !== greenPos.row || c !== greenPos.col)) {
-          positions.push({ row: r, col: c });
-        }
+        const isOccupied =
+          (r === playerPos.row && c === playerPos.col) ||
+          (targetPos && r === targetPos.row && c === targetPos.col) ||
+          (greenPos && r === greenPos.row && c === greenPos.col);
+        if (!isOccupied) positions.push({ row: r, col: c });
       }
     }
     return positions.sort(() => 0.5 - Math.random()).slice(0, 10);
@@ -383,8 +433,8 @@
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
         const occupied = (r === playerPos.row && c === playerPos.col) ||
-                         dangerPositions.some(p => p.row === r && p.col === c) ||
-                         (greenPos && r === greenPos.row && c === greenPos.col);
+          dangerPositions.some(p => p.row === r && p.col === c) ||
+          (greenPos && r === greenPos.row && c === greenPos.col);
         if (!occupied) positions.push({ row: r, col: c });
       }
     }
@@ -396,8 +446,8 @@
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
         const occupied = (r === playerPos.row && c === playerPos.col) ||
-                         (targetPos && r === targetPos.row && c === targetPos.col) ||
-                         dangerPositions.some(p => p.row === r && p.col === c);
+          (targetPos && r === targetPos.row && c === targetPos.col) ||
+          dangerPositions.some(p => p.row === r && p.col === c);
         if (!occupied) positions.push({ row: r, col: c });
       }
     }
@@ -410,74 +460,50 @@
 
   function update() {
     if (!startTime) startTime = performance.now();
-    const elapsed = (performance.now() - startTime) / 1000;
+    const elapsed = (performance.now() - startTime - totalPausedDuration) / 1000;
 
-    if (!gameOver) {
-      // Aparece perigo nos tempos definidos
-      if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
-        dangerPositions = spawnDangerPositions();
-        laserIndex++;
-      }
+    if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
+      dangerPositions = spawnDangerPositions();
+      laserIndex++;
+    }
 
-      // Se não existe target, cria um
-      if (!targetPos) targetPos = spawnTarget();
+    if (!targetPos) targetPos = spawnTarget();
 
-      // Checagem de colisão com alvo azul
-      if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
-        score++;
-        targetPos = null;
-        updateScore();
-        if (score % 10 === 0 && !greenPos) spawnGreen();
-      }
+    if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
+      score++;
+      targetPos = null;
+      updateScore();
+      if (score % 10 === 0 && !greenPos) spawnGreen();
+    }
 
-      // Checagem de colisão com alvo verde
-      if (greenPos && playerPos.row === greenPos.row && playerPos.col === greenPos.col) {
-        score += 3;
-        lives += 1;
-        greenPos = null;
-        updateScore();
-      }
+    if (greenPos && playerPos.row === greenPos.row && playerPos.col === greenPos.col) {
+      score += 3;
+      lives += 1;
+      greenPos = null;
+      updateScore();
+    }
 
-    // Checagem de dano ao colidir com perigo
-    if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
-
-      if (!damageCooldown) {
-        lastScoreBeforeReset = score;
-
-        if (gameMode === 'normal') {
-          if (lives > 0) {
-            lives--; // perde só uma vida
-          } else {
-            score = 0; // zera o score, continua jogando
-          }
-        } else if (gameMode === 'hardcore') {
-          score = 0; // sempre zera o score
-
-          if (lives > 0) {
-            lives--; // perde vida e continua
-          } else {
-            gameOver = true; // sem vidas, morre
-            audioFundo.pause();
-            showGameOver();
-
-            if (!highScores.includes(lastScoreBeforeReset)) {
-              highScores.push(lastScoreBeforeReset);
-            }
-          }
+    const hitDanger = dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col);
+    if (hitDanger && !damageCooldown) {
+      lastScoreBeforeReset = score;
+      if (gameMode === 'normal') {
+        lives > 0 ? lives-- : score = 0;
+      } else if (gameMode === 'hardcore') {
+        score = 0;
+        if (lives > 0) {
+          lives--;
+        } else {
+          gameOver = true;
+          audioFundo.pause();
+          showGameOver();
+          if (!highScores.includes(lastScoreBeforeReset)) highScores.push(lastScoreBeforeReset);
         }
-
-        updateScore();
-        damageCooldown = true;
-        setTimeout(() => { damageCooldown = false; }, 1000);
       }
-    } else {
-      damageCooldown = false;
+      updateScore();
+      damageCooldown = true;
+      setTimeout(() => damageCooldown = false, 1000);
     }
-
-
-
-      }
-    }
+  }
 
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -486,27 +512,22 @@
   }
 
   function gameLoop() {
+    if (isPaused || gameOver) return;
     update();
     draw();
-    if (!gameOver) requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoop);
   }
 
   function showGameOver() {
-    const sessionHighScore = Math.max(
-      lastScoreBeforeReset || 0,
-      highScores.length ? Math.max(...highScores) : 0
-    );
-
+    const sessionHighScore = Math.max(lastScoreBeforeReset || 0, ...highScores);
     const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
-
     gameOverOverlay.innerHTML = `
-      <div style="text-align:center; color:white; font-size: 24px;">
+      <div style="text-align:center;  margin-top: -15%;color:white; font-size: 24px;">
         Fim do Jogo!<br>
         Maior Score nesta sessão: ${sessionHighScore}<br>
         ${lastScoreBeforeReset !== null ? `Último score antes de morrer: ${lastScoreBeforeReset}<br>` : ''}
-        <br>
-        <strong>Scores anteriores:</strong><br>
-        ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
+        <br><strong>Scores anteriores:</strong><br>${highList || 'Nenhuma tentativa anterior'}<br><br>
+   
         <button id="restartBtn">Reiniciar (R)</button>
       </div>`;
     gameOverOverlay.style.visibility = 'visible';
@@ -522,21 +543,33 @@
     score = 0;
     lives = 0;
     dangerPositions = [];
-    laserIndex = 0;
     targetPos = null;
     greenPos = null;
     startTime = null;
+    laserIndex = 0;
     gameOver = false;
+    gameEnded = false;
     damageCooldown = false;
     lastScoreBeforeReset = null;
-    gameEnded = false;
-
+    totalPausedDuration = 0;
     updateScore();
     hideGameOver();
     audioFundo.currentTime = 0;
     audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
     gameLoop();
   }
+
+  window.movePlayer = function(dir) {
+    if (gameOver) return;
+    let { row, col } = playerPos;
+    if (dir === 'up' && row > 0) row--;
+    if (dir === 'down' && row < ROWS - 1) row++;
+    if (dir === 'left' && col > 0) col--;
+    if (dir === 'right' && col < COLS - 1) col++;
+    playerPos = { row, col };
+    update();
+    draw();
+  };
 
   window.startGame = function() {
     loadCSV().then(() => {
@@ -548,39 +581,32 @@
     });
   };
 
-  window.addEventListener('keydown', e => {
-    if (gameOver) {
-      if (e.code === 'KeyR') {
-        const restartBtn = document.getElementById('restartBtn');
-        if (restartBtn) restartBtn.click();
-      }
+    window.addEventListener('keydown', e => {
+    if (gameOver && e.code === 'KeyR') return document.getElementById('restartBtn')?.click();
+
+    const key = e.key.toLowerCase();
+
+    if (key === 'p') {
+      togglePause();
       return;
     }
 
-    switch (e.key.toLowerCase()) {
-      case 'w': movePlayer('up'); break;
-      case 'a': movePlayer('left'); break;
-      case 's': movePlayer('down'); break;
-      case 'd': movePlayer('right'); break;
-    }
+   
+    const keys = { w: 'up', a: 'left', s: 'down', d: 'right' };
+    if (keys[e.key.toLowerCase()]) movePlayer(keys[e.key.toLowerCase()]);
   });
 
   audioFundo.addEventListener('ended', () => {
     if (!gameOver) {
       gameOver = true;
-      if (score > 0 && !highScores.includes(score)) {
-        highScores.push(score);
-      }
+      if (score > 0 && !highScores.includes(score)) highScores.push(score);
       showGameOver();
     }
   });
 
-  // Inicial desenha o tabuleiro
-  draw();
+  draw(); // desenha tabuleiro inicial
 })();
 </script>
-
-
 
 
 
