@@ -94,7 +94,7 @@
 #touchControls > button {
   width: 100px;
   height: 100px;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
   background: linear-gradient(to bottom, #555, #333);
   border-radius: 10px;
@@ -116,8 +116,8 @@
 
 
 #touchControls2 > button {
-  width: 200px;
-  height: 60px;
+  width: 120px;
+  height: 40px;
   font-size: 20px;
   font-weight: bold;
   background: linear-gradient(to bottom, #555, #333);
@@ -128,7 +128,19 @@
 
   transition: background 0.2s, transform 0.1s;
 }
+#touchControls3 > button {
+  width: 110px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #555, #333);
+  border-radius: 10px;
+  color: white;
+  border: 2px solid #999;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 
+  transition: background 0.2s, transform 0.1s;
+}
 
 #touchControls .up    { grid-area: up; }
 #touchControls .down  { grid-area: down; }
@@ -212,20 +224,34 @@
 </head>
 <body>
 
-<div id="score" style="display: inline-block; vertical-align: middle; margin-right: 20px;">
-  Score: 0 | Vidas: 0
-</div>
-<div id="touchControls2" role="group" aria-label="Pause (P)" style="display: inline-block; vertical-align: middle;">
-  <button type="button" onclick="togglePause()">Pause (P)</button>
+
+
+<div id="touchControls2"  style="display: flex; align-items: center; gap: 20px; justify-content: center; padding: 10px 0;">
+  
+  <button type="button" onclick="location.reload()" title="Voltar à Configuração" 
+          style="display: flex; align-items: center; gap: 6px; background: none; border: none; color: white; cursor: pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6a6 6 0 0 1-6 6 6 6 0 0 1-5.65-4H4.26a8 8 0 0 0 7.74 6 8 8 0 0 0 0-16z"/>
+    </svg>
+    Esc
+  </button>
+  
+  <button type="button" onclick="togglePause()">
+    Pause (P)
+  </button>
+  
 </div>
 
 
    
 <canvas id="gameCanvas" width="640" height="640"></canvas>
+<div id="score" style="white-space: nowrap;">
+    Score: 0 | Vidas: 0
+  </div>
 <div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
 <audio id="audioFundo" preload="auto"></audio>
 
-<div id="touchControls" role="group"  style= "margin-top: 100px; "aria-label="Controles do jogo para toque">
+<div id="touchControls" role="group"  style= "margin-top: 40px; "aria-label="Controles do jogo para toque">
 
 
   <button type="button" class="up" onclick="movePlayer('up')">W</button>
@@ -241,12 +267,97 @@
   <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
 </footer>
 <div id="startOverlay">
-  <div style="margin-top: -10%; font-size:40px;">Escolha o modo:</div><br>
+  <div style="margin-top: -10%; font-size:40px;">Escolha o modo (M):</div>
     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-  <button class="mode-select" onclick="setMode('normal')">Normal</button>
-  <button class="mode-select" onclick="setMode('hardcore')">Hardcore</button>
+<div class="mode-switch">
+  <label class="switch">
+    <input type="checkbox" id="modeToggle">
+    <span class="slider"></span>
+  </label>
+  <span id="modeLabel">Normal</span>
 </div>
-  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> <br>
+<style>
+  .mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 44px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #3bfb00;
+  transition: 0.4s;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(0, 0, 0);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #f44336; /* Hardcore: vermelho */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+</style>
+<script>
+  const modeToggle = document.getElementById('modeToggle');
+  const modeLabel = document.getElementById('modeLabel');
+
+  modeToggle.addEventListener('change', function () {
+    if (this.checked) {
+      setMode('hardcore');
+      modeLabel.textContent = 'Hardcore';
+    } else {
+      setMode('normal');
+      modeLabel.textContent = 'Normal';
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key.toLowerCase() === 'm') {
+      // Inverte o estado do toggle
+      modeToggle.checked = !modeToggle.checked;
+      // Dispara manualmente o evento change para aplicar as mudanças
+      modeToggle.dispatchEvent(new Event('change'));
+    }
+  });
+</script>
+
+</div>
+  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> 
 
   <div style="display: flex; gap: 10px; margin-bottom: 10px;">
     <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
@@ -256,7 +367,7 @@
     <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
     <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
   </div>
-<br><br><br><br>
+<br>
   <div id="startButtonContainer"></div>
 </div>
 <script>
@@ -269,6 +380,17 @@
       musicBtn.classList.add('active'); // classe para estilo ativo, se tiver
     }
   });
+
+  document.addEventListener('keydown', function(e) {
+  if (['1', '2', '3', '4'].includes(e.key)) {
+    const index = parseInt(e.key, 10) - 1; // 0-based
+    const musicButtons = document.querySelectorAll('.music-select');
+    if (musicButtons[index]) {
+      musicButtons[index].click();
+    }
+  }
+});
+
 </script>
 
 
@@ -359,7 +481,8 @@ function togglePause() {
         <br>
         <strong>Scores anteriores:</strong><br>
         ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
-        <button id="continueBtn">Continuar (P)</button> 
+        <button id="continueBtn">Continuar (P)</button> <br>
+           <button onclick="location.reload()">Voltar (Esc)</button>
       </div>`;
     gameOverOverlay.style.visibility = 'visible';
 
@@ -417,9 +540,17 @@ window.togglePause = togglePause;
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
-      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo</button><br><br>';
+      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo <br> (Enter)</button>';
     }
   }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const startBtn = document.querySelector('.start-btn');
+    if (startBtn) {
+      startBtn.click();
+    }
+  }
+});
 
 
   async function loadCSV() {
@@ -576,25 +707,33 @@ window.togglePause = togglePause;
     requestAnimationFrame(gameLoop);
   }
 
-  function showGameOver() {
-    const sessionHighScore = Math.max(lastScoreBeforeReset || 0, ...highScores);
-    const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
-    gameOverOverlay.innerHTML = `
-      <div style="text-align:center;  margin-top: -15%;color:white; font-size: 24px;">
-        Fim do Jogo!<br>
-        Maior Score nesta sessão: ${sessionHighScore}<br>
-        ${lastScoreBeforeReset !== null ? `Último score antes de morrer: ${lastScoreBeforeReset}<br>` : ''}
-        <br><strong>Scores anteriores:</strong><br>${highList || 'Nenhuma tentativa anterior'}<br><br>
-   
-        <button id="restartBtn">Reiniciar (R)</button>
-      </div>`;
-    gameOverOverlay.style.visibility = 'visible';
-    document.getElementById('restartBtn').onclick = resetGame;
-  }
+function showGameOver() {
+  const sessionHighScore = Math.max(lastScoreBeforeReset || 0, ...highScores);
+  const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
+  gameOverOverlay.innerHTML = `
+    <div style="text-align:center; margin-top: -15%; color:white; font-size: 24px;">
+      Fim do Jogo!<br>
+      Maior Score nesta sessão: ${sessionHighScore}<br>
+      ${lastScoreBeforeReset !== null ? `Último score antes de morrer: ${lastScoreBeforeReset}<br>` : ''}
+      <br><strong>Scores anteriores:</strong><br>${highList || 'Nenhuma tentativa anterior'}<br><br>
+      <button id="restartBtn">Reiniciar (R)</button><br>
+      <button onclick="location.reload()">Voltar (Esc)</button>
+    </div>`;
+  gameOverOverlay.style.visibility = 'visible';
+
+  document.getElementById('restartBtn').onclick = resetGame;
+}
 
   function hideGameOver() {
     gameOverOverlay.style.visibility = 'hidden';
   }
+
+  document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    location.reload(); // Volta à configuração recarregando a página
+  }
+});
+
 
   function resetGame() {
     playerPos = { row: 7, col: 0 };
