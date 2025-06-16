@@ -422,48 +422,46 @@
         updateScore();
       }
 
-      // Checagem de dano ao colidir com perigo
-      if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
-        if (!damageCooldown) {
-          lastScoreBeforeReset = score; // guarda o score atual antes da penalidade
+    // Checagem de dano ao colidir com perigo
+    if (dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col)) {
 
-          if (gameMode === 'hardcore') {
-            score = 0;
-            updateScore();
-          } else if (gameMode === 'normal') {
-            score = 0;
-            updateScore();
-            damageCooldown = true;
-            setTimeout(() => { damageCooldown = false; }, 1000);
-            return;
+      if (!damageCooldown) {
+        lastScoreBeforeReset = score;
+
+        if (gameMode === 'normal') {
+          if (lives > 0) {
+            lives--; // perde só uma vida
+          } else {
+            score = 0; // zera o score, continua jogando
           }
+        } else if (gameMode === 'hardcore') {
+          score = 0; // sempre zera o score
 
           if (lives > 0) {
-            lives--;
-            updateScore();
+            lives--; // perde vida e continua
           } else {
-            if (gameMode === 'hardcore') {
-              if (lastScoreBeforeReset && !highScores.includes(lastScoreBeforeReset)) {
-                highScores.push(lastScoreBeforeReset);
-              }
-            } else {
-              if (score > 0 && !highScores.includes(score)) {
-                highScores.push(score);
-              }
-            }
-            gameOver = true;
+            gameOver = true; // sem vidas, morre
             audioFundo.pause();
             showGameOver();
-          }
 
-          damageCooldown = true;
-          setTimeout(() => { damageCooldown = false; }, 1000);
+            if (!highScores.includes(lastScoreBeforeReset)) {
+              highScores.push(lastScoreBeforeReset);
+            }
+          }
         }
-      } else {
-        damageCooldown = false;
+
+        updateScore();
+        damageCooldown = true;
+        setTimeout(() => { damageCooldown = false; }, 1000);
+      }
+    } else {
+      damageCooldown = false;
+    }
+
+
+
       }
     }
-  }
 
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
