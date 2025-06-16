@@ -64,9 +64,9 @@
   }
   #startOverlay button, #gameOverOverlay button {
     margin: 10px;
-    padding: 10px 20px;
+    padding: 5px 5px;
         font-family: 'Courier New', Courier, monospace;
-    font-size: 46px;
+    font-size: 30px;
     background-color: rgb(208, 208, 208);
     border: none;
     border-radius: 8px;
@@ -84,16 +84,16 @@
     ". down .";
   grid-template-columns: 60px 60px 60px;
   grid-template-rows: 60px 60px 60px;
-  gap: 68px;
+  gap: 10px;
 
   justify-content: center;
   align-items: center;
-  margin: 20px auto;
+  margin-top: -40px;
 }
 
 #touchControls > button {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   font-size: 20px;
   font-weight: bold;
   background: linear-gradient(to bottom, #555, #333);
@@ -116,7 +116,7 @@
 
 
 #touchControls2 > button {
-  width: 120px;
+  width: 140px;
   height: 40px;
   font-size: 20px;
   font-weight: bold;
@@ -206,8 +206,8 @@
   color: rgb(0, 0, 0);
   border: none;
       font-family: 'Courier New', Courier, monospace;
-  padding: 50px 120px;
-  font-size: 56px;
+  padding: 5px 120px;
+  font-size: 36px;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -251,7 +251,7 @@
 <div id="gameOverOverlay" role="alert" aria-live="assertive"></div>
 <audio id="audioFundo" preload="auto"></audio>
 
-<div id="touchControls" role="group"  style= "margin-top: 40px; "aria-label="Controles do jogo para toque">
+<div id="touchControls" role="group"  style= "margin-top: 0px; "aria-label="Controles do jogo para toque">
 
 
   <button type="button" class="up" onclick="movePlayer('up')">W</button>
@@ -261,11 +261,7 @@
 
 
 </div>
-<!-- Assinatura -->
-<footer style="text-align: center; margin-top: 50px; font-family: sans-serif; font-size: 14px; color: #555;">
-  Desenvolvido por <strong>Ivan Moriá Borges</strong> — 
-  <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
-</footer>
+
 <div id="startOverlay">
   <div style="margin-top: -10%; font-size:40px;">Escolha o modo (M):</div>
     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
@@ -276,6 +272,30 @@
   </label>
   <span id="modeLabel">Normal</span>
 </div>
+
+</div>
+  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> 
+
+  <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+    <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
+    <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
+    <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
+  </div>
+<br>
+  <div id="startButtonContainer"></div><br><br>
+  <!-- Assinatura -->
+<footer style="text-align: center; margin-top: 5px; font-family: sans-serif; font-size: 14px; color: #555;">
+  Desenvolvido por <strong>Ivan Moriá Borges</strong> — 
+  <a href="https://ivanmoria.github.io" target="_blank" rel="noopener noreferrer">ivanmoria.github.io</a>
+</footer>
+</div>
+
+
+
+
 <style>
   .mode-switch {
   display: flex;
@@ -355,21 +375,6 @@ input:checked + .slider:before {
     }
   });
 </script>
-
-</div>
-  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> 
-
-  <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-    <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
-    <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
-  </div>
-  <div style="display: flex; gap: 10px;">
-    <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
-    <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
-  </div>
-<br>
-  <div id="startButtonContainer"></div>
-</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     setMusic('musica1.mp3', 'layers1.csv');
@@ -540,7 +545,7 @@ window.togglePause = togglePause;
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
-      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar Jogo <br> (Enter)</button>';
+      startButtonContainer.innerHTML = '<button  class="start-btn" onclick="startGame()">Iniciar<br> (Enter)</button>';
     }
   }
 document.addEventListener('keydown', function(e) {
