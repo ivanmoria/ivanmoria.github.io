@@ -5,9 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Jogo de Ritmo</title>
 <style>
-    html, body {
-  overflow: hidden;
-}
+  html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 
   body {
     font-family: Arial, sans-serif;
@@ -15,7 +18,6 @@
     background-color: #000000;  /* fundo preto */
     color: #eee;                /* texto claro */
     min-height: 100vh;
-    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,8 +68,19 @@
   #detectionArea {
     margin-top: 15px;
     font-size: 16px;
-    color: #bbb;
-    min-height: 1.2em;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #detectionArea:active {
+    background-color: #1e7e34;
   }
 
   #spaceBtnMobile {
@@ -83,16 +96,100 @@
     border: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     user-select: none;
+    cursor: pointer;
   }
 
   #spaceBtnMobile:active {
     background-color: #0056b3;
   }
+
+
+
+  .sound-selector {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 20px 0 40px 0;
+}
+
+.sound-option {
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  padding: 5px;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.sound-option input[type="radio"] {
+  display: none;
+}
+
+.sound-option img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  user-select: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.sound-option:hover img {
+  transform: scale(1.1);
+}
+
+.sound-option input[type="radio"]:checked + img {
+  border: 3px solid #00b4db;
+  box-shadow: 0 0 10px 3px #00b4db;
+  transform: scale(1.15);
+}
+.recording {
+  background: linear-gradient(135deg, #b00000, #800000) !important;
+  box-shadow: 0 4px 10px rgba(180, 0, 0, 0.7) !important;
+  color: white !important;
+}
+
+
+#playBtn.highlighted {
+  background-color: #4caf50; /* verde */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#saveBtn.highlighted {
+  background-color: #4caf50; /* verde */
+  color: white;
+  box-shadow: 0 0 10px #4caf50aa;
+  transition: background-color 0.3s ease;
+}
+
 </style>
 </head>
 <body>
 
 <h1>Jogo de Ritmo</h1>
+
+<label>Escolha o som:</label>
+<div class="sound-selector">
+  <label class="sound-option">
+    <input type="radio" name="sound" value="click1.wav" checked>
+    <img src="instrument1.png" alt="Instrumento 1" title="Instrumento 1">
+  </label>
+  <label class="sound-option">
+    <input type="radio" name="sound" value="click2.wav">
+    <img src="instrument2.png" alt="Instrumento 2" title="Instrumento 2">
+  </label>
+  <label class="sound-option">
+    <input type="radio" name="sound" value="click3.wav">
+    <img src="instrument3.png" alt="Instrumento 3" title="Instrumento 3">
+  </label>
+  <label class="sound-option">
+    <input type="radio" name="sound" value="click4.wav">
+    <img src="instrument4.png" alt="Instrumento 4" title="Instrumento 4">
+  </label>
+</div>
+
 
 <div class="controls">
   <button id="recordBtn">Gravar Ritmo</button>
@@ -102,7 +199,7 @@
 </div>
 
 <div id="status"></div>
-<div id="detectionArea"></div>
+<button id="detectionArea">Marcar Batida</button>
 
 <script>
   // trava pinch zoom e double tap (mobile)
