@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Jogo de Ritmo</title>
+<style>
+    html, body {
+  overflow: hidden;
+}
+
+  body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    background-color: #000000;  /* fundo preto */
+    color: #eee;                /* texto claro */
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  h1 {
+    margin-bottom: 30px;
+  }
+
+  .controls {
+    margin-bottom: 30px;
+  }
+
+  .controls button {
+    margin: 10px;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,180,219,0.5);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .controls button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0083b0, #00b4db);
+    box-shadow: 0 6px 14px rgba(0,180,219,0.8);
+  }
+
+  .controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  #status {
+    margin-top: 20px;
+    white-space: pre-line;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ccc;
+    min-height: 2em;
+  }
+
+  #detectionArea {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #bbb;
+    min-height: 1.2em;
+  }
+
+  #spaceBtnMobile {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 15px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+
+  #spaceBtnMobile:active {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<h1>Jogo de Ritmo</h1>
+
+<div class="controls">
+  <button id="recordBtn">Gravar Ritmo</button>
+  <button id="playBtn" disabled>Tocar Ritmo</button>
+  <button id="saveBtn" disabled>Salvar Ritmo</button>
+  <button id="sequenceBtn" disabled>Tocar Sequência</button>
+</div>
+
+<div id="status"></div>
+<div id="detectionArea"></div>
+
+<script>
+  // trava pinch zoom e double tap (mobile)
+  document.addEventListener('touchstart', function (event) {
+    if (event.touches.length > 1) {
+      event.preventDefault(); // trava pinch zoom
+    }
+  }, { passive: false });
+
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', function (event) {
+    const now = (new Date()).getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault(); // trava double tap zoom
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
+
+  // cria botão para simular "espaço" em mobile
+  function createSpaceButton() {
+    if (!/Mobi|Android/i.test(navigator.userAgent)) return; // só mobile
+
+    const btn = document.createElement('button');
+    btn.id = 'spaceBtnMobile';
+    btn.textContent = 'Batida (Espaço)';
+
+    btn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const keyboardEvent = new KeyboardEvent('keydown', {code: 'Space', bubbles: true});
+      document.dispatchEvent(keyboardEvent);
+    });
+
+    document.body.appendChild(btn);
+  }
+
+  window.onload = () => {
+    createSpaceButton();
+  };
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
