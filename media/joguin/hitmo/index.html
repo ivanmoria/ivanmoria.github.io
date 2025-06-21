@@ -7,6 +7,17 @@
 <link rel="stylesheet" href="style.css" />
 
 <script>
+
+  function unlockAudioContext() {
+  if (audioContext && audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+}
+
+// Ativa o áudio no primeiro toque em qualquer lugar da tela
+document.body.addEventListener('touchstart', unlockAudioContext, { once: true });
+document.body.addEventListener('click', unlockAudioContext, { once: true });
+
   // trava pinch zoom e double tap (mobile)
   document.addEventListener('touchstart', function (event) {
     if (event.touches.length > 1) {
