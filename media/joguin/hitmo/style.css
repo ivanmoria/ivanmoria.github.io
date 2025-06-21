@@ -229,7 +229,7 @@ button.ready {
 /* Ajuste para responsividade simples */
 @media (max-width: 600px) {
   html, body {
-    padding: 20px;
+    padding: 10px;
   }
   .controls button, 
   .marking-btn {
