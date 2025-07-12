@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projeção – Improvisação Musical</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background-color: #000;
+      color: white;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .participant {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.5s;
+    }
+
+    .left {
+      border-right: 3px solid white;
+    }
+
+    .role {
+      font-size: 4em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+.description {
+  font-size: 1.5em;
+  font-style: normal;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
+
+    .name {
+      font-size: 2em;
+      text-align: center;
+    }
+
+    /* Botão/link no topo direito */
+    .control-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid white;
+      border-radius: 5px;
+      padding: 5px 8px;
+      font-size: 0.9em;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .control-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Link discreto para controle -->
+  <a class="control-link" href="controle.html" target="_blank" title="Abrir painel de controle">⚙️</a>
+
+  <div class="container">
+    <div class="participant left" id="left-participant">
+      <div class="role" id="left-role">PARTNER</div>
+      <div class="description" id="left-description">Referência: Pessoa colaborativa e responsiva</div>
+      <div class="name" id="left-name">Participante 1</div>
+    </div>
+    <div class="participant right" id="right-participant">
+      <div class="role" id="right-role">PARTNER</div>
+      <div class="description" id="right-description">Referência: Pessoa colaborativa e responsiva</div>
+      <div class="name" id="right-name">Participante 2</div>
+    </div>
+  </div>
+
+  <script>
+    const channel = new BroadcastChannel("improvisacao");
+
+    const colors = {
+      "Dependent": "#1E90FF",
+      "Follower": "#32CD32",
+      "Partner": "#FFD700",
+      "Leader": "#FF4500",
+      "Resister": "#8B008B"
+    };
+
+const descriptions = {
+  "Dependent": "Takes the follower role exclusively and never the leader. Depends entirely on the partner.",
+  "Follower": "More readily takes the follower role than the leader. Responsibility for musical elements is largely given to the partner.",
+  "Partner": "Assumes leader and follower roles equally. Shares responsibility for musical elements with the partner.",
+  "Leader": "More readily takes the leader role than the follower. Attempts to influence the improvisation by directing aspects of the music.",
+  "Resister": "Attempts to evade or destroy any leader-follower relationship. Does not influence improvisation or participate in joint interactions."
+};
+
+
+    function setRole(side, role) {
+      const roleDiv = document.getElementById(`${side}-role`);
+      const partDiv = document.getElementById(`${side}-participant`);
+      const descDiv = document.getElementById(`${side}-description`);
+
+      roleDiv.textContent = role.toUpperCase();
+      partDiv.style.backgroundColor = colors[role] || "#333";
+      if (descDiv) descDiv.textContent = descriptions[role] || "";
+    }
+
+    channel.onmessage = (event) => {
+      const data = event.data;
+      if (data.left) setRole('left', data.left);
+      if (data.right) setRole('right', data.right);
+
+      if (data.leftName !== undefined) {
+        document.getElementById('left-name').textContent = data.leftName;
+      }
+      if (data.rightName !== undefined) {
+        document.getElementById('right-name').textContent = data.rightName;
+      }
+    };
+  </script>
+
+</body>
+</html>
