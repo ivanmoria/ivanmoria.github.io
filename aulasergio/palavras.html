@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Palavras Interativas</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; color: #333; }
+h1 { text-align: center; margin-bottom: 20px; }
+table { border-collapse: collapse; width: 100%; max-width: 1000px; margin: auto; background: white; }
+th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+th { background: #f0f0f0; }
+button, a { padding: 6px 12px; border: none; border-radius: 4px; text-decoration: none; color: white; font-size: 0.9rem; cursor: pointer; }
+button { background: #4CAF50; margin: 5px; }
+button:hover { background: #45a049; }
+a { background: #007BFF; display: inline-block; }
+a:hover { background: #0056b3; }
+#waveformCanvas { display: block; margin: 20px auto; border: 1px solid #ccc; width: 600px; height: 100px; background: #fff; }
+#downloadAllBtn { display: block; margin: 20px auto; }
+</style>
+</head>
+<body>
+<h1>Palavras e Significados</h1>
+
+<canvas id="waveformCanvas" width="600" height="100"></canvas>
+
+<table>
+<tr><th>Palavra</th><th>Significado</th><th>Ouvir</th><th>Baixar</th></tr>
+<tr><td>Nefelibata</td><td>Pessoa sonhadora, que vive nas nuvens e se afasta da realidade prática.</td><td><button onclick="playAudio('audio1')">Ouvir</button></td><td><a href="palavras_ivan/nefelibata.wav" download>Baixar</a></td></tr>
+<tr><td>Córtex</td><td>Camada superficial de um órgão (como do cérebro ou da raiz de planta); casca.</td><td><button onclick="playAudio('audio2')">Ouvir</button></td><td><a href="palavras_ivan/cortex.wav" download>Baixar</a></td></tr>
+<tr><td>Pneumoultramicroscopiosilicovulcanoconiótico</td><td>Relativo a doença pulmonar causada pela inalação de partículas muito finas de sílica vulcânica.</td><td><button onclick="playAudio('audio3')">Ouvir</button></td><td><a href="palavras_ivan/pneu.wav" download>Baixar</a></td></tr>
+<tr><td>Ancestral</td><td>Pertencente ou relativo aos antepassados; muito antigo ou proveniente de uma tradição remota.</td><td><button onclick="playAudio('audio4')">Ouvir</button></td><td><a href="palavras_ivan/ancestral.wav" download>Baixar</a></td></tr>
+<tr><td>Lemnisco</td><td>Fita ou faixa pendente de coroa; sinal ortográfico usado em transcrições; feixe de fibras nervosas.</td><td><button onclick="playAudio('audio5')">Ouvir</button></td><td><a href="palavras_ivan/lemnisco.wav" download>Baixar</a></td></tr>
+</table>
+
+<!-- Botão para baixar todos os áudios como ZIP -->
+<button id="downloadAllBtn">
+  <a href="palavras_ivan.zip" download style="color:white; text-decoration:none;">Baixar todas</a>
+</button>
+
+<audio id="audio1" src="palavras_ivan/nefelibata.wav" preload="auto"></audio>
+<audio id="audio2" src="palavras_ivan/cortex.wav" preload="auto"></audio>
+<audio id="audio3" src="palavras_ivan/pneu.wav" preload="auto"></audio>
+<audio id="audio4" src="palavras_ivan/ancestral.wav" preload="auto"></audio>
+<audio id="audio5" src="palavras_ivan/lemnisco.wav" preload="auto"></audio>
+
+<script>
+let audioCtx;
+let analyser;
+let sources = {};
+let currentAudio = null;
+const canvas = document.getElementById('waveformCanvas');
+const canvasCtx = canvas.getContext('2d');
+
+function initAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+  }
+}
+
+function createSource(audioElement) {
+  if (!sources[audioElement.id]) {
+    sources[audioElement.id] = audioCtx.createMediaElementSource(audioElement);
+    sources[audioElement.id].connect(analyser);
+    analyser.connect(audioCtx.destination);
+  }
+}
+
+function playAudio(id) {
+  initAudioContext();
+  const selectedAudio = document.getElementById(id);
+
+  // Interrompe imediatamente qualquer áudio
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause();
+  }
+
+  currentAudio = selectedAudio;
+  createSource(currentAudio);
+
+  // Começa exatamente do início
+  currentAudio.currentTime = 0;
+
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume().then(() => {
+      currentAudio.play().catch(e => console.log(e));
+    });
+  } else {
+    currentAudio.play().catch(e => console.log(e));
+  }
+
+  requestAnimationFrame(drawWaveform);
+}
+
+function drawWaveform() {
+  if (!analyser) return;
+
+  const bufferLength = analyser.fftSize;
+  const dataArray = new Uint8Array(bufferLength);
+  analyser.getByteTimeDomainData(dataArray);
+
+  canvasCtx.fillStyle = 'white';
+  canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+  canvasCtx.lineWidth = 2;
+  canvasCtx.strokeStyle = '#4CAF50';
+  canvasCtx.beginPath();
+
+  const sliceWidth = canvas.width / bufferLength;
+  let x = 0;
+
+  for (let i = 0; i < bufferLength; i++) {
+    const v = dataArray[i] / 128.0;
+    const y = v * canvas.height / 2;
+    if (i === 0) canvasCtx.moveTo(x, y);
+    else canvasCtx.lineTo(x, y);
+    x += sliceWidth;
+  }
+
+  canvasCtx.lineTo(canvas.width, canvas.height / 2);
+  canvasCtx.stroke();
+
+  if (currentAudio && !currentAudio.paused) {
+    requestAnimationFrame(drawWaveform);
+  }
+}
+</script>
+</body>
+</html>
