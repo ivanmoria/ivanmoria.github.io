@@ -193,6 +193,25 @@ Fica assegurado o seu direito à confidencialidade das informações, não sendo
   </div>
 
   <script>
+    function iniciar(e) {
+  e.preventDefault();
+  desenhando = true;
+  
+  // Bloqueia o scroll da tela enquanto assina
+  document.body.style.overflow = 'hidden';
+
+  const { x, y } = ajustarCoordenadas(e);
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+}
+
+function parar() {
+  desenhando = false;
+
+  // Restaura o scroll da tela após terminar a assinatura
+  document.body.style.overflow = '';
+}
+
     // Configuração da assinatura do participante
     const canvas = document.getElementById("signature-pad");
     const ctx = canvas.getContext("2d");
