@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Anamnese</title>
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
+  body { background: #f5f5f5; display: flex; justify-content: center; padding: 40px 20px; }
+  .form-container { background: #fff; width: 100%; max-width: 800px; padding: 30px 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+  h1, h2 { text-align:center; margin-bottom:25px; color:#2e7d32; }
+  h2 { font-weight: normal; font-size:20px; }
+  form { display: flex; flex-direction: column; }
+  fieldset { border:1px solid #ddd; border-radius:8px; padding:20px; margin-bottom:20px; }
+  legend { padding:0 10px; font-weight:bold; color:#2e7d32; }
+  label { display:block; margin-top:15px; font-weight:600; color:#333; }
+  input[type="text"], input[type="date"], textarea { width:100%; padding:10px 12px; margin-top:5px; border:1px solid #ccc; border-radius:6px; font-size:14px; transition: all 0.2s; }
+  input[type="text"]:focus, input[type="date"]:focus, textarea:focus { border-color:#2e7d32; box-shadow:0 0 5px rgba(46,125,50,0.3); outline:none; }
+  .inline { display:inline-block; margin-right:20px; margin-top:5px; font-weight:normal; }
+  .small-input { width:120px; padding:6px 10px; }
+  button { margin-top:25px; padding:12px 18px; background-color:#2e7d32; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:16px; transition: all 0.2s; }
+  button:hover { background-color:#1b5e20; transform: scale(1.02); }
+  @media (max-width:768px) { .form-container { padding:20px; } .inline { display:block; margin-bottom:10px; } .small-input { width:100%; } }
+</style>
+</head>
+<body>
+<div class="form-container">
+  <h1>Anamnese</h1>
+  <h2 id="saudacao">Olá!</h2>
+
+  <form id="participante-form">
+    <!-- 1. Dados Pessoais -->
+    <fieldset>
+      <legend>1. Dados Pessoais</legend>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label>Gênero:</label>
+      <div style="display:flex; gap:20px; align-items:center;">
+        <label style="display:flex; align-items:center; gap:5px;">
+          <input type="radio" name="genero" value="Masculino"> Masculino
+        </label>
+        <label style="display:flex; align-items:center; gap:5px;">
+          <input type="radio" name="genero" value="Feminino"> Feminino
+        </label>
+        <label style="display:flex; align-items:center; gap:5px;">
+          <input type="radio" name="genero" value="Outro" id="genero_outro_radio"> Outro
+          <input type="text" id="genero_outro_box" name="genero_outro" placeholder="Especifique" style="display:none;">
+        </label>
+      </div>
+
+      <label for="data_nasc">Data de nascimento:</label>
+      <input type="date" id="data_nasc" name="data_nasc" value="1996-01-01">
+    </fieldset>
+
+    <!-- 2. Saúde e Condições -->
+    <fieldset>
+      <legend>2. Saúde e Condições</legend>
+      <label>Apresenta algum problema de audição?</label>
+      <span class="inline"><input type="radio" name="audicao" value="Sim" data-target="audicao_text"> Sim</span>
+      <span class="inline"><input type="radio" name="audicao" value="Não" data-target="audicao_text"> Não</span>
+      <input type="text" id="audicao_text" name="audicao_det" placeholder="Descreva o problema de audição" style="display:none; margin-top:5px;">
+
+      <label>Está em acompanhamento médico?</label>
+      <span class="inline"><input type="radio" name="medico" value="Sim" data-target="medico_text"> Sim</span>
+      <span class="inline"><input type="radio" name="medico" value="Não" data-target="medico_text"> Não</span>
+      <input type="text" id="medico_text" name="medico_det" placeholder="Descreva o acompanhamento médico" style="display:none; margin-top:5px;">
+
+      <label>Faz uso de medicação?</label>
+      <span class="inline"><input type="radio" name="medicacao" value="Sim" data-target="medicacao_text"> Sim</span>
+      <span class="inline"><input type="radio" name="medicacao" value="Não" data-target="medicacao_text"> Não</span>
+      <div id="medicacao_text" style="display:none; margin-top:5px;">
+        <input type="text" name="medicacao_det" placeholder="Qual medicação?">
+        <input type="date" name="medicacao_data">
+      </div>
+    </fieldset>
+
+    <!-- 3. Experiência Musical e Preferências -->
+    <fieldset>
+      <legend>3. Experiência Musical e Preferências</legend>
+
+      <label>Participa de atividades musicais?</label>
+      <span class="inline"><input type="radio" name="atividades_musicais" value="Sim" data-target="atividades_text"> Sim</span>
+      <span class="inline"><input type="radio" name="atividades_musicais" value="Não" data-target="atividades_text"> Não</span>
+      <input type="text" id="atividades_text" name="atividades_det" placeholder="Descreva suas atividades musicais" style="display:none; margin-top:5px;">
+
+      <label>Preferências musicais:</label>
+      <input type="text" name="preferencias">
+      <label>Sons que gosta:</label>
+      <input type="text" name="sons_gosta">
+      <label>Sons que não gosta:</label>
+      <input type="text" name="sons_nao_gosta">
+
+      <label>Possui conhecimento musical prévio?</label>
+      <span class="inline"><input type="radio" name="conhecimento" value="Sim" data-target="conhecimento_text"> Sim</span>
+      <span class="inline"><input type="radio" name="conhecimento" value="Não" data-target="conhecimento_text"> Não</span>
+      <div id="conhecimento_text" style="display:none; margin-top:5px;">
+        <input type="text" name="conhecimento_escola" placeholder="Qual escola?">
+        <input type="text" name="conhecimento_tempo" placeholder="Por quanto tempo?">
+      </div>
+
+      <label>Já teve iniciação musical?</label>
+      <span class="inline"><input type="radio" name="iniciacao" value="Sim" data-target="iniciacao_text"> Sim</span>
+      <span class="inline"><input type="radio" name="iniciacao" value="Não" data-target="iniciacao_text"> Não</span>
+      <div id="iniciacao_text" style="display:none; margin-top:5px;">
+        <input type="text" name="iniciacao_local" placeholder="Onde teve iniciação?">
+        <input type="text" name="iniciacao_tempo" placeholder="Por quanto tempo?">
+      </div>
+
+      <label>Toca algum instrumento?</label>
+      <span class="inline"><input type="radio" name="instrumento" value="Sim" data-target="instrumento_text"> Sim</span>
+      <span class="inline"><input type="radio" name="instrumento" value="Não" data-target="instrumento_text"> Não</span>
+      <div id="instrumento_text" style="display:none; margin-top:5px;">
+        <input type="text" name="instrumento_nome" placeholder="Qual instrumento?">
+        <input type="text" name="instrumento_tempo" placeholder="Por quanto tempo?">
+      </div>
+
+      <label>Canta?</label>
+      <span class="inline"><input type="radio" name="canta" value="Sim" data-target="canta_text"> Sim</span>
+      <span class="inline"><input type="radio" name="canta" value="Não" data-target="canta_text"> Não</span>
+      <input type="text" id="canta_text" name="canta_tempo" placeholder="Por quanto tempo?" style="display:none; margin-top:5px;">
+    </fieldset>
+
+    <!-- 4. Ambiente Musical e Familiar -->
+    <fieldset>
+      <legend>4. Ambiente Musical e Familiar</legend>
+      <label>Ambiente sonoro musical familiar:</label>
+      <input type="text" name="ambiente">
+      <label>Outros sons/músicas presentes na família:</label>
+      <input type="text" name="outros_sons">
+    </fieldset>
+
+    <div style="display: flex; gap: 15px; margin-top: 25px;">
+      <button type="submit">Enviar</button>
+      <button type="button" onclick="window.location.href='dass21.html'">DASS-21</button>
+    </div>
+    
+  </form>
+</div>
+
+<script>
+  // Mostrar/ocultar campos adicionais
+  document.querySelectorAll('input[type=radio]').forEach(radio => {
+    radio.addEventListener('change', e => {
+      const targetId = e.target.dataset.target;
+      if(targetId) {
+        const target = document.getElementById(targetId);
+        if(e.target.value === 'Sim' || e.target.value === 'Outro') {
+          target.style.display = 'block';
+        } else {
+          target.style.display = 'none';
+          const inputs = target.querySelectorAll('input');
+          inputs.forEach(inp => inp.value='');
+        }
+      }
+    });
+  });
+
+  // Mostrar campo "Outro gênero"
+  const generoRadio = document.getElementById('genero_outro_radio');
+  const generoInput = document.getElementById('genero_outro_box');
+  generoRadio.addEventListener('change', ()=> generoInput.style.display='inline-block');
+  document.querySelectorAll('input[name="genero"]').forEach(r=>{
+    if(r!==generoRadio) r.addEventListener('change', ()=> generoInput.style.display='none');
+  });
+
+  // Captura do nome da query string
+  const params = new URLSearchParams(window.location.search);
+  const nome = params.get('nome') || '';
+  document.getElementById('saudacao').textContent = `Olá, ${nome}! Por gentileza, complete as informações abaixo:`;
+  document.getElementById('nome').value = nome;
+
+  // Função para salvar CSV
+  document.getElementById('participante-form').addEventListener('submit', function(e){
+    e.preventDefault(); // evita reload da página
+
+    const form = e.target;
+    const data = {};
+
+    form.querySelectorAll('input, textarea').forEach(input => {
+        // Se estiver vazio, coloca NaN
+        if(input.type === 'radio') {
+            // Para radios, pega o selecionado
+            const selected = form.querySelector(`input[name="${input.name}"]:checked`);
+            data[input.name] = selected ? selected.value : "NaN";
+        } else {
+            data[input.name] = input.value ? input.value : "NaN";
+        }
+    });
+
+    // Cria CSV
+    const headers = Object.keys(data).join(',');
+    const values = Object.values(data).join(',');
+    const csvContent = headers + "\n" + values;
+
+    // Cria download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = (form.nome.value || "participante") + "_dados.csv";
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+</script>
+</body>
+</html>
