@@ -1,0 +1,256 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+
+
+#back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+}
+
+
+
+#container-nav {
+  position: relative;
+  z-index: 1000; /* Garante que a barra de navegação esteja acima de outros conteúdos */
+}
+
+#navbar-items {
+  display: flex;
+  position: fixed; /* Mantém os itens fixos no topo da página */
+  top: 0; /* Alinha ao topo da página */
+  left: 0; /* Alinha à esquerda da página */
+  width: 100%; /* Faz com que a barra de navegação ocupe toda a largura da página */
+  background-color: rgba(0, 0, 0, 0.444); /* Cor de fundo semi-transparente para contraste */
+  justify-content: left; /* Alinha os itens à esquerda */
+  padding: 5px; /* Adiciona um espaço interno aos itens */
+  z-index: 9991001; /* Aumenta o z-index para garantir que esteja acima de outros conteúdos */
+}
+
+/* Estilo adicional para melhorar a legibilidade */
+.playlist-item {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Poiret One', cursive;
+  color: rgba(0, 69, 101, 0.747);
+  cursor: crosshair !important;
+}
+
+.playlist-item:hover {
+  color: rgb(148, 213, 247);
+  font-weight: 400;
+
+}
+
+
+
+
+
+    
+    /* Estilo para navegadores WebKit (Chrome, Safari) */
+    body::-webkit-scrollbar {
+      width: 12px; /* Largura da barra de rolagem vertical */
+      height: 12px; /* Altura da barra de rolagem horizontal */
+      }
+      
+      body::-webkit-scrollbar-track {
+      background: #333; /* Cor do fundo da barra de rolagem */
+      }
+      
+      body::-webkit-scrollbar-thumb {
+      background-color: #666; /* Cor da barra de rolagem */
+      border-radius: 6px; /* Cantos arredondados */
+      border: 3px solid #333; /* Espaçamento interno para a borda */
+      }
+      
+      /* Estilo para Firefox */
+      body {
+      scrollbar-width: thin; /* Define a largura da barra de rolagem */
+      scrollbar-color: #666 #333; /* Define a cor da barra de rolagem e do fundo */
+      }
+      
+      /* Estilo para Edge e Internet Explorer */
+      body::-ms-scrollbar {
+      width: 12px; /* Largura da barra de rolagem vertical */
+      height: 12px; /* Altura da barra de rolagem horizontal */
+      }
+      
+      body::-ms-scrollbar-track {
+      background: #333; /* Cor do fundo da barra de rolagem */
+      }
+      
+      body::-ms-scrollbar-thumb {
+      background-color: #666; /* Cor da barra de rolagem */
+      border-radius: 6px; /* Cantos arredondados */
+      border: 3px solid #333; /* Espaçamento interno para a borda */
+      }
+
+
+      body,  html  {
+        font-family: 'JS Brains Telex', sans-serif;
+        margin: 0;
+        overflow: auto;
+   
+        color: #f0f0f047;
+
+
+    }
+
+  
+
+
+  #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none; /* Make sure the canvas doesn't interfere with other elements */
+  }
+  
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 15px;
+    margin-top: 60px; /* Adicione uma margem superior para evitar sobreposição */
+    z-index: 2;
+    overflow-x: hidden; /* Remove a barra de rolagem horizontal */
+}
+
+
+
+
+.button-container {
+  position: fixed; /* Define o posicionamento fixo */
+  bottom: -100px; /* Alinha com a assinatura verticalmente */
+  right: 3px; /* Alinha à direita, ao lado da assinatura */
+  transform: translateY(-50%); /* Centraliza verticalmente */
+  display: inline-block; /* Para permitir o alinhamento lado a lado */
+  vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
+  z-index: 1000;
+  margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
+}
+
+
+
+
+.left-column, .middle-column {
+  padding: 2px;
+padding-right: 0px;
+
+  box-sizing: border-box;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  z-index: 2;
+}
+
+
+@media (min-width: 768px) {
+  .left-column {
+      flex: 1 0 50%;
+      margin: 0px;
+      margin-left: 0px;
+      margin-right: -300px;
+  }
+  .middle-column {
+      flex: 0 1 50%;
+      margin-left: 300px;
+      margin-right: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  .left-column, .middle-column, .right-column {
+      flex: 1 1 100%;
+      margin: 0;
+  }
+}
+
+p2, p4{
+  font-family: 'Poiret One', cursive;
+
+  font-size: 24px;
+  font-weight: 200;
+
+  color: rgba(80, 80, 80, 0.863);
+}
+
+.content-text{
+  text-decoration: none;
+  color: #ffffff68;
+      font-size: 18px;
+      font-weight: 200;
+      font-family: "Mina", sans-serif;
+
+}
+.content-text:hover {
+  font-weight: 400;
+color: #000000;
+background-color: rgba(94, 94, 94, 0.613);
+
+}
+
+
+.ui-btn{
+  font-family: 'Poiret One', cursive;
+  color: rgb(190, 190, 190);
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 24px;
+  font-weight: 200;
+
+}
+
+.ui-btn:hover{
+  font-family: 'Poiret One', cursive;
+  color: rgb(153, 233, 103);
+  background-color: rgba(0, 0, 0, 0.106);
+
+  font-weight: 200;
+}
+
+
+.button {
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background-color: #2d2e3200;
+  border: 0px solid #2d2e32;
+  transition: all 0.45s;
+
+  z-index: 1000;
+}
+
+.button:hover {
+  transform: rotate(360deg);
+  transform-origin: center center;
+  background-color: #ffff;
+  color: #2d2e32;
+  z-index: 1000;
+}
+
+.button:hover .btn-svg {
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg)
+    brightness(103%) contrast(103%);  
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+
+iframe {
+  width: 100%;
+  height: 300px; /* Altura ajustável conforme necessário */
+}
+

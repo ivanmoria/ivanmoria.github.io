@@ -1,0 +1,256 @@
+/* Resetando o estilo padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: rgb(202, 202, 202);
+}
+
+/* Estilo do Header */
+header {
+    background-color: #222;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    height:90px;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(143, 50, 50, 0.2);
+}
+
+/* Container flexível para alinhar os elementos na mesma linha */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+.logo h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Ajuste do tamanho das imagens dos patrocinadores */
+.logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+
+.logos img {
+    height: 100px;  /* Reduzi ainda mais o tamanho */
+    max-width: 200px;
+    object-fit: contain;
+
+}
+
+/* Adicionando padding ao corpo da página para não sobrepor o cabeçalho */
+body {
+    padding-top: 60px;
+}
+
+section {
+    padding: 40px 20px;
+    margin: 40px 0;
+}
+
+/* Personalização dos títulos */
+section h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais do menu */
+nav {
+  position: relative;
+  background: #333;
+  padding: 10px;
+}
+
+.menu-toggle {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+
+  width: 100%;
+  text-align: left;
+  
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none; /* Esconde o menu por padrão */
+  background: #222;
+}
+
+.menu li {
+  border-bottom: 1px solid #444;
+}
+
+.menu li a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.menu li a:hover {
+  background: #555;
+}
+
+/* Classe para mostrar o menu */
+.menu.show {
+  display:table;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;  
+}
+
+/* Responsivo: Exibir horizontalmente em telas grandes */
+@media (min-width: 768px) {
+  .menu-toggle {
+      display: none; /* Esconder o botão em telas grandes */
+  }
+
+  .menu {
+      display: flex;
+      gap: 15px;
+      background: none;
+  }
+
+  .menu li {
+      border-bottom: none;
+  }
+}
+
+
+
+
+
+.button-container {
+    position: fixed; /* Define o posicionamento fixo */
+    bottom: -100px; /* Alinha com a assinatura verticalmente */
+    right: 3px; /* Alinha à direita, ao lado da assinatura */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    display: inline-block; /* Para permitir o alinhamento lado a lado */
+    vertical-align: middle; /* Alinha verticalmente ao centro com o elemento anterior */
+    z-index: 1000;
+    margin-left: 0px; /* Espaçamento entre os botões e a assinatura */
+  }
+
+
+.button {
+    cursor: pointer;
+    text-decoration: none;
+    color: #ffff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  
+    background-color: #2d2e3200;
+    border: 0px solid #2d2e32;
+    transition: all 0.45s;
+
+  }
+  
+  .button:hover {
+    transform: rotate(360deg);
+    transform-origin: center center;
+
+    color: #2d2e32;
+    z-index: 1000;
+  }
+  
+  .button:hover .btn-svg {
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(305deg)
+      brightness(103%) contrast(103%);  
+  }
+  
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
+  
+  
+
+  .button:hover .svgeIcon path {
+    fill: rgb(0, 0, 0); /* Muda a cor do ícone para preto ao passar o mouse sobre o botão */
+}
+
+.svgeIcon path {
+    fill: white; /* Cor inicial do ícone */
+}
+
+
+.equipe-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.membro {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px; /* Espaço entre a imagem e o conteúdo */
+}
+
+.membro img {
+    width: 100px; /* Ajuste do tamanho da imagem */
+    height: 100px;
+    border-radius: 50%; /* Deixa a imagem redonda */
+}
+
+.membro-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contatos {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.button svg {
+    fill: white;
+}

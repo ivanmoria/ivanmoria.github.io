@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste do Tempo Espontâneo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <div class="container" style="align-items: center;">
+        <h1>Teste do Tempo Espontâneo</h1>
+
+ 
+        <p>Pressione o botão abaixo ou a tecla <strong>espaço</strong> 21 vezes para marcar sua pulsação. O tempo será calculado automaticamente.</p>
+   <br><br><br>
+        <button style="width: 200px; height:200px;" id="pulseButton">Clique para marcar a batida</button>
+        <div id="result" class="hidden">
+            <p>Tempo total: <span id="totalTime">0</span></p>
+            <p>BPM: <span id="bpm">0</span></p>
+            
+            <h2>Gráfico de Batidas e IOI</h2>
+            <canvas id="foiChart" width="500" height="300"></canvas>
+            <p id="analysis-text"></p>
+            <h2>Instantes das batidas:</h2>
+            <ul id="timeList"></ul>
+          </div>
+          <p id="instructions">Batidas: <span id="count">0</span>/21</p>
+        </div>
+      <style>.hidden {
+        display: none;
+      }
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:-200px;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top:200px;
+  margin-bottom: 20px;
+  color: #0073e6;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+button {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #005bb5;
+  transform: scale(1.1);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#result {
+  margin-top: 30px;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
+}
+
+#result h2 {
+  font-size: 1.5em;
+  color: #005bb5;
+  margin-top: 20px;
+}
+
+#result p,
+#result ul {
+  font-size: 1em;
+  margin: 10px 0;
+  color: #555;
+}
+
+#instructions {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+canvas {
+  margin-top: 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2em;
+  }
+
+  button {
+      width: 150px;
+      height: 150px;
+  }
+
+  p {
+      font-size: 1em;
+  }
+
+  #result {
+      width: 90%;
+  }
+}
+
+
+      </style>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const pulseButton = document.getElementById("pulseButton");
+            const result = document.getElementById("result");
+            const totalTimeElement = document.getElementById("totalTime");
+            const bpmElement = document.getElementById("bpm");
+            const timeList = document.getElementById("timeList");
+            const countElement = document.getElementById("count");
+            const instructions = document.getElementById("instructions");
+            const foiChartCanvas = document.getElementById("foiChart");
+    
+            let count = 0;
+            let startTime = null;
+            const beatTimes = []; // Armazena os instantes de cada batida em milissegundos
+    
+            // Função para registrar a batida
+            function markPulse() {
+                const currentTime = new Date();
+    
+                if (count === 0) {
+                    // Iniciar o cronômetro na primeira batida
+                    startTime = currentTime;
+                    beatTimes.push(0); // Instante da primeira batida em ms
+                    count++;
+                    countElement.textContent = count;
+                } else if (count < 20) {
+                    // Registrar instantes intermediários
+                    const timeElapsed = currentTime - startTime; // Instante atual em ms
+                    beatTimes.push(timeElapsed);
+                    count++;
+                    countElement.textContent = count;
+                } else if (count === 20) {
+                    // Finalizar na 21ª batida
+                    const timeElapsed = currentTime - startTime; // Instante final em ms
+                    beatTimes.push(timeElapsed);
+    
+                    // Calcular e exibir o tempo total em ms
+                    const totalTime = currentTime - startTime;
+                    totalTimeElement.textContent = `${totalTime} ms`;
+    
+                    // Calcular o BPM (arredondado para inteiro)
+                    const totalMinutes = totalTime / (1000 * 60); // Tempo total em minutos
+                    const bpm = Math.round(20 / totalMinutes); // Número de batidas (21-1)
+                    bpmElement.textContent = bpm;
+    
+                    // Exibir os instantes de cada batida em ms
+                    timeList.innerHTML = beatTimes
+                        .map((time, index) => `<li>Batida ${index + 1}: ${time} ms</li>`)
+                        .join("");
+    
+                    // Calcular o FOI (Inter-Onset Interval)
+                    const foi = [];
+                    for (let i = 1; i < beatTimes.length; i++) {
+                        foi.push(beatTimes[i] - beatTimes[i - 1]);
+                    }
+    
+                    // Calcular a Taxa de Variação do IOI (aceleração/desaceleração)
+                    const rateOfChange = [];
+                    for (let i = 2; i < foi.length; i++) {
+                        const change = foi[i] - foi[i - 1]; // Diferença entre IOIs consecutivos
+                        rateOfChange.push(change);
+                    }
+    
+                    // Plotar o gráfico de IOI e aceleração/desaceleração
+                    plotFOIChart(foi, rateOfChange, beatTimes);
+    
+                    // Mostrar o resultado e desabilitar o botão
+                    result.classList.remove("hidden");
+                    pulseButton.disabled = true;
+                    instructions.textContent = "Teste concluído!";
+                }
+            }
+    
+            function plotFOIChart(foi, rateOfChange, beatTimes) {
+  
+                // Calculando os tempos totais da atividade (diferença entre batida e tempo inicial)
+                const timeLabels = beatTimes.map(time => time); // Instantes das batidas em ms
+            
+                // Calculando as estatísticas
+                const meanFOI = calculateMean(foi);
+                const stdDevFOI = calculateStdDev(foi);
+                const regressionResult = calculateLinearRegression(foi, timeLabels);
+            
+                // Calculando a faixa de confiança (valores superior e inferior)
+                const residuals = foi.map((value, index) => value - regressionResult.lineData[index]);
+                const meanResidual = calculateMean(residuals);
+                const stdResidual = calculateStdDev(residuals);
+                
+                const upperConfidence = regressionResult.lineData.map((value, index) => value + stdResidual);
+                const lowerConfidence = regressionResult.lineData.map((value, index) => value - stdResidual);
+            
+                // Criando o gráfico
+                new Chart(foiChartCanvas, {
+                    type: "line",
+                    data: {
+                        labels: timeLabels, // Usando o tempo total decorrido de cada batida
+                        datasets: [
+                            {
+                                label: "Intervalo entre Batidas (IOI) - ms",
+                                data: foi,
+                                borderColor: "red",
+                                backgroundColor: "rgba(255, 0, 0, 0.1)",
+                                fill: true,
+                                yAxisID: "y1",
+                                borderWidth: 2,
+                                pointRadius: 5,
+                            },
+                            {
+                                label: "Taxa de Variação do IOI (ms)",
+                                data: rateOfChange,
+                                borderColor: "green",
+                                backgroundColor: "rgba(0, 255, 0, 0.1)",
+                                fill: false,
+                                yAxisID: "y1",
+                                borderWidth: 2,
+                                pointRadius: 3,
+                                tension: 0.2,
+                            },
+                            {
+                                label: "Média do IOI",
+                                data: new Array(foi.length).fill(meanFOI), // Criar linha de média
+                                borderColor: "blue",
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0, // Não exibir pontos
+                            },
+                            {
+                                label: "Desvio Padrão do IOI",
+                                data: foi.map(value => meanFOI + stdDevFOI), // Linha de desvio padrão para cima
+                                borderColor: "orange",
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0, // Não exibir pontos
+                            },
+                            {
+                                label: "Regressão Linear",
+                                data: regressionResult.lineData, // Dados calculados para a linha de regressão
+                                borderColor: "purple",
+                                borderWidth: 2,
+                                fill: false,
+                                pointRadius: 0, // Não exibir pontos
+                            },
+                            {
+                                label: "Faixa de Confiança Superior",
+                                data: upperConfidence, // Dados para o limite superior
+                                borderColor: "rgba(255, 99, 132, 0.2)",
+                                borderWidth: 1,
+                                fill: true,
+                                pointRadius: 0,
+                            },
+                            {
+                                label: "Faixa de Confiança Inferior",
+                                data: lowerConfidence, // Dados para o limite inferior
+                                borderColor: "rgba(255, 99, 132, 0.2)",
+                                borderWidth: 1,
+                                fill: true,
+                                pointRadius: 0,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: true },
+                            tooltip: { enabled: true },
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: "Tempo Total da Atividade (ms)" },
+                                ticks: {
+                                    autoSkip: true,
+                                    maxRotation: 0,
+                                    minRotation: 0,
+                                    stepSize: Math.floor(timeLabels.length / 10),
+                                },
+                            },
+                            y1: {
+                                title: { display: true, text: "Valor (ms)" },
+                                max: Math.max(...foi, ...rateOfChange) * 1.2,
+                                ticks: {
+                                    stepSize: Math.floor(Math.max(...foi, ...rateOfChange) / 10),
+                                },
+                            },
+                        },
+                    },
+                });
+            }
+            
+          
+          
+            // Função para calcular a média
+            function calculateMean(data) {
+                const sum = data.reduce((acc, value) => acc + value, 0);
+                return sum / data.length;
+            }
+    
+            // Função para calcular o desvio padrão
+            function calculateStdDev(data) {
+                const mean = calculateMean(data);
+                const variance = data.reduce((acc, value) => acc + Math.pow(value - mean, 2), 0) / data.length;
+                return Math.sqrt(variance);
+            }
+    
+            // Função para calcular a regressão linear
+            function calculateLinearRegression(data, timeLabels) {
+                const n = data.length;
+                const sumX = timeLabels.reduce((acc, _, i) => acc + i, 0);
+                const sumY = data.reduce((acc, val) => acc + val, 0);
+                const sumXY = data.reduce((acc, val, i) => acc + i * val, 0);
+                const sumX2 = timeLabels.reduce((acc, _, i) => acc + i * i, 0);
+            
+                const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+                const intercept = (sumY - slope * sumX) / n;
+    
+                // Gerando os dados da linha de regressão
+                const lineData = timeLabels.map((_, i) => slope * i + intercept);
+                
+                return { slope, intercept, lineData };
+            }
+    
+            pulseButton.addEventListener("click", markPulse);
+        });
+    </script>
+    
+   
+</body>
+</html>

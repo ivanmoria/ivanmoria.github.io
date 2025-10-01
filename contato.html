@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Contato</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <style>
+
+
+
+    </style>
+
+</head>
+<body>
+
+  <div class="assinatura-container">
+    <a href="#" id="assinatura-link" onmouseover="animateSignature()" onclick="window.location.href='index.html'; return false;"> <!-- Redireciona ao clicar -->
+        <div class="assinatura" id="assinatura" >
+          <div class="texto-animado" id="texto-animado">
+            ivan moriá borges rodrigues
+          </div>
+        </div>
+    </a>
+    <div class="button-container3" style="margin-left:-0px;">
+      <div class="theme-switch" style="margin-top:20px;">
+      
+    
+            <input type="checkbox" id="theme-checkbox" >
+            <label for="theme-checkbox">
+              <div></div>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+                  ></path>
+                </svg>
+              </span>
+            </label>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+
+
+
+
+
+</ul>
+</div>
+
+
+
+
+    <div id="canvas-container">
+
+      <script>
+        let isDarkMode = false;  // Defina 'false' para o modo claro padrão
+      
+      const themeCheckbox = document.getElementById("theme-checkbox");
+      const body = document.body;
+      
+      function toggleTheme() {
+        isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+      
+        if (isDarkMode) {
+          body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+        } else {
+          body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+        }
+      }
+      
+      // Adiciona o evento de clique ao checkbox
+      themeCheckbox.addEventListener("click", toggleTheme);
+      
+      // Verifica o estado inicial do tema
+      if (body.classList.contains("dark-theme")) {
+        themeCheckbox.checked = true;
+      } else {
+        themeCheckbox.checked = false;
+      }
+        let num = 600;
+        let range = 30;
+        let ax = [];
+        let ay = [];
+        let extraLines = 300;
+        let t = 0; // Variável de tempo para a oscilação das cores
+      
+      
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 1; i < num; i++) {
+                ax[i] = width / 32;
+                ay[i] = height / 2;
+            }
+            for (let j = 1; j < num + extraLines; j++) {
+                ax[j] = width / -22;
+                ay[j] = height / -2;
+            }
+      
+            frameRate(30);
+      
+       
+      
+      
+      
+      
+        }
+      
+      
+      
+        function draw() {
+          if (isDarkMode) {
+              background(50);  // Cor de fundo escura (modo escuro)
+              fill(255);  // Cor do texto clara (modo escuro)
+      
+          } else {
+              background(183);  // Cor de fundo clara (modo claro)
+              fill(0);  // Cor do texto escura (modo claro)
+      
+          }
+      
+      
+      
+      
+      for (let i = 1; i < num; i++) {
+        ax[i - 1] = ax[i];
+        ay[i - 1] = ay[i];
+      }
+      ax[num - 1] +=-random(-range, range);
+      ay[num - 1] += random(-range, range);
+      ax[num - 1] = constrain(ax[num - 1], 0, width);
+      ay[num - 1] = constrain(ay[num - 1], 0, height);
+      
+      
+      
+      
+      
+      
+      for (let i = 1; i < num ; i++) {
+        let val0 = float(i) / num * 200.0 + 3 ;
+        let val = map(ax[i], 0, width, 0, 255);
+        let val2 = map(ay[i],0, height, 0, 255);
+        stroke(val0,val,val2, 10);
+        line(ax[i-2], ay[i-2], ax[i-2], ay[i-4]);
+        
+      }
+      
+      for (let j = 1; j < extraLines; j++) {
+        ax[j - 1232] = ax[j];
+        ay[j - 13232] = ay[j];
+      }
+      ax[extraLines - 332] += random(-range, range);
+      ay[extraLines - 123] += random(range, - range);
+      ax[extraLines - 132] = constrain(ax[extraLines - 1], 0, width);
+      ay[extraLines - 332] = constrain(ay[extraLines - 1], 0, height);
+      for (let j = 1; j < num; j++) {
+        let val1 = float(j) / num * 200.0 + 3 ;
+        let val3 = map(ax[j], 0, width, 0, 255);
+        let val4 = map(ay[j],0, height, 0, 255);
+      
+        stroke(val1,val3,val4, 40);
+      
+        line(ax[j - 13], ay[j - 1], ax[j], ay[j]);
+      }
+      
+      
+      
+      }
+      background(0); // Exemplo de fundo cinza
+      function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+      redraw(); // Garante que o canvas seja redesenhado
+      
+      }
+      
+      </script>
+
+
+
+    </div>
+    <div id="container-nav">
+      <nav id="navbar-items">
+        <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+          <span><p29>⇦</p29></span>
+      </button>
+      
+      
+      <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+      <span><p29>bib</p29></span>
+      </button>
+      
+      <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='projetos.html'">
+      <span><p29>proj</p29></span>
+      </button>
+      <button class="ui-btn"  style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+      font-size:30px; margin-bottom: -30px;margin-right:-20px;" onclick="window.location.href='contato.html'">
+      <span><p28>contact</p28></span>
+      </button>
+      
+      <button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"class="ui-btn"  onclick="window.location.href='mirmt.html'">
+      <span><p29>MIRMT</p29></span>
+      </button>
+      
+  
+  </div>
+  
+  </nav>
+<div class="container">
+  <div class="containeeer">
+
+  <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+
+    <svg
+   
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="22px"
+      height="22px"
+      class="btn-svg"
+    >
+      <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
+    </svg>
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>email [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+  </button>
+  <button style="margin-top:-51px; margin-left:15px;" class="ui-btn" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+
+ 
+    <span ><p2 style="font-size:22px ;">ivanmoriabr@gmail.com</p2></span>
+</button>
+  <br>
+
+
+  <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
+    <svg
+      viewBox="0 0 24 24"
+      class="btn-svg"
+      width="22px"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+          fill="#fff"
+        ></path>
+        <path
+          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+          fill="#fff"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+          fill="#fff"
+        ></path>
+      </g>
+    </svg>
+
+<button style="margin-top:-51px; margin-left:25px;"  class="ui-btn" onclick="window.location.href=' https://www.instagram.com/ivanmoria'">
+  <span><p2>@ivanmoria</p2></span>
+</button>
+  </button>
+
+<br>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.facebook.com/moriahivan/'">
+    <svg
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -2 20 20"
+    >
+    <path d="M9 8H7V10H9V19H12V10H14.5L15 8H12V6.5C12 6 12 5 13 5H15V2H12.5C10 2 9 3.5 9 5.5V8Z" fill="#fff"/>
+  </svg>
+  
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>facebook [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+<button style="margin-top:-46px; margin-left:25px;"class="ui-btn" onclick="window.location.href=' https://www.facebook.com/moriahivan'">
+  <span><p2>Ivan Moriá Borges</p2></span>
+</button>
+
+  </button>
+
+<br>
+
+  <button class="button flex-center" onclick="window.location.href='https://github.com/ivanmoria'">
+    <svg
+      viewBox="0 0 20 20"
+      width="22px"
+      class="btn-svg"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      fill="#fff"
+      stroke="#fff"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>github [#fff142]</title>
+
+        <defs></defs>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            id="Dribbble-Light-Preview"
+            transform="translate(-140.000000, -7559.000000)"
+            fill="#fff"
+          >
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+              <path
+                d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                id="github-[#fff142]"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+<button style="margin-top:-50px; margin-left:25px;"class="ui-btn" onclick="window.location.href=' https://github.com/ivanmoria'">
+  <span><p2>ivanmoria</p2></span>
+</button>
+  </button>
+
+<br>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
+   
+    <svg
+      stroke="#fff"
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -3 20 20"
+    >
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>youtube [#fff168]</title>
+     
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        >
+          <g
+            fill="#fff"
+            transform="translate(-300.000000, -7442.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="youtube-[#fff168]"
+                d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+
+<button style="margin-top:-50px; margin-left:25px;" class="ui-btn" onclick="window.location.href=' https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
+  <span><p2>Ivan Moriá Borges</p2></span>
+</button>
+  </button>
+
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    // Inicializar o EmailJS com sua chave pública
+    (function() {
+        emailjs.init("Ck4TWci1dzAysTpMq"); // Substitua pela sua chave pública
+    })();
+
+    // Função para enviar o e-mail
+    function enviarEmail(event) {
+        event.preventDefault(); // Impede o envio do formulário convencional
+
+        // Coleta os dados do formulário
+        const emailParams = {
+            from_email: document.getElementById("email").value,
+            message: document.getElementById("mensagem").value,
+            to_email: "ivanmoriabr@gmail.com" // Substitua pelo seu email de destino
+        };
+
+        // Enviar o email usando EmailJS
+        emailjs.send("service_8h9b7gs", "template_syor9k7", emailParams)
+            .then(function(response) {
+                alert("Mensagem enviada com sucesso!");
+                document.getElementById("formContato").reset(); // Limpa o formulário após o envio
+            }, function(error) {
+                alert("Erro ao enviar a mensagem. Tente novamente.");
+            });
+    }
+</script>
+
+
+<form  id="formContato" onsubmit="enviarEmail(event)">
+    <label for="email"><p18>e-mail:</p18></label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="mensagem"><p18>Mensagem:</p1></label><br>
+    <textarea id="mensagem" name="mensagem" rows="5" cols="40" required></textarea><br><br>
+
+    <input type="submit" value="Send">
+</form>
+<style> /* Container do formulário */
+  form {
+    background: #ffffff77;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+height:350px;
+    width: 65%;
+    z-index: 999999;
+    transition: transform 0.2s ease;
+  }
+
+  form:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Estilização para os elementos internos do formulário */
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  input[type="email"],
+  textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.2s ease;
+  }
+
+  input[type="email"]:focus,
+  textarea:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+
+  /* Botão de envio */
+  input[type="submit"] {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    margin-top:-20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #003d7a;
+  }
+</style>
+
+</div>
+</div>
+
+</div>
+
+
+
+<script>
+
+function toggleOptions() {
+  const container = document.querySelector('.setting-container');
+  container.classList.toggle('open');
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

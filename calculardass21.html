@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calculadora DASS-21</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="media/teste.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            
+        }
+        #resultpai {
+            display: flex;             /* Define o container como flex */
+            flex-direction: column;    /* Organiza os itens verticalmente */
+            align-items: center;       /* Centraliza os itens horizontalmente */
+            justify-content: center;   /* Centraliza os itens verticalmente */
+
+            text-align: center;        /* Centraliza o texto dentro dos elementos */
+
+        }
+        
+              /* Centralizando o conteúdo da div 'results' */
+      #results {
+        margin-top:-120px;
+           flex-direction: column;
+           align-items: center;  /* Centraliza horizontalmente */
+           justify-content: center;  /* Centraliza verticalmente */
+           height: 50vh;  /* Altura da tela inteira */
+           text-align: justify;  /* Centraliza o texto dentro dos elementos */
+           padding: 20px;
+         }
+       
+         /* Garantir que o botão e outros elementos dentro de 'results' tenham algum espaçamento */
+         #results button {
+           margin-top: 10px;
+         }
+       
+         /* Estilo para o container de detalhes */
+         .results-details {
+           margin-top: 20px;
+         }
+       
+         /* Para os parágrafos dentro de 'results-details' */
+         .results-details p {
+           margin: 5px 0;
+           text-align: justify;  /* Justifica o texto nos parágrafos */
+         }
+         .results {
+           display: none; /* Inicialmente oculta toda a seção */
+       }
+       .results-details {
+           display: none; /* Inicialmente oculta os detalhes */
+       }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            background-color: #FF5733;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #e04b29;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<br><br><br><br>
+<div style="display: flex; justify-content: center; margin-top:-50px;margin-bottom: 20px;align-items: center;background-color: #f3f3f3;border-radius: 8px;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+
+    <form id="dassForm">
+        <br>
+        <button class="button5" type="button5" onclick="window.location.href='dass21.html'" style="
+        display: block; 
+        margin: 0 auto; 
+        padding: 10px 20px; 
+  
+
+        border: none; 
+        border-radius: 5px; 
+        text-align: center; 
+        cursor: pointer;">
+        <span><p2 style="font-weight: bold;">Fazer o teste DASS-21</p2></span>
+    </button><br>
+    
+      <p2> Calculadora DASS-21</p2>
+      <button type="button" onclick="processCSV()">Calcular</button>
+      <br>
+      <br>
+      <input type="file" id="csvFile" accept=".csv" required>
+  
+
+
+
+  </form>
+  
+</div><br><br>
+      <div style="display: flex; justify-content: center; margin-top:-50px;margin-bottom: 20px;align-items: center;background-color: #f3f3f3;border-radius: 8px;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <br>
+        <p2>     <br>Formato do arquivo: (.csv) separados por espaço, sendo primeira coluna "Pergunta" (número de 1 a 21) e segunda coluna "Resposta" (número de 0 a 3).
+            <br>        <br>
+        </p2>
+</div>         
+
+
+
+<div id="resultpai">
+
+        <div id="results" class="results" style= "margin-top:-30px; margin-bottom:-100px;">
+            <h2>Resultados</h2>
+                <p><strong>Depressão:</strong> <span id="depressao"></span></p>
+                <p><strong>Ansiedade:</strong> <span id="ansiedade"></span></p>
+                <p><strong>Estresse:</strong> <span id="estresse"></span></p>
+            </div>
+
+
+
+
+        <iframe
+  src="https://carbon.now.sh/embed?bg=rgba%28171%2C184%2C195%2C0%29&t=base16-light&wt=sharp&l=auto&width=326&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=false&pv=0px&ph=0px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&code=%2520%2520%2520%2520%253Cscript%253E%250A%2520%2520%252F%252F%2520Escores%2520das%2520subescalas%250Afunction%2520classifyDepression%28score%29%2520%257B%250Aif%2520%28score%2520%253C%252010%29%2520return%2520%27Normal%27%253B%250Aif%2520%28score%2520%253C%253D%252013%29%2520return%2520%27Leve%27%253B%250Aif%2520%28score%2520%253C%253D%252020%29%2520return%2520%27Moderado%27%253B%250Aif%2520%28score%2520%253C%253D%252027%29%2520return%2520%27Severo%27%253B%250Areturn%2520%27Extremamente%2520Severo%27%253B%250A%2520%2520%2520%2520%2520%2520%2520%2520%257D%250Afunction%2520classifyAnxiety%28score%29%2520%257B%250Aif%2520%28score%2520%253C%25208%29%2520return%2520%27Normal%27%253B%250Aif%2520%28score%2520%253C%253D%25209%29%2520return%2520%27Leve%27%253B%250Aif%2520%28score%2520%253C%253D%252014%29%2520return%2520%27Moderado%27%253B%250Aif%2520%28score%2520%253C%253D%252019%29%2520return%2520%27Severo%27%253B%250Areturn%2520%27Extremamente%2520Severo%27%253B%250A%2520%2520%2520%2520%2520%2520%2520%2520%257D%250Afunction%2520classifyStress%28score%29%2520%257B%250Aif%2520%28score%2520%253C%252015%29%2520return%2520%27Normal%27%253B%250Aif%2520%28score%2520%253C%253D%252018%29%2520return%2520%27Leve%27%253B%250Aif%2520%28score%2520%253C%253D%252025%29%2520return%2520%27Moderado%27%253B%250Aif%2520%28score%2520%253C%253D%252033%29%2520return%2520%27Severo%27%253B%250Areturn%2520%27Extremamente%2520Severo%27%253B%250A%2520%2520%2520%2520%2520%2520%2520%2520%257D%250A%2520%252F%252F%2520%25C3%258Dndices%2520das%2520subescalas%250Aconst%2520depressaoIndices%2520%253D%2520%250A%2520%2520%255B2%252C%25204%252C%25209%252C%252012%252C%252015%252C%252016%252C%252020%255D%253B%250Aconst%2520ansiedadeIndices%2520%253D%2520%250A%2520%2520%255B1%252C%25203%252C%25206%252C%25208%252C%252014%252C%252018%252C%252019%255D%253B%250Aconst%2520estresseIndices%2520%253D%2520%250A%2520%2520%255B0%252C%25205%252C%25207%252C%252010%252C%252011%252C%252013%252C%252017%255D%253B%250A%250A%2520%252F%252F%2520Converter%2520respostas%250Arespostas%2520%253D%2520data.map%28row%2520%253D%253E%2520parseInt%28row.Resposta%2520%257C%257C%25200%252C%252010%29%29%253B%250A%250Aconst%2520depressao%2520%253D%2520depressaoIndices.reduce%28%28sum%252C%2520i%29%2520%253D%253E%2520sum%2520%252B%2520%28respostas%255Bi%255D%2520%257C%257C%25200%29%252C%25200%29%2520*%25202%253B%250A%250Aconst%2520ansiedade%2520%253D%2520ansiedadeIndices.reduce%28%28sum%252C%2520i%29%2520%253D%253E%2520sum%2520%252B%2520%28respostas%255Bi%255D%2520%257C%257C%25200%29%252C%25200%29%2520*%25202%253B%250A%250Aconst%2520estresse%2520%253D%2520estresseIndices.reduce%28%28sum%252C%2520i%29%2520%253D%253E%2520sum%2520%252B%2520%28respostas%255Bi%255D%2520%257C%257C%25200%29%252C%25200%29%2520*%25202%253B%250A%250A%252F%252F%2520Salvar%2520resultados%250Aresultados%2520%253D%2520%257B%250A%2520%2520%250Adepressao%253A%2520%257B%2520score%253A%2520depressao%252C%2520classificacao%253A%2520classifyDepression%28depressao%29%2520%257D%252C%250A%2520%2520%250Aansiedade%253A%2520%257B%2520score%253A%2520ansiedade%252C%2520classificacao%253A%2520classifyAnxiety%28ansiedade%29%2520%257D%252C%250A%2520%2520%250Aestresse%253A%2520%257B%2520score%253A%2520estresse%252C%2520classificacao%253A%2520classifyStress%28estresse%29%2520%257D%252C%250A%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%2520%257D%253B%250A%250A%2520%2520%2520%2520%2520%253C%252Fscript%253E"
+  style="width: 305px; height: 1328px; border:0; margin-bottom: -100px;transform: scale(1); overflow:hidden;"
+  sandbox="allow-scripts allow-same-origin">
+</iframe>
+
+
+</div>
+
+
+
+    </div>
+    <script>
+        function classifyDepression(score) {
+            if (score < 10) return 'Normal';
+            if (score <= 13) return 'Leve';
+            if (score <= 20) return 'Moderado';
+            if (score <= 27) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function classifyAnxiety(score) {
+            if (score < 8) return 'Normal';
+            if (score <= 9) return 'Leve';
+            if (score <= 14) return 'Moderado';
+            if (score <= 19) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function classifyStress(score) {
+            if (score < 15) return 'Normal';
+            if (score <= 18) return 'Leve';
+            if (score <= 25) return 'Moderado';
+            if (score <= 33) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function processCSV() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Por favor, selecione um arquivo CSV.');
+                return;
+            }
+
+            Papa.parse(file, {
+                delimiter: " ",  
+                header: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    const data = results.data;
+
+                    // Índices das subescalas
+                    const depressaoIndices = [2, 4, 9, 12, 15, 16, 20];
+                    const ansiedadeIndices = [1, 3, 6, 8, 14, 18, 19];
+                    const estresseIndices = [0, 5, 7, 10, 11, 13, 17];
+
+                    // Converter respostas
+                    respostas = data.map(row => parseInt(row.Resposta || 0, 10));
+                    const depressao = depressaoIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+                    const ansiedade = ansiedadeIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+                    const estresse = estresseIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+
+                    // Salvar resultados
+                    resultados = {
+                        depressao: { score: depressao, classificacao: classifyDepression(depressao) },
+                        ansiedade: { score: ansiedade, classificacao: classifyAnxiety(ansiedade) },
+                        estresse: { score: estresse, classificacao: classifyStress(estresse) },
+                    };
+                    function exibirBotao() {
+
+                    }
+                    // Exibir resultados
+                    document.getElementById('depressao').textContent = `${depressao} - ${resultados.depressao.classificacao}`;
+                    document.getElementById('ansiedade').textContent = `${ansiedade} - ${resultados.ansiedade.classificacao}`;
+                    document.getElementById('estresse').textContent = `${estresse} - ${resultados.estresse.classificacao}`;
+                    document.getElementById('results').style.display = 'block';
+                    document.getElementById('exportCSV').style.display = 'inline-block';
+                },
+                error: function(err) {
+                    console.error('Erro ao processar o arquivo:', err);
+                }
+            });
+        }
+    </script>
+<footer>
+    <p2 id="emailSender">
+        © 2024 Ivan Moriá Borges
+    </p2>
+</footer>
+
+<script>
+    document.getElementById('emailSender').addEventListener('click', function() {
+        window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
+    });
+</script>
+
+<style>footer {
+  
+    color: black; /* Cor do texto */
+    text-align: center; /* Centraliza o texto */
+    padding: 0px 0; /* Espaçamento interno */
+    position: flex; /* Fixa o footer na parte inferior da página */
+
+    bottom: 0; /* Coloca o footer na parte inferior */
+    margin-bottom:60px;
+    z-index: 99999;
+}
+
+#emailSender {
+    font-size: 14px; /* Tamanho da fonte */
+    cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+    text-decoration: none; /* Remove sublinhado */
+    color:black; /* Cor do texto */
+    transition: color 0.3s; /* Animação de transição para a cor */
+}
+
+#emailSender:hover {
+    color: #ffcc00; /* Cor ao passar o mouse */
+}
+</style>
+<br>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizador de Senoides</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      background: white;
+      margin: 10px;
+    }
+    input, button {
+      margin: 5px;
+      width: 80px;
+    }
+    .freq-block {
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Gerador de Acorde com Senoides</h2>
+
+  <label>Amplitude Geral:
+    <input id="amplitude" type="number" value="0.2" step="0.01" max="1.0" min="0.01" />
+  </label>
+
+  <div id="frequencies-container"></div>
+
+  <h3>Soma das Senoides (Acorde)</h3>
+  <canvas id="waveSum" width="800" height="200"></canvas>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const NUM_OSC = 4;
+    const oscData = [];
+    const colors = ["#ff0000", "#00aa00", "#0000ff", "#cc00cc"];
+
+    function createUI() {
+      const container = document.getElementById("frequencies-container");
+      for (let i = 0; i < NUM_OSC; i++) {
+        const block = document.createElement("div");
+        block.className = "freq-block";
+
+        block.innerHTML = `
+          <label>Freq${i + 1} (Hz):
+            <input id="freq${i}" type="number" value="${220 + i * 110}" />
+          </label>
+          <button id="btn${i}">Play</button><br>
+          <canvas id="wave${i}" width="600" height="150"></canvas>
+        `;
+
+        container.appendChild(block);
+        oscData.push({ playing: false, osc: null, gain: null });
+      }
+    }
+
+    function createOscillator(freq, amp) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      gain.gain.value = amp;
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start();
+      return { osc, gain };
+    }
+
+    function toggleOscillator(i) {
+      const freq = parseFloat(document.getElementById(`freq${i}`).value);
+      const amp = parseFloat(document.getElementById("amplitude").value);
+
+      if (!oscData[i].playing) {
+        const { osc, gain } = createOscillator(freq, amp);
+        oscData[i].osc = osc;
+        oscData[i].gain = gain;
+        oscData[i].playing = true;
+        document.getElementById(`btn${i}`).innerText = "Pause";
+      } else {
+        oscData[i].osc.stop();
+        oscData[i].playing = false;
+        document.getElementById(`btn${i}`).innerText = "Play";
+      }
+    }
+
+    function drawGrid(ctx, width, height) {
+      ctx.strokeStyle = "#ddd";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+      ctx.lineTo(width, height / 2);
+      ctx.stroke();
+    }
+
+    function drawSine(canvas, getFreq, getAmp, color) {
+      const ctx = canvas.getContext("2d");
+      let t = 0;
+      function draw() {
+        const freq = getFreq();
+        const amp = getAmp();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid(ctx, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = color;
+
+        for (let x = 0; x < canvas.width; x++) {
+          const time = t + x / canvas.width;
+          const y = canvas.height / 2 + Math.sin(2 * Math.PI * freq * time) * amp * (canvas.height / 2 - 10);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.stroke();
+        t += 0.005;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    function drawSumWave(canvas, getFreqs, getAmp) {
+      const ctx = canvas.getContext("2d");
+      let t = 0;
+      function draw() {
+        const freqs = getFreqs();
+        const amp = getAmp();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGrid(ctx, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#000";
+
+        for (let x = 0; x < canvas.width; x++) {
+          const time = t + x / canvas.width;
+          let sum = 0;
+          for (let f of freqs) sum += Math.sin(2 * Math.PI * f * time);
+          const y = canvas.height / 2 + (sum / freqs.length) * amp * (canvas.height / 2 - 10);
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.stroke();
+        t += 0.005;
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // Inicialização
+    createUI();
+
+    for (let i = 0; i < NUM_OSC; i++) {
+      document.getElementById(`btn${i}`).addEventListener("click", () => toggleOscillator(i));
+      drawSine(
+        document.getElementById(`wave${i}`),
+        () => parseFloat(document.getElementById(`freq${i}`).value),
+        () => parseFloat(document.getElementById("amplitude").value),
+        colors[i]
+      );
+    }
+
+    drawSumWave(
+      document.getElementById("waveSum"),
+      () => Array.from({ length: NUM_OSC }, (_, i) => parseFloat(document.getElementById(`freq${i}`).value)),
+      () => parseFloat(document.getElementById("amplitude").value)
+    );
+  </script>
+</body>
+</html>

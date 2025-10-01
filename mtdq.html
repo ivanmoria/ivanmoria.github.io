@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>MTDQ v1.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="media/teste.png">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+  
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+
+
+        /* From Uiverse.io by Galahhad */ 
+/* radio settings 👇 */
+
+.theme-popup {
+  /* total */
+  --total_text_color: #e0e0e0;
+  --total_font_family: Menlo, Roboto Mono, monospace;
+  /* button */
+  --btn_bg: #3A3A3A;
+  --btn_padding: 0.5em;
+  --btn_height: 2em;
+  --btn_border_radius: 0.3125em;
+  --btn_outline_width: 0.0625em;
+  --btn_outline_color: #A0A0A0;
+  --btn_outline_offset: 0.0625em;
+  --btn_gap: 0.3125em;
+  /* list */
+  --list_padding: 0.5em;
+  --list_bg: var(--btn_bg);
+  --list_border_radius: var(--btn_border_radius);
+  --list_gap: 0.1875em;
+  --list_btn_hover_bg: #5A5656;
+  --list_btn_active: #b9b9b970;
+  --list_btn_border_radius: 0.25em;
+  --list_btn_padding: 0.35em 1em;
+  --list_btn_gap: 0.4375em;
+  --list_btn_outline_width: 0.0625em;
+  --list_btn_outline_color: rgb(212, 210, 210);
+  --list_offset: 0.35em;
+  --list_btn_font_size: 14px;
+  --list_position_left: 0;
+  --list_position_right: unset;
+  /* 👆 if you want to change sides just switch one property */
+  /* from properties to "unset" and the other to 0 */
+}
+
+.theme-popup__button .theme-popup__icons svg,
+#light,
+#dark, 
+#default, 
+#checkbox,
+.theme-popup__list-container {
+  display: none;
+}
+
+.theme-popup {
+  color: var(--total_text_color);
+  font-family: var(--total_font_family);
+  position: relative;
+  user-select: none;
+}
+
+.theme-popup__list-container {
+  position: absolute;
+  left: var(--list_position_left);
+  right: var(--list_position_right);
+  top: calc(var(--btn_height) + var(--list_offset));
+}
+
+.theme-popup__icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.theme-popup__button {
+  line-height: var(--btn_height);
+  background-color: var(--btn_bg);
+  padding: 0 var(--btn_padding);
+  display: inline-flex;
+  align-items: center;
+  column-gap: var(--btn_gap);
+  border-radius: var(--btn_border_radius);
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  outline: none;
+  font-weight: bold;
+}
+
+.theme-popup__list {
+  margin: 0;
+  list-style-type: none;
+  padding: var(--list_padding);
+  border-radius: var(--list_border_radius);
+  background-color: var(--list_bg);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--list_gap);
+
+}
+
+.theme-popup__list label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: var(--list_btn_gap);
+  padding: var(--list_btn_padding);
+  border-radius: var(--list_btn_border_radius);
+  white-space: nowrap;
+}
+
+.theme-popup__list label span {
+  font-size: var(--list_btn_font_size);
+}
+
+/* actions */
+
+#checkbox:checked~.theme-popup__button {
+  outline: var(--btn_outline_width) solid var(--btn_outline_color);
+  outline-offset: var(--btn_outline_offset);
+}
+
+#checkbox:checked~.theme-popup__list-container {
+  display: block;
+}
+
+.theme-popup__list label:hover,
+.theme-popup__button:hover,
+#checkbox:checked~.theme-popup__button {
+  background-color: var(--list_btn_hover_bg);
+}
+
+#default:checked~.theme-popup__list-container label[for="default"],
+#light:checked~.theme-popup__list-container label[for="light"],
+#dark:checked~.theme-popup__list-container label[for="dark"] {
+  background-color: var(--list_btn_active);
+  outline: var(--list_btn_outline_width) solid var(--list_btn_outline_color);
+}
+
+#default:checked~label svg.default,
+#light:checked~label svg.sun,
+#dark:checked~label svg.moon {
+  display: block;
+}
+
+
+
+  /* Estilo do botão inspirado no site Gumroad */
+  .button5 {
+    --bg: #000;
+    --hover-bg: #ff90e8;
+    --hover-text: #000;
+    color: #fff;
+    cursor: pointer;
+
+    border: 1px solid var(--bg);
+    border-radius: 10px;
+    padding: 0.2em 0.2em;
+    background: var(--bg);
+    transition: 0.2s;
+    font-size: 12px;
+    white-space: nowrap;
+    margin: 1px;
+    display: inline-block;
+    text-align: center;
+}
+
+.button5:hover {
+    color: var(--hover-text);
+    transform: translate(-0.25rem, -0.25rem);
+    background: var(--hover-bg);
+    box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button5:active {
+    transform: translate(0);
+    box-shadow: none;
+}
+
+.button50 {
+  --bg: #000;
+  --hover-bg: #3fb85b;
+  --hover-text: #000;
+  color: #fff;
+  cursor: pointer;
+
+  border: 1px solid var(--bg);
+  border-radius: 10px;
+  padding: 0.4em 0.4em;
+  background: var(--bg);
+  transition: 0.2s;
+  font-size: 12px;
+  white-space: nowrap;
+  margin: 1px;
+  display: inline-block;
+  text-align: center;
+}
+
+.button50:hover {
+  color: var(--hover-text);
+  transform: translate(-0.25rem, -0.25rem);
+  background: var(--hover-bg);
+  box-shadow: 0.25rem 0.25rem var(--bg);
+}
+
+.button50:active {
+  transform: translate(0);
+  box-shadow: none;
+}
+.p11 {
+  font-family: 'Poiret One', cursive;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(131, 159, 144, 0.801);
+}
+    </style>
+</head>
+<body>
+  <div style="text-align: center;margin-top:-15px;">
+    <p11 style="font-size: 18px; color: black;">Escala de Avaliação dos Efeitos da Musicoterapia em Grupo na Dependência Química</p11>
+</div>
+<br>
+
+<div>
+  <div class="theme-popup"id="instructionsSection">
+    <div class="menu-text" id="menuButton">
+      <h3 style="margin-top:-10px;">Instruções</h3>
+      <div class="tooltip" id="balao">
+    
+      <p>O(a) Sr(a). está sendo convidado a participar da pesquisa: “Protocolo de Avaliação na Terapia de Grupo em Musicoterapia na Dependência Química” que tem por objetivo construir um instrumento de avaliação de grupos de Musicoterapia nos tratamentos de Dependência Química.
+        Essa pesquisa será realizada com pessoas adultas de ambos sexos (com identificação de qualquer gênero), diagnosticados com dependência química, maiores de idade, frequentadores dos grupos de musicoterapia ofertados em atendimentos da rede de saúde mental de Belo Horizonte/MG . Não participarão da pesquisa pessoas que não se enquadram no referido diagnóstico ou que, a qualquer momento e por qualquer motivo, não queiram participar da pesquisa.
+        Sua participação no estudo se dará em grupos de atendimentos musicoterapêuticos e ao responder algumas questões sobre tais atendimentos. Os grupos terão duração de, mais ou menos, 50 minutos. Os riscos com essa pesquisa são mínimos, sendo que o sr. pode se sentir desconfortável em responder alguma pergunta ou com a participação nos grupos de musicoterapia, mas o(a) sr(a). tem a liberdade de não responder ou interromper a entrevista e/ou participação em qualquer momento, sem nenhum prejuízo para seu atendimento. É garantido o direito a indenização diante de eventuais danos decorrentes da pesquisa, pelo pesquisador. Sua participação no estudo não implicará em custos adicionais, não terá qualquer despesa com a realização dos procedimentos previstos neste estudo. Também não haverá nenhuma forma de pagamento pela sua participação.
+        
+        O(a) Sr(a). tem a liberdade de não participar da pesquisa ou retirar seu consentimento a qualquer momento, mesmo após o início da entrevista ou dos grupos de musicoterapia, sem qualquer prejuízo. Está assegurada a garantia do sigilo das suas informações. O(a) Sr(a). não terá nenhuma despesa e não há compensação financeira relacionada à sua participação na pesquisa.
+        Caso tenha alguma dúvida sobre a pesquisa o(a) sr(a). poderá entrar em contato com o coordenador responsável pelo estudo: Frederico Gonçalves Pedrosa, que pode ser localizado no Escola de Música da UFMG (31- 3409-4700) das 14 às 22h ou pelo e-mail frederico.musicoterapia@gmail.com.
+        Em caso de dúvidas éticas, o participante pode se dirigir ao COEP/UFMG localizado à Av. Presidente Antônio Carlos, 6627, Pampulha - Belo Horizonte - MG - CEP 31270-901, Unidade Administrativa II - 2o Andar - Sala: 2005, acessar através do e-mail coep@prpq.ufmg.br ou telefone (31) 3409-4592. Também poderá acessar o CEP/SMSA, localizado à Rua Frederico Bracher Junior, 103 – 3o andar/sala 2 – Padre Eustáquio – CEP: 30.720-000, com o horário de funcionamento: 9h às 15h - (31) 3277-5309, através do e-mail coep@pbh.gov.br ou pelo site https://prefeitura.pbh.gov.br/saude/informacoes/educacao-em-saude/comite-de-etica-em-saude.
+        Sua participação é importante e voluntária e vai gerar informações que serão úteis para indicar melhores tratamentos musicoterapêuticos para tratar das dependências químicas.
+        Este termo será assinado em duas vias, pelo senhor e pelo responsável pela pesquisa, ficando uma via em seu poder.
+        Acredito ter sido suficientemente informado a respeito do que li ou foi lido para mim, sobre a pesquisa: "Protocolo de Avaliação na Terapia de Grupo em Musicoterapia na Dependência Química". Discuti com o pesquisador Frederico Gonçalves Pedrosa ou com seu substituto, responsável pela pesquisa, sobre minha decisão em participar do estudo. Ficaram claros para mim os propósitos do estudo, os procedimentos, garantias de sigilo, de esclarecimentos permanentes e isenção de despesas. Concordo voluntariamente em participar deste estudo.
+                   </p>
+                   <br>
+                   <p>
+          
+                    Se estiver no celular, utilize os <b>botões</b> para escolher a resposta e pressione <b>OK</b> para avançar.
+                 </p><br>
+                 Se estiver no computador, você poderá também utilizar as teclas <b>1-5</b> para escolher a resposta
+                   e pressionar <b>espaço</b> para avançar.<br><br>
+               <br>
+       <p> Você pode optar por ouvir as perguntas do teste.
+        <label for="audioCheckbox">
+        
+        </label>
+        
+        <form>
+          <fieldset>
+      
+            <label>
+              <input type="checkbox" id="audioCheckbox"> Ativar Áudio
+            </label>
+         
+          </fieldset>
+        </form>
+
+
+
+
+
+
+        Selecione o tipo de Voz e escolha o Gênero das perguntas. </p>
+        <form>
+          <fieldset>
+            <legend>Voz de referência</legend>
+            <label>
+              <input type="radio" name="voiceType" value="homem" checked>
+              Voz de Homem
+            </label><br>
+            <label>
+              <input type="radio" name="voiceType" value="mulher">
+              Voz de Mulher
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Gênero das perguntas</legend>
+            <label>
+              <input type="radio" name="gender" value="masculino" checked>
+              Masculino
+            </label><br>
+            <label>
+              <input type="radio" name="gender" value="feminino">
+              Feminino
+            </label>
+<br>
+
+
+            
+          </fieldset>
+        </form>
+
+        <div class="button-container">
+          <button id="startButton" onclick="startTest()">Clique aqui para começar</button>
+        </div>
+
+        <footer>
+          <p class="reference">
+            Referência: Pedrosa, F. G. (2023). Escala de avaliação dos efeitos da musicoterapia em grupo na dependência química (MTDQ).
+          </p>
+          <footer>
+            <p2 id="emailSender">
+                © 2024 Ivan Moriá Borges
+            </p2>
+        </footer>
+        
+        <script>
+            document.getElementById('emailSender').addEventListener('click', function() {
+                window.location.href = 'mailto:ivanmoriabr@gmail.com?subject=Sobre%20o%20DASS-21&body=Olá Ivan,';
+            });
+        </script>
+        
+        <style>footer {
+          
+            color: black; /* Cor do texto */
+            text-align: center; /* Centraliza o texto */
+            padding: 0px 0; /* Espaçamento interno */
+            position: flex; /* Fixa o footer na parte inferior da página */
+            width: 100%; /* Largura do footer */
+            bottom: 0; /* Coloca o footer na parte inferior */
+            margin-bottom:-60px;
+            z-index: 99999;
+        }
+        
+        #emailSender {
+            font-size: 14px; /* Tamanho da fonte */
+            cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+            text-decoration: none; /* Remove sublinhado */
+            color:black; /* Cor do texto */
+            transition: color 0.3s; /* Animação de transição para a cor */
+        }
+        
+        #emailSender:hover {
+            color: #ffcc00; /* Cor ao passar o mouse */
+        }
+        </style>
+
+
+  <style>
+      @media (max-width: 600px) {
+          #emailSender {
+              font-size: 12px; /* Ajusta o tamanho da fonte em telas pequenas */
+          }
+      }
+  </style>
+        <br> <br> <br> <br> <br><br><br><br><br><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br><br><br>
+<script>document.querySelector('.tooltip').addEventListener('click', function(event) {
+  event.stopPropagation();  // Impede que o clique se propague para o elemento pai
+});
+</script>
+<style>
+
+/* Estilo para o theme-popup */
+.theme-popup {
+  position:absolute;          /* Permite que o popup fique fixo na tela */
+  margin-top:20px;
+  left: 50%;                 /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajuste para garantir que o centro do popup esteja na tela */
+  
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  height:5%;
+  width: 50%;           /* Largura do popup, pode ser ajustada conforme necessário */
+  max-width: 600px;          /* Largura máxima para garantir que o popup não fique muito grande */
+  box-sizing: border-box;    /* Inclui o padding no cálculo da largura total */
+}
+
+  
+  .tooltip p {
+    margin: 1px ;
+    left:50%;
+    line-height: 1.5;
+    width: 100%; /* O tooltip agora ocupa 100% da largura da tela */
+    max-width: 100%; /* Impede que o tooltip exceda os limites da tela */
+ 
+ 
+  }
+
+  fieldset {
+    border: 1px solid #ddd; /* Borda suave ao redor do fieldset */
+    padding: 10px 20px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin: 10px 0; /* Margem para separação */
+    
+    background-color: #f9f9f9; /* Cor de fundo clara */
+  }
+  
+  legend {
+    font-size: 16px; /* Tamanho da fonte do título do fieldset */
+    font-weight: bold; /* Tornar o título mais forte */
+    color: #333; /* Cor suave para o texto */
+    margin-right: 15px; /* Espaçamento entre o legend e os inputs */
+    margin-left:-20px;
+  }
+
+  label {
+    display: block; /* Faz os labels se alinharem verticalmente */
+    margin-bottom: 8px; /* Espaçamento entre os labels */
+    font-size: 14px; /* Tamanho da fonte */
+    color: #555; /* Cor de texto suave */
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px; /* Espaçamento entre o botão de rádio e o texto */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  button {
+    background-color: #FF5733;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #e04b29;
+  }
+  
+  footer {
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
+    color: #555;
+  }
+  
+  .hover-text {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+  }
+
+  .hover-text .tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    margin-left: 85px;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 125%; /* Exibe o balão acima do texto */
+    left: 20%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .hover-text:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    
+  }
+  .hover-text .tooltipe {
+    visibility: hidden;
+    width: 250px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    margin-left: 85px;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Exibe o balão acima do texto */
+    left: 20%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .hover-text:hover .tooltipe {
+    visibility: visible;
+    opacity: 1;
+    }
+
+    #modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(210, 8, 8, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #modalContent {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 300px;
+    }
+    
+</style>
+
+
+
+<style>
+
+
+  .menu-text {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .tooltip {
+    display: none;
+    position:absolute;
+    margin-top: 25px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    cursor: pointer;
+
+
+    width: 280px;
+  }
+  .menu-text .tooltip {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: 100%; /* Posicionado abaixo do elemento pai */
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+  .menu-text.active .tooltip {
+    display: block;
+    height: 620px;
+    width: 95vw; /* O tooltip agora ocupa 90% da largura da tela */
+    max-width: 95vw; /* Impede que o tooltip exceda 90% da tela */
+    margin: 5px auto; /* Centraliza horizontalmente o tooltip */
+
+  }
+  
+</style>
+
+
+
+
+<script>
+const menuButton = document.getElementById('menuButton');
+
+menuButton.addEventListener('click', () => {
+  menuButton.classList.toggle('active');
+});
+</script>
+
+
+
+
+
+<!-- Janela Modal -->
+<div id="modal" style="display: none;">
+  <div id="modalContent">
+    <h2>Informações</h2>
+    <label for="nameInput">Nome:</label>
+    <input type="text" id="nameInput" placeholder="Digite seu nome" /><br /><br />
+
+    <label for="genderInput">Gênero:</label>
+    <input type="text" id="genderInput" placeholder="Masculino, Feminino, Outro" /><br /><br />
+
+    <label for="ageInput">Idade:</label>
+    <input type="number" id="ageInput" placeholder="Digite sua idade" /><br /><br />
+
+    <label for="dateInput">Data do Teste:</label>
+    <input type="date" id="dateInput" /><br /><br />
+
+    <button onclick="submitParticipantInfo()">Iniciar Teste</button>
+  </div>
+</div>
+
+
+<div id="testContainer" style="display: none;">
+
+
+
+
+
+  <!-- Elemento de áudio (oculto) -->
+  <audio id="audioPlayer" controls style="display: none;"></audio>
+
+
+<!-- Elemento de mensagem de alerta -->
+<div id="alertMessage" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; margin: 10px 0; border: 1px solid #f5c6cb; border-radius: 5px; text-align: center;">
+  Você deve selecionar uma resposta antes de continuar.
+</div>
+
+<style>#alertMessage {
+  display: none;
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  text-align: center;
+  
+  /* Posição fixa no topo da página, para não afetar o layout */
+  position: fixed;
+  top: 20%;  /* Distância do topo */
+  left: 50%;
+  transform: translateX(-50%);  /* Centraliza horizontalmente */
+  z-index: 1000;  /* Coloca o alerta acima de outros elementos */
+  width: 80%;  /* Tamanho do alerta */
+  max-width: 400px;  /* Largura máxima */
+}</style>
+
+<div style="
+    font-size: 25px; 
+    margin-top: -60px; 
+    width: 100%; 
+    height: 260px; 
+    background-color: rgba(194, 194, 194, 0.498); 
+    border-radius: 20px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: justify;
+">
+    <p style="font-size: 25px; color: black; width: 90%;" class="question" id="questionText">
+        Pergunta 1: Achei difícil me acalmar.
+    </p>
+</div>
+
+   <br>
+   <div style="
+   display: flex; 
+   flex-direction: column; 
+   align-items: center; 
+   justify-content: center; 
+   width: 100%; 
+   margin-top: -20px;
+">
+   <p class="answer" id="selectedAnswer" style="
+       margin-bottom: 20px; 
+       font-size: 18px;
+       text-align: center;
+   ">
+       Resposta: Nenhuma
+   </p>
+
+   <div style="
+       display: flex; 
+        margin-top: -20px;
+       justify-content: center;
+       align-items: center;
+   ">
+       <button class="button5" id="button-2024" onclick="selectAnswer(0)">Nunca</button>
+       <button class="button5" id="button-2023" onclick="selectAnswer(1)">Raramente</button>
+       <button class="button5" id="button-2022" onclick="selectAnswer(2)">Às vezes</button></div><br>
+       <div style="
+       display: flex; 
+        margin-top: -20px;
+       justify-content: center;
+       align-items: center;
+   ">
+       <button class="button5" id="button-2021" onclick="selectAnswer(3)">Muitas vezes</button>
+       <button class="button5" id="button-2021" onclick="selectAnswer(4)">Sempre</button>
+
+   </div>
+<br><br>
+   <div style="
+       display: flex; 
+        margin-top: -20px;
+       justify-content: center;
+       align-items: center;
+   ">
+   <button style="width:300px;"class="button50" id="button-all" onclick="nextQuestion()">OK</button>
+   </div>
+</div>
+
+
+
+  </div>
+</div>
+</div>
+
+
+    <script>
+
+
+      
+        const questions = {
+            masculino: [
+                "Eu uso música para me recompensar quando eu abro mão do meu desejo de usar drogas?",
+                "O grupo de musicoterapia me ajuda a me expressar sobre os meus problemas relacionados com drogas?",
+                "O grupo de musicoterapia me faz pensar sobre as possíveis doenças causadas pelo consumo de drogas?",
+                "O grupo de musicoterapia me faz perceber que as pessoas à minha volta seriam melhores comigo se eu não tivesse problemas com drogas?",
+                "Ouvi falar que a música pode me ajudar a parar de usar drogas?",
+                "A música me ajuda a pensar em outras coisas quando eu começo a pensar em usar drogas?",
+                "Acho que a sociedade está criando alternativas terapêuticas que facilitam a superação do meu problema com drogas, como a musicoterapia?",
+                "O grupo de musicoterapia me faz perceber como eu fico decepcionado comigo mesmo quando dependo de drogas?",
+                "Eu procuro no grupo de musicoterapia informações relacionadas ao meu problema com as drogas?",
+                "Algumas músicas me ajudam a lembrar de não usar drogas?",
+                "Encontro no grupo de musicoterapia pessoas com as quais eu posso contar para me ajudar quando eu estou tendo problemas com drogas?",
+                "Músicas sobre drogas e seus efeitos me incomodam?",
+                "Nas minhas composições musicais eu falo para mim mesmo que se eu tentar com empenho, posso deixar de usar drogas?",
+                "O grupo de musicoterapia me ajuda a pensar sobre o quanto as pessoas que estão a minha volta sofrem com meu uso de drogas?",
+                "O grupo de musicoterapia me faz sentir mais forte e competente para decidir abandonar as drogas?",
+                "O grupo de musicoterapia me ajuda a distanciar dos locais que geralmente estão associados ao meu uso das drogas?",
+                "Eu acho que escutar ou fazer música é um bom substituto para o uso de drogas?",
+                "Eu participo do grupo de musicoterapia e me sinto recompensado por não usar drogas?",
+                "O grupo de musicoterapia me ajuda a fazer um compromisso comigo mesmo de parar de usar drogas?",
+                "Discutimos no grupo de musicoterapia como a sociedade tenta ajudar as pessoas a não usar drogas?",
+              
+            ],
+            feminino: [
+                "Eu uso música para me recompensar quando eu abro mão do meu desejo de usar drogas?",
+                "O grupo de musicoterapia me ajuda a me expressar sobre os meus problemas relacionados com drogas?",
+                "O grupo de musicoterapia me faz pensar sobre as possíveis doenças causadas pelo consumo de drogas?",
+                "O grupo de musicoterapia me faz perceber que as pessoas à minha volta seriam melhores comigo se eu não tivesse problemas com drogas?",
+                "Ouvi falar que a música pode me ajudar a parar de usar drogas?",
+                "A música me ajuda a pensar em outras coisas quando eu começo a pensar em usar drogas?",
+                "Acho que a sociedade está criando alternativas terapêuticas que facilitam a superação do meu problema com drogas, como a musicoterapia?",
+                "O grupo de musicoterapia me faz perceber como eu fico decepcionada comigo mesma quando dependo de drogas?",
+                "Eu procuro no grupo de musicoterapia informações relacionadas ao meu problema com as drogas?",
+                "Algumas músicas me ajudam a lembrar de não usar drogas?",
+                "Encontro no grupo de musicoterapia pessoas com as quais eu posso contar para me ajudar quando eu estou tendo problemas com drogas?",
+                "Músicas sobre drogas e seus efeitos me incomodam?",
+                "Nas minhas composições musicais eu falo para mim mesma que se eu tentar com empenho, posso deixar de usar drogas?",
+                "O grupo de musicoterapia me ajuda a pensar sobre o quanto as pessoas que estão a minha volta sofrem com meu uso de drogas?",
+                "O grupo de musicoterapia me faz sentir mais forte e competente para decidir abandonar as drogas?",
+                "O grupo de musicoterapia me ajuda a distanciar dos locais que geralmente estão associados ao meu uso das drogas?",
+                "Eu acho que escutar ou fazer música é um bom substituto para o uso de drogas?",
+                "Eu participo do grupo de musicoterapia e me sinto recompensada por não usar drogas?",
+                "O grupo de musicoterapia me ajuda a fazer um compromisso comigo mesma de parar de usar drogas?",
+                "Discutimos no grupo de musicoterapia como a sociedade tenta ajudar as pessoas a não usar drogas?",
+        ]
+        
+        };
+
+
+        
+        // Definir caminhos dos áudios por pergunta, separados por tipo de voz e gênero
+        const audios = {
+            homem_masculino: [
+                'media/audio/mtdqaudio/daniel/daniel1.wav', 
+                'media/audio/mtdqaudio/daniel/daniel2.wav', 
+                'media/audio/mtdqaudio/daniel/daniel3.wav', 
+                'media/audio/mtdqaudio/daniel/daniel4.wav', 
+                'media/audio/mtdqaudio/daniel/daniel5.wav', 
+                'media/audio/mtdqaudio/daniel/daniel6.wav',
+                'media/audio/mtdqaudio/daniel/daniel7.wav',
+                'media/audio/mtdqaudio/daniel/danielmasc8.wav', 
+                'media/audio/mtdqaudio/daniel/daniel9.wav', 
+                'media/audio/mtdqaudio/daniel/daniel10.wav', 
+                'media/audio/mtdqaudio/daniel/daniel11.wav', 
+                'media/audio/mtdqaudio/daniel/daniel12.wav', 
+                'media/audio/mtdqaudio/daniel/danielmasc13.wav', 
+                'media/audio/mtdqaudio/daniel/daniel14.wav', 
+                'media/audio/mtdqaudio/daniel/daniel15.wav', 
+                'media/audio/mtdqaudio/daniel/daniel16.wav', 
+                'media/audio/mtdqaudio/daniel/daniel17.wav', 
+                'media/audio/mtdqaudio/daniel/danielmasc18.wav', 
+                'media/audio/mtdqaudio/daniel/daniel19.wav', 
+                'media/audio/mtdqaudio/daniel/daniel20.wav', 
+               ,
+       
+               
+            ],
+            homem_feminino: [
+            'media/audio/mtdqaudio/daniel/daniel1.wav', 
+            'media/audio/mtdqaudio/daniel/daniel2.wav', 
+            'media/audio/mtdqaudio/daniel/daniel3.wav', 
+            'media/audio/mtdqaudio/daniel/daniel4.wav', 
+            'media/audio/mtdqaudio/daniel/daniel5.wav', 
+            'media/audio/mtdqaudio/daniel/daniel6.wav',
+            'media/audio/mtdqaudio/daniel/daniel7.wav',
+            'media/audio/mtdqaudio/daniel/danielfem8.wav', 
+            'media/audio/mtdqaudio/daniel/daniel9.wav', 
+            'media/audio/mtdqaudio/daniel/daniel10.wav', 
+            'media/audio/mtdqaudio/daniel/daniel11.wav', 
+            'media/audio/mtdqaudio/daniel/daniel12.wav', 
+            'media/audio/mtdqaudio/daniel/daniel13.wav', 
+            'media/audio/mtdqaudio/daniel/daniel14.wav', 
+            'media/audio/mtdqaudio/daniel/daniel15.wav', 
+            'media/audio/mtdqaudio/daniel/daniel16.wav', 
+            'media/audio/mtdqaudio/daniel/daniel17.wav', 
+            'media/audio/mtdqaudio/daniel/danielfem18.wav', 
+            'media/audio/mtdqaudio/daniel/daniel19.wav', 
+            'media/audio/mtdqaudio/daniel/daniel20.wav', 
+            ],
+ 
+            mulher_masculino: [
+                'media/audio/mtdqaudio/lily/lilyfem1.wav',
+                'media/audio/mtdqaudio/lily/lilyfem2.wav',
+                'media/audio/mtdqaudio/lily/lilyfem3.wav',
+                'media/audio/mtdqaudio/lily/lilyfem4.wav',
+                'media/audio/mtdqaudio/lily/lilyfem5.wav',
+                'media/audio/mtdqaudio/lily/lilyfem6.wav',
+                'media/audio/mtdqaudio/lily/lilyfem7.wav',
+                'media/audio/mtdqaudio/lily/lilymasc8.wav',
+                'media/audio/mtdqaudio/lily/lilyfem9.wav',
+                'media/audio/mtdqaudio/lily/lilyfem10.wav',
+                'media/audio/mtdqaudio/lily/lilyfem11.wav',
+                'media/audio/mtdqaudio/lily/lilyfem12.wav',
+                'media/audio/mtdqaudio/lily/lilymasc13.wav',
+                'media/audio/mtdqaudio/lily/lilyfem14.wav',
+                'media/audio/mtdqaudio/lily/lilyfem15.wav',
+                'media/audio/mtdqaudio/lily/lilyfem16.wav',
+                'media/audio/mtdqaudio/lily/lilyfem17.wav',
+                'media/audio/mtdqaudio/lily/lilymasc18.wav',
+                'media/audio/mtdqaudio/lily/lilyfem19.wav',
+                'media/audio/mtdqaudio/lily/lilyfem19.wav',
+       
+            ],
+            mulher_feminino: [
+            'media/audio/mtdqaudio/lily/lilyfem1.wav',
+            'media/audio/mtdqaudio/lily/lilyfem2.wav',
+            'media/audio/mtdqaudio/lily/lilyfem3.wav',
+            'media/audio/mtdqaudio/lily/lilyfem4.wav',
+            'media/audio/mtdqaudio/lily/lilyfem5.wav',
+            'media/audio/mtdqaudio/lily/lilyfem6.wav',
+            'media/audio/mtdqaudio/lily/lilyfem7.wav',
+            'media/audio/mtdqaudio/lily/lilyfem8.wav',
+            'media/audio/mtdqaudio/lily/lilyfem9.wav',
+            'media/audio/mtdqaudio/lily/lilyfem10.wav',
+            'media/audio/mtdqaudio/lily/lilyfem11.wav',
+            'media/audio/mtdqaudio/lily/lilyfem12.wav',
+            'media/audio/mtdqaudio/lily/lilyfem13.wav',
+            'media/audio/mtdqaudio/lily/lilyfem14.wav',
+            'media/audio/mtdqaudio/lily/lilyfem15.wav',
+            'media/audio/mtdqaudio/lily/lilyfem16.wav',
+            'media/audio/mtdqaudio/lily/lilyfem17.wav',
+            'media/audio/mtdqaudio/lily/lilyfem18.wav',
+            'media/audio/mtdqaudio/lily/lilyfem19.wav',
+            'media/audio/mtdqaudio/lily/lilyfem19.wav',
+   
+            ]
+        };
+
+
+
+          let currentQuestionIndex = 0;
+          const answers = [];
+          let participantName = '';
+          let participantAge = '';
+          let participantGender = '';
+          let testDate = '';
+          function startTest() {
+            // Mostrar o modal para coletar dados
+            const modal = document.getElementById('modal');
+            modal.style.display = 'flex';
+        
+            const instructionsSection = document.getElementById('instructionsSection');
+            instructionsSection.style.display = 'none';
+
+
+
+
+            // Ocultar o restante do conteúdo (como perguntas, resposta, áudio e formulário)
+            const testContent = document.getElementById('testContent');
+            const dassForm = document.getElementById('dassForm');
+            const dassFormt = document.getElementById('dassFormt');
+        
+            // Verifique se a seleção do conteúdo está correta e defina o display como 'none'
+            if (testContent) {
+                testContent.style.display = 'none';  // Oculta o bloco com as perguntas e o formulário
+            }
+        
+            if (dassForm) {
+                dassForm.style.display = 'none';  // Também oculta o formulário
+            }
+            if (dassFormt) {
+              dassFormt.style.display = 'none';  // Também oculta o formulário
+          }
+        }
+        
+          function submitParticipantInfo() {
+            // Obter os valores dos campos de entrada
+            const nameInput = document.getElementById('nameInput');
+            const genderInput = document.getElementById('genderInput');
+            const ageInput = document.getElementById('ageInput');
+            const dateInput = document.getElementById('dateInput');
+          
+            participantName = nameInput.value.trim();
+            participantGender = genderInput.value.trim();
+            participantAge = ageInput.value.trim();
+            const rawDate = dateInput.value;
+          
+            // Validar os campos
+            if (!participantName) {
+              alert('Por favor, insira seu nome.');
+              return;
+            }
+            if (!participantGender) {
+              alert('Por favor, insira seu gênero.');
+              return;
+            }
+            if (!participantAge || isNaN(participantAge)) {
+              alert('Por favor, insira uma idade válida.');
+              return;
+            }
+            if (!rawDate) {
+              alert('Por favor, selecione uma data para o teste.');
+              return;
+            }
+            // Formatar a data para dia-mês-ano
+            const [year, month, day] = rawDate.split('-');
+            testDate = `${day}-${month}-${year}`;
+
+            // Fechar o modal
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.getElementById("testContainer").style.display = "block";
+          
+            // Exibir mensagem de boas-vindas
+            alert(`Prezado(a) ${participantName},
+            Por favor, leia cada afirmação abaixo e selecione a resposta que indique com qual frequência você se enquadra nessas situações. Lembre que estas descrições se referem a atitudes ou pensamentos que você pode ter passado nos últimos dias.
+          `);
+          
+            // Tocar o primeiro áudio
+            showQuestion();
+          }
+          
+          function showQuestion() {
+            // Obter o gênero selecionado
+            const selectedGender = document.querySelector('input[name="gender"]:checked');
+            if (!selectedGender) {
+                alert('Por favor, selecione um gênero antes de continuar.');
+                return;
+            }
+        
+            // Atualizar o texto da pergunta com base no gênero selecionado
+            const genderValue = selectedGender.value; // Masculino, Feminino, Outro
+            const currentQuestionText = questions[genderValue][currentQuestionIndex];
+            
+            // Exibir a pergunta
+            document.getElementById('questionText').textContent = `${currentQuestionIndex + 1}: ${currentQuestionText}`;
+            
+            // Exibir a resposta selecionada como padrão
+            document.getElementById('selectedAnswer').textContent = 'Resposta: Nenhuma';
+            
+            // Tocar o áudio correspondente
+            playAudio();
+        }
+     // Variável para controlar se o alerta já foi exibido
+let alertShown = false;
+
+function playAudio() {
+  const audioCheckbox = document.getElementById('audioCheckbox'); // Obter o checkbox
+  
+  if (!audioCheckbox.checked) {
+    if (!alertShown) {
+      alert("Áudio desativado. Marque a caixa para ouvir."); // Avisar se o áudio estiver desativado
+      alertShown = true; // Definir que o alerta já foi mostrado
+    }
+    return;  // Se o checkbox não estiver marcado, não reproduz o áudio
+  }
+
+  // Lógica normal para reproduzir o áudio
+  const selectedVoice = document.querySelector('input[name="voiceType"]:checked').value;
+  const selectedGender = document.querySelector('input[name="gender"]:checked').value;
+  const audioPlayer = document.getElementById('audioPlayer');
+  const audioKey = `${selectedVoice}_${selectedGender}`;
+
+  // Define o áudio a ser tocado
+  audioPlayer.src = audios[audioKey][currentQuestionIndex];
+  audioPlayer.play();
+}
+
+      
+          // Função para atualizar a legenda e destacar a resposta
+          function selectAnswer(value) {
+              answers[currentQuestionIndex] = value; // Armazena a resposta
+              const selectedAnswerElement = document.getElementById('selectedAnswer');
+              selectedAnswerElement.textContent = `Resposta: ${['Nunca', 'Raramente', 'Às vezes', 'Muitas vezes', 'Sempre'][value]}`;
+              selectedAnswerElement.classList.add('highlight');
+          }
+      
+          function showAlertMessage(message) {
+              const alertDiv = document.getElementById('alertMessage');
+              alertDiv.textContent = message;
+              alertDiv.style.display = 'block';
+              setTimeout(() => {
+                  alertDiv.style.display = 'none';
+              }, 3000);
+          }
+          function nextQuestion() {
+            // Verifica se a resposta da pergunta atual foi selecionada
+            if (answers[currentQuestionIndex] === undefined) {
+                playAudio();
+                showAlertMessage('Você deve selecionar uma resposta antes de continuar.');
+                return;
+            }
+        
+            // Se não for a última pergunta, avança para a próxima
+            if (currentQuestionIndex < questions.masculino.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                // Se todas as perguntas foram respondidas, mostra mensagem de conclusão
+                alert('Teste concluído! Obrigado por responder.');
+                // Oculta os dois divs
+              const questionDiv = document.getElementById('questionText').parentElement;  // Pega o <div> que contém a pergunta
+              const answerDiv = document.getElementById('selectedAnswer').parentElement;  // Pega o <div> que contém as respostas
+      
+              questionDiv.style.display = 'none';  // Oculta a div da pergunta
+              answerDiv.style.display = 'none';  // Oculta a div das respostas
+                processResponses();
+            }
+        }
+        
+      
+          function processResponses() {
+              const depressaoIndices = [2, 4, 9, 12, 15, 16, 20];
+              const ansiedadeIndices = [1, 3, 6, 8, 14, 18, 19];
+              const estresseIndices = [0, 5, 7, 10, 11, 13, 17];
+      
+              const depressao = depressaoIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
+              const ansiedade = ansiedadeIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
+              const estresse = estresseIndices.reduce((sum, i) => sum + (answers[i] || 0), 0) * 2;
+
+              document.getElementById('nome').textContent = ` ${participantName}, `;
+              document.getElementById('idade').textContent = ` ${participantAge}`;
+              document.getElementById('depressao').textContent = `${depressao} - ${classifyDepression(depressao)}`;
+              document.getElementById('ansiedade').textContent = `${ansiedade} - ${classifyAnxiety(ansiedade)}`;
+              document.getElementById('estresse').textContent = `${estresse} - ${classifyStress(estresse)}`;
+      
+              document.getElementById('results').style.display = 'block';
+          }
+      
+          function classifyDepression(score) {
+              if (score < 10) return 'Normal';
+              if (score <= 13) return 'Leve';
+              if (score <= 20) return 'Moderado';
+              if (score <= 27) return 'Severo';
+              return 'Extremamente Severo';
+          }
+      
+          function classifyAnxiety(score) {
+              if (score < 8) return 'Normal';
+              if (score <= 9) return 'Leve';
+              if (score <= 14) return 'Moderado';
+              if (score <= 19) return 'Severo';
+              return 'Extremamente Severo';
+          }
+      
+          function classifyStress(score) {
+              if (score < 15) return 'Normal';
+              if (score <= 18) return 'Leve';
+              if (score <= 25) return 'Moderado';
+              if (score <= 33) return 'Severo';
+              return 'Extremamente Severo';
+          }
+      
+          document.addEventListener('keydown', (event) => {
+              if (event.key >= '1' && event.key <= '5') {
+                  selectAnswer(parseInt(event.key) - 1);
+              } else if (event.key === ' ') {
+                  nextQuestion();
+              }
+          });
+
+        
+        
+      
+          showQuestion();
+          function showAlertMessage(message) {
+            const alertDiv = document.getElementById('alertMessage');
+            alertDiv.textContent = message;
+            alertDiv.style.display = 'block';
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 3000);
+        }
+      </script>
+      <div style="display: flex; justify-content: center; align-items: center; text-align: center;margin-top:-20px; padding: 0px;" id="dassFormt">
+        <p2 style="font-size: 18px;text-align: justify; max-width: 100%; font-family:'Poiret One', cursive;">  
+            
+            A MTDQ é um instrumento de medida de autorrelato, composto por 20 itens que avaliam os efeitos da 
+            Musicoterapia percebidos por pacientes adultos com dependência química em seus processos de mudança.<br>
+
+             
+<p2 style="color:red;font-weight: bold;">
+               Para iniciar o teste, clique no menu "Instruções", localizado na parte superior da página.
+        </p2>
+
+<br><br>
+
+      <p2 style="font-size:14px;">    Pedrosa, F. G. (2023). Escala de avaliação dos efeitos da musicoterapia em grupo na dependência química (MTDQ).
+
+      </p2>
+   
+  <script>
+    document.getElementById('daaa').addEventListener('click', function() {
+        window.location.href = 'calculardass21.html';
+    });
+</script>
+<style>
+  #daaa {
+      font-size: 14px; /* Tamanho da fonte */
+      cursor: pointer; /* Aponta o cursor para indicar que é clicável */
+      text-decoration: none; /* Remove sublinhado */
+      color:black; /* Cor do texto */
+      transition: color 0.3s; /* Animação de transição para a cor */
+  }
+  
+  #daaa:hover {
+      color: #ffcc00; /* Cor ao passar o mouse */
+  }</style>
+
+
+        <br></p2>
+      </div>
+      <br><br>
+
+      
+    
+
+
+ </div>
+<br>
+ 
+    <script>
+      // Função para mostrar os resultados
+      function mostrarResultados() {
+        var resultsDiv = document.getElementById('results');
+        if (resultsDiv.style.display === "none") {
+          resultsDiv.style.display = "block";
+        } else {
+          resultsDiv.style.display = "none";
+        }
+      }
+    </script>
+
+
+
+    <style>
+      /* Centralizando o conteúdo da div 'results' */
+      #results {
+     margin-top:-120px;
+        flex-direction: column;
+        align-items: center;  /* Centraliza horizontalmente */
+        justify-content: center;  /* Centraliza verticalmente */
+        height: 50vh;  /* Altura da tela inteira */
+        text-align: justify;  /* Centraliza o texto dentro dos elementos */
+        padding: 20px;
+      }
+    
+      /* Garantir que o botão e outros elementos dentro de 'results' tenham algum espaçamento */
+      #results button {
+        margin-top: 10px;
+      }
+    
+      /* Estilo para o container de detalhes */
+      .results-details {
+        margin-top: 20px;
+      }
+    
+      /* Para os parágrafos dentro de 'results-details' */
+      .results-details p {
+        margin: 5px 0;
+        text-align: justify;  /* Justifica o texto nos parágrafos */
+      }
+    </style>
+
+
+
+
+<div id="results" class="results">
+ 
+
+  <!-- Detalhes dos resultados, inicialmente escondidos -->
+  <div class="results-details" id="resultsDetails">
+      <div style="display: flex;">
+          <p id="nome"></p>
+          <p id="idade"></p>
+      </div>
+      <p><strong>1:</strong> <span id="depressao"></span></p>
+      <p><strong>2:</strong> <span id="ansiedade"></span></p>
+      <p><strong>3:</strong> <span id="estresse"></span></p>
+  </div>
+
+  <button type="button" id="exportButton" onclick="exportResultsToCSV()">Exportar Resultados</button>
+</div>
+
+</div>
+
+<style>
+  .results {
+      display: none; /* Inicialmente oculta toda a seção */
+  }
+  .results-details {
+      display: none; /* Inicialmente oculta os detalhes */
+  }
+</style>
+
+<script>  
+  function showCompletionAlert() {
+      // Mostra os botões inicialmente
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.style.display = 'block';
+  }
+
+  function showResultsDetails() {
+      // Mostra os detalhes dos resultados
+      const detailsDiv = document.getElementById('resultsDetails');
+      detailsDiv.style.display = 'block';
+
+      // Opcional: esconde o botão "Mostrar Resultados" após o clique
+      const showResultsButton = document.getElementById('showResultsButton');
+      showResultsButton.style.display = 'none';
+  }</script>
+
+
+
+    <script>
+        let respostas = [];
+        let resultados = {};
+
+        function classifyDepression(score) {
+            if (score < 10) return 'Normal';
+            if (score <= 13) return 'Leve';
+            if (score <= 20) return 'Moderado';
+            if (score <= 27) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function classifyAnxiety(score) {
+            if (score < 8) return 'Normal';
+            if (score <= 9) return 'Leve';
+            if (score <= 14) return 'Moderado';
+            if (score <= 19) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function classifyStress(score) {
+            if (score < 15) return 'Normal';
+            if (score <= 18) return 'Leve';
+            if (score <= 25) return 'Moderado';
+            if (score <= 33) return 'Severo';
+            return 'Extremamente Severo';
+        }
+
+        function processCSV() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Por favor, selecione um arquivo CSV.');
+                return;
+            }
+
+            Papa.parse(file, {
+                delimiter: " ",  // Adjust this if your CSV uses a different delimiter
+                header: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    const data = results.data;
+
+                    // Índices das subescalas
+                    const depressaoIndices = [2, 4, 9, 12, 15, 16, 20];
+                    const ansiedadeIndices = [1, 3, 6, 8, 14, 18, 19];
+                    const estresseIndices = [0, 5, 7, 10, 11, 13, 17];
+
+                    // Converter respostas
+                    respostas = data.map(row => parseInt(row.Resposta || 0, 10));
+
+                    const depressao = depressaoIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+                    const ansiedade = ansiedadeIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+                    const estresse = estresseIndices.reduce((sum, i) => sum + (respostas[i] || 0), 0) * 2;
+
+                    // Salvar resultados
+                    resultados = {
+                        depressao: { score: depressao, classificacao: classifyDepression(depressao) },
+                        ansiedade: { score: ansiedade, classificacao: classifyAnxiety(ansiedade) },
+                        estresse: { score: estresse, classificacao: classifyStress(estresse) },
+                    };
+                    function exibirBotao() {
+
+                    }
+                    // Exibir resultados
+                    document.getElementById('depressao').textContent = `${depressao} - ${resultados.depressao.classificacao}`;
+                    document.getElementById('ansiedade').textContent = `${ansiedade} - ${resultados.ansiedade.classificacao}`;
+                    document.getElementById('estresse').textContent = `${estresse} - ${resultados.estresse.classificacao}`;
+
+                  
+                    document.getElementById('results').style.display = 'block';
+                    document.getElementById('exportCSV').style.display = 'inline-block';
+                },
+                error: function(err) {
+                    console.error('Erro ao processar o arquivo:', err);
+                }
+            });
+        }
+
+
+
+        
+        function exportResultsToCSV() {
+          const results = [
+              ['Pergunta', 'Resposta'],
+              ...answers.map((answer, index) => [index + 1, ['1', '2', '3', '4', '5'][answer] || 'Sem resposta']),
+              [], // Linha em branco para separar as seções
+              ['Nome', , 'Gênero','Idade', 'Data do Teste'],
+              [participantName,participantGender, participantAge,testDate],
+              [],
+             ,
+          ];
+      
+        
+          // Cria o conteúdo CSV com espaço como separador
+          const csvContent = results.map(row => row.join(' ')).join('\n');
+          const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+          const url = URL.createObjectURL(blob);
+      
+          // Cria o link para download
+          const link = document.createElement('a');
+          link.setAttribute('href', url);
+      
+          // Usa o nome e idade do participante para nomear o arquivo, com a estrutura 'nome_idade.csv'
+          const fileName = `MTDQ_${testDate}_${participantName}.csv`;
+          link.setAttribute('download', fileName);
+      
+          // Aciona o download
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+      
+
+
+
+            
+      
+            
+            
+          </script>
+          
+ 
+
+          
+      
+
+          
+
+
+
+</body>
+</html>
