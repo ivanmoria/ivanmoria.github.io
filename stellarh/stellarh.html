@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S T E L L A R H</title>
+    <link rel="icon" href="https://ugc.production.linktr.ee/5e058ca5-6820-477c-ba0b-82a0076617bf_DALL-E-2024-11-07-01.51.08---A-professional-logo-of-a-crescent-moon-with-a-central-bright-star-and-s.webp?io=true&size=avatar-v3_0" type="image/webp">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <style>
+
+        #map { height: 500px; width: 100%; }
+        .logo { 
+            display: block; 
+            margin: 0 auto; 
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%;
+        }
+        .linkedin-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 5px;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .linkedin-link:hover {
+            background-color: #84c2e1;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color:white;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<style>     body {
+
+
+    background-image: url('/stellarh/stellarh_cover.jpeg');
+
+}</style>
+
+<div style="text-align: center; display: flex; align-items: center; justify-content: center;">
+    <div style="text-align: center;">
+        <!-- Logo Image -->
+<!-- LinkedIn Link with Logo -->
+<a href="https://www.linkedin.com/company/stellarh/" target="_blank">
+    <img src="https://ugc.production.linktr.ee/5e058ca5-6820-477c-ba0b-82a0076617bf_DALL-E-2024-11-07-01.51.08---A-professional-logo-of-a-crescent-moon-with-a-central-bright-star-and-s.webp?io=true&size=avatar-v3_0" alt="Logo" class="logo">
+</a>
+
+        <a style="color:white;" href="https://linktr.ee/stellarhglobal" class="linkedin-link" target="_blank">Linktree (all roles)</a>
+        <!-- Title -->
+    </div>
+        <h1 style="margin-top:-5px;">🌟 Guiding talent to new heights! Below you will find open positions worldwide 👇</h1>
+       <!-- Password Login Form -->
+       <div class="form-container">
+        <input type="password" id="passwordInput" placeholder="Password for new roles" />
+        <button onclick="checkPassword()">Login</button>
+    </div>
+    </div>
+
+
+<!-- Adicionar Vaga Button, inicialmente hidden -->
+<div class="form-container" id="addVagaContainer" style="display:none;">
+    <h2 id="addPinTitle" style="cursor: pointer;">Adicionar vaga</h2>
+    <button id="deletePinButton" style="display:none;" onclick="deletePin()">Excluir PIN</button>
+</div>
+
+ 
+
+    <div id="map"></div>
+
+
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar nova vaga</h2>
+            <form id="addPinForm">
+                <input type="text" id="nome" placeholder="Nome" required><br>
+                <input type="text" id="localizacao" placeholder="Localização" required oninput="suggestLocations()" required oninput="getCoordinates()">
+                <ul id="suggestions" style="list-style-type: none; padding: 0; margin: 0; position: absolute; background-color: white; border: 1px solid #ccc; width: 90%; max-height: 150px; overflow-y: auto;"></ul>
+      
+
+
+                <input type="text" id="salario" placeholder="Salário" required><br>
+                <input type="url" id="link" placeholder="Link" required><br>
+                <input type="number" id="latitude" placeholder="Latitude" step="any" required><br>
+                <input type="number" id="longitude" placeholder="Longitude" step="any" required><br>
+                <button type="submit">Adicionar Pin</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var map = L.map('map').setView([20, 0], 2); // Adjust the map's center as necessary
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var markers = L.markerClusterGroup();
+        
+        // Load pins from LocalStorage
+        function loadPins() {
+            const savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+            savedPins.forEach(vaga => {
+                var popupContent = `<b>${vaga.nome}</b><br>
+                                    <b>Location:</b> ${vaga.localizacao || 'N/A'}<br>
+                                    <b>Payment:</b> ${vaga.salario || 'N/A'}<br>
+                                    <a href="${vaga.link}" target="_blank">Apply Now</a>`;
+
+                var marker = L.marker([vaga.latitude, vaga.longitude]).bindPopup(popupContent);
+                markers.addLayer(marker);
+            });
+            map.addLayer(markers);
+        }
+
+        loadPins();
+
+        // Modal Logic
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("addPinTitle");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Open the modal when the "Adicionar Novo Pin" title is clicked
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Close the modal when the "x" is clicked
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal if the user clicks outside of the modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Handle form submission to add a new pin
+        document.getElementById('addPinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nome = document.getElementById('nome').value;
+            var localizacao = document.getElementById('localizacao').value;
+            var salario = document.getElementById('salario').value;
+            var link = document.getElementById('link').value;
+            var latitude = parseFloat(document.getElementById('latitude').value);
+            var longitude = parseFloat(document.getElementById('longitude').value);
+
+            var newPin = {
+                nome: nome,
+                localizacao: localizacao,
+                salario: salario,
+                link: link,
+                latitude: latitude,
+                longitude: longitude
+            };
+
+            // Add new pin to LocalStorage
+            var savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+            savedPins.push(newPin);
+            localStorage.setItem('pins', JSON.stringify(savedPins));
+
+            // Add the new marker to the map
+            var popupContent = `<b>${nome}</b><br>
+                                <b>Location:</b> ${localizacao || 'N/A'}<br>
+                                <b>Payment:</b> ${salario || 'N/A'}<br>
+                                <a href="${link}" target="_blank">Apply Now</a>`;
+
+            var newMarker = L.marker([latitude, longitude]).bindPopup(popupContent);
+            markers.addLayer(newMarker);
+            map.addLayer(markers);
+
+            // Clear the form fields and close the modal
+            document.getElementById('addPinForm').reset();
+            modal.style.display = "none";
+        });
+// Função para sugerir locais enquanto o usuário digita
+function suggestLocations() {
+    var localizacao = document.getElementById('localizacao').value;
+    var suggestionsList = document.getElementById('suggestions');
+    
+    // Limpa a lista de sugestões anteriores
+    suggestionsList.innerHTML = '';
+    
+    // Se o campo de localizacao estiver vazio, não faz nada
+    if (!localizacao) {
+        return;
+    }
+
+    // URL para a API Nominatim do OpenStreetMap para busca de locais
+    var apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${localizacao}&addressdetails=1&limit=5`;
+
+    // Faz a requisição à API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Se a API retornar resultados, criamos as sugestões
+            if (data.length > 0) {
+                data.forEach(place => {
+                    // Cria o item de sugestão na lista
+                    var li = document.createElement('li');
+                    li.textContent = place.display_name;
+                    li.style.padding = '8px';
+                    li.style.cursor = 'pointer';
+                    li.addEventListener('click', function() {
+                        // Ao clicar na sugestão, preenche a localização e as coordenadas
+                        document.getElementById('localizacao').value = place.display_name;
+                        document.getElementById('latitude').value = place.lat;
+                        document.getElementById('longitude').value = place.lon;
+                        suggestionsList.innerHTML = ''; // Limpa as sugestões
+                    });
+                    suggestionsList.appendChild(li);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+            suggestionsList.innerHTML = '<li>Erro ao buscar sugestões</li>';
+        });
+}
+
+// Função para fechar a lista de sugestões quando o usuário clicar fora
+document.addEventListener('click', function(event) {
+    var suggestionsList = document.getElementById('suggestions');
+    if (!suggestionsList.contains(event.target) && event.target !== document.getElementById('localizacao')) {
+        suggestionsList.innerHTML = '';
+    }
+});
+
+
+// Check password logic
+function checkPassword() {
+    var password = document.getElementById('passwordInput').value;
+    var correctPassword = "stellarh.co"; // Set the correct password here
+    if (password === correctPassword) {
+        document.getElementById("addVagaContainer").style.display = "block"; // Show "Adicionar vaga"
+        document.getElementById("deletePinButton").style.display = "block"; // Show delete button
+    } else {
+        alert("Senha incorreta!"); // Show alert if password is incorrect
+    }
+}
+
+// Function to delete the last pin
+function deletePin() {
+    var savedPins = JSON.parse(localStorage.getItem('pins')) || [];
+    if (savedPins.length > 0) {
+        savedPins.pop(); // Remove the last pin
+        localStorage.setItem('pins', JSON.stringify(savedPins));
+
+        // Reload the map with updated pins
+        markers.clearLayers();
+        loadPins(); // Reload the pins after deletion
+    }
+}
+
+    </script>
+</body>
+</html>

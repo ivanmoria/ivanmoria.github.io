@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIR-MT Tutorial</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    video {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" controls>
+    <!-- Ajuste o caminho para o vídeo -->
+    <source src="/MIR-MT.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos em HTML5.
+  </video>
+
+  <script>
+    const video = document.getElementById('video');
+
+    // Permite ativar tela cheia ao clicar no vídeo
+    video.addEventListener('dblclick', () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        video.requestFullscreen();
+      }
+    });
+
+    // Opção para iniciar tela cheia diretamente
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'f') { // Pressione "f" para tela cheia
+        video.requestFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>

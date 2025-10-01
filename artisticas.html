@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2d2b2b">
+    <meta name="theme-color" content="#2d2b2b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Personal projects of Ivan Moriá">
+    <title>Ivan Moriá - Artísticas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=37917&format=png&color=000000" type="image/x-icon">
+
+    <link rel="apple-touch-icon" href="https://img.icons8.com/ios/100/000000/music.png">
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <style>
+      .author-name {
+          cursor: pointer; /* Muda o cursor para indicar interatividade */
+          position: relative;
+          font-size: 28px;
+          font-weight: 500;
+          color: rgb(86, 124, 45); /* Cor do texto original */
+          display: inline; /* Mantém os autores na mesma linha */
+      }
+      .author-name:hover {
+        cursor: pointer; /* Muda o cursor para indicar interatividade */
+        position: relative;
+        color: rgb(255, 175, 54); /* Cor do texto original */
+        display: inline; /* Mantém os autores na mesma linha */
+    }
+      .popup {
+          visibility: hidden; /* Esconde o texto popup por padrão */
+          background-color: rgb(12, 12, 12);
+          color: #fff;
+          text-align: center;
+          border-radius: 5px;
+          font-size: 20px;
+          padding: 5px;
+          position: absolute;
+          bottom: 10%; /* Ajusta a posição do popup */
+          left: 50%;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          z-index: 9999;
+          opacity: 0;
+          transition: opacity 0.3s; /* Efeito de transição */
+      }
+    
+      .author-name:hover .popup {
+          visibility: visible; /* Mostra o popup ao passar o mouse */
+          opacity: 1; /* Torna o popup visível */
+      }
+    </style>
+    
+    <style>
+    html, body {
+      overflow-x: hidden; /* Esconde a barra de rolagem horizontal */
+      margin: 0;
+      padding: 0;
+      width: 100%; /* Garante que o conteúdo ocupe apenas a largura da tela */
+      height: 100%; /* Garante que o corpo ocupe a altura total da tela */
+      
+  }
+  .left-column {
+      width: 90%; /* Ajusta a largura para caber 50% da tela */
+      height: 100vh; /* Garante que a altura seja a altura total da viewport */
+      overflow-y: auto; /* Permite a rolagem vertical */
+      padding: 20px;
+      z-index: 9999;
+
+  }
+/* Estilizando a barra de rolagem */
+.left-column::-webkit-scrollbar {
+  width: 12px; /* Largura da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-track {
+  background: #f0f0f000; /* Cor de fundo da pista da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-thumb {
+  background-color: #ffffff74; /* Cor da barra de rolagem */
+  border-radius: 10px; /* Arredonda as bordas da barra de rolagem */
+}
+
+.left-column::-webkit-scrollbar-thumb:hover {
+  background-color:  #d9ac1a; /* Cor da barra de rolagem quando está sendo hover */
+}
+
+
+  .midddlee-column {
+      width: 20%;
+      position: fixed;
+      right: 0;
+      top: 0;
+
+      bottom:0;
+      height: 100vh; /* Ocupa a altura total da viewport */
+
+
+      margin-top: 0; /* Remova a margem superior para alinhar corretamente */
+      z-index: 9999;
+  }
+  
+
+  
+
+  body {
+      position: relative;
+      overflow: hidden; /* Remove a barra de rolagem horizontal e vertical */
+  
+      -webkit-user-select: text; /* Safari */
+      -moz-user-select: text; /* Firefox */
+      -ms-user-select: text; /* Internet Explorer/Edge */
+      user-select: text; /* Non-prefixed version */
+  }
+  
+  /* Estilo para seleção de texto */
+  ::selection {
+      background-color: #ffd900a5; /* Cor de fundo do texto selecionado */
+      color: #000; /* Cor do texto selecionado */
+  }
+  
+  /* Versão para navegadores WebKit */
+  ::-webkit-selection {
+      background-color: #ffd900a5;
+      color: #000;
+  }
+  
+  iframe {
+      width: 100%; /* Ajuste para ocupar a largura total da coluna */
+      height: 100vh; /* Ajusta a altura para caber no viewport */
+      border: none; /* Remove a borda para um visual mais limpo */
+      padding-right: 0; /* Remove margens extras */
+  }
+/* Media query para telas menores */
+@media (max-width: 768px) {
+  iframe {
+      display: none; /* Remove o iframe em telas pequenas */
+  }
+
+  .left-column {
+      width: 100%; /* Aumenta a largura da coluna lefffte para 100% */
+      overflow-y: auto; /* Permite a rolagem vertical */
+      overflow-x: auto; /* Permite a rolagem horizontal */
+
+  }
+}
+
+
+</style>
+    
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+ var players = {};
+
+function onYouTubeIframeAPIReady() {
+    document.querySelectorAll('.buttoon-container').forEach(function(container, index) {
+        var playerId = 'player' + index;
+        var videoId = container.querySelector('.uia-btn').getAttribute('data-video-id');
+        var playerElement = document.createElement('div'); // Cria um elemento div para o player
+        playerElement.id = playerId;
+        container.querySelector('.miniatura').appendChild(playerElement); // Adiciona a div ao container da miniatura
+
+        players[playerId] = new YT.Player(playerId, {
+            height: '200',
+            width: '460',
+            videoId: videoId,
+            events: {
+                'onReady': onPlayerReady
+            }
+        });
+    });
+}
+
+function onPlayerReady(event) {
+    var player = event.target;
+    var container = player.getIframe().closest('.buttoon-container');
+    var button = container.querySelector('.uia-btn');
+    var miniatura = container.querySelector('.miniatura');
+    
+
+    function playVideo() {
+        player.playVideo();
+    }
+
+    function pauseVideo() {
+        player.pauseVideo();
+    }
+
+    button.addEventListener('mouseenter', playVideo);
+    button.addEventListener('mouseleave', pauseVideo);
+    miniatura.addEventListener('mouseenter', playVideo);
+    miniatura.addEventListener('mouseleave', pauseVideo);
+    
+}
+
+function showPreview(event, previewId) {
+    var preview = document.getElementById(previewId);
+    if (preview) {
+        preview.style.left = (event.pageX + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.top = (event.pageY + 10) + 'px'; // Ajuste a posição conforme necessário
+        preview.style.display = 'block';
+    }
+}
+
+function hidePreview() {
+    var previews = document.querySelectorAll('.pdf-preview, .video-preview');
+    previews.forEach(preview => preview.style.display = 'none');
+}
+
+
+</script>
+
+
+
+
+</head>
+<body>
+
+  <div class="assinatura-container">
+    <a href="#" id="assinatura-link" onmouseover="animateSignature()"> <!-- Chamando a função JavaScript no hover -->
+      <div class="assinatura" id="assinatura">
+        <div class="texto-animado" id="texto-animado">
+ivan moriá borges rodrigues
+  </div>
+  
+  </div>
+
+</a>
+
+<div class="button-container3" style="margin-left:40px; z-index:9999999">
+
+  <div class="theme-switch" style="margin-top:-0px;z-index:9999999">
+  
+
+        <input type="checkbox" id="theme-checkbox" >
+        <label for="theme-checkbox">
+          <div></div>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"
+              ></path>
+            </svg>
+          </span>
+        </label>
+      </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="button-container">
+  <button class="button flex-center" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+    <svg
+   
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="22px"
+      height="22px"
+      class="btn-svg"
+    >
+      <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>
+    </svg>
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>email [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+  </button>
+  
+  <button class="button flex-center" onclick="window.location.href='https://www.instagram.com/ivanmoria/'">
+    <svg
+      viewBox="0 0 24 24"
+      class="btn-svg"
+      width="22px"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+          fill="#fff"
+        ></path>
+        <path
+          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+          fill="#fff"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+          fill="#fff"
+        ></path>
+      </g>
+    </svg>
+  </button>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.facebook.com/moriahivan/'">
+    <svg
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -2 20 20"
+    >
+    <path d="M9 8H7V10H9V19H12V10H14.5L15 8H12V6.5C12 6 12 5 13 5H15V2H12.5C10 2 9 3.5 9 5.5V8Z" fill="#fff"/>
+  </svg>
+  
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>facebook [154#]</title>
+
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        
+          <g
+            fill="#fff"
+            transform="translate(-60.000000, -7521.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="twitter-[#154]"
+                d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"
+              ></path>
+              
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    
+  </button>
+
+  <button class="button flex-center" onclick="window.location.href='https://github.com/ivanmoria'">
+    <svg
+      viewBox="0 0 20 20"
+      width="22px"
+      class="btn-svg"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      fill="#fff"
+      stroke="#fff"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>github [#fff142]</title>
+        <desc>Created with Sketch.</desc>
+        <defs></defs>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            id="Dribbble-Light-Preview"
+            transform="translate(-140.000000, -7559.000000)"
+            fill="#fff"
+          >
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+              <path
+                d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                id="github-[#fff142]"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
+
+  <button class="button flex-center"onclick="window.location.href='https://www.youtube.com/channel/UCBEcPJo_1yu1OcLbzouFeFQ'">
+   
+    <svg
+      stroke="#fff"
+      fill="#fff"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      class="btn-svg"
+      width="22px"
+      viewBox="0 -3 20 20"
+    >
+      <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        id="SVGRepo_tracerCarrier"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>youtube [#fff168]</title>
+     
+        <defs></defs>
+        <g
+          fill-rule="evenodd"
+          fill="none"
+          stroke-width="1"
+          stroke="none"
+          id="Page-1"
+        >
+          <g
+            fill="#fff"
+            transform="translate(-300.000000, -7442.000000)"
+            id="Dribbble-Light-Preview"
+          >
+            <g transform="translate(56.000000, 160.000000)" id="icons">
+              <path
+                id="youtube-[#fff168]"
+                d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  </button>
+</a>
+
+
+  
+</div></div></div></a></div>
+<div id="canvas-container">
+    
+
+
+  <script>
+    let isDarkMode = false;  // Defina 'false' para o modo claro padrão
+
+    const themeCheckbox = document.getElementById("theme-checkbox");
+    const body = document.body;
+    
+    function toggleTheme() {
+      isDarkMode = !isDarkMode; // Alterna entre os estados do tema
+    
+      if (isDarkMode) {
+        body.classList.add("dark-theme"); // Adiciona a classe de tema escuro
+      } else {
+        body.classList.remove("dark-theme"); // Remove a classe de tema escuro
+      }
+    }
+    
+    // Adiciona o evento de clique ao checkbox
+    themeCheckbox.addEventListener("click", toggleTheme);
+    
+    // Verifica o estado inicial do tema
+    if (body.classList.contains("dark-theme")) {
+      themeCheckbox.checked = true;
+    } else {
+      themeCheckbox.checked = false;
+    }
+    let num = 400;
+    let range = 60;
+    let ax = [];
+    let ay = [];
+    let extraLines = 300;
+    let mouseInfluence = 0.1; // Define a força com que o mouse influencia o movimento
+
+    function setup() {
+        let canvas = createCanvas(windowWidth, windowHeight);
+        canvas.parent('canvas-container');
+        for (let i = 0; i < num; i++) {
+            ax[i] = width / 10;
+            ay[i] = height / 24;
+        }
+        for (let j = 0; j < num + extraLines; j++) {
+            ax[j] = width / 22;
+            ay[j] = height / 22;
+        }
+
+        frameRate(30);
+    }
+
+    function draw() {
+      if (isDarkMode) {
+          background(50);  // Cor de fundo escura (modo escuro)
+          fill(255);  // Cor do texto clara (modo escuro)
+  
+      } else {
+          background(183);  // Cor de fundo clara (modo claro)
+          fill(0);  // Cor do texto escura (modo claro)
+  
+      }
+  
+        // Atualiza as coordenadas das linhas principais
+        for (let i = 1; i < num; i++) {
+            ax[i - 1] = ax[i];
+            ay[i - 1] = ay[i];
+        }
+        // Adiciona movimento aleatório e influência do mouse
+        ax[num - 1] += random(-range, range) + (mouseX - ax[num - 1]) * mouseInfluence;
+        ay[num - 1] += random(-range, range) + (mouseY - ay[num - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[num - 1] = constrain(ax[num - 1], 0, width);
+        ay[num - 1] = constrain(ay[num - 1], 0, height);
+
+        // Desenha as linhas principais
+        for (let i = 1; i < num; i++) {
+            let val0 = float(i) / num * 200.0 + 3;
+            let val = map(ax[i], 0, width, 0, 255);
+            let val2 = map(ay[i], 0, height, 0, 255);
+            stroke(val0, val, val2, 80);
+            line(ax[i - 4], ay[i - 1], ax[i], ay[i]);
+        }
+
+        // Atualiza as coordenadas das linhas extras
+        for (let j = 1; j < extraLines; j++) {
+            ax[j - 1] = ax[j];
+            ay[j - 1] = ay[j];
+        }
+        // Adiciona movimento aleatório e influência do mouse nas linhas extras
+        ax[extraLines - 1] += random(-range, range) + (mouseX - ax[extraLines - 1]) * mouseInfluence;
+        ay[extraLines - 1] += random(-range, range) + (mouseY - ay[extraLines - 1]) * mouseInfluence;
+
+        // Restringe o movimento às dimensões da tela
+        ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+        ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+
+        // Desenha as linhas extras
+        for (let j = 1; j < num; j++) {
+            let val1 = float(j) / num * 200.0 + 3;
+            let val3 = map(ax[j], 0, width, 0, 255);
+            let val4 = map(ay[j], 0, height, 0, 255);
+
+            stroke(val1, val3, val4, 50);
+            line(ax[j - 1], ay[j - 3], ax[j], ay[j]);
+        }
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        redraw(); // Garante que o canvas seja redesenhado
+    }
+</script>
+
+
+
+</div>
+<div id="left-column">
+  
+<div id="container-nav" >
+  
+<nav id="navbar-items" style="margin-bottom:10px;">
+
+
+
+
+  <button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px; "onclick="window.location.href='index.html'">
+    <span><p29>⇦</p29></span>
+</button>
+
+
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"  onclick="window.location.href='references.html'">
+<span><p29>bib</p29></span>
+</button>
+<button class="ui-btn" style="height:80px; margin-top:20px;height: 40px;border:3px; border-radius: 50px;
+font-size:30px; margin-right: -20px;"  onclick="window.location.href='artisticas.html'">
+<span><p28>art</p28></span>
+
+<button class="ui-btn" style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;" onclick="window.location.href='tecnicas.html'">
+<span><p29>tec</p29></span>
+</button>
+
+<button class="ui-btn"  style="background-color: rgba(0, 0, 0, 0);margin-right:-20px;"onclick="window.location.href='mirmt.html'">
+  <span><p29>MIRMT</p29></span>
+  </button>
+
+</button>
+
+
+
+
+
+
+
+<br>
+<br>
+</nav>
+
+<div style="   margin-left: 15px; align-items: center;  justify-content: center;">
+<button class="button5" id="button-2024" onclick="showPublications(2024)">24</button>
+<button class="button5" id="button-2023" onclick="showPublications(2023)">23</button>
+<button class="button5" id="button-2022" onclick="showPublications(2022)">22</button>
+<button class="button5" id="button-2021" onclick="showPublications(2021)">21</button>
+<button class="button5" id="button-all" onclick="showAllPublications()">all</button> 
+</div>
+
+  </div>
+
+
+
+
+</nav>
+</div>
+
+
+<style>
+  /* Estiliza o texto principal */
+  p2 {
+
+    position: relative;
+    cursor: pointer;
+  }
+
+
+  /* Estiliza o texto de apresentação que será mostrado/ocultado */
+  #presentationText {
+    display: none;
+    text-align: justify;
+    width: 95%;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  button:hover .popupup {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>
+
+<div class="container">
+<div class="left-column">
+
+<div style="display: flex; flex-direction: column; align-items: flex-start; width: 95%;margin-left:-40 px;margin-top:0px;">
+
+ <!-- Botão que alterna o texto e exibe/oculta o conteúdo -->
+ <div style="display: flex; flex-direction: column; align-items: flex-start; width: 95%; margin-left:0px; margin-top:0px;">
+
+
+
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div>
+
+<p2 style="font-size: 25px;  transition: color 0.3s ease;"
+    
+     class="author-name preview-link">
+    Texto de 
+    <a href="media/documents/textos/ref.pdf" target="_blank" style="color: inherit; text-decoration: none;">
+        <span class="popup">Externo</span>
+    </a>
+</p2>
+
+
+<p2 onclick="toggleMenu();" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+Apresentação
+<span class="popup">Exibir aqui</span>
+</p2>
+
+  
+  </div></div>  
+
+
+
+
+    <div id="presentationText" style="display: none; text-align: justify; width: 95%; font-size: 18px;">
+
+
+
+
+
+      <p2>
+        Eu sou </p2>
+
+
+        <p2 onclick="window.location.href='contato.html', '_blank';" 
+        style="font-size: 25px; transition: color 0.3s ease;" 
+
+        class="author-name preview-link">
+        Ivan Moriá Borges Rodrigues,
+        <span class="popup">Contato</span>
+        </p2><p2>  músico multi-instrumentista, 
+      
+        Musicoterapeuta com prática clínica há 7 anos, 
+        mestre em Neurociências pela UFMG e atualmente doutorando em Música pela mesma instituição.
+        
+        <br><br>
+        Ingressei no doutorado em Música no ano de 2021, pela linha de pesquisa Educação Musical,
+         sabendo que teria que adaptar meu projeto de pesquisa - relacionado a Musicoterapia -
+         nesta nova linha.
+         <br> <br>No primeiro ano, cumpri os créditos obrigatórios e decidi migrar para
+         a linha Sonologia, para ampliar algumas possibilidades que estava buscando na minha pesquisa.
+<br>
+     Nesta mudança, iniciei um processo de muito estudo na busca de compreender aspectos básicos de programação,
+         amplamente utilizados na pesquisa nesta área. 
+         <br><br>
+         Iniciei os estudos nos sofrtwares MAX/MSP e 
+         linguagem de programação Python. Além disso, continuei participando de congressos e outras 
+         pesquisas relacionadas a minha área inicial proposta, relacionada à Musicoterapia. 
+<br><br>
+    Quando a linha de pesquisa em Musicoterapia especificamente foi inaugurada no PPG Música da UFMG, em 2024, 
+         entrei novamente com a solicitação ao colegiado visando mudar de linha, para, finalmente,
+         realizar a pesquisa amparado pelo escopo teórico abordado nesta pesquisa.
+<br><br>
+  Durante minha trajetória no curso busquei participar de eventos nacionais e internacionais, 
+        com comunicações orais e pôsteres, realizando, no mínimo, uma participação em cada um deles por ano. 
+<br><br>
+Quando possível, sempre me voluntariei para auxiliar em algum congresso presencial, como foi o caso do
+      17th World Congress of Music Therapy, no qual estive também como voluntário.
+<br><br>
+ Após algum momento comecei também a participar de bancas de graduação, avaliação de artigos em 
+    periódicos e na comissão de pesquisa da União Brasileira de Associações em Musicoterapia (UBAM),
+     no qual organizamos o XXIV Encontro Nacional de Pesquisa em Musicoterapia, no qual também participo
+      como avaliador dos trabalhos e moderador da mesa de abertura.
+<br><br>
+ As participações em congressos internacionais importantes da área de Música, Musicoterapia e Medicina,
+  com comunicações orais em inglês me possibilitou uma troca de
+  experiências muito rica e a oportunidade de explanar sobre o meu trabalho com diversos pesquisadores importantes 
+  da área. Os principais eventos foram
+
+  <br><br>
+ <p2 onclick="window.location.href='media/documents/outros_htmls/edinburgh2022.html', '_blank';" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+12th European Music Therapy Conference   <span class="popup">Link externo</span>
+</p2>
+ 
+
+
+
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/outros_htmls/edinburgh2022.html" class="preview-link">
+Edinburgh 2022
+<span class="popup"> 
+Preview</span> </p2>
+
+
+<br><br>
+ 
+
+<p2 onclick="window.location.href='media/documents/outros_htmls/vancouver2023.html', '_blank';" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+17th World Congress of Music Therapy   <span class="popup">Link externo</span>
+</p2>
+ 
+
+
+
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/outros_htmls/vancouver2023.html" class="preview-link">
+Vancouver 2023
+<span class="popup"> 
+Preview</span> </p2>
+
+
+<br><br>
+
+
+
+<p2 onclick="window.location.href='media/documents/outros_htmls/Berlin2024.html', '_blank';" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+IAMM & ISfAM Congress  <span class="popup">Link externo</span>
+</p2>
+ 
+
+
+<br>
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/outros_htmls/Berlin2024.html" class="preview-link">
+Berlin 2024 
+<span class="popup"> 
+Preview</span> </p2>
+
+
+<br><br>
+
+
+Os frutos deste tipo de produção e participação em eventos internacionais são inúmeros. Por exemplo, após alguns dias após o congresso de Berlin 2024, recebi um e-mail do Prof. Jörg Fachner dizendo 
+  que assistiu a minha apresentação e me convidou para avaliar um artigo em sua revista 
+  
+<p2 onclick="window.location.href='media/documents/textos/fachner_invitation1.pdf', '_blank';" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+(Music & Science<span class="popup">Carta convite</span></p2>
+
+
+
+<p2 style="font-size: 25px;margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/textos/fachner_invitation1.pdf" class="preview-link">
+- UK)
+<span class="popup"> 
+Preview</span> </p2>, relacionado 
+  à minha temática. Estas oportunidades são experiências ricas que contribuem significativamente na formação do doutorando. 
+<br><br>
+Publiquei um 
+
+
+<p2 onclick="window.location.href='media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf', '_blank';" 
+style="font-size: 25px;  transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+artigo<span class="popup">PDF Externo</span></p2>
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/textos/Musicoterapia-e-performance-musical-a-improvisacao-musical-terapeutica-como-ferramenta-no-tratamento-da-ansiedade.pdf" class="preview-link">
+(2022)
+<span class="popup"> 
+Preview</span> </p2>
+
+
+
+
+artigo neste período, existe um outro artigo aceito para publicação e em fase 
+  de editoração e outro artigo está sendo realizado sobre a temática Musicoterapia e Tecnologia, com uma
+   revisão da literatura. 
+   <br><br>
+A seguir, uma proposta de cronograma em andamento para a conclusão desta pesquisa. 
+<br>
+<br>
+   <p2 style="font-size: 20px;">  (2023 – 2024)</p2>&nbsp; <p2 style="   font-size:20px ">Research articles on the concept of MIR in Music Therapy, the use of MIDI data for research,
+and the use of technological tools in Music Therapy;
+<br>
+<br>  <p2 style="font-size: 20px;"> (2021 – 2025)</p2>&nbsp; Development of programming languages such as MAX/MSP (Cycling ’74)
+and Python for processing MIDI data and creating visual and statistical analysis;<br>
+<br><p2 style="font-size: 20px;"> (2024 – 2025)</p2>&nbsp; Advancement of an intuitive visual interface to ensure accessibility for all users and researchers;
+<br><br><p2 style="font-size: 20px;"> (2024 – 2025)</p2>&nbsp; Interviews with experts in music therapy to explore their use of technological tools and collect evaluative 
+feedback on this ongoing research.
+
+</p2>
+
+
+   <br><br>
+Além das produções teóricas, citadas até aqui, existem também as produções artísticas,
+  onde sempre busquei me aprimorar.
+<br><br>
+Como violoncelista, participo da
+
+<p2 onclick="window.location.href='https://www.luanovacultural.com', '_blank';" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+Orquestra 415 <span class="popup">Link Externo</span></p2>
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="https://www.luanovacultural.com" class="preview-link">
+
+de Música Antiga<span class="popup"> 
+Preview</span></p2>, 
+
+
+
+e
+  pude me apresentar diversas vezes nos teatros do Palácio das Artes e da Biblioteca Pública, realizando um diversificado
+   repertório barroco.
+<br><br>
+Como acordeonista, participo da 
+
+
+
+<p2 onclick="window.location.href='https://musica.ufmg.br/ggi-grupo-de-choro/', '_blank';" 
+style="font-size: 25px;transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+Orquestra de Choro <span class="popup">Link Externo</span></p2>
+
+<p2 style="font-size: 25px;margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="https://musica.ufmg.br/ggi-grupo-de-choro/" class="preview-link">
+
+da UFMG<span class="popup"> 
+Preview</span></p2>, onde tive várias apresentações nos
+  concertos da Escola de Música da UFMG (Série Viva Música), e alguns concertos nos festivais municipais.
+<br><br>
+Como bandolinista, 
+  já me apresentei como solista na Orquestra de Choro da UFMG e também no grupo independente de choro intitulado
+  
+  <p2 onclick="window.location.href='media/documents/outros_htmls/chorodito.html', '_blank';" 
+style="font-size: 25px; transition: color 0.3s ease;" 
+
+class="author-name preview-link">
+Chorodito <span class="popup">Link Externo</span></p2>
+
+<p2 style="font-size: 25px; margin-left: 0px;transition: 
+color 0.3s ease;"class="author-name"  
+data-src="media/documents/outros_htmls/chorodito.html" class="preview-link">
+
+- BH<span class="popup"> 
+Preview</span></p2>, 
+onde ocasionalmente ocorrem apresentações em alguns palcos conhecidos da cidade de Belo Horizonte. 
+<br><br>
+  
+
+
+
+
+<br>
+      
+<p2 onclick="window.location.href='artisticas.html'" style="font-size: 25px; transition:color
+0.3s ease;"class="author-name"          
+" class="preview-link">
+Acesse aqui todas as produções artísticas
+<span class="popup">Acessar link externo</span>
+</p2>
+
+
+
+<br>
+<br>
+
+      <p2 onclick="toggleMenu()" style="font-size: 25px; transition:color
+      0.3s ease;"class="author-name"          
+     " class="preview-link">
+      Texto de apresentação
+      <span class="popup">Clique para fechar</span>
+  </p2>
+  
+
+    </div>
+    
+  </div> 
+ 
+  <script>
+    function toggleMenu() {
+      var content = document.getElementById('presentationText');
+      var hint = document.getElementById('toggleTextHint');
+      
+      // Verifica o estado atual de exibição do conteúdo
+      if (content.style.display === "none") {
+        content.style.display = "block";  // Exibe o conteúdo
+        hint.textContent = "Clique para fechar";  // Altera o texto
+      } else {
+        content.style.display = "none";  // Oculta o conteúdo
+        hint.textContent = "Clique para exibir";  // Altera o texto
+      }
+    }
+  </script>
+
+
+
+  <script>
+    function toggleMenu() {
+      var content = document.getElementById('presentationText');
+      if (content.style.display === "none") {
+        content.style.display = "block";
+      } else {
+        content.style.display = "none";
+      }
+    }
+  </script>
+  
+<br>
+  <p2 style="font-size: 14px; text-align: justify; width: 95%;">
+    Aviso: Alguns dispositivos podem ter dificuldade em acessar arquivos multimídia na pré-visualização. 
+    Se isso acontecer, clique no link no título de cada referência para acessar o arquivo externamente
+     como um arquivo PDF ou um site externo. Para uma melhor experiência,
+     tente girar seu dispositivo para o modo paisagem ou acesse esta página por meio de um computador.
+</p2>
+
+<br>
+
+
+
+
+
+<style>
+
+</style>
+
+  <script>
+    // Exibe publicações de um ano específico
+    function showPublications(year) {
+        document.querySelectorAll('.publications').forEach(pub => {
+            pub.style.display = 'none';  // Esconde todas as publicações
+        });
+        
+        // Exibe as publicações do ano selecionado
+        let publications = document.querySelectorAll(`[data-year="${year}"]`);
+        publications.forEach(pub => {
+            pub.style.display = 'block';  // Exibe a publicação do ano selecionado
+        });
+    }
+  
+    // Exibe todas as publicações
+    function showAllPublications() {
+        document.querySelectorAll('.publications').forEach(pub => {
+            pub.style.display = 'block';  // Exibe todas as publicações
+        });
+    }
+  
+    // Ao carregar a página, exibe todas as publicações
+    window.onload = function() {
+        showAllPublications();  // Exibe todas as publicações ao carregar
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      showAllPublications();  // Exibe todas as publicações ao carregar
+  });
+  </script>
+  
+
+
+<div data-year="2024" class="publications">
+
+
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; ;transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/ALBINONI.png'" class="preview-link">
+   Concerto Cênico-musical<span class="popup"> 
+  Preview score PDF</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 105%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; ;margin-left: 10px;transition: color 0.3s ease;" class="author-name"  
+  data-src="media/documents/certificados/ALBINONI.png" class="preview-link">
+  Orquestra 415, 2024
+  <span class="popup"> 
+  Preview Flyer PDF</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >MORIÁ, IVAN; ANDRÉS, I., LUPPI, L. SALLES, A. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+  </a> de Musica Antiga. 
+  <a href="https://www.instagram.com/p/DBEbNb6NQIh/"class="popup-link"onclick="window.open(this.href); return false;">
+    O Adágio de Albinoni.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+   </a> 
+  
+  
+  Teatro da Biblioteca Publica de Belo Horizonte - MG,
+  Interpretação: Violoncelo.
+  2024.   
+  </span>
+  
+  <br>  
+  <br>
+  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/vozes.png'" class="preview-link">
+   Concerto Vozes Barrocas<span class="popup"> 
+  Preview score PDF</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/vozes.png" class="preview-link">
+  Orquestra 415, 2024
+  <span class="popup"> 
+  Preview Flyer PDF</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >MORIÁ, IVAN, SALLES, A., Anthony, C., França, M. Cássia, M. Fachet. S. Menez, S. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+  </a>de Musica Antiga. 
+  <a href="https://www.instagram.com/p/C-dBOgHOch-/"class="popup-link"onclick="window.open(this.href); return false;">
+    Obras cantadas de Vivaldi, Bach, Handel,   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+     </a>  
+     entre outros.  
+  Teatro da Biblioteca Publica de Belo Horizonte - MG,
+  Interpretação: Violoncelo. 2024.
+  
+  </span>
+  
+  
+  
+  
+  
+  
+    
+  <br>  
+  <br>
+  
+  
+  
+  
+  
+  
+  
+  
+        <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+         margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+           0.3s ease;"class="author-name"          
+          onclick="window.location.href='https://s9.imslp.org/files/imglnks/usimg/c/cf/IMSLP295032-PMLP74682-Vivaldi_RV513_Mandozzi_Partitur_Urtext_-_Partitur.pdf'" class="preview-link">
+          Concerto for two cellos in G minor<span class="popup"> 
+         Preview score PDF</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+     <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+        data-src="media/documents/certificados/concerto2cellos.pdf" class="preview-link">
+   Orquestra 415, 2024
+      <span class="popup"> 
+        Preview Flyer PDF</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+        >MORIÁ, IVAN; BUTTROS, J.    Concerto para dois violoncelos em Sol menor de Antônio Vivaldi. 
+        <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+          Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+        </a> 
+        Teatro da Biblioteca Publica de Belo Horizonte - MG,
+        Interpretação: Violoncelo.
+        2024.   
+     </span>
+  
+  
+  
+  
+       
+  <br>  
+  <br>
+     
+     
+     <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+     margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+       0.3s ease; "class="author-name"  
+      onclick="window.location.href='media/documents/certificados/prisao.png'" class="preview-link">
+      Concerto Cênico-Musical <span class="popup"> 
+     External PDF Flyer</span> </p4></div></div>  
+     <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+     <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+     data-src="media/documents/certificados/prisao.png" class="preview-link">
+     Orquestra 415 , 2024
+     <span class="popup"> 
+     Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+     >  MORIÁ, IVAN; SALLES-COELHO, A. A Prisão de Bach. Teatro da Biblioteca Pública. 
+     <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+      Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+    </a> 
+     
+   Interpretação: Violoncelo. 
+   <a href="https://www.instagram.com/p/C6XD9UtOVAj/"class="popup-link"onclick="window.open(this.href); return false;">
+  2024.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+  </a> 
+  
+     
+     </span>
+     
+     
+       
+  <br>  
+  <br>
+     
+     
+     <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+     margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+       0.3s ease;"class="author-name"          
+      onclick="window.location.href='media/documents/certificados/gloria.png'" class="preview-link">
+      Glória de Vivaldi <span class="popup"> 
+     External PDF Flyer</span> </p4></div></div>  
+     <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+     <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+     data-src="media/documents/certificados/gloria.png" class="preview-link">
+     Orquestra 415 , 2024
+     <span class="popup"> 
+     Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+     >  MORIÁ, IVAN; SALLES-COELHO, A. Glória de Vivaldi. Teatro da Biblioteca Pública. 
+     <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+      Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+    </a> 
+     
+   Interpretação: Violoncelo. 
+   <a href="https://www.instagram.com/p/C4s3m1hsbGM/"class="popup-link"onclick="window.open(this.href); return false;">
+  2024.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+  </a> 
+  
+     
+     </span>
+     
+     
+
+  
+     <br>  
+     <br>
+
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+   margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+     0.3s ease;"class="author-name"          
+    onclick="window.location.href='https://musica.ufmg.br/blog/2024/09/27/viva-musica-02-10-2024-orquestra-de-choro-da-escola-de-musica-da-ufmg-lancamento-do-livro-o-trombone-no-choro-de-autoria-do-prof-marcos-flavio/'" class="preview-link">
+    Concerto Viva-Música<span class="popup"> 
+   Preview</span> </p4></div></div>  
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+   <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+   data-src="media/documents/certificados/02-VivaMusica-02-OUTUBRO-Marcos-Flavio-lancamento-livro-cartaz1-1446x2048.webp" class="preview-link">
+   Orquestra de Choro da UFMG, 2024
+   <span class="popup"> 
+   Preview </span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+   >MORIÁ, IVAN; FLÁVIO. Lançamento do livro "O Trombone no Choro", de autoria de Marcos Flavio. Concerto da Orquestra de Choro no 
+   <a href="https://musica.ufmg.br/blog/2024/09/27/viva-musica-02-10-2024-orquestra-de-choro-da-escola-de-musica-da-ufmg-lancamento-do-livro-o-trombone-no-choro-de-autoria-do-prof-marcos-flavio/" 
+   class="popup-link" 
+   onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+   data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+   
+   Projeto Viva Música, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External flyer PDF</span> </a>
+   Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+     
+  <br>  
+  <br>
+
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+   margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+     0.3s ease;"class="author-name"          
+    onclick="window.location.href='https://www.instagram.com/reel/C_bI0BLKiZ8/'" class="preview-link">
+    XIII Festival BH Choro<span class="popup"> 
+   Preview score PDF</span> </p4></div></div>  
+   <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+   <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+   data-src="media/documents/certificados/bhchoro.png" class="preview-link">
+   Orquestra de Choro da UFMG, 2024
+   <span class="popup"> 
+   Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+   >MORIÁ, IVAN; FLÁVIO. A importância do gênero musical Choro e seu ensino na UFMG. Arranjos do Pixinguinha para orquestra.
+   <a href="https://santaterezatem.com.br/2024/08/28/festival-de-choro-em-santa-tereza/" 
+   class="popup-link" 
+   onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+   data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+   
+   Festival BH CHORO, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External flyer PDF</span> </a>
+Praça Santa Tereza, Interpretação: Acordeon. 2024.</span>
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+  0.3s ease;"class="author-name"          
+ onclick="window.location.href='https://www.youtube.com/embed/eVjuj1DkgEk?si=e7TzvudmLPoUWvu_'" class="preview-link">
+ Concerto Viva-Música<span class="popup"> 
+Preview Youtube</span> </p4></div></div>  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+<p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+data-src="https://www.youtube.com/embed/eVjuj1DkgEk?si=e7TzvudmLPoUWvu_" class="preview-link">
+Orquestra de Choro da UFMG, 2024
+<span class="popup"> 
+Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+>  MORIÁ, IVAN; FLÁVIO, M. ZADOROSNY, I. O Choro orquestrado na Era de Ouro da Rádio Inconfidência: reflexões
+ sobre 4 obras de compositores da Rádio Inconfidência.
+<a href="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-Camerata-Orquestra-de-Choro.pdf" 
+class="popup-link" 
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+
+Projeto Viva Música, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> </a>
+Universidade Federal de Minas Gerais, <a href="https://musica.ufmg.br/wp-content/uploads/2023/11/32-VivaMusica-22-novembro-2023-Orquestra-de-Choro-cartaz.webp" 
+class="popup-link" 
+onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+Interpretação: <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">Download Flyer</span>  </a> Solo de Acordeon na música "Choro Stacatto - Elias Salomé". 2024.</span>
+
+
+
+<br>  
+<br>
+    </div>
+
+<div data-year="2023" class="publications">
+
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/mozart.png'" class="preview-link">
+  Concerto Mozart Essencial <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/mozart.png" class="preview-link">
+  Orquestra 415 , 2023
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A. Concerto Mozart Essencial, obras selecionadas. Teatro da Biblioteca Pública. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+ </a> 
+  
+Interpretação: Violoncelo. 
+<a href="https://www.instagram.com/p/CyR2-UZNphD/"class="popup-link"onclick="window.open(this.href); return false;">
+2023.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+</a> 
+
+  
+  </span>
+
+
+
+
+
+  
+  <br>  
+  <br>
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/tiradentes.png'" class="preview-link">
+  Concerto Cênico-Musical <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/tiradentes.png" class="preview-link">
+  Orquestra 415 , 2023
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A. Concerto "A traição de Tiradentes" - Te Deum de J.J.E. Lobo de Mesquita. Teatro da Biblioteca Pública. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+ </a> 
+  
+Interpretação: Violoncelo. 
+<a href="https://www.instagram.com/p/CwTUsRaOZJz/"class="popup-link"onclick="window.open(this.href); return false;">
+2023.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+</a> 
+
+  
+  </span>
+
+
+
+
+  
+  <br>  
+  <br>
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/noitebarr.png'" class="preview-link">
+  Concerto A Noite Barroca <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/noitebarr.png" class="preview-link">
+  Orquestra 415 , 2023
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A. Concerto "A Noite Barroca" - As mais belas músicas do período Barroco. Teatro da Biblioteca Pública. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+ </a> 
+  
+Interpretação: Violoncelo. 
+<a href="https://www.instagram.com/p/CwTUsRaOZJz/"class="popup-link"onclick="window.open(this.href); return false;">
+2023.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+</a> 
+
+  
+  </span>
+
+
+
+  
+  <br>  
+  <br>
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/poetico.png'" class="preview-link">
+  Concerto Poético-Musical <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/poetico.png" class="preview-link">
+  Orquestra 415 , 2023
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A. Luppi, L., Andrés, I., Reis, S. Concerto "O Santo e o Inferno" - Textos de Gregório de Matos e Padre Antônio Vieira.
+  Músicas de Monteverdi, Corelli, Cazatti, e outros.
+  Teatro da Biblioteca Pública. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+ </a> 
+  
+Interpretação: Violoncelo. 
+<a href="https://www.instagram.com/p/CrL8h3PukyL/"class="popup-link"onclick="window.open(this.href); return false;">
+2023.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+</a> 
+
+  
+  </span>
+
+  
+  <br>  
+  <br>
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://youtube.com/playlist?list=PLlu-VJj3dpCsqVv2_KLEbvZEQDJmIQyNF&si=rri702QI7SQO0Hn9'" class="preview-link">
+   Concerto Viva-Música<span class="popup"> 
+  Preview score PDF</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="https://www.youtube.com/embed/B9v8JmKTEm4?si=XhWeOfoOw-IZnAKS" class="preview-link">
+  Orquestra de Choro da UFMG, 2023
+  <span class="popup"> 
+  Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >MORIÁ, IVAN; FLÁVIO. A importância do gênero musical Choro e seu ensino na UFMG. Arranjos do Pixinguinha para orquestra.
+  <a href="https://musica.ufmg.br/wp-content/uploads/2023/05/11-VivaMusica-17-maio-Marcos-Flavio-1.pdf" 
+  class="popup-link" 
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+  data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+  
+  Projeto Viva Música, <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External flyer PDF</span> </a>
+  Universidade Federal de Minas Gerais, Interpretação: Acordeon. 2023.</span>
+  
+  
+    
+  <br>  
+  <br>
+  
+  
+  
+
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://youtube.com/playlist?list=PLrDM4ErQt2j5Q8_Om7XaJqb3wZxR-fHUj&si=4OGAmOhsZlBIybgQ'" class="preview-link">
+Show na Livraria da Rua<span class="popup"> 
+  Preview score PDF</span> </p4></div></div>  
+<div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+<p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+ data-src="https://www.youtube.com/embed/YtCBmyBM30M?si=rkV5ndmO7Yo_wvfl" class="preview-link">
+Chorodito, 2023
+<span class="popup"> 
+ Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+ >MORIÁ, IVAN; BARROSO, S; BARBOSA, M; RAFLES, R; CARVALHO, M.
+ <a href="media/documents/certificados/choroditolivrariadarua2023.jpeg"class="popup-link"onclick="window.open(this.href); return false;">
+   Chorodito:   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span>  </a> um grupo de choro de cordas de Belo Horizonte.    
+ </a> 
+ 
+ <a href="https://www.instagram.com/p/CxMlD0GNWTm/?igsh=MXVpMjJoanI2bXZzNw=="
+ class="popup-link"
+ onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+
+ Livraria da Rua,    <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">Instagram</span> 
+ </a> 120 min, Interpretação: Bandolim.  2023. 
+</span>
+
+  
+</div>
+
+<div data-year="2022" class="publications">
+
+
+
+
+
+
+
+  
+  <br>
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/10anos.png'" class="preview-link">
+  Concerto 10 anos de Orquestra 415 <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/10anos.png" class="preview-link">
+  Orquestra 415 , 2022
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO. Concerto Comemorativo de 10 anos da Orquestra 415 de Música Antiga.
+
+  Teatro da Biblioteca Pública. 
+  <a href="https://www.luanovacultural.com/orquestra-415"class="popup-link"onclick="window.open(this.href); return false;">
+   Orquestra 415 de Musica Antiga.       <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+ </a> 
+  
+Interpretação: Violoncelo. 
+<a href="https://www.instagram.com/p/Cl1ZBhrOHkd/"class="popup-link"onclick="window.open(this.href); return false;">
+2022.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span> 
+</a> 
+
+  
+  </span>
+
+
+  
+  <br>  
+  <br>
+
+
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.jpeg'" class="preview-link">
+   Concerto Jean-Baptiste Lully<span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.jpeg" class="preview-link">
+  Orquestra 415 , 2022
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, ANDRE. Les Plaisirs de L'île Enchantée
+  <a href="https://s9.imslp.org/files/imglnks/usimg/e/ea/IMSLP30653-PMLP05443-LWV22LesPlaisirsDeLIleEnchantee.pdf" 
+  class="popup-link" 
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+  data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+  
+  LWV 22<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External score PDF</span> </a>
+  de Jean-Baptiste Lully. Sala Juvenal Dias. Orquestra 415 de Musica Antiga.  Interpretação: Violoncelo. 
+  2022.
+  
+  </span>
+  
+    
+  <br>  
+  <br>
+  
+  
+  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf'" class="preview-link">
+   Concerto Cênico-musical<span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/ProgramaBacheFrederico.jpeg" class="preview-link">
+  Orquestra 415 , 2022
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; CANEDO, S.; LUPPI, L.; ZERLOTINI; M.; SALLES-COELHO, ANDRE. Concerto Cênico-musical Bach e Frederico. Trechos da Orchestral Suite n2
+  <a href="https://ks15.imslp.org/files/imglnks/usimg/9/98/IMSLP01467-BWV1067.pdf" 
+  class="popup-link" 
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+  data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+  BWV 1067
+  <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External score PDF</span> </a>
+  e Orchestral Suite n1 
+  
+  <a href="https://s9.imslp.org/files/imglnks/usimg/e/e1/IMSLP01466-BWV1066.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  BWV 1066
+  </a>. Peças da Oferenda Musical 
+  
+  <a href="https://s9.imslp.org/files/imglnks/usimg/5/55/IMSLP10042-BWV1079-b.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  BWV 1079 <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External score PDF</span> 
+  </a>. 
+  
+  
+  <a href="media/documents/certificados/LESPLAISIRSDELiLEENCHANTeE.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  Sala Juvenal Dias. <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External PDF</span> 
+  </a> 
+  <a href="https://www.luanovacultural.com/orquestra-415"
+  class="popup-link"
+  onclick="window.open(this.href); return false;">
+  Orquestra 415 de Musica Antiga.      <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span>   </a>
+  
+  Interpretação: Violoncelo. 
+   2022.
+  
+  
+  </span>
+  
+  
+    
+  <br>  
+  <br>
+  
+  
+  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='media/documents/certificados/cantatadocafe.jpeg'" class="preview-link">
+   Concerto A Cantata do Café <span class="popup"> 
+  External PDF Flyer</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="media/documents/certificados/cantatadocafe.jpeg" class="preview-link">
+  Orquestra 415 , 2022
+  <span class="popup"> 
+  Preview score</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; BRANT, ANDRE; PASSINI, HENRIQUE; CORREA, CAMILA; SOARES, WAGNER; FERNANDO, ANDRE; SALLES-COELHO, ANDRE. A Cantata do Café 
+  <a href="https://s9.imslp.org/files/imglnks/usimg/e/ed/IMSLP279740-PMLP126904-Kaffee-Kantate_211_Partitur_Eulenburg.pdf" 
+  class="popup-link" 
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;"
+  data-preview="preview1" onmouseover="showPreview(event, 'preview1')" onmouseout="hidePreview()">
+  
+  BWV 211<span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External score PDF</span> </a>
+  de J.S. Bach.
+  
+  <a href="media/documents/certificados/cantatadocafe.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  Teatro João Ceschiatti. <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">Flyer</span> 
+  </a> 
+  
+  
+  <a href="https://www.luanovacultural.com/orquestra-415"
+  class="popup-link"
+  onclick="window.open(this.href); return false;">
+  Orquestra 415 de Musica Antiga.   <span class="tooltip" style="margin-bottom: -6%;margin-left:-20%;">External website</span>      </a>
+  
+  Interpretação: Violoncelo. 
+   2022.
+  
+  </span>
+  
+  
+  <br>  
+  <br>
+
+   
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://youtube.com/playlist?https://youtu.be/-c08ORMHvrA?si=sVXhndTU12RPbsqJ'" class="preview-link">
+   Concerto Viva-Música<span class="popup"> 
+  Preview Youtube</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="https://www.youtube.com/embed/7mM-Yurc4po?si=EybGhS4cwTpZspJy" class="preview-link">
+  Orquestra de Choro da UFMG, 2022
+  <span class="popup"> 
+  Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  
+  MORIÁ, IVAN; FLÁVIO, M. Solo de <a href='media/audio/partituras/JacobdoBandolim-Assanhado.pdf' class="popup-link"
+  onclick="window.open(this.href, 'popup','width=465,height=660' ); return false;">
+  Assanhado - Jacob do Bandolim, </a> para bandolim e orquestra. 
+  
+  
+  <a href="https://musica.ufmg.br/blog/2022/07/04/vivamusica-06-04-22/" class="popup-link"
+  onclick="window.open(this.href, 'popup','width=420,height=620' ); return false;">
+  Projeto Viva Música, </a>    Universidade Federal de Minas Gerais,  Interpretação: Bandolim. 2022.
+  </span>
+  
+  
+    
+  <br>  
+  <br>
+  
+  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://www.youtube.com/embed/WxK-m9WGX5s?si=rMldcJ8ews7tdlj4'" class="preview-link">
+   Seresta & Serenata Popular e Imperial<span class="popup"> 
+  Preview Youtube</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="https://www.youtube.com/embed/WxK-m9WGX5s?si=rMldcJ8ews7tdlj4" class="preview-link">
+  Orquestra de Choro da UFMG, 2022
+  <span class="popup"> 
+  Show completo Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN;  BRUEKERS, M; FLÁVIO, M. Solo de <a href='media/audio/partituras/LuizAmericano-NumaserestaF.pdf' class="popup-link"
+  onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+  Numa Seresta - Luiz Americano, </a> 
+  para acordeon, flauta e orquestra. 
+  <a href='https://mundodosinconfidentes.com.br/orquestra-de-choro-da-ufmg-se-apresenta-em-mariana-em-noite-de-seresta-e-serenata/' class="popup-link"
+  onclick="window.open(this.href, 'popup','width=425,height=620' ); return false;">
+  Seresta & Serenata Popular e Imperial.</a> 
+  
+   Mariana: Praça da Sé. 
+   Interpretação: Acordeon. 2022.
+  
+  </span>
+  
+  
+  
+   
+
+
+</div>
+
+<div data-year="2021" class="publications">
+
+
+
+
+   
+
+   
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px; transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://youtu.be/tHAdjTTRWI8?si=y_zHmI2P3YDmgpGn'" class="preview-link">
+  Concerto Online<span class="popup"> 
+  Preview Youtube</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px; margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="https://www.youtube.com/embed/tHAdjTTRWI8?si=_ZP1ZqMBM89XCVEu" class="preview-link">
+   Orquestra 415, 2021
+  <span class="popup"> 
+  Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I. VIANNA, J.        <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b2/IMSLP597607-PMLP88554-TELEMANN_Don_Quichotte.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  Suite "Burlesque de Quixotte".
+  </a> TWV 55:G10. Telemann, G. P.
+  
+  <a href="https://www.luanovacultural.com/orquestra-415"
+  class="popup-link"
+  onclick="window.open(this.href); return false;">
+  Orquestra 415 de Musica Antiga.      </a>
+  Online,
+  Interpretação: Violoncelo.  
+  2021.
+  </span>
+  
+  
+    
+  <br>  
+  <br>
+  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 85% ;margin-left:-20px;
+  margin-top: 00px;"><div><p4 style="font-size: 25px;transition:color
+    0.3s ease;"class="author-name"          
+   onclick="window.location.href='https://www.youtube.com/embed/x4UdMfbglBE?si=by8tLCOx3TK1zzql'" class="preview-link">
+  Concerto Online<span class="popup"> 
+  Preview Youtube</span> </p4></div></div>  
+  <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; width: 95%; margin-top:0px;"><div>
+  <p2 style="font-size: 25px;margin-left: 10px;transition: color 0.3s ease;"class="author-name"  
+  data-src="https://www.youtube.com/embed/x4UdMfbglBE?si=by8tLCOx3TK1zzql" class="preview-link">
+   Orquestra 415, 2021
+  <span class="popup"> 
+  Preview Youtube</span> </p2> </p2> </div>  </div><br> <span  class="content-text" style="text-align: justify; width: 95%; margin-top: -10px;"
+  >  MORIÁ, IVAN; SALLES-COELHO, A; LUPPI, L; ANDRÉS, I.  VIANNA, J. Concertos     <a href="https://ks15.imslp.org/files/imglnks/usimg/b/b3/IMSLP388872-PMLP59201-vivaldi_concerto_per_due_oboi_RV_535_score.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+   RV 535 
+  </a> e 
+  
+  <a href="https://vmirror.imslp.org/files/imglnks/usimg/2/26/IMSLP255285-PMLP400426-Vivaldi_Konzert_in_F_dur.pdf"
+  class="popup-link"
+  onclick="window.open(this.href, 'popup', 'width=410,height=610'); return false;">
+  RV 434,
+  </a>   Antonio Vivaldi.
+  
+  
+  
+  
+  <a href="https://www.luanovacultural.com/orquestra-415"
+  class="popup-link"
+  onclick="window.open(this.href); return false;">
+  Orquestra 415 de Musica Antiga.        </a>
+  Online,
+  Interpretação: Violoncelo. 
+   2021.</span>
+  
+  
+</div>
+
+
+   
+   
+   
+   
+   
+   <br>
+
+
+
+
+<br><br><br><br>
+
+</div></div>
+
+
+
+  <div class="middle-column">
+    
+    <div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;margin-top: -45px; ">
+      <div style="display: flex; flex-direction: row; align-items: flex-start; margin-bottom: -15px;">
+        <button id="toggle-preview-button" style="z-index: 922999;">Hide Preview</button>
+
+        <div class="year-buttons" style="padding: 50px; margin-bottom: 35px;text-align: center; position: fixed;display: flex;  gap: 10px;">
+     
+         
+           
+        </div>
+      </div>
+  </div>
+
+  <iframe id="preview-iframe" src="" style="width: 90%; z-index: 999999;height: 88vh; border: none; display: block;"></iframe>
+
+<br><br>
+  
+<br>  
+
+<br>
+
+<br>
+
+  </div>
+
+  
+  
+<script>
+  // Obter todos os links de preview e botões
+  const previewLinks = document.querySelectorAll('[data-src]');
+  const iframe = document.getElementById('preview-iframe');
+  const toggleButton = document.getElementById('toggle-preview-button');
+  iframe.style.display = 'none'; // Esconde o iframe no carregamento
+  toggleButton.textContent = 'Show Preview'; // Define o texto inicial do botão
+  iframe.src = ''; // Defina a URL inicial do arquivo a ser mostrado no iframe
+
+
+  // Adicionar evento de clique a cada link de preview
+  previewLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      iframe.src = link.getAttribute('data-src'); // Altera o src do iframe para o link do artigo
+      iframe.style.display = 'block'; // Mostra o iframe quando um link é clicado
+      toggleButton.textContent = 'Hide Preview'; // Atualiza o texto do botão
+    });
+  });
+
+  // Alternar a visibilidade do iframe ao clicar no botão de alternância
+  toggleButton.addEventListener('click', () => {
+    const isHidden = iframe.style.display === 'none';
+    iframe.style.display = isHidden ? 'block' : 'none';
+    toggleButton.textContent = isHidden ? 'Hide Preview' : 'Show Preview';
+  });
+</script>
+
+<style>
+  #abo-preview-button, #toggle-preview-button, #next-preview-button,#previous-preview-button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.357);
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Poiret One', cursive;
+    font-size: 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  #abo-preview-button:hover, #toggle-preview-button:hover,#next-preview-button:hover,#previous-preview-button:hover {
+    color: rgb(255, 255, 255);
+  }
+</style>
+
+
+</div>
+
+
+</body>
+</html>
+
+
+

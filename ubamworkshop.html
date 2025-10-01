@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sorteio Workshop UBAM</title>
+  <style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f8;
+  padding: 30px;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden; /* Evita scroll horizontal desnecessário */
+}
+
+.main-content {
+  flex: 1;
+  max-width: calc(100% - 650px);
+  padding-right: 20px;
+}
+
+h1, h3 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.section {
+  background: #ffffff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  max-width: 800px;
+}
+
+input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+button {
+  padding: 8px 14px;
+  margin: 5px 4px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.remove-btn {
+  background-color: #e74c3c;
+}
+
+.remove-btn:hover {
+  background-color: #c0392b;
+}
+
+.population, .participant-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.objectives {
+  margin-top: 10px;
+  padding-left: 15px;
+  color: #555;
+}
+
+.results {
+  white-space: pre-wrap;
+  background: #ecf3fc;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #cde;
+  font-family: monospace;
+  font-size: 15px;
+  color: #2c3e50;
+}
+.link-lab a,
+.library a {
+  font-size: 16px;
+  color: #1e90ff;          /* Azul mais suave, mais agradável */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  outline: none;           /* Remove o contorno padrão ao focar */
+}
+
+.link-lab a:hover,
+.library a:hover {
+  text-decoration: underline;
+  color: #104e8b;          /* Azul mais escuro ao passar mouse */
+}
+
+/* Remove contorno azul no clique/foco */
+.link-lab a:focus,
+.library a:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* === Sidebar melhorado === */
+.sidebar {
+  width: 650px;
+  background-color: #fffdf5;
+  border-left: 2px solid #f0d98c;
+  padding: 25px 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh; /* Limita a altura total à tela */
+  box-sizing: border-box;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scroll apenas na lista se necessário */
+.sidebar ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  flex-grow: 1;
+  scrollbar-width: thin;
+  scrollbar-color: #f0d98c #fffdf5;
+}
+
+.sidebar ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar ul::-webkit-scrollbar-track {
+  background: #fffdf5;
+}
+
+.sidebar ul::-webkit-scrollbar-thumb {
+  background-color: #f0d98c;
+  border-radius: 10px;
+}
+
+.sidebar h3 {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background: #fffdf5;
+  padding-bottom: 10px;
+  margin: 0 0 12px 0;
+  border-bottom: 2px solid #f0d98c;
+  font-weight: 700;
+  font-size: 20px;
+  z-index: 10;
+}
+
+.sidebar li {
+  background: #ffeebb;
+  padding: 8px 10px; /* Reduz o espaçamento interno */
+  border-radius: 6px; /* Pode reduzir um pouco para acompanhar o tamanho */
+  font-size: 13px;    /* Diminui a fonte */
+  font-weight: 600;
+  color: #333;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  line-height: 1.2; /* Mais compacto verticalmente */
+}
+.sidebar ul {
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+}
+
+.sidebar li:hover {
+  background-color: #ffd966;
+}
+
+
+/* === Biblioteca (rodapé) === */
+.library {
+  background: #fff8dc;
+  border-top: 2px solid #f0d98c;
+  padding: 20px;
+  margin-top: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  color: #333;
+  font-size: 15px;
+  max-height: none;
+  overflow-y: visible;
+}
+
+.library h3 {
+  margin-top: 0;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.library ul {
+  padding-left: 20px;
+  margin-top: 10px;
+  max-height: none;
+  overflow-y: visible;
+}
+
+.library li {
+  margin-bottom: 14px;
+}
+
+.library strong {
+  color: #2980b9;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="main-content">
+    <h1>Sorteio de Desafio Musicoterapêutico</h1>
+
+    
+<div class="section">
+  <h3>Proposta da atividade</h3>
+  <p>
+    Cada participante receberá um desafio musicoterapêutico baseado em uma população específica e objetivos sugeridos. 
+    Sua tarefa é utilizar uma ou mais ferramentas do  <strong> <a href="https://musiclab.chromeexperiments.com/" target="_blank">Google Chrome Music Lab</a>
+</strong> para criar um exemplo de recurso ou processo terapêutico 
+    <em>(duração entre 1 a 3 minutos)</em> que possa ser utilizado em uma sessão de musicoterapia com essa população.
+  </p>
+</div>
+
+    <div class="section">
+      <h3>1. Adicionar População Clínica</h3>
+      <input type="text" id="popInput" placeholder="Ex: Crianças com autismo" />
+      <button onclick="addPopulation()">+ Adicionar População</button>
+      <div id="populationsContainer"></div>
+    </div>
+
+    <div class="section">
+      <h3>2. Adicionar Participantes</h3>
+      <input type="text" id="participantInput" placeholder="Nome do participante" />
+      <button onclick="addParticipant()">+ Adicionar Participante</button>
+      <div id="participantsList"></div>
+      <button onclick="sortear()">🎲 Sortear</button>
+    </div>
+
+    <div class="section">
+      <h3>3. Resultado do Sorteio</h3>
+      <div class="results" id="results">Nenhum sorteio realizado ainda.</div>
+    </div>
+
+    <div class="library">
+      <h3>📚 Biblioteca das Ferramentas do Chrome Music Lab</h3>
+      <ul id="libraryList"></ul>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <h3>📌 Palavras-chave</h3>
+    <ul id="listaPalavrasChave"></ul>
+  </div>
+
+  <script>
+    // Biblioteca com ferramentas e descrições
+    const bibliotecaFerramentas = [
+        {nome: "Arpeggios", descricao: "Exploração de sequências de notas tocadas em sucessão rápida.", url: "https://musiclab.chromeexperiments.com/Arpeggios/" },
+        { nome: "Chords", descricao: "Criação e experimentação com acordes musicais.", url: "https://musiclab.chromeexperiments.com/Chords/" },
+        { nome: "Harmonics", descricao: "Exploração de sons harmônicos e suas relações musicais.", url: "https://musiclab.chromeexperiments.com/Harmonics/" },
+        { nome: "Kandinsky", descricao: "Geração visual e sonora interativa baseada em formas e cores.", url: "https://musiclab.chromeexperiments.com/Kandinsky/" },
+        { nome: "Melody Maker", descricao: "Criação e edição de melodias com várias opções de notas e escalas.", url: "https://musiclab.chromeexperiments.com/Melody-Maker/" },
+        { nome: "Oscillators", descricao: "Geração de sons baseados em ondas oscilatórias, útil para estímulos sonoros e movimento.", url: "https://musiclab.chromeexperiments.com/Oscillators/" },
+        { nome: "Piano Roll", descricao: "Visualização e edição de notas musicais em formato de piano roll.", url: "https://musiclab.chromeexperiments.com/Piano-Roll/" },
+        { nome: "Rhythm", descricao: "Exploração e criação de padrões rítmicos e movimentos corporais.", url: "https://musiclab.chromeexperiments.com/Rhythm/" },
+        { nome: "Shared Piano", descricao: "Incrível para atendimentos de musicoterapia online. Permite tocar piano com múltiplos usuários simultaneamente.", url: "https://musiclab.chromeexperiments.com/Shared-Piano/" },
+        { nome: "Song Maker", descricao: "Criação e edição de músicas simples, com ritmo, melodia e harmonia.", url: "https://musiclab.chromeexperiments.com/Song-Maker/" },
+        { nome: "Sound Waves", descricao: "Visualização das ondas sonoras e experimentação com frequências.", url: "https://musiclab.chromeexperiments.com/Sound-Waves/" },
+        { nome: "Spectrogram", descricao: "Visualização gráfica do espectro sonoro, útil para percepção auditiva.", url: "https://musiclab.chromeexperiments.com/Spectrogram/" },
+        { nome: "Strings", descricao: "Exploração sonora de instrumentos de cordas virtuais.", url: "https://musiclab.chromeexperiments.com/Strings/" },
+        { nome: "Voice Spinner", descricao: "Manipulação de gravações de voz com efeitos de looping e variações.", url: "https://musiclab.chromeexperiments.com/Voice-Spinner/" }
+      ];
+
+    // Mapeamento palavras-chave para ferramentas
+    const palavraParaFerramentas = {
+      "expressão": ["Kandinsky", "Song Maker"],
+      "identidade": ["Shared Piano", "Melody Maker"],
+      "memória": ["Melody Maker", "Piano Roll"],
+      "autoestima": ["Kandinsky", "Shared Piano"],
+      "exploração": ["Song Maker", "Shared Piano","Strings", "Oscillators"],
+      "emoção": ["Kandinsky", "Song Maker"],
+      "sentimento": ["Kandinsky", "Song Maker"],
+      "afetividade": ["Kandinsky", "Song Maker"],
+      "catarsis": ["Kandinsky", "Song Maker"],
+      "comunicação": ["Song Maker","Spectrogram","Shared Piano", "Rhythm"],
+      "linguagem": ["Song Maker","Spectrogram", "Shared Piano","Rhythm"],
+      "interação": ["Song Maker","Strings","Shared Piano", "Rhythm"],
+      "diálogo": ["Song Maker", "Rhythm"],
+      "socialização": ["Song Maker", "Shared Piano","Rhythm"],
+      "coordenação": ["Rhythm", "Oscillators"],
+      "motora": ["Rhythm", "Oscillators"],
+      "gesto": ["Rhythm", "Oscillators"],
+      "movimento": ["Rhythm", "Oscillators"],
+      "corporal": ["Rhythm", "Oscillators"],
+      "escuta": ["Sound Waves","Voice Spinner", "Spectrogram", "Harmonics"],
+      "audição": ["Sound Waves", "Voice Spinner","Spectrogram", "Harmonics"],
+      "atenção": ["Sound Waves", "Spectrogram"],
+      "foco": ["Sound Waves", "Strings","Spectrogram"],
+      "concentração": ["Sound Waves", "Spectrogram"],
+      "percepção": ["Sound Waves", "Oscillators","Spectrogram", "Harmonics"],
+      "criação": ["Song Maker", "Kandinsky", "Melody Maker", "Voice Spinner"],
+      "criatividade": ["Song Maker", "Voice Spinner","Shared Piano","Kandinsky", "Melody Maker", "Voice Spinner"],
+      "improvisação": ["Song Maker","Voice Spinner","Spectrogram","Arpeggios","Shared Piano", "Kandinsky", "Melody Maker", "Shared Piano"],
+      "compor": ["Song Maker", "Melody Maker", "Chords", "Piano Roll"],
+      "inventar": ["Song Maker", "Shared Piano","Kandinsky", "Melody Maker"],
+      "lúdico": ["Song Maker", "Kandinsky"],
+      "organização": ["Rhythm", "Melody Maker", "Chords"],
+      "estrutura": ["Rhythm", "Voice Spinner","Melody Maker", "Chords"],
+      "sequência": ["Rhythm", "Strings","Arpeggios","Melody Maker", "Chords"],
+      "tempo": ["Rhythm", "Melody Maker", "Chords"],
+      "padrão": ["Rhythm", "Melody Maker", "Chords"],
+      "repetição": ["Rhythm","Voice Spinner", "Strings","Melody Maker", "Chords"],
+      "afinação": ["Melody Maker","Oscillators", "Song Maker", "Chords"],
+      "notas": ["Melody Maker", "Oscillators","Shared Piano","Arpeggios","Song Maker", "Piano Roll", "Chords"],
+      "escala": ["Melody Maker", "Song Maker", "Piano Roll"],
+      "melodia": ["Melody Maker","Spectrogram","Arpeggios", "Song Maker"],
+      "harmonia": ["Melody Maker", "Song Maker", "Chords"],
+      "intervalo": ["Melody Maker", "Song Maker"],
+      "visual": ["Kandinsky","Oscillators", "Spectrogram"],
+      "auditivo": ["Sound Waves", "Spectrogram"],
+      "sensorial": ["Kandinsky","Spectrogram", "Spectrogram"],
+      "sinestesia": ["Kandinsky"],
+      "estímulo": ["Kandinsky", "Sound Waves", "Oscillators"],
+      "sentidos": ["Kandinsky", "Sound Waves"],
+      "relaxamento": ["Song Maker (modo lento)", "Spectrogram"],
+      "ansiedade": ["Song Maker (modo lento)", "Spectrogram"],
+      "calma": ["Song Maker (modo lento)", "Spectrogram"],
+      "respiração": ["Song Maker (modo lento)", "Spectrogram"],
+      "tranquilidade": ["Song Maker (modo lento)", "Spectrogram"],
+      "grupo": ["Rhythm (em duplas)","Shared Piano", "Song Maker (colaborativo)"],
+      "vínculo": ["Rhythm (em duplas)", "Shared Piano","Song Maker (colaborativo)"],
+      "empatia": ["Rhythm (em duplas)", "Shared Piano","Song Maker (colaborativo)"],
+      "espelhamento": ["Rhythm (em duplas)", "Song Maker (colaborativo)"],
+      "relação": ["Rhythm (em duplas)","Shared Piano", "Song Maker (colaborativo)"],
+      "troca": ["Rhythm (em duplas)", "Shared Piano","Song Maker (colaborativo)"]
+    };
+
+    // Extrair palavras-chave únicas e ordenar
+    const palavrasChave = Object.keys(palavraParaFerramentas).sort();
+
+    let populations = [];
+    let participants = [];
+
+    function addPopulation() {
+      const popName = document.getElementById('popInput').value.trim();
+      if (!popName) return;
+      populations.push({ name: popName, objectives: [] });
+      document.getElementById('popInput').value = '';
+      renderPopulations();
+    }
+
+    function addObjective(index) {
+      const objInput = document.getElementById(`objInput${index}`);
+      const objective = objInput.value.trim();
+      if (!objective) return;
+      populations[index].objectives.push(objective);
+      objInput.value = '';
+      renderPopulations();
+    }
+
+    function removePopulation(index) {
+      populations.splice(index, 1);
+      renderPopulations();
+    }
+
+    function renderPopulations() {
+      const container = document.getElementById('populationsContainer');
+      container.innerHTML = '';
+      populations.forEach((pop, index) => {
+        const div = document.createElement('div');
+        div.className = 'population';
+        div.innerHTML = `
+          <strong>${pop.name}</strong>
+          <button class="remove-btn" onclick="removePopulation(${index})">Remover</button>
+          <div class="objectives">
+            ${pop.objectives.length ? pop.objectives.map(obj => `<div>• ${obj}</div>`).join('') : '<em>Nenhum objetivo ainda</em>'}
+          </div>
+          <input type="text" id="objInput${index}" placeholder="Adicionar objetivo clínico..." 
+                 onkeydown="if(event.key==='Enter') addObjective(${index})" 
+                 oninput="mostrarSugestaoFerramenta(${index})" />
+          <div id="sugestao${index}" style="font-size: 13px; color: #555; margin-top: 4px;"></div>
+          <button onclick="addObjective(${index})">+ Objetivo</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addParticipant() {
+      const input = document.getElementById('participantInput');
+      const name = input.value.trim();
+      if (!name) return;
+      participants.push(name);
+      input.value = '';
+      renderParticipants();
+    }
+
+    function removeParticipant(index) {
+      participants.splice(index, 1);
+      renderParticipants();
+    }
+
+    function renderParticipants() {
+      const list = document.getElementById('participantsList');
+      list.innerHTML = '';
+      participants.forEach((name, index) => {
+        const div = document.createElement('div');
+        div.className = 'participant-item';
+        div.innerHTML = `
+          <strong>${name}</strong>
+          <button class="remove-btn" onclick="removeParticipant(${index})">Remover</button>
+        `;
+        list.appendChild(div);
+      });
+    }
+
+    function sugerirFerramenta(texto) {
+      texto = texto.toLowerCase();
+      for (let palavra in palavraParaFerramentas) {
+        if (texto.includes(palavra)) {
+          return palavraParaFerramentas[palavra].join(", ");
+        }
+      }
+      return "Escolha livre no Music Lab 🎧";
+    }
+
+    function mostrarSugestaoFerramenta(index) {
+      const objInput = document.getElementById(`objInput${index}`);
+      const sugestaoDiv = document.getElementById(`sugestao${index}`);
+      const texto = objInput.value.toLowerCase().trim();
+
+      const ferramenta = sugerirFerramenta(texto);
+      let sugestaoHTML = `🎧 <strong>Sugestão de ferramenta:</strong> ${ferramenta}<br/>`;
+
+      if (texto.length >= 1) {
+        const sugestoes = palavrasChave.filter(p => p.startsWith(texto)).slice(0, 5);
+        if (sugestoes.length) {
+          sugestaoHTML += `🔍 <strong>Palavras-chave:</strong> ${sugestoes.join(", ")}`;
+        }
+      }
+
+      sugestaoDiv.innerHTML = sugestaoHTML;
+    }
+
+    // Sorteio
+    function sortear() {
+      const resultsDiv = document.getElementById('results');
+      if (participants.length === 0 || populations.length === 0) {
+        alert("Adicione participantes e populações clínicas.");
+        return;
+      }
+      const output = [];
+      const usedPopulations = new Set();
+
+      participants.forEach((name) => {
+        let popOptions = populations.filter((_, idx) => !usedPopulations.has(idx));
+        if (popOptions.length === 0) popOptions = populations;
+        const popIndex = populations.indexOf(popOptions[Math.floor(Math.random() * popOptions.length)]);
+        usedPopulations.add(popIndex);
+        const pop = populations[popIndex];
+
+        let chosenObjective = '';
+        let sugestao = '';
+        if (pop.objectives.length === 0) {
+          chosenObjective = '⚠️ Sem objetivo clínico definido.';
+          sugestao = 'Sem sugestão de ferramenta.';
+        } else {
+          if (!pop._usedObjectives) pop._usedObjectives = new Set();
+          let availableObjectives = pop.objectives.filter((_, idx) => !pop._usedObjectives.has(idx));
+          if (availableObjectives.length === 0) {
+            pop._usedObjectives = new Set();
+            availableObjectives = pop.objectives;
+          }
+          const objIndex = pop.objectives.indexOf(availableObjectives[Math.floor(Math.random() * availableObjectives.length)]);
+          pop._usedObjectives.add(objIndex);
+          chosenObjective = pop.objectives[objIndex];
+          sugestao = sugerirFerramenta(chosenObjective);
+        }
+
+        output.push(`${name}:\nPopulação: ${pop.name}\nObjetivo: ${chosenObjective}\n🎧 Sugestão de ferramenta: ${sugestao}\n`);
+      });
+
+      resultsDiv.textContent = output.join('\n---\n');
+    }
+
+    // Preencher palavras-chave na sidebar e adicionar clique para inserir no último input objetivo
+    function preencherPalavrasChave() {
+      const ul = document.getElementById('listaPalavrasChave');
+      ul.innerHTML = '';
+      palavrasChave.forEach(palavra => {
+        const li = document.createElement('li');
+        li.textContent = palavra;
+        li.title = `Inserir "${palavra}" no objetivo clínico da última população`;
+        li.addEventListener('click', () => {
+          if (populations.length === 0) {
+            alert("Adicione pelo menos uma população clínica antes de usar as palavras-chave.");
+            return;
+          }
+          const indexUltimaPop = populations.length - 1;
+          const objInput = document.getElementById(`objInput${indexUltimaPop}`);
+          if (!objInput) return;
+          if (objInput.value.length > 0 && !objInput.value.endsWith(' ')) objInput.value += ' ';
+          objInput.value += palavra;
+          objInput.focus();
+          mostrarSugestaoFerramenta(indexUltimaPop);
+        });
+        ul.appendChild(li);
+      });
+    }
+
+    // Preencher biblioteca das ferramentas com descrições e suas palavras-chave relacionadas
+   function preencherBiblioteca() {
+    const ul = document.getElementById('libraryList');
+    ul.innerHTML = '';
+    bibliotecaFerramentas.forEach(ferramenta => {
+      const relacionadas = Object.entries(palavraParaFerramentas)
+        .filter(([palavra, ferramentas]) => ferramentas.includes(ferramenta.nome))
+        .map(([palavra]) => palavra);
+      const li = document.createElement('li');
+      li.innerHTML = `<strong><a href="${ferramenta.url}" target="_blank" rel="noopener noreferrer">${ferramenta.nome}</a>:</strong> ${ferramenta.descricao} <br/><em>Palavras-chave relacionadas:</em> ${relacionadas.join(', ')}`;
+      ul.appendChild(li);
+    });
+  }
+    // Eventos para Enter nas entradas principais
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('popInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') addPopulation();
+      });
+      document.getElementById('participantInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') addParticipant();
+      });
+
+      preencherPalavrasChave();
+      preencherBiblioteca();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrada MIDI</title>
+    <script>
+        let useButton = false;
+
+        function toggleInputMode() {
+            useButton = !useButton;
+            document.getElementById("midiButton").style.display = useButton ? "block" : "none";
+        }
+
+        function handleMIDIMessage(event) {
+            if (!useButton) {
+                const [status, note, velocity] = event.data;
+                if (status === 144 && velocity > 0) { // Note On
+                    console.log(`Nota ON: ${note}, Velocidade: ${velocity}`);
+                }
+            }
+        }
+
+        function setupMIDI() {
+            if (navigator.requestMIDIAccess) {
+                navigator.requestMIDIAccess().then(midiAccess => {
+                    for (let input of midiAccess.inputs.values()) {
+                        input.onmidimessage = handleMIDIMessage;
+                    }
+                }).catch(err => console.error("Erro ao acessar MIDI:", err));
+            } else {
+                console.warn("MIDI não suportado neste navegador.");
+            }
+        }
+
+        function simulateNoteOn() {
+            console.log("Botão pressionado: Simulando Nota ON");
+        }
+
+        window.onload = setupMIDI;
+    </script>
+</head>
+<body>
+    <button onclick="toggleInputMode()">Alternar Entrada MIDI/Botão</button>
+    <button id="midiButton" style="display:none;" onclick="simulateNoteOn()">Nota ON</button>
+</body>
+</html>

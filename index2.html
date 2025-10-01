@@ -1,0 +1,115 @@
+             <!DOCTYPE html>
+            <html lang="en">
+              
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <meta name="description" content="Ivan Moriá Borges é um jovem pesquisador, atualmente desenvolvendo um projeto que abarca Musicoterapia, Neurociências e Tecnologia">
+                        <title>Ivan Moriá Borges</title>
+          
+                        <link rel="stylesheet" href="style.css">
+               
+                      
+                    </head>
+            
+            
+      
+        
+     
+
+        <div id="canvas-container">
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script>
+        let num = 200;
+        let range = 5;
+        let ax = [];
+        let ay = [];
+        let ax2 = [];
+        let ay2 = [];
+        let extraLines = 200;
+
+
+        function setup() {
+            let canvas = createCanvas(windowWidth, windowHeight);
+            canvas.parent('canvas-container');
+            for (let i = 0; i < num; i++) {
+                ax[i] = width / 2;
+                ay[i] = height / 2;
+                ax2[i] = width / 2;
+                ay2[i] = height / 2;
+            }
+            for (let j = 0; j < num + extraLines; j++) {
+                ax[j] = width / 2;
+                ay[j] = height / 2;
+                ax2[j] = width / 2;
+                ay2[j] = height / 2;
+            }
+            frameRate(1000);
+        }
+
+        function draw() {
+            background(203);
+            for (let i = 1; i < num; i++) {
+                ax[i - 1] = ax[i];
+                ay[i - 1] = ay[i];
+                ax2[i - 1] = ax[i];
+                ay2[i - 1] = ay[i];
+            }
+            ax[num - 1] += random(-range, range);
+            ay[num - 1] += random(-range, range);
+            ax[num - 1] = constrain(ax[num - 1], 0, width);
+            ay[num - 1] = constrain(ay[num - 1], 0, height);
+            ax2[num - 1] += random(-range, range);
+            ay2[num - 1] += random(-range, range);
+            ax2[num - 1] = constrain(ax[num - 1], 0, width);
+            ay2[num - 1] = constrain(ay[num - 1], 0, height);
+            for (let i = 1; i < num; i++) {
+                let val = float(i) / num * 100.0 + 3;
+                stroke(val);
+                line(ax[i - 1], ay[i - 1], ax[i], ay[i]);
+                line(ax2[i - 1], ay2[i - 1], ax2[i], ay2[i]);
+            }
+
+            for (let j = 1; j < extraLines; j++) {
+                ax[j - 1] = ax[j];
+                ay[j - 1] = ay[j];
+                ax2[j - 1] = ax[j];
+                ay2[j - 1] = ay[j];
+            }
+            ax[extraLines - 1] += random(-range, range);
+            ay[extraLines - 1] += random(range, - range);
+            ax[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+            ay[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+            ax2[extraLines - 1] += random(-range, range);
+            ay2[extraLines - 1] += random(range, - range);
+            ax2[extraLines - 1] = constrain(ax[extraLines - 1], 0, width);
+            ay2[extraLines - 1] = constrain(ay[extraLines - 1], 0, height);
+            for (let j = 1; j < num; j++) {
+                let val = float(j) / num * 200.0 + 32 ;
+                stroke(val, 22, 442, 2 * (j +4));
+                line(ax[j - 1], ay[j - 1], ax[j], ay[j]);
+                line(ax2[j - 1], ay2[j - 1], ax2[j], ay2[j]);
+            }
+        }
+    </script>
+    
+            </body>
+            </html>
+            
+
+
+
+
+
+
+
+
+
+
+
+

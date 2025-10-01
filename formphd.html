@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>TCLE - Assinatura Digital</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .a4 {
+      background: #fff;
+      width: 21cm;
+      padding: 2cm;
+      box-sizing: border-box;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      min-height: 29.7cm;
+    }
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    p {
+      text-align: justify;
+      line-height: 1.6;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+    .assinaturas {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 40px;
+    }
+    .assinatura, .assinatura-pesquisador {
+      text-align: center;
+      flex: 1;
+    }
+    canvas {
+      border: 1px solid #000;
+      display: block;
+      margin: 5px auto;
+    }
+    input[type="text"] {
+      width: 250px;
+      padding: 5px 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      border: none;
+      border-bottom: 1px solid #000;
+      outline: none;
+    }
+    .assinatura-pesquisador img {
+      width: 200px;
+      height: auto;
+      display: block;
+      margin: 5px auto 0 auto;
+    }
+    button {
+      margin: 10px 5px;
+      padding: 8px 15px;
+      border: none;
+      background: #2e7d32;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #1b5e20;
+    }
+    .data {
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: center;
+    }
+    .footer {
+      font-size: 12px;
+      margin-top: 30px;
+      text-align: justify;
+      line-height: 1.4;
+    }
+    .nao-pdf {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="a4" id="tcle">
+    <h1>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</h1>
+
+    <p>Você está sendo convidado a participar da pesquisa realizada na Universidade Federal de Minas Gerais - UFMG, no Programa de Pós-Graduação em Música intitulada “Tecnologias de Extração e Processamento de Informações Musicais em Musicoterapia: Microanálises de Vestígios Musicais e possíveis interfaces com a Cognição Social”. Sua participação é importante e voluntária e contribuirá com informações que serão úteis para indicar melhores tratamentos musicoterapêuticos e para o entendimento de como os recursos tecnológicos podem ser utilizados para desenvolver pesquisas e intervenções musicoterapêuticas.
+    Os objetivos deste estudo são: 
+    <strong>1)</strong> Verificar a viabilidade de utilização de ferramentas tecnológicas para a coleta e análise de dados da produção musical na avaliação em Musicoterapia;
+    <strong>2)</strong> Desenvolver uma revisão de literatura sobre coleta e análise de improvisações musicais e suas interfaces com a cognição social;
+    <strong>3)</strong> Desenvolver uma ferramenta tecnológica para a coleta e análise de dados da produção musical que auxiliem no processo de interpretação e tomada de decisões na prática clínica musicoterapêutica;
+    <strong>4)</strong> Desenvolver estudos iniciais de validação de face, conteúdo e construto do uso de recursos tecnológicos, relacionando habilidades e competências musicais e cognição social;
+    <strong>5)</strong> Cartografar a utilização de ferramentas tecnológicas por musicoterapeutas e pesquisadores no Brasil e na América Latina.
+Você será convidado a responder um questionário online e a uma escala de níveis de ansiedade, estresse e
+    depressão. Depois você participará presencialmente de algumas tarefas musicais envolvendo sincronização
+    e percepção do tempo musical. As tarefas musicais serão realizadas em uma única sessão com duração
+    aproximada de trinta minutos em um Laboratório na UFMG. Você realizará as tarefas uma vez, não sendo
+    necessário conhecimento prévio sobre o uso dos equipamentos musicais utilizados.
+Esses procedimentos oferecem risco mínimo à saúde, tais como eventual cansaço ou desconforto em
+        alguma pergunta dos questionários ou participação das tarefas musicais. Fica assegurado o seu direito de
+        desistir de participar da pesquisa a qualquer momento, sem nenhum prejuízo a sua pessoa. Esta pesquisa
+        não lhe trará benefícios diretos. Não há despesas pessoais para o participante como exames ou consultas,
+        assim como não há nenhum tipo de compensação financeira pela sua participação na pesquisa. É garantido
+        o direito a indenização por eventuais danos decorrentes da pesquisa, pelo pesquisador. A pesquisa poderá,
+        no entanto, trazer benefícios para a ampliação e sistematização do uso de meios tecnológicos digitais para
+        coleta de informações musicais durante atendimento musicoterapêutico.
+Fica assegurado o seu direito à confidencialidade das informações, não sendo divulgada nenhuma
+    identificação pessoal dos participantes da pesquisa. Fica garantida a orientação acerca dos procedimentos
+    e do andamento da pesquisa, bem como dos dados obtidos a partir do material analisado. Os dados e o
+    material das avaliações serão utilizados somente para fins desta pesquisa e de apresentações em congressos
+    e palestras, guardando a identidade dos sujeitos avaliados. A condução desta pesquisa observa o que está
+    disposto na Resolução CNS/MS 510/16 e na Resolução CNS/MS 466/2012 do Conselho Nacional de
+    Saúde/Ministério da Saúde. Este termo seguirá em duas vias, sendo que uma será entregue a você. Os dados
+    ficarão armazenados pelo período de 10 anos no Laboratório de Musicoterapia da UFMG, sem qualquer
+    identificação que conecte os seus dados a você. 
+    Acredito ter sido suficientemente informado sobre a descrição da pesquisa que li ou que foi lida para mim,
+        descrevendo o estudo “Tecnologias de Extração e Processamento de Informações Musicais em
+        Musicoterapia: Microanálises de Vestígios Musicais e possíveis interfaces com a Cognição Social”. Eu
+        discuti com Ivan Moriá Borges Rodrigues sobre a minha decisão em participar nesse estudo. Ficaram claros
+        para mim quais são os propósitos do estudo, os procedimentos a serem realizados, as garantias de
+        confidencialidade e de esclarecimentos permanentes. Ficou claro também que minha participação é isenta
+        de despesas. Concordo voluntariamente em participar deste estudo e poderei retirar o meu consentimento a
+        qualquer momento, sem penalidades ou prejuízo.</p>
+
+    <!-- Conteúdo do TCLE continua aqui -->
+
+
+
+    <div class="assinaturas" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-top: 30px;">
+
+        <!-- Participante -->
+        <div class="assinatura" style="display: flex; flex-direction: column; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+            <p style="margin: 0;"><strong>Participante:</strong></p>
+            <input type="text" id="nome-participante" placeholder="Digite seu nome completo"
+            style="border: none; border-bottom: 1px solid #000; outline: none;
+                   font-size: 14px; padding: 2px 5px; width: 200px;">
+     
+          </div>
+          <canvas id="signature-pad" width="250" height="80"></canvas>
+          <div class="nao-pdf" style="margin-top: 10px;">
+            <button type="button" id="clear">Limpar</button>
+            <button type="button" id="save">Salvar PDF</button>
+          </div>
+        </div>
+      
+        <!-- Pesquisador -->
+        <div class="assinatura-pesquisador" style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start;">
+          <p style="margin-top: 0px;margin-left:-20px;margin-bottom: -5px;"><strong>Pesquisador:</strong> Ivan Moriá Borges </p>
+          <img src="assinatura_pesquisador.png" alt="Assinatura do Pesquisador" style="width: 150px; height: auto;margin-top:20px;display: block;">
+        </div>
+      
+      </div>
+      
+      <!-- Data e participante assinado -->
+      <div class="data" id="data-hora" style="text-align: center; margin-top: 0px;">
+        <p><strong>Assinado por:</strong> _____________________</p>
+      </div>
+      
+
+
+
+
+
+    <!-- Rodapé -->
+    <div class="footer">
+      Caso tenha alguma dúvida sobre a pesquisa, o(a) sr(a). poderá entrar em contato com o coordenador
+      responsável pelo estudo: Ivan Moriá Borges Rodrigues, que pode ser localizado na Escola de Música da
+      UFMG (31-3409-4700) das 8 às 16h, de segunda a sexta, ou pelo e-mail ivanmoriabr@gmail.com, ou pelo
+      telefone (31) 9 8466 7554. Em caso de dúvidas éticas, o participante pode se dirigir ao COEP/UFMG
+      localizado à Av. Presidente Antônio Carlos, 6627, Pampulha - Belo Horizonte–MG - CEP 31270-901,
+      Unidade Administrativa II - 2º Andar - Sala: 2005, acessar através do e-mail coep@prpq.ufmg.br ou
+      telefone (31) 3409-4592.
+    </div>
+
+  </div>
+
+  <script>
+    function iniciar(e) {
+  e.preventDefault();
+  desenhando = true;
+  
+  // Bloqueia o scroll da tela enquanto assina
+  document.body.style.overflow = 'hidden';
+
+  const { x, y } = ajustarCoordenadas(e);
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+}
+
+function parar() {
+  desenhando = false;
+
+  // Restaura o scroll da tela após terminar a assinatura
+  document.body.style.overflow = '';
+}
+
+    // Configuração da assinatura do participante
+    const canvas = document.getElementById("signature-pad");
+    const ctx = canvas.getContext("2d");
+    let desenhando = false;
+
+    function ajustarCoordenadas(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left,
+        y: (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top
+      };
+    }
+
+    function iniciar(e) { e.preventDefault(); desenhando = true; const {x,y}=ajustarCoordenadas(e); ctx.beginPath(); ctx.moveTo(x,y); }
+    function desenhar(e) { if(!desenhando) return; e.preventDefault(); const {x,y}=ajustarCoordenadas(e); ctx.lineTo(x,y); ctx.stroke(); }
+    function parar() { desenhando=false; }
+
+    canvas.addEventListener("mousedown", iniciar);
+    canvas.addEventListener("mousemove", desenhar);
+    canvas.addEventListener("mouseup", parar);
+    canvas.addEventListener("mouseleave", parar);
+    canvas.addEventListener("touchstart", iniciar);
+    canvas.addEventListener("touchmove", desenhar);
+    canvas.addEventListener("touchend", parar);
+
+    // Limpar assinatura
+    document.getElementById("clear").addEventListener("click", () => {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      document.getElementById("nome-participante").value = "";
+      document.getElementById("data-hora").innerHTML = '<p><strong>Assinado por:</strong> _____________________</p>';
+    });
+
+    // Salvar PDF
+    document.getElementById("save").addEventListener("click", async () => {
+      const nome = document.getElementById("nome-participante").value.trim();
+      if(!nome) { alert("Digite seu nome antes de salvar!"); return; }
+
+      // Atualiza a data
+      const agora = new Date();
+      const dataFormatada = `${agora.getDate()}/${agora.getMonth()+1}/${agora.getFullYear()} às ${agora.getHours()}:${agora.getMinutes().toString().padStart(2,'0')}`;
+      document.getElementById("data-hora").innerHTML = `<p><strong>Assinado por:</strong> ${nome} em ${dataFormatada}</p>`;
+
+      // Oculta os botões temporariamente
+      document.querySelectorAll('.nao-pdf').forEach(b => b.style.display='none');
+
+      // Gera canvas do TCLE
+      const tcle = document.getElementById("tcle");
+      const canvasPdf = await html2canvas(tcle, { scale: 2, useCORS: true });
+      const imgData = canvasPdf.toDataURL("image/jpeg", 1.0);
+
+      // Cria o PDF
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        unit: 'px',
+        format: [canvasPdf.width, canvasPdf.height]
+      });
+      pdf.addImage(imgData, 'JPEG', 0, 0, canvasPdf.width, canvasPdf.height);
+
+      // Salva o PDF
+      pdf.save(`${nome.replace(/\s+/g,'_')}_TCLE.pdf`);
+
+      // Mostra os botões novamente
+      document.querySelectorAll('.nao-pdf').forEach(b => b.style.display='inline-block');
+
+      // Abre próximo formulário
+      setTimeout(() => {
+        window.location.href = `formulario.html?nome=${encodeURIComponent(nome)}`;
+      }, 300);
+    });
+  </script>
+</body>
+</html>

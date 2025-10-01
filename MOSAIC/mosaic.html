@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSAIC</title>
+    <link rel="stylesheet" href="mosaic.css">
+</head>
+<body>
+
+    <!-- Cabeçalho Fixo -->
+    <header>
+        <div class="header-container">
+            <div class="logos" style="flex-direction: column; margin-left:-15px;">
+                <img id="gif" style="position:fixed;margin-top:-45px;margin-left:80px;width:80px; height:80px;"src="/MOSAIC/figure/mosaic6.git" alt="Patrocinador 1">
+                <script>
+                  function restartGif() {
+                    let gif = document.getElementById("gif");
+                    gif.src = "/MOSAIC/figure/mosaic6.gif?rand=" + new Date().getTime(); // Adiciona um timestamp
+                  }
+                
+                  // Recarrega o GIF ao recarregar a página
+                  window.onload = restartGif;
+                
+                  // Recarrega o GIF ao voltar para o topo
+                  window.addEventListener("scroll", function() {
+                    if (window.scrollY === 0) {
+                      restartGif();
+                    }
+                  });
+                </script>
+                <img style="position:fixed;width:50px;height:25px; margin-left:80px;margin-top:15px;" src="/MOSAIC/figure/mosaictexsto.png" alt="Patrocinador 1">
+            </div>
+            <p style="margin-left: 0%; font-size:12px;"> Music-Oriented Systems and 
+                <br>
+                Artificial Intelligence for Creativity 
+            </p><nav>
+                <button class="menu-toggle">☰ Menu</button>
+               
+               
+                <ul class="menu">
+                    <li><a href="#presentation">Apresentação</a></li>
+                    <li><a href="#equipe">Equipe</a></li>
+                    <li><a href="#projects">Projetos</a></li>
+
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        
+
+
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const toggleButton = document.querySelector(".menu-toggle");
+                    const menu = document.querySelector(".menu");
+              
+                    toggleButton.addEventListener("click", function() {
+                        menu.classList.toggle("show");
+                    });
+                });
+              </script>
+              
+
+
+
+            </div>
+        </div>
+    </header>
+    
+    <section id="presentation">
+        <h2>Apresentação</h2>
+        <p> Music-Oriented Systems and Artificial Intelligence for Creativity
+             (MOSAIC) é um grupo de pesquisa interdisciplinar do Departamento de Ciência da Computação da Universidade Federal de Minas Gerais (DCC/UFMG) e da Escola de Música da UFMG.
+              </p>
+    <!-- Conteúdo da Página -->
+
+
+    <style>
+        .membro {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espaço entre a imagem e o nome */
+        }
+      
+        .membro img {
+            width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
+            height: 50px;
+            border-radius: 50%; /* Deixa a imagem redonda */
+        }
+      </style>
+
+    <section id="equipe">
+        <h2>Equipe</h2>
+        <div class="equipe-container">
+       
+        
+
+
+            <div class="membro">
+                <img  style="margin-top:-40px;" src=" /MOSAIC/figure/ivan.pn" alt="Foto de Membro 1">
+    
+                <div class="info">
+            
+
+                    <h3>Flávio Figueiredo, PhD</h3>
+                    <hr>
+                    <p>info   </p>
+                <div style="margin-left:-70px;" class="contatos">
+                    <button class="button flex-center" 
+                    onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px" class="btn-svg">                         <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>                       </svg>                         <g stroke-width="0" id="SVGRepo_bgCarrier"></g>                         <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier" ></g>                         <g id="SVGRepo_iconCarrier">                            <title>email</title>                                          <defs></defs>                           <g              fill-rule="evenodd"fill="none"       stroke-width="1"                 stroke="none"                      id="Page-1"                                                 <g                       fill="#fff"                       transform="translate(-60.000000, -7521.000000)"                      id="Dribbble-Light-Preview"                    >                               <g transform="translate(56.000000, 160.000000)" id="icons">                                 <path       id="email-[#154]"               d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"                         ></path>                                                                </g>                             </g>                           </g>                         </g>                       </svg>             
+                             </button>
+                                <button style="margin-left:-20px;" class="button flex-center" 
+                     onclick="window.open('https://www.linkedin.com/in/ivan-moriá-borges-63b201341/', 'popup', 'width=450,height=800,scrollbars=no,resizable=no');">     <svg                    viewBox="0 0 16 16"                    height="16"                    width="16"                   xmlns="http://www.w3.org/2000/svg"class="svgeIcon"> <path                       d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>    </svg>
+                              </button>
+                </div>
+            </div>
+
+
+
+            <div style="margin-left:20%;" class="membro">
+                <img  style="margin-top:-40px;" src=" /MOSAIC/figure/ivan.pg" alt="Foto de Membro 1">
+    
+                <div class="info">
+            
+                    <h3>Lucas Ferreira, PhD</h3>
+                    <hr>
+                    <p>info   </p>
+                <div style="margin-left:-70px;" class="contatos">
+                    <button class="button flex-center" 
+                    onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px" class="btn-svg">                         <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>                       </svg>                         <g stroke-width="0" id="SVGRepo_bgCarrier"></g>                         <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier" ></g>                         <g id="SVGRepo_iconCarrier">                            <title>email</title>                                          <defs></defs>                           <g              fill-rule="evenodd"fill="none"       stroke-width="1"                 stroke="none"                      id="Page-1"                                                 <g                       fill="#fff"                       transform="translate(-60.000000, -7521.000000)"                      id="Dribbble-Light-Preview"                    >                               <g transform="translate(56.000000, 160.000000)" id="icons">                                 <path       id="email-[#154]"               d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"                         ></path>                                                                </g>                             </g>                           </g>                         </g>                       </svg>             
+                             </button>
+                                <button style="margin-left:-20px;" class="button flex-center" 
+                     onclick="window.open('https://www.linkedin.com/in/ivan-moriá-borges-63b201341/', 'popup', 'width=450,height=800,scrollbars=no,resizable=no');">     <svg                    viewBox="0 0 16 16"                    height="16"                    width="16"                   xmlns="http://www.w3.org/2000/svg"class="svgeIcon"> <path                       d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>    </svg>
+                              </button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+            <div  class="membro">
+                <img  style="margin-top:-40px;" src=" /MOSAIC/figure/ivan.pg" alt="Foto de Membro 1">
+    
+                <div class="info">
+            
+                    <h3>Frederico Pedrosa, PhD</h3>
+                    <hr>
+                    <p>info  </p>
+                <div style="margin-left:-70px;" class="contatos">
+                    <button class="button flex-center" 
+                    onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px" class="btn-svg">                         <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>                       </svg>                         <g stroke-width="0" id="SVGRepo_bgCarrier"></g>                         <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier" ></g>                         <g id="SVGRepo_iconCarrier">                            <title>email</title>                                          <defs></defs>                           <g              fill-rule="evenodd"fill="none"       stroke-width="1"                 stroke="none"                      id="Page-1"                                                 <g                       fill="#fff"                       transform="translate(-60.000000, -7521.000000)"                      id="Dribbble-Light-Preview"                    >                               <g transform="translate(56.000000, 160.000000)" id="icons">                                 <path       id="email-[#154]"               d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"                         ></path>                                                                </g>                             </g>                           </g>                         </g>                       </svg>             
+                             </button>
+                                <button style="margin-left:-20px;" class="button flex-center" 
+                     onclick="window.open('https://www.linkedin.com/in/ivan-moriá-borges-63b201341/', 'popup', 'width=450,height=800,scrollbars=no,resizable=no');">     <svg                    viewBox="0 0 16 16"                    height="16"                    width="16"                   xmlns="http://www.w3.org/2000/svg"class="svgeIcon"> <path                       d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>    </svg>
+                              </button>
+                </div>
+            </div>
+  
+
+            <div  style="margin-left:20%;" class="membro">
+                <img  style="margin-top:-40px;" src=" /MOSAIC/figure/ivan.png" alt="Foto de Membro 1">
+    
+                <div class="info">
+            
+                    <h3>Ivan Moriá Borges, MSc</h3>
+                    <hr>
+                    <p>Doutorando em Música   </p>
+                <div style="margin-left:-70px;" class="contatos">
+                    <button class="button flex-center" 
+                    onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22px" height="22px" class="btn-svg">                         <path    fill="#fff"d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,6l-8,5L4,6 H20z M4,18V8l8,5l8-5v10H4z"/>                       </svg>                         <g stroke-width="0" id="SVGRepo_bgCarrier"></g>                         <g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier" ></g>                         <g id="SVGRepo_iconCarrier">                            <title>email</title>                                          <defs></defs>                           <g              fill-rule="evenodd"fill="none"       stroke-width="1"                 stroke="none"                      id="Page-1"                                                 <g                       fill="#fff"                       transform="translate(-60.000000, -7521.000000)"                      id="Dribbble-Light-Preview"                    >                               <g transform="translate(56.000000, 160.000000)" id="icons">                                 <path       id="email-[#154]"               d="M10.29,7377 C17.837,7377 21.965,7370.84365 21.965,7365.50546 C21.965,7365.33021 21.965,7365.15595 21.953,7364.98267 C22.756,7364.41163 23.449,7363.70276 24,7362.8915 C23.252,7363.21837 22.457,7363.433 21.644,7363.52751 C22.5,7363.02244 23.141,7362.2289 23.448,7361.2926 C22.642,7361.76321 21.761,7362.095 20.842,7362.27321 C19.288,7360.64674 16.689,7360.56798 15.036,7362.09796 C13.971,7363.08447 13.518,7364.55538 13.849,7365.95835 C10.55,7365.79492 7.476,7364.261 5.392,7361.73762 C4.303,7363.58363 4.86,7365.94457 6.663,7367.12996 C6.01,7367.11125 5.371,7366.93797 4.8,7366.62489 L4.8,7366.67608 C4.801,7368.5989 6.178,7370.2549 8.092,7370.63591 C7.488,7370.79836 6.854,7370.82199 6.24,7370.70483 C6.777,7372.35099 8.318,7373.47829 10.073,7373.51078 C8.62,7374.63513 6.825,7375.24554 4.977,7375.24358 C4.651,7375.24259 4.325,7375.22388 4,7375.18549 C5.877,7376.37088 8.06,7377 10.29,7376.99705"                         ></path>                                                                </g>                             </g>                           </g>                         </g>                       </svg>             
+                             </button>
+                                <button style="margin-left:-20px;" class="button flex-center" 
+                     onclick="window.open('https://www.linkedin.com/in/ivan-moriá-borges-63b201341/', 'popup', 'width=450,height=800,scrollbars=no,resizable=no');">     <svg                    viewBox="0 0 16 16"                    height="16"                    width="16"                   xmlns="http://www.w3.org/2000/svg"class="svgeIcon"> <path                       d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>    </svg>
+                              </button>
+                </div>
+            </div>
+
+
+            <!-- Mais membros podem ser adicionados aqui -->
+        </div>
+        
+    </section>
+    
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <p>Ismir</p>
+    </section>
+
+    <section id="works">
+        <h2>Works in Progress</h2>
+        <p>Lista de publicações e artigos...</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>site do departamento</p>
+    </section>
+
+
+
+</body>
+</html>
