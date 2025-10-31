@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Sincronia Rítmica - Visualizador</title>
+<script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/midi-parser-js@2.0.6/dist/midi-parser.min.js"></script>
+<style>
+  body { font-family: sans-serif; margin: 30px; background: #fafafa; }
+  .file-select { margin-bottom: 15px; }
+  #plot { width: 100%; height: 600px; }
+</style>
+</head>
+<body>
+
+<h2>🎵 Visualizador de Sincronia Rítmica</h2>
+
+<div class="file-select">
+  <label><b>Selecione arquivo MIDI:</b></label><br>
+  <input type="file" id="midiInput" accept=".mid">
+</div>
+
+<div class="file-select">
+  <label><b>Selecione arquivos CSV dos participantes:</b></label><br>
+  <input type="file" id="csvInput" accept=".csv" multiple>
+</div>
+
+<button id="plotButton">Plotar Gráfico</button>
+
+<div id="plot"></div>
+
+<script>
+let midiGrid = [];
+
+document.getElementById('midiInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const arrayBuffer = await file.arrayBuffer();
+
+  MidiParser.parse(arrayBuffer, (midi) => {
+    const ticksPerBeat = midi.timeDivision;
+    let tempo = 500000; // padrão 120 BPM
+    let currentTime = 0;
+    midiGrid = [];
+
+    midi.track.forEach(track => {
+      track.event.forEach(ev => {
+        const dt = ev.deltaTime * (tempo / ticksPerBeat) / 1000;
+        currentTime += dt;
+        if (ev.type === 0xFF && ev.metaType === 0x51) {
+          // set_tempo
+          tempo = (ev.data[0] << 16) + (ev.data[1] << 8) + ev.data[2];
+        }
+        if (ev.type === 0x9) {
+          midiGrid.push(currentTime);
+        }
+      });
+    });
+
+    // Normaliza tempo
+    const first = midiGrid[0];
+    midiGrid = midiGrid.map(t => t - first);
+    alert("Arquivo MIDI carregado com sucesso! " + midiGrid.length + " batidas detectadas.");
+  });
+});
+
+document.getElementById('plotButton').addEventListener('click', async () => {
+  if (midiGrid.length === 0) {
+    alert("Selecione primeiro um arquivo MIDI!");
+    return;
+  }
+
+  const csvFiles = document.getElementById('csvInput').files;
+  if (csvFiles.length === 0) {
+    alert("Selecione ao menos um arquivo CSV!");
+    return;
+  }
+
+  const traces = [];
+
+  for (const file of csvFiles) {
+    const text = await file.text();
+    const rows = text.trim().split("\n").slice(1);
+    const tempos = [], velocity = [], errors = [], labels = [];
+
+    rows.forEach(line => {
+      const [tempo, tecla, vel, press, nkeys] = line.trim().split(/\s+/).map(Number);
+      tempos.push(tempo);
+      velocity.push(vel);
+
+      // calcula erro em relação ao grid mais próximo
+      let closest = midiGrid.reduce((a, b) => Math.abs(b - tempo) < Math.abs(a - tempo) ? b : a);
+      const diff = tempo - closest;
+      errors.push(diff);
+      labels.push(diff.toFixed(0) + " ms");
+    });
+
+    traces.push({
+      x: tempos,
+      y: errors,
+      text: labels,
+      mode: "markers+text",
+      textposition: "top center",
+      type: "scatter",
+      marker: {
+        size: velocity.map(v => 6 + v/3),
+        color: velocity,
+        colorscale: "Viridis",
+        showscale: true,
+        colorbar: { title: "Velocity" }
+      },
+      name: file.name
+    });
+  }
+
+  // grid vertical do MIDI
+  const gridLines = midiGrid.map(g => ({
+    type: "line",
+    x0: g, x1: g,
+    y0: -300, y1: 300,
+    line: { color: "gray", width: 1, dash: "dot" }
+  }));
+
+  const layout = {
+    title: "Sincronia Rítmica — Erro × Tempo",
+    xaxis: { title: "Tempo (ms)" },
+    yaxis: { title: "Erro em relação ao grid (ms)" },
+    shapes: gridLines,
+    plot_bgcolor: "#fff",
+  };
+
+  Plotly.newPlot("plot", traces, layout);
+});
+</script>
+
+</body>
+</html>
