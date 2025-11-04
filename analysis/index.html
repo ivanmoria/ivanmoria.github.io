@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,6 +6,46 @@
 <title>Círculo Harmônico — Tétrades (4 notas)</title>
 <link rel="stylesheet" href="style.css">
 
+<style>
+/* Abas */
+.tabs { margin-top: 20px; }
+.tab-btn {
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  cursor: pointer;
+  background:#eee;
+  border:none;
+  border-radius:4px;
+  font-weight:600;
+}
+.tab-btn.active { background:#ccc; }
+.tab-content { 
+  margin-top: 1em; 
+  padding: 0.8em; 
+  border: 1px solid #ccc; 
+  border-radius: 6px; 
+  background: #f9f9f9; 
+}
+.tab-content .notes-row {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 0.5em;
+}
+.tab-content .note {
+  padding: 0.3em 0.5em;
+  background: #eee;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.cadence-card {
+  padding: 0.5em;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  margin-bottom: 0.5em;
+  background: #fff;
+}
+</style>
 </head>
 <body>
 
@@ -36,7 +75,16 @@
   <div id="chordsGrid" class="degree-row"></div>
 </div>
 
-<footer>Tétrades fixas: cada acorde mostra 4 notas (ex.: Cm7, Dm7♭5, Fmaj7, G7...). Notação ♯/♭ escolhida por tonalidade.</footer>
+<!-- Abas -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="progression">Progressão de Graus</button>
+  <button class="tab-btn" data-tab="cadences">Cadências</button>
+</div>
+
+<div class="tab-content" id="progression"></div>
+<div class="tab-content" id="cadences" style="display:none;"></div>
+
+<footer>Em desenvolvimento - Ivan Moriá/2025</footer>
 
 <script>
 /* ===== Dados musicais ===== */
@@ -58,10 +106,6 @@ const MODES = {
 
 const DEGREE_LABELS_MAJOR = ["I","ii","iii","IV","V","vi","vii\u00B0"];
 const DEGREE_LABELS_MINOR = ["i","ii\u00B0","III","iv","v","VI","VII"];
-
-// Círculo de quintas para acidentes
-const SHARP_ORDER = ['F','C','G','D','A','E','B'];
-const FLAT_ORDER  = ['B','E','A','D','G','C','F'];
 
 function accidentCount(key, mode) {
   const majorMap = {"C":0,"G":1,"D":2,"A":3,"E":4,"B":5,"F#":6,"C#":7,"F":-1,"Bb":-2,"Eb":-3,"Ab":-4,"Db":-5,"Gb":-6,"Cb":-7};
@@ -153,19 +197,23 @@ let selectedMode=modeSelect.value;
 
 function drawCircle(){
   circleContainer.innerHTML='';
-  const outerR=150, innerR=100, cx=190, cy=190;
 
-
+  const rect = circleContainer.getBoundingClientRect();
+  const cx = rect.width / 2;
+  const cy = rect.height / 2;
+  const outerR = rect.width * 0.4; // 40% do container
+  const innerR = rect.width * 0.25; // 25% do container
+  const btnSize = rect.width < 350 ? 40 : 65; // tamanho das bolinhas menor em celular
 
   for(let i=0;i<12;i++){
-    const angle=(i/12)*2*Math.PI-Math.PI/2;
+    const angle=(i/12)*2*Math.PI - Math.PI/2;
 
-    const x=cx+outerR*Math.cos(angle)-32.5;
-    const y=cy+outerR*Math.sin(angle)-32.5;
+    // Major
     const major=document.createElement('button');
     major.className='note-btn major';
-    major.style.left=x+'px';
-    major.style.top=y+'px';
+    major.style.width = major.style.height = btnSize+'px';
+    major.style.left=`${cx + outerR*Math.cos(angle) - btnSize/2}px`;
+    major.style.top=`${cy + outerR*Math.sin(angle) - btnSize/2}px`;
 
     const acc = accidentCount(MAJOR_KEYS[i],'major');
     major.textContent = correctNoteForKey(MAJOR_KEYS[i], acc.accidental==='♭');
@@ -177,12 +225,12 @@ function drawCircle(){
     };
     circleContainer.appendChild(major);
 
-    const x2=cx+innerR*Math.cos(angle)-32.5;
-    const y2=cy+innerR*Math.sin(angle)-32.5;
+    // Minor
     const minor=document.createElement('button');
     minor.className='note-btn minor';
-    minor.style.left=x2+'px';
-    minor.style.top=y2+'px';
+    minor.style.width = minor.style.height = btnSize+'px';
+    minor.style.left=`${cx + innerR*Math.cos(angle) - btnSize/2}px`;
+    minor.style.top=`${cy + innerR*Math.sin(angle) - btnSize/2}px`;
 
     const accMinor = accidentCount(MINOR_RELATIVES[i].replace(/m$/,''),'minor');
     minor.textContent = correctNoteForKey(MINOR_RELATIVES[i].replace(/m$/,''), accMinor.accidental==='♭')+'m';
@@ -215,8 +263,67 @@ function highlightActive(){
   }
 }
 
+/* ===== Renderização das abas ===== */
+function renderProgressionTab(){
+  const container = document.getElementById('progression');
+  container.innerHTML = '';
+  // reaproveita acordes diatônicos já no grid
+  for(let col of chordsGrid.children){
+    const card = document.createElement('div');
+    card.className='cadence-card';
+    const chordName = col.querySelector('.chordname').textContent;
+    const chordNotes = col.querySelector('.noteslist').textContent;
+    card.textContent = chordName + ' (' + chordNotes + ')';
+    container.appendChild(card);
+  }
+}
+
+function renderCadencesTab(scale){
+  const container = document.getElementById('cadences');
+  container.innerHTML = '';
+  const cadences = [
+    {name:"Autêntica (V–I)", degrees:[4,0]},           // V-I
+    {name:"Plagal (IV–I)", degrees:[3,0]},            // IV-I
+    {name:"Dominante secundária (V/V → V → I)", degrees:['V/V',4,0]} // dominante da dominante
+  ];
+
+  cadences.forEach(cad=>{
+    const card = document.createElement('div');
+    card.className='cadence-card';
+    const title = document.createElement('strong');
+    title.textContent = cad.name + ': ';
+    card.appendChild(title);
+
+    const notesRow = document.createElement('div');
+    notesRow.className='notes-row';
+
+    cad.degrees.forEach(d=>{
+      let chord;
+      if(d==='V/V'){
+        // Calcula V da dominante
+        const V_degree = 4;
+        const V_chord = buildTetradFromScale(scale,V_degree);
+        const V_root = V_chord.notes[0]; // raiz do V
+        // nova escala do V_root
+        const V_scale = buildScale(V_root,selectedMode,accidentCount(V_root,selectedMode).accidental==='♭');
+        chord = buildTetradFromScale(V_scale,4); // grau V da escala do V_root
+      } else {
+        chord = buildTetradFromScale(scale,d);
+      }
+      const chordDiv = document.createElement('div');
+      chordDiv.className='note';
+      chordDiv.textContent = chord.name;
+      notesRow.appendChild(chordDiv);
+    });
+
+    card.appendChild(notesRow);
+    container.appendChild(card);
+  });
+}
+
 function renderAll(){
   scaleNotesDiv.innerHTML='';
+  chordsGrid.innerHTML='';
 
   const acc = accidentCount(selectedKey, selectedMode);
   const useFlats = acc.accidental==='♭';
@@ -238,8 +345,7 @@ function renderAll(){
   });
   scaleNotesDiv.appendChild(notesRow);
 
-  // Acordes
-  chordsGrid.innerHTML='';
+  // Acordes diatônicos
   const degreeLabels = selectedMode.includes('minor')? DEGREE_LABELS_MINOR : DEGREE_LABELS_MAJOR;
   for(let d=0;d<7;d++){
     const col=document.createElement('div'); col.className='col';
@@ -256,6 +362,9 @@ function renderAll(){
     chordsGrid.appendChild(col);
   }
 
+  renderProgressionTab();
+  renderCadencesTab(scale);
+
   highlightActive();
 }
 
@@ -265,6 +374,15 @@ modeSelect.addEventListener('change',()=>{
   renderAll();
 });
 regenBtn.addEventListener('click',()=>renderAll());
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).style.display='block';
+  });
+});
 
 /* inicialização */
 drawCircle();

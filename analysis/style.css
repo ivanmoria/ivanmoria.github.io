@@ -3,7 +3,7 @@ body {
   background: radial-gradient(circle at center, #f7f8ff, #e9ecfa);
   color: #222;
   margin: 0;
-  padding: 1em 2em; /* menos padding vertical */
+  padding: 1em 2em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,42 +28,39 @@ select, button {
   border: 1px solid #ccc;
   font-size: 1.05em;
 }
-
 .circle-container {
   position: relative;
-  width: 450px;  /* círculo maior */
-  height: 450px;
-  border-radius: 50%;
+  width: 90%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
   margin-bottom: 1.5em;
 }
 
 .note-btn {
   position: absolute;
-  width: 70px;   /* botões um pouco maiores */
-  height: 70px;
   border-radius: 50%;
   border: none;
   background: #d8dcff;
   color: #222;
   font-weight: 600;
-  font-size: 1em;
   cursor: pointer;
   transition: all 0.18s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.note-btn.minor {
-  background: #d3f7e4;
-  font-size: 0.95em;
-}
-
-.note-btn:hover { 
-  transform: scale(1.08); 
-}
+.note-btn.minor { background: #d3f7e4; }
 
 .note-btn.active {
   background: #5a6bff !important;
   color: #fff;
   box-shadow: 0 0 18px rgba(90,107,255,0.6);
+}
+
+@media(max-width:600px){
+  .note-btn { font-size: 0.8em; } /* diminui texto */
 }
 
 .scale-display {
@@ -142,13 +139,53 @@ footer {
   text-align: center;
 }
 
+/* Abas */
+.tabs { margin-top: 20px; }
+.tab-btn {
+  padding: 0.5em 1em;
+  margin-right: 0.5em;
+  cursor: pointer;
+  background:#eee;
+  border:none;
+  border-radius:4px;
+  font-weight:600;
+}
+.tab-btn.active { background:#ccc; }
+.tab-content { 
+  margin-top: 1em; 
+  padding: 0.8em; 
+  border: 1px solid #ccc; 
+  border-radius: 6px; 
+  background: #f9f9f9; 
+}
+.tab-content .notes-row {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 0.5em;
+}
+.tab-content .note {
+  padding: 0.3em 0.5em;
+  background: #eee;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.cadence-card {
+  padding: 0.5em;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  margin-bottom: 0.5em;
+  background: #fff;
+}
+
+/* Responsividade */
 @media(max-width:1100px){
   .degree-row { flex-wrap: wrap; }
   .col { min-width: 160px; }
 }
 
 @media(max-width:600px){
-  .circle-container { width: 100%; height: 100%; max-width: 350px; max-height: 350px; }
-  .note-btn { width: 55px; height: 55px; font-size: 0.9em; }
+  .circle-container { max-width: 350px; max-height: 350px; }
+  .note-btn { width: 55px; height: 55px; font-size: 0.9em; line-height: 55px; }
   .scale-display, .chords-display { padding: 1em; }
 }
