@@ -288,7 +288,11 @@
   </style>
 </head>
 <body>
-  <h1>Painel de Controle</h1>
+  <h1 id="page-title">Painel de Controle</h1>
+
+<div id="lang-switcher" style="position:absolute; top:20px; right:20px;">
+  <button id="toggle-lang">PT / EN</button>
+</div>
 
 
   <div class="row">
@@ -358,22 +362,22 @@
 
 <!-- Aleatório -->
 <div class="card random-mode">
-  <h2>🔀 Modo Aleatório</h2>
+  <h2 id="random-title">🔀 Modo Aleatório</h2>
 
   <div class="nav-buttons">
-    <button onclick="prevRandom()">⬅️ Voltar</button>
-    <button onclick="nextRandom()">Avançar ➡️</button>
+    <button id="prev-btn" onclick="prevRandom()">⬅️ Voltar</button>
+    <button id="next-btn" onclick="nextRandom()">Avançar ➡️</button>
   </div>
 
   <div class="control-row">
     <button id="toggleRandomBtn" onclick="toggleRandom()">Iniciar</button>
 
-    <label for="minInterval">Tempo mínimo (s):</label>
+    <label for="minInterval" id="minIntervalLabel">Tempo mínimo (s):</label>
     <input id="minInterval" type="number" min="1" value="5" />
   </div>
 
 <div class="export-row" style="gap: 10px; display: flex; justify-content: center; align-items: center;">
-  <button onclick="exportCSV()">📥 Exportar CSV</button>
+  <button id="export-csv-btn" onclick="exportCSV()">📥 Exportar CSV</button>
 
   <button id="recordToggleBtn">🎥 Gravar Webcam</button>
 </div>
@@ -387,7 +391,7 @@
 
   <div id="recordTimer" style="font-size: 1.2em; margin-top: 8px; color: #27ae60; user-select:none;">00:00</div>
 
-  <h3>Vídeo Gravado:</h3>
+  <h3 id="video-recorded-title">Vídeo Gravado:</h3>
   <!-- preview oculto -->
   <video id="recordedVideo" controls style="width: 320px; height: 240px; background: black; border-radius: 8px; display:none;"></video>
 
@@ -403,7 +407,7 @@
 
   <div class="preview-card">
     <h2>  <p style="text-align: center; margin-top:-10px;margin-bottom: 10px;">
-    <a href="tela.html" target="_blank" style="color: #00BFFF; text-decoration: none; font-weight: bold;">
+    <a id="open-projection" href="tela.html" target="_blank" style="color: #00BFFF; text-decoration: none; font-weight: bold;">
       🔗 Abrir tela de projeção em nova aba
     </a>
   </p></h2>
@@ -414,27 +418,17 @@
 <script>
   const channel = new BroadcastChannel("improvisacao");
   const roles = ["Dependent", "Follower", "Partner", "Leader", "Resister"];
-  let intervalId;
-  let history = [];
 
-  let currentIndex = -1;
-  let startTime = null;
-  let isRandomRunning = false;
+  // language maps
+  const roleMapEN = ["Dependent", "Follower", "Partner", "Leader", "Resister"];
+  const roleMapPT = ["Dependente", "Seguidor", "Parceiro", "Líder", "Resistente"];
 
-  // Quem é leader: "left" ou "right"
-  let leaderSide = "left";
-  // Quantidade de rodadas que o leader atual deve permanecer
-  let leaderRoundsLeft = 3;
-  // Índice do papel atual do não-leader (entre os 4 papéis que não são Leader)
-  let nonLeaderIndex = 0;
-  const allNonLeaderRoles = ["Dependent", "Follower", "Partner", "Resister"];
-  let nonLeaderRoles = [...allNonLeaderRoles];  // cópia que será embaralhada
+  let currentLang = "pt"; // "pt" or "en"
 
-  // Variáveis para nomes
-  let savedLeftName = "";
-  let savedRightName = "";
+  // UI elements
+  const pageTitle = document.getElementById('page-title');
+  const toggleLangBtn = document.getElementById('toggle-lang');
 
-  // Elementos DOM
   const leftInput = document.getElementById('leftNameInput');
   const rightInput = document.getElementById('rightNameInput');
   const leftBtn = document.getElementById('leftUpdateBtn');
@@ -449,6 +443,35 @@
   const rightRoleButtons = document.getElementById('rightRoleButtons');
 
   const toggleRandomBtn = document.getElementById('toggleRandomBtn');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const minIntervalLabel = document.getElementById('minIntervalLabel');
+  const exportCsvBtn = document.getElementById('export-csv-btn');
+  const recordToggleBtn = document.getElementById('recordToggleBtn');
+  const videoRecordedTitle = document.getElementById('video-recorded-title');
+  const openProjectionLink = document.getElementById('open-projection');
+  const randomTitle = document.getElementById('random-title');
+
+  let intervalId;
+  let history = [];
+  let currentIndex = -1;
+  let startTime = null;
+  let isRandomRunning = false;
+
+  // Quem é leader: "left" ou "right"
+  let leaderSide = "left";
+  let leaderRoundsLeft = 3;
+  let nonLeaderIndex = 0;
+  const allNonLeaderRoles = ["Dependent", "Follower", "Partner", "Resister"];
+  let nonLeaderRoles = [...allNonLeaderRoles];
+
+  // Variáveis para nomes
+  let savedLeftName = "";
+  let savedRightName = "";
+
+  // last role keys (english) to be able to re-localize on language change
+  let leftRoleKey = roles[0];
+  let rightRoleKey = roles[0];
 
   // Função para embaralhar array (Fisher-Yates)
   function shuffleArray(array) {
@@ -458,10 +481,8 @@
     }
   }
 
-  // Embaralha a primeira vez para começar aleatório
   shuffleArray(nonLeaderRoles);
 
-  // Funções para atualizar nomes e cores dos botões
   function updateButtonColor(inputElem, btnElem, savedName) {
     if (inputElem.value.trim() === savedName && savedName !== "") {
       btnElem.classList.add('checked');
@@ -470,12 +491,12 @@
     }
   }
   function sendLeftName() {
-    savedLeftName = leftInput.value.trim() || "Participante 1";
+    savedLeftName = leftInput.value.trim() || (currentLang === "pt" ? "Participante 1" : "Participant 1");
     channel.postMessage({ leftName: savedLeftName });
     updateButtonColor(leftInput, leftBtn, savedLeftName);
   }
   function sendRightName() {
-    savedRightName = rightInput.value.trim() || "Participante 2";
+    savedRightName = rightInput.value.trim() || (currentLang === "pt" ? "Participante 2" : "Participant 2");
     channel.postMessage({ rightName: savedRightName });
     updateButtonColor(rightInput, rightBtn, savedRightName);
   }
@@ -485,18 +506,31 @@
   rightBtn.addEventListener('click', sendRightName);
 
   // Atualiza label e slider, além de destacar botão correspondente
-  function updateRole(side, value) {
-    const role = roles[value];
-    if(side === 'left') {
-      leftLabel.textContent = role;
-      leftSlider.value = value;
-      highlightRoleButton(leftRoleButtons, role);
+  function updateRole(side, valueOrIndex) {
+    // valueOrIndex pode ser número (index) ou string (roleKey)
+    let roleKey;
+    if (typeof valueOrIndex === 'number' || /^\d+$/.test(String(valueOrIndex))) {
+      roleKey = roles[Number(valueOrIndex)];
     } else {
-      rightLabel.textContent = role;
-      rightSlider.value = value;
-      highlightRoleButton(rightRoleButtons, role);
+      roleKey = String(valueOrIndex);
     }
-    send(side, role);
+
+    const idx = roles.indexOf(roleKey);
+    if (idx === -1) return;
+
+    if(side === 'left') {
+      leftRoleKey = roleKey;
+      leftLabel.textContent = (currentLang === "pt") ? roleMapPT[idx] : roleMapEN[idx];
+      leftSlider.value = idx;
+      highlightRoleButton(leftRoleButtons, roleKey);
+    } else {
+      rightRoleKey = roleKey;
+      rightLabel.textContent = (currentLang === "pt") ? roleMapPT[idx] : roleMapEN[idx];
+      rightSlider.value = idx;
+      highlightRoleButton(rightRoleButtons, roleKey);
+    }
+    // sempre enviar roleKey em inglês para a projeção/tela
+    send(side, roleKey);
   }
   function highlightRoleButton(container, role) {
     [...container.children].forEach(btn => {
@@ -521,7 +555,6 @@
     }
   });
 
-  // Inicializa com os papéis atuais
   function initSliders() {
     updateRole('left', leftSlider.value);
     updateRole('right', rightSlider.value);
@@ -560,12 +593,10 @@
     nonLeaderIndex++;
     leaderRoundsLeft--;
 
-    // Troca líder se acabou as rodadas
     if (leaderRoundsLeft <= 0) {
       leaderSide = (leaderSide === "left") ? "right" : "left";
       leaderRoundsLeft = 3;
       nonLeaderIndex = 0;
-      // Embaralha os papéis do não-leader para o próximo ciclo
       nonLeaderRoles = [...allNonLeaderRoles];
       shuffleArray(nonLeaderRoles);
     }
@@ -631,7 +662,7 @@
 
   function exportCSV() {
     if (history.length === 0) {
-      alert("Nenhuma etapa foi registrada ainda.");
+      alert(currentLang === "pt" ? "Nenhuma etapa foi registrada ainda." : "No steps recorded yet.");
       return;
     }
     let csv = "tempo,left,right\n";
@@ -652,155 +683,235 @@
   function toggleRandom() {
     if (isRandomRunning) {
       stopRandom();
-      toggleRandomBtn.textContent = "Iniciar";
+      toggleRandomBtn.textContent = (currentLang === "pt") ? "Iniciar" : "Start";
       toggleRandomBtn.style.backgroundColor = "#27ae60"; // verde
       isRandomRunning = false;
     } else {
       startRandom();
-      toggleRandomBtn.textContent = "Parar";
+      toggleRandomBtn.textContent = (currentLang === "pt") ? "Parar" : "Stop";
       toggleRandomBtn.style.backgroundColor = "#c0392b"; // vermelho
       isRandomRunning = true;
     }
   }
 
+  // RECORDING UI (IIFE)
+  (() => {
+    const recordToggleBtn = document.getElementById("recordToggleBtn");
+    const recorderContainer = document.getElementById("recorderContainer");
+    const previewVideo = document.getElementById("previewVideo");
+    const recordedVideo = document.getElementById("recordedVideo");
+    const startRecBtn = document.getElementById("startRecBtn");
+    const stopRecBtn = document.getElementById("stopRecBtn");
+    const recordTimer = document.getElementById("recordTimer");
+    const downloadRecBtn = document.getElementById("downloadRecBtn");
 
-(() => {
-  const recordToggleBtn = document.getElementById("recordToggleBtn");
-  const recorderContainer = document.getElementById("recorderContainer");
-  const previewVideo = document.getElementById("previewVideo");
-  const recordedVideo = document.getElementById("recordedVideo");
-  const startRecBtn = document.getElementById("startRecBtn");
-  const stopRecBtn = document.getElementById("stopRecBtn");
-  const recordTimer = document.getElementById("recordTimer");
-  const downloadRecBtn = document.getElementById("downloadRecBtn");
+    let mediaStream = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
 
-  let mediaStream = null;
-  let mediaRecorder = null;
-  let recordedChunks = [];
+    let timerInterval = null;
+    let startTime = null;
 
-  let timerInterval = null;
-  let startTime = null;
-
-  // Abre/fecha painel de gravação
-  recordToggleBtn.onclick = () => {
-    if (recorderContainer.style.display === "none") {
-      openRecorder();
-    } else {
-      closeRecorder();
-    }
-  };
-
-  async function openRecorder() {
-    recorderContainer.style.display = "block";
-    recordToggleBtn.textContent = "❌ Fechar Gravação";
-
-    if (!mediaStream) {
-      try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
-        previewVideo.srcObject = mediaStream;
-      } catch (err) {
-        alert("Erro ao acessar webcam/microfone: " + err.message);
+    recordToggleBtn.onclick = () => {
+      if (recorderContainer.style.display === "none") {
+        openRecorder();
+      } else {
         closeRecorder();
       }
-    }
-  }
-
-  function closeRecorder() {
-    recorderContainer.style.display = "none";
-    recordToggleBtn.textContent = "🎥 Gravar Webcam";
-    stopRecordingIfActive();
-    if (mediaStream) {
-      mediaStream.getTracks().forEach(track => track.stop());
-      mediaStream = null;
-    }
-    previewVideo.srcObject = null;
-    recordedVideo.style.display = "none";
-    recordedVideo.src = "";
-    recordTimer.textContent = "00:00";
-    downloadRecBtn.style.display = "none";
-  }
-
-  function stopRecordingIfActive() {
-    if (mediaRecorder && mediaRecorder.state !== "inactive") {
-      mediaRecorder.stop();
-    }
-    startRecBtn.disabled = false;
-    stopRecBtn.disabled = true;
-    clearInterval(timerInterval);
-    timerInterval = null;
-    recordTimer.textContent = "00:00";
-  }
-
-  function startTimer() {
-    startTime = Date.now();
-    recordTimer.textContent = "00:00";
-    timerInterval = setInterval(() => {
-      const elapsedMs = Date.now() - startTime;
-      const totalSeconds = Math.floor(elapsedMs / 1000);
-      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-      const seconds = String(totalSeconds % 60).padStart(2, "0");
-      recordTimer.textContent = `${minutes}:${seconds}`;
-    }, 250);
-  }
-
-  startRecBtn.onclick = () => {
-    if (!mediaStream) {
-      alert("Permissão para webcam/microfone não concedida.");
-      return;
-    }
-    recordedChunks = [];
-    mediaRecorder = new MediaRecorder(mediaStream);
-
-    mediaRecorder.ondataavailable = e => {
-      if (e.data.size > 0) recordedChunks.push(e.data);
     };
 
-    mediaRecorder.onstop = () => {
-      const blob = new Blob(recordedChunks, { type: "video/webm" });
-      recordedVideo.src = URL.createObjectURL(blob);
-      recordedVideo.style.display = "block";
-      recordedVideo.controls = true;
-      recordedVideo.play();
+    async function openRecorder() {
+      recorderContainer.style.display = "block";
+      recordToggleBtn.textContent = (currentLang === "pt") ? "❌ Fechar Gravação" : "❌ Close Recording";
 
-      downloadRecBtn.style.display = "inline-block";
-      downloadRecBtn.onclick = () => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = `gravação_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 100);
-      };
-    };
+      if (!mediaStream) {
+        try {
+          mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+          previewVideo.srcObject = mediaStream;
+        } catch (err) {
+          alert((currentLang === "pt" ? "Erro ao acessar webcam/microfone: " : "Error accessing webcam/microphone: ") + err.message);
+          closeRecorder();
+        }
+      }
+    }
 
-    mediaRecorder.start();
-    startRecBtn.disabled = true;
-    stopRecBtn.disabled = false;
-    downloadRecBtn.style.display = "none";
-    startTimer();
-  };
+    function closeRecorder() {
+      recorderContainer.style.display = "none";
+      recordToggleBtn.textContent = (currentLang === "pt") ? "🎥 Gravar Webcam" : "🎥 Record Webcam";
+      stopRecordingIfActive();
+      if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+      }
+      previewVideo.srcObject = null;
+      recordedVideo.style.display = "none";
+      recordedVideo.src = "";
+      recordTimer.textContent = "00:00";
+      downloadRecBtn.style.display = "none";
+    }
 
-  stopRecBtn.onclick = () => {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-      mediaRecorder.stop();
+    function stopRecordingIfActive() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
       startRecBtn.disabled = false;
       stopRecBtn.disabled = true;
       clearInterval(timerInterval);
       timerInterval = null;
+      recordTimer.textContent = "00:00";
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      recordTimer.textContent = "00:00";
+      timerInterval = setInterval(() => {
+        const elapsedMs = Date.now() - startTime;
+        const totalSeconds = Math.floor(elapsedMs / 1000);
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+        const seconds = String(totalSeconds % 60).padStart(2, "0");
+        recordTimer.textContent = `${minutes}:${seconds}`;
+      }, 250);
+    }
+
+    startRecBtn.onclick = () => {
+      if (!mediaStream) {
+        alert(currentLang === "pt" ? "Permissão para webcam/microfone não concedida." : "Permission for webcam/microphone not granted.");
+        return;
+      }
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(mediaStream);
+
+      mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: "video/webm" });
+        recordedVideo.src = URL.createObjectURL(blob);
+        recordedVideo.style.display = "block";
+        recordedVideo.controls = true;
+        recordedVideo.play();
+
+        downloadRecBtn.style.display = "inline-block";
+        downloadRecBtn.onclick = () => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = `gravação_${new Date().toISOString().replace(/[:.]/g, '-')}.webm`;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }, 100);
+        };
+      };
+
+      mediaRecorder.start();
+      startRecBtn.disabled = true;
+      stopRecBtn.disabled = false;
+      downloadRecBtn.style.display = "none";
+      startTimer();
+    };
+
+    stopRecBtn.onclick = () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        startRecBtn.disabled = false;
+        stopRecBtn.disabled = true;
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    };
+  })();
+
+  // ---------- Language / Localization ----------
+  function updateRoleButtonsText() {
+    // Atualiza textos dos botões (dataset.role permanece em inglês)
+    const leftBtns = leftRoleButtons.querySelectorAll('button');
+    leftBtns.forEach((btn, idx) => {
+      btn.textContent = (currentLang === "pt") ? roleMapPT[idx] : roleMapEN[idx];
+    });
+    const rightBtns = rightRoleButtons.querySelectorAll('button');
+    rightBtns.forEach((btn, idx) => {
+      btn.textContent = (currentLang === "pt") ? roleMapPT[idx] : roleMapEN[idx];
+    });
+  }
+
+  function updateLanguageUI() {
+    const isPT = currentLang === "pt";
+    pageTitle.textContent = isPT ? "Painel de Controle" : "Control Panel";
+    // h2 first text nodes (Participante 1: / Participant 1:)
+    try {
+      const h2s = document.querySelectorAll('.card h2');
+      if (h2s.length >= 2) {
+        h2s[0].childNodes[0].nodeValue = isPT ? "Participante 1: " : "Participant 1: ";
+        h2s[1].childNodes[0].nodeValue = isPT ? "Participante 2: " : "Participant 2: ";
+      }
+    } catch (e) { /* ignore */ }
+
+    document.querySelectorAll("input[type=text]").forEach(input => {
+      input.placeholder = isPT ? "insira nome" : "insert name";
+    });
+
+    // labels & buttons
+    updateRoleButtonsText();
+
+    // atualiza os labels dos papéis já mostrados
+    const leftIdx = roles.indexOf(leftRoleKey);
+    const rightIdx = roles.indexOf(rightRoleKey);
+    if (leftIdx >= 0) leftLabel.textContent = isPT ? roleMapPT[leftIdx] : roleMapEN[leftIdx];
+    if (rightIdx >= 0) rightLabel.textContent = isPT ? roleMapPT[rightIdx] : roleMapEN[rightIdx];
+
+    // Random mode
+    randomTitle.textContent = isPT ? "🔀 Modo Aleatório" : "🔀 Random Mode";
+    prevBtn.textContent = isPT ? "⬅️ Voltar" : "⬅️ Back";
+    nextBtn.textContent = isPT ? "Avançar ➡️" : "Next ➡️";
+    toggleRandomBtn.textContent = isPT ? (isRandomRunning ? "Parar" : "Iniciar") : (isRandomRunning ? "Stop" : "Start");
+    minIntervalLabel.textContent = isPT ? "Tempo mínimo (s):" : "Minimum time (s):";
+    exportCsvBtn.textContent = isPT ? "📥 Exportar CSV" : "📥 Export CSV";
+    recordToggleBtn.textContent = isPT ? "🎥 Gravar Webcam" : "🎥 Record Webcam";
+    videoRecordedTitle.textContent = isPT ? "Vídeo Gravado:" : "Recorded Video:";
+    openProjectionLink.textContent = isPT ? "🔗 Abrir tela de projeção em nova aba" : "🔗 Open projection in new tab";
+
+    // toggle button label
+    toggleLangBtn.textContent = isPT ? "PT / EN" : "EN / PT";
+  }
+
+  toggleLangBtn.addEventListener('click', () => {
+    currentLang = (currentLang === "pt") ? "en" : "pt";
+    updateLanguageUI();
+    // envia para a tela de projeção
+    channel.postMessage({ lang: currentLang });
+  });
+
+  // send initial language to projection on load
+  window.addEventListener('load', () => {
+    updateLanguageUI();
+    // small delay to let projection iframe load its listener
+    setTimeout(() => channel.postMessage({ lang: currentLang }), 200);
+  });
+
+  // receive messages (optional: projection can reply)
+  channel.onmessage = (e) => {
+    const data = e.data;
+    if (!data) return;
+    if (data.requestLang) {
+      channel.postMessage({ lang: currentLang });
+    }
+    // projection may request name update or language change; ignore or handle as desired
+    if (data.lang && (data.lang === "pt" || data.lang === "en")) {
+      // if projection changed language (clicked its own button), sync control
+      if (data.lang !== currentLang) {
+        currentLang = data.lang;
+        updateLanguageUI();
+        // re-send to make sure both in sync
+        channel.postMessage({ lang: currentLang });
+      }
     }
   };
-})();
-
-
 </script>
-
-
-
 
 </body>
 </html>
