@@ -28,7 +28,9 @@
       transition: background-color 0.5s;
     }
 
-    .left { border-right: 3px solid white; }
+    .left {
+      border-right: 3px solid white;
+    }
 
     .role {
       font-size: 4em;
@@ -38,55 +40,45 @@
       text-align: center;
     }
 
-    .description {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      text-align: center;
-      color: white;
-      max-width: 90%;
-    }
+.description {
+  font-size: 1.5em;
+  font-style: normal;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+
 
     .name {
       font-size: 2em;
       text-align: center;
     }
 
-    /* Botão controle */
+    /* Botão/link no topo direito */
     .control-link {
       position: absolute;
       top: 10px;
       right: 10px;
       z-index: 999;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid white;
       border-radius: 5px;
       padding: 5px 8px;
       font-size: 0.9em;
       color: white;
       text-decoration: none;
+      transition: background 0.3s;
     }
 
-    /* Botão de idioma */
-    .lang-btn {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      z-index: 999;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid white;
-      border-radius: 5px;
-      padding: 5px 12px;
-      font-size: 0.9em;
-      cursor: pointer;
-      color: white;
+    .control-link:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <button class="lang-btn" id="lang-toggle">PT</button>
-
-  <a class="control-link" href="controle.html" target="_blank">⚙️</a>
+  <!-- Link discreto para controle -->
+  <a class="control-link" href="controle.html" target="_blank" title="Abrir painel de controle">⚙️</a>
 
   <div class="container">
     <div class="participant left" id="left-participant">
@@ -101,126 +93,50 @@
     </div>
   </div>
 
-<script>
-  const channel = new BroadcastChannel("improvisacao");
+  <script>
+    const channel = new BroadcastChannel("improvisacao");
 
-  // store english role keys (these are what control sends)
-  let leftRoleKey = "Dependent";
-  let rightRoleKey = "Dependent";
+    const colors = {
+      "Dependent": "#1E90FF",
+      "Follower": "#32CD32",
+      "Partner": "#FFD700",
+      "Leader": "#FF4500",
+      "Resister": "#8B008B"
+    };
 
-  let currentLang = "pt"; // 'pt' or 'en' -- default pt
+const descriptions = {
+  "Dependent": "Takes the follower role exclusively and never the leader. Depends entirely on the partner.",
+  "Follower": "More readily takes the follower role than the leader. Responsibility for musical elements is largely given to the partner.",
+  "Partner": "Assumes leader and follower roles equally. Shares responsibility for musical elements with the partner.",
+  "Leader": "More readily takes the leader role than the follower. Attempts to influence the improvisation by directing aspects of the music.",
+  "Resister": "Attempts to evade or destroy any leader-follower relationship. Does not influence improvisation or participate in joint interactions."
+};
 
-  const colors = {
-    "Dependent": "#1E90FF",
-    "Follower": "#32CD32",
-    "Partner": "#FFD700",
-    "Leader": "#FF4500",
-    "Resister": "#8B008B"
-  };
 
-  const descriptionsPT = {
-    "Dependent": "Assume exclusivamente o papel de seguidor e nunca o de líder. Depende inteiramente do parceiro.",
-    "Follower": "Assume mais prontamente o papel de seguidor do que o de líder. A responsabilidade pelos elementos musicais é amplamente delegada ao parceiro.",
-    "Partner": "Assume igualmente os papéis de líder e seguidor. Compartilha a responsabilidade pelos elementos musicais com o parceiro.",
-    "Leader": "Assume mais prontamente o papel de líder do que o de seguidor. Tenta influenciar a improvisação dirigindo aspectos da música.",
-    "Resister": "Tenta evitar ou destruir qualquer relação de líder-seguidor. Não influencia a improvisação nem participa das interações conjuntas."
-  };
+    function setRole(side, role) {
+      const roleDiv = document.getElementById(`${side}-role`);
+      const partDiv = document.getElementById(`${side}-participant`);
+      const descDiv = document.getElementById(`${side}-description`);
 
-  const descriptionsEN = {
-    "Dependent": "Assumes exclusively the follower role and never the leader role. Depends entirely on the partner.",
-    "Follower": "More readily assumes the follower role than the leader role. Delegates responsibility for musical elements to the partner.",
-    "Partner": "Assumes leader and follower roles equally. Shares responsibility for musical elements with the partner.",
-    "Leader": "More readily assumes the leader role than the follower role. Attempts to influence the improvisation by directing musical aspects.",
-    "Resister": "Attempts to avoid or disrupt any leader–follower relationship. Does not influence the improvisation nor engage in joint interactions."
-  };
-
-  // role label maps
-  const roleMapPT = { "Dependent":"Dependente", "Follower":"Seguidor", "Partner":"Parceiro", "Leader":"Líder", "Resister":"Resistente" };
-  const roleMapEN = { "Dependent":"Dependent", "Follower":"Follower", "Partner":"Partner", "Leader":"Leader", "Resister":"Resister" };
-
-  function getDescription(role) {
-    return currentLang === "pt" ? descriptionsPT[role] : descriptionsEN[role];
-  }
-
-  function localRoleLabel(roleKey) {
-    return currentLang === "pt" ? roleMapPT[roleKey] : roleMapEN[roleKey];
-  }
-
-  function setRole(side, roleKey) {
-    // roleKey expected in English (control sends English)
-    if (!roleKey) return;
-    if (side === 'left') leftRoleKey = roleKey;
-    if (side === 'right') rightRoleKey = roleKey;
-
-    const roleDiv = document.getElementById(`${side}-role`);
-    const partDiv = document.getElementById(`${side}-participant`);
-    const descDiv = document.getElementById(`${side}-description`);
-
-    roleDiv.textContent = localRoleLabel(roleKey).toUpperCase();
-    partDiv.style.backgroundColor = colors[roleKey] || "#333";
-    descDiv.textContent = getDescription(roleKey) || "";
-  }
-
-  // Botão de idioma na tela de projeção
-  document.getElementById("lang-toggle").addEventListener("click", () => {
-    currentLang = (currentLang === "pt") ? "en" : "pt";
-    updateLanguageUI();
-    // notify control to sync
-    channel.postMessage({ lang: currentLang });
-  });
-
-  function updateLanguageUI() {
-    // update lang button text and re-render roles/descriptions
-    document.getElementById("lang-toggle").textContent = (currentLang === "pt") ? "PT" : "EN";
-    // reapply current roles using stored english keys
-    setRole('left', leftRoleKey);
-    setRole('right', rightRoleKey);
-  }
-
-  function capitalize(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  // Recebe dados do painel de controle
-  channel.onmessage = (event) => {
-    const data = event.data;
-    if (!data) return;
-
-    if (data.lang) {
-      // control sent a language update
-      currentLang = data.lang;
-      updateLanguageUI();
+      roleDiv.textContent = role.toUpperCase();
+      partDiv.style.backgroundColor = colors[role] || "#333";
+      if (descDiv) descDiv.textContent = descriptions[role] || "";
     }
 
-    if (data.left) {
-      // data.left is role key in English
-      setRole('left', data.left);
-    }
-    if (data.right) {
-      setRole('right', data.right);
-    }
+    channel.onmessage = (event) => {
+      const data = event.data;
+      if (data.left) setRole('left', data.left);
+      if (data.right) setRole('right', data.right);
 
-    if (data.leftName !== undefined) {
-      document.getElementById('left-name').textContent = data.leftName;
-    }
-    if (data.rightName !== undefined) {
-      document.getElementById('right-name').textContent = data.rightName;
-    }
-
-    // control may request the current language
-    if (data.requestLang) {
-      channel.postMessage({ lang: currentLang });
-    }
-  };
-
-  // On load: request language from control (in case control already set)
-  window.addEventListener('load', () => {
-    // ask control for its current language; control will reply
-    channel.postMessage({ requestLang: true });
-    // also ensure UI shows currentLang quickly (default pt)
-    updateLanguageUI();
-  });
-</script>
-
+      if (data.leftName !== undefined) {
+        document.getElementById('left-name').textContent = data.leftName;
+      }
+      if (data.rightName !== undefined) {
+        document.getElementById('right-name').textContent = data.rightName;
+      }
+    };
+  </script>
+  
+  
 </body>
 </html>
