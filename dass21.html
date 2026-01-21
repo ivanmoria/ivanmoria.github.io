@@ -1241,6 +1241,18 @@ function playAudio() {
 </div>
 
 <style>
+  .triangle {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 10px;
+  vertical-align: middle;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-bottom: 1em solid #ff5733; /* cor do triângulo */
+  transform-origin: bottom center;
+}
+
   .results {
       display: none; /* Inicialmente oculta toda a seção */
   }
@@ -1257,14 +1269,38 @@ function playAudio() {
   }
 
   function showResultsDetails() {
-      // Mostra os detalhes dos resultados
-      const detailsDiv = document.getElementById('resultsDetails');
-      detailsDiv.style.display = 'block';
+  // Exibe os detalhes
+  const detailsDiv = document.getElementById('resultsDetails');
+  detailsDiv.style.display = 'block';
 
-      // Opcional: esconde o botão "Mostrar Resultados" após o clique
-      const showResultsButton = document.getElementById('showResultsButton');
-      showResultsButton.style.display = 'none';
-  }</script>
+  // Exemplo: preencher os valores (substitua pelos valores reais)
+  const depressaoValue = 12;
+  const ansiedadeValue = 8;
+  const estresseValue = 15;
+
+  const depressaoSpan = document.getElementById('depressao');
+  const ansiedadeSpan = document.getElementById('ansiedade');
+  const estresseSpan = document.getElementById('estresse');
+
+  depressaoSpan.textContent = depressaoValue;
+  ansiedadeSpan.textContent = ansiedadeValue;
+  estresseSpan.textContent = estresseValue;
+
+  // Função para criar triângulo ao lado do valor
+  function addTriangle(span, value) {
+      const tri = document.createElement('span');
+      tri.className = 'triangle';
+      const scale = value / 10; // Ajuste de escala
+      tri.style.transform = `scale(${scale})`;
+      span.parentNode.appendChild(tri);
+  }
+
+  addTriangle(depressaoSpan, depressaoValue);
+  addTriangle(ansiedadeSpan, ansiedadeValue);
+  addTriangle(estresseSpan, estresseValue);
+}
+
+  </script>
 
 
 
