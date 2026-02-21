@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Aula de Harmonia - Reveal.js</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+
+    <style>
+        /* Ajuste fino para harmonia visual */
+        .reveal h1, .reveal h2 { text-transform: none; }
+        .slide-number { font-size: 20px !important; color: #ff79c6 !important; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <section id="inicio" data-background-gradient="linear-gradient(to bottom, #282a36, #44475a)">
+                <h1>Aula de Harmonia</h1>
+                <p>Módulo 01: Fundamentos</p>
+                <div style="margin-top: 50px; font-size: 0.6em; opacity: 0.6;">
+                    Pressione "F" para Tela Cheia | "O" para Visão Geral
+                </div>
+            </section>
+
+            <section id="introducao">
+                <h2>O que vamos ver hoje?</h2>
+                <ul>
+                    <li class="fragment">Intervalos Musicais</li>
+                    <li class="fragment">Formação de Tríades</li>
+                    <li class="fragment">Campo Harmônico Maior</li>
+                </ul>
+            </section>
+
+            <section>
+                <section id="intervalos">
+                    <h2>1. Intervalos</h2>
+                    <p>A distância entre duas notas.</p>
+                    <p><small>(Seta para baixo para ver detalhes)</small></p>
+                </section>
+                <section id="intervalos-detalhe">
+                    <h3>Exemplo Prático</h3>
+                    <p>Dó para Mi = 3ª Maior (2 tons)</p>
+                    <p>Dó para Mib = 3ª Menor (1 tom e meio)</p>
+                </section>
+            </section>
+
+            <section id="exemplo">
+                <h2>Representação Digital</h2>
+                <pre><code class="language-javascript" data-trim data-line-numbers>
+// Exemplo de uma Tríade de Dó Maior
+const doMaior = ["C", "E", "G"];
+console.log("Acorde gerado:", doMaior);
+                </code></pre>
+            </section>
+
+            <section id="fim" data-background="#6272a4">
+                <h2>Dúvidas?</h2>
+                <p>Siga para o próximo módulo no GitHub.</p>
+                <a href="https://github.com/seu-usuario" style="color: #50fa7b;">github.com/seu-usuario</a>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+
+    <script>
+        // Inicialização com as configurações que você pediu
+        Reveal.initialize({
+            hash: true,              // Ativa a mudança da URL (/#/id)
+            slideNumber: 'c/t',      // Mostra o número do slide atual/total
+            history: true,           // Permite usar as setas de voltar do navegador
+            transition: 'slide',     // 'none', 'fade', 'slide', 'convex', 'concave', 'zoom'
+            
+            // Plugins ativos
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
