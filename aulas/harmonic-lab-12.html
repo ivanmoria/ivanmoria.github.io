@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmonic Lab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:     #080810;
+    --panel:  #0f0f1a;
+    --border: #252540;
+    --text:   #c8cfe8;
+    --dim:    #6066a0;
+    --bright: #e8ecff;
+    --c0: #00f2ff;
+  }
+
+  html, body {
+    width: 100%; height: 100dvh;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  #app {
+    display: grid;
+    grid-template-rows: auto minmax(0,1fr) minmax(0,1.8fr);
+    height: 100dvh;
+  }
+
+  /* ── TOOLBAR ── */
+  #toolbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 7px 14px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: nowrap; min-height: 0;
+  }
+  .sep { width:1px; height:32px; background:var(--border); flex-shrink:0; }
+
+  #power-btn {
+    display:flex; flex-direction:column; align-items:center; gap:3px;
+    cursor:pointer; flex-shrink:0;
+  }
+  .power-ring {
+    width:32px; height:32px; border-radius:50%;
+    border:2px solid var(--dim); display:grid; place-items:center;
+    transition:border-color .3s, box-shadow .3s; background:#0a0a14;
+  }
+  .power-ring svg { fill:var(--dim); transition:fill .3s; }
+  #power-btn.on .power-ring { border-color:#00ff88; box-shadow:0 0 12px #00ff8866; }
+  #power-btn.on .power-ring svg { fill:#00ff88; }
+  .lbl { font-size:.52rem; letter-spacing:.1em; color:var(--dim); text-transform:uppercase; }
+
+  /* piano */
+  #piano-wrap {
+    display:flex; align-items:center; gap:8px;
+    background:#06060f; border:1px solid var(--border);
+    border-radius:6px; padding:5px 10px; flex-shrink:0;
+  }
+  .oct-col { display:flex; flex-direction:column; gap:3px; align-items:center; }
+  .oct-btn {
+    width:20px; height:20px; border-radius:3px;
+    background:#1a1a2a; border:1px solid var(--dim);
+    color:var(--c0); font-weight:700; font-size:.8rem; cursor:pointer;
+  }
+  .oct-val { font-family:'Share Tech Mono',monospace; font-size:.6rem; color:var(--text); text-align:center; }
+  .keyboard { display:flex; position:relative; height:48px; }
+  .key { border:1px solid #000; cursor:pointer; transition:background .08s; border-radius:0 0 3px 3px; }
+  .white { width:20px; height:100%; background:#dde; z-index:1; }
+  .white:hover { background:#bbd; }
+  .white.active { background:var(--c0); }
+  .black { width:13px; height:30px; background:#111; z-index:2; margin-left:-6px; margin-right:-6px; border-radius:0 0 2px 2px; }
+  .black:hover { background:#224; }
+  .black.active { background:#0099bb; box-shadow:0 0 6px var(--c0); }
+  #note-display { font-family:'Share Tech Mono',monospace; font-size:.68rem; color:var(--c0); min-width:68px; text-align:center; line-height:1.4; white-space:pre-line; }
+
+  /* chords */
+  .chord-section { display:flex; flex-direction:column; gap:3px; flex-shrink:0; }
+  .chord-cat-label { font-size:.42rem; letter-spacing:.12em; color:var(--dim); text-transform:uppercase; }
+  .chord-group { display:flex; flex-wrap:wrap; gap:3px; max-width:320px; }
+  .chord-btn {
+    background:#0f0f1e; border:1px solid var(--border);
+    color:var(--bright); font-family:'Share Tech Mono',monospace;
+    font-size:.55rem; padding:3px 6px; border-radius:3px; cursor:pointer;
+    transition:border-color .12s, color .12s, background .12s; white-space:nowrap;
+  }
+  .chord-btn:hover { border-color:var(--c0); color:var(--c0); background:#0f1a2a; }
+  .chord-btn.active { border-color:var(--c0); color:var(--c0); background:#0a1520; }
+
+  /* controls */
+  .ctrl-group { display:flex; flex-direction:column; gap:4px; flex-shrink:0; }
+  .ctrl-row { display:flex; align-items:center; gap:6px; }
+  .ctrl-lbl { font-size:.52rem; letter-spacing:.08em; color:var(--text); text-transform:uppercase; width:36px; }
+  .slim-range {
+    -webkit-appearance:none; appearance:none;
+    height:4px; border-radius:2px; background:var(--border); outline:none; cursor:pointer; width:88px;
+  }
+  .slim-range::-webkit-slider-thumb {
+    -webkit-appearance:none; width:11px; height:11px;
+    border-radius:50%; background:var(--c0); cursor:pointer;
+  }
+  .val-badge { font-family:'Share Tech Mono',monospace; font-size:.62rem; color:var(--bright); min-width:38px; }
+
+  #sync-btn {
+    background:#0f0f1e; border:1px solid #ffcc0055;
+    color:#ffcc00; font-family:'Share Tech Mono',monospace;
+    font-size:.58rem; padding:6px 11px; border-radius:4px; cursor:pointer;
+    letter-spacing:.06em; flex-shrink:0; transition:background .15s, box-shadow .15s;
+  }
+  #sync-btn:hover { background:#ffcc0011; box-shadow:0 0 10px #ffcc0033; }
+
+  /* ── OSC CARDS ── */
+  #osc-row {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:10px; padding:10px 14px; min-height:0; background:var(--bg);
+  }
+  .osc-card {
+    background:var(--panel); border-radius:8px; border-top:2px solid var(--osc);
+    padding:8px 10px; display:flex; flex-direction:column; gap:5px; min-height:0;
+  }
+  .card-header { display:flex; align-items:center; justify-content:space-between; gap:6px; }
+  .osc-name { font-size:.58rem; letter-spacing:.18em; color:var(--osc); text-transform:uppercase; font-weight:700; }
+  .note-block { display:flex; flex-direction:column; align-items:center; flex:1; }
+  .note-pitch { font-family:'Share Tech Mono',monospace; font-size:.95rem; color:var(--bright); line-height:1; font-weight:bold; }
+  .note-hz    { font-family:'Share Tech Mono',monospace; font-size:.58rem; color:var(--dim); line-height:1.3; }
+
+  .toggle-pill {
+    width:36px; height:16px; border-radius:8px;
+    background:#0a0a14; border:1px solid var(--dim);
+    cursor:pointer; position:relative; transition:background .2s, border-color .2s;
+  }
+  .toggle-pill::after {
+    content:''; position:absolute; top:2px; left:2px;
+    width:10px; height:10px; border-radius:50%;
+    background:var(--dim); transition:left .2s, background .2s;
+  }
+  .toggle-pill.on { background:color-mix(in srgb,var(--osc) 15%,transparent); border-color:var(--osc); }
+  .toggle-pill.on::after { left:22px; background:var(--osc); }
+
+  .freq-row { display:flex; align-items:center; gap:6px; }
+  .freq-range {
+    flex:1; -webkit-appearance:none; appearance:none;
+    height:3px; border-radius:2px; background:var(--border); outline:none; cursor:pointer;
+  }
+  .freq-range::-webkit-slider-thumb {
+    -webkit-appearance:none; width:12px; height:12px;
+    border-radius:50%; background:var(--osc); cursor:pointer;
+  }
+  .osc-canvas-wrap { flex:1; min-height:0; }
+  .osc-canvas {
+    width:100%; height:100%; display:block;
+    background:#06060f; border-radius:4px; border:1px solid var(--border);
+  }
+
+  /* ── SUM CANVAS ── */
+  #sum-wrap {
+    position:relative; padding:0 14px 10px;
+    min-height:0; display:flex; flex-direction:column;
+  }
+  #sum-canvas {
+    flex:1; width:100%; min-height:0; display:block;
+    background:#06060f; border-radius:8px; border:1px solid var(--border); cursor:crosshair;
+  }
+  #sum-overlay {
+    position:absolute; top:8px; left:22px; right:22px;
+    display:flex; align-items:center; justify-content:space-between;
+    pointer-events:none;
+  }
+  #sum-label { font-size:.52rem; letter-spacing:.15em; color:var(--dim); text-transform:uppercase; }
+  .sum-ctrl { display:flex; align-items:center; gap:6px; pointer-events:all; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="toolbar">
+    <div id="power-btn" onclick="togglePower()">
+      <div class="power-ring">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2v10M6.3 5.7a9 9 0 1011.4 0" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+      </div>
+      <span class="lbl">POWER</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <div id="piano-wrap">
+      <div class="oct-col">
+        <button class="oct-btn" onclick="changeOctave(1)">+</button>
+        <div class="oct-val">OCT<br><span id="oct-val">0</span></div>
+        <button class="oct-btn" onclick="changeOctave(-1)">−</button>
+      </div>
+      <div class="keyboard" id="keyboard"></div>
+      <div id="note-display">C4</div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="chord-section">
+      <div class="chord-cat-label">TRÍADES / 7ª / SUS / ALTER</div>
+      <div class="chord-group">
+        <button class="chord-btn" onclick="applyChord('maior')">Maior</button>
+        <button class="chord-btn" onclick="applyChord('menor')">Menor</button>
+        <button class="chord-btn" onclick="applyChord('dim')">dim</button>
+        <button class="chord-btn" onclick="applyChord('aug')">aug</button>
+        <button class="chord-btn" onclick="applyChord('power')">power</button>
+        <button class="chord-btn" onclick="applyChord('7')">dom7</button>
+        <button class="chord-btn" onclick="applyChord('maj7')">7M</button>
+        <button class="chord-btn" onclick="applyChord('m7')">m7</button>
+        <button class="chord-btn" onclick="applyChord('mMaj7')">mM7</button>
+        <button class="chord-btn" onclick="applyChord('m7b5')">m7b5</button>
+        <button class="chord-btn" onclick="applyChord('dim7')">dim7</button>
+        <button class="chord-btn" onclick="applyChord('aug7')">aug7</button>
+        <button class="chord-btn" onclick="applyChord('sus2')">sus2</button>
+        <button class="chord-btn" onclick="applyChord('sus4')">sus4</button>
+        <button class="chord-btn" onclick="applyChord('7sus4')">7sus4</button>
+        <button class="chord-btn" onclick="applyChord('6')">6ª</button>
+        <button class="chord-btn" onclick="applyChord('m6')">m6</button>
+        <button class="chord-btn" onclick="applyChord('add9')">add9</button>
+        <button class="chord-btn" onclick="applyChord('madd9')">madd9</button>
+        <button class="chord-btn" onclick="applyChord('7b9')">7b9</button>
+        <button class="chord-btn" onclick="applyChord('7s9')">7#9</button>
+        <button class="chord-btn" onclick="applyChord('7b5')">7b5</button>
+        <button class="chord-btn" onclick="applyChord('7s5')">7#5</button>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <div class="ctrl-group">
+      <div class="ctrl-row">
+        <span class="ctrl-lbl">SPD</span>
+        <input type="range" class="slim-range" id="spd-slider" min="0" max="100" value="40"
+               oninput="updateSpeed(+this.value)">
+        <span class="val-badge" id="spd-val">—</span>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+
+    <button id="sync-btn" onclick="resetPhases()">⟳ SYNC</button>
+  </div>
+
+  <div id="osc-row"></div>
+
+  <div id="sum-wrap">
+    <canvas id="sum-canvas"></canvas>
+    <div id="sum-overlay">
+      <span id="sum-label">SOMA — ONDA RESULTANTE</span>
+      <div class="sum-ctrl">
+        <span class="ctrl-lbl" style="color:var(--dim);width:auto;margin-right:2px">ZOOM</span>
+        <input type="range" class="slim-range" id="zoom-slider" min="5" max="200" value="50"
+               oninput="document.getElementById('zoom-val').textContent=this.value+'×'">
+        <span class="val-badge" id="zoom-val" style="color:var(--dim)">50×</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATION — exact reference logic:
+     z = zoomSlider / 500000
+     t = (timeOffset + x) * z
+     y = sin(2π × freq × t)
+   timeOffset += speedFactor × 10000  per frame
+   Cards and sum share the same z and timeOffset.
+   Freq range: 20–5000 Hz.
+═══════════════════════════════════════════════════════════════════ */
+
+const COLORS = ['#00f2ff','#33ff88','#ffcc00','#ff4488'];
+const NAMES  = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+const CHORDS = {
+  'maior':[0,4,7,12],  'menor':[0,3,7,12],
+  'dim':  [0,3,6,12],  'aug':  [0,4,8,12],  'power':[0,7,12,19],
+  '7':    [0,4,7,10],  'maj7': [0,4,7,11],
+  'm7':   [0,3,7,10],  'mMaj7':[0,3,7,11],
+  'm7b5': [0,3,6,10],  'dim7': [0,3,6,9],   'aug7': [0,4,8,10],
+  'sus2': [0,2,7,12],  'sus4': [0,5,7,12],  '7sus4':[0,5,7,10],
+  '6':    [0,4,7,9],   'm6':   [0,3,7,9],
+  'add9': [0,4,7,14],  'madd9':[0,3,7,14],
+  '7b9':  [0,4,7,13],  '7s9':  [0,4,7,15],
+  '7b5':  [0,4,6,10],  '7s5':  [0,4,8,10],
+};
+
+let audioCtx=null, isPowerOn=false;
+let currentOctave=0, selectedNote=0;
+let timeOffset=0, speedFactor=0, hovering=false;
+
+const oscs = COLORS.map((color,i)=>({
+  freq:[261.6,329.6,392,523.3][i],
+  active:false, color, node:null, gainNode:null, canvas:null, ctx:null,
+}));
+
+/* AUDIO */
+function initAudio(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+}
+function startAudio(i){
+  stopAudio(i); if(!audioCtx) return;
+  const o=oscs[i];
+  o.node=audioCtx.createOscillator();
+  o.gainNode=audioCtx.createGain();
+  o.node.frequency.value=o.freq;
+  o.gainNode.gain.value=0.08;
+  o.node.connect(o.gainNode).connect(audioCtx.destination);
+  o.node.start();
+}
+function stopAudio(i){
+  const o=oscs[i];
+  if(o.node){try{o.node.stop();o.node.disconnect();}catch(e){}o.node=null;}
+}
+function togglePower(){
+  initAudio(); isPowerOn=!isPowerOn;
+  document.getElementById('power-btn').classList.toggle('on',isPowerOn);
+  oscs.forEach((o,i)=>isPowerOn&&o.active?startAudio(i):stopAudio(i));
+}
+
+/* KEYBOARD */
+function buildKeyboard(){
+  const kb=document.getElementById('keyboard'); kb.innerHTML='';
+  for(let i=0;i<12;i++){
+    const isBlack=[1,3,6,8,10].includes(i);
+    const k=document.createElement('div');
+    k.className=`key ${isBlack?'black':'white'}${i===selectedNote?' active':''}`;
+    k.onclick=()=>{ initAudio(); selectedNote=i; updateKbUI(); applyChord('maior'); if(!isPowerOn)togglePower(); };
+    kb.appendChild(k);
+  }
+}
+function changeOctave(d){
+  currentOctave=Math.max(-2,Math.min(2,currentOctave+d));
+  document.getElementById('oct-val').textContent=currentOctave;
+  updateKbUI();
+}
+function updateKbUI(){
+  document.querySelectorAll('.key').forEach((k,i)=>k.classList.toggle('active',i===selectedNote));
+  const midi=60+currentOctave*12+selectedNote;
+  const freq=440*Math.pow(2,(midi-69)/12);
+  document.getElementById('note-display').textContent=
+    `${NAMES[selectedNote%12]}${Math.floor(midi/12)-1}\n${freq.toFixed(0)}Hz`;
+}
+
+/* OSC CARDS */
+const oscRow=document.getElementById('osc-row');
+oscs.forEach((osc,i)=>{
+  const card=document.createElement('div');
+  card.className='osc-card';
+  card.style.setProperty('--osc',osc.color);
+  card.innerHTML=`
+    <div class="card-header">
+      <span class="osc-name">OSC ${i+1}</span>
+      <div class="note-block">
+        <span class="note-pitch" id="np-${i}">—</span>
+        <span class="note-hz"   id="nh-${i}">— Hz</span>
+      </div>
+      <div class="toggle-pill" id="pill-${i}" onclick="toggleOsc(${i})"></div>
+    </div>
+    <div class="freq-row">
+      <input type="range" class="freq-range" id="fslider-${i}"
+             min="20" max="5000" value="${osc.freq}"
+             oninput="setFreq(${i},+this.value)" style="--osc:${osc.color}">
+    </div>
+    <div class="osc-canvas-wrap">
+      <canvas class="osc-canvas" id="cv-${i}"></canvas>
+    </div>`;
+  oscRow.appendChild(card);
+  osc.canvas=document.getElementById(`cv-${i}`);
+  osc.ctx=osc.canvas.getContext('2d');
+  setTimeout(()=>setFreq(i,osc.freq),0);
+});
+
+function setFreq(i,v){
+  oscs[i].freq=v;
+  const n=Math.round(12*Math.log2(v/440)+69);
+  document.getElementById(`np-${i}`).textContent=(NAMES[(n%12+12)%12]||'')+(Math.floor(n/12)-1);
+  document.getElementById(`nh-${i}`).textContent=v.toFixed(1)+' Hz';
+  if(oscs[i].node&&isPowerOn) oscs[i].node.frequency.setTargetAtTime(v,audioCtx.currentTime,0.05);
+}
+function toggleOsc(i){
+  initAudio();
+  oscs[i].active=!oscs[i].active;
+  document.getElementById(`pill-${i}`).classList.toggle('on',oscs[i].active);
+  if(isPowerOn) oscs[i].active?startAudio(i):stopAudio(i);
+}
+
+/* SPEED
+   val=0   → paused
+   val=50  → speedFactor=0.0005  (reference "NORMAL")
+   val=100 → speedFactor=0.005   (10× faster)
+   val=1   → speedFactor=0.00005 (10× slower)
+   log scale anchored at val=50=NORMAL */
+function updateSpeed(val){
+  const el=document.getElementById('spd-val');
+  if(val===0){ speedFactor=0; el.textContent='PAUSA'; return; }
+  speedFactor=0.0005*Math.pow(10,(val-50)/50);
+  el.textContent=val+'%';
+}
+
+/* CHORDS */
+function applyChord(type){
+  initAudio();
+  const midi=60+currentOctave*12+selectedNote;
+  const root=440*Math.pow(2,(midi-69)/12);
+  CHORDS[type].forEach((semi,i)=>{
+    const f=Math.round(root*Math.pow(2,semi/12)*10)/10;
+    document.getElementById(`fslider-${i}`).value=f;
+    setFreq(i,f);
+    oscs[i].active=true;
+    document.getElementById(`pill-${i}`).classList.add('on');
+    if(isPowerOn) startAudio(i);
+  });
+  document.querySelectorAll('.chord-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.chord-btn[onclick="applyChord('${type}')"]`)?.classList.add('active');
+  resetPhases();
+}
+function resetPhases(){ timeOffset=0; }
+
+/* ANIMATION */
+const sumCanvas=document.getElementById('sum-canvas');
+const sumCtx=sumCanvas.getContext('2d');
+sumCanvas.addEventListener('mouseenter',()=>hovering=true);
+sumCanvas.addEventListener('mouseleave',()=>hovering=false);
+
+function sizeCanvases(){
+  sumCanvas.width=sumCanvas.clientWidth;
+  sumCanvas.height=sumCanvas.clientHeight;
+  oscs.forEach(o=>{
+    if(o.canvas){o.canvas.width=o.canvas.clientWidth;o.canvas.height=o.canvas.clientHeight;}
+  });
+}
+
+function animate(){
+  // Single z — exact reference formula
+  const z = +document.getElementById('zoom-slider').value / 500000;
+
+  /* ── CARD CANVASES ── */
+  oscs.forEach(osc=>{
+    const cv=osc.canvas; if(!cv) return;
+    const cx=osc.ctx, W=cv.width, H=cv.height;
+    cx.clearRect(0,0,W,H);
+
+    if(!osc.active){
+      cx.beginPath(); cx.strokeStyle=osc.color+'33'; cx.lineWidth=1;
+      cx.moveTo(0,H/2); cx.lineTo(W,H/2); cx.stroke();
+      return;
+    }
+
+    cx.beginPath(); cx.strokeStyle=osc.color; cx.lineWidth=2;
+    cx.shadowBlur=4; cx.shadowColor=osc.color+'88';
+    for(let x=0;x<W;x++){
+      const t=(timeOffset+x)*z;
+      const y=Math.sin(2*Math.PI*osc.freq*t)*(H*0.38)+H/2;
+      x===0?cx.moveTo(x,y):cx.lineTo(x,y);
+    }
+    cx.stroke(); cx.shadowBlur=0;
+  });
+
+  /* ── SUM CANVAS ── */
+  const SW=sumCanvas.width, SH=sumCanvas.height, midY=SH/2;
+  sumCtx.clearRect(0,0,SW,SH);
+
+  sumCtx.beginPath(); sumCtx.strokeStyle='#ffffff08'; sumCtx.lineWidth=1;
+  sumCtx.moveTo(0,midY); sumCtx.lineTo(SW,midY); sumCtx.stroke();
+
+  const actives=oscs.filter(o=>o.active);
+  if(actives.length>0){
+    const indivAmp=SH*0.28, sumAmp=SH*0.38;
+
+    actives.forEach(osc=>{
+      sumCtx.globalAlpha=hovering?0.15:0.45;
+      sumCtx.beginPath(); sumCtx.strokeStyle=osc.color; sumCtx.lineWidth=1.5;
+      for(let x=0;x<SW;x++){
+        const t=(timeOffset+x)*z;
+        const y=Math.sin(2*Math.PI*osc.freq*t)*indivAmp+midY;
+        x===0?sumCtx.moveTo(x,y):sumCtx.lineTo(x,y);
+      }
+      sumCtx.stroke();
+    });
+    sumCtx.globalAlpha=1;
+
+    sumCtx.beginPath();
+    sumCtx.strokeStyle='#ffffff';
+    sumCtx.lineWidth=hovering?4:2.5;
+    sumCtx.shadowBlur=hovering?22:8;
+    sumCtx.shadowColor='rgba(255,255,255,0.5)';
+    for(let x=0;x<SW;x++){
+      const t=(timeOffset+x)*z;
+      let total=0;
+      actives.forEach(osc=>total+=Math.sin(2*Math.PI*osc.freq*t));
+      const y=(total/actives.length)*sumAmp+midY;
+      x===0?sumCtx.moveTo(x,y):sumCtx.lineTo(x,y);
+    }
+    sumCtx.stroke(); sumCtx.shadowBlur=0;
+  }
+
+  // Advance — identical to reference
+  timeOffset+=speedFactor*10000;
+  requestAnimationFrame(animate);
+}
+
+/* INIT */
+buildKeyboard();
+updateSpeed(40);
+window.addEventListener('resize',sizeCanvases);
+setTimeout(sizeCanvases,50);
+animate();
+</script>
+</body>
+</html>
