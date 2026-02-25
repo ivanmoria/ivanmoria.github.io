@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Círculo Harmônico</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<h1>Círculo Harmônico</h1>
+
+<div class="controls">
+  <label for="modeSelect">Modo:</label>
+  <select id="modeSelect">
+    <option value="major">Maior (Jônio)</option>
+    <option value="minor">Menor Natural (Eólio)</option>
+    <option value="harmonicMinor">Menor Harmônica</option>
+    <option value="melodicMinor">Menor Melódica (asc.)</option>
+  </select>
+  <button id="regen">Gerar</button>
+</div>
+
+<div class="circle-container" id="circleContainer"></div>
+
+<div class="scale-display">
+  <h3>Notas da escala</h3>
+  <p id="currentScale" style="font-weight:600;margin-bottom:.5em;"></p>
+  <div id="scaleNotes" class="notes"></div>
+</div>
+
+<div class="chords-display">
+  <h3>Acordes diatônicos por grau (tétrades)</h3>
+  <div id="chordsGrid" class="degree-row"></div>
+</div>
+
+<!-- Abas -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="progression">Progressão de Graus</button>
+  <button class="tab-btn" data-tab="cadences">Cadências</button>
+</div>
+
+<div class="tab-content" id="progression"></div>
+<div class="tab-content" id="cadences" style="display:none;"></div>
+
+<footer>Em desenvolvimento - Ivan Moriá/2025</footer>
+
+<script src="script.js"></script>
+
+
+
+</body>
+</html>
