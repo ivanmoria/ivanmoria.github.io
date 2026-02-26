@@ -4,563 +4,412 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Harmonic Lab - Mid-Slider Logic</title>
-    <style>
+<style>
+
+    /* ── BASE & VARIAVEIS ── */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap');
+
+*, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+:root {
+    --bg:     #080810;
+    --panel:  #0f0f1a;
+    --border: #252540;
+    --text:   #c8cfe8;
+    --dim:    #6066a0;
+    --bright: #e8ecff;
+    --c0: #00f2ff;
+}
+
+body {
+    width: 100%; 
+    height: 100vh; 
+    overflow: hidden;
+    background: var(--bg); 
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    display: flex; 
+    flex-direction: column; 
+    padding: 10px; 
+    gap: 10px;
+    touch-action: manipulation; 
+    -webkit-text-size-adjust: none;
+}
+
+/* ── HEADER & TOOLBAR ── */
+.top-toolbar {
+    background: var(--panel); 
+    padding: 8px 15px; 
+    border-radius: 12px;
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 15px;
+    border: 1px solid var(--border); 
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+#power-btn { cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.power-ring {
+    width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--dim);
+    display: grid; place-items: center; transition: 0.3s;
+}
+#power-btn.on .power-ring { border-color: #00ff88; box-shadow: 0 0 12px #00ff8866; }
+#power-btn.on svg { fill: #00ff88; }
+#power-btn.on span { color: #00ff88 !important; }
+svg { fill: var(--dim); }
+
+/* ── CHORD DISPLAY & INFO ── */
 #chord-name-display {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 18px !important; 
-    font-weight: 400; /* Texto mais fino */
+    font-weight: 400;
     color: #fff !important;
-text-transform: none !important;
+    text-transform: none !important;
 }
 
 .chord-suffix {
     font-size: 13px;
-    font-weight: 300; /* Ainda mais leve para o sufixo (m7, etc) */
+    font-weight: 300;
     color: #fff !important;
     vertical-align: baseline;
     margin-left: 2px;
     opacity: 0.8;
 }
-#chord-info {
-    font-family: 'Share Tech Mono';
-    color: var(--c0);
-    font-size: 10px;
-    border-left: 1px solid rgba(255,255,255,0.1);
-    padding-left: 10px;
-    line-height: 1.2;
-    min-width: 90px; /* Aumentado um pouco para dar fôlego */
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    white-space: nowrap; /* Impede a quebra de linha global no container */
-}
+
+
 
 #chord-notes-display {
-    font-size: 10px !important; /* Ajuste fino do tamanho */
+    /* Fonte Barlow Condensed: mais suave e profissional que a Mono */
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px !important; /* Aumentei um pouco pois ela é mais fina */
     color: var(--c0);
-    font-weight: 400;
-    opacity: 0.8;
+    font-weight: 300; /* Peso mais leve para suavidade */
+    letter-spacing: 1.5px; /* Espaçamento elegante entre as notas */
+    opacity: 0.9;
+    
+    /* Garantindo que tudo fique na horizontal sem cortar */
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis; /* Se for absurdamente longo, ele corta com "..." em vez de pular linha */
-    white-space: nowrap; /* Força as notas a ficarem na mesma linha */
+    white-space: nowrap;
+    overflow: visible; 
+    text-overflow: clip;
+    
+    /* Um leve brilho neon suave */
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.2);
 }
 
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        :root {
-            --bg:     #080810;
-            --panel:  #0f0f1a;
-            --border: #252540;
-            --text:   #c8cfe8;
-            --dim:    #6066a0;
-            --bright: #e8ecff;
-            --c0: #00f2ff;
-        }
-
-        body {
-            width: 100%; height: 100vh; overflow: hidden;
-            background: var(--bg); color: var(--text);
-            font-family: 'Barlow Condensed', sans-serif;
-            display: flex; flex-direction: column; padding: 10px; gap: 10px;
-            /* Adicione estas duas linhas abaixo: */
-    touch-action: manipulation; 
-    -webkit-text-size-adjust: none; /* Impede que o iOS redimensione o texto ao girar a tela */
+/* Ajuste no container pai para não apertar a fonte nova */
+#chord-info {
+    min-width: 100px; /* Um pouco mais de espaço lateral */
+    width: auto;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    padding-left: 12px;
+    flex-shrink: 0;
 }
-   
 
-        /* ── HEADER (MANTIDO) ── */
-        .top-toolbar {
-            background: var(--panel); padding: 8px 15px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: space-between; gap: 15px;
-            border: 1px solid var(--border); flex-shrink: 0;
-            z-index: 10;
-        }
+/* ── NAVEGAÇÃO & TABS ── */
+.app-container { display: flex; flex: 1; gap: 10px; overflow: hidden; }
 
-        #power-btn { cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .power-ring {
-            width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--dim);
-            display: grid; place-items: center; transition: 0.3s;
-        }
-        #power-btn.on .power-ring { border-color: #00ff88; box-shadow: 0 0 12px #00ff8866; }
-        #power-btn.on svg { fill: #00ff88; }
-        svg { fill: var(--dim); }
+.side-nav { display: flex; flex-direction: column; gap: 8px; width: 50px; }
 
-        /* ── NAVEGAÇÃO DE ABAS ── */
-        .app-container {
-            display: flex;
-            flex: 1;
-            gap: 10px;
-            overflow: hidden;
-        }
+.tab-trigger {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    padding: 15px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-family: 'Share Tech Mono';
+    font-size: 11px;
+    text-transform: uppercase;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
 
-        .side-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 50px;
-        }
+.tab-trigger:hover { background: #1a1a2e; color: var(--bright); }
+.tab-trigger.active { 
+    border-color: var(--c0); 
+    color: var(--c0); 
+    background: #112233;
+    box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.1);
+}
 
-        .tab-trigger {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            color: var(--dim);
-            padding: 15px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-family: 'Share Tech Mono';
-            font-size: 11px;
-            text-transform: uppercase;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
+.tab-content { flex: 1; display: none; flex-direction: column; gap: 10px; overflow-y: auto; }
+.tab-content.active { display: flex; }
 
-        .tab-trigger:hover { background: #1a1a2e; color: var(--bright); }
-        .tab-trigger.active { 
-            border-color: var(--c0); 
-            color: var(--c0); 
-            background: #112233;
-            box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.1);
-        }
-
-        .tab-content {
-            flex: 1;
-            display: none; /* Escondido por padrão */
-            flex-direction: column;
-            gap: 10px;
-            overflow-y: auto;
-        }
-
-        .tab-content.active { display: flex; }
-
-        /* ── ELEMENTOS ORIGINAIS (ADAPTADOS) ── */
-        .piano-section { display: flex; align-items: center; gap: 10px; background: #000; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); }
-        .keyboard { display: flex; height: 45px; }
-        .key { border: 1px solid #000; cursor: pointer; border-radius: 0 0 3px 3px; }
-        .white { width: 18px; height: 100%; background: #dde; z-index: 1; }
-        .white.active { background: var(--c0); }
-        .black { width: 12px; height: 28px; background: #111; z-index: 2; margin-left: -6px; margin-right: -6px; }
-        .black.active { background: #0099bb; box-shadow: 0 0 8px var(--c0); }
+/* ── PIANO & CHORD GRID ── */
+.piano-section { display: flex; align-items: center; gap: 10px; background: #000; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); }
+.keyboard { display: flex; height: 45px; }
+.key { border: 1px solid #000; cursor: pointer; border-radius: 0 0 3px 3px; }
+.white { width: 18px; height: 100%; background: #dde; z-index: 1; }
+.white.active { background: var(--c0); }
+.black { width: 12px; height: 28px; background: #111; z-index: 2; margin-left: -6px; margin-right: -6px; }
+.black.active { background: #0099bb; box-shadow: 0 0 8px var(--c0); }
 
 .chord-grid {
-        display: grid;
-        /* Diminuído para 3 colunas para os botões ficarem grandes no dedo */
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 6px;
-        width: 100%;
-        /* Permite que o grid cresça para baixo */
-        height: auto; 
-        padding: 5px 0;
-    }
-        .chord-btn {
-            background: #1a1a2a; 
-            border: 1px solid var(--border); 
-            color: var(--bright);
-            font-family: 'Share Tech Mono', monospace; 
-     
-            border-radius: 3px; 
-            cursor: pointer; 
-     padding: 15px 5px; 
-        font-size: 10px;
-        min-width: 0; /* Permite que o grid controle a largura */
-        height: auto;
-            transition: all 0.2s ease;
-        }
-
-        .chord-btn:hover { background: #252540; border-color: var(--dim); color: #fff; }
-        .chord-btn.active { border-color: var(--c0) !important; color: var(--c0) !important; background: #0a1520 !important; }
-
-/* Container com um leve background para destacar o componente */
-.timebase-group { 
-    display: flex; 
-    flex-direction: column; 
-    min-width: 260px; 
-    gap: 15px;
-    padding: 15px;
-
-
-    border-radius: 4px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 6px;
+    width: 100%;
+    height: auto; 
+    padding: 5px 0;
 }
 
-.timebase-label { 
-    display: flex; 
-    justify-content: space-between; 
-    font-size: 10px; 
-    color: #888; 
-    text-transform: uppercase; 
-    letter-spacing: 2px; 
-    font-weight: 800;
-}
-
-.timebase-val { 
-    color: #fff; 
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 14px;
-
-}
-
-/* --- SLIDER STYLING --- */
-
-input[type=range] { 
-    appearance: none; 
-    width: 100%; 
-    height: 2px; /* Trilho ultra fino para sofisticação */
-    background: rgba(255, 255, 255, 0.1); 
-    outline: none; 
-    margin: 15px 0;
-}
-
-/* O "Thumb" (O cursor do slider) */
-input[type=range]::-webkit-slider-thumb { 
-    appearance: none; 
-    width: 12px; 
-    height: 24px; /* Formato retangular vertical (estilo mesa de som) */
-    background: var(--c0); 
-    border-radius: 2px; /* Quase quadrado */
-    cursor: ew-resize; 
-    box-shadow: 
-        -8px 0 0 -5px var(--c0),  /* "Asas" decorativas laterais */
-         8px 0 0 -5px var(--c0);
-    transition: all 0.15s ease-in-out;
-    border: none;
-}
-
-/* Efeito de Hover: O cursor "acende" */
-input[type=range]:hover::-webkit-slider-thumb {
-    height: 30px; /* Ele cresce verticalmente no hover */
-    background: #fff;
-    box-shadow: 0 0 15px var(--c0);
-}
-
-/* Efeito de Active: Quando você clica e arrasta */
-input[type=range]:active::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%; /* Ele se transforma em círculo ao clicar! */
-    background: #fff;
-}
-
-/* Linha de progresso (apenas para navegadores que suportam, como Firefox) */
-input[type=range]::-moz-range-progress {
-    background-color: var(--c0);
-}
-        .toggle-pill { width: 40px; height: 15px; background: #111; border: 1px solid #333; border-radius: 10px; cursor: pointer; position: relative; display: flex; align-items: center; transition: 0.3s; }
-        .toggle-pill::after { content: ''; position: absolute; top: 1px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: #444; transition: 0.2s; }
-        .toggle-pill.on { background: var(--osc-color); border-color: rgba(255, 255, 255, 0.3); }
-        .toggle-pill.on::after { left: 25px; background: #eee; }
-
-        #osc-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-shrink: 0; }
-        .osc-card {
-            background: var(--panel); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border);
-            box-shadow: inset 0 2px 10px -5px var(--osc); transition: 0.3s ease;
-        }
-        .osc-name { font-size: .6rem; color: var(--dim); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
-        .note-pitch { font-family: 'Share Tech Mono', monospace; font-size: 1.8rem; color: var(--osc); line-height: 1; font-weight: bold; }
-        .note-hz { font-family: 'Share Tech Mono', monospace; font-size: .7rem; color: var(--dim); opacity: 0.8; }
-        .osc-canvas-wrap { height: 60px; background: #04040a; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; }
-        .osc-canvas { width: 100%; height: 100%; }
-        #sum-canvas { flex: 1; width: 100%; background: #000; border-radius: 12px; border: 1px solid var(--border); }
-
-        /* Assinatura */
-/* Assinatura */
-.author-credit {
-    margin-top: 8px; 
-    padding: 6px 10px; 
-    background: rgba(0, 0, 0, 0.3); 
-    border: 1px dashed var(--border); 
-    border-radius: 6px;
+.chord-btn {
+    background: #1a1a2a; 
+    border: 1px solid var(--border); 
+    color: var(--bright);
     font-family: 'Share Tech Mono', monospace; 
-    text-align: center; 
-    line-height: 1.3;
-    cursor: pointer;
-    transition: 0.2s;
-    
-    /* Estado "Apagadinho" */
-    opacity: 0.5; 
+    border-radius: 3px; 
+    cursor: pointer; 
+    padding: 15px 5px; 
+    font-size: 10px;
+    min-width: 0;
+    transition: all 0.2s ease;
 }
 
-.author-credit:hover {
-    /* Estado "Destaque" */
-    opacity: 1;
-    border-color: var(--c0);
-    background: rgba(0, 0, 0, 0.5); /* Leve escurecida no fundo ao focar */
-}
+.chord-btn:hover { background: #252540; border-color: var(--dim); color: #fff; }
+.chord-btn.active { border-color: var(--c0) !important; color: var(--c0) !important; background: #0a1520 !important; }
 
-.author-name { 
-    color: var(--c0); 
-    font-size: 13px; 
-    font-weight: bold; 
-    display: block; 
-    letter-spacing: 1px; 
-    text-transform: uppercase; 
-}
+/* ── CONTROLES (SLIDER & TOGGLE) ── */
+.timebase-group { display: flex; flex-direction: column; min-width: 260px; gap: 15px; padding: 15px; border-radius: 4px; }
+.timebase-label { display: flex; justify-content: space-between; font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
+.timebase-val { color: #fff; font-family: 'Share Tech Mono', monospace; font-size: 14px; }
 
-.author-status { 
-    /* Cor clara para o ano não sumir */
-    color: #fff; 
-    font-size: 10px; 
-    letter-spacing: 0.5px; 
+input[type=range] { appearance: none; width: 100%; height: 2px; background: rgba(255, 255, 255, 0.1); outline: none; margin: 15px 0; }
+input[type=range]::-webkit-slider-thumb { 
+    appearance: none; width: 12px; height: 24px; background: var(--c0); border-radius: 2px; cursor: ew-resize; 
+    box-shadow: -8px 0 0 -5px var(--c0), 8px 0 0 -5px var(--c0); transition: all 0.15s ease-in-out; border: none;
 }
+input[type=range]:hover::-webkit-slider-thumb { height: 30px; background: #fff; box-shadow: 0 0 15px var(--c0); }
+input[type=range]:active::-webkit-slider-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; }
 
-.dev-tag { 
-    color: #ffcc00; 
-    font-size: 9px; 
-    font-weight: 800; 
+.toggle-pill { width: 40px; height: 15px; background: #111; border: 1px solid #333; border-radius: 10px; cursor: pointer; position: relative; display: flex; align-items: center; transition: 0.3s; }
+.toggle-pill::after { content: ''; position: absolute; top: 1px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: #444; transition: 0.2s; }
+.toggle-pill.on { background: var(--osc-color); border-color: rgba(255, 255, 255, 0.3); }
+.toggle-pill.on::after { left: 25px; background: #eee; }
+
+/* ── OSCILLATORS & VISUALIZERS ── */
+#osc-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-shrink: 0; }
+.osc-card {
+    background: var(--panel); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border);
+    box-shadow: inset 0 2px 10px -5px var(--osc); transition: transform 0.2s, border-color 0.2s;
 }
-        .dev-tag { color: #ffcc00; font-size: 9px; font-weight: 800; }
-
-        /* Efeito de destaque no hover */
-.osc-card { transition: transform 0.2s, border-color 0.2s; }
 .osc-card:hover { border-color: var(--osc); transform: translateY(-2px); }
 
-/* Melhoria no container do canvas de soma */
+.osc-name { font-size: .6rem; color: var(--dim); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+.note-pitch { font-family: 'Share Tech Mono', monospace; font-size: 1.8rem; color: var(--osc); line-height: 1; font-weight: bold; }
+.note-hz { font-family: 'Share Tech Mono', monospace; font-size: .7rem; color: var(--dim); opacity: 0.8; }
+
 .sum-canvas-container {
-    flex: 1;
-    position: relative;
-    background: radial-gradient(circle at center, #101025 0%, #000 100%);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    overflow: hidden;
+    flex: 1; position: relative; background: radial-gradient(circle at center, #101025 0%, #000 100%);
+    border-radius: 12px; border: 1px solid var(--border); overflow: hidden;
 }
 #sum-canvas { width: 100%; height: 100%; display: block; }
 
-#power-btn.on span { color: #00ff88 !important; }
+/* ── NOTE DISPLAY & INDICATORS ── */
+#note-display {
+    font-family: 'Share Tech Mono'; color: var(--c0); font-size: 12px; border-left: 1px solid rgba(255,255,255,0.1);
+    padding-left: 10px; line-height: 1.1; cursor: pointer; position: relative; min-width: 50px; display: flex; flex-direction: column; justify-content: center;
+}
+#enharmonic-indicator {
+    position: absolute; top: 50%; left: 15px; transform: translateY(-50%); font-size: 24px;
+    color: rgba(255, 255, 255, 0.08); pointer-events: none; z-index: 0; display: none;
+}
+#note-display.has-accidental #enharmonic-indicator { display: block; }
+#note-text, #hz-text { position: relative; z-index: 1; }
 
-/* ── RESPONSIVIDADE (MOBILE) ── */
+/* ── FOOTER / CREDIT ── */
+.author-credit {
+    margin-top: 8px; padding: 6px 10px; background: rgba(0, 0, 0, 0.3); border: 1px dashed var(--border); 
+    border-radius: 6px; font-family: 'Share Tech Mono', monospace; text-align: center; opacity: 0.5; transition: 0.2s;
+}
+.author-credit:hover { opacity: 1; border-color: var(--c0); background: rgba(0, 0, 0, 0.5); }
+.author-name { color: var(--c0); font-size: 13px; font-weight: bold; display: block; text-transform: uppercase; }
+.author-status { color: #fff; font-size: 10px; }
+.dev-tag { color: #ffcc00; font-size: 9px; font-weight: 800; }
+
+/* ── RESPONSIVIDADE ── */
+
+/* MOBILE */
 @media (max-width: 768px) {
-    body {
-        overflow-y: auto;
-        height: auto;
-        padding: 5px;
-    }
-
-
-    .piano-section {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-.top-toolbar {
+    body { overflow-y: auto; height: auto; padding: 5px; }
+    .top-toolbar { flex-direction: column; padding: 10px; gap: 12px; align-items:center;}
+    .top-toolbar > div:nth-child(2) { width: 100%; border-left: none !important; padding-left: 0 !important; }
+    .chord-grid { grid-template-columns: repeat(4, 1fr); }
+    .chord-btn { padding: 12px 0; }
+.author-credit {
+        margin: 10px auto 0 auto !important; 
+        /* O segredo está aqui: fit-content faz o bloco ter o tamanho do texto */
+        width: fit-content; 
+        display: flex;
         flex-direction: column;
-        padding: 10px;
-        gap: 12px;
-        height: auto;
-        align-items: stretch; /* Garante que os filhos tentem esticar lateralmente */
+        align-items: center;
+        background: rgba(0, 0, 0, 0.2); /* Se quiser um fundo suave apenas no nome */
+        padding: 5px 15px; /* Respiro interno para o fundo não colar na letra */
+        border-radius: 8px;
     }
-
-    /* O container que envolve o grid de acordes */
-    .top-toolbar > div:nth-child(2) { 
-        width: 100%; 
-        border-left: none !important; 
-        padding-left: 0 !important;
-        display: block !important; /* Muda de flex para block para ocupar a linha toda */
-    }
-
-    .chord-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 colunas bem distribuídas */
-        gap: 6px;
-        width: 100%; /* Força largura total */
-        height: auto;
-        overflow: visible;
-    }
-
-    .chord-btn {
-        width: 100%; /* Garante que o botão preencha a célula do grid */
-        padding: 12px 0; /* Aumenta a área de toque para o polegar */
-    }
-
-
     .app-container { flex-direction: column; }
     .side-nav { flex-direction: row; width: 100%; height: 45px; }
     .tab-trigger { writing-mode: horizontal-tb; flex: 1; font-size: 10px; }
-
     #osc-row { grid-template-columns: 1fr; }
     .sum-canvas-container { height: 250px; }
+    .chord-container-wrap { width: 100% !important; flex: none !important; border-left: none !important; margin-top: 5px; }
 }
+
+/* DESKTOP */
+@media (min-width: 769px) {
+    body { padding: 15px; }
+    .top-toolbar {
+        min-height: 100px; display: grid; grid-template-columns: auto 1fr auto; 
+        align-items: center; gap: 20px; padding: 10px 20px;
+    }
+    #power-btn .power-ring { width: 42px !important; height: 42px !important; border-width: 3px !important; }
+    .piano-section { flex-shrink: 0; min-width: 420px; height: 70px; }
+    .chord-container-wrap { flex: 1; width: 100%; display: flex; align-items: center; }
 /* ── AJUSTES PARA DESKTOP (PC) ── */
 @media (min-width: 769px) {
-    body {
-        padding: 15px;
-    }
+    /* ... outros estilos do desktop ... */
 
-    .top-toolbar {
-        height: 110px; /* Aumentado levemente para dar margem de segurança */
-        gap: 15px;
-        display: flex;
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    /* POWER BUTTON - FIRME E VISÍVEL */
-    #power-btn {
-        margin-right: 5px;
-        flex-shrink: 0;
-    }
-    .power-ring {
-        width: 42px !important; 
-        height: 42px !important;
-        border-width: 3px !important;
-    }
-
-    .piano-section {
-        flex-shrink: 0;
-        min-width: 440px;
-        height: 80px; /* Alinha a altura com o resto */
-    }
-
-    /* CHORD GRID - AJUSTADO PARA NÃO CORTAR */
     .chord-grid {
-        flex: 1;
         display: grid;
-        /* auto-fill com minmax menor para caberem mais colunas */
-        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-        grid-template-rows: repeat(2, 32px); /* Altura fixa das linhas para não cortar */
-        grid-auto-flow: column; 
-        gap: 4px;
-        padding: 5px;
-        height: 75px; /* Altura total do grid */
-        overflow-x: auto; 
-        overflow-y: hidden;
+        /* Mantém as colunas automáticas de 70px */
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        
+        /* REMOVIDO: grid-template-rows fixo */
+        grid-template-rows: auto; 
+        
+        /* ALTERADO: Permitir que o grid cresça verticalmente */
+        height: auto;
+        max-height: none; 
+        overflow-y: visible; 
+        
+        gap: 6px;
+        width: 100%;
         border-left: 1px solid var(--border);
         padding-left: 15px;
+        padding-bottom: 5px; /* Respiro inferior */
     }
 
-    /* BOTÃO DE ACORDE MAIS COMPACTO NO PC */
-    .chord-btn {
-        padding: 0 4px;
-        font-size: 9px; /* Letra levemente menor para não vazar */
-        height: 32px;   /* Altura exata para bater com o grid-rows */
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+    /* Opcional: Ajustar o toolbar para expandir se houver muitos acordes */
+    .top-toolbar {
+        height: auto; 
+        min-height: 100px;
     }
-
-    /* Scrollbar ultra fina para o PC */
-    .chord-grid::-webkit-scrollbar { height: 3px; }
-    .chord-grid::-webkit-scrollbar-track { background: transparent; }
+}
+    .chord-grid::-webkit-scrollbar { width: 4px; }
     .chord-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
-    .author-credit {
-        min-width: 130px;
-        flex-shrink: 0;
-        margin-left: 10px;
-    }
-
-    @media (max-width: 768px) {
-    .chord-container-wrap {
-        width: 100% !important;
-        flex: none !important;
-        border-left: none !important;
-        padding-left: 0 !important;
-        margin-top: 5px;
-    }
+    .chord-btn { height: 30px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+    .author-credit { min-width: 140px; margin-left: 10px; }
 }
-}
-/* Container original de volta ao padrão de linha única */
-#note-display {
-    font-family: 'Share Tech Mono';
-    color: var(--c0);
-    font-size: 12px;
-    border-left: 1px solid rgba(255,255,255,0.1);
-    padding-left: 10px;
-    line-height: 1.1;
-    cursor: pointer;
-    position: relative; /* Necessário para o indicador flutuar */
-    min-width: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* O indicador agora é um "fantasma" que não empurra o texto */
-#enharmonic-indicator {
-    position: absolute;
-    top: 50%;
-    left: 15px; /* Ajustado para ficar atrás do texto da nota */
-    transform: translateY(-50%);
-    font-size: 24px;
-    color: rgba(255, 255, 255, 0.08); /* Quase invisível, apenas textura */
-    pointer-events: none;
-    z-index: 0;
-    display: none;
-}
-
-/* Mostra apenas se tiver acidente, sem mudar o layout */
-#note-display.has-accidental #enharmonic-indicator {
-    display: block;
-}
-
-#note-text, #hz-text {
-    position: relative;
-    z-index: 1; /* Garante que o texto fique legível sobre o indicador */
-}
-
-    </style>
+</style>
 </head>
 
 
 <body>
-<header class="top-toolbar">
-   <div class="piano-section">
-    <div id="power-btn" onclick="togglePower()" style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
-        <div class="power-ring" style="width: 24px; height: 24px;">
-            <svg viewBox="0 0 24 24" width="12" height="12"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.12.94-4.03 2.43-5.32l-1.42-1.42A8.921 8.921 0 0 0 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+    <header class="top-toolbar">
+    <div class="piano-section" style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+        <div id="power-btn" onclick="togglePower()" style="display: flex; flex-direction: column; align-items: center; gap: 2px; flex-shrink: 0;">
+            <div class="power-ring">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0 1 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.12.94-4.03 2.43-5.32l-1.42-1.42A8.921 8.921 0 0 0 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+            </div>
+            <span style="font-size: 8px; font-weight: 700; color: var(--dim);">POWER</span>
         </div>
-        <span style="font-size: 10px; font-weight: 500; color: var(--dim);">SOUND</span>
-    </div>
 
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <div style="display: flex; flex-direction: column; gap: 2px;">
-            <button class="chord-btn" style="min-width:18px; padding:0; height: 15px; font-size: 8px;" onclick="changeOctave(1)">+</button>
-            <button class="chord-btn" style="min-width:18px; padding:0; height: 15px; font-size: 8px;" onclick="changeOctave(-1)">-</button>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <div id="keyboard" class="keyboard"></div>
+            
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <button class="chord-btn" 
+                    style="min-width: 32px; height: 22px; font-size: 14px; padding: 0; display: flex; align-items: center; justify-content: center;" 
+                    onclick="changeOctave(1)">+</button>
+                <button class="chord-btn" 
+                    style="min-width: 32px; height: 22px; font-size: 14px; padding: 0; display: flex; align-items: center; justify-content: center;" 
+                    onclick="changeOctave(-1)">-</button>
+            </div>
+           
+<div id="note-display" onclick="toggleEnharmonics()" style="min-width: 45px; text-align: center; border: none; background: transparent; cursor: pointer;">
+    <span id="enharmonic-indicator" style="display: none !important;"></span>
+    <span id="note-text" style="font-size: 18px; display: block; color: var(--c0);">C4</span>
+    <span id="hz-text" style="font-size: 9px; opacity: 0.7; display: block; color: var(--text);">261.6Hz</span>
+</div>
         </div>
-        <div id="keyboard" class="keyboard"></div>
-        
-<div id="note-display" onclick="toggleEnharmonics()">
-    <span id="enharmonic-indicator"></span>
-    <span id="note-text">C4</span>
-    <span id="hz-text" style="font-size: 8px; opacity: 0.7;">261.6Hz</span>
-</div>
+
+        <div id="chord-info" style="min-width: 80px; max-width: 80px; border-left: 1px solid var(--border); padding-left: 10px; display: flex; flex-direction: column; justify-content: center;">
+            <span id="chord-name-display" style="font-size: 14px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">CHORD</span>
+            <span id="chord-notes-display" style="font-size: 9px; color: var(--c0); opacity: 0.8; font-family: 'Share Tech Mono';">---</span>
+        </div>
     </div>
 
-    <div id="chord-info" style="font-family:'Share Tech Mono'; color:var(--c0); font-size:10px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 10px; line-height: 1.1; min-width: 80px; text-align: right;">
-        <span id="chord-name-display" style="color:#fff;">CHORD</span><br>
-        <span id="chord-notes-display" style="font-size: 8px; opacity: 0.6;">---</span>
-    </div>
-</div>
-
-
-
-    <div style="display: flex; align-items: center; flex: 1; gap: 5px; border-left: 1px solid var(--border); padding-left: 10px;">
-
-<div class="chord-container-wrap">
+    <div class="chord-container-wrap" style="flex: 1; overflow: hidden;">
         <div class="chord-grid" id="chord-btns-container"></div>
     </div>
     
-    <div class="author-credit" onclick="switchTab('contact')">
+    <div class="author-credit" onclick="switchTab('contact')" style="flex-shrink: 0; margin-left: auto;">
         <span class="author-name">Ivan Moriá Borges</span>
         <div class="author-status">2026 • <span class="dev-tag">Em construção</span></div>
     </div>
 </header>
     <div class="app-container">
         <nav class="side-nav">
-            <button class="tab-trigger active" onclick="switchTab('oscillators')">Oscillators</button>
+            <button class="tab-trigger active" onclick="switchTab('chords')">Chords</button>
+            <button class="tab-trigger" onclick="switchTab('oscillators')">Oscillators</button>
             <button class="tab-trigger" onclick="switchTab('modulators')">Modulators</button>
             <button class="tab-trigger" onclick="switchTab('settings')">Settings</button>
         </nav>
 
-        <section id="oscillators" class="tab-content active">
+<section id="chords" class="tab-content active">
+    <div style="padding: 20px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; height: 100%; overflow-y: auto;">
+        <h2 style="color: var(--c0); font-family: 'Share Tech Mono'; margin-bottom: 10px; letter-spacing: 1px;">SISTEMA DE CONTROLE</h2>
+        <p style="color: var(--dim); margin-bottom: 25px; font-size: 15px;">Configure a base harmônica para os osciladores.</p>
+        
+        <div style="display: grid; gap: 20px; color: var(--text); font-size: 14px;">
+            
+            <div style="border-left: 2px solid var(--c0); padding-left: 15px;">
+                <p style="margin-bottom: 10px;">O <strong>Harmonic Lab</strong> processa 28 variações de acordes em tempo real. Utilize os controles do cabeçalho para manipular a saída:</p>
+                
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                    <li>
+                        <b style="color:var(--bright)">• POWER:</b> 
+                        Ativa ou corta o fluxo de áudio global dos osciladores.
+                    </li>
+                    <li>
+                        <b style="color:var(--bright)">• TÔNICA & OITAVA:</b> 
+                        Selecione a nota base no teclado e ajuste a altura nos botões <span style="color: var(--c0)">[+]</span> e <span style="color: var(--c0)">[-]</span>.
+                    </li>
+                    <li>
+                        <b style="color:var(--bright)">• ENARMONIA:</b> 
+                        Toque no <b>Display de Frequência (Hz)</b> no cabeçalho para alternar entre sustenidos <span style="color: var(--c0)">(♯)</span> e bemóis <span style="color: var(--c0)">(♭)</span>.
+                    </li>
+                    <li>
+                        <b style="color:var(--bright)">• TIPO DE ACORDE:</b> 
+                        Escolha a estrutura harmônica no grid superior de botões.
+                    </li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(0, 242, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px dashed rgba(0, 242, 255, 0.2);">
+                <span style="color: var(--c0); font-weight: bold; font-size: 12px; text-transform: uppercase;">Dica:</span>
+                <p style="font-size: 13px; color: var(--dim); margin-top: 5px;">
+                    A enarmonia é inteligente e sugere o melhor padrão para a tônica escolhida, mas você tem o controle manual total ao tocar no display central.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+        <section id="oscillators" class="tab-content">
             <main id="osc-row"></main>
 
 <div style="display: flex; align-items: center; gap: 20px; padding: 10px 0;">
@@ -614,125 +463,143 @@ input[type=range]::-moz-range-progress {
 </body>
 
 <script>
-    // --- LÓGICA DE ABAS ---
-    function switchTab(tabId) {
-        document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-trigger').forEach(trigger => trigger.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
-        if(tabId === 'oscillators') setTimeout(sizeCanvases, 50);
-    }
-
-    // --- CONFIGURAÇÕES TONAIS ---
-    const COLORS = ['#00f2ff','#33ff88','#ffcc00','#ff4488'];
+// --- LÓGICA DE ABAS ---
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab-trigger').forEach(trigger => trigger.classList.remove('active'));
     
-    // Listas de nomes para enarmonia total
-    const NAMES_SHARP = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
-    const NAMES_FLAT  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"];
-
-    let useSharps = true; 
-    let NAMES = NAMES_SHARP; 
-
-    const CHORDS_LIST = [
-        { name: 'Maior', notes: [0, 4, 7, 12] },
-        { name: '7',     notes: [0, 4, 7, 10] },
-        { name: '7M',    notes: [0, 4, 7, 11] },
-        { name: '6',     notes: [0, 4, 7, 9] },
-        { name: '6/9',   notes: [0, 4, 9, 14] },
-        { name: 'add9',  notes: [0, 4, 7, 14] },
-        { name: '9',     notes: [0, 4, 10, 14] },
-        { name: '7M(9)', notes: [0, 4, 11, 14] },
-        { name: '7(♭9)', notes: [0, 4, 10, 13] },
-        { name: '7(♯9)', notes: [0, 4, 10, 15] },
-        { name: '7(♯11)',notes: [0, 4, 10, 18] },
-        { name: '13',    notes: [0, 4, 10, 21] },
-        { name: 'sus2',  notes: [0, 2, 7, 12] },
-        { name: 'sus4',  notes: [0, 5, 7, 12] },
-        { name: '7sus4', notes: [0, 5, 7, 10] },
-        { name: '(♯5)',  notes: [0, 4, 8, 12] },
-        { name: '7(♯5)', notes: [0, 4, 8, 10] },
-        { name: '7M(♯5)',notes: [0, 4, 8, 11] },
-        { name: '7(♭5)', notes: [0, 4, 6, 10] },
-        { name: 'm',      notes: [0, 3, 7, 12] },
-        { name: 'm7',     notes: [0, 3, 7, 10] },
-        { name: 'm7M',    notes: [0, 3, 7, 11] },
-        { name: 'm6',     notes: [0, 3, 7, 9] },
-        { name: 'm(add9)',notes: [0, 3, 7, 14] },
-        { name: 'm9',     notes: [0, 3, 10, 14] },
-        { name: 'm7(♭5)', notes: [0, 3, 6, 10] },
-        { name: 'dim',    notes: [0, 3, 6, 12] },
-        { name: 'dim7',   notes: [0, 3, 6, 9] }
-    ];
-
-    const CHORDS = {};
-    CHORDS_LIST.forEach(item => CHORDS[item.name] = item.notes);
-
-    let audioCtx, isPowerOn = false, timeOffset = 0, currentOctave = 0, selectedNote = 0;
-    let lastChordType = 'Maior';
-
-    const oscs = COLORS.map((color, i) => ({
-        freq: 440, active: false, color, node: null, gainNode: null, canvas: null, ctx: null
-    }));
-
-    // --- ÁUDIO ---
-    function initAudio() {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+    const targetTab = document.getElementById(tabId);
+    if (targetTab) {
+        targetTab.classList.add('active');
+        const trigger = document.getElementById('trig-' + tabId);
+        if (trigger) trigger.classList.add('active');
     }
-
-    function togglePower() {
-        initAudio();
-        isPowerOn = !isPowerOn;
-        document.getElementById('power-btn').classList.toggle('on', isPowerOn);
-        oscs.forEach((o, i) => isPowerOn && o.active ? startAudio(i) : stopAudio(i));
+    
+    if(tabId === 'oscillators') {
+        setTimeout(sizeCanvases, 50);
     }
+}
 
-    function startAudio(i) {
-        stopAudio(i);
-        const o = oscs[i];
-        o.node = audioCtx.createOscillator();
-        o.gainNode = audioCtx.createGain();
-        o.node.frequency.value = o.freq;
-        o.gainNode.gain.value = 0.08;
-        o.node.connect(o.gainNode).connect(audioCtx.destination);
-        o.node.start();
+// --- CONFIGURAÇÕES TONAIS ---
+const COLORS = ['#00f2ff','#33ff88','#ffcc00','#ff4488'];
+const NAMES_SHARP = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
+const NAMES_FLAT  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"];
+
+/**
+ * Tonalidades que preferem BEMÓIS:
+ * 0: C (por causa da 7ª menor Bb)
+ * 5: F, 10: Bb, 3: Eb, 8: Ab, 1: Db, 6: Gb
+ */
+const PREFER_FLATS = [0, 5, 10, 3, 8, 1, 6]; 
+
+function getPreferredNames(rootNoteIndex) {
+    return PREFER_FLATS.includes(rootNoteIndex) ? NAMES_FLAT : NAMES_SHARP;
+}
+
+let useSharps = true; 
+let NAMES = NAMES_SHARP; 
+let manualEnharmonic = false; // NOVA: Trava para respeitar sua escolha manual
+const CHORDS_LIST = [
+    { name: 'Maior', notes: [0, 4, 7, 12] },
+    { name: '7',     notes: [0, 4, 7, 10] },
+    { name: '7M',    notes: [0, 4, 7, 11] },
+    { name: '6',     notes: [0, 4, 7, 9] },
+    { name: '6/9',   notes: [0, 4, 9, 14] },
+    { name: 'add9',  notes: [0, 4, 7, 14] },
+    { name: '9',     notes: [0, 4, 10, 14] },
+    { name: '7M(9)', notes: [0, 4, 11, 14] },
+    { name: '7(♭9)', notes: [0, 4, 10, 13] },
+    { name: '7(♯9)', notes: [0, 4, 10, 15] },
+    { name: '7(♯11)',notes: [0, 4, 10, 18] },
+    { name: '13',    notes: [0, 4, 10, 21] },
+    { name: 'sus2',  notes: [0, 2, 7, 12] },
+    { name: 'sus4',  notes: [0, 5, 7, 12] },
+    { name: '7sus4', notes: [0, 5, 7, 10] },
+    { name: '(♯5)',  notes: [0, 4, 8, 12] },
+    { name: '7(♯5)', notes: [0, 4, 8, 10] },
+    { name: '7M(♯5)',notes: [0, 4, 8, 11] },
+    { name: '7(♭5)', notes: [0, 4, 6, 10] },
+    { name: 'm',      notes: [0, 3, 7, 12] },
+    { name: 'm7',     notes: [0, 3, 7, 10] },
+    { name: 'm7M',    notes: [0, 3, 7, 11] },
+    { name: 'm6',     notes: [0, 3, 7, 9] },
+    { name: 'm(add9)',notes: [0, 3, 7, 14] },
+    { name: 'm9',     notes: [0, 3, 10, 14] },
+    { name: 'm7(♭5)', notes: [0, 3, 6, 10] },
+    { name: 'dim',    notes: [0, 3, 6, 12] },
+    { name: 'dim7',   notes: [0, 3, 6, 9] }
+];
+
+const CHORDS = {};
+CHORDS_LIST.forEach(item => CHORDS[item.name] = item.notes);
+
+let audioCtx, isPowerOn = false, timeOffset = 0, currentOctave = 0, selectedNote = 0;
+let lastChordType = 'Maior';
+
+const oscs = COLORS.map((color, i) => ({
+    freq: 440, active: false, color, node: null, gainNode: null, canvas: null, ctx: null
+}));
+
+// --- ÁUDIO ---
+function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function togglePower() {
+    initAudio();
+    isPowerOn = !isPowerOn;
+    document.getElementById('power-btn').classList.toggle('on', isPowerOn);
+    oscs.forEach((o, i) => isPowerOn && o.active ? startAudio(i) : stopAudio(i));
+}
+
+function startAudio(i) {
+    stopAudio(i);
+    const o = oscs[i];
+    o.node = audioCtx.createOscillator();
+    o.gainNode = audioCtx.createGain();
+    o.node.frequency.value = o.freq;
+    o.gainNode.gain.value = 0.08;
+    o.node.connect(o.gainNode).connect(audioCtx.destination);
+    o.node.start();
+}
+
+function stopAudio(i) {
+    if (oscs[i].node) {
+        try { oscs[i].node.stop(); oscs[i].node.disconnect(); } catch(e) {}
+        oscs[i].node = null;
     }
+}
 
-    function stopAudio(i) {
-        if (oscs[i].node) {
-            try { oscs[i].node.stop(); oscs[i].node.disconnect(); } catch(e) {}
-            oscs[i].node = null;
-        }
+function setFreq(i, v) {
+    const freqFinal = Math.max(27.5, Math.min(4186, v));
+    oscs[i].freq = freqFinal;
+    
+    const n = Math.round(12 * Math.log2(freqFinal / 440) + 69);
+    const noteName = NAMES[(n % 12 + 12) % 12];
+    const octave = Math.floor(n / 12) - 1;
+    
+    const npEl = document.getElementById(`np-${i}`);
+    const nhEl = document.getElementById(`nh-${i}`);
+    if (npEl) npEl.textContent = noteName + octave;
+    if (nhEl) nhEl.textContent = freqFinal.toFixed(1) + ' Hz';
+
+    if (oscs[i].node && isPowerOn) {
+        oscs[i].node.frequency.setTargetAtTime(freqFinal, audioCtx.currentTime, 0.05);
     }
+}
 
-    function setFreq(i, v) {
-        const freqFinal = Math.max(27.5, Math.min(4186, v));
-        oscs[i].freq = freqFinal;
-        
-        const n = Math.round(12 * Math.log2(freqFinal / 440) + 69);
-        // Notas individuais seguem a enarmonia global selecionada
-        const noteName = NAMES[(n % 12 + 12) % 12];
-        const octave = Math.floor(n / 12) - 1;
-        
-        document.getElementById(`np-${i}`).textContent = noteName + octave;
-        document.getElementById(`nh-${i}`).textContent = freqFinal.toFixed(1) + ' Hz';
-
-        if (oscs[i].node && isPowerOn) {
-            oscs[i].node.frequency.setTargetAtTime(freqFinal, audioCtx.currentTime, 0.05);
-        }
-    }
-
-   
 function toggleEnharmonics() {
+    manualEnharmonic = true; // Ativa a trava manual
     useSharps = !useSharps;
     NAMES = useSharps ? NAMES_SHARP : NAMES_FLAT;
     
-    // Atualiza o pequeno símbolo de indicação no display
-    document.getElementById('enharmonic-indicator').textContent = useSharps ? '♯' : '♭';
-    
+    // Atualiza a interface imediatamente
     updateKbUI();
-    applyChord(lastChordType);
+    // Re-aplica o acorde SEM resetar a enarmonia
+    applyChord(lastChordType, true); 
 }
+
 function updateKbUI() {
     document.querySelectorAll('.key').forEach((k, i) => k.classList.toggle('active', i === selectedNote));
     
@@ -742,14 +609,9 @@ function updateKbUI() {
     const noteName = NAMES[selectedNote];
     
     const displayEl = document.getElementById('note-display');
-    const indicatorEl = document.getElementById('enharmonic-indicator');
-    
-    // Verifica se a nota tem mais de uma letra (ex: C#, Db)
     const hasAccidental = noteName.length > 1;
-
     if (hasAccidental) {
         displayEl.classList.add('has-accidental');
-        indicatorEl.textContent = useSharps ? '♯' : '♭';
     } else {
         displayEl.classList.remove('has-accidental');
     }
@@ -757,119 +619,138 @@ function updateKbUI() {
     document.getElementById('note-text').textContent = noteName + octave;
     document.getElementById('hz-text').textContent = `${freq.toFixed(1)}Hz`;
 }
-    function buildKeyboard() {
-        const kb = document.getElementById('keyboard');
-        kb.innerHTML = '';
-        for (let i = 0; i < 12; i++) {
-            const isBlack = [1, 3, 6, 8, 10].includes(i);
-            const k = document.createElement('div');
-            k.className = `key ${isBlack ? 'black' : 'white'}`;
-            k.onclick = () => { selectedNote = i; updateKbUI(); applyChord(lastChordType); };
-            kb.appendChild(k);
-        }
-        updateKbUI();
-    }
 
+function buildKeyboard() {
+    const kb = document.getElementById('keyboard');
+    kb.innerHTML = '';
+    for (let i = 0; i < 12; i++) {
+        const isBlack = [1, 3, 6, 8, 10].includes(i);
+        const k = document.createElement('div');
+        k.className = `key ${isBlack ? 'black' : 'white'}`;
+        k.onclick = () => { selectedNote = i; applyChord(lastChordType); };
+        kb.appendChild(k);
+    }
+}
+
+function changeOctave(d) {
+    currentOctave = Math.max(-4, Math.min(4, currentOctave + d));
+    applyChord(lastChordType);
+}
+// Altere a assinatura da função applyChord para aceitar o parâmetro skipAuto
+function applyChord(type, skipAuto = false) {
+    initAudio();
+    lastChordType = type;
     
-
-    function changeOctave(d) {
-        currentOctave = Math.max(-4, Math.min(4, currentOctave + d));
-        updateKbUI();
-        applyChord(lastChordType);
+    // Só roda a lógica automática se NÃO houve clique manual ou se mudou a tônica
+    if (!skipAuto) {
+        NAMES = getPreferredNames(selectedNote);
+        useSharps = (NAMES === NAMES_SHARP);
+        manualEnharmonic = false; // Reseta o manual ao trocar de nota/acorde se desejar
     }
 
-    // --- LÓGICA DO ACORDE CORRIGIDA ---
-    function applyChord(type) {
-        initAudio();
-        lastChordType = type;
-        
-        document.querySelectorAll('#chord-btns-container .chord-btn').forEach(b => {
-            b.classList.toggle('active', b.textContent === type);
-        });
-
-        const midiBase = 60 + (currentOctave * 12) + selectedNote;
-        const rootFreq = 440 * Math.pow(2, (midiBase - 69) / 12);
-        const rootName = NAMES[selectedNote];
-        let activeNotesStrings = [];
-
-        CHORDS[type].forEach((semi, i) => {
-            if(i < 4) {
-                const currentMidi = midiBase + semi;
-                const f = Math.round(rootFreq * Math.pow(2, semi / 12) * 10) / 10;
-                const noteIndex = (currentMidi % 12 + 12) % 12;
-                
-                // CORREÇÃO: Força a nota interna a seguir a lista NAMES atual (Sharp ou Flat)
-                const noteName = NAMES[noteIndex];
-
-                activeNotesStrings.push(noteName);
-                setFreq(i, f);
-                oscs[i].active = true;
-                const pill = document.getElementById(`pill-${i}`);
-                if (pill) { 
-                    pill.style.setProperty('--osc-color', oscs[i].color); 
-                    pill.classList.add('on'); 
-                }
-                if (isPowerOn) startAudio(i);
-            }
-        });
-
-        const nameDisplay = document.getElementById('chord-name-display');
-        const notesDisplay = document.getElementById('chord-notes-display');
-        
-        if (nameDisplay) {
-            nameDisplay.innerHTML = type === 'Maior' ? rootName : `${rootName}<span class="chord-suffix">${type}</span>`;
-        }
-        if (notesDisplay) notesDisplay.textContent = activeNotesStrings.join(' ');
-        
-    }
-
-    // --- RENDERIZAÇÃO ---
-    const oscRow = document.getElementById('osc-row');
-    oscs.forEach((osc, i) => {
-        const card = document.createElement('div');
-        card.className = 'osc-card';
-        card.style.setProperty('--osc', osc.color);
-        card.innerHTML = `
-            <div class="card-header">
-                <span class="osc-name">OSC ${i+1}</span>
-                <div class="toggle-pill" id="pill-${i}" onclick="toggleOsc(${i})"></div>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:flex-end">
-                <span class="note-pitch" id="np-${i}">—</span><span class="note-hz" id="nh-${i}">— Hz</span>
-            </div>
-            <input type="range" min="27.5" max="4186" step="0.1" value="${osc.freq}" oninput="setFreq(${i},+this.value)" style="--c0:${osc.color}; height:2px; margin:5px 0">
-            <div class="osc-canvas-wrap"><canvas class="osc-canvas" id="cv-${i}"></canvas></div>`;
-        oscRow.appendChild(card);
-        osc.canvas = document.getElementById(`cv-${i}`);
-        osc.ctx = osc.canvas.getContext('2d');
+    document.querySelectorAll('#chord-btns-container .chord-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent === type);
     });
 
-    function toggleOsc(i) {
-        initAudio();
-        oscs[i].active = !oscs[i].active;
-        const pill = document.getElementById(`pill-${i}`);
+    const midiBase = 60 + (currentOctave * 12) + selectedNote;
+    const rootFreq = 440 * Math.pow(2, (midiBase - 69) / 12);
+    const rootName = NAMES[selectedNote];
+    let activeNotesStrings = [];
+
+    CHORDS[type].forEach((semi, i) => {
+        if(i < 4) {
+            const currentMidi = midiBase + semi;
+            const f = Math.round(rootFreq * Math.pow(2, semi / 12) * 10) / 10;
+            const noteIndex = (currentMidi % 12 + 12) % 12;
+            const noteName = NAMES[noteIndex];
+
+            activeNotesStrings.push(noteName);
+            setFreq(i, f);
+            oscs[i].active = true;
+            
+            const pill = document.getElementById(`pill-${i}`);
+            if (pill) { 
+                pill.style.setProperty('--osc-color', oscs[i].color); 
+                pill.classList.add('on'); 
+            }
+            if (isPowerOn) startAudio(i);
+        }
+    });
+
+    const nameDisplay = document.getElementById('chord-name-display');
+    const notesDisplay = document.getElementById('chord-notes-display');
+    
+    if (nameDisplay) {
+        nameDisplay.innerHTML = type === 'Maior' ? rootName : `${rootName}<span class="chord-suffix">${type}</span>`;
+    }
+    // AQUI: Aplicando a união sem espaços que você pediu antes
+    if (notesDisplay) notesDisplay.textContent = activeNotesStrings.join('');
+    
+    updateKbUI();
+}
+
+// --- RENDERIZAÇÃO DOS CARDS ---
+const oscRow = document.getElementById('osc-row');
+oscs.forEach((osc, i) => {
+    const card = document.createElement('div');
+    card.className = 'osc-card';
+    card.style.setProperty('--osc', osc.color);
+    card.innerHTML = `
+        <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="osc-name" style="font-size:10px; opacity:0.6;">OSC ${i+1}</span>
+            <div class="toggle-pill" id="pill-${i}" onclick="toggleOsc(${i})"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin: 5px 0;">
+            <span class="note-pitch" id="np-${i}" style="font-family:'Share Tech Mono'; font-size:1.4rem; font-weight:bold; color:var(--osc)">—</span>
+            <span class="note-hz" id="nh-${i}" style="font-size:10px; opacity:0.5;">— Hz</span>
+        </div>
+        <input type="range" min="27.5" max="4186" step="0.1" value="${osc.freq}" oninput="setFreq(${i},+this.value)" style="width:100%; height:2px; margin:8px 0;">
+        <div class="osc-canvas-wrap" style="height:60px; background:#000; border-radius:4px; overflow:hidden;">
+            <canvas class="osc-canvas" id="cv-${i}" style="width:100%; height:100%;"></canvas>
+        </div>`;
+    oscRow.appendChild(card);
+    osc.canvas = document.getElementById(`cv-${i}`);
+    osc.ctx = osc.canvas.getContext('2d');
+});
+
+function toggleOsc(i) {
+    initAudio();
+    oscs[i].active = !oscs[i].active;
+    const pill = document.getElementById(`pill-${i}`);
+    if(pill) {
         pill.style.setProperty('--osc-color', oscs[i].color);
         pill.classList.toggle('on', oscs[i].active);
-        if (isPowerOn) oscs[i].active ? startAudio(i) : stopAudio(i);
     }
+    if (isPowerOn) oscs[i].active ? startAudio(i) : stopAudio(i);
+}
 
-    const sumCanvas = document.getElementById('sum-canvas');
-    const sumCtx = sumCanvas.getContext('2d');
+function resetPhases() {
+    timeOffset = 0;
+}
 
-    function sizeCanvases() {
-        sumCanvas.width = sumCanvas.clientWidth; 
-        sumCanvas.height = sumCanvas.clientHeight;
-        oscs.forEach(o => { if(o.canvas){ o.canvas.width = o.canvas.clientWidth; o.canvas.height = o.canvas.clientHeight; }});
-    }
+const sumCanvas = document.getElementById('sum-canvas');
+const sumCtx = sumCanvas.getContext('2d');
 
-    function animate() {
-        const sliderVal = +document.getElementById('unified-slider').value;
-        const zoom = 0.000002 * Math.pow(1.1, 80 + ((100 - sliderVal) * 0.2)); 
-        const speed = 2.0; 
-        document.getElementById('tb-val').textContent = Math.round(sliderVal);
+function sizeCanvases() {
+    sumCanvas.width = sumCanvas.clientWidth; 
+    sumCanvas.height = sumCanvas.clientHeight;
+    oscs.forEach(o => { 
+        if(o.canvas){ 
+            o.canvas.width = o.canvas.clientWidth; 
+            o.canvas.height = o.canvas.clientHeight; 
+        }
+    });
+}
 
-        oscs.forEach(osc => {
-            if(!osc.canvas) return;
+function animate() {
+    const sliderVal = +document.getElementById('unified-slider').value;
+    const zoom = 0.000002 * Math.pow(1.1, 80 + ((100 - sliderVal) * 0.2)); 
+    const speed = 2.0; 
+    const tbValEl = document.getElementById('tb-val');
+    if(tbValEl) tbValEl.textContent = Math.round(sliderVal);
+
+    oscs.forEach(osc => {
+        if(osc.ctx && osc.canvas.width > 0) {
             const cx = osc.ctx, W = osc.canvas.width, H = osc.canvas.height;
             cx.clearRect(0, 0, W, H);
             if(osc.active) {
@@ -881,8 +762,10 @@ function updateKbUI() {
                 }
                 cx.stroke();
             }
-        });
+        }
+    });
 
+    if(sumCanvas.width > 0) {
         const SW = sumCanvas.width, SH = sumCanvas.height;
         sumCtx.clearRect(0, 0, SW, SH);
         const actives = oscs.filter(o => o.active);
@@ -906,26 +789,32 @@ function updateKbUI() {
             }
             sumCtx.stroke(); 
         }
-        timeOffset += speed; 
-        requestAnimationFrame(animate);
     }
+    timeOffset += speed; 
+    requestAnimationFrame(animate);
+}
 
-    // --- INICIALIZAÇÃO ---
-    const chordContainer = document.getElementById('chord-btns-container');
-    CHORDS_LIST.forEach(chord => {
-        const btn = document.createElement('button');
-        btn.className = 'chord-btn';
-        btn.textContent = chord.name;
-        btn.onclick = () => applyChord(chord.name);
-        chordContainer.appendChild(btn);
-    });
+// --- INICIALIZAÇÃO ---
+const chordContainer = document.getElementById('chord-btns-container');
+CHORDS_LIST.forEach(chord => {
+    const btn = document.createElement('button');
+    btn.className = 'chord-btn';
+    btn.textContent = chord.name;
+    btn.onclick = () => applyChord(chord.name);
+    chordContainer.appendChild(btn);
+});
 
-    buildKeyboard();
-    window.addEventListener('resize', sizeCanvases);
-    setTimeout(() => { sizeCanvases(); applyChord('Maior'); }, 100);
-    animate();
+buildKeyboard();
+window.addEventListener('resize', sizeCanvases);
+setTimeout(() => { 
+    sizeCanvases(); 
+    applyChord('Maior'); 
+}, 100);
+animate();
 
-    document.body.addEventListener('touchstart', () => { if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); }, { once: true });
+document.body.addEventListener('touchstart', () => { 
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); 
+}, { once: true });
 </script>
 
 </body>
