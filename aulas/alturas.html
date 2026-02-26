@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Harmonic Lab - Mid-Slider Logic</title>
+
+
 <style>
 
     /* ── BASE & VARIAVEIS ── */
@@ -316,49 +318,60 @@ input[type=range]:active::-webkit-slider-thumb { width: 20px; height: 20px; bord
     .chord-container-wrap { width: 100% !important; flex: none !important; border-left: none !important; margin-top: 5px; }
 }
 
-/* DESKTOP */
+/* ── DESKTOP (PC) - CONFIGURAÇÃO FINAL DO SCROLL ── */
 @media (min-width: 769px) {
     body { padding: 15px; }
+    
     .top-toolbar {
-        min-height: 100px; display: grid; grid-template-columns: auto 1fr auto; 
-        align-items: center; gap: 20px; padding: 10px 20px;
+        min-height: 80px; 
+        max-height: 120px; /* Impede que o header cresça demais */
+        display: grid; 
+        grid-template-columns: auto 1fr auto; 
+        align-items: center; 
+        gap: 20px; 
+        padding: 10px 20px;
     }
+
     #power-btn .power-ring { width: 42px !important; height: 42px !important; border-width: 3px !important; }
     .piano-section { flex-shrink: 0; min-width: 420px; height: 70px; }
-    .chord-container-wrap { flex: 1; width: 100%; display: flex; align-items: center; }
-/* ── AJUSTES PARA DESKTOP (PC) ── */
-@media (min-width: 769px) {
-    /* ... outros estilos do desktop ... */
+
+    /* ── AQUI ESTÁ O SCROLL: ── */
+    .chord-container-wrap { 
+        flex: 1; 
+        width: 100%; 
+        height: 70px;            /* Altura fixa necessária para o scroll aparecer */
+        overflow-y: auto !important; /* Habilita o scroll vertical */
+        overflow-x: hidden;
+        border-left: 1px solid var(--border);
+        padding: 5px 10px 5px 15px;
+        margin-left: 10px;
+    }
 
     .chord-grid {
         display: grid;
-        /* Mantém as colunas automáticas de 70px */
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-        
-        /* REMOVIDO: grid-template-rows fixo */
-        grid-template-rows: auto; 
-        
-        /* ALTERADO: Permitir que o grid cresça verticalmente */
-        height: auto;
-        max-height: none; 
-        overflow-y: visible; 
-        
+        grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
         gap: 6px;
         width: 100%;
-        border-left: 1px solid var(--border);
-        padding-left: 15px;
-        padding-bottom: 5px; /* Respiro inferior */
+        height: auto; /* A grid flui naturalmente dentro do wrap */
     }
 
-    /* Opcional: Ajustar o toolbar para expandir se houver muitos acordes */
-    .top-toolbar {
-        height: auto; 
-        min-height: 100px;
+    /* Estilização da Barra de Rolagem para ela ficar visível e bonita */
+    .chord-container-wrap::-webkit-scrollbar { 
+        width: 5px; 
     }
-}
-    .chord-grid::-webkit-scrollbar { width: 4px; }
-    .chord-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-    .chord-btn { height: 30px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+    .chord-container-wrap::-webkit-scrollbar-track { 
+        background: rgba(0,0,0,0.2); 
+        border-radius: 10px;
+    }
+    .chord-container-wrap::-webkit-scrollbar-thumb { 
+        background: var(--border); 
+        border-radius: 10px;
+    }
+    .chord-container-wrap::-webkit-scrollbar-thumb:hover { 
+        background: var(--c0); 
+    }
+
+    .chord-btn { height: 30px; font-size: 11px; display: flex; align-items: center; justify-content: center; padding: 0; }
     .author-credit { min-width: 140px; margin-left: 10px; }
 }
 </style>
@@ -544,19 +557,20 @@ let NAMES = NAMES_SHARP;
 let manualEnharmonic = false;
 
 // LISTA EXPANDIDA (44 ACORDES) ORGANIZADA POR FAMÍLIAS
+// LISTA OTIMIZADA PARA 4 VOZES (OMISSÃO DE TÔNICA EM ACORDES COMPLEXOS)
 const CHORDS_LIST = [
-    // --- MAIORES (Ciano ao Azul Royal) ---
+    // --- MAIORES ---
     { name: 'Maior',   notes: [0, 4, 7, 12], color: '#00f2ff' },
     { name: 'add9',    notes: [0, 4, 7, 14], color: '#00e1ff' },
     { name: '6',       notes: [0, 4, 7, 9],  color: '#00cfff' },
     { name: '6/9',     notes: [0, 4, 9, 14], color: '#00bcff' },
     { name: '7M',      notes: [0, 4, 7, 11], color: '#00aaff' },
     { name: '7M(9)',   notes: [0, 4, 11, 14], color: '#0088ff' },
-    { name: '7M(13)',  notes: [0, 4, 11, 21], color: '#0077ee' }, // NOVO: Cor de transição para 13
+    { name: '7M(13)',  notes: [0, 4, 11, 21], color: '#0077ee' },
     { name: '7M(♯11)', notes: [0, 4, 11, 18], color: '#0066ff' },
     { name: '7M(♯5)',  notes: [0, 4, 8, 11], color: '#0044ff' },
 
-    // --- MENORES (Verdes) ---
+    // --- MENORES ---
     { name: 'm',       notes: [0, 3, 7, 12], color: '#33ff88' },
     { name: 'm(add9)', notes: [0, 3, 7, 14], color: '#2ee67a' },
     { name: 'm6',      notes: [0, 3, 7, 9],  color: '#29d16f' },
@@ -564,42 +578,45 @@ const CHORDS_LIST = [
     { name: 'm7',      notes: [0, 3, 7, 10], color: '#1f9e54' },
     { name: 'm9',      notes: [0, 3, 10, 14], color: '#1a8a49' },
     { name: 'm11',     notes: [0, 3, 10, 17], color: '#15753e' },
-    { name: 'm13',     notes: [0, 3, 10, 21], color: '#116335' }, // NOVO: Menor com 13ª (Dórico)
+    { name: 'm13',     notes: [0, 3, 10, 21], color: '#116335' },
     { name: 'm7M',     notes: [0, 3, 7, 11], color: '#0f5b30' },
+    { name: 'm7(add4)',notes: [3, 5, 7, 10], color: '#145a32' }, // Tônica omitida
 
-    // --- DOMINANTES (Amarelo ao Laranja Queimado) ---
+    // --- DOMINANTES E BLUES ---
     { name: '7',       notes: [0, 4, 7, 10], color: '#ffcc00' },
     { name: '9',       notes: [0, 4, 10, 14], color: '#ffb300' },
     { name: '13',      notes: [0, 4, 10, 21], color: '#ff9900' },
-    { name: '7(♭5)',   notes: [0, 4, 6, 10], color: '#ff8000' },
-    { name: '7(♯5)',   notes: [0, 4, 8, 10], color: '#ff6600' },
-    { name: '7(♭9)',   notes: [0, 4, 10, 13], color: '#ff4d00' },
-    { name: '7(♯9)',   notes: [0, 4, 10, 15], color: '#ff3300' },
-    { name: '7(♭13)',  notes: [0, 4, 10, 20], color: '#cc2900' },
+    { name: '7(11)',   notes: [0, 4, 10, 17], color: '#ff8000' },
+    { name: '7(♭5)',   notes: [0, 4, 6, 10], color: '#ff6600' },
     { name: '7(♯11)',  notes: [0, 4, 10, 18], color: '#e62e00' },
-    { name: '7alt',    notes: [0, 4, 10, 13, 15, 20], color: '#b32400' },
-    { name: '7(11)',   notes: [0, 4, 10, 17], color: '#991f00' }, // NOVO: Dominante com 11ª (Jazz vibe)
+    { name: '7(♯5)',   notes: [0, 4, 8, 10], color: '#cc2900' },
+    { name: '7(♭13)',  notes: [0, 4, 10, 20], color: '#991f00' },
+    { name: '7(♭9)',   notes: [0, 4, 10, 13], color: '#4b0082' },
+    { name: '7(♯9)',   notes: [0, 4, 10, 15], color: '#311b92' },
+    { name: 'Blues7',  notes: [4, 7, 10, 15], color: '#1a237e' }, // Tônica omitida
+    { name: '7(♯9♭13)',notes: [4, 10, 15, 20], color: '#0d144a' }, // Tônica omitida
+    { name: '7alt',    notes: [10, 13, 15, 20], color: '#050a30' }, // Tônica omitida (foco nas tensões)
 
-    // --- SUSPENSOS E AUMENTADOS (Vermelhos e Rosas) ---
+    // --- SUSPENSOS E AUMENTADOS ---
     { name: 'sus2',    notes: [0, 2, 7, 12], color: '#ff4488' },
     { name: 'sus4',    notes: [0, 5, 7, 12], color: '#ff2266' },
     { name: '7sus4',   notes: [0, 5, 7, 10], color: '#ff0044' },
     { name: '9sus4',   notes: [0, 5, 10, 14], color: '#dd003b' },
-    { name: '13sus4',  notes: [0, 5, 10, 21], color: '#bb0033' }, // NOVO: Suspenso rico em harmônicos
+    { name: '13sus4',  notes: [0, 5, 10, 21], color: '#bb0033' },
     { name: '(♯5)',    notes: [0, 4, 8, 12], color: '#990022' },
 
-    // --- DIMINUTOS (Roxos) ---
+    // --- DIMINUTOS ---
     { name: 'm7(♭5)',  notes: [0, 3, 6, 10], color: '#cc66ff' },
     { name: 'dim',     notes: [0, 3, 6, 12], color: '#b347ff' },
     { name: 'dim7',    notes: [0, 3, 6, 9],  color: '#9933ff' },
-    { name: 'm9(♭5)',  notes: [0, 3, 6, 10, 14], color: '#7a29cc' }, // NOVO: Meio-diminuto com 9ª
+    { name: 'm9(♭5)',  notes: [3, 6, 10, 14], color: '#7a29cc' }, // Tônica omitida
 
-    // --- HÍBRIDOS E ESPECIAIS (Aço, Azul Petróleo e Ouro) ---
-    { name: 'Power',   notes: [0, 7, 12], color: '#8899aa' },
+    // --- HÍBRIDOS E ESPECIAIS ---
+    { name: 'Power',   notes: [0, 7, 12], color: '#8899aa' }, // Apenas 3 notas, tudo certo
     { name: 'Quartal', notes: [0, 5, 10, 15], color: '#55ccdd' },
-    { name: 'Lydian',  notes: [0, 7, 11, 14, 18], color: '#88eeff' }, // NOVO: Acorde modal aberto
-    { name: 'Phrygian',notes: [0, 1, 7, 10, 13], color: '#aa44ff' }, // NOVO: Acorde modal de tensão
-    { name: 'Mu Chord',notes: [0, 2, 4, 7], color: '#ffcc33' }   // NOVO: Famoso acorde do Steely Dan
+    { name: 'Lydian',  notes: [7, 11, 14, 18], color: '#88eeff' }, // Tônica omitida
+    { name: 'Phrygian',notes: [1, 7, 10, 13], color: '#aa44ff' }, // Tônica omitida
+    { name: 'Mu Chord',notes: [0, 2, 4, 7], color: '#ffcc33' }
 ];
 
 const CHORDS = {};
