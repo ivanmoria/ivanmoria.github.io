@@ -60,6 +60,10 @@
   </div>
 </div>
 
+<div id="active-id-badge" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background: #222; color: #00BFFF; padding: 5px 15px; border-radius: 20px; font-family: monospace; font-size: 0.9em; border: 1px solid #444; z-index: 100;">
+  ID: <span id="display-id">----</span>
+</div>
+
 <button id="langToggleBtn" onclick="toggleLang()" class="btn-pt">PT</button>
 
 <h1 data-i18n="title">Painel de Controle</h1>
@@ -120,7 +124,7 @@
 
     <div style="display:flex; justify-content:center; gap:5px;">
       <button onclick="exportCSV()" data-i18n="btnExport">📥 CSV</button>
-      <button id="recordToggleBtn" data-i18n="btnRec">🎥 Gravar</button>
+      <button id="recordToggleBtn" data-i18n-placeholder="btnRec">🎥 Gravar</button>
     </div>
   </div>
 </div>
@@ -129,9 +133,10 @@
   <p style="text-align: center;"><a href="tela.html" target="_blank" data-i18n="openTab" style="color:#00BFFF">🔗 Abrir tela de projeção</a></p>
   <iframe id="previewIframe" src="about:blank"></iframe>
 </div>
+
 <script>
   const peer = new Peer(); 
-  let conn = null;
+  let connections = []; 
   const bc = new BroadcastChannel("improvisacao");
   const roles = ["Dependent", "Follower", "Partner", "Leader", "Resister"];
   
@@ -139,12 +144,8 @@
   let isRandomRunning = false;
   let currentLang = 'pt';
   let isAudioEnabled = true;
-
-  let leaderSide = "left";
-  let leaderRoundsLeft = 3;
-  let nonLeaderIndex = 0;
-  const allNonLeaderRoles = ["Dependent", "Follower", "Partner", "Resister"];
   let history = [];
+  let currentActiveID = "";
 
   const uiI18n = {
     pt: {
@@ -153,16 +154,7 @@
       btnNext: "Avançar ➡️", btnStart: "Iniciar", btnStop: "Parar", minTime: "Tempo (s):",
       btnExport: "📥 CSV", btnRec: "🎥 Gravar", openTab: "🔗 Abrir tela de projeção",
       audioOn: "🔊 Áudio: LIGADO", audioOff: "🔇 Áudio: DESLIGADO",
-      roles: { 
-        "Dependent": "Dependente", "Follower": "Seguidor", "Partner": "Parceiro", "Leader": "Líder", "Resister": "Resistente" 
-      },
-      descriptions: {
-        "Dependent": "Assume o papel de seguidor exclusivamente e nunca de líder.",
-        "Follower": "Assume o papel de seguidor mais prontamente que o de líder.",
-        "Partner": "Assume os papéis de líder e seguidor de forma igualitária.",
-        "Leader": "Assume o papel de líder mais prontamente que o de seguidor.",
-        "Resister": "Tenta evadir ou destruir qualquer relação líder-seguidor."
-      }
+      roles: { "Dependent": "Dependente", "Follower": "Seguidor", "Partner": "Parceiro", "Leader": "Líder", "Resister": "Resistente" }
     },
     en: {
       title: "Control Panel", part1: "Participant 1:", part2: "Participant 2:",
@@ -170,145 +162,143 @@
       btnNext: "Next ➡️", btnStart: "Start", btnStop: "Stop", minTime: "Time (s):",
       btnExport: "📥 CSV", btnRec: "🎥 Record", openTab: "🔗 Open projection screen",
       audioOn: "🔊 Audio: ON", audioOff: "🔇 Audio: OFF",
-      roles: { 
-        "Dependent": "Dependent", "Follower": "Follower", "Partner": "Partner", "Leader": "Leader", "Resister": "Resister" 
-      },
-      descriptions: {
-        "Dependent": "Takes the follower role exclusively and never the leader.",
-        "Follower": "More readily takes the follower role than the leader.",
-        "Partner": "Assumes leader and follower roles equally.",
-        "Leader": "More readily takes the leader role than the follower.",
-        "Resister": "Attempts to evade or destroy any leader-follower relationship."
-      }
+      roles: { "Dependent": "Dependent", "Follower": "Follower", "Partner": "Partner", "Leader": "Leader", "Resister": "Resister" }
     }
   };
 
-  // --- CONEXÃO ---
   document.getElementById('target-id').addEventListener('input', (e) => {
-    if (e.target.value.length === 4) connectToScreen();
+    if (e.target.value.length === 4) {
+      currentActiveID = e.target.value;
+      document.getElementById('display-id').textContent = currentActiveID;
+      connectToScreens();
+    }
   });
 
-  function connectToScreen() {
-    const id = document.getElementById('target-id').value;
+  async function connectToScreens() {
     const statusText = document.getElementById('login-status');
-    statusText.textContent = "Conectando...";
-    conn = peer.connect(id);
-    conn.on('open', () => {
-      statusText.textContent = "Conectado!";
-      document.getElementById('previewIframe').src = "tela.html?preview=true&mute=true";
-      setTimeout(() => { document.getElementById('lock-screen').style.display = 'none'; }, 600);
-    });
-    conn.on('error', () => { statusText.textContent = "Erro!"; document.getElementById('target-id').value = ""; });
+    statusText.textContent = `Conectando ao ID ${currentActiveID}...`;
+    for (let i = 0; i < 5; i++) {
+      const targetId = i === 0 ? currentActiveID : `${currentActiveID}-${i}`;
+      if (connections.find(c => c.peer === targetId)) continue;
+      const conn = peer.connect(targetId);
+      conn.on('open', () => {
+        connections.push(conn);
+        statusText.textContent = `Conectado (${connections.length} telas)`;
+        if (connections.length === 1) {
+          document.getElementById('previewIframe').src = `tela.html?preview=true&mute=true&id=${currentActiveID}`;
+          setTimeout(() => { document.getElementById('lock-screen').style.display = 'none'; }, 800);
+        }
+      });
+    }
   }
 
-  function sendData(data) {
-    if (conn && conn.open) conn.send(data);
-    bc.postMessage(data);
+  function sendData(data, remote = true) {
+    const payload = { 
+      ...data, 
+      leftName: document.getElementById('leftNameInput').value, 
+      rightName: document.getElementById('rightNameInput').value,
+      targetID: document.getElementById('target-id').value 
+    };
+    if (remote) {
+      connections.forEach(conn => { if (conn && conn.open) conn.send(payload); });
+    }
+    bc.postMessage(payload);
   }
 
-  // --- LÓGICA DE PAPÉIS ---
   function updateRole(side, value, broadcast = true) {
     const role = roles[value];
-    const translatedName = uiI18n[currentLang].roles[role];
-    const translatedDesc = uiI18n[currentLang].descriptions[role];
-
-    document.getElementById(`${side}RoleLabel`).textContent = translatedName;
+    document.getElementById(`${side}RoleLabel`).textContent = uiI18n[currentLang].roles[role];
     document.getElementById(`${side}RoleSlider`).value = value;
-    
     const btns = document.getElementById(`${side}RoleButtons`).children;
     for (let btn of btns) {
-      // Traduz o texto do botão individualmente
       const btnRole = btn.dataset.role;
-      btn.textContent = uiI18n[currentLang].roles[btnRole];
-      // Destaca o selecionado
+      btn.textContent = uiI18n[currentLang].roles[btnRole] || btnRole;
       btn.style.backgroundColor = (btnRole === role) ? '#27ae60' : '#444';
     }
-
-    if (broadcast) {
-      sendData({ [side]: role, [`${side}Desc`]: translatedDesc });
-    }
+    if (broadcast) sendData({ [side]: role });
   }
 
-  // --- TRADUÇÃO ---
   function applyLang() {
-    // 1. Traduz elementos com data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (uiI18n[currentLang][key]) el.textContent = uiI18n[currentLang][key];
     });
-
-    // 2. Traduz placeholders
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      el.placeholder = uiI18n[currentLang][key];
-    });
-
-    // 3. Atualiza botão de Idioma
     const langBtn = document.getElementById('langToggleBtn');
     langBtn.textContent = currentLang.toUpperCase();
     langBtn.className = currentLang === 'pt' ? 'btn-pt' : 'btn-en';
-
-    // 4. Atualiza botões de estado (Áudio e Iniciar/Parar)
     document.getElementById('audioToggleBtn').textContent = isAudioEnabled ? uiI18n[currentLang].audioOn : uiI18n[currentLang].audioOff;
     document.getElementById('toggleRandomBtn').textContent = isRandomRunning ? uiI18n[currentLang].btnStop : uiI18n[currentLang].btnStart;
-
-    // 5. Atualiza todos os labels e botões de perfil
     updateRole('left', document.getElementById('leftRoleSlider').value, false);
     updateRole('right', document.getElementById('rightRoleSlider').value, false);
-    
-    // 6. Envia o idioma para a tela (para sincronizar voz)
-    sendData({ lang: currentLang });
+    sendData({ lang: currentLang }, true);
   }
 
-  function toggleLang() { 
-    currentLang = currentLang === 'pt' ? 'en' : 'pt'; 
-    applyLang(); 
-  }
-
-  // --- OUTRAS FUNÇÕES ---
-  function toggleAudio() {
-    isAudioEnabled = !isAudioEnabled;
-    const btn = document.getElementById('audioToggleBtn');
-    btn.classList.toggle('muted', !isAudioEnabled);
-    applyLang();
-    sendData({ audioEnabled: isAudioEnabled });
-  }
+  function toggleLang() { currentLang = currentLang === 'pt' ? 'en' : 'pt'; applyLang(); }
+  function toggleAudio() { isAudioEnabled = !isAudioEnabled; applyLang(); sendData({ audioEnabled: isAudioEnabled }); }
+let leaderLockCount = 0; // Nova variável para controlar a permanência do líder
 
   function generateNextRoles() {
-    const currentLeft = roles[document.getElementById('leftRoleSlider').value];
-    const currentRight = roles[document.getElementById('rightRoleSlider').value];
-    history.push({ left: currentLeft, right: currentRight });
+    // Salva estado atual no histórico
+    const currentLeftIdx = parseInt(document.getElementById('leftRoleSlider').value);
+    const currentRightIdx = parseInt(document.getElementById('rightRoleSlider').value);
+    
+    history.push({
+      left: roles[currentLeftIdx],
+      right: roles[currentRightIdx]
+    });
     if (history.length > 50) history.shift();
 
-    let lR, rR;
-    if (leaderSide === "left") {
-      lR = "Leader";
-      rR = allNonLeaderRoles[nonLeaderIndex % 4];
-    } else {
-      rR = "Leader";
-      lR = allNonLeaderRoles[nonLeaderIndex % 4];
-    }
-    nonLeaderIndex++;
-    leaderRoundsLeft--;
-    if (leaderRoundsLeft <= 0) {
-      leaderSide = (leaderSide === "left") ? "right" : "left";
-      leaderRoundsLeft = 3;
-      nonLeaderIndex = 0;
-    }
-    updateRole('left', roles.indexOf(lR));
-    updateRole('right', roles.indexOf(rR));
-  }
+    const LIDER = 3;
+    const outrosIndices = [0, 1, 2, 4];
+    let idx1, idx2;
 
+    // VERIFICAÇÃO: O participante 1 já era líder e ainda tem "tempo de trono"?
+    if (currentLeftIdx === LIDER && leaderLockCount > 0) {
+      idx1 = LIDER;
+      idx2 = outrosIndices[Math.floor(Math.random() * 4)]; // Sorteia apenas o 2
+      leaderLockCount--; // Diminui uma rodada da permanência
+    } 
+    // VERIFICAÇÃO: O participante 2 já era líder e ainda tem "tempo de trono"?
+    else if (currentRightIdx === LIDER && leaderLockCount > 0) {
+      idx1 = outrosIndices[Math.floor(Math.random() * 4)]; // Sorteia apenas o 1
+      idx2 = LIDER;
+      leaderLockCount--;
+    } 
+    // CASO CONTRÁRIO: Sorteio normal de um novo líder
+    else {
+      let sorteio = Math.random() * 100;
+      
+      if (sorteio < 50) { 
+        // Participante 1 vira Líder por 2 rodadas
+        idx1 = LIDER;
+        idx2 = outrosIndices[Math.floor(Math.random() * 4)];
+        leaderLockCount = 1; // 1 significa: a próxima rodada ele ainda será líder
+      } else { 
+        // Participante 2 vira Líder por 2 rodadas
+        idx1 = outrosIndices[Math.floor(Math.random() * 4)];
+        idx2 = LIDER;
+        leaderLockCount = 1;
+      }
+    }
+
+    // Atualiza interface e envia
+    updateRole('left', idx1, false);
+    updateRole('right', idx2, false);
+    sendData({ left: roles[idx1], right: roles[idx2] });
+  }
   function nextRandom() {
-    if (isRandomRunning) { clearTimeout(intervalId); generateNextRoles(); startRandomLoop(); } 
+    if (isRandomRunning) { clearTimeout(intervalId); generateNextRoles(); startRandomLoop(); }
     else { generateNextRoles(); }
   }
 
   function prevRandom() {
     if (history.length > 0) {
       const lastState = history.pop();
-      updateRole('left', roles.indexOf(lastState.left));
-      updateRole('right', roles.indexOf(lastState.right));
+      const idxL = roles.indexOf(lastState.left);
+      const idxR = roles.indexOf(lastState.right);
+      updateRole('left', idxL, false);
+      updateRole('right', idxR, false);
+      sendData({ left: roles[idxL], right: roles[idxR] });
       if (isRandomRunning) { clearTimeout(intervalId); startRandomLoop(); }
     }
   }
@@ -320,18 +310,19 @@
 
   function toggleRandom() {
     isRandomRunning = !isRandomRunning;
-    if (isRandomRunning) { generateNextRoles(); startRandomLoop(); } 
+    if (isRandomRunning) { generateNextRoles(); startRandomLoop(); }
     else { clearTimeout(intervalId); }
     applyLang();
   }
 
-  // Listeners
   document.getElementById('leftRoleSlider').oninput = (e) => updateRole('left', e.target.value);
   document.getElementById('rightRoleSlider').oninput = (e) => updateRole('right', e.target.value);
   document.getElementById('leftRoleButtons').onclick = e => e.target.dataset.role && updateRole('left', roles.indexOf(e.target.dataset.role));
   document.getElementById('rightRoleButtons').onclick = e => e.target.dataset.role && updateRole('right', roles.indexOf(e.target.dataset.role));
-  document.getElementById('leftUpdateBtn').onclick = () => sendData({ leftName: document.getElementById('leftNameInput').value });
-  document.getElementById('rightUpdateBtn').onclick = () => sendData({ rightName: document.getElementById('rightNameInput').value });
+  document.getElementById('leftUpdateBtn').onclick = () => sendData({});
+  document.getElementById('rightUpdateBtn').onclick = () => sendData({});
+  document.getElementById('leftNameInput').oninput = () => sendData({});
+  document.getElementById('rightNameInput').oninput = () => sendData({});
 
   applyLang();
 </script>
