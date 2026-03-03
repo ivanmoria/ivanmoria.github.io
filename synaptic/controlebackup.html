@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel de Controle</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #121212; color: #fff; margin: 0; padding: 20px; overflow-x: hidden; }
+    h1 { text-align: center; margin-bottom: 10px; }
+    .row { display: flex; flex-wrap: wrap; justify-content: space-around; margin-bottom: 30px; }
+    .card { background: #1e1e1e; padding: 15px 15px 10px 15px; margin: 10px; border-radius: 10px; flex: 1 1 300px; max-width: 400px; position: relative; }
+    .card h2 { margin-top: 0; margin-bottom: 10px; font-size: 1.3em; color: #f0f0f0; }
+    button { margin: 5px 5px 5px 0; padding: 10px 14px; font-size: 1em; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s; user-select: none; }
+    button:hover { background: #555; }
+    
+    /* Botão de Áudio Estilizado */
+    #audioToggleBtn { background: #e67e22; font-weight: bold; }
+    #audioToggleBtn.muted { background: #7f8c8d; }
+
+    input[type=number], input[type=text] { width: 140px; padding: 6px 8px; font-size: 1em; border-radius: 5px; border: none; margin-left: 10px; background: #333; color: white; }
+    .participant-row { display: flex; flex-direction: column; gap: 6px; }
+    .preview-card { width: 100%; background: #1e1e1e; padding: 15px; border-radius: 10px; margin-bottom: 20px; }
+    .preview-card iframe { width: 100%; height: 280px; border: none; border-radius: 8px; }
+    
+    .update-name-btn { margin-left: 10px; background: #c0392b; color: #fff; border: none; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+    .update-name-btn.checked { background: #27ae60; }
+
+    input[type=range] { width: 100%; margin: 10px 0; cursor: pointer; }
+    .role-buttons { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .role-buttons button { flex: 1 1 110px; font-size: 0.85em; background: #444; }
+
+    #langToggleBtn { position: absolute; top: 20px; right: 20px; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+    .btn-pt { background-color: #27ae60 !important; }
+    .btn-en { background-color: #2980b9 !important; }
+  </style>
+</head>
+<body>
+
+<button id="langToggleBtn" onclick="toggleLang()">PT</button>
+
+<h1 data-i18n="title">Painel de Controle</h1>
+
+<div class="row">
+  <div class="card">
+    <h2>
+      <span data-i18n="part1">Participante 1:</span>
+      <input type="text" id="leftNameInput" data-i18n-placeholder="insertName" placeholder="inserir nome" />
+      <button id="leftUpdateBtn" class="update-name-btn">✔️</button>
+    </h2>
+    <div class="participant-row">
+      <input type="range" id="leftRoleSlider" min="0" max="4" step="1" value="0" />
+      <span id="leftRoleLabel" style="text-align: center; font-weight: bold;">Dependente</span>
+      <div class="role-buttons" id="leftRoleButtons">
+        <button data-role="Dependent">Dependent</button>
+        <button data-role="Follower">Follower</button>
+        <button data-role="Partner">Partner</button>
+        <button data-role="Leader">Leader</button>
+        <button data-role="Resister">Resister</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>
+      <span data-i18n="part2">Participante 2:</span>
+      <input type="text" id="rightNameInput" data-i18n-placeholder="insertName" placeholder="inserir nome" />
+      <button id="rightUpdateBtn" class="update-name-btn">✔️</button>
+    </h2>
+    <div class="participant-row">
+      <input type="range" id="rightRoleSlider" min="0" max="4" step="1" value="0" />
+      <span id="rightRoleLabel" style="text-align: center; font-weight: bold;">Dependente</span>
+      <div class="role-buttons" id="rightRoleButtons">
+        <button data-role="Dependent">Dependent</button>
+        <button data-role="Follower">Follower</button>
+        <button data-role="Partner">Partner</button>
+        <button data-role="Leader">Leader</button>
+        <button data-role="Resister">Resister</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card random-mode">
+    <h2 data-i18n="randMode">🔀 Modo Aleatório</h2>
+    <div style="text-align: center; margin-bottom: 15px;">
+        <button id="audioToggleBtn" onclick="toggleAudio()">🔊 Audio: ON</button>
+    </div>
+    <div class="nav-buttons" style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
+      <button onclick="prevRandom()" data-i18n="btnPrev">⬅️ Voltar</button>
+      <button onclick="nextRandom()" data-i18n="btnNext">Avançar ➡️</button>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:15px;">
+      <button id="toggleRandomBtn" onclick="toggleRandom()">Iniciar</button>
+      <label data-i18n="minTime">Tempo (s):</label>
+      <input id="minInterval" type="number" min="1" value="5" style="width:50px" />
+    </div>
+    <div style="display:flex; justify-content:center; gap:10px;">
+      <button onclick="exportCSV()" data-i18n="btnExport">📥 CSV</button>
+      <button id="recordToggleBtn" data-i18n="btnRec">🎥 Record</button>
+    </div>
+  </div>
+</div>
+
+<div class="preview-card">
+  <p style="text-align: center;"><a href="tela.html" target="_blank" data-i18n="openTab" style="color:#00BFFF">🔗 Abrir tela de projeção</a></p>
+  <iframe id="previewIframe" src="tela.html?mute=true"></iframe>
+</div>
+
+<script>
+  const channel = new BroadcastChannel("improvisacao");
+  const roles = ["Dependent", "Follower", "Partner", "Leader", "Resister"];
+  let intervalId, history = [], currentIndex = -1, isRandomRunning = false;
+  let currentLang = 'pt', isAudioEnabled = true;
+  let leaderSide = "left", leaderRoundsLeft = 3, nonLeaderIndex = 0;
+  const allNonLeaderRoles = ["Dependent", "Follower", "Partner", "Resister"];
+  let nonLeaderRoles = [...allNonLeaderRoles];
+
+  const uiI18n = {
+    pt: {
+      title: "Painel de Controle", part1: "Participante 1:", part2: "Participante 2:",
+      insertName: "inserir nome", randMode: "🔀 Modo Aleatório", btnPrev: "⬅️ Voltar",
+      btnNext: "Avançar ➡️", btnStart: "Iniciar", btnStop: "Parar", minTime: "Tempo (s):",
+      btnExport: "📥 Exportar CSV", btnRec: "🎥 Gravar Webcam", openTab: "🔗 Abrir tela de projeção em nova aba",
+      audioOn: "🔊 Áudio: LIGADO", audioOff: "🔇 Áudio: DESLIGADO",
+      roles: { "Dependent": "Dependente", "Follower": "Seguidor", "Partner": "Parceiro", "Leader": "Líder", "Resister": "Resistente" }
+    },
+    en: {
+      title: "Control Panel", part1: "Participant 1:", part2: "Participant 2:",
+      insertName: "insert name", randMode: "🔀 Random Mode", btnPrev: "⬅️ Back",
+      btnNext: "Next ➡️", btnStart: "Start", btnStop: "Stop", minTime: "Time (s):",
+      btnExport: "📥 Export CSV", btnRec: "🎥 Record Webcam", openTab: "🔗 Open projection screen in new tab",
+      audioOn: "🔊 Audio: ON", audioOff: "🔇 Audio: OFF",
+      roles: { "Dependent": "Dependent", "Follower": "Follower", "Partner": "Partner", "Leader": "Leader", "Resister": "Resister" }
+    }
+  };
+
+  function toggleLang() { currentLang = currentLang === 'pt' ? 'en' : 'pt'; applyLang(); }
+
+  function applyLang() {
+    const langBtn = document.getElementById('langToggleBtn');
+    langBtn.textContent = currentLang.toUpperCase();
+    langBtn.className = currentLang === 'pt' ? 'btn-pt' : 'btn-en';
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (uiI18n[currentLang][key]) el.textContent = uiI18n[currentLang][key];
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      el.placeholder = uiI18n[currentLang][el.getAttribute('data-i18n-placeholder')];
+    });
+
+    document.getElementById('audioToggleBtn').textContent = isAudioEnabled ? uiI18n[currentLang].audioOn : uiI18n[currentLang].audioOff;
+    document.getElementById('toggleRandomBtn').textContent = isRandomRunning ? uiI18n[currentLang].btnStop : uiI18n[currentLang].btnStart;
+    
+    updateRole('left', document.getElementById('leftRoleSlider').value, false);
+    updateRole('right', document.getElementById('rightRoleSlider').value, false);
+    
+    document.querySelectorAll('.role-buttons button').forEach(btn => {
+      btn.textContent = uiI18n[currentLang].roles[btn.dataset.role];
+    });
+
+    channel.postMessage({ lang: currentLang });
+  }
+
+  function toggleAudio() {
+    isAudioEnabled = !isAudioEnabled;
+    const btn = document.getElementById('audioToggleBtn');
+    btn.textContent = isAudioEnabled ? uiI18n[currentLang].audioOn : uiI18n[currentLang].audioOff;
+    btn.classList.toggle('muted', !isAudioEnabled);
+    // Envia o comando para a tela de projeção
+    channel.postMessage({ audioEnabled: isAudioEnabled });
+  }
+
+  function updateRole(side, value, broadcast = true) {
+    const role = roles[value];
+    document.getElementById(`${side}RoleLabel`).textContent = uiI18n[currentLang].roles[role];
+    document.getElementById(`${side}RoleSlider`).value = value;
+    
+    [...document.getElementById(`${side}RoleButtons`).children].forEach(btn => {
+      btn.style.backgroundColor = (btn.dataset.role === role) ? '#27ae60' : '#444';
+    });
+
+    if (broadcast) channel.postMessage({ [side]: role });
+  }
+
+  function toggleRandom() {
+    isRandomRunning = !isRandomRunning;
+    if (isRandomRunning) {
+      const loop = () => {
+        let leftRole, rightRole;
+        if (leaderSide === "left") { leftRole = "Leader"; rightRole = nonLeaderRoles[nonLeaderIndex % nonLeaderRoles.length]; }
+        else { rightRole = "Leader"; leftRole = nonLeaderRoles[nonLeaderIndex % nonLeaderRoles.length]; }
+        
+        nonLeaderIndex++; leaderRoundsLeft--;
+        if (leaderRoundsLeft <= 0) { leaderSide = (leaderSide === "left") ? "right" : "left"; leaderRoundsLeft = 3; nonLeaderIndex = 0; }
+        
+        updateRole('left', roles.indexOf(leftRole));
+        updateRole('right', roles.indexOf(rightRole));
+        intervalId = setTimeout(loop, document.getElementById('minInterval').value * 1000);
+      };
+      loop();
+    } else { clearTimeout(intervalId); }
+    applyLang();
+  }
+
+  // Listeners iniciais
+  document.getElementById('leftRoleSlider').oninput = (e) => updateRole('left', e.target.value);
+  document.getElementById('rightRoleSlider').oninput = (e) => updateRole('right', e.target.value);
+  document.getElementById('leftRoleButtons').onclick = e => e.target.dataset.role && updateRole('left', roles.indexOf(e.target.dataset.role));
+  document.getElementById('rightRoleButtons').onclick = e => e.target.dataset.role && updateRole('right', roles.indexOf(e.target.dataset.role));
+  document.getElementById('leftUpdateBtn').onclick = () => channel.postMessage({ leftName: document.getElementById('leftNameInput').value });
+  document.getElementById('rightUpdateBtn').onclick = () => channel.postMessage({ rightName: document.getElementById('rightNameInput').value });
+
+  applyLang();
+</script>
+</body>
+</html>

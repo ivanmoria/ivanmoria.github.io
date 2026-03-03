@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projeção – Improvisação Musical</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%;
+      background-color: #000;
+      color: white;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .participant {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.5s;
+    }
+
+    .left { border-right: 3px solid white; }
+
+    .role {
+      font-size: 4em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .description {
+      font-size: 1.5em;
+      font-style: normal;
+      margin-bottom: 20px;
+      text-align: center;
+      color: white;
+      padding: 0 40px;
+    }
+
+    .name {
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .control-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid white;
+      border-radius: 5px;
+      padding: 5px 8px;
+      font-size: 0.9em;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .control-link:hover { background: rgba(255, 255, 255, 0.3); }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <a class="control-link" href="controle.html" target="_blank">⚙️</a>
+
+  <div id="announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+  <main class="container">
+    <section class="participant left" id="left-participant">
+      <div class="role" id="left-role"></div>
+      <div class="description" id="left-description"></div>
+      <div class="name" id="left-name">Participante 1</div>
+    </section>
+
+    <section class="participant right" id="right-participant">
+      <div class="role" id="right-role"></div>
+      <div class="description" id="right-description"></div>
+      <div class="name" id="right-name">Participante 2</div>
+    </section>
+  </main>
+
+  <script>
+    const channel = new BroadcastChannel("improvisacao");
+    const announcer = document.getElementById('announcer');
+
+    let currentLang = 'pt';
+    let currentLeftRole = "";
+    let currentRightRole = "";
+
+    // Lógica de Fila de Áudio
+    let speechQueue = [];
+    let isSpeaking = false;
+
+    const colors = {
+      "Dependent": "#1E90FF", "Follower": "#32CD32", "Partner": "#FFD700", "Leader": "#FF4500", "Resister": "#8B008B"
+    };
+
+    const i18n = {
+      en: {
+        roles: { "Dependent": "Dependent", "Follower": "Follower", "Partner": "Partner", "Leader": "Leader", "Resister": "Resister" },
+        descriptions: {
+          "Dependent": "Takes the follower role exclusively and never the leader.",
+          "Follower": "More readily takes the follower role than the leader.",
+          "Partner": "Assumes leader and follower roles equally.",
+          "Leader": "More readily takes the leader role than the follower.",
+          "Resister": "Attempts to evade or destroy any leader-follower relationship."
+        }
+      },
+      pt: {
+        roles: { "Dependent": "Dependente", "Follower": "Seguidor", "Partner": "Parceiro", "Leader": "Líder", "Resister": "Resistente" },
+        descriptions: {
+          "Dependent": "Assume o papel de seguidor exclusivamente e nunca de líder.",
+          "Follower": "Assume o papel de seguidor mais prontamente que o de líder.",
+          "Partner": "Assume os papéis de líder e seguidor de forma igualitária.",
+          "Leader": "Assume o papel de líder mais prontamente que o de seguidor.",
+          "Resister": "Tenta evadir ou destruir qualquer relação líder-seguidor."
+        }
+      }
+    };
+
+    function processQueue() {
+      if (speechQueue.length === 0) {
+        isSpeaking = false;
+        return;
+      }
+
+      isSpeaking = true;
+      const message = speechQueue.shift();
+      
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.lang = currentLang === 'pt' ? 'pt-BR' : 'en-US';
+      utterance.rate = 1.3; // Rápido para não atrapalhar a música
+
+      utterance.onend = () => {
+        processQueue(); // Próximo da fila
+      };
+      
+      utterance.onerror = () => {
+        processQueue();
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function speakUpdate(message) {
+      // PREVENÇÃO DE ECO: Se estiver no iframe (URL com ?mute=true), não fala.
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mute') === 'true') return;
+
+      speechQueue.push(message);
+      announcer.textContent = message;
+
+      if (!isSpeaking) {
+        processQueue();
+      }
+    }
+
+    function setRole(side, role, shouldSpeak = true) {
+      if(!role) return;
+      const roleDiv = document.getElementById(`${side}-role`);
+      const partDiv = document.getElementById(`${side}-participant`);
+      const descDiv = document.getElementById(`${side}-description`);
+
+      const translatedRole = i18n[currentLang].roles[role];
+      roleDiv.textContent = translatedRole.toUpperCase();
+      partDiv.style.backgroundColor = colors[role] || "#333";
+      if (descDiv) descDiv.textContent = i18n[currentLang].descriptions[role] || "";
+
+      if (shouldSpeak) {
+        const participantNumber = side === 'left' ? '1' : '2';
+        speakUpdate(`${participantNumber}. ${translatedRole}`);
+      }
+    }
+
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.lang) {
+        currentLang = data.lang;
+        // Atualiza visual sem repetir áudio
+        setRole('left', currentLeftRole, false);
+        setRole('right', currentRightRole, false);
+      }
+
+      // Se vierem os dois papéis no mesmo objeto (como no Modo Aleatório)
+      if (data.left && data.right) {
+        currentLeftRole = data.left;
+        currentRightRole = data.right;
+        setRole('left', data.left, true);
+        setRole('right', data.right, true);
+      } else {
+        if (data.left) {
+          currentLeftRole = data.left;
+          setRole('left', data.left, true);
+        }
+        if (data.right) {
+          currentRightRole = data.right;
+          setRole('right', data.right, true);
+        }
+      }
+
+      if (data.leftName !== undefined) document.getElementById('left-name').textContent = data.leftName;
+      if (data.rightName !== undefined) document.getElementById('right-name').textContent = data.rightName;
+    };
+  </script>
+</body>
+</html>
