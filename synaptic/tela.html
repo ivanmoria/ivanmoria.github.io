@@ -1,191 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <title>Projeção – Improvisação Musical</title>
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
   <style>
-    html, body {
-      margin: 0; padding: 0;
-      height: 100%;
-      background-color: #000;
-      color: white;
-      font-family: sans-serif;
-      overflow: hidden;
+    html, body { margin: 0; padding: 0; height: 100%; background-color: #000; color: white; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
+    .container { display: flex; height: 100vh; width: 100vw; background-color: #000; }
+    
+    .participant { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      transition: background-color 0.8s ease; 
+      background-color: #000; 
+      padding: 20px;
+      box-sizing: border-box;
     }
-
-    .container {
-      display: flex;
-      height: 100vh;
-      width: 100vw;
-    }
-
-    .participant {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: background-color 0.5s;
-    }
-
-    .left { border-right: 3px solid white; }
-
-    .role {
-      font-size: 4em;
-      font-weight: bold;
+    
+    .left { border-right: 2px solid #222; }
+    
+    .role { 
+      font-size: 6vw; 
+      font-weight: 800; 
+      text-transform: uppercase; 
+      text-align: center; 
+      min-height: 1.2em;
       margin-bottom: 10px;
-      text-transform: uppercase;
-      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     }
-
-    .description {
-      font-size: 1.5em;
-      font-style: normal;
-      margin-bottom: 20px;
-      text-align: center;
-      color: white;
-      padding: 0 40px;
+    
+    .description { 
+      font-size: 1.8vw; 
+      text-align: center; 
+      max-width: 80%;
+      min-height: 3.5em; 
+      opacity: 0.9;
+      line-height: 1.4;
+      font-weight: 400;
     }
-
-    .name {
-      font-size: 2em;
-      text-align: center;
+    
+    .name { 
+      font-size: 2.2vw; 
+      text-align: center; 
+      opacity: 0.7; 
+      margin-top: 40px; 
+      font-weight: 300;
+      text-transform: none;
     }
-
-    .control-link {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 999;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid white;
-      border-radius: 5px;
-      padding: 5px 8px;
-      font-size: 0.9em;
-      color: white;
-      text-decoration: none;
-      transition: background 0.3s;
+    
+    #peer-info { 
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      z-index: 1000; 
+      background: rgba(0,0,0,0.8); 
+      padding: 12px 20px; 
+      border-radius: 8px; 
+      border: 1px solid #333; 
+      font-size: 1.1em; 
     }
-
-    .control-link:hover { background: rgba(255, 255, 255, 0.3); }
+    
+    body.is-preview #peer-info { display: none; }
   </style>
 </head>
 <body>
 
-  <a class="control-link" href="controle.html" target="_blank" title="Abrir painel de controle">⚙️</a>
-
-  <div class="container">
-    <div class="participant left" id="left-participant">
-      <div class="role" id="left-role"></div>
-      <div class="description" id="left-description"></div>
-      <div class="name" id="left-name">Participant 1</div>
-    </div>
-    <div class="participant right" id="right-participant">
-      <div class="role" id="right-role"></div>
-      <div class="description" id="right-description"></div>
-      <div class="name" id="right-name">Participant 2</div>
-    </div>
+  <div id="peer-info">
+    ID: <strong id="my-id" style="color: #2ecc71;">...</strong>
   </div>
 
-  <script>
+  <main class="container">
+    <section class="participant left" id="left-participant">
+      <div class="role" id="left-role"></div>
+      <div class="description" id="left-description"></div>
+      <div class="name" id="left-name"></div>
+    </section>
+    
+    <section class="participant right" id="right-participant">
+      <div class="role" id="right-role"></div>
+      <div class="description" id="right-description"></div>
+      <div class="name" id="right-name"></div>
+    </section>
+  </main>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('preview')) document.body.classList.add('is-preview');
 
+    const bc = new BroadcastChannel("improvisacao");
+    let masterAudioEnabled = !urlParams.has('mute');
+    let currentLang = 'pt';
+    let initialized = false; 
 
-    const channel = new BroadcastChannel("improvisacao");
+    // --- FILA DE ÁUDIO (PARA NÃO ATROPELAR) ---
+    let speechQueue = [];
+    let isSpeaking = false;
 
-        let currentLang = 'pt';
-        let currentLeftRole = "";
-        let currentRightRole = "";
-        let isDefaultLeft = true;
-        let isDefaultRight = true;
+    function addToQueue(text) {
+      speechQueue.push(text);
+      processQueue();
+    }
 
-        const colors = {
-          "Dependent": "#1E90FF",
-          "Follower": "#32CD32",
-          "Partner": "#FFD700",
-          "Leader": "#FF4500",
-          "Resister": "#8B008B"
-        };
+    function processQueue() {
+      // Se já estiver falando ou fila vazia, não faz nada
+      if (isSpeaking || speechQueue.length === 0) return;
 
-        const i18n = {
-          en: {
-            names: { left: "Participant 1", right: "Participant 2" },
-            roles: {
-              "Dependent": "DEPENDENT",
-              "Follower": "FOLLOWER",
-              "Partner": "PARTNER",
-              "Leader": "LEADER",
-              "Resister": "RESISTER"
-            },
-            descriptions: {
-              "Dependent": "Takes the follower role exclusively and never the leader. Depends entirely on the partner.",
-              "Follower": "More readily takes the follower role than the leader. Responsibility for musical elements is largely given to the partner.",
-              "Partner": "Assumes leader and follower roles equally. Shares responsibility for musical elements with the partner.",
-              "Leader": "More readily takes the leader role than the follower. Attempts to influence the improvisation by directing aspects of the music.",
-              "Resister": "Attempts to evade or destroy any leader-follower relationship. Does not influence improvisation or participate in joint interactions."
-            }
-          },
-          pt: {
-            names: { left: "Participante 1", right: "Participante 2" },
-            roles: {
-              "Dependent": "DEPENDENTE",
-              "Follower": "SEGUIDOR",
-              "Partner": "PARCEIRO",
-              "Leader": "LÍDER",
-              "Resister": "RESISTENTE"
-            },
-            descriptions: {
-              "Dependent": "Assume o papel de seguidor exclusivamente e nunca de líder. Depende inteiramente do parceiro.",
-              "Follower": "Assume o papel de seguidor mais prontamente que o de líder. A responsabilidade pelos elementos musicais é em grande parte do parceiro.",
-              "Partner": "Assume os papéis de líder e seguidor de forma igualitária. Compartilha a responsabilidade pelos elementos musicais com o parceiro.",
-              "Leader": "Assume o papel de líder mais prontamente que o de seguidor. Tenta influenciar a improvisação direcionando aspectos da música.",
-              "Resister": "Tenta evadir ou destruir qualquer relação líder-seguidor. Não influencia a improvisação nem participa de interações conjuntas."
-            }
-          }
-        };
+      isSpeaking = true;
+      const text = speechQueue.shift();
+      
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = currentLang === 'pt' ? 'pt-BR' : 'en-US';
+      msg.rate = 1.1;
 
-        function setRole(side, role) {
-          if(!role) return;
-          const roleDiv = document.getElementById(`${side}-role`);
-          const partDiv = document.getElementById(`${side}-participant`);
-          const descDiv = document.getElementById(`${side}-description`);
+      msg.onend = () => {
+        isSpeaking = false;
+        processQueue(); // Tenta processar o próximo da fila
+      };
 
-          roleDiv.textContent = i18n[currentLang].roles[role];
-          partDiv.style.backgroundColor = colors[role] || "#333";
-          if (descDiv) descDiv.textContent = i18n[currentLang].descriptions[role] || "";
+      msg.onerror = () => {
+        isSpeaking = false;
+        processQueue();
+      };
+
+      window.speechSynthesis.speak(msg);
+    }
+
+    // --- COMUNICAÇÃO ---
+    if (!urlParams.has('preview')) {
+        const numericId = Math.floor(1000 + Math.random() * 9000).toString();
+        const peer = new Peer(numericId);
+        peer.on('open', (id) => { document.getElementById('my-id').textContent = id; });
+        peer.on('connection', (conn) => {
+            conn.on('data', (data) => { 
+              initialized = true; 
+              handleData(data); 
+            });
+        });
+    }
+
+    bc.onmessage = (event) => { 
+        if(event.data !== "ready") {
+            initialized = true; 
+            handleData(event.data); 
         }
+    };
 
-        channel.onmessage = (event) => {
-          const data = event.data;
-          
-          if (data.lang) {
-            currentLang = data.lang;
-            setRole('left', currentLeftRole);
-            setRole('right', currentRightRole);
-            
-            // Atualiza os nomes caso ninguém tenha digitado um nome customizado
-            if (isDefaultLeft) document.getElementById('left-name').textContent = i18n[currentLang].names.left;
-            if (isDefaultRight) document.getElementById('right-name').textContent = i18n[currentLang].names.right;
-          }
+    // --- DICIONÁRIOS ---
+    const i18n = {
+      en: { roles: { "Dependent": "Dependent", "Follower": "Follower", "Partner": "Partner", "Leader": "Leader", "Resister": "Resister" } },
+      pt: { roles: { "Dependent": "Dependente", "Follower": "Seguidor", "Partner": "Parceiro", "Leader": "Líder", "Resister": "Resistente" } }
+    };
+    
+    const colors = { 
+      "Dependent": "#1E90FF", 
+      "Follower": "#32CD32", 
+      "Partner": "#FFD700", 
+      "Leader": "#FF4500", 
+      "Resister": "#8B008B" 
+    };
 
-          if (data.left) {
-            currentLeftRole = data.left;
-            setRole('left', data.left);
-          }
-          if (data.right) {
-            currentRightRole = data.right;
-            setRole('right', data.right);
-          }
+    // --- LÓGICA DE ATUALIZAÇÃO ---
+    function handleData(data) {
+      if (!data) return;
+      
+      if (data.audioEnabled !== undefined) masterAudioEnabled = data.audioEnabled;
+      if (data.lang) currentLang = data.lang;
+      
+      let changedLeftText = null;
+      let changedRightText = null;
 
-          if (data.leftName !== undefined) {
-            document.getElementById('left-name').textContent = data.leftName;
-            // Verifica se é o nome padrão (em qualquer idioma). Se for, mantém como default.
-            isDefaultLeft = (data.leftName === i18n['pt'].names.left || data.leftName === i18n['en'].names.left);
-          }
-          if (data.rightName !== undefined) {
-            document.getElementById('right-name').textContent = data.rightName;
-            isDefaultRight = (data.rightName === i18n['pt'].names.right || data.rightName === i18n['en'].names.right);
-          }
-        };
+      // Processa Participante Esquerdo
+      if (data.left) {
+        const elRole = document.getElementById(`left-role`);
+        const translatedRole = i18n[currentLang].roles[data.left] || data.left;
+        
+        if (elRole.textContent !== translatedRole.toUpperCase()) {
+          updateUI('left', data.left, data.leftDesc);
+          changedLeftText = `1. ${translatedRole}`;
+        }
+      }
+
+      // Processa Participante Direito
+      if (data.right) {
+        const elRole = document.getElementById(`right-role`);
+        const translatedRole = i18n[currentLang].roles[data.right] || data.right;
+        
+        if (elRole.textContent !== translatedRole.toUpperCase()) {
+          updateUI('right', data.right, data.rightDesc);
+          changedRightText = `2. ${translatedRole}`;
+        }
+      }
+
+      // Nomes (sempre atualiza)
+      if (data.leftName !== undefined) document.getElementById('left-name').textContent = data.leftName;
+      if (data.rightName !== undefined) document.getElementById('right-name').textContent = data.rightName;
+
+      // Gerencia a fala em ordem (1 depois 2)
+      if (initialized && masterAudioEnabled && !urlParams.has('mute')) {
+          if (changedLeftText) addToQueue(changedLeftText);
+          if (changedRightText) addToQueue(changedRightText);
+      }
+    }
+
+    function updateUI(side, role, desc) {
+      const translatedRole = i18n[currentLang].roles[role] || role;
+      const elRole = document.getElementById(`${side}-role`);
+      const elDesc = document.getElementById(`${side}-description`);
+      const elPart = document.getElementById(`${side}-participant`);
+      
+      elRole.textContent = translatedRole.toUpperCase();
+      elDesc.textContent = desc || ""; 
+      elPart.style.backgroundColor = colors[role] || "#000";
+    }
+
+    // Avisa ao controle que a tela está pronta para receber dados
+    bc.postMessage("ready");
   </script>
 </body>
 </html>
