@@ -279,9 +279,17 @@
       box-shadow: 0 0 12px rgba(150, 200, 255, 0.2);
     }
 
-    .section-nav a:hover::before {
+    .section-nav a:hover::before,
+    .section-nav a.active::before {
       opacity: 1;
       animation: tooltipFade 3s ease forwards;
+    }
+
+    .section-nav a.active {
+      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 1), rgba(100, 150, 200, 0.7));
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 16px rgba(150, 200, 255, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.4);
     }
 
     @keyframes tooltipFade {
@@ -306,6 +314,11 @@
       color: rgba(70, 120, 180, 0.95);
       border-color: rgba(100, 150, 200, 0.3);
       box-shadow: 0 0 12px rgba(100, 150, 200, 0.15);
+    }
+
+    body.light-theme .section-nav a.active {
+      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.8), rgba(70, 120, 180, 0.5));
+      box-shadow: 0 0 16px rgba(100, 150, 200, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.5);
     }
   </style>
 </head>
@@ -434,5 +447,50 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <script src="script.js"></script>
+  <script>
+    function updateActiveDot() {
+      const sections = document.querySelectorAll('.research-section[id]');
+      const dots = document.querySelectorAll('.section-nav a');
+      const container = document.querySelector('.research-container');
+
+      let activeSection = sections[0];
+      let maxVisibility = 0;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+
+        // Calculate how much of the section is visible in the container
+        const top = Math.max(0, rect.top - containerRect.top);
+        const bottom = Math.min(containerRect.height, rect.bottom - containerRect.top);
+        const visibility = Math.max(0, bottom - top) / rect.height;
+
+        if (visibility > maxVisibility) {
+          maxVisibility = visibility;
+          activeSection = section;
+        }
+      });
+
+      dots.forEach(dot => {
+        const targetId = dot.getAttribute('href').substring(1);
+        if (targetId === activeSection.id) {
+          dot.style.opacity = '1';
+          dot.classList.add('active');
+          dot.style.pointerEvents = 'auto';
+          // Show tooltip
+          dot.dispatchEvent(new MouseEvent('mouseenter'));
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    const container = document.querySelector('.research-container');
+    if (container) {
+      container.addEventListener('scroll', updateActiveDot);
+      // Initial check
+      setTimeout(updateActiveDot, 100);
+    }
+  </script>
 </body>
 </html>
