@@ -60,7 +60,7 @@
 
     .research-container {
       position: fixed;
-      top: 170px;
+      top: 80px;
       left: 50%;
       right: auto;
       bottom: 0;
@@ -69,7 +69,7 @@
       width: 90vw;
       max-width: 90vw;
       height: auto;
-      max-height: calc(100vh - 170px);
+      max-height: calc(100vh - 80px);
       overflow-y: auto;
       overflow-x: hidden;
       padding: 20px 24px;
@@ -165,9 +165,6 @@
     }
     .signature-wrap.signature-top {
       top: 20px;
-    }
-    .signature-wrap.signature-top-name {
-      top: 70px;
     }
     .signature-wrap.signature-bottom {
       bottom: 20px;
@@ -348,19 +345,25 @@
 </head>
 <body>
 
-  <!-- Page Title -->
-  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Research</div>
-
   <div id="canvas-container"></div>
 
-  <!-- Signature — top, below theme -->
-  <div class="signature-wrap signature-top-name" style="cursor: pointer;" onclick="window.location.href='contato.html'">
-    <div class="signature" id="assinatura">Ivan Moriá Borges</div>
-  </div>
+  <!-- Top Bar: Left (Back + Research), Center (Name), Right (Theme + Toggle) -->
+  <div style="position: fixed; top: 20px; left: 0; right: 0; z-index: 10001; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+    <!-- Left: Back button + Research -->
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 28px; padding: 0; margin: 0;">←</button>
+      <div style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Research</div>
+    </div>
 
-  <!-- Theme toggle — top center -->
-  <div class="signature-wrap signature-top" style="display: flex; align-items: center; gap: 10px;">
-    <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
+    <!-- Center: Name (clickable to contact) -->
+    <div class="signature-wrap signature-top-name" style="position: static; transform: none; cursor: pointer;" onclick="window.location.href='contato.html'">
+      <div class="signature" id="assinatura" style="animation: none;">Ivan Moriá Borges</div>
+    </div>
+
+    <!-- Right: Theme + Toggle -->
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
+      <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
       <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
         <defs>
           <radialGradient id="nebulaGradient" cx="35%" cy="35%">
@@ -430,12 +433,7 @@
         </g>
       </svg>
     </button>
-    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
-  </div>
-
-  <!-- Back button -->
-  <div style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); z-index: 1001;">
-    <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
+    </div>
   </div>
 
   <!-- Section Navigation -->
