@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="description" content="Research - Ivan Moriá Borges">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2d2b2b">
+  <title>Research - Ivan Moriá Borges</title>
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Poiret+One&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: white; color: #333; }
+
+    body, html {
+      overflow: hidden;
+      background: #2d2b2b;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; display: block;
+    }
+    #canvas-container {
+      position: fixed; inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .link-btn {
+      color: white;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 25px);
+      font-weight: 600; letter-spacing: 0.04em;
+      border: none; background: none;
+      padding: 8px 12px; cursor: pointer;
+      transition: all 0.25s ease;
+      display: block;
+    }
+    .link-btn::after, .link-btn::before {
+      content: ''; width: 0; height: 2px;
+      background: rgba(255, 255, 255, 0.5); display: block; transition: width 0.45s ease;
+    }
+    .link-btn::before { margin-left: auto; }
+    .link-btn:hover::after, .link-btn:hover::before { width: 100%; }
+    .link-btn:hover {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 12px rgba(150, 200, 255, 0.4);
+    }
+    .link-btn:hover::after, .link-btn:hover::before { background: rgba(255, 255, 255, 0.8); }
+
+    .research-container {
+      position: fixed;
+      top: 35%;
+      left: 50%;
+      right: auto;
+      bottom: 10%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: 90vw;
+      max-width: 90vw;
+      height: auto;
+      max-height: calc(100vh - 35% - 10%);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px 24px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
+      border: none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      pointer-events: auto;
+      touch-action: auto;
+    }
+
+    .research-container::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .research-section {
+      margin-bottom: 18px;
+    }
+
+    .research-title {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(20px, 4.5vw, 26px);
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+      border-bottom: none;
+      padding-bottom: 6px;
+    }
+
+    .research-item {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(16px, 3vw, 20px);
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .publication-item {
+      background: transparent;
+      border-left: none;
+      padding: 8px 0;
+      margin-bottom: 10px;
+      border-radius: 0;
+      transition: all 0.25s ease;
+    }
+
+    .publication-item:hover {
+      background: transparent;
+      border-left-color: transparent;
+    }
+
+    .pub-title {
+      font-family: 'Poiret One', cursive;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 8px;
+      font-size: clamp(16px, 3vw, 20px);
+    }
+
+    .pub-link {
+      color: rgba(150, 200, 255, 0.7);
+      text-decoration: none;
+      font-size: clamp(14px, 2.6vw, 17px);
+      transition: color 0.25s ease;
+    }
+
+    .pub-link:hover {
+      color: rgba(150, 200, 255, 1);
+      text-decoration: underline;
+    }
+
+    .tech-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(12px, 2vw, 14px);
+      color: rgba(255, 255, 255, 0.85);
+      transition: all 0.2s ease;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .tech-tag:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .tech-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      object-fit: contain;
+    }
+
+    .signature-wrap {
+      position: fixed; left: 50%;
+      transform: translateX(-50%); z-index: 1000; white-space: nowrap;
+    }
+    .signature-wrap.signature-top {
+      top: 20px;
+    }
+    .signature-wrap.signature-bottom {
+      bottom: 20px;
+    }
+    .signature {
+      font-family: "Rock Salt", cursive;
+      font-size: clamp(13px, 3.5vw, 18px);
+      color: rgba(255,255,255,0.84);
+      white-space: nowrap; overflow: hidden;
+      cursor: help;
+      animation: typing 3.5s steps(20,end) forwards;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+
+    /* Light theme adjustments */
+    body.light-theme .link-btn,
+    body.light-theme span[style*="Poiret One"] {
+      color: black !important;
+    }
+
+    body.light-theme .link-btn:hover {
+      color: black;
+      text-shadow: 0 0 12px rgba(100, 150, 200, 0.2);
+    }
+
+    body.light-theme .research-container {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-theme .research-title,
+    body.light-theme .research-item,
+    body.light-theme .pub-title {
+      color: black;
+    }
+
+    body.light-theme .research-item {
+      color: black !important;
+    }
+
+    body.light-theme .research-title {
+      border-bottom-color: rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-theme .publication-item {
+      background: rgba(0, 0, 0, 0.03);
+      border-left-color: rgba(100, 150, 200, 0.3);
+    }
+
+    body.light-theme .publication-item:hover {
+      background: rgba(0, 0, 0, 0.06);
+      border-left-color: rgba(100, 150, 200, 0.6);
+    }
+
+    body.light-theme .pub-link {
+      color: black !important;
+    }
+
+    body.light-theme .pub-link:hover {
+      color: black !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page Title -->
+  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Research</div>
+
+  <div id="canvas-container"></div>
+
+  <!-- Signature — bottom -->
+  <div class="signature-wrap signature-bottom">
+    <div class="signature" id="assinatura">Ivan Moriá Borges</div>
+  </div>
+
+  <!-- Theme toggle — top center -->
+  <div class="signature-wrap signature-top" style="display: flex; align-items: center; gap: 10px;">
+    <button id="planet-toggle-top" style="border: none; background: none; cursor: pointer; padding: 4px; z-index: 10000; position: relative; pointer-events: auto !important;" title="Click to toggle theme">
+      <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+            <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+            <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" filter="url(#glow)"/>
+      </svg>
+    </button>
+    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
+  </div>
+
+  <!-- Back button -->
+  <div style="position: fixed; top: 23%; left: 50%; transform: translate(-50%, -50%); z-index: 1001;">
+    <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
+  </div>
+
+  <!-- Research Content -->
+  <div class="research-container">
+    <!-- About Section -->
+    <div class="research-section">
+      <div class="research-title">About</div>
+      <div class="research-item" style="font-weight: 600;">Ivan Moriá Borges</div>
+      <div class="research-item">Substitute Professor at School of Music - Music Therapy Department - UFMG</div>
+      <div class="research-item">Brazilian music therapist studying the interface between technology, musical data collection, microanalysis, social interactions in music, and accessibility.</div>
+      <div class="tech-tags">
+        <span class="tech-tag">
+          <img class="tech-icon" src="https://www.python.org/community/logos/python-logo.png" alt="Python">
+          Python
+        </span>
+        <span class="tech-tag">
+          <svg class="tech-icon" viewBox="0 0 630 630" xmlns="http://www.w3.org/2000/svg">
+            <rect width="630" height="630" fill="#F7DF1E"/>
+            <path d="M423.2,492.19c12.69,20.72,29.2,35.95,63.02,35.95,33.69,0,53.73-17,53.73-37.8V394.9h37.46v97.38c0,61.89-37.04,89.08-91.2,89.08-52.15,0-81.67-27.02-97.23-59.09Zm-142.3-38.37c9.23,15.55,23.83,27.92,48.05,27.92,20.5,0,31.72-10.04,31.72-24.63,0-17.16-13.52-23.32-36.02-33.35l-12.32-5.29c-35.88-15.39-59.86-34.88-59.86-75.9,0-37.82,29.2-66.88,74.9-66.88,32.47,0,55.87,11.3,72.78,39.66L418.5,272.19c-8.07-12.69-18.27-22.23-37.46-22.23-17.05,0-27.64,10.87-27.64,25.07,0,17.58,10.87,24.62,36.02,35.49l12.32,5.24c42.38,18.11,66.35,43.68,66.35,84.58,0,47.98-37.46,74.59-87.98,74.59-49.21,0-82.5-23.42-98.23-54.89Z"/>
+          </svg>
+          JavaScript
+        </span>
+      </div>
+    </div>
+
+    <!-- Education Section -->
+    <div class="research-section">
+      <div class="research-title">Education</div>
+      <div class="research-item">• PhD Candidate in Music (2021-2026)</div>
+      <div class="research-item">Technologies for Extraction and Processing of Musical Information in Music Therapy: Micro-analyses of Musical Traces and Possible Interfaces with Social Cognition</div>
+      <a href="media/documents/textos/Dissertacao_Ivan-Moria.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;">View Thesis →</a>
+      <div class="research-item">• Master's Degree in Neuroscience (2021)</div>
+      <div class="research-item">Social Cognition in Music Therapy: Perspectives on Performance in Interactive Musical Practice in Mental Health</div>
+      <a href="media/documents/textos/Dissertacao_Ivan-Moria.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;">View Dissertation →</a>
+      <div class="research-item">• Bachelor's Degree in Music Therapy (2017)</div>
+      <div class="research-item">Music Therapy and Mental Health: an Encounter Through Singing</div>
+      <a href="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;">View Monograph →</a>
+      <div class="research-item">• Level 1 Training in Plurimodal Music Therapy (Adim/AR)</div>
+    </div>
+
+    <!-- Affiliation Section -->
+    <div class="research-section">
+      <div class="research-title">Affiliation</div>
+      <div class="research-item">
+        <a href="https://musica.ufmg.br/ppgmus/" target="_blank" class="pub-link" style="display: inline;">Universidade Federal de Minas Gerais - Graduate Program in Music</a>
+      </div>
+      <div class="research-item">School of Music - Music Therapy Department</div>
+    </div>
+
+    <!-- Selected Publications Section -->
+    <div class="research-section">
+      <div class="research-title">Selected Publications</div>
+
+      <div class="publication-item">
+        <div class="pub-title">IAMM & ISfAM Congress - Berlin, 2024</div>
+        <div class="research-item">An Music therapeutical perspective on social cognition and music: interactive musical improvisation</div>
+        <a href="https://mmd.iammonline.com/index.php/musmed/issue/view/80" target="_blank" class="pub-link">View Publication →</a>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-title">17th World Congress of Music Therapy - Vancouver, 2023</div>
+        <div class="research-item">Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health</div>
+        <a href="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496" target="_blank" class="pub-link">View Proceedings →</a>
+      </div>
+
+      <div class="publication-item">
+        <div class="pub-title">12th European Music Therapy Conference - Edinburgh, 2022</div>
+        <div class="research-item">Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, social cognition and neurocognition</div>
+        <a href="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223" target="_blank" class="pub-link">View Abstracts →</a>
+      </div>
+    </div>
+
+    <!-- Links Section -->
+    <div class="research-section">
+      <div class="research-title">Academic Profiles</div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="http://lattes.cnpq.br/8057950046082949" target="_blank" class="pub-link">→ Currículo Lattes</a>
+        <a href="https://orcid.org/" target="_blank" class="pub-link">→ ORCID</a>
+        <a href="https://www.researchgate.net/" target="_blank" class="pub-link">→ ResearchGate</a>
+        <a href="https://www.linkedin.com/" target="_blank" class="pub-link">→ LinkedIn</a>
+        <a href="mailto:ivanmoriabr@gmail.com" class="pub-link">→ Email</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
