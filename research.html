@@ -239,65 +239,73 @@
     }
 
     .section-nav a {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
+      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 0.8), rgba(100, 150, 200, 0.4));
+      border: 1px solid rgba(150, 200, 255, 0.6);
       text-decoration: none;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
       position: relative;
       display: block;
       cursor: pointer;
+      box-shadow: 0 0 8px rgba(150, 200, 255, 0.3), inset 0 0 4px rgba(255, 255, 255, 0.2);
     }
 
     .section-nav a:hover {
-      background: rgba(150, 200, 255, 0.8);
-      width: 12px;
-      height: 12px;
-      margin-right: -1px;
+      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 1), rgba(100, 150, 200, 0.7));
+      width: 16px;
+      height: 16px;
+      box-shadow: 0 0 16px rgba(150, 200, 255, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.4);
     }
 
     .section-nav a::before {
       content: attr(data-section);
       position: absolute;
-      right: 20px;
+      right: 25px;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 6px 10px;
+      background: rgba(20, 20, 40, 0.95);
+      color: rgba(150, 200, 255, 0.95);
+      padding: 8px 12px;
       border-radius: 4px;
       font-family: 'Poiret One', cursive;
-      font-size: 12px;
+      font-size: 13px;
       white-space: nowrap;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
-      animation: tooltipFade 2s ease forwards;
+      border: 1px solid rgba(150, 200, 255, 0.3);
+      box-shadow: 0 0 12px rgba(150, 200, 255, 0.2);
     }
 
     .section-nav a:hover::before {
       opacity: 1;
-      animation: tooltipFade 2s ease forwards;
+      animation: tooltipFade 3s ease forwards;
     }
 
     @keyframes tooltipFade {
       0% { opacity: 1; }
-      80% { opacity: 1; }
+      85% { opacity: 1; }
       100% { opacity: 0; }
     }
 
     body.light-theme .section-nav a {
-      background: rgba(0, 0, 0, 0.3);
+      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.6), rgba(70, 120, 180, 0.3));
+      border-color: rgba(100, 150, 200, 0.5);
+      box-shadow: 0 0 8px rgba(100, 150, 200, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.3);
     }
 
     body.light-theme .section-nav a:hover {
-      background: rgba(100, 150, 200, 0.7);
+      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.8), rgba(70, 120, 180, 0.5));
+      box-shadow: 0 0 16px rgba(100, 150, 200, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.5);
     }
 
     body.light-theme .section-nav a::before {
-      background: rgba(255, 255, 255, 0.9);
-      color: black;
+      background: rgba(240, 245, 255, 0.95);
+      color: rgba(70, 120, 180, 0.95);
+      border-color: rgba(100, 150, 200, 0.3);
+      box-shadow: 0 0 12px rgba(100, 150, 200, 0.15);
     }
   </style>
 </head>
