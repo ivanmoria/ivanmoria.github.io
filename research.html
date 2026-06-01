@@ -226,6 +226,42 @@
     body.light-theme .pub-link:hover {
       color: black !important;
     }
+
+    .section-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-nav a {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(12px, 1.8vw, 14px);
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: all 0.25s ease;
+      padding: 4px 8px;
+      border-left: 2px solid rgba(255, 255, 255, 0);
+      padding-left: 10px;
+    }
+
+    .section-nav a:hover {
+      color: rgba(255, 255, 255, 0.95);
+      border-left-color: rgba(150, 200, 255, 0.7);
+    }
+
+    body.light-theme .section-nav a {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    body.light-theme .section-nav a:hover {
+      color: black;
+      border-left-color: rgba(100, 150, 200, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -270,14 +306,23 @@
     <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
   </div>
 
+  <!-- Section Navigation -->
+  <nav class="section-nav">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#affiliation">Affiliation</a>
+    <a href="#publications">Publications</a>
+    <a href="#connect">Connect</a>
+  </nav>
+
   <!-- Research Content -->
   <div class="research-container">
     <!-- About Section -->
-    <div class="research-section">
+    <div class="research-section" id="about">
       <div class="research-title">About</div>
       <div class="research-item" style="font-weight: 600;">Hi there! 👋</div>
-      <div class="research-item" style="text-align: justify;">I am Ivan Moriá Borges, a Brazilian Music Therapist with a Master's in Neurosciences, and a PhD Candidate currently serving as a Professor at UFMG (2025–2027).</div>
-      <div class="research-item" style="text-align: justify;">As a multi-instrumentalist and researcher, I work at the intersection of Music Therapy, Neurosciences, and Computational Music Analysis. My research focuses on Music Information Retrieval (MIR), the development of digital and technological tools for micro-analysis and clinical assessment in music therapy, and creating accessible solutions that democratize access to new technologies in therapeutic contexts.</div>
+      <div class="research-item" style="text-align: justify;">I am <strong>Ivan Moriá Borges</strong>, a Brazilian Music Therapist with a Master's in Neurosciences, and a PhD Candidate currently serving as a Professor at UFMG (2025–2027).</div>
+      <div class="research-item" style="text-align: justify;">As a multi-instrumentalist and researcher, I work at the intersection of Music Therapy, Neurosciences, and Computational Music Analysis. My research focuses on <strong>Music Information Retrieval (MIR)</strong>, the development of digital and technological tools for micro-analysis and clinical assessment in music therapy, and creating accessible solutions that democratize access to new technologies in therapeutic contexts.</div>
       <div class="tech-tags">
         <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" style="height: 28px; border-radius: 4px;">
         <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript" style="height: 28px; border-radius: 4px;">
@@ -286,7 +331,7 @@
     </div>
 
     <!-- Education Section -->
-    <div class="research-section">
+    <div class="research-section" id="education">
       <div class="research-title">Education</div>
       <div class="research-item">• PhD Candidate in Music (2021-2026)</div>
       <div class="research-item">Technologies for Extraction and Processing of Musical Information in Music Therapy: Micro-analyses of Musical Traces and Possible Interfaces with Social Cognition</div>
@@ -301,7 +346,7 @@
     </div>
 
     <!-- Affiliation Section -->
-    <div class="research-section">
+    <div class="research-section" id="affiliation">
       <div class="research-title">Affiliation</div>
       <div class="research-item">Universidade Federal de Minas Gerais - Graduate Program in Music</div>
       <div class="research-item">School of Music - Music Therapy Department</div>
@@ -309,7 +354,7 @@
     </div>
 
     <!-- Selected Publications Section -->
-    <div class="research-section">
+    <div class="research-section" id="publications">
       <div class="research-title">Selected Publications</div>
 
       <div class="publication-item">
@@ -332,11 +377,11 @@
     </div>
 
     <!-- Links Section -->
-    <div class="research-section">
+    <div class="research-section" id="connect">
       <div class="research-title">Let's Connect</div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
         <a href="https://www.linkedin.com/in/ivanmoriaborges/" target="_blank" class="pub-link">→ LinkedIn</a>
-        <a href="https://ivanmoria.github.io" target="_blank" class="pub-link">→ Interactive Site</a>
+        <a href="contato.html" class="pub-link">→ Contato</a>
         <a href="http://lattes.cnpq.br/8057950046082949" target="_blank" class="pub-link">→ Lattes Curriculum</a>
       </div>
     </div>
