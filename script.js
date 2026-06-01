@@ -8,7 +8,10 @@ document.addEventListener('keydown', e => {
   if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(e.key))
     e.preventDefault();
 });
-document.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+document.addEventListener('wheel', e => {
+  const target = e.target.closest('.research-container');
+  if (!target) e.preventDefault();
+}, { passive: false });
 document.documentElement.style.overflow = 'hidden';
 (function () {
   let prevent = false;
