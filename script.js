@@ -839,7 +839,7 @@ document.getElementById('planet-toggle-top').addEventListener('click', function 
 
 updateGalaxyColors();
 
-let currentLanguage = 'pt';
+let currentLanguage = 'en';
 
 function setLanguage(lang) {
   currentLanguage = lang;
@@ -862,6 +862,6 @@ function setLanguage(lang) {
 }
 
 window.addEventListener('load', function() {
-  const savedLang = localStorage.getItem('preferredLanguage') || 'pt';
+  const savedLang = localStorage.getItem('preferredLanguage') || 'en';
   setLanguage(savedLang);
 });
