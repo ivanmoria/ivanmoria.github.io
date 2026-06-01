@@ -861,7 +861,4 @@ function setLanguage(lang) {
   localStorage.setItem('preferredLanguage', lang);
 }
 
-window.addEventListener('load', function() {
-  const savedLang = localStorage.getItem('preferredLanguage') || 'en';
-  setLanguage(savedLang);
-});
+// Language system disabled - using English only
