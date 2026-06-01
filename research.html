@@ -177,6 +177,19 @@
       cursor: help;
       animation: typing 3.5s steps(20,end) forwards;
     }
+
+    /* Planet button — nebula theme toggle */
+    .planet-button {
+      border: none; background: none; cursor: pointer;
+      padding: 4px;
+      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000;
+      position: relative;
+      pointer-events: auto !important;
+    }
+    .planet-button:hover { transform: scale(1.15); }
+    .planet-button:active { transform: scale(0.95); }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
 
     /* Light theme adjustments */
