@@ -128,12 +128,15 @@
     }
     .link-btn::after, .link-btn::before {
       content: ''; width: 0; height: 2px;
-      background: #ffffff; display: block; transition: width 0.45s ease;
+      background: rgba(255, 255, 255, 0.5); display: block; transition: width 0.45s ease;
     }
     .link-btn::before { margin-left: auto; }
     .link-btn:hover::after, .link-btn:hover::before { width: 100%; }
-    .link-btn:hover { background: white; color: black; }
-    .link-btn:hover::after, .link-btn:hover::before { background: #000; }
+    .link-btn:hover {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 12px rgba(150, 200, 255, 0.4);
+    }
+    .link-btn:hover::after, .link-btn:hover::before { background: rgba(255, 255, 255, 0.8); }
 
     /* ── Social icons with labels — two columns ─── */
     .social-grid {
@@ -319,15 +322,15 @@
         </g>
       </svg>
     </button>
-    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Tema</span>
+    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
   </div>
 
   <!-- Nav buttons + theme toggle — center column -->
-  <div class="link-list">
+  <div class="link-list" style="gap: 24px;">
+    <button class="link-btn" onclick="window.location.href='research.html'" data-pt="Sobre" data-en="About" data-de="Über" data-fr="À propos" data-ja="について" data-tr="Hakkında">About</button>
     <button class="link-btn" onclick="window.location.href='apps.html'" data-pt="Apps" data-en="Apps" data-de="Apps" data-fr="Apps" data-ja="アプリ" data-tr="Uygulamalar">Apps</button>
-    <div style="margin-bottom: 120px;">
-      <button class="link-btn" onclick="window.location.href='contato.html'" data-pt="Contato" data-en="Contact" data-de="Kontakt" data-fr="Contact" data-ja="お問い合わせ" data-tr="İletişim">Contato</button>
-    </div>
+    <button class="link-btn" data-pt="E-poster 18th WCMT" data-en="E-poster 18th WCMT" data-de="E-poster 18th WCMT" data-fr="E-poster 18th WCMT" data-ja="E-poster 18th WCMT" data-tr="E-poster 18th WCMT">E-poster 18th WCMT</button>
+    <button class="link-btn" onclick="window.location.href='contato.html'" data-pt="Info" data-en="Info" data-de="Info" data-fr="Info" data-ja="情報" data-tr="Bilgi">Info</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
