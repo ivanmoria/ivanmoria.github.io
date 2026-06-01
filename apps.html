@@ -128,12 +128,15 @@
     }
     .link-btn::after, .link-btn::before {
       content: ''; width: 0; height: 2px;
-      background: #ffffff; display: block; transition: width 0.45s ease;
+      background: rgba(255, 255, 255, 0.5); display: block; transition: width 0.45s ease;
     }
     .link-btn::before { margin-left: auto; }
     .link-btn:hover::after, .link-btn:hover::before { width: 100%; }
-    .link-btn:hover { background: white; color: black; }
-    .link-btn:hover::after, .link-btn:hover::before { background: #000; }
+    .link-btn:hover {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 12px rgba(150, 200, 255, 0.4);
+    }
+    .link-btn:hover::after, .link-btn:hover::before { background: rgba(255, 255, 255, 0.8); }
 
     /* ── Signature ─── */
     .signature-wrap {
@@ -157,6 +160,17 @@
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink  { 50% { border-color: rgba(255,255,255,0.7); } }
 
+    /* Social icons */
+    .social-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 0; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.45s ease, background 0.22s ease;
+      flex-shrink: 0;
+    }
+    .social-btn:hover { background: white; transform: rotate(360deg) scale(1.12); }
+    .social-btn:hover svg { filter: invert(100%) sepia(0%) saturate(0%); }
+
     /* Social row — horizontal layout for signature */
     .social-row {
       display: flex; gap: 12px; justify-content: center; align-items: center;
@@ -177,125 +191,91 @@
       position: fixed; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       z-index: 1000;
-      display: flex; flex-direction: column; gap: 20px;
+      display: flex; flex-direction: column; gap: 28px;
       align-items: center; justify-content: center;
-      max-width: 90vw; width: 100%;
-      max-height: 70vh; overflow-y: auto;
-      padding: 20px;
+      max-width: 480px; width: auto;
+      max-height: 80vh; overflow-y: auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
     }
 
     .app-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1.5px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 24px;
-      width: 100%; max-width: 420px;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      width: 100%; max-width: 320px;
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       cursor: pointer;
       position: relative;
-      overflow: hidden;
+      text-align: center;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     }
 
-    .app-card::before {
-      content: '';
-      position: absolute; top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 20px 20px;
-      animation: shiftBg 20s linear infinite;
-    }
-
-    @keyframes shiftBg {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(20px, 20px); }
-    }
-
-    .app-card-content {
-      position: relative; z-index: 2;
-    }
-
-    .app-icon {
-      font-size: 48px; margin-bottom: 12px;
-      display: inline-block;
-      filter: drop-shadow(0 0 8px rgba(255, 200, 255, 0.3));
+    .app-card:hover {
+      border-bottom-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
     }
 
     .app-title {
       font-family: 'Poiret One', cursive;
-      font-size: clamp(20px, 4vw, 26px);
+      font-size: clamp(18px, 4vw, 24px);
       color: white;
       font-weight: 600;
       margin-bottom: 8px;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
+      transition: color 0.3s ease;
+    }
+
+    .app-card:hover .app-title {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 16px rgba(150, 200, 255, 0.4);
     }
 
     .app-desc {
       font-family: 'Poiret One', cursive;
-      font-size: clamp(13px, 2.5vw, 15px);
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 16px;
+      font-size: clamp(14px, 2.4vw, 16px);
+      color: rgba(255, 255, 255, 0.65);
       line-height: 1.5;
+      transition: color 0.3s ease;
     }
 
-    .app-btn {
-      font-family: 'Poiret One', cursive;
-      font-size: 14px;
-      color: white;
-      background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(150, 100, 255, 0.3));
-      border: 1px solid rgba(150, 200, 255, 0.5);
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .app-btn:hover {
-      background: linear-gradient(135deg, rgba(100, 200, 255, 0.6), rgba(150, 100, 255, 0.6));
-      border-color: rgba(200, 255, 255, 0.8);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(100, 200, 255, 0.2);
-    }
-
-    .app-card:hover {
-      border-color: rgba(150, 200, 255, 0.4);
-      background: rgba(255, 255, 255, 0.07);
-      box-shadow: 0 8px 32px rgba(100, 200, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transform: translateY(-4px);
+    .app-card:hover .app-desc {
+      color: rgba(255, 255, 255, 0.8);
     }
 
     /* Light theme adjustments */
     body.light-theme .app-card {
-      background: rgba(0, 0, 0, 0.05);
-      border-color: rgba(0, 0, 0, 0.1);
+      border-bottom-color: rgba(0, 0, 0, 0.15);
     }
 
     body.light-theme .app-card:hover {
-      background: rgba(0, 0, 0, 0.08);
-      border-color: rgba(100, 150, 200, 0.3);
-      box-shadow: 0 8px 32px rgba(100, 150, 200, 0.1);
+      border-bottom-color: rgba(0, 0, 0, 0.3);
     }
 
-    body.light-theme .app-title,
-    body.light-theme .link-btn,
-    body.light-theme span[style*="Poiret One"] {
-      color: black !important;
+    body.light-theme .app-title {
+      color: black;
+    }
+
+    body.light-theme .app-card:hover .app-title {
+      color: black;
+      text-shadow: 0 0 16px rgba(100, 150, 200, 0.2);
     }
 
     body.light-theme .app-desc {
-      color: rgba(0, 0, 0, 0.7) !important;
+      color: black !important;
+    }
+
+    body.light-theme .app-card:hover .app-desc {
+      color: rgba(0, 0, 0, 0.8);
     }
 
     body.light-theme .app-btn {
       color: black;
-      background: linear-gradient(135deg, rgba(100, 180, 255, 0.2), rgba(150, 100, 200, 0.2));
-      border-color: rgba(100, 150, 200, 0.5);
     }
 
-    body.light-theme .app-btn:hover {
-      background: linear-gradient(135deg, rgba(100, 180, 255, 0.4), rgba(150, 100, 200, 0.4));
-      border-color: rgba(100, 150, 200, 0.8);
+    body.light-theme .app-btn::after {
+      background: black;
     }
 
     body.light-theme .social-btn svg {
@@ -304,6 +284,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Page Title -->
+  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Apps</div>
 
   <div id="canvas-container"></div>
 
@@ -404,34 +387,26 @@
         </g>
       </svg>
     </button>
-    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Tema</span>
+    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
   </div>
 
-  <!-- Back button — top left -->
-  <div style="position: fixed; top: 35%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+  <!-- Back button — centered between theme and cards -->
+  <div style="position: fixed; top: 23%; left: 50%; transform: translate(-50%, -50%); z-index: 1001;">
     <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
   </div>
 
   <!-- Apps Grid -->
   <div class="apps-container">
     <!-- App 1: Generator -->
-    <div class="app-card">
-      <div class="app-card-content">
-        <div class="app-icon">🎵</div>
-        <div class="app-title" data-pt="Generator" data-en="Generator" data-de="Generator" data-fr="Générateur" data-ja="ジェネレータ" data-tr="Oluşturucu">Generator</div>
-        <div class="app-desc" data-pt="Crie sequências musicais e ritmos únicos com inteligência artificial" data-en="Create musical sequences and unique rhythms with AI" data-de="Erstellen Sie musikalische Sequenzen und einzigartige Rhythmen mit KI" data-fr="Créez des séquences musicales et des rythmes uniques avec l'IA" data-ja="AIで音楽シーケンスとユニークなリズムを作成" data-tr="AI ile müzik dizileri ve benzersiz ritimleri oluşturun">Crie sequências musicais e ritmos únicos com inteligência artificial</div>
-        <button class="app-btn" onclick="window.open('https://ivanmoria.github.io/generator/', '_blank')">Acessar →</button>
-      </div>
+    <div class="app-card" onclick="window.open('https://ivanmoria.github.io/generator/', '_blank')">
+      <div class="app-title" data-pt="Generator" data-en="Generator" data-de="Generator" data-fr="Générateur" data-ja="ジェネレータ" data-tr="Oluşturucu">Generator</div>
+      <div class="app-desc" data-pt="Easy audio description website reader generator" data-en="Easy audio description website reader generator" data-de="Einfacher Audio-Beschreibungs-Website-Reader-Generator" data-fr="Générateur de lecteur de site web de description audio facile" data-ja="イージーオーディオディスクリプションウェブサイトリーダージェネレータ" data-tr="Kolay ses açıklaması web sitesi okuyucu oluşturucu">Easy audio description website reader generator</div>
     </div>
 
     <!-- App 2: Harmonic Lab -->
-    <div class="app-card">
-      <div class="app-card-content">
-        <div class="app-icon">🎼</div>
-        <div class="app-title" data-pt="Harmonic Lab" data-en="Harmonic Lab" data-de="Harmonisches Labor" data-fr="Labo d'Harmonique" data-ja="ハーモニック・ラボ" data-tr="Harmonik Laboratuvarı">Harmonic Lab</div>
-        <div class="app-desc" data-pt="Explore acordes, progressões e harmonia musical de forma interativa" data-en="Explore chords, progressions and musical harmony interactively" data-de="Erkunden Sie Akkorde, Progressionen und musikalische Harmonie interaktiv" data-fr="Explorez les accords, les progressions et l'harmonie musicale de manière interactive" data-ja="コード、進行、音楽和声をインタラクティブに探索" data-tr="Akorları, ilerlemeleri ve müzik uyumunu etkileşimli olarak keşfedin">Explore acordes, progressões e harmonia musical de forma interativa</div>
-        <button class="app-btn" onclick="window.open('https://ivanmoria.github.io/asap/chords/', '_blank')">Acessar →</button>
-      </div>
+    <div class="app-card" onclick="window.open('https://ivanmoria.github.io/asap/chords/', '_blank')">
+      <div class="app-title" data-pt="Harmonic Lab" data-en="Harmonic Lab" data-de="Harmonisches Labor" data-fr="Labo d'Harmonique" data-ja="ハーモニック・ラボ" data-tr="Harmonik Laboratuvarı">Harmonic Lab</div>
+      <div class="app-desc" data-pt="Explore acordes, progressões e harmonia musical" data-en="Explore chords, progressions and musical harmony" data-de="Erkunden Sie Akkorde und Progressionen" data-fr="Explorez les accords et l'harmonie musicale" data-ja="コード進行と和声を探索" data-tr="Akorları ve harmoniyi keşfedin">Explore chords, progressions and musical harmony</div>
     </div>
   </div>
 
