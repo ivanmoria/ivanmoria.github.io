@@ -239,24 +239,36 @@
     }
 
     .section-nav a {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 0.8), rgba(100, 150, 200, 0.4));
-      border: 1px solid rgba(150, 200, 255, 0.6);
+      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 0.9), rgba(100, 80, 180, 0.4), rgba(50, 100, 200, 0.2));
+      border: 1px solid rgba(150, 200, 255, 0.5);
       text-decoration: none;
       transition: all 0.3s ease;
       position: relative;
       display: block;
       cursor: pointer;
-      box-shadow: 0 0 8px rgba(150, 200, 255, 0.3), inset 0 0 4px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 12px rgba(150, 180, 255, 0.5), 0 0 24px rgba(150, 150, 255, 0.2), inset 0 0 6px rgba(200, 200, 255, 0.3);
+      animation: galaxySpin 8s linear infinite;
+    }
+
+    @keyframes galaxySpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .section-nav a:hover {
-      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 1), rgba(100, 150, 200, 0.7));
-      width: 16px;
-      height: 16px;
-      box-shadow: 0 0 16px rgba(150, 200, 255, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.4);
+      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 1), rgba(150, 100, 220, 0.6), rgba(80, 130, 220, 0.3));
+      width: 18px;
+      height: 18px;
+      box-shadow: 0 0 20px rgba(200, 150, 255, 0.9), 0 0 40px rgba(150, 180, 255, 0.5), inset 0 0 8px rgba(255, 200, 255, 0.5);
+      animation: galaxySpinFast 4s linear infinite;
+    }
+
+    @keyframes galaxySpinFast {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .section-nav a::before {
@@ -265,7 +277,7 @@
       right: 25px;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(20, 20, 40, 0.95);
+      background: rgba(20, 20, 40, 0.98);
       color: rgba(150, 200, 255, 0.95);
       padding: 8px 12px;
       border-radius: 4px;
@@ -277,6 +289,7 @@
       transition: opacity 0.2s ease;
       border: 1px solid rgba(150, 200, 255, 0.3);
       box-shadow: 0 0 12px rgba(150, 200, 255, 0.2);
+      z-index: 10000;
     }
 
     .section-nav a:hover::before,
@@ -286,10 +299,11 @@
     }
 
     .section-nav a.active {
-      background: radial-gradient(circle at 30% 30%, rgba(150, 200, 255, 1), rgba(100, 150, 200, 0.7));
-      width: 16px;
-      height: 16px;
-      box-shadow: 0 0 16px rgba(150, 200, 255, 0.8), inset 0 0 6px rgba(255, 255, 255, 0.4);
+      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 1), rgba(150, 100, 220, 0.6), rgba(80, 130, 220, 0.3));
+      width: 18px;
+      height: 18px;
+      box-shadow: 0 0 20px rgba(200, 150, 255, 0.9), 0 0 40px rgba(150, 180, 255, 0.5), inset 0 0 8px rgba(255, 200, 255, 0.5);
+      animation: galaxySpinFast 4s linear infinite;
     }
 
     @keyframes tooltipFade {
@@ -299,14 +313,18 @@
     }
 
     body.light-theme .section-nav a {
-      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.6), rgba(70, 120, 180, 0.3));
+      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.8), rgba(80, 120, 180, 0.4), rgba(60, 100, 180, 0.2));
       border-color: rgba(100, 150, 200, 0.5);
-      box-shadow: 0 0 8px rgba(100, 150, 200, 0.2), inset 0 0 4px rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 12px rgba(100, 150, 200, 0.3), 0 0 24px rgba(100, 140, 200, 0.15), inset 0 0 6px rgba(150, 180, 255, 0.3);
+      animation: galaxySpin 8s linear infinite;
     }
 
     body.light-theme .section-nav a:hover {
-      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.8), rgba(70, 120, 180, 0.5));
-      box-shadow: 0 0 16px rgba(100, 150, 200, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.5);
+      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.95), rgba(100, 140, 200, 0.6), rgba(80, 120, 200, 0.3));
+      width: 18px;
+      height: 18px;
+      box-shadow: 0 0 20px rgba(100, 150, 220, 0.6), 0 0 40px rgba(100, 150, 220, 0.3), inset 0 0 8px rgba(150, 180, 255, 0.4);
+      animation: galaxySpinFast 4s linear infinite;
     }
 
     body.light-theme .section-nav a::before {
@@ -317,8 +335,11 @@
     }
 
     body.light-theme .section-nav a.active {
-      background: radial-gradient(circle at 30% 30%, rgba(100, 150, 200, 0.8), rgba(70, 120, 180, 0.5));
-      box-shadow: 0 0 16px rgba(100, 150, 200, 0.5), inset 0 0 6px rgba(255, 255, 255, 0.5);
+      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.95), rgba(100, 140, 200, 0.6), rgba(80, 120, 200, 0.3));
+      width: 18px;
+      height: 18px;
+      box-shadow: 0 0 20px rgba(100, 150, 220, 0.6), 0 0 40px rgba(100, 150, 220, 0.3), inset 0 0 8px rgba(150, 180, 255, 0.4);
+      animation: galaxySpinFast 4s linear infinite;
     }
   </style>
 </head>
@@ -352,8 +373,19 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          <style>
+            @keyframes orbit {
+              0% { transform: rotate(0deg) translateX(16px) rotate(0deg); }
+              100% { transform: rotate(360deg) translateX(16px) rotate(-360deg); }
+            }
+            .orbiting-star {
+              animation: orbit 4s linear infinite;
+              transform-origin: 40px 40px;
+            }
+          </style>
         </defs>
         <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" filter="url(#glow)"/>
+        <circle class="orbiting-star" cx="56" cy="40" r="3" fill="#ffdd54" opacity="0.8" filter="url(#glow)"/>
       </svg>
     </button>
     <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
