@@ -60,7 +60,7 @@
 
     .research-container {
       position: fixed;
-      top: 35%;
+      top: 170px;
       left: 50%;
       right: auto;
       bottom: 10%;
@@ -69,7 +69,7 @@
       width: 90vw;
       max-width: 90vw;
       height: auto;
-      max-height: calc(100vh - 35% - 10%);
+      max-height: calc(100vh - 170px - 10%);
       overflow-y: auto;
       overflow-x: hidden;
       padding: 20px 24px;
@@ -355,6 +355,9 @@
     <div class="signature" id="assinatura">Ivan Moriá Borges</div>
   </div>
 
+  <!-- Name — top center, below theme -->
+  <div style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); z-index: 10001; font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Ivan Moriá Borges</div>
+
   <!-- Theme toggle — top center -->
   <div class="signature-wrap signature-top" style="display: flex; align-items: center; gap: 10px;">
     <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
@@ -431,7 +434,7 @@
   </div>
 
   <!-- Back button -->
-  <div style="position: fixed; top: 23%; left: 50%; transform: translate(-50%, -50%); z-index: 1001;">
+  <div style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); z-index: 1001;">
     <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
   </div>
 
