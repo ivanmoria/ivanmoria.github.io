@@ -135,12 +135,29 @@
       color: rgba(150, 200, 255, 0.7);
       text-decoration: none;
       font-size: clamp(14px, 2.6vw, 17px);
-      transition: color 0.25s ease;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     .pub-link:hover {
       color: rgba(150, 200, 255, 1);
-      text-decoration: underline;
+      text-shadow: 0 0 8px rgba(150, 200, 255, 0.5);
+      transform: translateX(4px);
+    }
+
+    .pub-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: rgba(150, 200, 255, 0.7);
+      transition: width 0.3s ease;
+    }
+
+    .pub-link:hover::after {
+      width: 100%;
     }
 
     .tech-tags {
@@ -244,8 +261,17 @@
     }
 
     body.light-theme .pub-link:hover {
-      color: rgba(0, 0, 0, 0.7) !important;
-      text-decoration: underline;
+      color: rgba(100, 150, 200, 0.9) !important;
+      text-shadow: 0 0 8px rgba(100, 150, 200, 0.3);
+      transform: translateX(4px);
+    }
+
+    body.light-theme .pub-link::after {
+      background: rgba(100, 150, 200, 0.5);
+    }
+
+    body.light-theme .pub-link:hover::after {
+      background: rgba(100, 150, 200, 0.8);
     }
 
     .section-nav {
