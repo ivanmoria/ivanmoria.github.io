@@ -348,6 +348,13 @@
       box-shadow: 0 0 20px rgba(100, 150, 220, 0.6), 0 0 40px rgba(100, 150, 220, 0.3), inset 0 0 8px rgba(150, 180, 255, 0.4);
       animation: galaxySpinFast 4s linear infinite;
     }
+
+    /* Hide Theme label on mobile */
+    @media (max-width: 768px) {
+      #theme-label {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -368,7 +375,8 @@
     </div>
 
     <!-- Right: Theme Toggle -->
-    <div style="display: flex; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span id="theme-label" style="font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
       <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
       <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
         <defs>
