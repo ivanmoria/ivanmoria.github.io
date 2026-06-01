@@ -232,7 +232,7 @@
       right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 999;
+      z-index: 10001;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -250,7 +250,20 @@
       display: block;
       cursor: pointer;
       box-shadow: 0 0 12px rgba(150, 180, 255, 0.5), 0 0 24px rgba(150, 150, 255, 0.2), inset 0 0 6px rgba(200, 200, 255, 0.3);
+      background-image: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 0.9), rgba(100, 80, 180, 0.4), rgba(50, 100, 200, 0.2)), conic-gradient(from 0deg, rgba(200, 150, 255, 0.3), transparent);
+      background-size: 100% 100%, 100% 100%;
+      background-position: center, center;
+      background-repeat: no-repeat;
+    }
+
+    .section-nav a::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, rgba(200, 150, 255, 0.3), transparent 50%);
       animation: galaxySpin 8s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes galaxySpin {
@@ -259,10 +272,12 @@
     }
 
     .section-nav a:hover {
-      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 1), rgba(150, 100, 220, 0.6), rgba(80, 130, 220, 0.3));
       width: 18px;
       height: 18px;
       box-shadow: 0 0 20px rgba(200, 150, 255, 0.9), 0 0 40px rgba(150, 180, 255, 0.5), inset 0 0 8px rgba(255, 200, 255, 0.5);
+    }
+
+    .section-nav a:hover::after {
       animation: galaxySpinFast 4s linear infinite;
     }
 
@@ -357,14 +372,18 @@
 
   <!-- Theme toggle — top center -->
   <div class="signature-wrap signature-top" style="display: flex; align-items: center; gap: 10px;">
-    <button id="planet-toggle-top" style="border: none; background: none; cursor: pointer; padding: 4px; z-index: 10000; position: relative; pointer-events: auto !important;" title="Click to toggle theme">
-      <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+    <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
+      <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
         <defs>
           <radialGradient id="nebulaGradient" cx="35%" cy="35%">
             <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
             <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
             <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
             <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+          </radialGradient>
+          <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+            <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+            <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
           </radialGradient>
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -373,19 +392,55 @@
               <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
           <style>
-            @keyframes orbit {
-              0% { transform: rotate(0deg) translateX(16px) rotate(0deg); }
-              100% { transform: rotate(360deg) translateX(16px) rotate(-360deg); }
+            @keyframes moonOrbit {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
             }
-            .orbiting-star {
-              animation: orbit 4s linear infinite;
+            @keyframes nebulaPulse {
+              0%, 100% { opacity: 0.7; }
+              50% { opacity: 1; }
+            }
+            @keyframes nebulaSpin {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(-180deg); }
+            }
+            .moon-container {
+              animation: moonOrbit 6s linear infinite;
+              transform-origin: 40px 40px;
+            }
+            .nebula-core {
+              animation: nebulaPulse 3s ease-in-out infinite;
+            }
+            .nebula-ring {
+              animation: nebulaSpin 8s linear infinite;
               transform-origin: 40px 40px;
             }
           </style>
         </defs>
-        <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" filter="url(#glow)"/>
-        <circle class="orbiting-star" cx="56" cy="40" r="3" fill="#ffdd54" opacity="0.8" filter="url(#glow)"/>
+        <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+        <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+        <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+        <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+        <g class="moon-container">
+          <defs>
+            <radialGradient id="moonGlow">
+              <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+            </radialGradient>
+          </defs>
+          <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+          <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+          <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+        </g>
       </svg>
     </button>
     <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
