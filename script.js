@@ -622,7 +622,7 @@ function draw() {
           if (isDarkMode) {
             fill(165, 158, 148, al * tt * 0.24);
           } else {
-            fill(0, 200, 220, al * tt * 0.28);
+            fill(0, 0, 0, al * tt * 0.28);
           }
         }
         circle(a.trail[t].x, a.trail[t].y, a.curSize * tt * 0.6);
@@ -664,7 +664,7 @@ function draw() {
           if (isDarkMode) {
             fill(155, 150, 140, al);
           } else {
-            fill(0, 200, 220, al);
+            fill(0, 0, 0, al);
           }
         }
         beginShape();
@@ -821,12 +821,15 @@ document.getElementById('planet-toggle-top').addEventListener('click', function 
   if (themeMode === 'dark') {
     themeMode = 'light';
     isDarkMode = false;
+    document.body.classList.add('light-theme');
   } else if (themeMode === 'light') {
     themeMode = 'super-dark';
     isDarkMode = true;
+    document.body.classList.remove('light-theme');
   } else {
     themeMode = 'dark';
     isDarkMode = true;
+    document.body.classList.remove('light-theme');
   }
   updateGalaxyColors();
 });
