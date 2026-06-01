@@ -66,7 +66,7 @@ function maxNodes() {
 }
 
 let isDarkMode = true;
-let themeMode = 'super-dark';
+let themeMode = 'dark';
 let explosion  = false;
 let exStr      = 8;
 let pmx = 0, pmy = 0;
