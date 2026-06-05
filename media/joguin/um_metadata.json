@@ -1,0 +1,10 @@
+{
+  "id": "um",
+  "name": "Um (MuseScore)",
+  "audio": "musica1.mp3",
+  "csv": "um_layers.csv",
+  "tempo": 120.0,
+  "duration": 0.0,
+  "chords_count": 363,
+  "spawns_count": 363
+}
