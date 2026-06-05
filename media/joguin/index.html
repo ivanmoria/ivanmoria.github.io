@@ -81,9 +81,11 @@
     <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
   </div>
 
-  <div id="customMusicSection" style="margin-top: 30px; display: none;">
+  <div id="customMusicSection" style="margin-top: 30px; display: block;">
     <div style="font-size:40px; margin-bottom: 15px;">Suas Músicas Customizadas:</div>
-    <div id="customMusicList" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;"></div>
+    <div id="customMusicList" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;"><!-- Músicas detectadas automaticamente -->
+      <button class="music-select" onclick="setMusic('choro_fado.mp3', 'choro_fado_layers.csv');" style="background-color: #FF9800;">🎵 Choro Fado (83 BPM)</button>
+      </div>
   </div>
 
   <div style="margin-top: 30px;">
@@ -197,47 +199,46 @@
 
     // Load metadata files for custom music
     async function loadCustomMusicFromMetadata() {
+      console.log('🔄 Iniciando carregamento de músicas customizadas...');
       try {
-        // Try to load list of custom music files
-        const metadataFiles = [];
+        let metadataFiles = [];
 
-        // Common metadata filenames based on audio files
-        const audioExtensions = ['.mp3', '.wav', '.ogg', '.flac', '.m4a'];
-
-        // Scan for metadata files
-        for (let i = 0; i < 50; i++) {
-          for (const ext of audioExtensions) {
-            const metadataPath = `music${i}_metadata.json`;
-            try {
-              const response = await fetch(metadataPath);
-              if (response.ok) {
-                const metadata = await response.json();
-                metadataFiles.push(metadata);
-              }
-            } catch (e) {
-              // File doesn't exist, continue
-            }
+        // First, try to load from custom_music_index.json
+        try {
+          console.log('Tentando carregar custom_music_index.json...');
+          const response = await fetch('custom_music_index.json');
+          console.log(`Response status: ${response.status}`);
+          if (response.ok) {
+            metadataFiles = await response.json();
+            console.log(`✅ Carregou custom_music_index.json com ${metadataFiles.length} músicas`);
           }
+        } catch (e) {
+          console.log('❌ custom_music_index.json não encontrado:', e.message);
         }
 
-        // Also try to find by looking at actual files in directory
-        // This is a fallback that checks common patterns
-        const baseNames = [
-          'aqui_oh', 'minha_musica', 'song', 'music', 'track',
-          'custom', 'upload', 'new_song'
-        ];
+        // Fallback: try common naming patterns
+        if (metadataFiles.length === 0) {
+          const baseNames = [
+            'choro_fado',
+            'aqui_oh', 'minha_musica',
+            'um_tom_pra_jobim',
+            'sanfona_carioca',
+            'song', 'music', 'track', 'custom', 'upload', 'new_song',
+            'musica1', 'musica2', 'musica3', 'musica4',
+          ];
 
-        for (const baseName of baseNames) {
-          try {
-            const response = await fetch(`${baseName}_metadata.json`);
-            if (response.ok) {
-              const metadata = await response.json();
-              if (!metadataFiles.some(m => m.id === metadata.id)) {
-                metadataFiles.push(metadata);
+          for (const baseName of baseNames) {
+            try {
+              const response = await fetch(`${baseName}_metadata.json`);
+              if (response.ok) {
+                const metadata = await response.json();
+                if (!metadataFiles.some(m => m.id === metadata.id)) {
+                  metadataFiles.push(metadata);
+                }
               }
+            } catch (e) {
+              // Continue
             }
-          } catch (e) {
-            // Continue
           }
         }
 
@@ -271,6 +272,26 @@
 
     // Load existing custom music on startup
     (async () => {
+      console.log('🎵 Iniciando carregamento de músicas...');
+
+      // Check for manually added custom music buttons
+      const choroFadoBtn = document.getElementById('choro_fado_btn');
+      if (choroFadoBtn) {
+        console.log('Verificando choro_fado.mp3...');
+        try {
+          const response = await fetch('choro_fado.mp3');
+          if (response.ok) {
+            console.log('✅ choro_fado.mp3 encontrado!');
+            choroFadoBtn.style.display = 'block';
+            choroFadoBtn.onclick = () => {
+              setMusic('choro_fado.mp3', 'choro_fado_layers.csv');
+            };
+          }
+        } catch (e) {
+          console.log('❌ choro_fado.mp3 não encontrado');
+        }
+      }
+
       // Load from metadata files first
       await loadCustomMusicFromMetadata();
 
