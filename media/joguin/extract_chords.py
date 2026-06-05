@@ -38,8 +38,14 @@ def extract_chords_and_beats(audio_path, sr=22050):
 
     # Get beat frames and times
     print("🎵 Detectando beats...")
-    onset_env = librosa.onset.onset_strength(y=y, sr=sr)
-    tempo, beats = librosa.beat.beat_track(y=y, sr=sr, onset_strength=onset_env)
+    try:
+        # Try newer librosa API first
+        tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
+    except TypeError:
+        # Fallback for older versions
+        onset_env = librosa.onset.onset_strength(y=y, sr=sr)
+        tempo, beats = librosa.beat.beat_track(onset_strength=onset_env, sr=sr)
+
     beat_times = librosa.frames_to_time(beats, sr=sr)
     print(f"🎼 Tempo: {tempo:.1f} BPM")
 
