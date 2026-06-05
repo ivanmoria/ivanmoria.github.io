@@ -181,19 +181,12 @@ function draw() {
     if (a.life <= 0) { ASTEROIDS.splice(k, 1); continue; }
 
     if (a.mode === 'orbital') {
-      const md = dist(gravCx, gravCy, a.x, a.y);
-
-      // Disabled: asteroids stay in orbital mode, don't change due to fast mouse movement
-      // if (spd > 32 && md < 280 && random() < 0.03) {
-      //   a.mode = 'free';
-      //   a.fiery = false;
-      //   const dx = a.x - gravCx, dy = a.y - gravCy;
-      //   const d = sqrt(dx*dx + dy*dy) + 1;
-      //   a.vx = (dx / d) * random(2.5, 4.2);
-      //   a.vy = (dy / d) * random(2.5, 4.2);
-      // }
+      // Asteroids orbit around screen center, NOT the mouse
+      const centerX = width / 2;
+      const centerY = height / 2;
 
       if (a.activated) {
+        // When clicked, attract to mouse
         a.sa = lerp(a.sa, 12, 0.058);
         a.sb = a.sa * 0.35;
         a.fiery = true;
@@ -210,8 +203,8 @@ function draw() {
 
       a.phase += (0.52 / pow(max(a.sa, 25), 0.72)) * a.orbitSpeedMult * (a.orbitDirection || 1);
       const lx = a.sa * cos(a.phase), ly = a.sb * sin(a.phase);
-      const ox = gravCx + lx * cos(a.inc) - ly * sin(a.inc);
-      const oy = gravCy + lx * sin(a.inc) + ly * cos(a.inc);
+      const ox = centerX + lx * cos(a.inc) - ly * sin(a.inc);
+      const oy = centerY + lx * sin(a.inc) + ly * cos(a.inc);
 
       if (!a.activated) {
         if (!a.lonely) {
@@ -219,6 +212,7 @@ function draw() {
           a.y = lerp(a.y, oy, 0.04);
         }
       } else {
+        // Activated: move toward mouse
         const mdx = gravCx - a.x, mdy = gravCy - a.y;
         const md = sqrt(mdx*mdx + mdy*mdy);
         if (md > 1) {
