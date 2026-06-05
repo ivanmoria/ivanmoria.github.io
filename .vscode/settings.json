@@ -1,5 +1,7 @@
 {
     "liveServer.settings.port": 5502,
     "editor.linkedEditing": true,
-    "livePreview.defaultPreviewPath": "/mirmt.html"
+    "livePreview.defaultPreviewPath": "/mirmt.html",
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda"
 }

@@ -1,0 +1,596 @@
+time,eventType,data
+0.000000,chordChange,C Major
+0.000000,melodyChange,C
+0.185760,enemySpawn,null
+0.626939,melodyChange,G#
+0.859138,enemySpawn,null
+1.555737,enemySpawn,null
+2.089796,melodyChange,E
+2.113016,melodyChange,C
+2.252336,enemySpawn,null
+2.438095,melodyChange,E
+2.600635,melodyChange,F
+2.786395,melodyChange,G
+2.972154,enemySpawn,null
+3.111474,melodyChange,F
+3.413333,melodyChange,G
+3.575873,melodyChange,G#
+3.761633,enemySpawn,null
+3.831293,melodyChange,A#
+3.993832,chordChange,F Minor
+3.993832,melodyChange,G#
+4.388571,melodyChange,G
+4.736871,melodyChange,F
+5.131610,melodyChange,G
+5.712109,melodyChange,F#
+5.735329,melodyChange,F
+5.897868,melodyChange,D#
+5.921088,enemySpawn,null
+5.990748,chordChange,E Major
+6.176508,melodyChange,F
+6.292608,melodyChange,F#
+6.315828,melodyChange,G
+6.664127,melodyChange,F
+7.221406,melodyChange,E
+7.987664,chordChange,C Major
+8.753923,melodyChange,C#
+8.800363,enemySpawn,null
+8.870023,melodyChange,C
+9.102222,melodyChange,C#
+9.218322,melodyChange,F
+9.404082,melodyChange,G#
+9.589841,enemySpawn,null
+9.659501,melodyChange,C#
+10.356100,enemySpawn,null
+10.448980,melodyChange,C
+11.029478,melodyChange,D#
+11.122358,enemySpawn,null
+11.354558,melodyChange,F
+11.377778,melodyChange,G
+11.656417,melodyChange,C#
+11.911837,enemySpawn,null
+11.981497,chordChange,C# Major
+12.515556,melodyChange,G#
+12.585215,melodyChange,A
+12.701315,enemySpawn,null
+13.374694,enemySpawn,null
+13.699773,melodyChange,A#
+13.978413,chordChange,C Dominant
+14.140952,enemySpawn,null
+14.326712,melodyChange,B
+14.791111,melodyChange,F
+14.976871,melodyChange,C
+15.418050,enemySpawn,null
+15.696689,melodyChange,F#
+15.975329,chordChange,D# Minor
+15.998549,melodyChange,D#
+16.184308,enemySpawn,null
+16.462948,melodyChange,A#
+16.997007,enemySpawn,null
+17.182766,melodyChange,F#
+17.229206,melodyChange,D#
+17.786485,enemySpawn,null
+17.949025,melodyChange,E
+18.506304,enemySpawn,null
+19.969161,chordChange,E Major
+19.992381,enemySpawn,null
+20.642540,melodyChange,F
+20.735420,enemySpawn,null
+22.221497,enemySpawn,null
+22.918095,enemySpawn,null
+23.730794,melodyChange,D#
+23.962993,chordChange,D# Major
+25.077551,enemySpawn,null
+25.959909,chordChange,C# Major
+26.517188,enemySpawn,null
+26.679728,melodyChange,C#
+27.956825,chordChange,C Major
+27.956825,enemySpawn,null
+28.676644,enemySpawn,null
+29.396463,enemySpawn,null
+29.489342,melodyChange,C
+30.139501,enemySpawn,null
+30.859320,enemySpawn,null
+31.579138,enemySpawn,null
+32.415057,melodyChange,F
+33.947574,chordChange,D# Major
+34.458413,enemySpawn,null
+35.155011,melodyChange,E
+35.340771,melodyChange,D#
+35.898050,enemySpawn,null
+35.944490,chordChange,C Major
+37.337687,enemySpawn,null
+37.941406,chordChange,C# Major
+38.057506,enemySpawn,null
+38.220045,melodyChange,C#
+38.707664,melodyChange,A
+38.754104,melodyChange,A#
+39.009524,melodyChange,C#
+39.543583,enemySpawn,null
+39.938322,chordChange,C Major
+40.263401,enemySpawn,null
+41.122540,melodyChange,C
+41.726259,enemySpawn,null
+42.329977,melodyChange,C#
+42.446077,enemySpawn,null
+42.608617,melodyChange,C
+43.073016,melodyChange,D#
+43.328435,melodyChange,C
+43.746395,melodyChange,F
+43.885714,enemySpawn,null
+43.932154,chordChange,E Major
+45.278912,melodyChange,E
+45.325351,enemySpawn,null
+45.929070,chordChange,D# Major
+46.045170,enemySpawn,null
+46.788209,enemySpawn,null
+46.881088,melodyChange,D#
+47.508027,enemySpawn,null
+48.227846,enemySpawn,null
+48.413605,melodyChange,A
+48.947664,enemySpawn,null
+49.435283,melodyChange,G#
+49.481723,melodyChange,E
+50.410522,enemySpawn,null
+51.130340,enemySpawn,null
+52.175238,melodyChange,D#
+52.569977,enemySpawn,null
+53.289796,enemySpawn,null
+53.916735,chordChange,E Major
+53.939955,melodyChange,E
+54.032834,enemySpawn,null
+54.125714,melodyChange,G#
+54.752653,enemySpawn,null
+55.472472,enemySpawn,null
+55.913651,chordChange,F Minor
+56.215510,enemySpawn,null
+56.587029,melodyChange,G
+56.749569,melodyChange,F#
+56.888889,melodyChange,F
+56.935329,enemySpawn,null
+57.655147,enemySpawn,null
+58.374966,enemySpawn,null
+59.094785,enemySpawn,null
+59.977143,melodyChange,D#
+60.511202,enemySpawn,null
+61.904399,chordChange,C# Major
+61.927619,enemySpawn,null
+62.647438,enemySpawn,null
+62.809977,melodyChange,C#
+63.251156,melodyChange,F
+63.390476,enemySpawn,null
+63.506576,melodyChange,C#
+63.901315,chordChange,C Major
+65.619592,melodyChange,C
+65.898231,chordChange,C Minor
+66.269751,enemySpawn,null
+66.943129,melodyChange,C#
+66.966349,melodyChange,D#
+67.221769,melodyChange,C
+67.895147,chordChange,C Major
+68.382766,melodyChange,C#
+68.429206,enemySpawn,null
+68.545306,melodyChange,D
+68.568526,melodyChange,F
+69.172245,enemySpawn,null
+69.892063,chordChange,C Minor
+69.892063,enemySpawn,null
+70.588662,melodyChange,D#
+70.611882,enemySpawn,null
+70.635102,melodyChange,C
+71.238821,melodyChange,D#
+71.331701,enemySpawn,null
+72.074739,enemySpawn,null
+72.771338,enemySpawn,null
+73.491156,melodyChange,C
+73.885896,chordChange,C Dominant
+74.141315,melodyChange,G#
+74.443175,melodyChange,C#
+74.837914,melodyChange,A
+74.977234,enemySpawn,null
+75.116553,melodyChange,C#
+75.604172,melodyChange,A#
+75.882812,chordChange,C Major
+75.882812,melodyChange,C#
+76.416871,enemySpawn,null
+77.090249,melodyChange,C
+77.113469,enemySpawn,null
+77.833288,melodyChange,C#
+78.065488,melodyChange,C
+78.576327,enemySpawn,null
+79.249705,melodyChange,E
+79.296145,enemySpawn,null
+79.505125,melodyChange,C
+79.876644,chordChange,E Major
+79.992744,melodyChange,F
+81.432381,melodyChange,E
+81.478821,enemySpawn,null
+81.873560,chordChange,D# Major
+82.175420,enemySpawn,null
+82.988118,melodyChange,D#
+84.590295,melodyChange,A
+85.077914,enemySpawn,null
+85.728073,melodyChange,G#
+85.797732,enemySpawn,null
+86.447891,melodyChange,E
+87.260590,enemySpawn,null
+87.957188,enemySpawn,null
+88.259048,melodyChange,D#
+89.861224,chordChange,E Major
+90.163084,melodyChange,E
+90.163084,enemySpawn,null
+90.302404,melodyChange,G#
+90.906122,enemySpawn,null
+91.370522,melodyChange,E
+91.602721,enemySpawn,null
+92.485079,melodyChange,G#
+93.622857,enemySpawn,null
+93.901497,melodyChange,F
+94.319456,enemySpawn,null
+95.016054,melodyChange,G
+95.341134,melodyChange,F
+95.782313,enemySpawn,null
+95.851973,chordChange,D# Major
+96.060952,melodyChange,D#
+97.848889,chordChange,C# Minor
+97.895329,enemySpawn,null
+98.917007,melodyChange,C#
+99.358186,enemySpawn,null
+101.540862,enemySpawn,null
+101.912381,melodyChange,C
+102.283900,enemySpawn,null
+103.003719,enemySpawn,null
+103.839637,chordChange,E Major
+103.839637,melodyChange,E
+103.886077,enemySpawn,null
+104.629116,enemySpawn,null
+104.721995,melodyChange,F
+105.325714,melodyChange,E
+105.348934,enemySpawn,null
+105.836553,melodyChange,F
+105.929433,melodyChange,G#
+106.068753,enemySpawn,null
+106.300952,melodyChange,F
+106.765351,enemySpawn,null
+107.624490,melodyChange,D#
+107.833469,chordChange,D# Major
+108.019229,melodyChange,F
+108.367528,melodyChange,D#
+108.924807,enemySpawn,null
+108.994467,melodyChange,D
+109.203447,melodyChange,C
+109.319546,melodyChange,D#
+109.412426,melodyChange,E
+109.505306,melodyChange,F
+109.551746,melodyChange,E
+109.691066,melodyChange,F
+109.830385,chordChange,C# Minor
+109.830385,melodyChange,A#
+110.364444,enemySpawn,null
+110.387664,melodyChange,D#
+110.550204,melodyChange,C#
+111.107483,enemySpawn,null
+111.177143,melodyChange,G#
+111.827302,chordChange,C# Major
+111.827302,enemySpawn,null
+111.943401,melodyChange,C#
+112.500680,melodyChange,E
+112.547120,enemySpawn,null
+112.756100,melodyChange,C#
+113.266939,enemySpawn,null
+113.452698,melodyChange,C
+113.963537,enemySpawn,null
+115.426395,enemySpawn,null
+115.821134,chordChange,E Major
+116.099773,melodyChange,C#
+116.122993,melodyChange,E
+116.239093,melodyChange,F
+116.889252,enemySpawn,null
+117.632290,enemySpawn,null
+117.818050,chordChange,D# Major
+118.305669,enemySpawn,null
+119.002268,melodyChange,E
+119.188027,melodyChange,D#
+119.768526,enemySpawn,null
+120.558005,melodyChange,G#
+121.022404,melodyChange,G
+121.068844,melodyChange,E
+121.208163,enemySpawn,null
+121.324263,melodyChange,D#
+121.811882,chordChange,C# Major
+121.951202,enemySpawn,null
+122.113741,melodyChange,C#
+122.624580,melodyChange,E
+122.671020,enemySpawn,null
+122.856780,melodyChange,C#
+123.367619,melodyChange,F
+123.414059,enemySpawn,null
+123.460499,melodyChange,G
+123.623039,melodyChange,G#
+123.808798,chordChange,C Major
+123.994558,melodyChange,G
+124.087438,melodyChange,E
+124.110658,enemySpawn,null
+124.180317,melodyChange,D
+124.203537,melodyChange,C#
+124.853696,enemySpawn,null
+124.993016,melodyChange,C
+125.573515,enemySpawn,null
+127.013152,enemySpawn,null
+127.663311,melodyChange,E
+127.709751,enemySpawn,null
+127.802630,chordChange,E Major
+127.825850,melodyChange,F
+128.267029,enemySpawn,null
+129.172608,melodyChange,D#
+129.242268,melodyChange,D
+129.311927,melodyChange,C
+129.799546,chordChange,C Minor
+129.869206,enemySpawn,null
+130.031746,melodyChange,F
+130.589025,enemySpawn,null
+130.705125,melodyChange,D#
+131.332063,enemySpawn,null
+131.471383,melodyChange,C
+131.796463,chordChange,D# Major
+131.796463,melodyChange,E
+132.005442,melodyChange,F
+132.051882,enemySpawn,null
+132.075102,melodyChange,A#
+132.376961,melodyChange,G
+132.516281,melodyChange,F
+132.632381,melodyChange,D#
+132.771701,enemySpawn,null
+133.491519,enemySpawn,null
+133.700499,melodyChange,C#
+133.793379,chordChange,C# Major
+134.188118,melodyChange,E
+134.234558,enemySpawn,null
+134.280998,melodyChange,G#
+134.954376,enemySpawn,null
+135.140136,melodyChange,C#
+135.674195,enemySpawn,null
+135.790295,chordChange,C Major
+136.417234,enemySpawn,null
+136.463673,melodyChange,C
+137.160272,enemySpawn,null
+137.880091,enemySpawn,null
+138.599909,enemySpawn,null
+139.180408,melodyChange,E
+139.319728,enemySpawn,null
+139.412608,melodyChange,F
+139.784127,chordChange,F Major
+139.877007,melodyChange,G
+140.155646,melodyChange,F
+140.759365,enemySpawn,null
+141.363084,melodyChange,G
+141.688163,melodyChange,F
+141.781043,chordChange,E Minor
+142.199002,melodyChange,G
+142.918821,enemySpawn,null
+143.197460,melodyChange,F
+144.312018,melodyChange,D#
+144.683537,melodyChange,F
+145.774875,chordChange,F Major
+145.821315,enemySpawn,null
+146.564354,enemySpawn,null
+147.284172,enemySpawn,null
+147.469932,melodyChange,G
+147.632472,melodyChange,F
+147.771791,chordChange,C Major
+147.887891,melodyChange,C
+148.003991,enemySpawn,null
+148.491610,melodyChange,F
+148.956009,melodyChange,G#
+149.211429,melodyChange,F
+149.443628,enemySpawn,null
+150.186667,enemySpawn,null
+150.697506,melodyChange,C
+150.883265,enemySpawn,null
+151.138685,melodyChange,F
+151.904943,melodyChange,C
+152.346122,melodyChange,F
+152.346122,enemySpawn,null
+152.485442,melodyChange,G
+152.764082,melodyChange,G#
+153.251701,melodyChange,G
+153.460680,melodyChange,F
+153.739320,melodyChange,C
+153.762540,chordChange,C Minor
+153.785760,melodyChange,F
+153.785760,enemySpawn,null
+153.808980,melodyChange,D
+153.948299,melodyChange,D#
+154.505578,enemySpawn,null
+154.969977,melodyChange,C
+155.086077,melodyChange,C#
+155.132517,melodyChange,D
+155.202177,melodyChange,D#
+155.759456,chordChange,C Major
+156.038095,melodyChange,C
+156.525714,melodyChange,C#
+157.361633,enemySpawn,null
+157.617052,melodyChange,C
+157.756372,chordChange,C Dominant
+157.988571,melodyChange,E
+158.011791,melodyChange,G
+158.058231,melodyChange,G#
+158.081451,enemySpawn,null
+158.243991,melodyChange,A#
+158.801270,enemySpawn,null
+158.847710,melodyChange,A
+158.917370,melodyChange,G#
+158.987029,melodyChange,F
+159.079909,melodyChange,C
+159.753288,chordChange,C Major
+160.983946,enemySpawn,null
+161.726984,enemySpawn,null
+162.446803,enemySpawn,null
+162.470023,melodyChange,F
+163.213061,melodyChange,E
+163.259501,melodyChange,D#
+163.282721,melodyChange,C
+163.747120,chordChange,C Minor
+163.886440,enemySpawn,null
+163.909660,melodyChange,F
+164.165079,melodyChange,C#
+164.606259,enemySpawn,null
+164.722358,melodyChange,C
+165.326077,melodyChange,D#
+166.045896,enemySpawn,null
+166.115556,melodyChange,C
+166.765714,enemySpawn,null
+166.788934,melodyChange,D#
+167.485533,melodyChange,C#
+167.485533,enemySpawn,null
+167.508753,melodyChange,C
+167.740952,chordChange,C Major
+168.205351,enemySpawn,null
+168.275011,melodyChange,C#
+168.855510,melodyChange,D#
+168.948390,enemySpawn,null
+168.971610,melodyChange,E
+169.134150,melodyChange,D#
+169.319909,melodyChange,E
+169.366349,melodyChange,F
+169.668209,enemySpawn,null
+169.737868,chordChange,C Dominant
+170.225488,melodyChange,A
+170.620227,melodyChange,E
+170.643447,melodyChange,C#
+170.666667,melodyChange,C
+170.922086,melodyChange,C#
+171.270385,melodyChange,C
+171.734785,chordChange,C Major
+171.827664,enemySpawn,null
+173.244082,melodyChange,F
+173.406621,melodyChange,G
+173.917460,melodyChange,E
+173.940680,melodyChange,C
+174.010340,enemySpawn,null
+174.219320,melodyChange,F
+174.730159,enemySpawn,null
+175.449977,enemySpawn,null
+175.566077,melodyChange,E
+175.728617,chordChange,D# Major
+176.193016,enemySpawn,null
+177.028934,melodyChange,D#
+178.445351,melodyChange,A
+179.072290,enemySpawn,null
+179.792109,melodyChange,G#
+179.977868,melodyChange,E
+180.511927,enemySpawn,null
+181.951565,enemySpawn,null
+182.090884,melodyChange,G
+182.206984,melodyChange,E
+182.323084,melodyChange,D#
+182.717823,enemySpawn,null
+183.437642,enemySpawn,null
+183.716281,chordChange,E Major
+184.111020,melodyChange,E
+184.157460,enemySpawn,null
+184.227120,melodyChange,G#
+184.877279,enemySpawn,null
+186.316916,enemySpawn,null
+186.433016,melodyChange,A
+187.129615,melodyChange,G#
+187.756553,enemySpawn,null
+189.707029,chordChange,F Minor
+189.892789,melodyChange,F
+189.916009,enemySpawn,null
+190.496508,melodyChange,G#
+190.659048,enemySpawn,null
+190.728707,melodyChange,F
+191.378866,enemySpawn,null
+191.703946,chordChange,C Minor
+192.098685,enemySpawn,null
+192.818503,enemySpawn,null
+192.934603,melodyChange,D#
+195.674558,enemySpawn,null
+195.837098,melodyChange,C#
+197.114195,enemySpawn,null
+197.276735,melodyChange,C
+197.694694,chordChange,C Major
+197.857234,enemySpawn,null
+198.553832,melodyChange,D
+198.577052,melodyChange,D#
+198.577052,enemySpawn,null
+198.948571,melodyChange,E
+199.320091,enemySpawn,null
+199.552290,melodyChange,C
+200.016689,melodyChange,F
+200.063129,enemySpawn,null
+200.782948,melodyChange,G#
+200.782948,enemySpawn,null
+201.293787,melodyChange,F
+202.547664,melodyChange,C
+202.849524,enemySpawn,null
+203.499683,enemySpawn,null
+203.569342,melodyChange,F
+203.685442,chordChange,C Dominant
+203.708662,melodyChange,C#
+203.964082,melodyChange,C
+204.567800,melodyChange,A#
+204.800000,enemySpawn,null
+205.217959,melodyChange,G
+205.450159,melodyChange,C#
+205.682358,chordChange,C# Major
+205.728798,melodyChange,A#
+206.030658,melodyChange,A
+206.100317,enemySpawn,null
+206.518277,melodyChange,F
+206.750476,enemySpawn,null
+206.866576,melodyChange,G
+206.913016,melodyChange,G#
+206.936236,melodyChange,A
+207.214875,melodyChange,A#
+207.284535,melodyChange,A
+207.400635,enemySpawn,null
+207.679274,chordChange,E Major
+207.702494,melodyChange,G#
+207.934694,melodyChange,G
+208.677732,melodyChange,F#
+208.747392,melodyChange,F
+209.374331,melodyChange,F#
+209.397551,melodyChange,G
+209.652971,melodyChange,F#
+209.699410,melodyChange,F
+209.838730,melodyChange,E
+210.094150,melodyChange,F
+210.140590,melodyChange,E
+210.651429,melodyChange,A
+211.069388,melodyChange,F#
+211.115828,melodyChange,F
+211.417687,melodyChange,F#
+211.487347,melodyChange,G
+211.649887,melodyChange,G#
+211.696327,melodyChange,G
+211.719546,melodyChange,G#
+211.928526,melodyChange,G
+212.392925,melodyChange,F#
+212.439365,melodyChange,F
+212.973424,melodyChange,E
+213.484263,melodyChange,F
+213.646803,melodyChange,G#
+213.670023,chordChange,C Major
+214.018322,melodyChange,C
+214.505941,melodyChange,C#
+214.622041,melodyChange,D
+214.691701,melodyChange,E
+214.854240,melodyChange,F
+215.040000,melodyChange,F#
+215.109660,melodyChange,G
+215.109660,enemySpawn,null
+215.434739,melodyChange,F
+215.666939,chordChange,F Minor
+215.829478,enemySpawn,null
+216.409977,melodyChange,G#
+216.549297,enemySpawn,null
+217.269116,melodyChange,G
+217.269116,enemySpawn,null
+217.663855,chordChange,F Major
+218.685533,enemySpawn,null
+218.894512,melodyChange,F
+219.382132,enemySpawn,null
+225.558639,melodyChange,B
+225.651519,chordChange,A# Major

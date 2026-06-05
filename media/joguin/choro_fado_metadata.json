@@ -1,0 +1,10 @@
+{
+  "id": "choro_fado",
+  "name": "Choro Fado",
+  "audio": "choro_fado.mp3",
+  "csv": "choro_fado_layers.csv",
+  "tempo": 83.35433467741936,
+  "duration": 227.2304761904762,
+  "chords_count": 68,
+  "spawns_count": 198
+}
