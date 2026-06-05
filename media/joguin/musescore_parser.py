@@ -181,50 +181,30 @@ def extract_notes_from_score(score_root):
             except Exception as e:
                 continue
 
-    # Extract melody - pegar nota mais alta (soprano) em cada tempo
-    # Agrupar notas por tempo (notas simultâneas = acorde)
-    notes_by_time = {}
-    for note in all_notes:
-        time_key = round(note['time'], 3)
-        if time_key not in notes_by_time:
-            notes_by_time[time_key] = []
-        notes_by_time[time_key].append(note)
+    # Para o jogo: cada nota da partitura é um evento
+    # Cada nota = inimigo aparece na célula daquela nota
+    # Mantém TODAS as 363 notas em ordem de tempo
 
-    # Extrair melodia: a nota mais alta em cada tempo
-    melody_notes = []
-    for time_key in sorted(notes_by_time.keys()):
-        notes_at_time = notes_by_time[time_key]
-        # Pegar a nota mais alta (maior MIDI) - isso é a melodia
-        highest_note = max(notes_at_time, key=lambda x: x['midi'])
+    # Ordenar notas por tempo
+    all_notes_sorted = sorted(all_notes, key=lambda x: x['time'])
 
-        # Só adicionar se é diferente da anterior
-        if len(melody_notes) == 0 or highest_note['note'] != melody_notes[-1]['note']:
-            melody_notes.append({
-                'time': highest_note['time'],
-                'note': highest_note['note'],
-                'strength': 1.0
-            })
-
-    # Create simple chords (notas que soam juntas)
+    # Chords = todas as notas (para evento no jogo)
     chords = []
-    if all_notes:
-        # Agrupar notas por tempo
-        notes_by_time = {}
-        for note in all_notes:
-            time_key = round(note['time'], 3)
-            if time_key not in notes_by_time:
-                notes_by_time[time_key] = []
-            notes_by_time[time_key].append(note['note'])
+    for note in all_notes_sorted:
+        chords.append({
+            'time': note['time'],
+            'chord': note['note'],  # Célula da nota
+            'duration': note['duration']
+        })
 
-        # Criar acordes
-        for time_key in sorted(notes_by_time.keys()):
-            notes = sorted(set(notes_by_time[time_key]))
-            if notes:
-                chord_name = ' + '.join(notes)
-                chords.append({
-                    'time': time_key,
-                    'chord': chord_name
-                })
+    # Melody = mesma coisa (cada nota é um evento)
+    melody_notes = []
+    for note in all_notes_sorted:
+        melody_notes.append({
+            'time': note['time'],
+            'note': note['note'],
+            'strength': 1.0
+        })
 
     print(f"✅ Encontrados {len(all_notes)} notas")
     print(f"✅ {len(chords)} acordes/eventos")

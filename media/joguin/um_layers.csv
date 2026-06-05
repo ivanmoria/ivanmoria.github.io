@@ -24,6 +24,7 @@ time,eventType,data
 3.500000,melodyChange,A
 3.500000,enemySpawn,null
 4.000000,chordChange,A
+4.000000,melodyChange,A
 4.000000,enemySpawn,null
 4.500000,chordChange,C
 4.500000,melodyChange,C
@@ -110,6 +111,7 @@ time,eventType,data
 18.000000,melodyChange,A
 18.000000,enemySpawn,null
 18.500000,chordChange,A
+18.500000,melodyChange,A
 18.500000,enemySpawn,null
 19.000000,chordChange,C
 19.000000,melodyChange,C
@@ -217,6 +219,7 @@ time,eventType,data
 36.000000,melodyChange,A
 36.000000,enemySpawn,null
 36.500000,chordChange,A
+36.500000,melodyChange,A
 36.500000,enemySpawn,null
 37.000000,chordChange,C
 37.000000,melodyChange,C
@@ -306,6 +309,7 @@ time,eventType,data
 51.000000,melodyChange,A
 51.000000,enemySpawn,null
 51.500000,chordChange,A
+51.500000,melodyChange,A
 51.500000,enemySpawn,null
 52.000000,chordChange,G
 52.000000,melodyChange,G
@@ -320,6 +324,7 @@ time,eventType,data
 53.500000,melodyChange,F#
 53.500000,enemySpawn,null
 54.000000,chordChange,F#
+54.000000,melodyChange,F#
 54.000000,enemySpawn,null
 54.500000,chordChange,E
 54.500000,melodyChange,E
@@ -334,6 +339,7 @@ time,eventType,data
 56.000000,melodyChange,D
 56.000000,enemySpawn,null
 56.500000,chordChange,D
+56.500000,melodyChange,D
 56.500000,enemySpawn,null
 57.000000,chordChange,F#
 57.000000,melodyChange,F#
@@ -345,6 +351,7 @@ time,eventType,data
 58.000000,melodyChange,D
 58.000000,enemySpawn,null
 58.500000,chordChange,D
+58.500000,melodyChange,D
 58.500000,enemySpawn,null
 59.000000,chordChange,E
 59.000000,melodyChange,E
@@ -419,6 +426,7 @@ time,eventType,data
 70.500000,melodyChange,D#
 70.500000,enemySpawn,null
 71.000000,chordChange,D#
+71.000000,melodyChange,D#
 71.000000,enemySpawn,null
 71.500000,chordChange,F#
 71.500000,melodyChange,F#
@@ -505,6 +513,7 @@ time,eventType,data
 85.000000,melodyChange,G
 85.000000,enemySpawn,null
 85.500000,chordChange,G
+85.500000,melodyChange,G
 85.500000,enemySpawn,null
 86.000000,chordChange,F
 86.000000,melodyChange,F
@@ -552,11 +561,13 @@ time,eventType,data
 93.000000,melodyChange,D
 93.000000,enemySpawn,null
 93.500000,chordChange,D
+93.500000,melodyChange,D
 93.500000,enemySpawn,null
 94.000000,chordChange,A
 94.000000,melodyChange,A
 94.000000,enemySpawn,null
 94.500000,chordChange,A
+94.500000,melodyChange,A
 94.500000,enemySpawn,null
 95.000000,chordChange,D
 95.000000,melodyChange,D
@@ -679,6 +690,7 @@ time,eventType,data
 114.500000,melodyChange,F#
 114.500000,enemySpawn,null
 115.000000,chordChange,F#
+115.000000,melodyChange,F#
 115.000000,enemySpawn,null
 115.500000,chordChange,F
 115.500000,melodyChange,F
@@ -726,6 +738,7 @@ time,eventType,data
 122.500000,melodyChange,A
 122.500000,enemySpawn,null
 123.000000,chordChange,A
+123.000000,melodyChange,A
 123.000000,enemySpawn,null
 123.500000,chordChange,F
 123.500000,melodyChange,F
@@ -761,6 +774,7 @@ time,eventType,data
 128.500000,melodyChange,G
 128.500000,enemySpawn,null
 129.000000,chordChange,G
+129.000000,melodyChange,G
 129.000000,enemySpawn,null
 129.500000,chordChange,F
 129.500000,melodyChange,F
@@ -796,6 +810,7 @@ time,eventType,data
 134.500000,melodyChange,B
 134.500000,enemySpawn,null
 135.000000,chordChange,B
+135.000000,melodyChange,B
 135.000000,enemySpawn,null
 135.500000,chordChange,G
 135.500000,melodyChange,G
@@ -831,6 +846,7 @@ time,eventType,data
 140.500000,melodyChange,A
 140.500000,enemySpawn,null
 141.000000,chordChange,A
+141.000000,melodyChange,A
 141.000000,enemySpawn,null
 141.500000,chordChange,G
 141.500000,melodyChange,G
@@ -866,6 +882,7 @@ time,eventType,data
 146.500000,melodyChange,C#
 146.500000,enemySpawn,null
 147.000000,chordChange,C#
+147.000000,melodyChange,C#
 147.000000,enemySpawn,null
 147.500000,chordChange,A
 147.500000,melodyChange,A
@@ -901,6 +918,7 @@ time,eventType,data
 152.500000,melodyChange,B
 152.500000,enemySpawn,null
 153.000000,chordChange,B
+153.000000,melodyChange,B
 153.000000,enemySpawn,null
 153.500000,chordChange,G
 153.500000,melodyChange,G
@@ -936,6 +954,7 @@ time,eventType,data
 158.500000,melodyChange,A
 158.500000,enemySpawn,null
 159.000000,chordChange,A
+159.000000,melodyChange,A
 159.000000,enemySpawn,null
 159.500000,chordChange,F
 159.500000,melodyChange,F
@@ -980,6 +999,7 @@ time,eventType,data
 166.000000,melodyChange,E
 166.000000,enemySpawn,null
 166.500000,chordChange,E
+166.500000,melodyChange,E
 166.500000,enemySpawn,null
 167.000000,chordChange,G
 167.000000,melodyChange,G
