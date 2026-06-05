@@ -87,7 +87,10 @@
   </div>
 
   <div style="margin-top: 8px;">
-    <button class="music-select" onclick="document.getElementById('customAudioInput').click()" style="background-color: #2196F3; padding: 8px 16px; font-size: 14px;">📁 Carregar MP3</button>
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;">
+      <button class="music-select" onclick="document.getElementById('customAudioInput').click()" style="background-color: #2196F3; padding: 8px 16px; font-size: 14px;">📁 MP3</button>
+      <button class="music-select" onclick="alert('MuseScore:\\n1. Abra sua partitura no MuseScore\\n2. Export → .mscz\\n3. Terminal: python musescore_parser.py\\n4. Selecione o arquivo\\n5. A música aparecerá no menu!')" style="background-color: #9C27B0; padding: 8px 16px; font-size: 14px;">🎼 MuseScore</button>
+    </div>
     <input type="file" id="customAudioInput" accept=".mp3,.wav,.ogg" style="display: none;" />
     <div id="audioLoadStatus" style="margin-top: 6px; color: white; font-size: 12px;"></div>
   </div>
