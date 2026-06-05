@@ -181,31 +181,29 @@ def extract_notes_from_score(score_root):
             except Exception as e:
                 continue
 
-    # Extract melody (respeitar durações das notas)
-    melody_notes = []
-    last_note_data = None
-
+    # Extract melody - pegar nota mais alta (soprano) em cada tempo
+    # Agrupar notas por tempo (notas simultâneas = acorde)
+    notes_by_time = {}
     for note in all_notes:
-        # Se é a primeira nota ou a nota é diferente E a nota anterior já terminou
-        if len(melody_notes) == 0:
+        time_key = round(note['time'], 3)
+        if time_key not in notes_by_time:
+            notes_by_time[time_key] = []
+        notes_by_time[time_key].append(note)
+
+    # Extrair melodia: a nota mais alta em cada tempo
+    melody_notes = []
+    for time_key in sorted(notes_by_time.keys()):
+        notes_at_time = notes_by_time[time_key]
+        # Pegar a nota mais alta (maior MIDI) - isso é a melodia
+        highest_note = max(notes_at_time, key=lambda x: x['midi'])
+
+        # Só adicionar se é diferente da anterior
+        if len(melody_notes) == 0 or highest_note['note'] != melody_notes[-1]['note']:
             melody_notes.append({
-                'time': note['time'],
-                'note': note['note'],
+                'time': highest_note['time'],
+                'note': highest_note['note'],
                 'strength': 1.0
             })
-            last_note_data = note
-        elif note['note'] != melody_notes[-1]['note']:
-            # Só adicionar nota nova se a anterior terminou
-            if last_note_data and (note['time'] >= last_note_data['time'] + last_note_data['duration'] - 0.01):
-                melody_notes.append({
-                    'time': note['time'],
-                    'note': note['note'],
-                    'strength': 1.0
-                })
-                last_note_data = note
-        else:
-            # Mesma nota continua, atualizar last_note_data
-            last_note_data = note
 
     # Create simple chords (notas que soam juntas)
     chords = []
