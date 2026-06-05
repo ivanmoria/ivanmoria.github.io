@@ -3,17 +3,14 @@
 Extract chords and beat times from audio file using librosa.
 Generates a JSON file compatible with the Pega-pega harmônico game.
 
-Usage:
-    python extract_chords.py <audio_file> <output_file>
-
-Example:
-    python extract_chords.py musica.mp3 musica_data.json
+Interactive terminal interface for loading and analyzing audio files.
 """
 
 import json
 import numpy as np
 import librosa
 import sys
+import os
 from pathlib import Path
 
 
@@ -28,29 +25,30 @@ def extract_chords_and_beats(audio_path, sr=22050):
     Returns:
         dict with chords and beat times
     """
-    print(f"Loading audio: {audio_path}")
+    print(f"\n📂 Carregando: {audio_path}")
     y, sr = librosa.load(audio_path, sr=sr)
     duration = librosa.get_duration(y=y, sr=sr)
-    print(f"Duration: {duration:.2f} seconds")
+    print(f"⏱️  Duração: {duration:.2f} segundos")
 
     # Extract chroma features (pitch content)
-    print("Extracting chroma features...")
+    print("🎼 Extraindo características de chroma...")
     S = librosa.feature.melspectrogram(y=y, sr=sr)
     S_db = librosa.power_to_db(S, ref=np.max)
     chroma = librosa.feature.chroma_cqt(y=y, sr=sr)
 
     # Get beat frames and times
-    print("Detecting beats...")
+    print("🎵 Detectando beats...")
     onset_env = librosa.onset.onset_strength(y=y, sr=sr)
     tempo, beats = librosa.beat.beat_track(y=y, sr=sr, onset_strength=onset_env)
     beat_times = librosa.frames_to_time(beats, sr=sr)
-    print(f"Tempo: {tempo:.1f} BPM")
+    print(f"🎼 Tempo: {tempo:.1f} BPM")
 
     # Detect chord changes using chroma features
-    print("Detecting chords...")
+    print("🎹 Detectando acordes...")
     chords = detect_chords_from_chroma(chroma, sr, y)
 
     # Generate enemy spawn times (on beats)
+    print("👾 Gerando tempos de spawn de inimigos...")
     enemy_spawns = generate_enemy_spawns(beat_times, duration)
 
     return {
@@ -148,18 +146,67 @@ def generate_csv(chords, enemy_spawns):
     return '\n'.join(lines)
 
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python extract_chords.py <audio_file> [output_file]")
-        print("Example: python extract_chords.py song.mp3 song_data.json")
-        sys.exit(1)
+def select_audio_file_interactive():
+    """
+    Interactive file selection in terminal.
+    """
+    print("\n" + "="*60)
+    print("🎵 PEGA-PEGA HARMÔNICO - Extrator de Acordes")
+    print("="*60 + "\n")
 
-    audio_file = sys.argv[1]
+    # List audio files in current directory
+    audio_extensions = ('.mp3', '.wav', '.flac', '.ogg', '.m4a')
+    audio_files = [f for f in os.listdir('.') if f.lower().endswith(audio_extensions)]
+
+    if audio_files:
+        print("📁 Arquivos de áudio encontrados:\n")
+        for i, file in enumerate(audio_files, 1):
+            size_mb = os.path.getsize(file) / (1024*1024)
+            print(f"  {i}. {file} ({size_mb:.1f} MB)")
+
+        print("\nOpções:")
+        print("  0. Inserir caminho manualmente")
+        print()
+
+        while True:
+            try:
+                choice = input("Escolha o número do arquivo (ou 0): ").strip()
+
+                if choice == '0':
+                    audio_file = input("\nDigite o caminho do arquivo: ").strip()
+                    if not audio_file:
+                        print("❌ Caminho vazio!")
+                        continue
+                    break
+
+                choice_num = int(choice)
+                if 1 <= choice_num <= len(audio_files):
+                    audio_file = audio_files[choice_num - 1]
+                    break
+                else:
+                    print(f"❌ Digite um número entre 0 e {len(audio_files)}")
+            except ValueError:
+                print("❌ Digite um número válido")
+    else:
+        print("❌ Nenhum arquivo de áudio encontrado neste diretório.")
+        print("Formatos suportados: MP3, WAV, FLAC, OGG, M4A\n")
+        audio_file = input("Digite o caminho do arquivo: ").strip()
+
+    return audio_file
+
+
+def main():
+    # Get audio file interactively if not provided as argument
+    if len(sys.argv) > 1:
+        audio_file = sys.argv[1]
+    else:
+        audio_file = select_audio_file_interactive()
+
     output_file = sys.argv[2] if len(sys.argv) > 2 else Path(audio_file).stem + '_data.json'
     csv_file = Path(audio_file).stem + '_layers.csv'
 
     if not Path(audio_file).exists():
-        print(f"Error: File not found: {audio_file}")
+        print(f"\n❌ Erro: Arquivo não encontrado: {audio_file}")
         sys.exit(1)
 
     # Extract chords and beats
@@ -170,24 +217,37 @@ def main():
         sys.exit(1)
 
     # Save JSON
-    print(f"\nSaving data to: {output_file}")
+    print(f"\n💾 Salvando dados em: {output_file}")
     with open(output_file, 'w') as f:
         json.dump(data, f, indent=2)
 
     # Save CSV
-    print(f"Saving CSV to: {csv_file}")
+    print(f"💾 Salvando CSV em: {csv_file}")
     csv_content = generate_csv(data['chords'], data['enemy_spawns'])
     with open(csv_file, 'w') as f:
         f.write(csv_content)
 
-    print(f"\n✅ Done!")
-    print(f"Detected {len(data['chords'])} chord changes")
-    print(f"Generated {len(data['enemy_spawns'])} enemy spawn points")
-    print(f"Tempo: {data['tempo']:.1f} BPM")
-    print(f"\nUse the following files in the game:")
-    print(f"  - Audio: {audio_file}")
-    print(f"  - Data: {output_file}")
-    print(f"  - CSV: {csv_file}")
+    print("\n" + "="*60)
+    print("✅ ANÁLISE CONCLUÍDA COM SUCESSO!")
+    print("="*60)
+    print(f"\n📊 Estatísticas:")
+    print(f"   🎼 Acordes detectados: {len(data['chords'])}")
+    print(f"   👾 Spawns de inimigos: {len(data['enemy_spawns'])}")
+    print(f"   🎵 Tempo: {data['tempo']:.1f} BPM")
+    print(f"   ⏱️  Duração: {data['duration']:.2f} segundos")
+    print(f"   🎵 Beats: {len(data['beat_times'])}")
+
+    print(f"\n📁 Arquivos gerados:")
+    print(f"   1. {Path(audio_file).name} (áudio original)")
+    print(f"   2. {Path(output_file).name} (dados JSON)")
+    print(f"   3. {Path(csv_file).name} (formato jogo)")
+
+    print(f"\n🎮 Para usar no jogo:")
+    print(f"   1. Clique em 'Carregar MP3' no jogo")
+    print(f"   2. Selecione: {Path(audio_file).name}")
+    print(f"   3. O jogo automaticamente usa: {Path(csv_file).name}")
+
+    print("\n" + "="*60 + "\n")
 
 
 if __name__ == '__main__':
