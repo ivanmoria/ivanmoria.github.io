@@ -295,7 +295,8 @@ function draw() {
           ff.push({
             x: a.x + cos(dustAng) * dustDist, y: a.y + sin(dustAng) * dustDist,
             vx: cos(dustAng) * random(0.5, 1.5), vy: sin(dustAng) * random(0.5, 1.5),
-            spd: random(0.35, 0.75), isCosmicDust: true, lifespan: floor(random(380, 580))
+            spd: random(0.35, 0.75), isCosmicDust: true, lifespan: floor(random(380, 580)),
+            fireColor: a.fireColor
           });
           a.dustCount++;
         }
@@ -380,17 +381,35 @@ function draw() {
 
         const fadeF = p.lifespan < 80 ? p.lifespan / 80 : 1;
         noStroke();
-        if (isDarkMode) {
-          fill(24, 78, 92, 160 * fadeF);
-          circle(nx, ny, 1.2);
-          fill(35, 95, 110, 90 * fadeF);
-          circle(nx, ny, 2.8);
+
+        // Use asteroid color if available, otherwise default
+        let r, g, b;
+        if (p.fireColor !== undefined) {
+          const fireColors = [
+            [230, 110, 35],
+            [230, 60, 40],
+            [220, 50, 100],
+            [200, 80, 150],
+            [100, 150, 220],
+            [150, 200, 100],
+            [220, 180, 80]
+          ];
+          const baseColor = fireColors[p.fireColor % 7];
+          r = baseColor[0];
+          g = baseColor[1];
+          b = baseColor[2];
+        } else if (isDarkMode) {
+          r = 24; g = 78; b = 92;
         } else {
-          fill(255, 50, 150, 150 * fadeF);
-          circle(nx, ny, 1.2);
-          fill(255, 100, 180, 110 * fadeF);
-          circle(nx, ny, 2.8);
+          r = 255; g = 50; b = 150;
         }
+
+        colorMode(RGB, 255);
+        fill(r, g, b, 200 * fadeF);
+        circle(nx, ny, 1.2);
+        fill(r, g, b, 140 * fadeF);
+        circle(nx, ny, 2.8);
+        colorMode(HSB, 360, 100, 100, 255);
         p.x = nx;
         p.y = ny;
       } else {
