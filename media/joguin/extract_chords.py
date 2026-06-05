@@ -295,6 +295,33 @@ def main():
     with open(csv_file, 'w') as f:
         f.write(csv_content)
 
+    # Copy audio file to game folder
+    audio_filename = Path(audio_file).name
+    game_audio_path = audio_filename
+    print(f"📋 Copiando áudio para pasta do jogo: {game_audio_path}")
+    try:
+        import shutil
+        shutil.copy2(audio_file, game_audio_path)
+    except Exception as e:
+        print(f"⚠️  Não consegui copiar áudio: {e}")
+
+    # Create music metadata file for the game
+    music_metadata = {
+        'id': Path(audio_file).stem,
+        'name': Path(audio_file).stem.replace('_', ' ').replace('-', ' ').title(),
+        'audio': audio_filename,
+        'csv': Path(csv_file).name,
+        'tempo': data['tempo'],
+        'duration': data['duration'],
+        'chords_count': len(data['chords']),
+        'spawns_count': len(data['enemy_spawns'])
+    }
+
+    metadata_file = Path(audio_file).stem + '_metadata.json'
+    print(f"💾 Salvando metadados em: {metadata_file}")
+    with open(metadata_file, 'w') as f:
+        json.dump(music_metadata, f, indent=2)
+
     print("\n" + "="*60)
     print("✅ ANÁLISE CONCLUÍDA COM SUCESSO!")
     print("="*60)
@@ -306,14 +333,17 @@ def main():
     print(f"   🎵 Beats: {len(data['beat_times'])}")
 
     print(f"\n📁 Arquivos gerados:")
-    print(f"   1. {Path(audio_file).name} (áudio original)")
+    print(f"   1. {audio_filename} (áudio - COPIADO para o jogo ✅)")
     print(f"   2. {Path(output_file).name} (dados JSON)")
     print(f"   3. {Path(csv_file).name} (formato jogo)")
+    print(f"   4. {metadata_file} (metadados para o jogo)")
 
-    print(f"\n🎮 Para usar no jogo:")
-    print(f"   1. Clique em 'Carregar MP3' no jogo")
-    print(f"   2. Selecione: {Path(audio_file).name}")
-    print(f"   3. O jogo automaticamente usa: {Path(csv_file).name}")
+    print(f"\n🎮 Agora você pode:")
+    print(f"   ✅ O arquivo de áudio está na pasta do jogo")
+    print(f"   ✅ O CSV de inimigos/acordes foi criado")
+    print(f"   ✅ Metadados foram salvos")
+    print(f"\n   No navegador, clique em 'Carregar MP3' e selecione:")
+    print(f"   {audio_filename}")
 
     print("\n" + "="*60 + "\n")
 

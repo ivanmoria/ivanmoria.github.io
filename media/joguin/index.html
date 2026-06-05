@@ -195,12 +195,96 @@
       document.getElementById('customMusicList').appendChild(button);
     }
 
+    // Load metadata files for custom music
+    async function loadCustomMusicFromMetadata() {
+      try {
+        // Try to load list of custom music files
+        const metadataFiles = [];
+
+        // Common metadata filenames based on audio files
+        const audioExtensions = ['.mp3', '.wav', '.ogg', '.flac', '.m4a'];
+
+        // Scan for metadata files
+        for (let i = 0; i < 50; i++) {
+          for (const ext of audioExtensions) {
+            const metadataPath = `music${i}_metadata.json`;
+            try {
+              const response = await fetch(metadataPath);
+              if (response.ok) {
+                const metadata = await response.json();
+                metadataFiles.push(metadata);
+              }
+            } catch (e) {
+              // File doesn't exist, continue
+            }
+          }
+        }
+
+        // Also try to find by looking at actual files in directory
+        // This is a fallback that checks common patterns
+        const baseNames = [
+          'aqui_oh', 'minha_musica', 'song', 'music', 'track',
+          'custom', 'upload', 'new_song'
+        ];
+
+        for (const baseName of baseNames) {
+          try {
+            const response = await fetch(`${baseName}_metadata.json`);
+            if (response.ok) {
+              const metadata = await response.json();
+              if (!metadataFiles.some(m => m.id === metadata.id)) {
+                metadataFiles.push(metadata);
+              }
+            }
+          } catch (e) {
+            // Continue
+          }
+        }
+
+        // Load metadata files found
+        if (metadataFiles.length > 0) {
+          document.getElementById('customMusicSection').style.display = 'block';
+
+          for (const metadata of metadataFiles) {
+            try {
+              const response = await fetch(metadata.audio);
+              if (response.ok) {
+                const button = document.createElement('button');
+                button.className = 'music-select';
+                button.style.backgroundColor = '#FF9800';
+                button.textContent = `🎵 ${metadata.name} (${metadata.tempo.toFixed(0)} BPM)`;
+                button.onclick = () => {
+                  setMusic(metadata.audio, metadata.csv);
+                  window.currentMusicMetadata = metadata;
+                };
+                document.getElementById('customMusicList').appendChild(button);
+              }
+            } catch (e) {
+              console.log(`Could not load ${metadata.name}`);
+            }
+          }
+        }
+      } catch (e) {
+        console.log('No custom music metadata found');
+      }
+    }
+
     // Load existing custom music on startup
     (async () => {
-      const customMusics = await uploadProcessor.getCustomMusics();
-      if (customMusics.length > 0) {
-        document.getElementById('customMusicSection').style.display = 'block';
-        customMusics.forEach(track => addCustomMusicButton(track));
+      // Load from metadata files first
+      await loadCustomMusicFromMetadata();
+
+      // Also try legacy IndexedDB method
+      if (typeof uploadProcessor !== 'undefined') {
+        try {
+          const customMusics = await uploadProcessor.getCustomMusics();
+          if (customMusics.length > 0) {
+            document.getElementById('customMusicSection').style.display = 'block';
+            customMusics.forEach(track => addCustomMusicButton(track));
+          }
+        } catch (e) {
+          console.log('No legacy custom music found');
+        }
       }
     })();
   </script>
