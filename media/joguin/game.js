@@ -201,6 +201,21 @@ window.togglePause = togglePause;
     checkStartReady();
   };
 
+  // Detectar mudança no modo via checkbox
+  const modeToggle = document.getElementById('modeToggle');
+  if (modeToggle) {
+    modeToggle.addEventListener('change', function() {
+      const mode = this.checked ? 'hardcore' : 'normal';
+      const modeLabel = document.getElementById('modeLabel');
+      if (modeLabel) {
+        modeLabel.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+      }
+      window.setMode(mode);
+    });
+    // Inicializar com modo "normal"
+    window.setMode('normal');
+  }
+
   window.setMusic = function(audioSrc, csvSrc) {
     musicFile = audioSrc;
     csvFile = csvSrc;
