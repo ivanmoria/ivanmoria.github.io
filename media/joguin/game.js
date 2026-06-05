@@ -1,11 +1,26 @@
+
 (() => {
   const canvas = document.getElementById('gameCanvas');
+
+
+const foodImage = new Image();
+foodImage.src = 'food.png';
+
+const giftImage = new Image();
+giftImage.src = 'gift.png';
+
+
+const enemyImage = new Image();
+enemyImage.src = 'enemy.png';
+
+const ENEMY_COLORS = [
+  '#000000', '#000000', '#000000', '#000000', '#000000',
+  '#000000', '#000000', '#000000', '#000000', '#000000'
+];
+
+
+
   const ctx = canvas.getContext('2d');
-  const scoreDiv = document.getElementById('score');
-  const gameOverOverlay = document.getElementById('gameOverOverlay');
-  const audioFundo = document.getElementById('audioFundo');
-  const startOverlay = document.getElementById('startOverlay');
-  const startButtonContainer = document.getElementById('startButtonContainer');
 
   const ROWS = 8, COLS = 8;
   let WIDTH = canvas.width, HEIGHT = canvas.height;
@@ -20,25 +35,21 @@
     BROWN: '#8B4513'
   };
 
-  const ENEMY_COLORS = [
-    '#FF6B6B', '#FF8E72', '#FFA07A', '#FF7675',
-    '#FF5252', '#FF1744', '#D32F2F', '#C62828', '#B71C1C', '#A00000'
-  ];
+  // Cores para as notas (8 notas na escala)
+  const NOTE_COLORS = {
+    'C': '#FF6B6B',    // Vermelho
+    'D': '#FFA500',    // Laranja
+    'E': '#FFD700',    // Amarelo
+    'F': '#90EE90',    // Verde claro
+    'G': '#87CEEB',    // Azul claro
+    'A': '#9370DB',    // Púrpura
+    'B': '#FF69B4'     // Rosa
+  };
 
-  // Initialize systems
-  const noteMapping = new NoteMapping();
-  const chordManager = new ChordManager(noteMapping);
-  const animationSystem = new AnimationSystem();
-  const soundEffects = new SoundEffects();
-  const difficultyManager = new DifficultyManager();
-  const scorePersistence = new ScorePersistence();
-
-  // Game state
   let gameMode = null;
   let musicFile = null;
   let csvFile = null;
   let laserTimes = [];
-  let chordTimeline = [];
 
   let playerPos = { row: 7, col: 0 };
   let dangerPositions = [];
@@ -48,59 +59,83 @@
   let score = 0;
   let lives = 0;
   let gameOver = false;
-  let lastChordChangeTime = 0;
+  let highScores = [];
+
+  let lastScoreBeforeReset = null;
 
   let laserIndex = 0;
-  let chordIndex = 0;
   let startTime = null;
   let damageCooldown = false;
   let pauseStartTime = null;
   let totalPausedDuration = 0;
-  let gameEnded = false;
+
   let isPaused = false;
+  const scoreDiv = document.getElementById('score');
+  const gameOverOverlay = document.getElementById('gameOverOverlay');
+  const audioFundo = document.getElementById('audioFundo');
+  const startOverlay = document.getElementById('startOverlay');
+  const startButtonContainer = document.getElementById('startButtonContainer');
+  let gameEnded = false;
 
-  function togglePause() {
-    const pauseBtn = document.querySelector('button[onclick="togglePause()"]');
-    isPaused = !isPaused;
+function togglePause() {
+  const pauseBtn = document.querySelector('button[onclick="togglePause()"]');
 
-    if (isPaused) {
-      pauseStartTime = performance.now();
-      audioFundo.pause();
+  isPaused = !isPaused;
 
-      const highScore = scorePersistence.getHighScore();
-      const sessionHighScore = Math.max(score, highScore);
+  if (isPaused) {
+    pauseStartTime = performance.now();
+    audioFundo.pause();
+    if (pauseBtn) pauseBtn.textContent = "Pause (P)";
+    
+    // Exibe overlay com scores (tipo tela de game over, mas com "Continuar")
+    const sessionHighScore = Math.max(
+      lastScoreBeforeReset || 0,
+      highScores.length ? Math.max(...highScores) : 0
+    );
+    const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
 
-      gameOverOverlay.innerHTML = `
-        <div style="text-align:center; margin-top: -15%;color:white; font-size: 24px;">
-          <strong>Jogo Pausado</strong><br>
-          Maior Score: ${sessionHighScore}<br>
-          Score atual: ${score}<br>
-          Vidas: ${lives}<br>
-          <br>
-          <button id="continueBtn">Continuar (P)</button> <br>
-          <button onclick="location.reload()">Voltar (Esc)</button>
-        </div>`;
-      gameOverOverlay.style.visibility = 'visible';
+    gameOverOverlay.innerHTML = `
+      <div style="text-align:center; margin-top: -15%;color:white; font-size: 24px;">
+        <strong>Jogo Pausado</strong><br>
+        Maior Score nesta sessão: ${sessionHighScore}<br>
+        Score atual: ${score}<br>
+        <br>
+        <strong>Scores anteriores:</strong><br>
+        ${highList || '<div>Nenhuma tentativa anterior</div>'}<br><br>
+        <button id="continueBtn">Continuar (P)</button> <br>
+           <button onclick="location.reload()">Voltar (Esc)</button>
+      </div>`;
+    gameOverOverlay.style.visibility = 'visible';
 
-      const continueBtn = document.getElementById('continueBtn');
-      if (continueBtn) {
-        continueBtn.onclick = resumeGame;
-      }
-    } else {
-      resumeGame();
+    // Liga botão continuar
+    const continueBtn = document.getElementById('continueBtn');
+    if (continueBtn) {
+      continueBtn.onclick = () => {
+        isPaused = false;
+        totalPausedDuration += performance.now() - pauseStartTime;
+        pauseStartTime = null;
+        gameOverOverlay.style.visibility = 'hidden';
+        if (pauseBtn) pauseBtn.textContent = "Pause (P)";
+        audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
+        requestAnimationFrame(gameLoop);
+      };
     }
-  }
 
-  function resumeGame() {
+  } else {
+   // Continuar (se chamado por tecla P)
     isPaused = false;
     totalPausedDuration += performance.now() - pauseStartTime;
     pauseStartTime = null;
     gameOverOverlay.style.visibility = 'hidden';
+    if (pauseBtn) pauseBtn.textContent = "Pause (P)";
     audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
     requestAnimationFrame(gameLoop);
   }
 
-  window.togglePause = togglePause;
+  }
+
+
+window.togglePause = togglePause;
 
   window.setMode = function(mode) {
     gameMode = mode;
@@ -126,16 +161,18 @@
 
   function checkStartReady() {
     if (gameMode && musicFile && csvFile) {
-      startButtonContainer.innerHTML = '<button class="start-btn" onclick="startGame()">Iniciar<br> (Enter)</button>';
+      startButtonContainer.innerHTML = '<button  class="start-btn" onclick="startGame()">Iniciar<br> (Enter)</button>';
     }
   }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const startBtn = document.querySelector('.start-btn');
-      if (startBtn) startBtn.click();
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    const startBtn = document.querySelector('.start-btn');
+    if (startBtn) {
+      startBtn.click();
     }
-  });
+  }
+});
+
 
   async function loadCSV() {
     try {
@@ -143,30 +180,9 @@
       if (!response.ok) throw new Error('Erro ao carregar CSV');
       const text = await response.text();
       const lines = text.trim().split('\n');
-
-      laserTimes = [];
-      chordTimeline = [];
-
-      lines.slice(1).forEach(line => {
-        const parts = line.split(',');
-        const time = parseFloat(parts[0]);
-        const eventType = parts[1]?.trim();
-        const data = parts[2]?.trim();
-
-        if (!isNaN(time)) {
-          if (eventType === 'enemySpawn') {
-            laserTimes.push(time);
-          } else if (eventType === 'chordChange' && data) {
-            chordTimeline.push({ time, chord: data });
-          }
-        }
-      });
-
-      chordManager.setChordTimeline(chordTimeline);
-    } catch (e) {
-      console.warn('CSV load error:', e);
-      laserTimes = [1, 2.5, 4, 5.5, 7, 8.5, 10];
-      chordTimeline = [{ time: 0, chord: 'C Major' }, { time: 5, chord: 'G Major' }];
+      laserTimes = lines.slice(1).map(line => parseFloat(line.split(',')[0])).filter(t => !isNaN(t));
+    } catch {
+      laserTimes = [2, 5, 8, 12, 15];
     }
   }
 
@@ -174,8 +190,6 @@
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
     SQUARE_SIZE = WIDTH / COLS;
-
-    // Draw checkerboard
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
         ctx.fillStyle = (r + c) % 2 === 0 ? COLORS.LIGHT_BROWN : COLORS.BROWN;
@@ -183,109 +197,108 @@
       }
     }
 
-    // Draw note labels
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 12px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
+    // Desenhar cor para cada nota nas colunas
+    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'];
     for (let c = 0; c < COLS; c++) {
-      const note = noteMapping.getColNote(c);
-      ctx.fillText(note, c * SQUARE_SIZE + SQUARE_SIZE / 2, 15);
+      const note = notes[c];
+      const noteColor = NOTE_COLORS[note];
+      if (noteColor) {
+        ctx.fillStyle = noteColor + '20'; // Transparência
+        ctx.fillRect(c * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE / 4);
+      }
     }
-
-    for (let r = 0; r < ROWS; r++) {
-      const note = noteMapping.getRowNote(r);
-      ctx.fillText(note, 15, r * SQUARE_SIZE + SQUARE_SIZE / 2);
-    }
-
-    // Draw chord flash
-    const flashes = animationSystem.getScreenFlashes();
-    flashes.forEach(flash => {
-      const progress = flash.elapsed / flash.duration;
-      const alpha = (1 - progress) * 0.3;
-      ctx.fillStyle = `rgba(255, 215, 0, ${alpha})`;
-      ctx.fillRect(0, 0, WIDTH, HEIGHT);
-    });
   }
 
-  function drawElements() {
-    const radius = SQUARE_SIZE / 3;
 
-    // Draw enemies
-    for (const pos of dangerPositions) {
-      const centerX = pos.col * SQUARE_SIZE + SQUARE_SIZE / 2;
-      const centerY = pos.row * SQUARE_SIZE + SQUARE_SIZE / 2;
+function drawElements() {
+  const radius = SQUARE_SIZE / 3;
 
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = pos.color || '#FF0000';
-      ctx.fill();
-      ctx.strokeStyle = '#000000';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.closePath();
-    }
+// Desenhar inimigos como círculos coloridos
+for (const pos of dangerPositions) {
+  const centerX = pos.col * SQUARE_SIZE + SQUARE_SIZE / 2;
+  const centerY = pos.row * SQUARE_SIZE + SQUARE_SIZE / 2;
+  const radius = SQUARE_SIZE / 3;
 
-    // Draw food
-    if (targetPos) {
-      ctx.drawImage(
-        foodImage,
-        targetPos.col * SQUARE_SIZE,
-        targetPos.row * SQUARE_SIZE,
-        SQUARE_SIZE,
-        SQUARE_SIZE
-      );
-    }
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+  ctx.fillStyle = pos.color || '#FF0000'; // cor padrão caso não tenha
+  ctx.fill();
+  ctx.closePath();
+}
 
-    // Draw gift
-    if (greenPos) {
-      ctx.drawImage(
-        giftImage,
-        greenPos.col * SQUARE_SIZE,
-        greenPos.row * SQUARE_SIZE,
-        SQUARE_SIZE,
-        SQUARE_SIZE
-      );
-    }
 
-    // Draw player
-    let playerColor = '#0000FF';
-    if (lives > 0) {
-      const colors = ['#8A2BE2', '#FFD700', '#FFFACD', '#F5F5F5', '#FFFFFF'];
-      playerColor = colors[Math.min(lives - 1, colors.length - 1)];
-    }
-
-    const centerX = playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2;
-    const centerY = playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2;
-
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = playerColor;
-    ctx.fill();
-    ctx.strokeStyle = '#FFFFFF';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-    ctx.closePath();
+  if (targetPos) {
+    ctx.drawImage(
+      foodImage,
+      targetPos.col * SQUARE_SIZE,
+      targetPos.row * SQUARE_SIZE,
+      SQUARE_SIZE,
+      SQUARE_SIZE
+    );
+  }
+  if (greenPos) {
+    ctx.drawImage(
+      giftImage,
+      greenPos.col * SQUARE_SIZE,
+      greenPos.row * SQUARE_SIZE,
+      SQUARE_SIZE,
+      SQUARE_SIZE
+    );
   }
 
+  // Desenha o player como uma bolinha azul que fica mais clara conforme o número de vidas
+let playerColor;
+if (lives > 0) {
+  // Degradê de cores baseado em vidas
+  if (lives === 1) {
+    playerColor = '#8A2BE2';
+  } else if (lives === 2) {
+    playerColor = '#FFD700';
+  } else if (lives === 3) {
+    playerColor = '#FFFACD'; 
+  } else if (lives === 4) {
+    playerColor = '#F5F5F5'; 
+  } else {
+    playerColor = '#FFFFFF'; 
+  }
+} else {
+  playerColor = score < 3 ? '#0000FF' : '#7FDBFF'; // Azul escuro → Azul claro
+}
+
+
+  const centerX = playerPos.col * SQUARE_SIZE + SQUARE_SIZE / 2;
+  const centerY = playerPos.row * SQUARE_SIZE + SQUARE_SIZE / 2;
+
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+  ctx.fillStyle = playerColor;
+  ctx.fill();
+  ctx.closePath();
+}
   function spawnDangerPositions() {
-    const validPositions = chordManager.getValidPositionsForCurrentChord();
-    const count = difficultyManager.getEnemyCount(gameMode, score);
-    const selected = validPositions.sort(() => 0.5 - Math.random()).slice(0, Math.min(count, validPositions.length));
-
-    return selected.map((pos, i) => ({
-      ...pos,
-      color: ENEMY_COLORS[i % ENEMY_COLORS.length]
-    }));
+  const positions = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const isOccupied =
+        (r === playerPos.row && c === playerPos.col) ||
+        (targetPos && r === targetPos.row && c === targetPos.col) ||
+        (greenPos && r === greenPos.row && c === greenPos.col);
+      if (!isOccupied) positions.push({ row: r, col: c });
+    }
   }
+
+  const selected = positions.sort(() => 0.5 - Math.random()).slice(0, 10);
+  return selected.map((pos, i) => ({
+    ...pos,
+    color: ENEMY_COLORS[i % ENEMY_COLORS.length]
+  }));
+}
 
   function spawnTarget() {
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
-        const occupied =
-          (r === playerPos.row && c === playerPos.col) ||
+        const occupied = (r === playerPos.row && c === playerPos.col) ||
           dangerPositions.some(p => p.row === r && p.col === c) ||
           (greenPos && r === greenPos.row && c === greenPos.col);
         if (!occupied) positions.push({ row: r, col: c });
@@ -298,8 +311,7 @@
     const positions = [];
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
-        const occupied =
-          (r === playerPos.row && c === playerPos.col) ||
+        const occupied = (r === playerPos.row && c === playerPos.col) ||
           (targetPos && r === targetPos.row && c === targetPos.col) ||
           dangerPositions.some(p => p.row === r && p.col === c);
         if (!occupied) positions.push({ row: r, col: c });
@@ -316,68 +328,51 @@
     if (!startTime) startTime = performance.now();
     const elapsed = (performance.now() - startTime - totalPausedDuration) / 1000;
 
-    // Update chord
-    chordManager.updateTime(elapsed);
-
-    // Spawn enemies on trigger
     if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
       dangerPositions = spawnDangerPositions();
-      soundEffects.playEnemySpawn();
       laserIndex++;
     }
 
-    // Spawn target
     if (!targetPos) targetPos = spawnTarget();
 
-    // Check collect food
     if (targetPos && playerPos.row === targetPos.row && playerPos.col === targetPos.col) {
       score++;
       targetPos = null;
-      soundEffects.playCollect();
-      animationSystem.addFlash('#FFD700', 150);
       updateScore();
       if (score % 10 === 0 && !greenPos) spawnGreen();
     }
 
-    // Check collect gift
     if (greenPos && playerPos.row === greenPos.row && playerPos.col === greenPos.col) {
       score += 3;
       lives += 1;
       greenPos = null;
-      soundEffects.playGift();
-      animationSystem.addFlash('#00FF00', 200);
       updateScore();
     }
 
-    // Check collision
     const hitDanger = dangerPositions.some(p => p.row === playerPos.row && p.col === playerPos.col);
     if (hitDanger && !damageCooldown) {
-      soundEffects.playDamage();
-      animationSystem.addFlash('#FF0000', 150);
-
+      lastScoreBeforeReset = score;
       if (gameMode === 'normal') {
-        if (lives > 0) lives--;
+        lives > 0 ? lives-- : score = 0;
       } else if (gameMode === 'hardcore') {
+        score = 0;
         if (lives > 0) {
           lives--;
         } else {
           gameOver = true;
           audioFundo.pause();
-          soundEffects.playGameOver();
           showGameOver();
+          if (!highScores.includes(lastScoreBeforeReset)) highScores.push(lastScoreBeforeReset);
         }
       }
-
       updateScore();
       damageCooldown = true;
-      const cooldown = difficultyManager.getDamageCooldown(gameMode, score);
-      setTimeout(() => damageCooldown = false, cooldown);
+      setTimeout(() => damageCooldown = false, 1000);
     }
   }
 
   function draw() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
-    animationSystem.update(16);
     drawBoard();
     drawElements();
   }
@@ -389,27 +384,33 @@
     requestAnimationFrame(gameLoop);
   }
 
-  function showGameOver() {
-    const allScores = scorePersistence.getHighScores();
-    const highScore = scorePersistence.getHighScore();
+function showGameOver() {
+  const sessionHighScore = Math.max(lastScoreBeforeReset || 0, ...highScores);
+  const highList = highScores.map((s, i) => `<div>${i + 1}ª tentativa: ${s}</div>`).join('');
+  gameOverOverlay.innerHTML = `
+    <div style="text-align:center; margin-top: -15%; color:white; font-size: 24px;">
+      Fim do Jogo!<br>
+      Maior Score nesta sessão: ${sessionHighScore}<br>
+      ${lastScoreBeforeReset !== null ? `Último score antes de morrer: ${lastScoreBeforeReset}<br>` : ''}
+      <br><strong>Scores anteriores:</strong><br>${highList || 'Nenhuma tentativa anterior'}<br><br>
+      <button id="restartBtn">Reiniciar (R)</button><br>
+      <button onclick="location.reload()">Voltar (Esc)</button>
+    </div>`;
+  gameOverOverlay.style.visibility = 'visible';
 
-    scorePersistence.addScore(score, gameMode, musicFile || 'custom');
+  document.getElementById('restartBtn').onclick = resetGame;
+}
 
-    const scoresList = allScores.map((s, i) => `<div>${i + 1}. ${s.score} pts</div>`).join('');
-
-    gameOverOverlay.innerHTML = `
-      <div style="text-align:center; margin-top: -15%; color:white; font-size: 24px;">
-        <strong>Fim do Jogo!</strong><br>
-        Seu Score: ${score}<br>
-        Maior Score: ${highScore}<br>
-        <br><strong>Top Scores:</strong><br>${scoresList || 'Nenhum score'}<br><br>
-        <button id="restartBtn">Reiniciar (R)</button><br>
-        <button onclick="location.reload()">Voltar (Esc)</button>
-      </div>`;
-    gameOverOverlay.style.visibility = 'visible';
-
-    document.getElementById('restartBtn').onclick = resetGame;
+  function hideGameOver() {
+    gameOverOverlay.style.visibility = 'hidden';
   }
+
+  document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    location.reload(); // Volta à configuração recarregando a página
+  }
+});
+
 
   function resetGame() {
     playerPos = { row: 7, col: 0 };
@@ -420,13 +421,13 @@
     greenPos = null;
     startTime = null;
     laserIndex = 0;
-    chordIndex = 0;
     gameOver = false;
     gameEnded = false;
     damageCooldown = false;
+    lastScoreBeforeReset = null;
     totalPausedDuration = 0;
     updateScore();
-    gameOverOverlay.style.visibility = 'hidden';
+    hideGameOver();
     audioFundo.currentTime = 0;
     audioFundo.play().catch(err => console.log('Erro ao tocar áudio:', err));
     gameLoop();
@@ -454,7 +455,7 @@
     });
   };
 
-  window.addEventListener('keydown', e => {
+    window.addEventListener('keydown', e => {
     if (gameOver && e.code === 'KeyR') return document.getElementById('restartBtn')?.click();
 
     const key = e.key.toLowerCase();
@@ -464,33 +465,18 @@
       return;
     }
 
+   
     const keys = { w: 'up', a: 'left', s: 'down', d: 'right' };
-    if (keys[key]) movePlayer(keys[key]);
-  });
-
-  window.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      location.reload();
-    }
+    if (keys[e.key.toLowerCase()]) movePlayer(keys[e.key.toLowerCase()]);
   });
 
   audioFundo.addEventListener('ended', () => {
     if (!gameOver) {
       gameOver = true;
-      soundEffects.playGameOver();
+      if (score > 0 && !highScores.includes(score)) highScores.push(score);
       showGameOver();
     }
   });
 
-  // Load images
-  const foodImage = new Image();
-  foodImage.src = 'food.png';
-
-  const giftImage = new Image();
-  giftImage.src = 'gift.png';
-
-  const enemyImage = new Image();
-  enemyImage.src = 'enemy.png';
-
-  draw();
+  draw(); // desenha tabuleiro inicial
 })();
