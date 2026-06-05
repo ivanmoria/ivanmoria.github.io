@@ -190,9 +190,9 @@ function draw() {
     }
 
     if (a.mode === 'orbital') {
-      // Asteroids orbit around screen center, NOT the mouse
-      const centerX = width / 2;
-      const centerY = height / 2;
+      // Asteroids orbit around mouse position
+      const centerX = gravCx;
+      const centerY = gravCy;
 
       if (a.activated) {
         // When clicked, attract to mouse
