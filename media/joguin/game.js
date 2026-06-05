@@ -265,6 +265,13 @@ window.togglePause = togglePause;
         btn.style.backgroundColor = '#555';
       }
     });
+
+    // Inicializar posições válidas para o modo selecionado
+    if (mode === 'harmony') {
+      validChordPositions = getValidPositionsForChord(currentChordNotes);
+    } else if (mode === 'melody') {
+      validChordPositions = getValidPositionsForChord([currentMelodyNote]);
+    }
   };
 
   // Detectar mudança no modo via checkbox
@@ -388,15 +395,11 @@ document.addEventListener('keydown', function(e) {
           ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, 5);
         }
 
-        // Destacar células do acorde atual
-        if (currentChordNotes && currentChordNotes.includes(note)) {
-          ctx.fillStyle = '#FFD700' + '40'; // Amarelo semi-transparente
+        // Destacar células apenas em modo melodia (mais simples)
+        if (noteMode === 'melody' && note === currentMelodyNote) {
+          // Destaque discreto para a melodia
+          ctx.fillStyle = '#FFD700' + '20'; // Muito mais suave
           ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-
-          // Borda brilhante nas células do acorde
-          ctx.strokeStyle = '#FFD700';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         }
 
         // Desenhar nome da nota no centro da célula
