@@ -56,16 +56,45 @@ const ENEMY_COLORS = [
   let boardNoteMap = [];
 
   // Função para gerar um mapa aleatório de notas no tabuleiro
+  // Garante que células adjacentes não têm a mesma nota
   function generateBoardNoteMap() {
     boardNoteMap = [];
     for (let r = 0; r < ROWS; r++) {
       boardNoteMap[r] = [];
       for (let c = 0; c < COLS; c++) {
-        // Distribuir as 12 notas aleatoriamente pelo tabuleiro
-        const noteIndex = Math.floor(Math.random() * 12);
-        boardNoteMap[r][c] = NOTE_NAMES[noteIndex];
+        let note;
+        let attempts = 0;
+
+        do {
+          // Escolher nota aleatória
+          const noteIndex = Math.floor(Math.random() * 12);
+          note = NOTE_NAMES[noteIndex];
+          attempts++;
+        } while (isAdjacentToSameNote(r, c, note) && attempts < 20);
+
+        boardNoteMap[r][c] = note;
       }
     }
+  }
+
+  // Função para verificar se uma nota é igual a algum vizinho
+  function isAdjacentToSameNote(row, col, note) {
+    // Verificar vizinhos: cima, baixo, esquerda, direita
+    const neighbors = [
+      [row - 1, col],     // cima
+      [row + 1, col],     // baixo
+      [row, col - 1],     // esquerda
+      [row, col + 1]      // direita
+    ];
+
+    for (const [r, c] of neighbors) {
+      if (r >= 0 && r < ROWS && c >= 0 && c < COLS) {
+        if (boardNoteMap[r] && boardNoteMap[r][c] === note) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // Função para obter a nota de uma célula
