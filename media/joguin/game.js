@@ -231,8 +231,12 @@ window.togglePause = togglePause;
   };
 
   function checkStartReady() {
+    console.log('checkStartReady called:', { gameMode, musicFile, csvFile });
     if (gameMode && musicFile && csvFile) {
+      console.log('All conditions met, creating button');
       startButtonContainer.innerHTML = '<button  class="start-btn" onclick="startGame()">Iniciar<br> (Enter)</button>';
+    } else {
+      console.log('Conditions not met:', { gameMode: !!gameMode, musicFile: !!musicFile, csvFile: !!csvFile });
     }
   }
 document.addEventListener('keydown', function(e) {
@@ -244,8 +248,6 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-
-  let currentChord = 'C Major'; // Acorde atual sendo exibido
   let chordTimeline = [];
 
   async function loadCSV() {
