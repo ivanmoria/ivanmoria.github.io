@@ -57,10 +57,55 @@ const ENEMY_COLORS = [
     return NOTE_NAMES[col % 12];
   }
 
+  // Definir acordes: root note + intervals para Major, Minor, Dominant
+  const CHORD_DEFINITIONS = {
+    'Major': [0, 4, 7],      // Root, Major 3rd, Perfect 5th
+    'Minor': [0, 3, 7],      // Root, Minor 3rd, Perfect 5th
+    'Dominant': [0, 4, 7, 10], // Major 7th
+  };
+
+  // Função para parsear um acorde (ex: "C Major" → ["C", "E", "G"])
+  function parseChord(chordStr) {
+    if (!chordStr) return ['C', 'E', 'G']; // Default
+
+    const parts = chordStr.trim().split(' ');
+    const rootNote = parts[0]; // Ex: "C", "C#", "D"
+    const chordType = parts.slice(1).join(' '); // Ex: "Major", "Minor"
+
+    const rootIdx = NOTE_NAMES.indexOf(rootNote);
+    if (rootIdx === -1) return ['C', 'E', 'G'];
+
+    const intervals = CHORD_DEFINITIONS[chordType] || [0, 4, 7];
+    const notes = intervals.map(interval => NOTE_NAMES[(rootIdx + interval) % 12]);
+
+    return [...new Set(notes)]; // Remove duplicates
+  }
+
+  // Função para obter posições válidas para um acorde
+  function getValidPositionsForChord(chordNotes) {
+    const validPos = [];
+
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        const cellNote = getCellNote(c);
+        if (chordNotes.includes(cellNote)) {
+          validPos.push({ row: r, col: c });
+        }
+      }
+    }
+
+    return validPos;
+  }
+
   let gameMode = null;
   let musicFile = null;
   let csvFile = null;
   let laserTimes = [];
+
+  // Rastrear acorde atual e posições válidas
+  let currentChord = 'C Major';
+  let currentChordNotes = ['C', 'E', 'G'];
+  let validChordPositions = [];
 
   let playerPos = { row: 7, col: 0 };
   let dangerPositions = [];
@@ -217,9 +262,20 @@ document.addEventListener('keydown', function(e) {
           }
         }
       });
+
+      // Inicializar posições válidas para o primeiro acorde
+      if (chordTimeline.length > 0) {
+        currentChord = chordTimeline[0].chord;
+        currentChordNotes = parseChord(currentChord);
+        validChordPositions = getValidPositionsForChord(currentChordNotes);
+      }
     } catch {
       laserTimes = [2, 5, 8, 12, 15];
       chordTimeline = [];
+      // Usar C Major como default
+      currentChord = 'C Major';
+      currentChordNotes = parseChord(currentChord);
+      validChordPositions = getValidPositionsForChord(currentChordNotes);
     }
   }
 
@@ -227,17 +283,30 @@ document.addEventListener('keydown', function(e) {
     WIDTH = canvas.width;
     HEIGHT = canvas.height;
     SQUARE_SIZE = WIDTH / COLS;
+
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
+        // Cor base
         ctx.fillStyle = (r + c) % 2 === 0 ? COLORS.LIGHT_BROWN : COLORS.BROWN;
         ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
 
-        // Desenhar barra de cor da nota no topo de cada célula
+        // Desenhar barra de cor da nota no topo
         const note = getCellNote(c);
         const noteColor = NOTE_COLORS[note];
         if (noteColor) {
           ctx.fillStyle = noteColor + '80'; // 50% opacidade
           ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, 5);
+        }
+
+        // Destacar células do acorde atual
+        if (currentChordNotes && currentChordNotes.includes(note)) {
+          ctx.fillStyle = '#FFD700' + '40'; // Amarelo semi-transparente
+          ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+
+          // Borda brilhante nas células do acorde
+          ctx.strokeStyle = '#FFD700';
+          ctx.lineWidth = 2;
+          ctx.strokeRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         }
       }
     }
@@ -248,7 +317,14 @@ document.addEventListener('keydown', function(e) {
       ctx.font = 'bold 18px Arial';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'top';
-      ctx.fillText(`Acorde: ${currentChord}`, WIDTH - 10, 10);
+      ctx.fillText(`🎼 ${currentChord}`, WIDTH - 10, 10);
+
+      // Mostrar notas do acorde
+      if (currentChordNotes) {
+        ctx.font = '14px Arial';
+        const notesStr = currentChordNotes.join(', ');
+        ctx.fillText(notesStr, WIDTH - 10, 35);
+      }
     }
   }
 
@@ -319,23 +395,31 @@ if (lives > 0) {
   ctx.closePath();
 }
   function spawnDangerPositions() {
-  const positions = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const isOccupied =
-        (r === playerPos.row && c === playerPos.col) ||
-        (targetPos && r === targetPos.row && c === targetPos.col) ||
-        (greenPos && r === greenPos.row && c === greenPos.col);
-      if (!isOccupied) positions.push({ row: r, col: c });
-    }
-  }
+    // Se há posições válidas do acorde, usar apenas essas
+    let availablePositions = validChordPositions.length > 0 ? validChordPositions : [];
 
-  const selected = positions.sort(() => 0.5 - Math.random()).slice(0, 10);
-  return selected.map((pos, i) => ({
-    ...pos,
-    color: ENEMY_COLORS[i % ENEMY_COLORS.length]
-  }));
-}
+    // Se não há posições do acorde, usar todas
+    if (availablePositions.length === 0) {
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          availablePositions.push({ row: r, col: c });
+        }
+      }
+    }
+
+    // Remover posições ocupadas
+    const positions = availablePositions.filter(pos =>
+      !(pos.row === playerPos.row && pos.col === playerPos.col) &&
+      !(targetPos && pos.row === targetPos.row && pos.col === targetPos.col) &&
+      !(greenPos && pos.row === greenPos.row && pos.col === greenPos.col)
+    );
+
+    const selected = positions.sort(() => 0.5 - Math.random()).slice(0, 10);
+    return selected.map((pos, i) => ({
+      ...pos,
+      color: ENEMY_COLORS[i % ENEMY_COLORS.length]
+    }));
+  }
 
   function spawnTarget() {
     const positions = [];
@@ -374,7 +458,12 @@ if (lives > 0) {
     // Atualizar acorde atual baseado no timeline
     for (let i = chordTimeline.length - 1; i >= 0; i--) {
       if (chordTimeline[i].time <= elapsed) {
-        currentChord = chordTimeline[i].chord;
+        if (currentChord !== chordTimeline[i].chord) {
+          currentChord = chordTimeline[i].chord;
+          // Parsear novo acorde e atualizar posições válidas
+          currentChordNotes = parseChord(currentChord);
+          validChordPositions = getValidPositionsForChord(currentChordNotes);
+        }
         break;
       }
     }
