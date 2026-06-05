@@ -33,7 +33,10 @@ class UploadProcessor {
       const status = this.musicParser.getMIDIStatus(arrayBuffer);
 
       if (!status.valid) {
-        return { success: false, error: `Invalid file format: ${status.reason}` };
+        return {
+          success: false,
+          error: `❌ Formato inválido: ${status.reason}\n\nFormatos aceitos:\n• MIDI (.mid)\n• MusicXML (.xml, .musicxml)`
+        };
       }
 
       let musicData;
@@ -44,7 +47,7 @@ class UploadProcessor {
       }
 
       if (!musicData.success) {
-        return { success: false, error: musicData.error };
+        return { success: false, error: `❌ Erro ao processar: ${musicData.error}` };
       }
 
       const csvLayers = this.musicParser.generateLayersCSV(musicData);
@@ -56,7 +59,8 @@ class UploadProcessor {
         uploadDate: new Date().toISOString(),
         type: status.type,
         duration: musicData.duration,
-        tempo: musicData.tempo
+        tempo: musicData.tempo,
+        chords: musicData.chords ? musicData.chords.length : 0
       };
 
       await this.saveCustomMusic(customTrack);
@@ -64,7 +68,10 @@ class UploadProcessor {
       return { success: true, data: customTrack };
     } catch (error) {
       console.error('Upload processing error:', error);
-      return { success: false, error: error.message };
+      return {
+        success: false,
+        error: `❌ Erro ao processar arquivo: ${error.message}`
+      };
     }
   }
 
