@@ -275,7 +275,7 @@ function draw() {
         }
       }
 
-      if (!a.fiery && (a.x < -200 || a.x > width + 200 || a.y < -200 || a.y > height + 200)) {
+      if (a.x < -200 || a.x > width + 200 || a.y < -200 || a.y > height + 200) {
         ASTEROIDS.splice(k, 1);
         continue;
       }
