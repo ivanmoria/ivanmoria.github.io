@@ -59,52 +59,73 @@
 </div>
 
 <div id="startOverlay">
-  <div style="margin-top: -10%; font-size:40px;">Escolha o modo (M):</div>
-    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-<div class="mode-switch">
-  <label class="switch">
-    <input type="checkbox" id="modeToggle">
-    <span class="slider"></span>
-  </label>
-  <span id="modeLabel">Normal</span>
-</div>
+  <div class="welcome-container">
+    <h1 class="game-title">🎮 PEGA-PEGA HARMÔNICO 🎵</h1>
 
-</div>
-  <div style="margin-top: 20px;font-size:40px;">Escolha a música:</div> 
-
-  <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-    <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">Música 1</button>
-    <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">Música 2</button>
-  </div>
-  <div style="display: flex; gap: 10px;">
-    <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">Música 3</button>
-    <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">Música 4</button>
-  </div>
-
-  <div id="customMusicSection" style="margin-top: 30px; display: block;">
-    <div style="font-size:40px; margin-bottom: 15px;">Suas Músicas Customizadas:</div>
-    <div id="customMusicList" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;"><!-- Músicas detectadas automaticamente -->
-      <button class="music-select" onclick="setMusic('choro_fado.mp3', 'choro_fado_layers.csv');" style="background-color: #FF9800;">🎵 Choro Fado (83 BPM)</button>
+    <div class="menu-section">
+      <h2 class="section-title">Escolha o Modo de Jogo</h2>
+      <div class="mode-selector">
+        <label class="switch">
+          <input type="checkbox" id="modeToggle">
+          <span class="slider"></span>
+        </label>
+        <span id="modeLabel" class="mode-label">Normal</span>
+        <span class="mode-hint">(Pressione M para alternar)</span>
       </div>
-  </div>
-
-  <div style="margin-top: 30px;">
-    <div style="font-size: 18px; color: white; margin-bottom: 10px;">Carregar Música MP3:</div>
-    <div style="display: flex; gap: 10px;">
-      <button class="music-select" onclick="document.getElementById('customAudioInput').click()" style="background-color: #2196F3;">🔊 Carregar MP3</button>
     </div>
-    <input type="file" id="customAudioInput" accept=".mp3,.wav,.ogg" style="display: none;" />
-    <div id="audioLoadStatus" style="margin-top: 10px; color: white; font-size: 14px;"></div>
-  </div>
 
-  <div id="uploadProgress" style="display: none; margin-top: 20px; text-align: center; color: white;">
-    <p>Processando <span id="fileName"></span>...</p>
-    <div style="width: 200px; height: 10px; background: #333; margin: 10px auto; border-radius: 5px;">
-      <div id="progressBar" style="width: 0%; height: 100%; background: #4CAF50; border-radius: 5px;"></div>
+    <div class="menu-section">
+      <h2 class="section-title">🎵 Escolha uma Música</h2>
+      <div class="music-grid">
+        <button class="music-select" onclick="setMusic('musica1.mp3', 'layers1.csv')">
+          <div class="music-number">1</div>
+          <div class="music-name">Música 1</div>
+        </button>
+        <button class="music-select" onclick="setMusic('musica2.mp3', 'layers2.csv')">
+          <div class="music-number">2</div>
+          <div class="music-name">Música 2</div>
+        </button>
+        <button class="music-select" onclick="setMusic('musica3.mp3', 'layers3.csv')">
+          <div class="music-number">3</div>
+          <div class="music-name">Música 3</div>
+        </button>
+        <button class="music-select" onclick="setMusic('musica4.mp3', 'layers4.csv')">
+          <div class="music-number">4</div>
+          <div class="music-name">Música 4</div>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div id="startButtonContainer"></div><br><br>
+    <div id="customMusicSection" class="menu-section" style="display: block;">
+      <h2 class="section-title">⭐ Suas Músicas Customizadas</h2>
+      <div id="customMusicList" class="music-grid">
+        <button class="music-select" onclick="setMusic('choro_fado.mp3', 'choro_fado_layers.csv');" style="background: linear-gradient(135deg, #FF9800, #F57C00);">
+          <div class="music-emoji">🎵</div>
+          <div class="music-name">Choro Fado</div>
+          <div class="music-bpm">(83 BPM)</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="menu-section">
+      <h2 class="section-title">➕ Carregar Música</h2>
+      <button class="music-select upload-btn" onclick="document.getElementById('customAudioInput').click()">
+        <div class="upload-icon">🔊</div>
+        <div class="upload-text">Carregar MP3</div>
+      </button>
+      <input type="file" id="customAudioInput" accept=".mp3,.wav,.ogg" style="display: none;" />
+      <div id="audioLoadStatus" class="status-text"></div>
+    </div>
+
+    <div id="uploadProgress" style="display: none; margin-top: 20px; text-align: center; color: white;">
+      <p>Processando <span id="fileName"></span>...</p>
+      <div style="width: 200px; height: 10px; background: #333; margin: 10px auto; border-radius: 5px;">
+        <div id="progressBar" style="width: 0%; height: 100%; background: #4CAF50; border-radius: 5px;"></div>
+      </div>
+    </div>
+
+    <div id="startButtonContainer" class="start-button-wrapper"></div>
+  </div>
   <!-- Assinatura -->
 <footer style="text-align: center; margin-top: -5px; font-family: sans-serif; font-size: 14px; color: #555;">
   Desenvolvido por <strong>Ivan Moriá Borges</strong> — 

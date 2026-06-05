@@ -42,36 +42,136 @@
     visibility: hidden;
   }
   #startOverlay {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 40, 0.9) 100%);
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1a35 100%);
     color: white;
-    font-size: max(5vw, 18px);
     z-index: 20;
-    gap: 20px;
-    padding: 30px;
     overflow-y: auto;
-  }
-  #startOverlay > div {
-    width: 100%;
-    max-width: 600px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .welcome-container {
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .game-title {
+    font-size: max(6vw, 28px);
+    margin: 0 0 40px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #4dd0e1, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 30px rgba(77, 208, 225, 0.3);
+  }
+
+  .menu-section {
+    margin-bottom: 35px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid rgba(77, 208, 225, 0.2);
     backdrop-filter: blur(10px);
   }
-  #startOverlay > div > div {
-    margin: 15px 0;
-    font-size: max(4vw, 16px);
+
+  .section-title {
+    font-size: max(4.5vw, 20px);
+    margin: 0 0 20px 0;
+    color: #4dd0e1;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    width: 100%;
+  }
+  .mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .mode-label {
+    font-size: max(3.5vw, 18px);
+    font-weight: bold;
+    color: #ff6b9d;
+    min-width: 100px;
+  }
+
+  .mode-hint {
+    font-size: max(2.5vw, 12px);
+    color: #4dd0e1;
+    opacity: 0.7;
+  }
+
+  .music-number {
+    font-size: 24px;
     font-weight: bold;
     color: #4dd0e1;
+    margin-bottom: 5px;
   }
+
+  .music-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .music-bpm {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  .music-emoji {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .upload-btn {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .upload-icon {
+    font-size: 32px;
+  }
+
+  .upload-text {
+    font-size: 18px;
+  }
+
+  .status-text {
+    margin-top: 15px;
+    color: #4dd0e1;
+    font-size: 14px;
+  }
+
+  .start-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   #startOverlay button.selected {
-    background-color: green;
-    color: rgb(255, 255, 255);
-  }
-  #startOverlay button.music-selected {
-    background-color: blue;
+    background: linear-gradient(135deg, #ff6b9d, #ff4081) !important;
     color: white;
+    border-color: #ff4081 !important;
+  }
+
+  #startOverlay button.music-selected {
+    background: linear-gradient(135deg, #4dd0e1, #26c6da) !important;
+    color: #0a0e27;
+    border-color: #00bcd4 !important;
+    font-weight: bold;
   }
   #startOverlay button, #gameOverOverlay button {
     margin: 12px 8px;
