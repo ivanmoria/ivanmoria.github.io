@@ -52,9 +52,28 @@ const ENEMY_COLORS = [
     'B': '#FF69B4'     // Rosa
   };
 
+  // Mapa 2D de notas do tabuleiro (8x8)
+  let boardNoteMap = [];
+
+  // Função para gerar um mapa aleatório de notas no tabuleiro
+  function generateBoardNoteMap() {
+    boardNoteMap = [];
+    for (let r = 0; r < ROWS; r++) {
+      boardNoteMap[r] = [];
+      for (let c = 0; c < COLS; c++) {
+        // Distribuir as 12 notas aleatoriamente pelo tabuleiro
+        const noteIndex = Math.floor(Math.random() * 12);
+        boardNoteMap[r][c] = NOTE_NAMES[noteIndex];
+      }
+    }
+  }
+
   // Função para obter a nota de uma célula
-  function getCellNote(col) {
-    return NOTE_NAMES[col % 12];
+  function getCellNote(row, col) {
+    if (boardNoteMap[row] && boardNoteMap[row][col]) {
+      return boardNoteMap[row][col];
+    }
+    return NOTE_NAMES[col % 12]; // Fallback se o mapa não estiver inicializado
   }
 
   // Definir acordes: root note + intervals para Major, Minor, Dominant
@@ -87,7 +106,7 @@ const ENEMY_COLORS = [
 
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
-        const cellNote = getCellNote(c);
+        const cellNote = getCellNote(r, c);
         if (chordNotes.includes(cellNote)) {
           validPos.push({ row: r, col: c });
         }
@@ -308,7 +327,7 @@ document.addEventListener('keydown', function(e) {
         ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
 
         // Desenhar barra de cor da nota no topo
-        const note = getCellNote(c);
+        const note = getCellNote(r, c);
         const noteColor = NOTE_COLORS[note];
         if (noteColor) {
           ctx.fillStyle = noteColor + '80'; // 50% opacidade
@@ -577,6 +596,9 @@ function showGameOver() {
 
 
   function resetGame() {
+    // Gerar novo mapa de notas para o tabuleiro
+    generateBoardNoteMap();
+
     playerPos = { row: 7, col: 0 };
     score = 0;
     lives = 0;
