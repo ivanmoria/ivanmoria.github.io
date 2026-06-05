@@ -163,12 +163,14 @@ function draw() {
     else { sx = -40; sy = random(height * 0.1, height * 0.9); }
     const lonely = random() < 0.35;
     const orbitSpeedMult = random(0.6, 1.6);
+    const orbitDirection = random() < 0.5 ? 1 : -1; // 50% clockwise, 50% counter-clockwise
+    const rotSpd = random(0.008, 0.018) * orbitDirection; // Spin matches orbit direction
     ASTEROIDS.push({
-      x: sx, y: sy, sa, sb, inc, phase: ph, rot: random(TWO_PI), rotSpd: random(-0.014, 0.014),
+      x: sx, y: sy, sa, sb, inc, phase: ph, rot: random(TWO_PI), rotSpd: rotSpd,
       size: sz, curSize: sz, alpha: random(110, 170), fiery: false, pts, verts, trail: [],
       mode: 'orbital', vx: 0, vy: 0, life: floor(random(1200, 2400)), activated: false,
       lonely: lonely, explosionDelay: floor(random(140, 460)), restTime: 0,
-      orbitSpeedMult: orbitSpeedMult, fireColor: floor(random(7))
+      orbitSpeedMult: orbitSpeedMult, fireColor: floor(random(7)), orbitDirection: orbitDirection
     });
   }
 
@@ -181,14 +183,15 @@ function draw() {
     if (a.mode === 'orbital') {
       const md = dist(gravCx, gravCy, a.x, a.y);
 
-      if (spd > 32 && md < 280 && random() < 0.03) {
-        a.mode = 'free';
-        a.fiery = false;
-        const dx = a.x - gravCx, dy = a.y - gravCy;
-        const d = sqrt(dx*dx + dy*dy) + 1;
-        a.vx = (dx / d) * random(2.5, 4.2);
-        a.vy = (dy / d) * random(2.5, 4.2);
-      }
+      // Disabled: asteroids stay in orbital mode, don't change due to fast mouse movement
+      // if (spd > 32 && md < 280 && random() < 0.03) {
+      //   a.mode = 'free';
+      //   a.fiery = false;
+      //   const dx = a.x - gravCx, dy = a.y - gravCy;
+      //   const d = sqrt(dx*dx + dy*dy) + 1;
+      //   a.vx = (dx / d) * random(2.5, 4.2);
+      //   a.vy = (dy / d) * random(2.5, 4.2);
+      // }
 
       if (a.activated) {
         a.sa = lerp(a.sa, 12, 0.058);
@@ -205,7 +208,7 @@ function draw() {
         }
       }
 
-      a.phase += (0.52 / pow(max(a.sa, 25), 0.72)) * a.orbitSpeedMult;
+      a.phase += (0.52 / pow(max(a.sa, 25), 0.72)) * a.orbitSpeedMult * (a.orbitDirection || 1);
       const lx = a.sa * cos(a.phase), ly = a.sb * sin(a.phase);
       const ox = gravCx + lx * cos(a.inc) - ly * sin(a.inc);
       const oy = gravCy + lx * sin(a.inc) + ly * cos(a.inc);
@@ -283,7 +286,7 @@ function draw() {
       if (a.fiery) {
         if (!a.dustCount) a.dustCount = 0;
 
-        if (a.dustCount < 20 && frameCount % 12 === 0 && random() < 0.35) {
+        if (a.dustCount < 40 && frameCount % 10 === 0 && random() < 0.50) {
           const dustAng = random(TWO_PI);
           const dustDist = random(a.curSize * 0.4, a.curSize * 1.5);
           ff.push({
@@ -296,7 +299,7 @@ function draw() {
 
         a.curSize = lerp(a.curSize, a.curSize * 0.88, 0.022);
 
-        if (a.dustCount >= 20 && a.curSize < 0.6) {
+        if (a.dustCount >= 40 && a.curSize < 0.6) {
           nodes.push({
             x: a.x, y: a.y, vx: 0, vy: 0, z: 0, vz: 0,
             r: random(1.6, 2.5), glow: 0.4,
@@ -731,9 +734,11 @@ function mousePressed() {
       const ax = random(width * 0.1, width * 0.9);
       const ay = random(height * 0.1, height * 0.9);
 
+      const orbitDirection = random() < 0.5 ? 1 : -1;
+      const rotSpd = random(0.008, 0.018) * orbitDirection;
       ASTEROIDS.push({
         x: ax, y: ay, sa, sb, inc, phase: ph,
-        rot: random(TWO_PI), rotSpd: random(-0.014, 0.014),
+        rot: random(TWO_PI), rotSpd: rotSpd,
         size: sz, curSize: sz, alpha: random(110, 170),
         fiery: false, pts, verts, trail: [],
         mode: 'orbital', vx: 0, vy: 0,
@@ -741,7 +746,7 @@ function mousePressed() {
         activated: false, lonely: random() < 0.35,
         explosionDelay: floor(random(140, 460)),
         restTime: 0, fireColor: floor(random(7)),
-        orbitSpeedMult: orbitSpeedMult
+        orbitSpeedMult: orbitSpeedMult, orbitDirection: orbitDirection
       });
     }
   }
