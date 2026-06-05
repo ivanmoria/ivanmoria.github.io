@@ -185,15 +185,41 @@ document.addEventListener('keydown', function(e) {
 });
 
 
+  let currentChord = 'C Major'; // Acorde atual sendo exibido
+  let chordTimeline = [];
+
   async function loadCSV() {
     try {
       const response = await fetch(csvFile);
       if (!response.ok) throw new Error('Erro ao carregar CSV');
       const text = await response.text();
       const lines = text.trim().split('\n');
-      laserTimes = lines.slice(1).map(line => parseFloat(line.split(',')[0])).filter(t => !isNaN(t));
+
+      laserTimes = [];
+      chordTimeline = [];
+
+      lines.slice(1).forEach(line => {
+        const parts = line.split(',');
+        const time = parseFloat(parts[0]);
+        const eventType = parts[1]?.trim();
+        const data = parts[2]?.trim();
+
+        if (!isNaN(time)) {
+          // Suportar ambos: "New Point" (antigo) e "enemySpawn" (novo)
+          if (eventType === 'New Point' || eventType === 'enemySpawn') {
+            laserTimes.push(time);
+          }
+          // Suportar mudanças de acorde
+          else if (eventType === 'chordChange' || eventType === 'Chord') {
+            if (data) {
+              chordTimeline.push({ time, chord: data });
+            }
+          }
+        }
+      });
     } catch {
       laserTimes = [2, 5, 8, 12, 15];
+      chordTimeline = [];
     }
   }
 
@@ -214,6 +240,15 @@ document.addEventListener('keydown', function(e) {
           ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, 5);
         }
       }
+    }
+
+    // Mostrar acorde atual no canto superior direito
+    if (currentChord) {
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 18px Arial';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'top';
+      ctx.fillText(`Acorde: ${currentChord}`, WIDTH - 10, 10);
     }
   }
 
@@ -335,6 +370,14 @@ if (lives > 0) {
   function update() {
     if (!startTime) startTime = performance.now();
     const elapsed = (performance.now() - startTime - totalPausedDuration) / 1000;
+
+    // Atualizar acorde atual baseado no timeline
+    for (let i = chordTimeline.length - 1; i >= 0; i--) {
+      if (chordTimeline[i].time <= elapsed) {
+        currentChord = chordTimeline[i].chord;
+        break;
+      }
+    }
 
     if (laserIndex < laserTimes.length && elapsed >= laserTimes[laserIndex]) {
       dangerPositions = spawnDangerPositions();
