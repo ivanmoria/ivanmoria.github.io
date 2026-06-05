@@ -146,6 +146,34 @@ def generate_csv(chords, enemy_spawns):
     return '\n'.join(lines)
 
 
+def find_audio_files_in_common_dirs():
+    """
+    Search for audio files in common directories.
+    """
+    audio_extensions = ('.mp3', '.wav', '.flac', '.ogg', '.m4a')
+    common_dirs = [
+        '.',
+        os.path.expanduser('~/Music'),
+        os.path.expanduser('~/Downloads'),
+        os.path.expanduser('~/Desktop'),
+        os.path.expanduser('~/Music/Spotify'),
+    ]
+
+    found_files = {}
+
+    for directory in common_dirs:
+        if os.path.isdir(directory):
+            try:
+                for file in os.listdir(directory):
+                    if file.lower().endswith(audio_extensions):
+                        full_path = os.path.join(directory, file)
+                        found_files[file] = full_path
+            except PermissionError:
+                continue
+
+    return found_files
+
+
 def select_audio_file_interactive():
     """
     Interactive file selection in terminal.
@@ -154,18 +182,40 @@ def select_audio_file_interactive():
     print("🎵 PEGA-PEGA HARMÔNICO - Extrator de Acordes")
     print("="*60 + "\n")
 
-    # List audio files in current directory
+    # Find audio files
     audio_extensions = ('.mp3', '.wav', '.flac', '.ogg', '.m4a')
+
+    # First check current directory
     audio_files = [f for f in os.listdir('.') if f.lower().endswith(audio_extensions)]
+
+    # If not found, search common directories
+    found_files = {}
+    if not audio_files:
+        print("🔍 Procurando em diretórios comuns...")
+        found_files = find_audio_files_in_common_dirs()
+        if found_files:
+            audio_files = list(found_files.keys())
 
     if audio_files:
         print("📁 Arquivos de áudio encontrados:\n")
         for i, file in enumerate(audio_files, 1):
-            size_mb = os.path.getsize(file) / (1024*1024)
-            print(f"  {i}. {file} ({size_mb:.1f} MB)")
+            if found_files:
+                full_path = found_files[file]
+            else:
+                full_path = file
 
-        print("\nOpções:")
-        print("  0. Inserir caminho manualmente")
+            size_mb = os.path.getsize(full_path) / (1024*1024)
+
+            # Show directory if from different location
+            if found_files and found_files[file] != file:
+                dir_name = os.path.dirname(found_files[file])
+                print(f"  {i}. {file}")
+                print(f"     📂 {dir_name} ({size_mb:.1f} MB)\n")
+            else:
+                print(f"  {i}. {file} ({size_mb:.1f} MB)")
+
+        print("Opções:")
+        print("  0. Inserir caminho manual")
         print()
 
         while True:
@@ -173,7 +223,13 @@ def select_audio_file_interactive():
                 choice = input("Escolha o número do arquivo (ou 0): ").strip()
 
                 if choice == '0':
-                    audio_file = input("\nDigite o caminho do arquivo: ").strip()
+                    print("\n💡 Dica: Cole o caminho entre aspas para evitar problemas com caracteres especiais")
+                    print("   Exemplo: '/Users/ivanmoria/Music/musica.mp3'\n")
+                    audio_file = input("Digite o caminho do arquivo: ").strip()
+
+                    # Remove quotes if user pasted them
+                    audio_file = audio_file.strip("'\"")
+
                     if not audio_file:
                         print("❌ Caminho vazio!")
                         continue
@@ -181,16 +237,23 @@ def select_audio_file_interactive():
 
                 choice_num = int(choice)
                 if 1 <= choice_num <= len(audio_files):
-                    audio_file = audio_files[choice_num - 1]
+                    selected_file = audio_files[choice_num - 1]
+                    if found_files:
+                        audio_file = found_files[selected_file]
+                    else:
+                        audio_file = selected_file
                     break
                 else:
                     print(f"❌ Digite um número entre 0 e {len(audio_files)}")
             except ValueError:
                 print("❌ Digite um número válido")
     else:
-        print("❌ Nenhum arquivo de áudio encontrado neste diretório.")
+        print("❌ Nenhum arquivo de áudio encontrado.")
         print("Formatos suportados: MP3, WAV, FLAC, OGG, M4A\n")
+        print("💡 Dica: Cole o caminho entre aspas para evitar problemas com caracteres especiais")
+        print("   Exemplo: '/Users/ivanmoria/Music/musica.mp3'\n")
         audio_file = input("Digite o caminho do arquivo: ").strip()
+        audio_file = audio_file.strip("'\"")
 
     return audio_file
 
@@ -207,13 +270,18 @@ def main():
 
     if not Path(audio_file).exists():
         print(f"\n❌ Erro: Arquivo não encontrado: {audio_file}")
+        print("\n💡 Dica: Se o caminho tem caracteres especiais [, ], use aspas:")
+        print(f"   python extract_chords.py '{audio_file}'")
         sys.exit(1)
 
     # Extract chords and beats
     try:
+        print(f"\n🔄 Processando arquivo...")
         data = extract_chords_and_beats(audio_file)
     except Exception as e:
-        print(f"Error extracting chords: {e}")
+        print(f"\n❌ Erro ao processar: {e}")
+        print("\nTente copiar o arquivo para a pasta joguin e use um nome mais simples:")
+        print(f"  cp '{audio_file}' .")
         sys.exit(1)
 
     # Save JSON
