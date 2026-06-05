@@ -178,7 +178,16 @@ function draw() {
     const a = ASTEROIDS[k];
     a.rot += a.rotSpd;
     a.life--;
-    if (a.life <= 0) { ASTEROIDS.splice(k, 1); continue; }
+    if (a.life <= 0) {
+      // Transform asteroid into background star instead of removing
+      STARS.push({
+        x: a.x, y: a.y,
+        r: random(0.5, 1.5),
+        phase: random(TWO_PI)
+      });
+      ASTEROIDS.splice(k, 1);
+      continue;
+    }
 
     if (a.mode === 'orbital') {
       // Asteroids orbit around screen center, NOT the mouse
