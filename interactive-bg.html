@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="description" content="Interactive Background - Ivan Moriá Borges">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2d2b2b">
+  <title>Interactive Background - Ivan Moriá Borges</title>
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Poiret+One&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: white; color: #333; }
+
+    body, html {
+      overflow: hidden;
+      background: #2d2b2b;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; display: block;
+    }
+    #canvas-container {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* Back button */
+    .back-button {
+      position: fixed; top: 20px; left: 20px;
+      z-index: 1000;
+      background: none; border: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 28px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: 'Poiret One', cursive;
+      padding: 8px 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .back-button:hover {
+      color: rgba(255, 255, 255, 1);
+      transform: scale(1.15);
+    }
+    .back-button:active {
+      transform: scale(0.95);
+    }
+
+    /* Planet button — nebula theme toggle */
+    .planet-button {
+      border: none; background: none; cursor: pointer;
+      padding: 4px;
+      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000;
+      position: fixed; top: 20px; right: 20px;
+      pointer-events: auto !important;
+    }
+    .planet-button:hover { transform: scale(1.15); }
+    .planet-button:active { transform: scale(0.95); }
+
+    /* Light theme adjustments */
+    body.light-theme .back-button {
+      color: rgba(0, 0, 0, 0.7);
+    }
+    body.light-theme .back-button:hover {
+      color: rgba(0, 0, 0, 1);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="canvas-container"></div>
+
+  <!-- Back button -->
+  <button class="back-button" title="Back" onclick="window.location.href='apps.html'">←</button>
+
+  <!-- Theme toggle — top right -->
+  <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
+    <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
+      <defs>
+        <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+          <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+          <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+          <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+          <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+        </radialGradient>
+        <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+          <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+          <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+        <filter id="glow2">
+          <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+          </feMerge>
+        </filter>
+        <style>
+          @keyframes moonOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          @keyframes nebulaPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+          }
+          @keyframes nebulaSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-180deg); }
+          }
+          .moon-container {
+            animation: moonOrbit 6s linear infinite;
+            transform-origin: 40px 40px;
+          }
+          .nebula-core {
+            animation: nebulaPulse 3s ease-in-out infinite;
+          }
+          .nebula-ring {
+            animation: nebulaSpin 8s linear infinite;
+            transform-origin: 40px 40px;
+          }
+        </style>
+      </defs>
+      <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+      <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+      <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+      <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+      <g class="moon-container">
+        <defs>
+          <radialGradient id="moonGlow">
+            <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+            <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+            <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+          </radialGradient>
+        </defs>
+        <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+        <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+        <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+      </g>
+    </svg>
+  </button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
