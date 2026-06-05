@@ -35,16 +35,27 @@ const ENEMY_COLORS = [
     BROWN: '#8B4513'
   };
 
-  // Cores para as notas (8 notas na escala)
+  // Cores para as notas (12 notas cromáticas)
+  const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
   const NOTE_COLORS = {
     'C': '#FF6B6B',    // Vermelho
+    'C#': '#FF5555',   // Vermelho mais escuro
     'D': '#FFA500',    // Laranja
+    'D#': '#FF8C00',   // Laranja escuro
     'E': '#FFD700',    // Amarelo
     'F': '#90EE90',    // Verde claro
+    'F#': '#7CCD7C',   // Verde mais escuro
     'G': '#87CEEB',    // Azul claro
+    'G#': '#6BA3D4',   // Azul mais escuro
     'A': '#9370DB',    // Púrpura
+    'A#': '#8B5FBF',   // Púrpura escuro
     'B': '#FF69B4'     // Rosa
   };
+
+  // Função para obter a nota de uma célula
+  function getCellNote(col) {
+    return NOTE_NAMES[col % 12];
+  }
 
   let gameMode = null;
   let musicFile = null;
@@ -194,17 +205,14 @@ document.addEventListener('keydown', function(e) {
       for (let c = 0; c < COLS; c++) {
         ctx.fillStyle = (r + c) % 2 === 0 ? COLORS.LIGHT_BROWN : COLORS.BROWN;
         ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
-      }
-    }
 
-    // Desenhar cor para cada nota nas colunas
-    const notes = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'];
-    for (let c = 0; c < COLS; c++) {
-      const note = notes[c];
-      const noteColor = NOTE_COLORS[note];
-      if (noteColor) {
-        ctx.fillStyle = noteColor + '20'; // Transparência
-        ctx.fillRect(c * SQUARE_SIZE, 0, SQUARE_SIZE, SQUARE_SIZE / 4);
+        // Desenhar barra de cor da nota no topo de cada célula
+        const note = getCellNote(c);
+        const noteColor = NOTE_COLORS[note];
+        if (noteColor) {
+          ctx.fillStyle = noteColor + '80'; // 50% opacidade
+          ctx.fillRect(c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, 5);
+        }
       }
     }
   }
