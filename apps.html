@@ -285,8 +285,11 @@
 </head>
 <body>
 
-  <!-- Page Title -->
-  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Apps</div>
+  <!-- Back button and Page Title — same line -->
+  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; display: flex; align-items: center; gap: 8px;">
+    <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 0px; margin: 0px;">←</button>
+    <div style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Apps</div>
+  </div>
 
   <div id="canvas-container"></div>
 
@@ -388,11 +391,6 @@
       </svg>
     </button>
     <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
-  </div>
-
-  <!-- Back button — top left corner -->
-  <div style="position: fixed; top: 20px; left: 20px; z-index: 1001;">
-    <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
   </div>
 
   <!-- Apps Grid -->
