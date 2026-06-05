@@ -1,22 +1,33 @@
-0.497777778,New Point
-1.512199546,New Point
-2.509206349,New Point
-3.011337868,New Point
-3.503310658,New Point
-4.526439909,New Point
-5.513287982,New Point
-6.521904762,New Point
-6.992108844,New Point
-7.505850340,New Point
-8.499954649,New Point
-9.508571429,New Point
-10.466394558,New Point
-11.003356009,New Point
-11.508390023,New Point
-12.492335601,New Point
-13.007528345,New Point
-13.511111111,New Point
-14.001632653,New Point
-14.499410431,New Point
-14.998639456,New Point
-15.502222222,New Point
+time,eventType,data
+0.000000,chordChange,C Major
+0.497778,enemySpawn,null
+1.512200,enemySpawn,null
+2.509206,enemySpawn,null
+3.011338,enemySpawn,null
+3.503311,enemySpawn,null
+4.526440,enemySpawn,null
+5.000000,chordChange,F Major
+5.513288,enemySpawn,null
+6.521905,enemySpawn,null
+6.992109,enemySpawn,null
+7.505850,enemySpawn,null
+8.499955,enemySpawn,null
+9.508571,enemySpawn,null
+10.000000,chordChange,G Major
+10.466395,enemySpawn,null
+11.003356,enemySpawn,null
+11.508390,enemySpawn,null
+12.492336,enemySpawn,null
+13.007528,enemySpawn,null
+13.511111,enemySpawn,null
+14.001633,enemySpawn,null
+14.499410,enemySpawn,null
+14.998639,enemySpawn,null
+15.000000,chordChange,D Minor
+15.502222,enemySpawn,null
+20.000000,chordChange,A Minor
+25.000000,chordChange,E Minor
+30.000000,chordChange,C Major
+35.000000,chordChange,F Major
+40.000000,chordChange,G Major
+45.000000,chordChange,D Minor

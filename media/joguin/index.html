@@ -87,14 +87,12 @@
   </div>
 
   <div style="margin-top: 30px;">
-    <div style="font-size: 18px; color: white; margin-bottom: 10px;">Upload com Áudio:</div>
+    <div style="font-size: 18px; color: white; margin-bottom: 10px;">Carregar Música MP3:</div>
     <div style="display: flex; gap: 10px;">
-      <button class="music-select" onclick="document.getElementById('midiFileInput').click()" style="background-color: #4CAF50;">📁 Selecionar MIDI</button>
-      <button class="music-select" onclick="document.getElementById('audioFileInput').click()" style="background-color: #2196F3;">🔊 Selecionar Áudio MP3</button>
+      <button class="music-select" onclick="document.getElementById('customAudioInput').click()" style="background-color: #2196F3;">🔊 Carregar MP3</button>
     </div>
-    <input type="file" id="midiFileInput" accept=".mid,.xml,.musicxml" style="display: none;" />
-    <input type="file" id="audioFileInput" accept=".mp3,.wav,.ogg" style="display: none;" />
-    <div id="uploadStatus" style="margin-top: 10px; color: white; font-size: 14px;"></div>
+    <input type="file" id="customAudioInput" accept=".mp3,.wav,.ogg" style="display: none;" />
+    <div id="audioLoadStatus" style="margin-top: 10px; color: white; font-size: 14px;"></div>
   </div>
 
   <div id="uploadProgress" style="display: none; margin-top: 20px; text-align: center; color: white;">
@@ -128,73 +126,32 @@
   <script src="game.js"></script>
 
   <script>
-    let uploadProcessor = null;
-    if (typeof UploadProcessor !== 'undefined') {
-      uploadProcessor = new UploadProcessor();
-    }
-
-    let uploadedMidiFile = null;
-    let uploadedAudioBlob = null;
-
-    // MIDI upload
-    document.getElementById('midiFileInput').addEventListener('change', async (e) => {
+    // Carregar áudio MP3 customizado
+    document.getElementById('customAudioInput').addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
 
-      uploadedMidiFile = file;
-      document.getElementById('uploadStatus').textContent = `✅ MIDI carregado: ${file.name}`;
+      const audioUrl = URL.createObjectURL(file);
+      const musicName = file.name.replace(/\.[^/.]+$/, ''); // Remove extension
 
-      if (uploadedAudioBlob) {
-        createCustomMusicFromUpload();
-      }
+      // Criar botão de música customizada
+      const section = document.getElementById('customMusicSection');
+      section.style.display = 'block';
+
+      const button = document.createElement('button');
+      button.className = 'music-select';
+      button.style.backgroundColor = '#FF9800';
+      button.textContent = `🎵 ${musicName}`;
+      button.onclick = () => {
+        // Usar o áudio customizado com um CSV genérico
+        setMusic(audioUrl, 'layers1.csv'); // Use existing CSV for enemy spawning
+        window.customAudioUrl = audioUrl;
+      };
+
+      document.getElementById('customMusicList').appendChild(button);
+      document.getElementById('audioLoadStatus').textContent = `✅ Carregado: ${file.name}`;
+      e.target.value = '';
     });
-
-    // Áudio upload
-    document.getElementById('audioFileInput').addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      uploadedAudioBlob = await file.arrayBuffer();
-      document.getElementById('uploadStatus').textContent += ` | 🔊 Áudio carregado: ${file.name}`;
-
-      if (uploadedMidiFile) {
-        createCustomMusicFromUpload();
-      }
-    });
-
-    async function createCustomMusicFromUpload() {
-      if (!uploadedMidiFile || !uploadedAudioBlob) {
-        document.getElementById('uploadStatus').textContent = '⚠️ Carregue MIDI e Áudio';
-        return;
-      }
-
-      if (!uploadProcessor) {
-        document.getElementById('uploadStatus').textContent = '❌ Processador não disponível';
-        return;
-      }
-
-      try {
-        const result = await uploadProcessor.processUpload(uploadedMidiFile);
-
-        if (result.success) {
-          const track = result.data;
-          track.audioBlob = uploadedAudioBlob;
-          track.audioUrl = URL.createObjectURL(new Blob([uploadedAudioBlob]));
-
-          addCustomMusicButton(track);
-          document.getElementById('uploadStatus').textContent = `✅ Música pronta: ${track.fileName}`;
-
-          uploadedMidiFile = null;
-          uploadedAudioBlob = null;
-          document.getElementById('midiFileInput').value = '';
-          document.getElementById('audioFileInput').value = '';
-        } else {
-          document.getElementById('uploadStatus').textContent = `❌ Erro: ${result.error}`;
-        }
-      } catch (error) {
-        document.getElementById('uploadStatus').textContent = `❌ Erro: ${error.message}`;
-      }
-    }
 
     document.getElementById('hiddenFileInput').addEventListener('change', async (e) => {
       const file = e.target.files[0];
