@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+1#!/usr/bin/env python3
 """
 Parse MuseScore files (.mscz, .mscx) to extract notes and timings.
 Converts musical notation to game-compatible note sequences.
@@ -181,15 +181,31 @@ def extract_notes_from_score(score_root):
             except Exception as e:
                 continue
 
-    # Extract melody (notas sequenciais)
+    # Extract melody (respeitar durações das notas)
     melody_notes = []
+    last_note_data = None
+
     for note in all_notes:
-        if len(melody_notes) == 0 or note['note'] != melody_notes[-1]['note']:
+        # Se é a primeira nota ou a nota é diferente E a nota anterior já terminou
+        if len(melody_notes) == 0:
             melody_notes.append({
                 'time': note['time'],
                 'note': note['note'],
                 'strength': 1.0
             })
+            last_note_data = note
+        elif note['note'] != melody_notes[-1]['note']:
+            # Só adicionar nota nova se a anterior terminou
+            if last_note_data and (note['time'] >= last_note_data['time'] + last_note_data['duration'] - 0.01):
+                melody_notes.append({
+                    'time': note['time'],
+                    'note': note['note'],
+                    'strength': 1.0
+                })
+                last_note_data = note
+        else:
+            # Mesma nota continua, atualizar last_note_data
+            last_note_data = note
 
     # Create simple chords (notas que soam juntas)
     chords = []
