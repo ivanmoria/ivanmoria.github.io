@@ -47,7 +47,10 @@ def extract_chords_and_beats(audio_path, sr=22050):
         tempo, beats = librosa.beat.beat_track(onset_strength=onset_env, sr=sr)
 
     beat_times = librosa.frames_to_time(beats, sr=sr)
-    print(f"🎼 Tempo: {tempo:.1f} BPM")
+
+    # Ensure tempo is a scalar (not an array)
+    tempo_value = float(tempo[0]) if isinstance(tempo, np.ndarray) else float(tempo)
+    print(f"🎼 Tempo: {tempo_value:.1f} BPM")
 
     # Detect chord changes using chroma features
     print("🎹 Detectando acordes...")
@@ -59,7 +62,7 @@ def extract_chords_and_beats(audio_path, sr=22050):
 
     return {
         'duration': float(duration),
-        'tempo': float(tempo),
+        'tempo': tempo_value,
         'chords': chords,
         'enemy_spawns': enemy_spawns,
         'beat_times': [float(t) for t in beat_times]
@@ -71,42 +74,49 @@ def detect_chords_from_chroma(chroma, sr, y):
     Detect chord changes from chroma features.
     Uses frame-by-frame analysis to detect when chords change.
     """
-    # Normalize chroma
-    chroma_norm = chroma / (np.linalg.norm(chroma, axis=0, keepdims=True) + 1e-10)
+    try:
+        # Normalize chroma
+        chroma_norm = chroma / (np.linalg.norm(chroma, axis=0, keepdims=True) + 1e-10)
 
-    # Compute chroma energy to find strong chords
-    chroma_energy = np.sum(chroma_norm ** 2, axis=0)
+        # Compute chroma energy to find strong chords
+        chroma_energy = np.sum(chroma_norm ** 2, axis=0)
 
-    # Find frames with significant energy changes (chord changes)
-    energy_diff = np.abs(np.diff(chroma_energy))
-    threshold = np.mean(energy_diff) + np.std(energy_diff)
-    change_frames = np.where(energy_diff > threshold)[0]
+        # Find frames with significant energy changes (chord changes)
+        energy_diff = np.abs(np.diff(chroma_energy))
+        threshold = np.mean(energy_diff) + np.std(energy_diff)
+        change_frames = np.where(energy_diff > threshold)[0]
 
-    # Convert frames to times and limit to max 20 chord changes
-    change_times = librosa.frames_to_time(change_frames, sr=sr)
+        # Convert frames to times and limit to max 20 chord changes
+        change_times = librosa.frames_to_time(change_frames, sr=sr)
 
-    # Define chord patterns to map to
-    chord_patterns = [
-        'C Major', 'D Minor', 'E Minor', 'F Major', 'G Major',
-        'A Minor', 'C Major', 'F Major', 'G Major', 'D Minor',
-        'A Minor', 'E Minor', 'C Major', 'G Major', 'F Major'
-    ]
+        # Define chord patterns to map to
+        chord_patterns = [
+            'C Major', 'D Minor', 'E Minor', 'F Major', 'G Major',
+            'A Minor', 'C Major', 'F Major', 'G Major', 'D Minor',
+            'A Minor', 'E Minor', 'C Major', 'G Major', 'F Major'
+        ]
 
-    # Create chord events
-    chords = [{'time': 0.0, 'chord': 'C Major'}]  # Start with C Major
+        # Create chord events
+        chords = [{'time': 0.0, 'chord': 'C Major'}]  # Start with C Major
 
-    for i, change_time in enumerate(change_times[:15]):  # Limit to 15 changes
-        chord_idx = (i + 1) % len(chord_patterns)
-        if change_time > 1.0:  # Avoid changes in first second
-            chords.append({
-                'time': float(change_time),
-                'chord': chord_patterns[chord_idx]
-            })
+        for i, change_time in enumerate(change_times[:15]):  # Limit to 15 changes
+            chord_idx = (i + 1) % len(chord_patterns)
+            # Ensure change_time is a Python float
+            ct_float = float(change_time) if hasattr(change_time, '__float__') else change_time
+            if ct_float > 1.0:  # Avoid changes in first second
+                chords.append({
+                    'time': ct_float,
+                    'chord': chord_patterns[chord_idx]
+                })
 
-    # Sort by time
-    chords.sort(key=lambda x: x['time'])
+        # Sort by time
+        chords.sort(key=lambda x: x['time'])
 
-    return chords
+        return chords
+    except Exception as e:
+        print(f"⚠️  Aviso: Erro ao detectar acordes: {e}")
+        # Return simple chord timeline if detection fails
+        return [{'time': 0.0, 'chord': 'C Major'}]
 
 
 def generate_enemy_spawns(beat_times, duration, spawn_probability=0.6):
@@ -116,10 +126,12 @@ def generate_enemy_spawns(beat_times, duration, spawn_probability=0.6):
     spawns = []
 
     for beat_time in beat_times:
-        if beat_time < duration:
+        # Ensure beat_time is float
+        bt = float(beat_time) if hasattr(beat_time, '__float__') else beat_time
+        if bt < duration:
             # Add some randomness but keep most beats
-            if np.random.random() < spawn_probability or beat_time < 2:
-                spawns.append(float(beat_time))
+            if np.random.random() < spawn_probability or bt < 2:
+                spawns.append(bt)
 
     # Ensure first spawn happens early
     if not spawns or spawns[0] > 1.0:
@@ -147,7 +159,9 @@ def generate_csv(chords, enemy_spawns):
 
     # Write CSV
     for time, event_type, data in events:
-        lines.append(f'{time:.6f},{event_type},{data}')
+        # Convert numpy types to Python native types
+        time_float = float(time)
+        lines.append(f'{time_float:.6f},{event_type},{data}')
 
     return '\n'.join(lines)
 
