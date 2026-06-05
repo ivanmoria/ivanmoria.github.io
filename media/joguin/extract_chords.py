@@ -72,51 +72,97 @@ def extract_chords_and_beats(audio_path, sr=22050):
 def detect_chords_from_chroma(chroma, sr, y):
     """
     Detect chord changes from chroma features.
-    Uses frame-by-frame analysis to detect when chords change.
+    Analyzes which notes are present and matches to known chords.
     """
     try:
-        # Normalize chroma
+        # Note names (chromatic scale starting from C)
+        note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+        # Known chord patterns (intervals from root)
+        chord_patterns = {
+            'Major': [0, 4, 7],      # Root, Major 3rd, Perfect 5th
+            'Minor': [0, 3, 7],      # Root, Minor 3rd, Perfect 5th
+            'Dominant': [0, 4, 7, 10],  # Major 7th
+        }
+
+        # Normalize chroma for better analysis
         chroma_norm = chroma / (np.linalg.norm(chroma, axis=0, keepdims=True) + 1e-10)
 
-        # Compute chroma energy to find strong chords
-        chroma_energy = np.sum(chroma_norm ** 2, axis=0)
+        # Aggregate chroma over time windows (every 2 seconds)
+        window_size = int(2 * sr / 512)  # 2 second windows
+        chords = []
 
-        # Find frames with significant energy changes (chord changes)
-        energy_diff = np.abs(np.diff(chroma_energy))
-        threshold = np.mean(energy_diff) + np.std(energy_diff)
-        change_frames = np.where(energy_diff > threshold)[0]
+        print("🎼 Analisando acordes em tempo real...")
 
-        # Convert frames to times and limit to max 20 chord changes
-        change_times = librosa.frames_to_time(change_frames, sr=sr)
+        for i in range(0, chroma_norm.shape[1], window_size):
+            window_end = min(i + window_size, chroma_norm.shape[1])
+            window_chroma = chroma_norm[:, i:window_end]
 
-        # Define chord patterns to map to
-        chord_patterns = [
-            'C Major', 'D Minor', 'E Minor', 'F Major', 'G Major',
-            'A Minor', 'C Major', 'F Major', 'G Major', 'D Minor',
-            'A Minor', 'E Minor', 'C Major', 'G Major', 'F Major'
-        ]
+            # Average chroma in window
+            avg_chroma = np.mean(window_chroma, axis=1)
 
-        # Create chord events
-        chords = [{'time': 0.0, 'chord': 'C Major'}]  # Start with C Major
+            # Find the strongest notes (peaks in chroma)
+            threshold = np.mean(avg_chroma) + 0.5 * np.std(avg_chroma)
+            strong_notes = np.where(avg_chroma > threshold)[0]
 
-        for i, change_time in enumerate(change_times[:15]):  # Limit to 15 changes
-            chord_idx = (i + 1) % len(chord_patterns)
-            # Ensure change_time is a Python float
-            ct_float = float(change_time) if hasattr(change_time, '__float__') else change_time
-            if ct_float > 1.0:  # Avoid changes in first second
-                chords.append({
-                    'time': ct_float,
-                    'chord': chord_patterns[chord_idx]
-                })
+            if len(strong_notes) >= 2:  # Need at least 2 notes for a chord
+                # Get time for this window
+                time = librosa.frames_to_time(i, sr=sr)
 
-        # Sort by time
-        chords.sort(key=lambda x: x['time'])
+                # Find the best matching chord
+                best_chord = identify_chord(strong_notes, note_names, chord_patterns)
 
+                # Add if different from last chord
+                if not chords or chords[-1]['chord'] != best_chord:
+                    chords.append({
+                        'time': float(time),
+                        'chord': best_chord
+                    })
+
+                if len(chords) > 0 and len(chords) % 5 == 0:
+                    print(f"  ✓ {len(chords)} acordes detectados...")
+
+        if not chords:
+            print("⚠️  Nenhum acorde detectado, usando padrão")
+            return [{'time': 0.0, 'chord': 'C Major'}]
+
+        print(f"✅ Total de acordes detectados: {len(chords)}")
         return chords
+
     except Exception as e:
-        print(f"⚠️  Aviso: Erro ao detectar acordes: {e}")
-        # Return simple chord timeline if detection fails
+        print(f"⚠️  Erro na detecção: {e}")
         return [{'time': 0.0, 'chord': 'C Major'}]
+
+
+def identify_chord(note_indices, note_names, chord_patterns):
+    """
+    Identify chord from set of note indices.
+    """
+    if len(note_indices) < 2:
+        return 'C Major'
+
+    # Get the lowest note as potential root
+    root_idx = note_indices[0] % 12
+
+    # Calculate intervals from root
+    intervals = [(note % 12 - root_idx) % 12 for note in note_indices]
+    intervals.sort()
+
+    # Try to match to known chord patterns
+    best_match = 'Major'
+    best_score = 0
+
+    for chord_type, pattern in chord_patterns.items():
+        # Check how many pattern notes are present
+        matches = sum(1 for p in pattern if p in intervals)
+        score = matches / len(pattern)
+
+        if score > best_score:
+            best_score = score
+            best_match = chord_type
+
+    root_note = note_names[root_idx]
+    return f"{root_note} {best_match}"
 
 
 def generate_enemy_spawns(beat_times, duration, spawn_probability=0.6):
