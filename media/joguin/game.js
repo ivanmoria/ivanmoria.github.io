@@ -155,6 +155,11 @@ const ENEMY_COLORS = [
   let currentChordNotes = ['C', 'E', 'G'];
   let validChordPositions = [];
 
+  // Rastrear modo de notas (harmonia ou melodia)
+  let noteMode = 'harmony'; // 'harmony' ou 'melody'
+  let currentMelodyNote = 'C';
+  let melodyTimeline = [];
+
   let playerPos = { row: 7, col: 0 };
   let dangerPositions = [];
   let targetPos = null;
@@ -249,6 +254,19 @@ window.togglePause = togglePause;
     checkStartReady();
   };
 
+  window.setNoteMode = function(mode) {
+    noteMode = mode;
+    // Atualizar estilo dos botões
+    document.querySelectorAll('.note-mode-btn').forEach(btn => {
+      if ((mode === 'harmony' && btn.textContent.includes('Harmonia')) ||
+          (mode === 'melody' && btn.textContent.includes('Melodia'))) {
+        btn.style.backgroundColor = '#4CAF50';
+      } else {
+        btn.style.backgroundColor = '#555';
+      }
+    });
+  };
+
   // Detectar mudança no modo via checkbox
   const modeToggle = document.getElementById('modeToggle');
   if (modeToggle) {
@@ -307,6 +325,7 @@ document.addEventListener('keydown', function(e) {
 
       laserTimes = [];
       chordTimeline = [];
+      melodyTimeline = [];
 
       lines.slice(1).forEach(line => {
         const parts = line.split(',');
@@ -323,6 +342,12 @@ document.addEventListener('keydown', function(e) {
           else if (eventType === 'chordChange' || eventType === 'Chord') {
             if (data) {
               chordTimeline.push({ time, chord: data });
+            }
+          }
+          // Suportar mudanças de melodia
+          else if (eventType === 'melodyChange') {
+            if (data) {
+              melodyTimeline.push({ time, note: data });
             }
           }
         }
@@ -383,12 +408,13 @@ document.addEventListener('keydown', function(e) {
       }
     }
 
-    // Mostrar acorde atual no canto superior direito
-    if (currentChord) {
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 18px Arial';
-      ctx.textAlign = 'right';
-      ctx.textBaseline = 'top';
+    // Mostrar acorde ou melodia atual no canto superior direito
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 18px Arial';
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'top';
+
+    if (noteMode === 'harmony') {
       ctx.fillText(`🎼 ${currentChord}`, WIDTH - 10, 10);
 
       // Mostrar notas do acorde
@@ -397,6 +423,10 @@ document.addEventListener('keydown', function(e) {
         const notesStr = currentChordNotes.join(', ');
         ctx.fillText(notesStr, WIDTH - 10, 35);
       }
+    } else {
+      ctx.fillText(`🎵 Melodia: ${currentMelodyNote}`, WIDTH - 10, 10);
+      ctx.font = '14px Arial';
+      ctx.fillText('Siga a nota!', WIDTH - 10, 35);
     }
   }
 
@@ -534,7 +564,23 @@ if (lives > 0) {
           currentChord = chordTimeline[i].chord;
           // Parsear novo acorde e atualizar posições válidas
           currentChordNotes = parseChord(currentChord);
-          validChordPositions = getValidPositionsForChord(currentChordNotes);
+          if (noteMode === 'harmony') {
+            validChordPositions = getValidPositionsForChord(currentChordNotes);
+          }
+        }
+        break;
+      }
+    }
+
+    // Atualizar melodia atual baseado no timeline
+    for (let i = melodyTimeline.length - 1; i >= 0; i--) {
+      if (melodyTimeline[i].time <= elapsed) {
+        if (currentMelodyNote !== melodyTimeline[i].note) {
+          currentMelodyNote = melodyTimeline[i].note;
+          // Atualizar posições válidas se em modo melodia
+          if (noteMode === 'melody') {
+            validChordPositions = getValidPositionsForChord([currentMelodyNote]);
+          }
         }
         break;
       }

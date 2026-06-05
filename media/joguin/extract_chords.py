@@ -56,6 +56,10 @@ def extract_chords_and_beats(audio_path, sr=22050):
     print("🎹 Detectando acordes...")
     chords = detect_chords_from_chroma(chroma, sr, y)
 
+    # Extract melody (dominant pitch) from audio
+    print("🎵 Extraindo melodia...")
+    melody = extract_melody_from_chroma(chroma, sr)
+
     # Generate enemy spawn times (on beats)
     print("👾 Gerando tempos de spawn de inimigos...")
     enemy_spawns = generate_enemy_spawns(beat_times, duration)
@@ -64,6 +68,7 @@ def extract_chords_and_beats(audio_path, sr=22050):
         'duration': float(duration),
         'tempo': tempo_value,
         'chords': chords,
+        'melody': melody,
         'enemy_spawns': enemy_spawns,
         'beat_times': [float(t) for t in beat_times]
     }
@@ -134,6 +139,49 @@ def detect_chords_from_chroma(chroma, sr, y):
         return [{'time': 0.0, 'chord': 'C Major'}]
 
 
+def extract_melody_from_chroma(chroma, sr):
+    """
+    Extract melody (dominant pitch) from chroma features.
+    Returns times and notes of the melody.
+    """
+    try:
+        note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+        melody_notes = []
+
+        # Normalize chroma
+        chroma_norm = chroma / (np.linalg.norm(chroma, axis=0, keepdims=True) + 1e-10)
+
+        # For each frame, find the note with highest energy (dominant pitch)
+        for frame_idx in range(chroma_norm.shape[1]):
+            frame_chroma = chroma_norm[:, frame_idx]
+            # Find note with highest energy
+            dominant_note_idx = np.argmax(frame_chroma)
+            dominant_note = note_names[dominant_note_idx]
+
+            # Get time for this frame
+            time = librosa.frames_to_time(frame_idx, sr=sr)
+            melody_notes.append({
+                'time': float(time),
+                'note': dominant_note,
+                'strength': float(frame_chroma[dominant_note_idx])
+            })
+
+        # Smooth out rapid note changes (take every Nth frame to reduce noise)
+        # Sample every 512 frames (~1 frame per ~50ms at sr=22050)
+        smoothed_melody = []
+        for i in range(0, len(melody_notes), 512):
+            if melody_notes[i]['strength'] > 0.1:  # Only if note is strong enough
+                # Check if different from last added note
+                if not smoothed_melody or smoothed_melody[-1]['note'] != melody_notes[i]['note']:
+                    smoothed_melody.append(melody_notes[i])
+
+        return smoothed_melody if smoothed_melody else [{'time': 0.0, 'note': 'C', 'strength': 0.5}]
+
+    except Exception as e:
+        print(f"⚠️  Erro na extração de melodia: {e}")
+        return [{'time': 0.0, 'note': 'C', 'strength': 0.5}]
+
+
 def identify_chord(note_indices, note_names, chord_patterns):
     """
     Identify chord from set of note indices.
@@ -186,7 +234,7 @@ def generate_enemy_spawns(beat_times, duration, spawn_probability=0.6):
     return sorted(list(set(spawns)))  # Remove duplicates and sort
 
 
-def generate_csv(chords, enemy_spawns):
+def generate_csv(chords, melody, enemy_spawns):
     """
     Generate CSV format compatible with game.
     """
@@ -196,6 +244,9 @@ def generate_csv(chords, enemy_spawns):
     events = []
     for chord in chords:
         events.append((chord['time'], 'chordChange', chord['chord']))
+
+    for melody_note in melody:
+        events.append((melody_note['time'], 'melodyChange', melody_note['note']))
 
     for spawn_time in enemy_spawns:
         events.append((spawn_time, 'enemySpawn', 'null'))
@@ -357,7 +408,7 @@ def main():
 
     # Save CSV
     print(f"💾 Salvando CSV em: {csv_file}")
-    csv_content = generate_csv(data['chords'], data['enemy_spawns'])
+    csv_content = generate_csv(data['chords'], data['melody'], data['enemy_spawns'])
     with open(csv_file, 'w') as f:
         f.write(csv_content)
 
