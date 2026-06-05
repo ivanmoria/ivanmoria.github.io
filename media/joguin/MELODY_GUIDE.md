@@ -44,18 +44,41 @@ python extract_chords.py
 - Extrai tempo e timings precisos
 - Cria melodia e acordes baseado na partitura
 
-### Comando:
+### Comandos:
 ```bash
-python musescore_parser.py
+# Passo 1: Extrair da partitura
+python musescore_parser.py um.mscz
+
+# Passo 2: Converter para CSV
+python convert_json_to_csv.py um_from_score.json um_layers.csv
 ```
 
-### Processo:
-1. Exporte sua partitura do MuseScore como .mscz
-2. Coloque o arquivo na pasta `media/joguin/`
-3. Execute: `python musescore_parser.py`
-4. Escolha a partitura
-5. Gera `partitura_from_score.json`
-6. Copie os dados para o arquivo CSV do jogo
+### Processo Completo:
+1. **Exporte no MuseScore**:
+   - Abra sua partitura
+   - File → Export
+   - Formato: **MuseScore 3 (.mscz)**
+   - Salve em `media/joguin/`
+
+2. **Extraia as notas**:
+   ```bash
+   python musescore_parser.py seu_arquivo.mscz
+   ```
+   Gera `seu_arquivo_from_score.json` com 363 notas
+
+3. **Converta para CSV**:
+   ```bash
+   python convert_json_to_csv.py seu_arquivo_from_score.json seu_arquivo_layers.csv
+   ```
+   Gera `seu_arquivo_layers.csv` pronto para o jogo
+
+4. **Integre ao Menu**:
+   - Copie seu arquivo de áudio para `media/joguin/`
+   - Garanta que os nomes combinem:
+     - `seu_audio.mp3`
+     - `seu_audio_layers.csv`
+   - Execute: `python update_music_buttons.py`
+   - Recarregue o navegador!
 
 ### Vantagens:
 ✅ Notas **100% precisas**  
