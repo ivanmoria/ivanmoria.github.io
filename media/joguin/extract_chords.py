@@ -142,40 +142,70 @@ def detect_chords_from_chroma(chroma, sr, y):
 def extract_melody_from_chroma(chroma, sr):
     """
     Extract melody (dominant pitch) from chroma features.
-    Returns times and notes of the melody.
+    Uses improved pitch detection with peak picking.
     """
     try:
         note_names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-        melody_notes = []
 
         # Normalize chroma
         chroma_norm = chroma / (np.linalg.norm(chroma, axis=0, keepdims=True) + 1e-10)
 
-        # For each frame, find the note with highest energy (dominant pitch)
-        for frame_idx in range(chroma_norm.shape[1]):
-            frame_chroma = chroma_norm[:, frame_idx]
-            # Find note with highest energy
-            dominant_note_idx = np.argmax(frame_chroma)
-            dominant_note = note_names[dominant_note_idx]
+        # Get note with highest energy for each frame
+        dominant_indices = np.argmax(chroma_norm, axis=0)
+        dominant_strength = np.max(chroma_norm, axis=0)
 
-            # Get time for this frame
-            time = librosa.frames_to_time(frame_idx, sr=sr)
-            melody_notes.append({
-                'time': float(time),
-                'note': dominant_note,
-                'strength': float(frame_chroma[dominant_note_idx])
-            })
+        # Smooth the dominant note sequence using median filter
+        from scipy import signal
+        window_size = min(21, len(dominant_indices) // 10 + 1)  # Adaptive window
+        if window_size % 2 == 0:
+            window_size += 1
+        smoothed_indices = signal.medfilt(dominant_indices, kernel_size=window_size)
 
-        # Smooth out rapid note changes (take every Nth frame to reduce noise)
-        # Sample every 512 frames (~1 frame per ~50ms at sr=22050)
-        smoothed_melody = []
-        for i in range(0, len(melody_notes), 512):
-            if melody_notes[i]['strength'] > 0.1:  # Only if note is strong enough
-                # Check if different from last added note
-                if not smoothed_melody or smoothed_melody[-1]['note'] != melody_notes[i]['note']:
-                    smoothed_melody.append(melody_notes[i])
+        # Extract melody notes only when strength is significant
+        melody_notes = []
+        last_note = None
 
-        return smoothed_melody if smoothed_melody else [{'time': 0.0, 'note': 'C', 'strength': 0.5}]
+        for frame_idx in range(len(smoothed_indices)):
+            note_idx = int(smoothed_indices[frame_idx])
+            strength = float(dominant_strength[frame_idx])
+
+            # Only add if strength is above threshold
+            if strength > 0.08:
+                note = note_names[note_idx % 12]
+
+                # Only add if different from last note
+                if note != last_note:
+                    time = librosa.frames_to_time(frame_idx, sr=sr)
+                    melody_notes.append({
+                        'time': float(time),
+                        'note': note,
+                        'strength': strength
+                    })
+                    last_note = note
+
+        # If too few notes, sample every N frames instead
+        if len(melody_notes) < 10:
+            melody_notes = []
+            last_note = None
+            for i in range(0, len(dominant_indices), 256):  # ~23ms intervals
+                note_idx = int(smoothed_indices[i])
+                strength = float(dominant_strength[i])
+                if strength > 0.05:
+                    note = note_names[note_idx % 12]
+                    if note != last_note:
+                        time = librosa.frames_to_time(i, sr=sr)
+                        melody_notes.append({
+                            'time': float(time),
+                            'note': note,
+                            'strength': strength
+                        })
+                        last_note = note
+
+        if not melody_notes:
+            melody_notes = [{'time': 0.0, 'note': 'C', 'strength': 0.5}]
+
+        print(f"🎵 Melodia: {len(melody_notes)} mudanças de notas detectadas")
+        return melody_notes
 
     except Exception as e:
         print(f"⚠️  Erro na extração de melodia: {e}")
