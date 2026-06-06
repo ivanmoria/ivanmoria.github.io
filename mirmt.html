@@ -11,18 +11,16 @@
 
     <title>Moriá - PhD Music Research Project </title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script> 
+    <script src="script2.js" defer></script> 
     <link href="https://fonts.googleapis.com/css2?family=JS+Brains+Telex&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mina:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Mate+SC&family=Poiret+One&family=Rock+Salt&family=Shadows+Into+Light&family=Shadows+Into+Light+Two&family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
-    <script src="https://www.youtube.com/iframe_api"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-    <link rel="icon" href="  https://img.icons8.com/?size=100&id=90&format=png&color=000000" type="image/x-icon">
-    <link rel="apple-touch-icon" href="  https://img.icons8.com/?size=100&id=90&format=png&color=000000">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js" defer></script>
+    <link rel="icon" href="https://img.icons8.com/?size=100&id=90&format=png&color=000000" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=90&format=png&color=000000">
 
 <style>
 
@@ -553,7 +551,6 @@ for (let j = 1; j < num; j++) {
 
 
 }
-background(0); // Exemplo de fundo cinza
 function windowResized() {
 resizeCanvas(windowWidth, windowHeight);
 redraw(); // Garante que o canvas seja redesenhado
@@ -701,7 +698,7 @@ Microanalysis of Musical Traces and Possible Interfaces with Social Cognition
 
 </div>
 
-<img src="media/PosterBerlin2024-3-1.png" alt="Banner Preview" style="
+<img loading="lazy" src="media/PosterBerlin2024-3-1.png" alt="Banner Preview" style="
 width: 100%;
 max-width: 1200px;
 height: auto;
@@ -793,7 +790,7 @@ feedback on this ongoing research.
                     </span>
                 </button>
                 <div class="hovver-content"style="margin-left: -45%; margin-top: -60%;width: 400px;height: 300px;">
-                  <img src="media/maxmsp/midicapture.gif"></div>
+                  <img loading="lazy" src="media/maxmsp/midicapture.gif"></div>
               </div>
             <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; ">
               Patch developed by Ivan Moriá  that selects the MIDI input and generates a list with the following information: 
@@ -826,7 +823,7 @@ feedback on this ongoing research.
                         </span>
                     </button>
                     <div class="hovver-content"style="margin-left: -40%; margin-top: -90%;width: 390px;height: 307px;">
-                      <img src="media/maxmsp/polybuff.png"  ></div>
+                      <img loading="lazy" src="media/maxmsp/polybuff.png"  ></div>
                   </div>
           
                 <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">Patch with the main function of 
@@ -854,7 +851,7 @@ feedback on this ongoing research.
           </span>
       </button>
       <div class="hovver-content"style="margin-left: 22%; margin-top: -250px;width: 220px;height: 505px;">
-        <img src="media/maxmsp/media_e_desvio.gif"></div>
+        <img loading="lazy" src="media/maxmsp/media_e_desvio.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px; margin-top:15px;">Patch created by Sérgio Freire 
      to calculate the mean and standard deviation.</p>
@@ -878,7 +875,7 @@ feedback on this ongoing research.
           </span>
       </button>
       <div class="hovver-content"style="margin-left: 22%; margin-top: -270px;width: 220px;height: 510px;">
-        <img src="media/maxmsp/envelope.gif"></div>
+        <img loading="lazy" src="media/maxmsp/envelope.gif"></div>
     </div>
   <p style=" margin-right: 13%; margin-left: 2%;font-size: 16px; ">Simple Audio Envelope with Attack and Release Buttons – Configure values in the abstraction's name.</p> 
 </div>
@@ -898,7 +895,7 @@ feedback on this ongoing research.
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -181px;width: 400px;height: 340px;">
-        <img src="media/maxmsp/c0ll.gif"></div>
+        <img loading="lazy" src="media/maxmsp/c0ll.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
     This is the core of the coll object, which sends a list with a title to a text object. This object receives information from the MIDI Capture objects and processes it after the input of on or off.  </p>
@@ -920,7 +917,7 @@ feedback on this ongoing research.
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -250px;width: 400px;height: 300px;">
-        <img src="media/maxmsp/savefiles.gif"></div>
+        <img loading="lazy" src="media/maxmsp/savefiles.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
     Patch that uses on ON_OFF button to record .csv files and .aiff files. There is others subpatches as PAD and Coll, and will be implemented at an library later.   </p>
@@ -1043,6 +1040,10 @@ iframes.forEach(function(iframe) {
 
 // Mostra o iframe correspondente
 var selectedIframe = document.getElementById(previewId);
+// Carrega o conteúdo só na primeira vez (evita travar a página no load)
+if (!selectedIframe.src && selectedIframe.dataset.src) {
+  selectedIframe.src = selectedIframe.dataset.src;
+}
 selectedIframe.style.display = 'block';
 }
 
@@ -1070,11 +1071,11 @@ iframes.forEach(function(iframe) {
   </button>
 </td>
 <td rowspan="6" class="preview-cell">
-  <iframe id="preview0" class="iframe-preview" src="ventometrico.preview.html"></iframe>
-  <iframe id="preview1" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
-  <iframe id="preview2" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
-  <iframe id="preview3" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
-  <iframe id="preview4" class="iframe-preview" src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
+  <iframe id="preview0" class="iframe-preview" loading="lazy" data-src="ventometrico.preview.html"></iframe>
+  <iframe id="preview1" class="iframe-preview" loading="lazy" data-src="https://musescore.com/user/87312673/scores/20545225/s/vRTpB_/embed"></iframe>
+  <iframe id="preview2" class="iframe-preview" loading="lazy" data-src="https://musescore.com/user/87312673/scores/20546044/s/SY25mr/embed"></iframe>
+  <iframe id="preview3" class="iframe-preview" loading="lazy" data-src="https://musescore.com/user/87312673/scores/20546191/s/ps_-d9/embed"></iframe>
+  <iframe id="preview4" class="iframe-preview" loading="lazy" data-src="https://musescore.com/user/87312673/scores/20546284/s/S_xsVZ/embed"></iframe>
 </td>
 </tr>
 <tr>
@@ -1147,7 +1148,7 @@ iframes.forEach(function(iframe) {
 
     <div style="display: flex; align-items: center;">
       
-          <img src="media/carbon.png" alt="Print Python" style="margin-bottom:-10px; margin-top: 10px;
+          <img loading="lazy" src="media/carbon.png" alt="Print Python" style="margin-bottom:-10px; margin-top: 10px;
           margin-right: 2px;    margin-left: 2px;width: 90%; height: 200%;">
     
       </div>
@@ -1178,7 +1179,7 @@ iframes.forEach(function(iframe) {
                           </span>
                       </button>
                       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 255px;">
-                        <img src="media/documents/CEMT/files/rewrew.gif"></div>
+                        <img loading="lazy" src="media/documents/CEMT/files/rewrew.gif"></div>
                     </div>
                   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
                    
@@ -1212,7 +1213,7 @@ iframes.forEach(function(iframe) {
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 335px;">
-        <img src="media/documents/CEMT/files/hfgh.gif"></div>
+        <img loading="lazy" src="media/documents/CEMT/files/hfgh.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;; ">
    
@@ -1240,7 +1241,7 @@ The heart of this PhD research. An funtional PyQt5 interface for all users.    W
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -100px;width: 380px;height: 105px;">
-        <img src="media/documents/CEMT/files/timerapp.gif"></div>
+        <img loading="lazy" src="media/documents/CEMT/files/timerapp.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
@@ -1273,7 +1274,7 @@ The heart of this PhD research. An funtional PyQt5 interface for all users.    W
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -130px;width: 380px;height: 330px;">
-        <img src="media/documents/CEMT/files/dass-calc.gif"></div>
+        <img loading="lazy" src="media/documents/CEMT/files/dass-calc.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
@@ -1304,7 +1305,7 @@ AHMED, Oli et al. (2022). The psychometric properties of the depression anxiety 
           </span>
       </button>
       <div class="hovver-content"style="margin-left: -45%; margin-top: -100px;width: 380px;height: 265px;">
-        <img src="media/documents/CEMT/files/calculos.gif"></div>
+        <img loading="lazy" src="media/documents/CEMT/files/calculos.gif"></div>
     </div>
   <p style="margin-right: 13%; margin-left: 2%; font-size: 16px;">
    
