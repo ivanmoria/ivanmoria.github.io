@@ -82,13 +82,9 @@
       touch-action: auto;
     }
 
-    .research-container::-webkit-scrollbar {
-      width: 0;
-    }
+    .research-container::-webkit-scrollbar { width: 0; }
 
-    .research-section {
-      margin-bottom: 18px;
-    }
+    .research-section { margin-bottom: 18px; }
 
     .research-title {
       font-family: 'Poiret One', cursive;
@@ -148,44 +144,28 @@
     .pub-link::after {
       content: '';
       position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
       background: rgba(150, 200, 255, 0.7);
       transition: width 0.3s ease;
     }
 
-    .pub-link:hover::after {
-      width: 100%;
-    }
+    .pub-link:hover::after { width: 100%; }
 
     .tech-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-      align-items: center;
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 12px; align-items: center;
     }
 
-    .tech-tags img {
-      transition: transform 0.2s ease;
-    }
-
-    .tech-tags img:hover {
-      transform: translateY(-2px);
-    }
+    .tech-tags img { transition: transform 0.2s ease; }
+    .tech-tags img:hover { transform: translateY(-2px); }
 
     .signature-wrap {
       position: fixed; left: 50%;
       transform: translateX(-50%); z-index: 1000; white-space: nowrap;
     }
-    .signature-wrap.signature-top {
-      top: 20px;
-    }
-    .signature-wrap.signature-bottom {
-      bottom: 20px;
-    }
+    .signature-wrap.signature-top { top: 20px; }
+    .signature-wrap.signature-bottom { bottom: 20px; }
     .signature {
       font-family: "Rock Salt", cursive;
       font-size: clamp(13px, 3.5vw, 18px);
@@ -196,87 +176,25 @@
       transition: all 0.3s ease;
     }
 
-    .signature-wrap.signature-top-name .signature {
-      cursor: pointer;
-    }
-
+    .signature-wrap.signature-top-name .signature { cursor: pointer; }
     .signature-wrap.signature-top-name .signature:hover {
       color: rgba(150, 200, 255, 0.95);
       text-shadow: 0 0 12px rgba(150, 200, 255, 0.4);
     }
 
-    /* Planet button — nebula theme toggle */
     .planet-button {
       border: none; background: none; cursor: pointer;
       padding: 4px;
       transition: transform 0.3s ease;
       display: flex; align-items: center; justify-content: center;
-      z-index: 10000;
-      position: relative;
+      z-index: 10000; position: relative;
       pointer-events: auto !important;
     }
     .planet-button:hover { transform: scale(1.15); }
     .planet-button:active { transform: scale(0.95); }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
 
-    /* Light theme adjustments */
-    body.light-theme .link-btn,
-    body.light-theme span[style*="Poiret One"] {
-      color: black !important;
-    }
-
-    body.light-theme .link-btn:hover {
-      color: black;
-      text-shadow: 0 0 12px rgba(100, 150, 200, 0.2);
-    }
-
-    body.light-theme .research-container {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(0, 0, 0, 0.1);
-    }
-
-    body.light-theme .research-title,
-    body.light-theme .research-item,
-    body.light-theme .pub-title,
-    body.light-theme .signature,
-    body.light-theme .link-btn {
-      color: black !important;
-    }
-
-    body.light-theme .research-item {
-      color: black !important;
-    }
-
-    body.light-theme .research-title {
-      border-bottom-color: rgba(0, 0, 0, 0.2);
-    }
-
-    body.light-theme .publication-item {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    body.light-theme .publication-item:hover {
-      background: rgba(0, 0, 0, 0.08);
-    }
-
-    body.light-theme .pub-link {
-      color: black !important;
-    }
-
-    body.light-theme .pub-link:hover {
-      color: rgba(100, 150, 200, 0.9) !important;
-      text-shadow: 0 0 8px rgba(100, 150, 200, 0.3);
-      transform: translateX(4px);
-    }
-
-    body.light-theme .pub-link::after {
-      background: rgba(100, 150, 200, 0.5);
-    }
-
-    body.light-theme .pub-link:hover::after {
-      background: rgba(100, 150, 200, 0.8);
-    }
-
+    /* ── Section nav dots ── */
     .section-nav {
       position: fixed;
       right: 4px;
@@ -289,45 +207,33 @@
     }
 
     .section-nav a {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 0.9), rgba(100, 80, 180, 0.4), rgba(50, 100, 200, 0.2));
-      border: 1px solid rgba(150, 200, 255, 0.5);
+      width: 14px; height: 14px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(200,150,255,0.9), rgba(100,80,180,0.4), rgba(50,100,200,0.2));
+      border: 1px solid rgba(150,200,255,0.5);
       text-decoration: none;
       transition: all 0.3s ease;
-      position: relative;
-      display: block;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(150, 180, 255, 0.5), 0 0 24px rgba(150, 150, 255, 0.2), inset 0 0 6px rgba(200, 200, 255, 0.3);
+      position: relative; display: block; cursor: pointer;
+      box-shadow: 0 0 12px rgba(150,180,255,0.5), 0 0 24px rgba(150,150,255,0.2), inset 0 0 6px rgba(200,200,255,0.3);
     }
 
     .section-nav a:hover {
-      width: 18px;
-      height: 18px;
-      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 1), rgba(150, 100, 220, 0.6), rgba(80, 130, 220, 0.3));
-      box-shadow: 0 0 20px rgba(200, 150, 255, 0.9), 0 0 40px rgba(150, 180, 255, 0.5), inset 0 0 8px rgba(255, 200, 255, 0.5);
+      width: 18px; height: 18px;
+      background: radial-gradient(circle at 35% 35%, rgba(200,150,255,1), rgba(150,100,220,0.6), rgba(80,130,220,0.3));
+      box-shadow: 0 0 20px rgba(200,150,255,0.9), 0 0 40px rgba(150,180,255,0.5), inset 0 0 8px rgba(255,200,255,0.5);
     }
 
     .section-nav a::before {
       content: attr(data-section);
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(20, 20, 40, 0.98);
-      color: rgba(150, 200, 255, 0.95);
-      padding: 12px 16px;
-      border-radius: 6px;
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      background: rgba(20,20,40,0.98);
+      color: rgba(150,200,255,0.95);
+      padding: 12px 16px; border-radius: 6px;
       font-family: 'Poiret One', cursive;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
+      font-size: 14px; font-weight: 600; white-space: nowrap;
+      opacity: 0; pointer-events: none;
       transition: opacity 0.2s ease;
-      border: 1px solid rgba(150, 200, 255, 0.4);
-      box-shadow: 0 0 16px rgba(150, 200, 255, 0.3);
+      border: 1px solid rgba(150,200,255,0.4);
+      box-shadow: 0 0 16px rgba(150,200,255,0.3);
       z-index: 10000;
     }
 
@@ -337,53 +243,115 @@
     }
 
     .section-nav a.active {
-      background: radial-gradient(circle at 35% 35%, rgba(200, 150, 255, 1), rgba(150, 100, 220, 0.6), rgba(80, 130, 220, 0.3));
-      width: 18px;
-      height: 18px;
-      box-shadow: 0 0 20px rgba(200, 150, 255, 0.9), 0 0 40px rgba(150, 180, 255, 0.5), inset 0 0 8px rgba(255, 200, 255, 0.5);
+      background: radial-gradient(circle at 35% 35%, rgba(200,150,255,1), rgba(150,100,220,0.6), rgba(80,130,220,0.3));
+      width: 18px; height: 18px;
+      box-shadow: 0 0 20px rgba(200,150,255,0.9), 0 0 40px rgba(150,180,255,0.5), inset 0 0 8px rgba(255,200,255,0.5);
       animation: galaxySpinFast 4s linear infinite;
     }
 
     @keyframes tooltipFade {
-      0% { opacity: 1; }
-      85% { opacity: 1; }
-      100% { opacity: 0; }
+      0% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; }
     }
+
+    /* ── Language selector ── */
+    .lang-selector {
+      position: fixed;
+      right: 28px;
+      top: 72px;
+      z-index: 10002;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: center;
+    }
+
+    .lang-flag-btn {
+      font-size: 17px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 3px 2px;
+      border-radius: 4px;
+      opacity: 0.38;
+      transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      line-height: 1;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lang-flag-btn:hover {
+      opacity: 1;
+      transform: scale(1.2);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .lang-flag-btn.active {
+      opacity: 1;
+      background: rgba(255,255,255,0.13);
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(150,200,255,0.3);
+    }
+
+    /* Light theme */
+    body.light-theme .link-btn,
+    body.light-theme span[style*="Poiret One"] { color: black !important; }
+
+    body.light-theme .link-btn:hover {
+      color: black;
+      text-shadow: 0 0 12px rgba(100,150,200,0.2);
+    }
+
+    body.light-theme .research-container {
+      background: rgba(255,255,255,0.9);
+      border-color: rgba(0,0,0,0.1);
+    }
+
+    body.light-theme .research-title,
+    body.light-theme .research-item,
+    body.light-theme .pub-title,
+    body.light-theme .signature,
+    body.light-theme .link-btn { color: black !important; }
+
+    body.light-theme .research-title { border-bottom-color: rgba(0,0,0,0.2); }
+
+    body.light-theme .publication-item { background: rgba(0,0,0,0.05); }
+    body.light-theme .publication-item:hover { background: rgba(0,0,0,0.08); }
+
+    body.light-theme .pub-link { color: black !important; }
+    body.light-theme .pub-link:hover {
+      color: rgba(100,150,200,0.9) !important;
+      text-shadow: 0 0 8px rgba(100,150,200,0.3);
+      transform: translateX(4px);
+    }
+    body.light-theme .pub-link::after { background: rgba(100,150,200,0.5); }
+    body.light-theme .pub-link:hover::after { background: rgba(100,150,200,0.8); }
 
     body.light-theme .section-nav a {
-      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.8), rgba(80, 120, 180, 0.4), rgba(60, 100, 180, 0.2));
-      border-color: rgba(100, 150, 200, 0.5);
-      box-shadow: 0 0 12px rgba(100, 150, 200, 0.3), 0 0 24px rgba(100, 140, 200, 0.15), inset 0 0 6px rgba(150, 180, 255, 0.3);
+      background: radial-gradient(circle at 35% 35%, rgba(120,160,220,0.8), rgba(80,120,180,0.4), rgba(60,100,180,0.2));
+      border-color: rgba(100,150,200,0.5);
+      box-shadow: 0 0 12px rgba(100,150,200,0.3), 0 0 24px rgba(100,140,200,0.15), inset 0 0 6px rgba(150,180,255,0.3);
     }
 
-    body.light-theme .section-nav a:hover {
-      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.95), rgba(100, 140, 200, 0.6), rgba(80, 120, 200, 0.3));
-      width: 18px;
-      height: 18px;
-      box-shadow: 0 0 20px rgba(100, 150, 220, 0.6), 0 0 40px rgba(100, 150, 220, 0.3), inset 0 0 8px rgba(150, 180, 255, 0.4);
-      animation: galaxySpinFast 4s linear infinite;
+    body.light-theme .section-nav a:hover,
+    body.light-theme .section-nav a.active {
+      background: radial-gradient(circle at 35% 35%, rgba(120,160,220,0.95), rgba(100,140,200,0.6), rgba(80,120,200,0.3));
+      width: 18px; height: 18px;
+      box-shadow: 0 0 20px rgba(100,150,220,0.6), 0 0 40px rgba(100,150,220,0.3), inset 0 0 8px rgba(150,180,255,0.4);
     }
 
     body.light-theme .section-nav a::before {
-      background: rgba(240, 245, 255, 0.95);
-      color: rgba(70, 120, 180, 0.95);
-      border-color: rgba(100, 150, 200, 0.3);
-      box-shadow: 0 0 12px rgba(100, 150, 200, 0.15);
+      background: rgba(240,245,255,0.95);
+      color: rgba(70,120,180,0.95);
+      border-color: rgba(100,150,200,0.3);
+      box-shadow: 0 0 12px rgba(100,150,200,0.15);
     }
 
-    body.light-theme .section-nav a.active {
-      background: radial-gradient(circle at 35% 35%, rgba(120, 160, 220, 0.95), rgba(100, 140, 200, 0.6), rgba(80, 120, 200, 0.3));
-      width: 18px;
-      height: 18px;
-      box-shadow: 0 0 20px rgba(100, 150, 220, 0.6), 0 0 40px rgba(100, 150, 220, 0.3), inset 0 0 8px rgba(150, 180, 255, 0.4);
-      animation: galaxySpinFast 4s linear infinite;
-    }
-
-    /* Hide Theme label on mobile */
     @media (max-width: 768px) {
-      #theme-label {
-        display: none;
-      }
+      #theme-label { display: none; }
+      .lang-selector { right: 24px; }
     }
   </style>
 </head>
@@ -391,113 +359,102 @@
 
   <div id="canvas-container"></div>
 
-  <!-- Top Bar: Left (Back + Research), Center (Name), Right (Theme + Toggle) -->
+  <!-- Top Bar -->
   <div style="position: fixed; top: 20px; left: 0; right: 0; z-index: 10001; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
-    <!-- Left: Back button + About -->
     <div style="display: flex; align-items: center; gap: 12px;">
       <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 28px; padding: 0; margin: 0;">←</button>
-      <div style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">About</div>
+      <div id="top-about-label" style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.04em;">About</div>
     </div>
 
-    <!-- Center: Name (clickable to contact) -->
     <div class="signature-wrap signature-top-name" style="position: static; transform: none; cursor: pointer;" onclick="window.location.href='contato.html'">
       <div class="signature" id="assinatura" style="animation: none;">Ivan Moriá Borges</div>
     </div>
 
-    <!-- Right: Theme Toggle -->
     <div style="display: flex; align-items: center; gap: 10px;">
       <span id="theme-label" style="font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
       <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
-      <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
-        <defs>
-          <radialGradient id="nebulaGradient" cx="35%" cy="35%">
-            <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
-            <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
-            <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
-            <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
-          </radialGradient>
-          <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
-            <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
-            <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
-          </radialGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-          <filter id="glow2">
-            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-            </feMerge>
-          </filter>
-          <style>
-            @keyframes moonOrbit {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-            @keyframes nebulaPulse {
-              0%, 100% { opacity: 0.7; }
-              50% { opacity: 1; }
-            }
-            @keyframes nebulaSpin {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(-180deg); }
-            }
-            .moon-container {
-              animation: moonOrbit 6s linear infinite;
-              transform-origin: 40px 40px;
-            }
-            .nebula-core {
-              animation: nebulaPulse 3s ease-in-out infinite;
-            }
-            .nebula-ring {
-              animation: nebulaSpin 8s linear infinite;
-              transform-origin: 40px 40px;
-            }
-          </style>
-        </defs>
-        <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
-        <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
-        <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
-        <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
-        <g class="moon-container">
+        <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
           <defs>
-            <radialGradient id="moonGlow">
-              <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
-              <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
-              <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+            <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+              <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+              <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+              <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+              <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
             </radialGradient>
+            <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+              <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+              <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow2">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/></feMerge>
+            </filter>
+            <style>
+              @keyframes moonOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+              @keyframes nebulaPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+              @keyframes nebulaSpin { from { transform: rotate(0deg); } to { transform: rotate(-180deg); } }
+              .moon-container { animation: moonOrbit 6s linear infinite; transform-origin: 40px 40px; }
+              .nebula-core { animation: nebulaPulse 3s ease-in-out infinite; }
+              .nebula-ring { animation: nebulaSpin 8s linear infinite; transform-origin: 40px 40px; }
+            </style>
           </defs>
-          <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
-          <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
-          <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
-        </g>
-      </svg>
-    </button>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+          <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+          <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+          <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+          <g class="moon-container">
+            <defs>
+              <radialGradient id="moonGlow">
+                <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+                <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+          </g>
+        </svg>
+      </button>
     </div>
+  </div>
+
+  <!-- Language Selector -->
+  <div class="lang-selector" id="lang-selector">
+    <button class="lang-flag-btn active" data-lang="en" title="English">🇺🇸</button>
+    <button class="lang-flag-btn" data-lang="pt" title="Português">🇧🇷</button>
+    <button class="lang-flag-btn" data-lang="es" title="Español">🇪🇸</button>
+    <button class="lang-flag-btn" data-lang="it" title="Italiano">🇮🇹</button>
+    <button class="lang-flag-btn" data-lang="fr" title="Français">🇫🇷</button>
+    <button class="lang-flag-btn" data-lang="de" title="Deutsch">🇩🇪</button>
+    <button class="lang-flag-btn" data-lang="ja" title="日本語">🇯🇵</button>
+    <button class="lang-flag-btn" data-lang="tr" title="Türkçe">🇹🇷</button>
+    <button class="lang-flag-btn" data-lang="ru" title="Русский">🇷🇺</button>
   </div>
 
   <!-- Section Navigation -->
   <nav class="section-nav">
-    <a href="#about" data-section="About"></a>
-    <a href="#education" data-section="Research"></a>
-    <a href="#affiliation" data-section="Affiliation"></a>
-    <a href="#publications" data-section="Publications"></a>
-    <a href="#artistic" data-section="Artistic"></a>
-    <a href="#connect" data-section="Connect"></a>
+    <a href="#about" data-section="About" data-i18n-nav="nav_about"></a>
+    <a href="#education" data-section="Research" data-i18n-nav="nav_research"></a>
+    <a href="#affiliation" data-section="Affiliation" data-i18n-nav="nav_affiliation"></a>
+    <a href="#publications" data-section="Publications" data-i18n-nav="nav_publications"></a>
+    <a href="#artistic" data-section="Artistic" data-i18n-nav="nav_artistic"></a>
+    <a href="#connect" data-section="Connect" data-i18n-nav="nav_connect"></a>
   </nav>
 
   <!-- Research Content -->
   <div class="research-container">
+
     <!-- About Section -->
     <div class="research-section" id="about">
-      <div class="research-title">About</div>
-      <div class="research-item" style="font-weight: 600;">Hi there! 👋</div>
-      <div class="research-item" style="text-align: justify;">I am <strong>Ivan Moriá Borges</strong>, a Brazilian Music Therapist with a Master's in <strong>Neurosciences</strong>, and a <strong>PhD Candidate</strong> currently serving as a <strong>Professor at UFMG</strong> (2025–2027).</div>
-      <div class="research-item" style="text-align: justify;">As a multi-instrumentalist and researcher, I work at the intersection of <strong>Music Therapy</strong>, <strong>Neurosciences</strong>, and <strong>Computational Music Analysis</strong>. My work focuses on <strong>Music Information Retrieval (MIR)</strong> and the development of digital tools for <strong>micro-analysis</strong> and <strong>clinical assessment</strong> in music therapy. By leveraging <strong>automated data extraction</strong> and <strong>MIDI analysis</strong>, I explore how technology can enhance our understanding of social cognition and optimize therapeutic processes.</div>
+      <div class="research-title" data-i18n="about_title">About</div>
+      <div class="research-item" style="font-weight: 600;" data-i18n="hi_there">Hi there! 👋</div>
+      <div class="research-item" style="text-align: justify;" data-i18n-html="bio_1">I am <strong>Ivan Moriá Borges</strong>, a Brazilian Music Therapist with a Master's in <strong>Neurosciences</strong>, and a <strong>PhD Candidate</strong> currently serving as a <strong>Professor at UFMG</strong> (2025–2027).</div>
+      <div class="research-item" style="text-align: justify;" data-i18n-html="bio_2">As a multi-instrumentalist and researcher, I work at the intersection of <strong>Music Therapy</strong>, <strong>Neurosciences</strong>, and <strong>Computational Music Analysis</strong>. My work focuses on <strong>Music Information Retrieval (MIR)</strong> and the development of digital tools for <strong>micro-analysis</strong> and <strong>clinical assessment</strong> in music therapy. By leveraging <strong>automated data extraction</strong> and <strong>MIDI analysis</strong>, I explore how technology can enhance our understanding of social cognition and optimize therapeutic processes.</div>
       <div class="tech-tags">
         <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" style="height: 28px; border-radius: 4px;">
         <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript" style="height: 28px; border-radius: 4px;">
@@ -507,88 +464,91 @@
 
     <!-- Education Section -->
     <div class="research-section" id="education">
-      <div class="research-title">🔬 Research & Academic Background</div>
-      <div class="research-item" style="margin-top: 12px;">🎓 <strong>Substitute Professor in Music Therapy (UFMG, 2025–2027):</strong> Teaching Ear Training, Harmony, and Improvisation for undergraduate music therapy students.</div>
+      <div class="research-title" data-i18n="research_title">🔬 Research & Academic Background</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="prof_title">🎓 <strong>Substitute Professor in Music Therapy (UFMG, 2025–2027):</strong> Teaching Ear Training, Harmony, and Improvisation for undergraduate music therapy students.</div>
 
-      <div class="research-item" style="margin-top: 12px;">🎓 <strong>PhD Candidate in Music (UFMG, 2021-2026):</strong> Developing digital tools in Python, MAX/MSP, and JavaScript for MIDI data processing and statistical analysis, focused on Digital Music Therapy Assessment and open-access clinical microanalysis.</div>
-      <div class="research-item">Technologies for Extraction and Processing of Musical Information in Music Therapy: Micro-analyses of Musical Traces and Possible Interfaces with Social Cognition</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="phd_title">🎓 <strong>PhD Candidate in Music (UFMG, 2021-2026):</strong> Developing digital tools in Python, MAX/MSP, and JavaScript for MIDI data processing and statistical analysis, focused on Digital Music Therapy Assessment and open-access clinical microanalysis.</div>
+      <div class="research-item" data-i18n="phd_desc">Technologies for Extraction and Processing of Musical Information in Music Therapy: Micro-analyses of Musical Traces and Possible Interfaces with Social Cognition</div>
 
-      <div class="research-item" style="margin-top: 12px;">🧠 <strong>MSc in Neurosciences (UFMG, 2021):</strong> Investigated social cognition and interactive musical improvisation within the Schizophrenia Spectrum and other mental health contexts.</div>
-      <div class="research-item">Social Cognition in Music Therapy: Perspectives on Performance in Interactive Musical Practice in Mental Health</div>
-      <a href="media/documents/textos/Dissertacao_Ivan-Moria.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;">View Dissertation →</a>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="msc_title">🧠 <strong>MSc in Neurosciences (UFMG, 2021):</strong> Investigated social cognition and interactive musical improvisation within the Schizophrenia Spectrum and other mental health contexts.</div>
+      <div class="research-item" data-i18n="msc_desc">Social Cognition in Music Therapy: Perspectives on Performance in Interactive Musical Practice in Mental Health</div>
+      <a href="media/documents/textos/Dissertacao_Ivan-Moria.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;" data-i18n="view_dissertation">View Dissertation →</a>
 
-      <div class="research-item" style="margin-top: 12px;">🎓 <strong>Bachelor's Degree in Music Therapy (UFMG, 2017):</strong></div>
-      <div class="research-item">Music Therapy and Mental Health: an Encounter Through Singing</div>
-      <a href="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;">View Monograph →</a>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="bachelor_title">🎓 <strong>Bachelor's Degree in Music Therapy (UFMG, 2017):</strong></div>
+      <div class="research-item" data-i18n="bachelor_desc">Music Therapy and Mental Health: an Encounter Through Singing</div>
+      <a href="media/documents/textos/MusicoterapiaeSaudeMentalumencontroatravsdocantar.pdf" target="_blank" class="pub-link" style="display: inline-block; margin-bottom: 12px;" data-i18n="view_monograph">View Monograph →</a>
 
-      <div class="research-item" style="margin-top: 12px;">📋 <strong>Academic Contributions:</strong> Peer reviewer for Music & Science (UK), member of the Research Commission at the Brazilian Union of Music Therapy Associations (UBAM).</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="academic_contrib">📋 <strong>Academic Contributions:</strong> Peer reviewer for Music & Science (UK), member of the Research Commission at the Brazilian Union of Music Therapy Associations (UBAM).</div>
     </div>
 
     <!-- Affiliation Section -->
     <div class="research-section" id="affiliation">
-      <div class="research-title">Affiliation</div>
-      <div class="research-item">Universidade Federal de Minas Gerais - Graduate Program in Music</div>
-      <div class="research-item">School of Music - Music Therapy Department</div>
-      <a href="https://musica.ufmg.br/ppgmus/" target="_blank" class="pub-link" style="display: inline-block;">View Website →</a>
+      <div class="research-title" data-i18n="affil_title">Affiliation</div>
+      <div class="research-item" data-i18n="affil_uni">Universidade Federal de Minas Gerais - Graduate Program in Music</div>
+      <div class="research-item" data-i18n="affil_school">School of Music - Music Therapy Department</div>
+      <a href="https://musica.ufmg.br/ppgmus/" target="_blank" class="pub-link" style="display: inline-block;" data-i18n="view_website">View Website →</a>
     </div>
 
     <!-- Publications Section -->
     <div class="research-section" id="publications">
-      <div class="research-title">🌍 Global Engagement & Research Publications</div>
-      <div class="research-item" style="margin-top: 12px;">I frequently present my work at major international conferences, bridging the gap between music and health.</div>
+      <div class="research-title" data-i18n="pub_title">🌍 Global Engagement & Research Publications</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n="pub_intro">I frequently present my work at major international conferences, bridging the gap between music and health.</div>
 
-      <div class="research-item" style="margin-top: 16px; font-weight: 600;">🇮🇹 18th World Congress of Music Therapy - Bologna, Italy (July 2026)</div>
-      <div class="research-item"><em>Upcoming participation presenting three distinct research projects:</em></div>
-      <div class="research-item" style="margin-left: 12px; margin-top: 8px;">1. <strong>Digital Assessment:</strong> Development and clinical application of digital tools for music therapy evaluation.</div>
-      <div class="research-item" style="margin-left: 12px;">2. <strong>Global Perspectives (Round Table):</strong> International collaboration on Anti-oppressive, Decolonial, and Indigenous perspectives for clinical music therapy practice.</div>
-      <div class="research-item" style="margin-left: 12px;">3. <strong>Bibliometric Review:</strong> Comprehensive bibliometric study conducted in collaboration with Brazilian PhDs.</div>
+      <div class="research-item" style="margin-top: 16px; font-weight: 600;" data-i18n="wcmt2026_header">🇮🇹 18th World Congress of Music Therapy - Bologna, Italy (July 2026)</div>
+      <div class="research-item" data-i18n-html="wcmt2026_intro"><em>Upcoming participation presenting three distinct research projects:</em></div>
+      <div class="research-item" style="margin-left: 12px; margin-top: 8px;" data-i18n-html="wcmt2026_1">1. <strong>Digital Assessment:</strong> Development and clinical application of digital tools for music therapy evaluation.</div>
+      <div class="research-item" style="margin-left: 12px;" data-i18n-html="wcmt2026_2">2. <strong>Global Perspectives (Round Table):</strong> International collaboration on Anti-oppressive, Decolonial, and Indigenous perspectives for clinical music therapy practice.</div>
+      <div class="research-item" style="margin-left: 12px;" data-i18n-html="wcmt2026_3">3. <strong>Bibliometric Review:</strong> Comprehensive bibliometric study conducted in collaboration with Brazilian PhDs.</div>
 
-      <div class="research-item" style="margin-top: 16px; font-weight: 600;">📚 Previous Conferences & Publications</div>
+      <div class="research-item" style="margin-top: 16px; font-weight: 600;" data-i18n="prev_conf">📚 Previous Conferences & Publications</div>
 
       <div class="publication-item">
-        <div class="pub-title">🇧🇷 ICMPC18 - 18th International Conference on Music Perception and Cognition - São Paulo (2025)</div>
+        <div class="pub-title" data-i18n="icmpc_title">🇧🇷 ICMPC18 - 18th International Conference on Music Perception and Cognition - São Paulo (2025)</div>
       </div>
 
       <div class="publication-item">
-        <div class="pub-title">🇩🇪 IAMM & ISfAM Congress - Berlin (2024)</div>
-        <div class="research-item"><em>The Future of Music in Health</em></div>
-        <div class="research-item">An Music therapeutical perspective on social cognition and music: interactive musical improvisation</div>
-        <a href="https://mmd.iammonline.com/index.php/musmed/issue/view/80" target="_blank" class="pub-link">View Poster →</a>
+        <div class="pub-title" data-i18n="iamm_title">🇩🇪 IAMM & ISfAM Congress - Berlin (2024)</div>
+        <div class="research-item" data-i18n-html="iamm_subtitle"><em>The Future of Music in Health</em></div>
+        <div class="research-item" data-i18n="iamm_desc">An Music therapeutical perspective on social cognition and music: interactive musical improvisation</div>
+        <a href="https://mmd.iammonline.com/index.php/musmed/issue/view/80" target="_blank" class="pub-link" data-i18n="view_poster">View Poster →</a>
       </div>
 
       <div class="publication-item">
-        <div class="pub-title">🇨🇦 17th World Congress of Music Therapy - Vancouver (2023)</div>
-        <div class="research-item">Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health</div>
-        <a href="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496" target="_blank" class="pub-link">Published in Music Therapy Today, Vol 18 (p. 496) →</a>
+        <div class="pub-title" data-i18n="wcmt2023_title">🇨🇦 17th World Congress of Music Therapy - Vancouver (2023)</div>
+        <div class="research-item" data-i18n="wcmt2023_desc">Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health</div>
+        <a href="media/documents/textos/Proceedings_of_17th_World_Congress_of_Music_Therapy.pdf#page=496" target="_blank" class="pub-link" data-i18n="wcmt2023_link">Published in Music Therapy Today, Vol 18 (p. 496) →</a>
       </div>
 
       <div class="publication-item">
-        <div class="pub-title">🏴󠁧󠁢󠁳󠁣󠁴󠁿 12th European Music Therapy Conference - Edinburgh (2022)</div>
-        <div class="research-item">Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, social cognition and neurocognition</div>
-        <a href="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223" target="_blank" class="pub-link">View Abstract (p. 223) →</a>
+        <div class="pub-title" data-i18n="emtc_title">🏴󠁧󠁢󠁳󠁣󠁴󠁿 12th European Music Therapy Conference - Edinburgh (2022)</div>
+        <div class="research-item" data-i18n="emtc_desc">Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, social cognition and neurocognition</div>
+        <a href="media/documents/textos/emtc2022-book-of-abstracts-final-20220603.pdf#page=223" target="_blank" class="pub-link" data-i18n="emtc_link">View Abstract (p. 223) →</a>
       </div>
     </div>
 
     <!-- Artistic Journey Section -->
     <div class="research-section" id="artistic">
-      <div class="research-title">🎻 Artistic Journey</div>
-      <div class="research-item" style="margin-top: 12px;">Active musician in the Brazilian scene, bridging classical traditions and contemporary soundtracks:</div>
+      <div class="research-title" data-i18n="artistic_title">🎻 Artistic Journey</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n="artistic_intro">Active musician in the Brazilian scene, bridging classical traditions and contemporary soundtracks:</div>
 
-      <div class="research-item" style="margin-top: 12px;"><strong>Baroque Cello:</strong> Cellist at Orquestra 415 de Música Antiga (2015–2025).</div>
-      <div class="research-item">Highlight: Soloist in Vivaldi's Concerto for Two Cellos in G minor. <a href="media/documents/certificados/concerto2cellos.pdf" target="_blank" class="pub-link" style="display: inline;">See Concert Flyer →</a></div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="baroque_title"><strong>Baroque Cello:</strong> Cellist at Orquestra 415 de Música Antiga (2015–2025).</div>
+      <div class="research-item">
+        <span data-i18n="baroque_desc">Highlight: Soloist in Vivaldi's Concerto for Two Cellos in G minor.</span>
+        <a href="media/documents/certificados/concerto2cellos.pdf" target="_blank" class="pub-link" style="display: inline;" data-i18n="baroque_link"> See Concert Flyer →</a>
+      </div>
 
-      <div class="research-item" style="margin-top: 12px;"><strong>Symphonic Cello:</strong> Cellist at Orquestra Multiplayer (2014-2018) performing soundtracks from games and films.</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="symphonic"><strong>Symphonic Cello:</strong> Cellist at Orquestra Multiplayer (2014-2018) performing soundtracks from games and films.</div>
 
-      <div class="research-item" style="margin-top: 12px;"><strong>Accordion & Mandolin:</strong> Member of the UFMG Choro Orchestra and Chorodito group.</div>
+      <div class="research-item" style="margin-top: 12px;" data-i18n-html="accordion"><strong>Accordion & Mandolin:</strong> Member of the UFMG Choro Orchestra and Chorodito group.</div>
     </div>
 
     <!-- Links Section -->
     <div class="research-section" id="connect">
-      <div class="research-title">Let's Connect</div>
+      <div class="research-title" data-i18n="connect_title">Let's Connect</div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <a href="https://www.linkedin.com/in/ivanmoriaborges/" target="_blank" class="pub-link">→ LinkedIn</a>
-        <a href="http://lattes.cnpq.br/8057950046082949" target="_blank" class="pub-link">→ Lattes Curriculum</a>
-        <a href="contato.html" class="pub-link">→ Contact</a>
+        <a href="https://www.linkedin.com/in/ivanmoriaborges/" target="_blank" class="pub-link" data-i18n="connect_linkedin">→ LinkedIn</a>
+        <a href="http://lattes.cnpq.br/8057950046082949" target="_blank" class="pub-link" data-i18n="connect_lattes">→ Lattes Curriculum</a>
+        <a href="contato.html" class="pub-link" data-i18n="connect_contact">→ Contact</a>
       </div>
       <div style="height: 60px; display: flex; align-items: center; justify-content: center;">
         <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 4px 8px;">←</button>
@@ -599,35 +559,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <script src="script.js"></script>
   <script>
+    // ── Section nav scroll tracking ──
     function updateActiveDot() {
       const sections = document.querySelectorAll('.research-section[id]');
       const dots = document.querySelectorAll('.section-nav a');
       const container = document.querySelector('.research-container');
-
-      let activeSection = sections[0];
-      let maxVisibility = 0;
-
+      let activeSection = sections[0], maxVisibility = 0;
       sections.forEach(section => {
         const rect = section.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
-
-        // Calculate how much of the section is visible in the container
         const top = Math.max(0, rect.top - containerRect.top);
         const bottom = Math.min(containerRect.height, rect.bottom - containerRect.top);
         const visibility = Math.max(0, bottom - top) / rect.height;
-
-        if (visibility > maxVisibility) {
-          maxVisibility = visibility;
-          activeSection = section;
-        }
+        if (visibility > maxVisibility) { maxVisibility = visibility; activeSection = section; }
       });
-
       dots.forEach(dot => {
         const targetId = dot.getAttribute('href').substring(1);
         if (targetId === activeSection.id) {
           dot.style.opacity = '1';
           dot.classList.add('active');
-          dot.style.pointerEvents = 'auto';
         } else {
           dot.classList.remove('active');
         }
@@ -637,9 +587,523 @@
     const container = document.querySelector('.research-container');
     if (container) {
       container.addEventListener('scroll', updateActiveDot);
-      // Initial check
       setTimeout(updateActiveDot, 100);
     }
+
+    // ── Translations ──
+    const translations = {
+      en: {
+        about_label: 'About',
+        nav_about: 'About', nav_research: 'Research', nav_affiliation: 'Affiliation',
+        nav_publications: 'Publications', nav_artistic: 'Artistic', nav_connect: 'Connect',
+        about_title: 'About',
+        hi_there: 'Hi there! 👋',
+        bio_1: 'I am <strong>Ivan Moriá Borges</strong>, a Brazilian Music Therapist with a Master\'s in <strong>Neurosciences</strong>, and a <strong>PhD Candidate</strong> currently serving as a <strong>Professor at UFMG</strong> (2025–2027).',
+        bio_2: 'As a multi-instrumentalist and researcher, I work at the intersection of <strong>Music Therapy</strong>, <strong>Neurosciences</strong>, and <strong>Computational Music Analysis</strong>. My work focuses on <strong>Music Information Retrieval (MIR)</strong> and the development of digital tools for <strong>micro-analysis</strong> and <strong>clinical assessment</strong> in music therapy. By leveraging <strong>automated data extraction</strong> and <strong>MIDI analysis</strong>, I explore how technology can enhance our understanding of social cognition and optimize therapeutic processes.',
+        research_title: '🔬 Research & Academic Background',
+        prof_title: '🎓 <strong>Substitute Professor in Music Therapy (UFMG, 2025–2027):</strong> Teaching Ear Training, Harmony, and Improvisation for undergraduate music therapy students.',
+        phd_title: '🎓 <strong>PhD Candidate in Music (UFMG, 2021–2026):</strong> Developing digital tools in Python, MAX/MSP, and JavaScript for MIDI data processing and statistical analysis, focused on Digital Music Therapy Assessment and open-access clinical microanalysis.',
+        phd_desc: 'Technologies for Extraction and Processing of Musical Information in Music Therapy: Micro-analyses of Musical Traces and Possible Interfaces with Social Cognition',
+        msc_title: '🧠 <strong>MSc in Neurosciences (UFMG, 2021):</strong> Investigated social cognition and interactive musical improvisation within the Schizophrenia Spectrum and other mental health contexts.',
+        msc_desc: 'Social Cognition in Music Therapy: Perspectives on Performance in Interactive Musical Practice in Mental Health',
+        view_dissertation: 'View Dissertation →',
+        bachelor_title: '🎓 <strong>Bachelor\'s Degree in Music Therapy (UFMG, 2017):</strong>',
+        bachelor_desc: 'Music Therapy and Mental Health: an Encounter Through Singing',
+        view_monograph: 'View Monograph →',
+        academic_contrib: '📋 <strong>Academic Contributions:</strong> Peer reviewer for Music & Science (UK), member of the Research Commission at the Brazilian Union of Music Therapy Associations (UBAM).',
+        affil_title: 'Affiliation',
+        affil_uni: 'Universidade Federal de Minas Gerais - Graduate Program in Music',
+        affil_school: 'School of Music - Music Therapy Department',
+        view_website: 'View Website →',
+        pub_title: '🌍 Global Engagement & Research Publications',
+        pub_intro: 'I frequently present my work at major international conferences, bridging the gap between music and health.',
+        wcmt2026_header: '🇮🇹 18th World Congress of Music Therapy - Bologna, Italy (July 2026)',
+        wcmt2026_intro: '<em>Upcoming participation presenting three distinct research projects:</em>',
+        wcmt2026_1: '1. <strong>Digital Assessment:</strong> Development and clinical application of digital tools for music therapy evaluation.',
+        wcmt2026_2: '2. <strong>Global Perspectives (Round Table):</strong> International collaboration on Anti-oppressive, Decolonial, and Indigenous perspectives for clinical music therapy practice.',
+        wcmt2026_3: '3. <strong>Bibliometric Review:</strong> Comprehensive bibliometric study conducted in collaboration with Brazilian PhDs.',
+        prev_conf: '📚 Previous Conferences & Publications',
+        icmpc_title: '🇧🇷 ICMPC18 - 18th International Conference on Music Perception and Cognition - São Paulo (2025)',
+        iamm_title: '🇩🇪 IAMM & ISfAM Congress - Berlin (2024)',
+        iamm_subtitle: '<em>The Future of Music in Health</em>',
+        iamm_desc: 'A music therapeutical perspective on social cognition and music: interactive musical improvisation',
+        view_poster: 'View Poster →',
+        wcmt2023_title: '🇨🇦 17th World Congress of Music Therapy - Vancouver (2023)',
+        wcmt2023_desc: 'Music Therapy and Neurocognition: Relationships between interactive musical improvisation and mental health',
+        wcmt2023_link: 'Published in Music Therapy Today, Vol 18 (p. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12th European Music Therapy Conference - Edinburgh (2022)',
+        emtc_desc: 'Micro-analysis of a musical improvisation in mental health: Relationship between music therapy, social cognition and neurocognition',
+        emtc_link: 'View Abstract (p. 223) →',
+        artistic_title: '🎻 Artistic Journey',
+        artistic_intro: 'Active musician in the Brazilian scene, bridging classical traditions and contemporary soundtracks:',
+        baroque_title: '<strong>Baroque Cello:</strong> Cellist at Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'Highlight: Soloist in Vivaldi\'s Concerto for Two Cellos in G minor.',
+        baroque_link: 'See Concert Flyer →',
+        symphonic: '<strong>Symphonic Cello:</strong> Cellist at Orquestra Multiplayer (2014–2018) performing soundtracks from games and films.',
+        accordion: '<strong>Accordion & Mandolin:</strong> Member of the UFMG Choro Orchestra and Chorodito group.',
+        connect_title: 'Let\'s Connect',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Lattes Curriculum', connect_contact: '→ Contact',
+      },
+      pt: {
+        about_label: 'Sobre',
+        nav_about: 'Sobre', nav_research: 'Pesquisa', nav_affiliation: 'Afiliação',
+        nav_publications: 'Publicações', nav_artistic: 'Artístico', nav_connect: 'Contato',
+        about_title: 'Sobre',
+        hi_there: 'Olá! 👋',
+        bio_1: 'Sou <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasileiro com Mestrado em <strong>Neurociências</strong> e <strong>Doutorando</strong> em Música, atualmente como <strong>Professor na UFMG</strong> (2025–2027).',
+        bio_2: 'Como multi-instrumentista e pesquisador, atuo na interseção entre <strong>Musicoterapia</strong>, <strong>Neurociências</strong> e <strong>Análise Musical Computacional</strong>. Meu trabalho foca em <strong>Recuperação de Informação Musical (MIR)</strong> e no desenvolvimento de ferramentas digitais para <strong>microanálise</strong> e <strong>avaliação clínica</strong> em musicoterapia. Ao utilizar <strong>extração automatizada de dados</strong> e <strong>análise MIDI</strong>, exploro como a tecnologia pode aprimorar nosso entendimento sobre cognição social e otimizar processos terapêuticos.',
+        research_title: '🔬 Pesquisa e Formação Acadêmica',
+        prof_title: '🎓 <strong>Professor Substituto em Musicoterapia (UFMG, 2025–2027):</strong> Lecionando Percepção Musical, Harmonia e Improvisação para graduandos em musicoterapia.',
+        phd_title: '🎓 <strong>Doutorando em Música (UFMG, 2021–2026):</strong> Desenvolvendo ferramentas digitais em Python, MAX/MSP e JavaScript para processamento de dados MIDI e análise estatística, com foco em Avaliação Digital em Musicoterapia e microanálise clínica de acesso aberto.',
+        phd_desc: 'Tecnologias para Extração e Processamento de Informação Musical em Musicoterapia: Microanálises de Traços Musicais e Possíveis Interfaces com a Cognição Social',
+        msc_title: '🧠 <strong>Mestrado em Neurociências (UFMG, 2021):</strong> Investigou cognição social e improvisação musical interativa no Espectro da Esquizofrenia e outros contextos de saúde mental.',
+        msc_desc: 'Cognição Social em Musicoterapia: Perspectivas sobre Desempenho na Prática Musical Interativa em Saúde Mental',
+        view_dissertation: 'Ver Dissertação →',
+        bachelor_title: '🎓 <strong>Bacharelado em Musicoterapia (UFMG, 2017):</strong>',
+        bachelor_desc: 'Musicoterapia e Saúde Mental: um Encontro Através do Cantar',
+        view_monograph: 'Ver Monografia →',
+        academic_contrib: '📋 <strong>Contribuições Acadêmicas:</strong> Parecerista da revista Music & Science (Reino Unido), membro da Comissão de Pesquisa da União Brasileira das Associações de Musicoterapia (UBAM).',
+        affil_title: 'Afiliação',
+        affil_uni: 'Universidade Federal de Minas Gerais - Programa de Pós-Graduação em Música',
+        affil_school: 'Escola de Música - Departamento de Musicoterapia',
+        view_website: 'Ver Site →',
+        pub_title: '🌍 Engajamento Global & Publicações',
+        pub_intro: 'Apresento frequentemente meu trabalho em grandes conferências internacionais, conectando música e saúde.',
+        wcmt2026_header: '🇮🇹 18º Congresso Mundial de Musicoterapia - Bolonha, Itália (Julho 2026)',
+        wcmt2026_intro: '<em>Participação prevista com apresentação de três projetos de pesquisa distintos:</em>',
+        wcmt2026_1: '1. <strong>Avaliação Digital:</strong> Desenvolvimento e aplicação clínica de ferramentas digitais para avaliação em musicoterapia.',
+        wcmt2026_2: '2. <strong>Perspectivas Globais (Mesa Redonda):</strong> Colaboração internacional sobre perspectivas antiopressivas, decoloniais e indígenas na prática clínica da musicoterapia.',
+        wcmt2026_3: '3. <strong>Revisão Bibliométrica:</strong> Estudo bibliométrico abrangente realizado em colaboração com doutores brasileiros.',
+        prev_conf: '📚 Conferências e Publicações Anteriores',
+        icmpc_title: '🇧🇷 ICMPC18 - 18ª Conferência Internacional sobre Percepção e Cognição Musical - São Paulo (2025)',
+        iamm_title: '🇩🇪 Congresso IAMM & ISfAM - Berlim (2024)',
+        iamm_subtitle: '<em>O Futuro da Música na Saúde</em>',
+        iamm_desc: 'Uma perspectiva musicoterapêutica sobre cognição social e música: improvisação musical interativa',
+        view_poster: 'Ver Pôster →',
+        wcmt2023_title: '🇨🇦 17º Congresso Mundial de Musicoterapia - Vancouver (2023)',
+        wcmt2023_desc: 'Musicoterapia e Neurocognição: Relações entre improvisação musical interativa e saúde mental',
+        wcmt2023_link: 'Publicado em Music Therapy Today, Vol 18 (p. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12ª Conferência Europeia de Musicoterapia - Edimburgo (2022)',
+        emtc_desc: 'Microanálise de uma improvisação musical em saúde mental: Relação entre musicoterapia, cognição social e neurocognição',
+        emtc_link: 'Ver Resumo (p. 223) →',
+        artistic_title: '🎻 Trajetória Artística',
+        artistic_intro: 'Músico atuante na cena brasileira, conectando tradições clássicas e trilhas sonoras contemporâneas:',
+        baroque_title: '<strong>Violoncelo Barroco:</strong> Violoncelista na Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'Destaque: Solista no Concerto para Dois Violoncelos em Sol menor de Vivaldi.',
+        baroque_link: 'Ver Programa de Concerto →',
+        symphonic: '<strong>Violoncelo Sinfônico:</strong> Violoncelista na Orquestra Multiplayer (2014–2018) interpretando trilhas de jogos e filmes.',
+        accordion: '<strong>Sanfona & Bandolim:</strong> Membro da Orquestra de Choro da UFMG e do grupo Chorodito.',
+        connect_title: 'Conecte-se',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Currículo Lattes', connect_contact: '→ Contato',
+      },
+      es: {
+        about_label: 'Sobre mí',
+        nav_about: 'Sobre mí', nav_research: 'Investigación', nav_affiliation: 'Afiliación',
+        nav_publications: 'Publicaciones', nav_artistic: 'Artístico', nav_connect: 'Contacto',
+        about_title: 'Sobre mí',
+        hi_there: '¡Hola! 👋',
+        bio_1: 'Soy <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasileño con Maestría en <strong>Neurociencias</strong> y <strong>Candidato a Doctor</strong> en Música, actualmente <strong>Profesor en la UFMG</strong> (2025–2027).',
+        bio_2: 'Como multi-instrumentista e investigador, trabajo en la intersección de la <strong>Musicoterapia</strong>, las <strong>Neurociencias</strong> y el <strong>Análisis Musical Computacional</strong>. Mi trabajo se enfoca en la <strong>Recuperación de Información Musical (MIR)</strong> y el desarrollo de herramientas digitales para el <strong>micro-análisis</strong> y la <strong>evaluación clínica</strong> en musicoterapia. Aprovechando la <strong>extracción automatizada de datos</strong> y el <strong>análisis MIDI</strong>, exploro cómo la tecnología puede mejorar la comprensión de la cognición social y optimizar los procesos terapéuticos.',
+        research_title: '🔬 Investigación y Formación Académica',
+        prof_title: '🎓 <strong>Profesor Sustituto en Musicoterapia (UFMG, 2025–2027):</strong> Enseñando Entrenamiento Auditivo, Armonía e Improvisación a estudiantes de pregrado en musicoterapia.',
+        phd_title: '🎓 <strong>Candidato a Doctor en Música (UFMG, 2021–2026):</strong> Desarrollo de herramientas digitales en Python, MAX/MSP y JavaScript para procesamiento de datos MIDI y análisis estadístico, enfocado en Evaluación Digital en Musicoterapia y microanálisis clínico de acceso abierto.',
+        phd_desc: 'Tecnologías para la Extracción y Procesamiento de Información Musical en Musicoterapia: Microanálisis de Trazos Musicales e Interfaces Posibles con la Cognición Social',
+        msc_title: '🧠 <strong>Maestría en Neurociencias (UFMG, 2021):</strong> Investigó la cognición social y la improvisación musical interactiva en el Espectro de la Esquizofrenia y otros contextos de salud mental.',
+        msc_desc: 'Cognición Social en Musicoterapia: Perspectivas sobre el Desempeño en la Práctica Musical Interactiva en Salud Mental',
+        view_dissertation: 'Ver Disertación →',
+        bachelor_title: '🎓 <strong>Licenciatura en Musicoterapia (UFMG, 2017):</strong>',
+        bachelor_desc: 'Musicoterapia y Salud Mental: un Encuentro a través del Canto',
+        view_monograph: 'Ver Monografía →',
+        academic_contrib: '📋 <strong>Contribuciones Académicas:</strong> Evaluador par para Music & Science (Reino Unido), miembro de la Comisión de Investigación de la Unión Brasileña de Asociaciones de Musicoterapia (UBAM).',
+        affil_title: 'Afiliación',
+        affil_uni: 'Universidad Federal de Minas Gerais - Programa de Posgrado en Música',
+        affil_school: 'Escuela de Música - Departamento de Musicoterapia',
+        view_website: 'Ver Sitio Web →',
+        pub_title: '🌍 Participación Global & Publicaciones de Investigación',
+        pub_intro: 'Presento frecuentemente mi trabajo en importantes conferencias internacionales, tendiendo puentes entre música y salud.',
+        wcmt2026_header: '🇮🇹 18.º Congreso Mundial de Musicoterapia - Bolonia, Italia (Julio 2026)',
+        wcmt2026_intro: '<em>Participación prevista presentando tres proyectos de investigación distintos:</em>',
+        wcmt2026_1: '1. <strong>Evaluación Digital:</strong> Desarrollo y aplicación clínica de herramientas digitales para la evaluación en musicoterapia.',
+        wcmt2026_2: '2. <strong>Perspectivas Globales (Mesa Redonda):</strong> Colaboración internacional sobre perspectivas antiopresivas, decoloniales e indígenas en la práctica clínica de musicoterapia.',
+        wcmt2026_3: '3. <strong>Revisión Bibliométrica:</strong> Estudio bibliométrico exhaustivo realizado en colaboración con doctorandos brasileños.',
+        prev_conf: '📚 Conferencias y Publicaciones Anteriores',
+        icmpc_title: '🇧🇷 ICMPC18 - 18.ª Conferencia Internacional sobre Percepción y Cognición Musical - São Paulo (2025)',
+        iamm_title: '🇩🇪 Congreso IAMM & ISfAM - Berlín (2024)',
+        iamm_subtitle: '<em>El Futuro de la Música en la Salud</em>',
+        iamm_desc: 'Una perspectiva musicoterapéutica sobre cognición social y música: improvisación musical interactiva',
+        view_poster: 'Ver Póster →',
+        wcmt2023_title: '🇨🇦 17.º Congreso Mundial de Musicoterapia - Vancouver (2023)',
+        wcmt2023_desc: 'Musicoterapia y Neurocognición: Relaciones entre improvisación musical interactiva y salud mental',
+        wcmt2023_link: 'Publicado en Music Therapy Today, Vol 18 (p. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12.ª Conferencia Europea de Musicoterapia - Edimburgo (2022)',
+        emtc_desc: 'Microanálisis de una improvisación musical en salud mental: Relación entre musicoterapia, cognición social y neurocognición',
+        emtc_link: 'Ver Resumen (p. 223) →',
+        artistic_title: '🎻 Trayectoria Artística',
+        artistic_intro: 'Músico activo en la escena brasileña, uniendo tradiciones clásicas y bandas sonoras contemporáneas:',
+        baroque_title: '<strong>Violonchelo Barroco:</strong> Violonchelista en la Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'Destacado: Solista en el Concierto para Dos Violoncellos en Sol menor de Vivaldi.',
+        baroque_link: 'Ver Programa del Concierto →',
+        symphonic: '<strong>Violonchelo Sinfónico:</strong> Violonchelista en Orquestra Multiplayer (2014–2018) interpretando bandas sonoras de videojuegos y películas.',
+        accordion: '<strong>Acordeón & Mandolina:</strong> Miembro de la Orquestra de Choro da UFMG y del grupo Chorodito.',
+        connect_title: 'Conectémonos',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Currículo Lattes', connect_contact: '→ Contacto',
+      },
+      it: {
+        about_label: 'Chi sono',
+        nav_about: 'Chi sono', nav_research: 'Ricerca', nav_affiliation: 'Affiliazione',
+        nav_publications: 'Pubblicazioni', nav_artistic: 'Artistico', nav_connect: 'Contatti',
+        about_title: 'Chi sono',
+        hi_there: 'Ciao! 👋',
+        bio_1: 'Sono <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasiliano con un Master in <strong>Neuroscienze</strong> e <strong>Dottorando</strong> in Musica, attualmente <strong>Professore presso la UFMG</strong> (2025–2027).',
+        bio_2: 'Come polistrumentista e ricercatore, lavoro all\'intersezione di <strong>Musicoterapia</strong>, <strong>Neuroscienze</strong> e <strong>Analisi Musicale Computazionale</strong>. Il mio lavoro si concentra sul <strong>Music Information Retrieval (MIR)</strong> e sullo sviluppo di strumenti digitali per la <strong>microanalisi</strong> e la <strong>valutazione clinica</strong> in musicoterapia. Attraverso l\'<strong>estrazione automatizzata di dati</strong> e l\'<strong>analisi MIDI</strong>, esploro come la tecnologia possa migliorare la comprensione della cognizione sociale e ottimizzare i processi terapeutici.',
+        research_title: '🔬 Ricerca e Background Accademico',
+        prof_title: '🎓 <strong>Professore Supplente in Musicoterapia (UFMG, 2025–2027):</strong> Insegna Teoria Musicale, Armonia e Improvvisazione per studenti universitari in musicoterapia.',
+        phd_title: '🎓 <strong>Dottorando in Musica (UFMG, 2021–2026):</strong> Sviluppo di strumenti digitali in Python, MAX/MSP e JavaScript per l\'elaborazione di dati MIDI e analisi statistica, focalizzato sulla Valutazione Digitale in Musicoterapia e microanalisi clinica ad accesso aperto.',
+        phd_desc: 'Tecnologie per l\'Estrazione e l\'Elaborazione dell\'Informazione Musicale in Musicoterapia: Microanalisi delle Tracce Musicali e Possibili Interfacce con la Cognizione Sociale',
+        msc_title: '🧠 <strong>Master in Neuroscienze (UFMG, 2021):</strong> Ha investigato la cognizione sociale e l\'improvvisazione musicale interattiva nello Spettro della Schizofrenia e altri contesti di salute mentale.',
+        msc_desc: 'Cognizione Sociale in Musicoterapia: Prospettive sulla Performance nella Pratica Musicale Interattiva in Salute Mentale',
+        view_dissertation: 'Vedi Dissertazione →',
+        bachelor_title: '🎓 <strong>Laurea in Musicoterapia (UFMG, 2017):</strong>',
+        bachelor_desc: 'Musicoterapia e Salute Mentale: un Incontro attraverso il Canto',
+        view_monograph: 'Vedi Monografia →',
+        academic_contrib: '📋 <strong>Contributi Accademici:</strong> Revisore per Music & Science (UK), membro della Commissione di Ricerca dell\'Unione Brasiliana delle Associazioni di Musicoterapia (UBAM).',
+        affil_title: 'Affiliazione',
+        affil_uni: 'Università Federale di Minas Gerais - Programma di Dottorato in Musica',
+        affil_school: 'Scuola di Musica - Dipartimento di Musicoterapia',
+        view_website: 'Vedi Sito Web →',
+        pub_title: '🌍 Partecipazione Globale & Pubblicazioni',
+        pub_intro: 'Presento frequentemente il mio lavoro a importanti conferenze internazionali, collegando musica e salute.',
+        wcmt2026_header: '🇮🇹 18° Congresso Mondiale di Musicoterapia - Bologna, Italia (Luglio 2026)',
+        wcmt2026_intro: '<em>Partecipazione prevista con presentazione di tre distinti progetti di ricerca:</em>',
+        wcmt2026_1: '1. <strong>Valutazione Digitale:</strong> Sviluppo e applicazione clinica di strumenti digitali per la valutazione in musicoterapia.',
+        wcmt2026_2: '2. <strong>Prospettive Globali (Tavola Rotonda):</strong> Collaborazione internazionale su prospettive anti-oppressive, decoloniali e indigene per la pratica clinica della musicoterapia.',
+        wcmt2026_3: '3. <strong>Revisione Bibliometrica:</strong> Studio bibliometrico completo condotto in collaborazione con dottori brasiliani.',
+        prev_conf: '📚 Conferenze e Pubblicazioni Precedenti',
+        icmpc_title: '🇧🇷 ICMPC18 - 18ª Conferenza Internazionale su Percezione e Cognizione Musicale - São Paulo (2025)',
+        iamm_title: '🇩🇪 Congresso IAMM & ISfAM - Berlino (2024)',
+        iamm_subtitle: '<em>Il Futuro della Musica nella Salute</em>',
+        iamm_desc: 'Una prospettiva musicoterapeutica sulla cognizione sociale e la musica: improvvisazione musicale interattiva',
+        view_poster: 'Vedi Poster →',
+        wcmt2023_title: '🇨🇦 17° Congresso Mondiale di Musicoterapia - Vancouver (2023)',
+        wcmt2023_desc: 'Musicoterapia e Neurocognizione: Relazioni tra improvvisazione musicale interattiva e salute mentale',
+        wcmt2023_link: 'Pubblicato in Music Therapy Today, Vol 18 (p. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12ª Conferenza Europea di Musicoterapia - Edimburgo (2022)',
+        emtc_desc: 'Microanalisi di un\'improvvisazione musicale in salute mentale: Relazione tra musicoterapia, cognizione sociale e neurocognizione',
+        emtc_link: 'Vedi Abstract (p. 223) →',
+        artistic_title: '🎻 Percorso Artistico',
+        artistic_intro: 'Musicista attivo nella scena brasiliana, unendo tradizioni classiche e colonne sonore contemporanee:',
+        baroque_title: '<strong>Violoncello Barocco:</strong> Violoncellista nell\'Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'In evidenza: Solista nel Concerto per Due Violoncelli in Sol minore di Vivaldi.',
+        baroque_link: 'Vedi Locandina del Concerto →',
+        symphonic: '<strong>Violoncello Sinfonico:</strong> Violoncellista nell\'Orquestra Multiplayer (2014–2018) eseguendo colonne sonore di videogiochi e film.',
+        accordion: '<strong>Fisarmonica & Mandolino:</strong> Membro dell\'Orquestra de Choro da UFMG e del gruppo Chorodito.',
+        connect_title: 'Connettiamoci',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Curriculum Lattes', connect_contact: '→ Contatti',
+      },
+      fr: {
+        about_label: 'À propos',
+        nav_about: 'À propos', nav_research: 'Recherche', nav_affiliation: 'Affiliation',
+        nav_publications: 'Publications', nav_artistic: 'Artistique', nav_connect: 'Contact',
+        about_title: 'À propos',
+        hi_there: 'Bonjour ! 👋',
+        bio_1: 'Je suis <strong>Ivan Moriá Borges</strong>, Musicothérapeute brésilien titulaire d\'un Master en <strong>Neurosciences</strong> et <strong>Doctorant</strong> en Musique, actuellement <strong>Professeur à l\'UFMG</strong> (2025–2027).',
+        bio_2: 'En tant que multi-instrumentiste et chercheur, je travaille à l\'intersection de la <strong>Musicothérapie</strong>, des <strong>Neurosciences</strong> et de l\'<strong>Analyse Musicale Computationnelle</strong>. Mon travail se concentre sur le <strong>Music Information Retrieval (MIR)</strong> et le développement d\'outils numériques pour la <strong>micro-analyse</strong> et l\'<strong>évaluation clinique</strong> en musicothérapie. En exploitant l\'<strong>extraction automatisée de données</strong> et l\'<strong>analyse MIDI</strong>, j\'explore comment la technologie peut améliorer notre compréhension de la cognition sociale et optimiser les processus thérapeutiques.',
+        research_title: '🔬 Recherche & Parcours Académique',
+        prof_title: '🎓 <strong>Professeur Suppléant en Musicothérapie (UFMG, 2025–2027) :</strong> Enseignement du Solfège, de l\'Harmonie et de l\'Improvisation aux étudiants en licence de musicothérapie.',
+        phd_title: '🎓 <strong>Doctorant en Musique (UFMG, 2021–2026) :</strong> Développement d\'outils numériques en Python, MAX/MSP et JavaScript pour le traitement de données MIDI et l\'analyse statistique, axé sur l\'Évaluation Numérique en Musicothérapie et la microanalyse clinique en accès libre.',
+        phd_desc: 'Technologies pour l\'Extraction et le Traitement de l\'Information Musicale en Musicothérapie : Micro-analyses des Traces Musicales et Interfaces Possibles avec la Cognition Sociale',
+        msc_title: '🧠 <strong>Master en Neurosciences (UFMG, 2021) :</strong> A étudié la cognition sociale et l\'improvisation musicale interactive dans le Spectre de la Schizophrénie et d\'autres contextes de santé mentale.',
+        msc_desc: 'Cognition Sociale en Musicothérapie : Perspectives sur la Performance dans la Pratique Musicale Interactive en Santé Mentale',
+        view_dissertation: 'Voir la Dissertation →',
+        bachelor_title: '🎓 <strong>Licence en Musicothérapie (UFMG, 2017) :</strong>',
+        bachelor_desc: 'Musicothérapie et Santé Mentale : une Rencontre à travers le Chant',
+        view_monograph: 'Voir la Monographie →',
+        academic_contrib: '📋 <strong>Contributions Académiques :</strong> Évaluateur pour Music & Science (Royaume-Uni), membre de la Commission de Recherche de l\'Union Brésilienne des Associations de Musicothérapie (UBAM).',
+        affil_title: 'Affiliation',
+        affil_uni: 'Université Fédérale de Minas Gerais - Programme de Master en Musique',
+        affil_school: 'École de Musique - Département de Musicothérapie',
+        view_website: 'Voir le Site Web →',
+        pub_title: '🌍 Engagement Mondial & Publications de Recherche',
+        pub_intro: 'Je présente fréquemment mes travaux lors de grandes conférences internationales, faisant le lien entre musique et santé.',
+        wcmt2026_header: '🇮🇹 18e Congrès Mondial de Musicothérapie - Bologne, Italie (Juillet 2026)',
+        wcmt2026_intro: '<em>Participation prévue avec présentation de trois projets de recherche distincts :</em>',
+        wcmt2026_1: '1. <strong>Évaluation Numérique :</strong> Développement et application clinique d\'outils numériques pour l\'évaluation en musicothérapie.',
+        wcmt2026_2: '2. <strong>Perspectives Mondiales (Table Ronde) :</strong> Collaboration internationale sur les perspectives anti-oppressives, décoloniales et autochtones pour la pratique clinique de la musicothérapie.',
+        wcmt2026_3: '3. <strong>Revue Bibliométrique :</strong> Étude bibliométrique complète réalisée en collaboration avec des doctorants brésiliens.',
+        prev_conf: '📚 Conférences et Publications Précédentes',
+        icmpc_title: '🇧🇷 ICMPC18 - 18e Conférence Internationale sur la Perception et la Cognition Musicale - São Paulo (2025)',
+        iamm_title: '🇩🇪 Congrès IAMM & ISfAM - Berlin (2024)',
+        iamm_subtitle: '<em>L\'Avenir de la Musique dans la Santé</em>',
+        iamm_desc: 'Une perspective musicothérapeutique sur la cognition sociale et la musique : improvisation musicale interactive',
+        view_poster: 'Voir le Poster →',
+        wcmt2023_title: '🇨🇦 17e Congrès Mondial de Musicothérapie - Vancouver (2023)',
+        wcmt2023_desc: 'Musicothérapie et Neurocognition : Relations entre improvisation musicale interactive et santé mentale',
+        wcmt2023_link: 'Publié dans Music Therapy Today, Vol 18 (p. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12e Conférence Européenne de Musicothérapie - Édimbourg (2022)',
+        emtc_desc: 'Micro-analyse d\'une improvisation musicale en santé mentale : Relation entre musicothérapie, cognition sociale et neurocognition',
+        emtc_link: 'Voir le Résumé (p. 223) →',
+        artistic_title: '🎻 Parcours Artistique',
+        artistic_intro: 'Musicien actif dans la scène brésilienne, unissant traditions classiques et bandes sonores contemporaines :',
+        baroque_title: '<strong>Violoncelle Baroque :</strong> Violoncelliste à l\'Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'En vedette : Soliste dans le Concerto pour Deux Violoncelles en Sol mineur de Vivaldi.',
+        baroque_link: 'Voir le Programme du Concert →',
+        symphonic: '<strong>Violoncelle Symphonique :</strong> Violoncelliste à l\'Orquestra Multiplayer (2014–2018) interprétant des bandes sonores de jeux vidéo et de films.',
+        accordion: '<strong>Accordéon & Mandoline :</strong> Membre de l\'Orquestra de Choro da UFMG et du groupe Chorodito.',
+        connect_title: 'Connectons-nous',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Curriculum Lattes', connect_contact: '→ Contact',
+      },
+      de: {
+        about_label: 'Über mich',
+        nav_about: 'Über mich', nav_research: 'Forschung', nav_affiliation: 'Zugehörigkeit',
+        nav_publications: 'Publikationen', nav_artistic: 'Künstlerisch', nav_connect: 'Kontakt',
+        about_title: 'Über mich',
+        hi_there: 'Hallo! 👋',
+        bio_1: 'Ich bin <strong>Ivan Moriá Borges</strong>, ein brasilianischer Musiktherapeut mit einem Master in <strong>Neurowissenschaften</strong> und <strong>Doktorand</strong> in Musik, derzeit <strong>Professor an der UFMG</strong> (2025–2027).',
+        bio_2: 'Als Multi-Instrumentalist und Forscher arbeite ich an der Schnittstelle von <strong>Musiktherapie</strong>, <strong>Neurowissenschaften</strong> und <strong>Computergestützter Musikanalyse</strong>. Meine Arbeit konzentriert sich auf <strong>Music Information Retrieval (MIR)</strong> und die Entwicklung digitaler Werkzeuge für <strong>Mikroanalyse</strong> und <strong>klinische Bewertung</strong> in der Musiktherapie. Durch <strong>automatisierte Datenextraktion</strong> und <strong>MIDI-Analyse</strong> erforsche ich, wie Technologie unser Verständnis sozialer Kognition verbessern und therapeutische Prozesse optimieren kann.',
+        research_title: '🔬 Forschung & Akademischer Hintergrund',
+        prof_title: '🎓 <strong>Vertretungsprofessor für Musiktherapie (UFMG, 2025–2027):</strong> Unterricht in Gehörbildung, Harmonielehre und Improvisation für Studenten der Musiktherapie.',
+        phd_title: '🎓 <strong>Doktorand in Musik (UFMG, 2021–2026):</strong> Entwicklung digitaler Werkzeuge in Python, MAX/MSP und JavaScript für MIDI-Datenverarbeitung und statistische Analyse, fokussiert auf digitale Musiktherapiebewertung und klinische Mikroanalyse.',
+        phd_desc: 'Technologien zur Extraktion und Verarbeitung musikalischer Informationen in der Musiktherapie: Mikroanalysen musikalischer Spuren und mögliche Schnittstellen mit sozialer Kognition',
+        msc_title: '🧠 <strong>Master in Neurowissenschaften (UFMG, 2021):</strong> Untersuchte soziale Kognition und interaktive musikalische Improvisation im Schizophrenie-Spektrum und anderen psychiatrischen Kontexten.',
+        msc_desc: 'Soziale Kognition in der Musiktherapie: Perspektiven auf Aufführung in interaktiver musikalischer Praxis in der psychischen Gesundheit',
+        view_dissertation: 'Dissertation ansehen →',
+        bachelor_title: '🎓 <strong>Bachelor in Musiktherapie (UFMG, 2017):</strong>',
+        bachelor_desc: 'Musiktherapie und Psychische Gesundheit: eine Begegnung durch Gesang',
+        view_monograph: 'Monographie ansehen →',
+        academic_contrib: '📋 <strong>Akademische Beiträge:</strong> Gutachter für Music & Science (UK), Mitglied der Forschungskommission des brasilianischen Verbands der Musiktherapievereinigungen (UBAM).',
+        affil_title: 'Zugehörigkeit',
+        affil_uni: 'Bundesuniversität von Minas Gerais - Promotionsprogramm in Musik',
+        affil_school: 'Musikschule - Abteilung für Musiktherapie',
+        view_website: 'Website ansehen →',
+        pub_title: '🌍 Globales Engagement & Forschungspublikationen',
+        pub_intro: 'Ich präsentiere meine Arbeit regelmäßig auf wichtigen internationalen Konferenzen und überbrücke die Lücke zwischen Musik und Gesundheit.',
+        wcmt2026_header: '🇮🇹 18. Weltkongress für Musiktherapie - Bologna, Italien (Juli 2026)',
+        wcmt2026_intro: '<em>Geplante Teilnahme mit Präsentation von drei verschiedenen Forschungsprojekten:</em>',
+        wcmt2026_1: '1. <strong>Digitale Bewertung:</strong> Entwicklung und klinische Anwendung digitaler Werkzeuge zur Musiktherapiebewertung.',
+        wcmt2026_2: '2. <strong>Globale Perspektiven (Runder Tisch):</strong> Internationale Zusammenarbeit zu anti-oppressiven, dekolonialen und indigenen Perspektiven in der klinischen Musiktherapiepraxis.',
+        wcmt2026_3: '3. <strong>Bibliometrische Überprüfung:</strong> Umfassende bibliometrische Studie in Zusammenarbeit mit brasilianischen Doktoren.',
+        prev_conf: '📚 Frühere Konferenzen & Publikationen',
+        icmpc_title: '🇧🇷 ICMPC18 - 18. Internationale Konferenz für Musikwahrnehmung und -kognition - São Paulo (2025)',
+        iamm_title: '🇩🇪 IAMM & ISfAM Kongress - Berlin (2024)',
+        iamm_subtitle: '<em>Die Zukunft der Musik in der Gesundheit</em>',
+        iamm_desc: 'Eine musiktherapeutische Perspektive auf soziale Kognition und Musik: interaktive musikalische Improvisation',
+        view_poster: 'Poster ansehen →',
+        wcmt2023_title: '🇨🇦 17. Weltkongress für Musiktherapie - Vancouver (2023)',
+        wcmt2023_desc: 'Musiktherapie und Neurokognition: Beziehungen zwischen interaktiver musikalischer Improvisation und psychischer Gesundheit',
+        wcmt2023_link: 'Veröffentlicht in Music Therapy Today, Bd. 18 (S. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12. Europäische Musiktherapiekonferenz - Edinburgh (2022)',
+        emtc_desc: 'Mikroanalyse einer musikalischen Improvisation in der psychischen Gesundheit: Beziehung zwischen Musiktherapie, sozialer Kognition und Neurokognition',
+        emtc_link: 'Abstract ansehen (S. 223) →',
+        artistic_title: '🎻 Künstlerischer Werdegang',
+        artistic_intro: 'Aktiver Musiker in der brasilianischen Szene, der klassische Traditionen und zeitgenössische Filmmusik verbindet:',
+        baroque_title: '<strong>Barockcello:</strong> Cellist im Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'Höhepunkt: Solist in Vivaldis Konzert für zwei Celli in g-Moll.',
+        baroque_link: 'Konzertprogramm ansehen →',
+        symphonic: '<strong>Sinfonisches Cello:</strong> Cellist im Orquestra Multiplayer (2014–2018) mit Soundtracks aus Spielen und Filmen.',
+        accordion: '<strong>Akkordeon & Mandoline:</strong> Mitglied des Choro-Orchesters der UFMG und der Gruppe Chorodito.',
+        connect_title: 'Vernetzen wir uns',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Lattes-Curriculum', connect_contact: '→ Kontakt',
+      },
+      ja: {
+        about_label: 'プロフィール',
+        nav_about: 'プロフィール', nav_research: '研究', nav_affiliation: '所属',
+        nav_publications: '発表', nav_artistic: '芸術', nav_connect: '連絡',
+        about_title: 'プロフィール',
+        hi_there: 'こんにちは！ 👋',
+        bio_1: '私は<strong>Ivan Moriá Borges</strong>、ブラジル人の音楽療法士です。<strong>神経科学</strong>の修士号を取得し、現在<strong>UFMG</strong>で<strong>准教授</strong>（2025〜2027年）を務めながら音楽の<strong>博士課程</strong>に在籍しています。',
+        bio_2: 'マルチ奏者・研究者として、<strong>音楽療法</strong>、<strong>神経科学</strong>、<strong>計算音楽分析</strong>の交差点で研究を行っています。<strong>音楽情報検索（MIR）</strong>と、音楽療法における<strong>微細分析</strong>・<strong>臨床評価</strong>のためのデジタルツール開発に取り組んでいます。<strong>自動データ抽出</strong>と<strong>MIDI分析</strong>を活用し、技術が社会的認知の理解を深め、治療プロセスを最適化する方法を探求しています。',
+        research_title: '🔬 研究・学術背景',
+        prof_title: '🎓 <strong>音楽療法非常勤講師（UFMG, 2025〜2027年）：</strong>音楽療法の学部生に聴音、和声法、即興演奏を指導。',
+        phd_title: '🎓 <strong>音楽博士課程（UFMG, 2021〜2026年）：</strong>Python、MAX/MSP、JavaScriptを使用したMIDIデータ処理・統計分析のデジタルツール開発。デジタル音楽療法評価とオープンアクセス臨床微細分析に特化。',
+        phd_desc: '音楽療法における音楽情報の抽出・処理技術：音楽的痕跡の微細分析と社会的認知との可能なインターフェース',
+        msc_title: '🧠 <strong>神経科学修士（UFMG, 2021年）：</strong>統合失調症スペクトラムおよびその他の精神保健の文脈における社会的認知とインタラクティブな音楽即興を研究。',
+        msc_desc: '音楽療法における社会的認知：精神保健のインタラクティブな音楽実践におけるパフォーマンスの視点',
+        view_dissertation: '修士論文を見る →',
+        bachelor_title: '🎓 <strong>音楽療法学士（UFMG, 2017年）：</strong>',
+        bachelor_desc: '音楽療法とメンタルヘルス：歌を通じた出会い',
+        view_monograph: '卒業論文を見る →',
+        academic_contrib: '📋 <strong>学術貢献：</strong>Music & Science（英国）の査読者、ブラジル音楽療法協会連合（UBAM）研究委員会メンバー。',
+        affil_title: '所属',
+        affil_uni: 'ミナスジェライス連邦大学 - 音楽大学院プログラム',
+        affil_school: '音楽学部 - 音楽療法学科',
+        view_website: 'ウェブサイトを見る →',
+        pub_title: '🌍 国際活動・研究発表',
+        pub_intro: '音楽と健康の橋渡しをすべく、主要な国際学会で頻繁に研究を発表しています。',
+        wcmt2026_header: '🇮🇹 第18回世界音楽療法会議 - ボローニャ、イタリア（2026年7月）',
+        wcmt2026_intro: '<em>3つの異なる研究プロジェクトを発表予定：</em>',
+        wcmt2026_1: '1. <strong>デジタル評価：</strong>音楽療法評価のためのデジタルツールの開発と臨床応用。',
+        wcmt2026_2: '2. <strong>グローバルな視点（円卓会議）：</strong>臨床音楽療法実践における反抑圧的・脱植民地的・先住民的視点に関する国際協力。',
+        wcmt2026_3: '3. <strong>書誌計量的レビュー：</strong>ブラジルの博士研究者との共同による包括的な書誌計量研究。',
+        prev_conf: '📚 過去の学会・発表',
+        icmpc_title: '🇧🇷 ICMPC18 - 第18回音楽知覚・認知国際会議 - サンパウロ（2025年）',
+        iamm_title: '🇩🇪 IAMM & ISfAM 会議 - ベルリン（2024年）',
+        iamm_subtitle: '<em>健康における音楽の未来</em>',
+        iamm_desc: '社会的認知と音楽に関する音楽療法的視点：インタラクティブな音楽即興演奏',
+        view_poster: 'ポスターを見る →',
+        wcmt2023_title: '🇨🇦 第17回世界音楽療法会議 - バンクーバー（2023年）',
+        wcmt2023_desc: '音楽療法と神経認知：インタラクティブな音楽即興演奏とメンタルヘルスの関係',
+        wcmt2023_link: 'Music Therapy Today, Vol 18 (p. 496) に掲載 →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 第12回ヨーロッパ音楽療法会議 - エジンバラ（2022年）',
+        emtc_desc: 'メンタルヘルスにおける音楽即興演奏の微細分析：音楽療法、社会的認知、神経認知の関係',
+        emtc_link: '抄録を見る (p. 223) →',
+        artistic_title: '🎻 芸術的活動',
+        artistic_intro: 'ブラジルの音楽シーンで活躍するミュージシャンとして、古典的伝統と現代の映画音楽をつなぐ：',
+        baroque_title: '<strong>バロックチェロ：</strong>Orquestra 415 de Música Antigaのチェリスト（2015〜2025年）。',
+        baroque_desc: 'ハイライト：ヴィヴァルディの「2台のチェロのための協奏曲 ト短調」のソリスト。',
+        baroque_link: 'コンサートチラシを見る →',
+        symphonic: '<strong>シンフォニックチェロ：</strong>Orquestra Multiplayer（2014〜2018年）でゲームや映画のサウンドトラックを演奏。',
+        accordion: '<strong>アコーディオン＆マンドリン：</strong>UFMGショーロ・オーケストラおよびChoroditoグループのメンバー。',
+        connect_title: 'つながりましょう',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Lattesカリキュラム', connect_contact: '→ お問い合わせ',
+      },
+      tr: {
+        about_label: 'Hakkımda',
+        nav_about: 'Hakkımda', nav_research: 'Araştırma', nav_affiliation: 'Bağlantı',
+        nav_publications: 'Yayınlar', nav_artistic: 'Sanatsal', nav_connect: 'İletişim',
+        about_title: 'Hakkımda',
+        hi_there: 'Merhaba! 👋',
+        bio_1: 'Ben <strong>Ivan Moriá Borges</strong>, <strong>Nörobilimler</strong> alanında yüksek lisans yapmış Brezilyalı bir Müzik Terapisti ve şu anda <strong>UFMG\'de Öğretim Görevlisi</strong> olarak çalışan (2025–2027) <strong>Doktora Adayıyım</strong>.',
+        bio_2: 'Çok enstrümanlı bir müzisyen ve araştırmacı olarak, <strong>Müzik Terapisi</strong>, <strong>Nörobilimler</strong> ve <strong>Hesaplamalı Müzik Analizi</strong>nin kesişim noktasında çalışıyorum. Çalışmam, <strong>Müzik Bilgisi Erişimi (MIR)</strong> ve müzik terapisinde <strong>mikro-analiz</strong> ile <strong>klinik değerlendirme</strong> için dijital araçların geliştirilmesine odaklanmaktadır. <strong>Otomatik veri çıkarma</strong> ve <strong>MIDI analizi</strong>nden yararlanarak, teknolojinin sosyal bilişi anlamamızı nasıl geliştireceğini ve terapötik süreçleri nasıl optimize edeceğini araştırıyorum.',
+        research_title: '🔬 Araştırma & Akademik Geçmiş',
+        prof_title: '🎓 <strong>Müzik Terapisi Vekil Öğretim Görevlisi (UFMG, 2025–2027):</strong> Müzik terapisi lisans öğrencilerine İşitme Eğitimi, Armoni ve Doğaçlama dersleri vermektedir.',
+        phd_title: '🎓 <strong>Müzik Doktora Adayı (UFMG, 2021–2026):</strong> MIDI veri işleme ve istatistiksel analiz için Python, MAX/MSP ve JavaScript\'te dijital araçlar geliştirme; Dijital Müzik Terapisi Değerlendirmesi ve açık erişimli klinik mikroanalize odaklı.',
+        phd_desc: 'Müzik Terapisinde Müziksel Bilgi Çıkarma ve İşleme Teknolojileri: Müziksel İzlerin Mikro-analizleri ve Sosyal Biliş ile Olası Arayüzler',
+        msc_title: '🧠 <strong>Nörobilimler Yüksek Lisansı (UFMG, 2021):</strong> Şizofreni Spektrumunda ve diğer ruh sağlığı bağlamlarında sosyal biliş ve etkileşimli müzik doğaçlamasını araştırdı.',
+        msc_desc: 'Müzik Terapisinde Sosyal Biliş: Ruh Sağlığında Etkileşimli Müzik Pratiğinde Performans Perspektifleri',
+        view_dissertation: 'Tezi Görüntüle →',
+        bachelor_title: '🎓 <strong>Müzik Terapisi Lisans Derecesi (UFMG, 2017):</strong>',
+        bachelor_desc: 'Müzik Terapisi ve Ruh Sağlığı: Şarkı Söyleme Yoluyla Bir Buluşma',
+        view_monograph: 'Monografiyi Görüntüle →',
+        academic_contrib: '📋 <strong>Akademik Katkılar:</strong> Music & Science (İngiltere) dergisi için hakemlik, Brezilya Müzik Terapisi Dernekleri Birliği (UBAM) Araştırma Komisyonu üyeliği.',
+        affil_title: 'Bağlantı',
+        affil_uni: 'Minas Gerais Federal Üniversitesi - Müzik Lisansüstü Programı',
+        affil_school: 'Müzik Okulu - Müzik Terapisi Bölümü',
+        view_website: 'Web Sitesini Görüntüle →',
+        pub_title: '🌍 Küresel Katılım & Araştırma Yayınları',
+        pub_intro: 'Müzik ve sağlık arasındaki köprüyü kurarak çalışmalarımı büyük uluslararası konferanslarda sık sık sunuyorum.',
+        wcmt2026_header: '🇮🇹 18. Dünya Müzik Terapisi Kongresi - Bologna, İtalya (Temmuz 2026)',
+        wcmt2026_intro: '<em>Üç farklı araştırma projesini sunacağım planlanan katılım:</em>',
+        wcmt2026_1: '1. <strong>Dijital Değerlendirme:</strong> Müzik terapisi değerlendirmesi için dijital araçların geliştirilmesi ve klinik uygulaması.',
+        wcmt2026_2: '2. <strong>Küresel Perspektifler (Yuvarlak Masa):</strong> Klinik müzik terapisi pratiği için anti-baskıcı, dekolonyal ve yerli perspektifler üzerine uluslararası işbirliği.',
+        wcmt2026_3: '3. <strong>Bibliyometrik İnceleme:</strong> Brezilyalı doktoralarla işbirliği içinde yürütülen kapsamlı bibliyometrik çalışma.',
+        prev_conf: '📚 Önceki Konferanslar & Yayınlar',
+        icmpc_title: '🇧🇷 ICMPC18 - 18. Uluslararası Müzik Algısı ve Bilişi Konferansı - São Paulo (2025)',
+        iamm_title: '🇩🇪 IAMM & ISfAM Kongresi - Berlin (2024)',
+        iamm_subtitle: '<em>Sağlıkta Müziğin Geleceği</em>',
+        iamm_desc: 'Sosyal biliş ve müzik üzerine müzik terapötik bir perspektif: etkileşimli müzik doğaçlaması',
+        view_poster: 'Posteri Görüntüle →',
+        wcmt2023_title: '🇨🇦 17. Dünya Müzik Terapisi Kongresi - Vancouver (2023)',
+        wcmt2023_desc: 'Müzik Terapisi ve Nörobilişsel: Etkileşimli müzik doğaçlaması ve ruh sağlığı arasındaki ilişkiler',
+        wcmt2023_link: 'Music Therapy Today, Cilt 18 (s. 496) yayınlandı →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12. Avrupa Müzik Terapisi Konferansı - Edinburgh (2022)',
+        emtc_desc: 'Ruh sağlığında bir müzik doğaçlamasının mikro-analizi: Müzik terapisi, sosyal biliş ve nörobilişsel arasındaki ilişki',
+        emtc_link: 'Özeti Görüntüle (s. 223) →',
+        artistic_title: '🎻 Sanatsal Yolculuk',
+        artistic_intro: 'Brezilya sahnesinde aktif bir müzisyen olarak klasik gelenekleri ve çağdaş film müziklerini birleştiriyor:',
+        baroque_title: '<strong>Barok Viyolonsel:</strong> Orquestra 415 de Música Antiga\'da viyolonselistlik (2015–2025).',
+        baroque_desc: 'Öne çıkan: Vivaldi\'nin Sol minör İki Viyolonsel için Konçertosu\'nda solist.',
+        baroque_link: 'Konser Broşürünü Görüntüle →',
+        symphonic: '<strong>Senfoni Viyolonseli:</strong> Orquestra Multiplayer\'da oyun ve film müzikleri seslendiren viyolonselistlik (2014–2018).',
+        accordion: '<strong>Akordeon & Mandolin:</strong> UFMG Choro Orkestrası ve Chorodito grubunun üyesi.',
+        connect_title: 'Bağlanalım',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Lattes Özgeçmişi', connect_contact: '→ İletişim',
+      },
+      ru: {
+        about_label: 'Обо мне',
+        nav_about: 'Обо мне', nav_research: 'Исследования', nav_affiliation: 'Принадлежность',
+        nav_publications: 'Публикации', nav_artistic: 'Творчество', nav_connect: 'Контакты',
+        about_title: 'Обо мне',
+        hi_there: 'Привет! 👋',
+        bio_1: 'Я — <strong>Иван Мориа Боржес</strong>, бразильский музыкотерапевт с магистерской степенью в области <strong>Нейронаук</strong> и <strong>докторант</strong> по музыке, в настоящее время работающий <strong>преподавателем в UFMG</strong> (2025–2027).',
+        bio_2: 'Как мультиинструменталист и исследователь, я работаю на пересечении <strong>Музыкотерапии</strong>, <strong>Нейронаук</strong> и <strong>Вычислительного Музыкального Анализа</strong>. Мои исследования сосредоточены на <strong>Поиске Музыкальной Информации (MIR)</strong> и разработке цифровых инструментов для <strong>микроанализа</strong> и <strong>клинической оценки</strong> в музыкотерапии. Используя <strong>автоматизированное извлечение данных</strong> и <strong>MIDI-анализ</strong>, я исследую, как технологии могут углубить понимание социального познания и оптимизировать терапевтические процессы.',
+        research_title: '🔬 Исследования и Академический Путь',
+        prof_title: '🎓 <strong>Замещающий преподаватель музыкотерапии (UFMG, 2025–2027):</strong> Преподаёт сольфеджио, гармонию и импровизацию студентам бакалавриата по музыкотерапии.',
+        phd_title: '🎓 <strong>Докторант по музыке (UFMG, 2021–2026):</strong> Разработка цифровых инструментов на Python, MAX/MSP и JavaScript для обработки MIDI-данных и статистического анализа, с акцентом на цифровую оценку в музыкотерапии и клинический микроанализ в открытом доступе.',
+        phd_desc: 'Технологии для извлечения и обработки музыкальной информации в музыкотерапии: микроанализ музыкальных следов и возможные интерфейсы с социальным познанием',
+        msc_title: '🧠 <strong>Магистр нейронаук (UFMG, 2021):</strong> Изучал социальное познание и интерактивную музыкальную импровизацию в контексте спектра шизофрении и других нарушений психического здоровья.',
+        msc_desc: 'Социальное познание в музыкотерапии: перспективы исполнения в интерактивной музыкальной практике в сфере психического здоровья',
+        view_dissertation: 'Просмотреть диссертацию →',
+        bachelor_title: '🎓 <strong>Степень бакалавра по музыкотерапии (UFMG, 2017):</strong>',
+        bachelor_desc: 'Музыкотерапия и психическое здоровье: встреча через пение',
+        view_monograph: 'Просмотреть монографию →',
+        academic_contrib: '📋 <strong>Академические вклады:</strong> Рецензент журнала Music & Science (Великобритания), член Исследовательской комиссии Бразильского союза ассоциаций музыкотерапии (UBAM).',
+        affil_title: 'Принадлежность',
+        affil_uni: 'Федеральный университет Минас-Жерайс - Аспирантура по музыке',
+        affil_school: 'Музыкальная школа - Кафедра музыкотерапии',
+        view_website: 'Посетить сайт →',
+        pub_title: '🌍 Международная деятельность и публикации',
+        pub_intro: 'Я регулярно представляю свои работы на крупных международных конференциях, соединяя музыку и здоровье.',
+        wcmt2026_header: '🇮🇹 18-й Всемирный конгресс по музыкотерапии - Болонья, Италия (июль 2026)',
+        wcmt2026_intro: '<em>Планируемое участие с представлением трёх различных исследовательских проектов:</em>',
+        wcmt2026_1: '1. <strong>Цифровая оценка:</strong> Разработка и клиническое применение цифровых инструментов для оценки в музыкотерапии.',
+        wcmt2026_2: '2. <strong>Глобальные перспективы (Круглый стол):</strong> Международное сотрудничество по антирепрессивным, деколониальным и коренным перспективам в клинической практике музыкотерапии.',
+        wcmt2026_3: '3. <strong>Библиометрический обзор:</strong> Комплексное библиометрическое исследование в сотрудничестве с бразильскими докторами наук.',
+        prev_conf: '📚 Предыдущие конференции и публикации',
+        icmpc_title: '🇧🇷 ICMPC18 - 18-я Международная конференция по восприятию и познанию музыки - Сан-Паулу (2025)',
+        iamm_title: '🇩🇪 Конгресс IAMM & ISfAM - Берлин (2024)',
+        iamm_subtitle: '<em>Будущее музыки в здоровье</em>',
+        iamm_desc: 'Музыкотерапевтическая перспектива социального познания и музыки: интерактивная музыкальная импровизация',
+        view_poster: 'Просмотреть постер →',
+        wcmt2023_title: '🇨🇦 17-й Всемирный конгресс по музыкотерапии - Ванкувер (2023)',
+        wcmt2023_desc: 'Музыкотерапия и нейрокогниция: связи между интерактивной музыкальной импровизацией и психическим здоровьем',
+        wcmt2023_link: 'Опубликовано в Music Therapy Today, Т. 18 (стр. 496) →',
+        emtc_title: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 12-я Европейская конференция по музыкотерапии - Эдинбург (2022)',
+        emtc_desc: 'Микроанализ музыкальной импровизации в сфере психического здоровья: связь между музыкотерапией, социальным познанием и нейрокогницией',
+        emtc_link: 'Просмотреть реферат (стр. 223) →',
+        artistic_title: '🎻 Творческий путь',
+        artistic_intro: 'Активный музыкант бразильской сцены, соединяющий классические традиции и современные саундтреки:',
+        baroque_title: '<strong>Барочная виолончель:</strong> Виолончелист Orquestra 415 de Música Antiga (2015–2025).',
+        baroque_desc: 'Особое место: Солист в Концерте для двух виолончелей соль минор Вивальди.',
+        baroque_link: 'Посмотреть программку концерта →',
+        symphonic: '<strong>Симфоническая виолончель:</strong> Виолончелист Orquestra Multiplayer (2014–2018), исполняющий саундтреки к играм и фильмам.',
+        accordion: '<strong>Аккордеон и мандолина:</strong> Участник оркестра шоро UFMG и группы Chorodito.',
+        connect_title: 'Свяжитесь со мной',
+        connect_linkedin: '→ LinkedIn', connect_lattes: '→ Резюме Lattes', connect_contact: '→ Контакты',
+      },
+    };
+
+    let currentLang = localStorage.getItem('site-lang') || 'en';
+
+    function setLanguage(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
+      localStorage.setItem('site-lang', lang);
+
+      // Top label
+      const topLabel = document.getElementById('top-about-label');
+      if (topLabel) topLabel.textContent = translations[lang].about_label;
+
+      // data-i18n (textContent)
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key] !== undefined) el.textContent = translations[lang][key];
+      });
+
+      // data-i18n-html (innerHTML)
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+      });
+
+      // Section nav tooltips
+      document.querySelectorAll('[data-i18n-nav]').forEach(el => {
+        const key = el.getAttribute('data-i18n-nav');
+        if (translations[lang][key] !== undefined) el.setAttribute('data-section', translations[lang][key]);
+      });
+
+      // Update active flag
+      document.querySelectorAll('.lang-flag-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+    }
+
+    // Wire up flag buttons
+    document.querySelectorAll('.lang-flag-btn').forEach(btn => {
+      btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+    });
+
+    // Apply on load
+    setLanguage(currentLang);
   </script>
 </body>
 </html>

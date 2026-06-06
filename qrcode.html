@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="description" content="QR Code Generator - Ivan Moriá Borges">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2d2b2b">
+  <title>QR Code Generator</title>
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Poiret+One&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: white; color: #333; }
+
+    body, html {
+      overflow: hidden;
+      background: #2d2b2b;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Only the p5 background canvas gets full-screen treatment */
+    #canvas-container canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; display: block;
+    }
+    #canvas-container {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+    }
+
+    .link-btn {
+      color: white;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 25px);
+      font-weight: 600; letter-spacing: 0.04em;
+      border: none; background: none;
+      padding: 8px 12px; cursor: pointer;
+      transition: all 0.25s ease; display: block;
+    }
+    .link-btn::after, .link-btn::before {
+      content: ''; width: 0; height: 2px;
+      background: rgba(255,255,255,0.5); display: block; transition: width 0.45s ease;
+    }
+    .link-btn::before { margin-left: auto; }
+    .link-btn:hover::after, .link-btn:hover::before { width: 100%; }
+    .link-btn:hover { color: rgba(255,255,255,0.95); text-shadow: 0 0 12px rgba(150,200,255,0.4); }
+    .link-btn:hover::after, .link-btn:hover::before { background: rgba(255,255,255,0.8); }
+
+    .planet-button {
+      border: none; background: none; cursor: pointer; padding: 4px;
+      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000; position: relative; pointer-events: auto !important;
+    }
+    .planet-button:hover { transform: scale(1.15); }
+    .planet-button:active { transform: scale(0.95); }
+
+    /* ── QR Card ── */
+    .qr-container {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      background: rgba(0, 0, 0, 0.42);
+      border-radius: 10px;
+      padding: 28px 26px 24px;
+      width: min(420px, 92vw);
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+      scrollbar-width: none;
+      pointer-events: auto;
+    }
+    .qr-container::-webkit-scrollbar { width: 0; }
+
+    .qr-title {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 24px);
+      color: rgba(255,255,255,0.95);
+      font-weight: 600; letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .qr-input-group {
+      width: 100%; display: flex; flex-direction: column; gap: 5px;
+    }
+
+    .qr-label {
+      font-family: 'Poiret One', cursive;
+      font-size: 12px; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .qr-input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      color: white;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(14px, 2.4vw, 15px);
+      padding: 10px 13px;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+      /* Allow text interaction despite body user-select:none */
+      user-select: text !important;
+      -webkit-user-select: text !important;
+      pointer-events: auto !important;
+      cursor: text;
+    }
+    .qr-input:focus {
+      border-color: rgba(150,200,255,0.55);
+      background: rgba(255,255,255,0.11);
+    }
+    .qr-input::placeholder { color: rgba(255,255,255,0.22); }
+
+    .qr-row { display: flex; gap: 10px; width: 100%; }
+
+    .qr-btn {
+      flex: 1; padding: 11px 14px;
+      border-radius: 6px; border: none; cursor: pointer;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(13px, 2.2vw, 14px);
+      font-weight: 600; letter-spacing: 0.05em;
+      transition: all 0.25s ease;
+      pointer-events: auto !important;
+    }
+    .qr-btn-generate {
+      background: rgba(150,200,255,0.18);
+      color: rgba(150,200,255,0.9);
+      border: 1px solid rgba(150,200,255,0.3);
+    }
+    .qr-btn-generate:hover {
+      background: rgba(150,200,255,0.28);
+      color: white; border-color: rgba(150,200,255,0.6);
+      box-shadow: 0 0 14px rgba(150,200,255,0.25);
+    }
+    .qr-btn-download {
+      background: rgba(180,255,180,0.12);
+      color: rgba(180,255,180,0.85);
+      border: 1px solid rgba(180,255,180,0.25);
+    }
+    .qr-btn-download:hover {
+      background: rgba(180,255,180,0.22);
+      color: white; border-color: rgba(180,255,180,0.5);
+      box-shadow: 0 0 14px rgba(180,255,180,0.2);
+    }
+    .qr-btn-download:disabled {
+      opacity: 0.28; cursor: not-allowed; pointer-events: none;
+    }
+
+    /* Options row */
+    .qr-options { display: flex; gap: 12px; width: 100%; flex-wrap: wrap; }
+    .qr-option { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 100px; }
+
+    input[type="color"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%; height: 34px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      cursor: pointer; background: none; padding: 2px;
+      pointer-events: auto !important;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; border-radius: 4px; }
+    input[type="color"]::-webkit-color-swatch { border: none; border-radius: 3px; }
+
+    /* QR preview */
+    .qr-preview {
+      width: 220px; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      background: white; border-radius: 10px; overflow: hidden;
+      transition: opacity 0.35s ease, box-shadow 0.35s ease;
+      opacity: 0; box-shadow: none;
+      flex-shrink: 0;
+    }
+    .qr-preview.visible {
+      opacity: 1;
+      box-shadow: 0 0 32px rgba(150,200,255,0.25), 0 0 64px rgba(150,150,255,0.1);
+    }
+    /* qrcodejs draws on canvas, copies to img, then hides canvas — don't block that */
+    #qr-render canvas {
+      position: static !important;
+      width: 220px !important;
+      height: 220px !important;
+    }
+    #qr-render img {
+      display: block !important;
+      position: static !important;
+      width: 220px !important;
+      height: 220px !important;
+    }
+
+    .qr-hint {
+      font-family: 'Poiret One', cursive;
+      font-size: 12px; letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.28);
+      text-align: center;
+    }
+
+    /* Signature */
+    .signature-wrap {
+      position: fixed; left: 50%;
+      transform: translateX(-50%); z-index: 1000; white-space: nowrap;
+    }
+    .signature-wrap.signature-bottom { bottom: 20px; }
+    .signature {
+      font-family: "Rock Salt", cursive;
+      font-size: clamp(13px, 3.5vw, 18px);
+      color: rgba(255,255,255,0.84);
+      white-space: nowrap; overflow: hidden;
+      cursor: help;
+      animation: typing 3.5s steps(20,end) forwards;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+
+    /* Light theme */
+    body.light-theme .qr-container { background: rgba(255,255,255,0.90); }
+    body.light-theme .qr-title,
+    body.light-theme .qr-label,
+    body.light-theme .qr-hint  { color: black !important; }
+    body.light-theme .qr-input {
+      background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.18); color: black;
+    }
+    body.light-theme .qr-input:focus { border-color: rgba(80,130,200,0.5); }
+    body.light-theme .qr-input::placeholder { color: rgba(0,0,0,0.28); }
+    body.light-theme .link-btn { color: black !important; }
+    body.light-theme .signature { color: rgba(0,0,0,0.7); }
+
+    @media (max-height: 600px) {
+      .qr-container { padding: 16px 18px; gap: 10px; }
+      .qr-preview { width: 160px; height: 160px; }
+      #qr-render canvas,
+      #qr-render img { width: 160px !important; height: 160px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="canvas-container"></div>
+
+  <!-- Signature — bottom -->
+  <div class="signature-wrap signature-bottom">
+    <div class="signature" id="assinatura">Ivan Moriá Borges</div>
+  </div>
+
+  <!-- Top Bar -->
+  <div style="position: fixed; top: 20px; left: 0; right: 0; z-index: 10001; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="link-btn" onclick="window.location.href='apps.html'" style="font-size: 28px; padding: 0; margin: 0;">←</button>
+      <div style="font-family: 'Poiret One', cursive; font-size: clamp(15px, 3vw, 19px); color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.04em;">QR Code</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span id="theme-label" style="font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
+      <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
+        <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
+          <defs>
+            <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+              <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+              <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+              <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+              <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+            </radialGradient>
+            <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+              <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+              <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow2">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/></feMerge>
+            </filter>
+            <style>
+              @keyframes moonOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+              @keyframes nebulaPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+              @keyframes nebulaSpin { from { transform: rotate(0deg); } to { transform: rotate(-180deg); } }
+              .moon-container { animation: moonOrbit 6s linear infinite; transform-origin: 40px 40px; }
+              .nebula-core { animation: nebulaPulse 3s ease-in-out infinite; }
+              .nebula-ring { animation: nebulaSpin 8s linear infinite; transform-origin: 40px 40px; }
+            </style>
+          </defs>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+          <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+          <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+          <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+          <g class="moon-container">
+            <defs>
+              <radialGradient id="moonGlow">
+                <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+                <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- QR Generator Card -->
+  <div class="qr-container">
+    <div class="qr-title">QR Code Generator</div>
+
+    <div class="qr-input-group">
+      <label class="qr-label" for="qr-text">URL or text</label>
+      <input class="qr-input" id="qr-text" type="text" placeholder="https://example.com" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="qr-options">
+      <div class="qr-option">
+        <label class="qr-label">Dark color</label>
+        <input type="color" id="qr-dark" value="#000000">
+      </div>
+      <div class="qr-option">
+        <label class="qr-label">Light color</label>
+        <input type="color" id="qr-light" value="#ffffff">
+      </div>
+      <div class="qr-option" style="flex: 2; min-width: 130px;">
+        <label class="qr-label">File name</label>
+        <input class="qr-input" id="qr-filename" type="text" placeholder="qrcode" style="height: 34px; padding: 4px 10px;">
+      </div>
+    </div>
+
+    <div class="qr-row">
+      <button class="qr-btn qr-btn-generate" id="btn-generate">Generate</button>
+      <button class="qr-btn qr-btn-download" id="btn-download" disabled>Download PNG</button>
+    </div>
+
+    <div class="qr-preview" id="qr-preview">
+      <div id="qr-render"></div>
+    </div>
+
+    <div class="qr-hint" id="qr-hint">Enter a URL or text and click Generate</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const textInput     = document.getElementById('qr-text');
+    const darkInput     = document.getElementById('qr-dark');
+    const lightInput    = document.getElementById('qr-light');
+    const filenameInput = document.getElementById('qr-filename');
+    const preview       = document.getElementById('qr-preview');
+    const renderDiv     = document.getElementById('qr-render');
+    const btnGenerate   = document.getElementById('btn-generate');
+    const btnDownload   = document.getElementById('btn-download');
+    const hint          = document.getElementById('qr-hint');
+
+    // Stop script.js global event blockers from swallowing input events
+    [textInput, filenameInput].forEach(el => {
+      el.addEventListener('keydown',   e => e.stopPropagation());
+      el.addEventListener('keyup',     e => e.stopPropagation());
+      el.addEventListener('keypress',  e => e.stopPropagation());
+      el.addEventListener('click',     e => e.stopPropagation());
+      el.addEventListener('mousedown', e => e.stopPropagation());
+      el.addEventListener('pointerdown', e => e.stopPropagation());
+      el.addEventListener('selectstart', e => e.stopPropagation());
+    });
+
+    textInput.addEventListener('keydown', e => { if (e.key === 'Enter') generateQR(); });
+
+    btnGenerate.addEventListener('click', e => { e.stopPropagation(); generateQR(); });
+    btnDownload.addEventListener('click', e => { e.stopPropagation(); downloadQR(); });
+
+    function generateQR() {
+      const text = textInput.value.trim();
+      if (!text) {
+        hint.textContent = 'Please enter some text or URL first.';
+        return;
+      }
+
+      // Clear previous render
+      renderDiv.innerHTML = '';
+
+      try {
+        new QRCode(renderDiv, {
+          text:         text,
+          width:        220,
+          height:       220,
+          colorDark:    darkInput.value,
+          colorLight:   lightInput.value,
+          correctLevel: QRCode.CorrectLevel.H
+        });
+        preview.classList.add('visible');
+        btnDownload.disabled = false;
+        hint.textContent = 'Ready — click Download PNG to save.';
+      } catch (err) {
+        hint.textContent = 'Error: ' + err.message;
+        console.error(err);
+      }
+    }
+
+    function downloadQR() {
+      const name = (filenameInput.value.trim() || 'qrcode').replace(/[^a-zA-Z0-9_\-]/g, '_');
+      // qrcodejs renders a canvas (modern browsers) or img (fallback)
+      const qrCanvas = renderDiv.querySelector('canvas');
+      const qrImg    = renderDiv.querySelector('img');
+
+      if (qrCanvas) {
+        const link = document.createElement('a');
+        link.download = name + '.png';
+        link.href = qrCanvas.toDataURL('image/png');
+        link.click();
+      } else if (qrImg) {
+        const link = document.createElement('a');
+        link.download = name + '.png';
+        link.href = qrImg.src;
+        link.click();
+      }
+    }
+
+    // Regenerate on color change if already generated
+    [darkInput, lightInput].forEach(el => {
+      el.addEventListener('input', () => {
+        if (preview.classList.contains('visible') && textInput.value.trim()) generateQR();
+      });
+    });
+  </script>
+</body>
+</html>
