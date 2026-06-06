@@ -194,15 +194,24 @@
     .planet-button:active { transform: scale(0.95); }
     @keyframes typing { from { width: 0; } to { width: 100%; } }
 
-    /* ── Section nav dots ── */
-    .section-nav {
+    /* ── Right rail: section dots + language flags stacked ── */
+    .right-rail {
       position: fixed;
-      right: 4px;
+      right: 8px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 10001;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ── Section nav dots ── */
+    .section-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 16px;
     }
 
@@ -253,11 +262,12 @@
       0% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; }
     }
 
-    /* ── Language selector ── */
+    /* ── Language selector — left edge, vertically centered ── */
     .lang-selector {
       position: fixed;
-      right: 28px;
-      top: 72px;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
       z-index: 10002;
       display: flex;
       flex-direction: column;
@@ -351,7 +361,9 @@
 
     @media (max-width: 768px) {
       #theme-label { display: none; }
-      .lang-selector { right: 24px; }
+      .right-rail { right: 4px; gap: 10px; }
+      .lang-selector { left: 4px; }
+      .lang-flag-btn { font-size: 15px; width: 22px; height: 22px; }
     }
   </style>
 </head>
@@ -423,9 +435,22 @@
     </div>
   </div>
 
-  <!-- Language Selector -->
+  <!-- Right rail: section dots -->
+  <div class="right-rail">
+    <!-- Section Navigation -->
+    <nav class="section-nav">
+      <a href="#about" data-section="About" data-i18n-nav="nav_about"></a>
+      <a href="#education" data-section="Research" data-i18n-nav="nav_research"></a>
+      <a href="#affiliation" data-section="Affiliation" data-i18n-nav="nav_affiliation"></a>
+      <a href="#publications" data-section="Publications" data-i18n-nav="nav_publications"></a>
+      <a href="#artistic" data-section="Artistic" data-i18n-nav="nav_artistic"></a>
+      <a href="#connect" data-section="Connect" data-i18n-nav="nav_connect"></a>
+    </nav>
+  </div>
+
+  <!-- Language Selector — anchored to bottom of screen -->
   <div class="lang-selector" id="lang-selector">
-    <button class="lang-flag-btn active" data-lang="en" title="English">🇺🇸</button>
+    <button class="lang-flag-btn active" data-lang="en" title="English">🇬🇧</button>
     <button class="lang-flag-btn" data-lang="pt" title="Português">🇧🇷</button>
     <button class="lang-flag-btn" data-lang="es" title="Español">🇪🇸</button>
     <button class="lang-flag-btn" data-lang="it" title="Italiano">🇮🇹</button>
@@ -435,16 +460,6 @@
     <button class="lang-flag-btn" data-lang="tr" title="Türkçe">🇹🇷</button>
     <button class="lang-flag-btn" data-lang="ru" title="Русский">🇷🇺</button>
   </div>
-
-  <!-- Section Navigation -->
-  <nav class="section-nav">
-    <a href="#about" data-section="About" data-i18n-nav="nav_about"></a>
-    <a href="#education" data-section="Research" data-i18n-nav="nav_research"></a>
-    <a href="#affiliation" data-section="Affiliation" data-i18n-nav="nav_affiliation"></a>
-    <a href="#publications" data-section="Publications" data-i18n-nav="nav_publications"></a>
-    <a href="#artistic" data-section="Artistic" data-i18n-nav="nav_artistic"></a>
-    <a href="#connect" data-section="Connect" data-i18n-nav="nav_connect"></a>
-  </nav>
 
   <!-- Research Content -->
   <div class="research-container">
@@ -596,6 +611,7 @@
         about_label: 'About',
         nav_about: 'About', nav_research: 'Research', nav_affiliation: 'Affiliation',
         nav_publications: 'Publications', nav_artistic: 'Artistic', nav_connect: 'Connect',
+        theme_label: 'Theme',
         about_title: 'About',
         hi_there: 'Hi there! 👋',
         bio_1: 'I am <strong>Ivan Moriá Borges</strong>, a Brazilian Music Therapist with a Master\'s in <strong>Neurosciences</strong>, and a <strong>PhD Candidate</strong> currently serving as a <strong>Professor at UFMG</strong> (2025–2027).',
@@ -648,6 +664,7 @@
         about_label: 'Sobre',
         nav_about: 'Sobre', nav_research: 'Pesquisa', nav_affiliation: 'Afiliação',
         nav_publications: 'Publicações', nav_artistic: 'Artístico', nav_connect: 'Contato',
+        theme_label: 'Tema',
         about_title: 'Sobre',
         hi_there: 'Olá! 👋',
         bio_1: 'Sou <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasileiro com Mestrado em <strong>Neurociências</strong> e <strong>Doutorando</strong> em Música, atualmente como <strong>Professor na UFMG</strong> (2025–2027).',
@@ -700,6 +717,7 @@
         about_label: 'Sobre mí',
         nav_about: 'Sobre mí', nav_research: 'Investigación', nav_affiliation: 'Afiliación',
         nav_publications: 'Publicaciones', nav_artistic: 'Artístico', nav_connect: 'Contacto',
+        theme_label: 'Tema',
         about_title: 'Sobre mí',
         hi_there: '¡Hola! 👋',
         bio_1: 'Soy <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasileño con Maestría en <strong>Neurociencias</strong> y <strong>Candidato a Doctor</strong> en Música, actualmente <strong>Profesor en la UFMG</strong> (2025–2027).',
@@ -752,6 +770,7 @@
         about_label: 'Chi sono',
         nav_about: 'Chi sono', nav_research: 'Ricerca', nav_affiliation: 'Affiliazione',
         nav_publications: 'Pubblicazioni', nav_artistic: 'Artistico', nav_connect: 'Contatti',
+        theme_label: 'Tema',
         about_title: 'Chi sono',
         hi_there: 'Ciao! 👋',
         bio_1: 'Sono <strong>Ivan Moriá Borges</strong>, Musicoterapeuta brasiliano con un Master in <strong>Neuroscienze</strong> e <strong>Dottorando</strong> in Musica, attualmente <strong>Professore presso la UFMG</strong> (2025–2027).',
@@ -804,6 +823,7 @@
         about_label: 'À propos',
         nav_about: 'À propos', nav_research: 'Recherche', nav_affiliation: 'Affiliation',
         nav_publications: 'Publications', nav_artistic: 'Artistique', nav_connect: 'Contact',
+        theme_label: 'Thème',
         about_title: 'À propos',
         hi_there: 'Bonjour ! 👋',
         bio_1: 'Je suis <strong>Ivan Moriá Borges</strong>, Musicothérapeute brésilien titulaire d\'un Master en <strong>Neurosciences</strong> et <strong>Doctorant</strong> en Musique, actuellement <strong>Professeur à l\'UFMG</strong> (2025–2027).',
@@ -856,6 +876,7 @@
         about_label: 'Über mich',
         nav_about: 'Über mich', nav_research: 'Forschung', nav_affiliation: 'Zugehörigkeit',
         nav_publications: 'Publikationen', nav_artistic: 'Künstlerisch', nav_connect: 'Kontakt',
+        theme_label: 'Thema',
         about_title: 'Über mich',
         hi_there: 'Hallo! 👋',
         bio_1: 'Ich bin <strong>Ivan Moriá Borges</strong>, ein brasilianischer Musiktherapeut mit einem Master in <strong>Neurowissenschaften</strong> und <strong>Doktorand</strong> in Musik, derzeit <strong>Professor an der UFMG</strong> (2025–2027).',
@@ -908,6 +929,7 @@
         about_label: 'プロフィール',
         nav_about: 'プロフィール', nav_research: '研究', nav_affiliation: '所属',
         nav_publications: '発表', nav_artistic: '芸術', nav_connect: '連絡',
+        theme_label: 'テーマ',
         about_title: 'プロフィール',
         hi_there: 'こんにちは！ 👋',
         bio_1: '私は<strong>Ivan Moriá Borges</strong>、ブラジル人の音楽療法士です。<strong>神経科学</strong>の修士号を取得し、現在<strong>UFMG</strong>で<strong>准教授</strong>（2025〜2027年）を務めながら音楽の<strong>博士課程</strong>に在籍しています。',
@@ -960,6 +982,7 @@
         about_label: 'Hakkımda',
         nav_about: 'Hakkımda', nav_research: 'Araştırma', nav_affiliation: 'Bağlantı',
         nav_publications: 'Yayınlar', nav_artistic: 'Sanatsal', nav_connect: 'İletişim',
+        theme_label: 'Tema',
         about_title: 'Hakkımda',
         hi_there: 'Merhaba! 👋',
         bio_1: 'Ben <strong>Ivan Moriá Borges</strong>, <strong>Nörobilimler</strong> alanında yüksek lisans yapmış Brezilyalı bir Müzik Terapisti ve şu anda <strong>UFMG\'de Öğretim Görevlisi</strong> olarak çalışan (2025–2027) <strong>Doktora Adayıyım</strong>.',
@@ -1012,6 +1035,7 @@
         about_label: 'Обо мне',
         nav_about: 'Обо мне', nav_research: 'Исследования', nav_affiliation: 'Принадлежность',
         nav_publications: 'Публикации', nav_artistic: 'Творчество', nav_connect: 'Контакты',
+        theme_label: 'Тема',
         about_title: 'Обо мне',
         hi_there: 'Привет! 👋',
         bio_1: 'Я — <strong>Иван Мориа Боржес</strong>, бразильский музыкотерапевт с магистерской степенью в области <strong>Нейронаук</strong> и <strong>докторант</strong> по музыке, в настоящее время работающий <strong>преподавателем в UFMG</strong> (2025–2027).',
@@ -1072,6 +1096,10 @@
       // Top label
       const topLabel = document.getElementById('top-about-label');
       if (topLabel) topLabel.textContent = translations[lang].about_label;
+
+      // Theme label (top bar)
+      const themeLabel = document.getElementById('theme-label');
+      if (themeLabel && translations[lang].theme_label) themeLabel.textContent = translations[lang].theme_label;
 
       // data-i18n (textContent)
       document.querySelectorAll('[data-i18n]').forEach(el => {
