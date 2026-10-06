@@ -65,7 +65,41 @@ function exigirChave(chave) {
 
 function abaRespostas() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  return ABA_RESPOSTAS ? ss.getSheetByName(ABA_RESPOSTAS) : ss.getSheets()[0];
+  if (!ss) throw new Error('Script sem planilha: abra o Apps Script pela planilha (Extensões → Apps Script)');
+  if (ABA_RESPOSTAS) {
+    const aba = ss.getSheetByName(ABA_RESPOSTAS);
+    if (!aba) throw new Error('Aba "' + ABA_RESPOSTAS + '" não encontrada');
+    return aba;
+  }
+  // Sem nome fixo: a aba de respostas do Forms é a que tem "Carimbo de data/hora" e uma coluna de nome
+  const abas = ss.getSheets();
+  const ehRespostas = aba => {
+    if (aba.getLastColumn() < 1) return false;
+    const cab = aba.getRange(1, 1, 1, aba.getLastColumn()).getValues()[0].map(String);
+    const c = detectarColunas(cab);
+    return c.carimbo >= 0 && c.nome >= 0;
+  };
+  const aba = abas.find(a => a.getFormUrl && a.getFormUrl()) || abas.find(ehRespostas);
+  if (!aba) throw new Error('Nenhuma aba de respostas encontrada. Preencha ABA_RESPOSTAS com o nome da aba.');
+  return aba;
+}
+
+/** Rode para conferir em qual planilha, aba e colunas o script está trabalhando. */
+function diagnostico() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) { console.log('ERRO: script sem planilha. Abra o Apps Script pela planilha (Extensões → Apps Script).'); return; }
+  console.log('Planilha: ' + ss.getName());
+  ss.getSheets().forEach(a => console.log('Aba "' + a.getName() + '": ' + Math.max(a.getLastRow() - 1, 0) + ' linhas, ' + a.getLastColumn() + ' colunas'));
+  const aba = abaRespostas();
+  const cab = aba.getRange(1, 1, 1, aba.getLastColumn()).getValues()[0].map(String);
+  const c = detectarColunas(cab);
+  console.log('Aba usada: "' + aba.getName() + '"');
+  Object.keys(c).forEach(k => console.log('  ' + k + ': ' + (c[k] >= 0 ? 'coluna ' + (c[k] + 1) + ' "' + cab[c[k]].slice(0, 40) + '"' : 'não encontrada')));
+  if (c.id >= 0) {
+    const n = aba.getLastRow() - 1;
+    const ids = n > 0 ? aba.getRange(2, c.id + 1, n, 1).getValues().filter(r => r[0]).length : 0;
+    console.log('Códigos preenchidos: ' + ids + ' de ' + n + ' linhas');
+  }
 }
 
 // Mesma regra do comum.js (detectarColunas) — se mudar aqui, mude lá também.

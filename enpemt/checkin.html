@@ -225,8 +225,9 @@ $('btDesconectar').onclick = e => {
   e.preventDefault();
   if (fila.length && !confirm(`Há ${fila.length} registro(s) ainda não enviados. Desconectar mesmo assim?`)) return;
   pararCamera();
-  ['api', 'inscritos', 'inscritosEm', 'fila'].forEach(k => localStorage.removeItem('enpemt:' + k));
-  inscritos = []; fila = [];
+  // Limpa tudo deste aparelho, inclusive o histórico (senão testes bloqueiam registros reais com "já registrado")
+  ['api', 'inscritos', 'inscritosEm', 'fila', 'historico', 'sessao2'].forEach(k => localStorage.removeItem('enpemt:' + k));
+  inscritos = []; fila = []; historico = []; sessao = null;
   indexar();
   mostrar();
 };
