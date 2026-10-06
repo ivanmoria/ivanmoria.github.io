@@ -1,0 +1,37 @@
+# ============================================
+# BLOQUEIA TUDO por padrão.
+# Nada é publicado a menos que liberado abaixo.
+# ============================================
+/*
+
+# ---- Liberados ----
+!.gitignore
+!index.html
+!script.js
+
+# Páginas alcançáveis pela navegação do index
+!apps.html
+!contato.html
+!research.html
+!interactive-bg.html
+!qrcode.html
+
+# Para liberar mais, acrescente uma linha com "!" na frente. Ex.:
+# !style.css
+# Para liberar uma pasta inteira, são duas linhas:
+# !media/
+# !media/**
+
+# ---- ENPEMT ----
+# Pasta publicada (sistema de presença do evento).
+!enpemt/
+!enpemt/**
+# Planilhas e documentos com dados pessoais NUNCA vão para o GitHub
+# (estas linhas precisam ficar DEPOIS das de cima):
+/enpemt/*.xlsx
+/enpemt/*.xls
+/enpemt/*.csv
+/enpemt/*.docx
+/enpemt/**/.DS_Store
+/enpemt/*.pdf
+/enpemt/dados/

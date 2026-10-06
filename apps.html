@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="description" content="Apps - Ivan Moriá Borges">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2d2b2b">
+  <title>Apps - Ivan Moriá Borges</title>
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Poiret+One&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: white; color: #333; }
+
+    html {
+      /* Block pull-to-refresh / overscroll bounce on mobile */
+      overscroll-behavior: none;
+      height: 100%;
+    }
+    body, html {
+      overflow: hidden;
+      background: #2d2b2b;
+      user-select: none;
+      -webkit-user-select: none;
+      /* Disable double-tap-to-zoom on mobile (keeps single taps responsive) */
+      touch-action: manipulation;
+      -ms-touch-action: manipulation;
+      overscroll-behavior: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+    }
+
+    canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 0; display: block;
+    }
+    #canvas-container {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ── Settings (theme + language) ─── */
+    .settings-row {
+      margin-top: 18px; padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.13);
+      width: 100%; display: flex; flex-direction: column;
+      gap: 10px;
+    }
+    .theme-row {
+      display: flex; align-items: center; gap: 8px;
+      justify-content: center;
+    }
+    .theme-label {
+      font-family: 'Poiret One', cursive;
+      font-size: 12px; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Planet button — nebula theme toggle */
+    .planet-button {
+      border: none; background: none; cursor: pointer;
+      padding: 4px;
+      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000;
+      position: relative;
+      pointer-events: auto !important;
+    }
+    .planet-button:hover { transform: scale(1.15); }
+    .planet-button:active { transform: scale(0.95); }
+
+    .theme-switch { display: flex; direction: rtl; }
+    #theme-checkbox { display: none; }
+    #theme-checkbox + label {
+      font-size: 1.7rem; height: 1em; width: 2.5em;
+      border-radius: 0.25em; cursor: pointer;
+      display: flex; justify-content: space-between;
+      background: rgba(200,200,200,0.30); position: relative;
+      transition: background 0.3s;
+    }
+    #theme-checkbox:checked + label { background: rgba(58,58,58,0.7); }
+    #theme-checkbox + label:active  { transform: scale(1.4); transition: transform 0.15s; }
+    #theme-checkbox + label div {
+      width: 0.8em; height: 0.8em; border-radius: inherit;
+      position: absolute; top: 0.1em; left: 0.1em; z-index: 10;
+      transition: 0.45s cubic-bezier(1,0.33,0.11,1.34); background: #f0f0f0;
+    }
+    #theme-checkbox:checked + label div { left: 1.6em; background: #212121; }
+    #theme-checkbox + label span { display: flex; }
+    #theme-checkbox + label svg { height: 1em; width: 1em; padding: 0.14em; box-sizing: border-box; }
+    #theme-checkbox + label span:first-of-type { color: #444; }
+    #theme-checkbox + label span:last-of-type  { color: #ccc; }
+
+    /* ── Language toggle ─── */
+    .language-row {
+      display: flex; align-items: center; gap: 8px;
+      justify-content: center; flex-wrap: wrap;
+    }
+    .lang-label {
+      font-family: 'Poiret One', cursive;
+      font-size: 11px; letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.5);
+    }
+    .lang-flags {
+      display: flex; gap: 4px;
+    }
+    .lang-flag {
+      font-size: 18px; border: none; background: none; cursor: pointer;
+      padding: 2px 4px; border-radius: 4px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      opacity: 0.6;
+    }
+    .lang-flag:hover { transform: scale(1.15); opacity: 1; }
+    .lang-flag.active { opacity: 1; background: rgba(255,255,255,0.1); }
+
+    /* ── Nav buttons — center ─── */
+    .link-list {
+      position: fixed; top: 35%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    }
+
+    .link-btn {
+      color: white;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 25px);
+      font-weight: 600; letter-spacing: 0.04em;
+      border: none; background: none;
+      padding: 8px 12px; cursor: pointer;
+      transition: all 0.25s ease;
+      display: block;
+    }
+    .link-btn::after, .link-btn::before {
+      content: ''; width: 0; height: 2px;
+      background: rgba(255, 255, 255, 0.5); display: block; transition: width 0.45s ease;
+    }
+    .link-btn::before { margin-left: auto; }
+    .link-btn:hover::after, .link-btn:hover::before { width: 100%; }
+    .link-btn:hover {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 12px rgba(150, 200, 255, 0.4);
+    }
+    .link-btn:hover::after, .link-btn:hover::before { background: rgba(255, 255, 255, 0.8); }
+
+    /* ── Signature ─── */
+    .signature-wrap {
+      position: fixed; left: 50%;
+      transform: translateX(-50%); z-index: 1000; white-space: nowrap;
+    }
+    .signature-wrap.signature-top {
+      top: 20px;
+    }
+    .signature-wrap.signature-bottom {
+      bottom: 20px;
+    }
+    .signature {
+      font-family: "Rock Salt", cursive;
+      font-size: clamp(13px, 3.5vw, 18px);
+      color: rgba(255,255,255,0.84);
+      white-space: nowrap; overflow: hidden;
+      cursor: help;
+      animation: typing 3.5s steps(20,end) forwards;
+    }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes blink  { 50% { border-color: rgba(255,255,255,0.7); } }
+
+    /* Social icons */
+    .social-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 0; background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.45s ease, background 0.22s ease;
+      flex-shrink: 0;
+    }
+    .social-btn:hover { background: white; transform: rotate(360deg) scale(1.12); }
+    .social-btn:hover svg { filter: invert(100%) sepia(0%) saturate(0%); }
+
+    /* Social row — horizontal layout for signature */
+    .social-row {
+      display: flex; gap: 12px; justify-content: center; align-items: center;
+      margin-bottom: 8px;
+    }
+
+    @media (max-height: 560px) {
+      .link-btn { font-size: 16px; padding: 5px 10px; }
+      .signature-wrap { bottom: 8px; }
+    }
+    @media (max-width: 400px) {
+      .social-btn { width: 36px; height: 36px; border-width: 1.5px; }
+      .social-row { gap: 8px; }
+    }
+    @media (max-width: 480px) {
+      .apps-container {
+        width: 96vw;
+        padding: 32px 14px;
+        gap: 20px;
+      }
+      .app-card { padding: 12px 8px; }
+      .app-desc { font-size: 13px; line-height: 1.4; }
+    }
+
+    /* ── Apps Grid/Cards ─── */
+    .apps-container {
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      display: flex; flex-direction: column; gap: 28px;
+      align-items: center; justify-content: center;
+      width: min(560px, 94vw);
+      max-height: 80vh; overflow-y: auto;
+      padding: 40px 28px;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
+    }
+
+    .app-card {
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      width: 100%;
+      transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      position: relative;
+      text-align: center;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .app-card:hover {
+      border-bottom-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .app-title {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 24px);
+      color: white;
+      font-weight: 600;
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+      transition: color 0.3s ease;
+    }
+
+    .app-card:hover .app-title {
+      color: rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 16px rgba(150, 200, 255, 0.4);
+    }
+
+    .app-desc {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(14px, 2.4vw, 16px);
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.5;
+      transition: color 0.3s ease;
+    }
+
+    .app-card:hover .app-desc {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Light theme adjustments */
+    body.light-theme .app-card {
+      border-bottom-color: rgba(0, 0, 0, 0.15);
+    }
+
+    body.light-theme .app-card:hover {
+      border-bottom-color: rgba(0, 0, 0, 0.3);
+    }
+
+    body.light-theme .app-title {
+      color: black;
+    }
+
+    body.light-theme .app-card:hover .app-title {
+      color: black;
+      text-shadow: 0 0 16px rgba(100, 150, 200, 0.2);
+    }
+
+    body.light-theme .app-desc {
+      color: black !important;
+    }
+
+    body.light-theme .app-card:hover .app-desc {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    body.light-theme .app-btn {
+      color: black;
+    }
+
+    body.light-theme .app-btn::after {
+      background: black;
+    }
+
+    body.light-theme .social-btn svg {
+      filter: invert(1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Back button and Page Title — same line -->
+  <div style="position: fixed; top: 20px; left: 20px; z-index: 10001; display: flex; align-items: center; gap: 8px;">
+    <button class="link-btn" onclick="window.location.href='index.html'" style="font-size: 32px; padding: 0px; margin: 0px;">←</button>
+    <div style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: rgba(255, 255, 255, 0.8); font-weight: 600; letter-spacing: 0.04em;">Apps</div>
+  </div>
+
+  <div id="canvas-container"></div>
+
+  <!-- Signature — bottom -->
+  <div class="signature-wrap signature-bottom">
+    <!-- Social icons — horizontal row -->
+    <div class="social-row">
+      <button class="social-btn" title="Email" onclick="window.location.href='mailto:ivanmoriabr@gmail.com'">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" fill="#fff">
+          <path d="M20,4H4C2.9,4,2.01,4.9,2.01,6L2,18c0,1.1.9,2,2,2h16c1.1,0,2-.9,2-2V6C22,4.9,21.1,4,20,4zm0,2-8,5L4,6h16zM4,18V8l8,5,8-5v10H4z"/>
+        </svg>
+      </button>
+      <button class="social-btn" title="LinkedIn" onclick="window.open('https://www.linkedin.com/in/ivanmoriaborges','popup','width=450,height=800,scrollbars=no');">
+        <svg viewBox="0 0 16 16" width="22" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+          <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zM4.943 13.394V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+        </svg>
+      </button>
+      <button class="social-btn" title="Instagram" onclick="window.open('https://www.instagram.com/ivanmoria/','popup','width=450,height=800,scrollbars=no');">
+        <svg viewBox="0 0 24 24" width="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 18a6 6 0 100-12 6 6 0 000 12zm0-2a4 4 0 110-8 4 4 0 010 8z" fill="#fff"/>
+          <path d="M18 5a1 1 0 110 2 1 1 0 010-2z" fill="#fff"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.654 4.276C1 5.56 1 7.24 1 10.6v2.8c0 3.36 0 5.04.654 6.324A6 6 0 004.276 22.346C5.56 23 7.24 23 10.6 23h2.8c3.36 0 5.04 0 6.324-.654a6 6 0 002.722-2.722C23 18.44 23 16.76 23 13.4v-2.8c0-3.36 0-5.04-.654-6.324A6 6 0 0019.624 1.654C18.34 1 16.66 1 13.3 1h-2.6C7.34 1 5.66 1 4.276 1.654A6 6 0 001.654 4.276zM13.4 3H10.6c-1.714 0-2.878.002-3.778.075-.878.072-1.326.202-1.638.366A4 4 0 003.44 5.184c-.164.312-.294.76-.366 1.638C3.002 7.722 3 8.886 3 10.6v2.8c0 1.714.002 2.878.075 3.778.072.878.202 1.326.366 1.638a4 4 0 002.143 2.143c.312.164.76.294 1.638.366.9.073 2.064.075 3.778.075h2.8c1.714 0 2.878-.002 3.778-.075.878-.072 1.326-.202 1.638-.366a4 4 0 002.143-2.143c.164-.312.294-.76.366-1.638C21.998 15.878 22 14.714 22 13V10.2c0-1.714-.002-2.878-.075-3.778-.072-.878-.202-1.326-.366-1.638A4 4 0 0019.416 2.64c-.312-.164-.76-.294-1.638-.366C16.878 3.002 15.714 3 14 3h-.6z" fill="#fff"/>
+        </svg>
+      </button>
+    </div>
+    <div class="signature" id="assinatura">Ivan Moriá Borges</div>
+  </div>
+
+  <!-- Theme toggle — top center -->
+  <div class="signature-wrap signature-top" style="display: flex; align-items: center; gap: 10px;">
+    <button id="planet-toggle-top" class="planet-button" title="Click to toggle theme">
+      <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
+        <defs>
+          <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+            <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+            <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+            <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+          </radialGradient>
+          <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+            <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+            <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="glow2">
+            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+            </feMerge>
+          </filter>
+          <style>
+            @keyframes moonOrbit {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(360deg); }
+            }
+            @keyframes nebulaPulse {
+              0%, 100% { opacity: 0.7; }
+              50% { opacity: 1; }
+            }
+            @keyframes nebulaSpin {
+              from { transform: rotate(0deg); }
+              to { transform: rotate(-180deg); }
+            }
+            .moon-container {
+              animation: moonOrbit 6s linear infinite;
+              transform-origin: 40px 40px;
+            }
+            .nebula-core {
+              animation: nebulaPulse 3s ease-in-out infinite;
+            }
+            .nebula-ring {
+              animation: nebulaSpin 8s linear infinite;
+              transform-origin: 40px 40px;
+            }
+          </style>
+        </defs>
+        <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+        <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+        <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+        <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+        <g class="moon-container">
+          <defs>
+            <radialGradient id="moonGlow">
+              <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+              <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+              <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+            </radialGradient>
+          </defs>
+          <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+          <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+          <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+        </g>
+      </svg>
+    </button>
+    <span style="font-family: 'Poiret One', cursive; font-size: clamp(16px, 3vw, 20px); color: white; font-weight: 600; letter-spacing: 0.04em;">Theme</span>
+  </div>
+
+  <!-- Apps Grid -->
+
+  <div class="apps-container">
+    <!-- App 1: Generator -->
+       <!-- Apps Grid 
+    <div class="app-card" onclick="window.open('https://ivanmoria.github.io/generator/', '_blank')">
+      <div class="app-title" data-pt="Generator" data-en="Generator" data-de="Generator" data-fr="Générateur" data-ja="ジェネレータ" data-tr="Oluşturucu">Generator</div>
+      <div class="app-desc" data-pt="Easy audio description website reader generator" data-en="Easy audio description website reader generator" data-de="Einfacher Audio-Beschreibungs-Website-Reader-Generator" data-fr="Générateur de lecteur de site web de description audio facile" data-ja="イージーオーディオディスクリプションウェブサイトリーダージェネレータ" data-tr="Kolay ses açıklaması web sitesi okuyucu oluşturucu">Easy audio description website reader generator</div>
+    </div>
+-->
+    <!-- App 2: Harmonic Lab -->
+         <!-- App 2: Harmonic Lab 
+    <div class="app-card" onclick="window.open('https://ivanmoria.github.io/asap/chords/', '_blank')">
+      <div class="app-title" data-pt="Harmonic Lab" data-en="Harmonic Lab" data-de="Harmonisches Labor" data-fr="Labo d'Harmonique" data-ja="ハーモニック・ラボ" data-tr="Harmonik Laboratuvarı">Harmonic Lab</div>
+      <div class="app-desc" data-pt="Explore acordes, progressões e harmonia musical" data-en="Explore chords, progressions and musical harmony" data-de="Erkunden Sie Akkorde und Progressionen" data-fr="Explorez les accords et l'harmonie musicale" data-ja="コード進行と和声を探索" data-tr="Akorları ve harmoniyi keşfedin">Explore chords, progressions and musical harmony</div>
+    </div>
+-->
+    <!-- App 4: QR Code Generator -->
+    <div class="app-card" onclick="window.location.href='qrcode.html'">
+      <div class="app-title" data-pt="QR Code" data-en="QR Code" data-de="QR-Code" data-fr="QR Code" data-ja="QRコード" data-tr="QR Kod">QR Code</div>
+      <div class="app-desc" data-pt="Gere e baixe QR codes direto no navegador" data-en="Generate and download QR codes right in the browser" data-de="QR-Codes direkt im Browser erstellen und herunterladen" data-fr="Générez et téléchargez des QR codes directement dans le navigateur" data-ja="ブラウザで直接QRコードを生成・ダウンロード" data-tr="Tarayıcıda doğrudan QR kod oluşturun ve indirin">Generate and download QR codes right in the browser</div>
+    </div>
+
+    <!-- App 3: Interactive Background -->
+    <div class="app-card" onclick="window.location.href='interactive-bg.html'">
+      <div class="app-title" data-pt="Interactive Background" data-en="Interactive Background" data-de="Interaktiver Hintergrund" data-fr="Fond Interactif" data-ja="インタラクティブ背景" data-tr="İnteraktif Arka Plan">Interactive Background</div>
+      <div class="app-desc" data-pt="Explore uma animação interativa dinâmica e imersiva" data-en="Explore a dynamic and immersive interactive animation" data-de="Erkunden Sie eine dynamische und immersive interaktive Animation" data-fr="Explorez une animation interactive dynamique et immersive" data-ja="ダイナミックで没入感のあるインタラクティブアニメーションを探索" data-tr="Dinamik ve sürükleyici bir etkileşimli animasyonu keşfedin">Explore a dynamic and immersive interactive animation</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <script src="script.js"></script>
+  <script>
+    /* Block double-tap-to-zoom on mobile (iOS Safari ignores touch-action for this) */
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', e => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 350) e.preventDefault();
+      lastTouchEnd = now;
+    }, { passive: false });
+    document.addEventListener('dblclick', e => e.preventDefault(), { passive: false });
+
+    /* Block pinch-zoom gestures (iOS) */
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach(evt =>
+      document.addEventListener(evt, e => e.preventDefault(), { passive: false })
+    );
+
+    /* Block multi-touch pinch zoom (single-finger scroll inside cards still works) */
+    document.addEventListener('touchmove', e => {
+      if (e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+  </script>
+</body>
+</html>

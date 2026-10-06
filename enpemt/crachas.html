@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crachás ENPEMT</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .folha { display: grid; gap: 0; background: #fff; color: #111; }
+  .folha.cracha { grid-template-columns: repeat(2, 95mm); }
+  .folha.etiqueta { grid-template-columns: repeat(3, 63mm); }
+
+  .item { border: 1px dashed #bbb; display: flex; align-items: center; break-inside: avoid; page-break-inside: avoid; overflow: hidden; }
+  .cracha .item { height: 68mm; padding: 6mm; gap: 5mm; }
+  .etiqueta .item { height: 38mm; padding: 3mm; gap: 3mm; }
+
+  .item .txt { flex: 1; min-width: 0; }
+  .item .ev { font-size: 9pt; letter-spacing: .04em; text-transform: uppercase; color: #555; }
+  .item .nm { font-weight: 700; line-height: 1.15; margin: 2mm 0; word-wrap: break-word; }
+  .cracha .nm { font-size: 17pt; }
+  .etiqueta .nm { font-size: 10pt; margin: 1mm 0; }
+  .item .uf { font-size: 11pt; color: #333; }
+  .item .completo { font-size: 8.5pt; color: #444; margin-top: -1mm; margin-bottom: 2mm; }
+  .item .cat { display: inline-block; margin-top: 2mm; font-size: 8pt; border: 1px solid #999; border-radius: 3mm; padding: .5mm 2.5mm; }
+  .etiqueta .completo, .etiqueta .cat { display: none; }
+  .etiqueta .uf, .etiqueta .ev { font-size: 7.5pt; }
+  .item .qr { flex: none; text-align: center; font: 600 8pt ui-monospace, monospace; color: #444; }
+  .item .qr img, .item .qr canvas { display: block; margin-bottom: 1mm; }
+  .cracha .qr img, .cracha .qr canvas { width: 34mm; height: 34mm; }
+  .etiqueta .qr img, .etiqueta .qr canvas { width: 26mm; height: 26mm; }
+
+  @media print {
+    @page { size: A4; margin: 10mm; }
+    body { background: #fff; }
+    main { max-width: none; padding: 0; }
+    .nao-imprimir { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="nao-imprimir">
+    <div class="topo">
+      <div>
+        <h1>Crachás com QR code</h1>
+        <div class="sub" id="info">Carregando inscritos…</div>
+      </div>
+      <a class="botao" href="./">← Início</a>
+    </div>
+    <div class="card">
+      <div class="grade">
+        <div>
+          <label for="modelo">Modelo</label>
+          <select id="modelo">
+            <option value="cracha">Crachá completo (8 por folha A4)</option>
+            <option value="etiqueta">Etiqueta para colar no crachá (21 por folha)</option>
+          </select>
+        </div>
+        <div>
+          <label for="filtro">Filtrar (para reimprimir só alguns)</label>
+          <input id="filtro" placeholder="Nome ou código">
+        </div>
+      </div>
+      <div class="linha" style="margin-top:12px">
+        <button class="primario" onclick="print()">Imprimir / salvar PDF</button>
+        <small>No diálogo de impressão: papel A4, escala 100%, sem cabeçalhos.</small>
+      </div>
+    </div>
+  </div>
+  <div id="folha" class="folha cracha"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script>
+const { CFG, esc, semAcento } = ENPEMT;
+const $ = id => document.getElementById(id);
+let inscritos = [];
+
+function render() {
+  const modelo = $('modelo').value;
+  const q = semAcento($('filtro').value);
+  const lista = inscritos
+    .filter(p => !q || semAcento(p.nome + ' ' + p.nomeCracha + ' ' + p.id).includes(q))
+    .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+  const folha = $('folha');
+  folha.className = 'folha ' + modelo;
+  folha.innerHTML = lista.map(p => {
+    const uf = ENPEMT.normalizarUF(p.uf);
+    const local = [p.cidade, uf || p.uf].filter(Boolean).join(' – ');
+    const destaque = p.nomeCracha ? ENPEMT.formatarNome(p.nomeCracha) : ENPEMT.nomeCurto(p.nome);
+    return `<div class="item">
+      <div class="txt">
+        <div class="ev">${esc(CFG.evento)}</div>
+        <div class="nm">${esc(destaque)}</div>
+        ${destaque !== p.nome ? `<div class="completo">${esc(p.nome)}</div>` : ''}
+        <div class="uf">${esc(local)}</div>
+        ${p.categoria ? `<div class="cat">${esc(p.categoria)}</div>` : ''}
+      </div>
+      <div class="qr" data-id="${esc(p.id)}"><div></div>${esc(p.id)}</div>
+    </div>`;
+  }).join('');
+  folha.querySelectorAll('.qr').forEach(el => {
+    new QRCode(el.firstElementChild, { text: CFG.prefixoQR + el.dataset.id, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.M });
+  });
+  $('info').textContent = `${lista.length} de ${inscritos.length} inscritos`;
+}
+
+$('modelo').onchange = render;
+let t;
+$('filtro').oninput = () => { clearTimeout(t); t = setTimeout(render, 250); };
+
+(async () => {
+  if (!ENPEMT.conexao()) { $('info').innerHTML = 'Sistema não configurado. Configure na <a href="./">página inicial</a>.'; return; }
+  try {
+    inscritos = await ENPEMT.carregarInscritos();
+    render();
+  } catch (err) {
+    $('info').textContent = 'Erro ao carregar inscritos: ' + err.message;
+  }
+})();
+</script>
+</body>
+</html>

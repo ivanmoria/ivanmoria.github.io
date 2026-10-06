@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presença ENPEMT</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .atalhos { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .atalhos a { display: block; text-decoration: none; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .atalhos a:hover { border-color: var(--accent); }
+  .atalhos b { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+  .atalhos span { color: var(--ink2); font-size: .88rem; }
+  #qrLink { background: #fff; padding: 10px; border-radius: 10px; display: inline-block; margin-top: 10px; }
+  #linkGerado { word-break: break-all; font-size: .8rem; }
+  ol { padding-left: 20px; margin: 0; }
+  ol li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topo">
+    <div>
+      <h1 id="evento"></h1>
+      <div class="sub" id="subtitulo"></div>
+    </div>
+    <span class="pill" id="status">—</span>
+  </div>
+
+  <div class="atalhos" style="margin-bottom:14px">
+    <a href="checkin.html"><b>Registrar presença</b><span>Para os monitores, no celular, na porta da sala.</span></a>
+    <a href="painel.html"><b>Painel</b><span>Presentes por estado, região, sala e frequência individual.</span></a>
+    <a href="crachas.html"><b>Crachás com QR</b><span>Gerar e imprimir os crachás ou etiquetas.</span></a>
+  </div>
+
+  <section class="card">
+    <h2>Conexão com a planilha</h2>
+    <p class="muted">Cole o endereço do Apps Script e a chave (veja o LEIAME.md). Fica salvo só neste navegador.</p>
+    <div class="grade">
+      <div><label for="url">Endereço do Apps Script (termina em /exec)</label><input id="url" placeholder="https://script.google.com/macros/s/…/exec"></div>
+      <div><label for="chave">Chave</label><input id="chave" type="password"></div>
+    </div>
+    <div class="linha" style="margin-top:12px">
+      <button class="primario" id="btSalvar">Salvar e testar</button>
+    </div>
+    <div id="resultado" style="margin-top:10px"></div>
+  </section>
+
+  <section class="card oculto" id="secLink">
+    <h2>Link para os monitores</h2>
+    <p>Envie este link (ou mostre o QR abaixo) para cada monitor. Ao abrir no celular, o aparelho já fica configurado e pronto para ler os crachás.</p>
+    <p class="aviso warn">Este link contém a chave. Mande só para a equipe, por mensagem privada — não publique em grupos abertos.</p>
+    <div class="linha"><button id="btCopiar">Copiar link</button></div>
+    <div id="qrLink"></div>
+    <p id="linkGerado" class="muted"></p>
+  </section>
+
+  <section class="card">
+    <h2>Como funciona no dia</h2>
+    <ol>
+      <li>Cada inscrito recebe um crachá com um QR code individual (código de 6 letras).</li>
+      <li>O monitor de cada sala abre <b>Registrar presença</b> no celular, escolhe dia, sala e sessão, e liga a câmera.</li>
+      <li>Na entrada, aponta a câmera para o crachá: aparece o nome em verde e o celular vibra. Esqueceu o crachá? Busca pelo nome.</li>
+      <li>Cada leitura vai para a aba <b>Presenças</b> da mesma planilha do Google Forms. Se a internet cair, o celular guarda e envia depois.</li>
+      <li>A coordenação acompanha no <b>Painel</b> e baixa a frequência para emitir certificados.</li>
+    </ol>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+$('evento').textContent = ENPEMT.CFG.evento;
+$('subtitulo').textContent = ENPEMT.CFG.subtitulo;
+
+function mostrarStatus() {
+  const c = ENPEMT.conexao();
+  const el = $('status');
+  if (!c) { el.className = 'pill'; el.textContent = 'Não configurado'; }
+  else { el.className = 'pill ok'; el.textContent = 'Conectado'; }
+  if (c) { $('url').value = c.url; $('chave').value = c.chave; }
+  gerarLink();
+}
+
+function gerarLink() {
+  const c = ENPEMT.conexao();
+  const sec = $('secLink');
+  if (!c) { sec.classList.add('oculto'); return; }
+  const link = new URL('checkin.html', location.href).href + '#' + new URLSearchParams({ u: c.url, k: c.chave });
+  $('linkGerado').textContent = link;
+  $('qrLink').innerHTML = '';
+  new QRCode($('qrLink'), { text: link, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.L });
+  $('btCopiar').onclick = () => navigator.clipboard.writeText(link).then(() => { $('btCopiar').textContent = 'Copiado!'; });
+  sec.classList.remove('oculto');
+}
+
+async function testar() {
+  const r = $('resultado');
+  r.className = 'aviso';
+  r.textContent = 'Testando…';
+  try {
+    const inscritos = await ENPEMT.carregarInscritos();
+    r.className = 'aviso ok';
+    r.textContent = `Conexão OK — ${inscritos.length} inscritos encontrados na planilha.`;
+  } catch (err) {
+    r.className = 'aviso err';
+    r.textContent = 'Falhou: ' + err.message + '. Confira o endereço (/exec), a chave e se a implantação está como "Qualquer pessoa".';
+  }
+  mostrarStatus();
+}
+
+$('btSalvar').onclick = () => {
+  if (!$('url').value.trim() || !$('chave').value.trim()) return alert('Preencha os dois campos.');
+  ENPEMT.definirConexao($('url').value, $('chave').value);
+  testar();
+};
+mostrarStatus();
+</script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel ENPEMT</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .kpis { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 14px; }
+  .kpi { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .kpi .v { font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .kpi .r { font-size: .82rem; color: var(--ink2); }
+
+  .barras { display: grid; grid-template-columns: minmax(48px, 40%) 1fr auto; gap: 4px 10px; align-items: center; font-size: .88rem; }
+  .barras .rot { color: var(--ink); line-height: 1.2; }
+  .barras .trilho { height: 16px; position: relative; }
+  .barras .barra { position: absolute; inset: 0 auto 0 0; background: var(--series); border-radius: 0 4px 4px 0; min-width: 2px; }
+  .barras .val { color: var(--ink2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .barras .linha-hover { display: contents; }
+  .barras .linha-hover:hover > * { background: var(--track); }
+  .barras .linha-hover > * { padding: 3px 0; border-radius: 4px; }
+
+  .dica { position: fixed; pointer-events: none; background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: .85rem; box-shadow: 0 4px 16px rgba(0,0,0,.12); z-index: 10; }
+  .dica b { display: block; }
+
+  .duas { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  @media (min-width: 820px) { .duas { grid-template-columns: 3fr 2fr; } }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; padding: 6px 12px; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  td.zero { color: var(--muted); }
+  #tabAtividades td:nth-child(-n+2) { white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topo">
+    <div>
+      <h1>Painel · <span id="evento"></span></h1>
+      <div class="sub" id="info">Carregando…</div>
+    </div>
+    <div class="linha">
+      <button id="btAtualizar">Atualizar</button>
+      <a class="botao" href="./">← Início</a>
+    </div>
+  </div>
+
+  <div class="card linha">
+    <div style="min-width:160px"><label for="fDia">Data</label><select id="fDia"></select></div>
+    <div>
+      <label>Contar participantes por</label>
+      <div class="seg" id="base">
+        <button data-v="presentes" aria-pressed="true">Presentes</button>
+        <button data-v="inscritos" aria-pressed="false">Inscritos</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="duas">
+    <section class="card">
+      <h2 id="tituloUF">Participantes por estado</h2>
+      <div class="barras" id="graficoUF"></div>
+    </section>
+    <section class="card">
+      <h2 id="tituloRegiao">Por região</h2>
+      <div class="barras" id="graficoRegiao"></div>
+      <p class="muted" style="margin-top:12px;font-size:.82rem" id="naoReconhecidos"></p>
+      <h2 style="margin-top:22px" id="tituloVinculo">Por vínculo</h2>
+      <div class="barras" id="graficoVinculo"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Presença por atividade</h2>
+    <p class="muted" style="font-size:.85rem">Pessoas diferentes registradas em cada atividade da programação.</p>
+    <div class="tabela-rolagem"><table id="tabAtividades"></table></div>
+  </section>
+
+  <section class="card">
+    <div class="linha" style="justify-content:space-between;margin-bottom:8px">
+      <h2 style="margin:0">Frequência individual</h2>
+      <div class="linha">
+        <button id="btCsvPessoas">Baixar frequência (CSV)</button>
+        <button id="btCsvRegistros">Baixar todos os registros (CSV)</button>
+      </div>
+    </div>
+    <input id="buscaPessoa" placeholder="Buscar pessoa…" style="margin-bottom:8px">
+    <div class="tabela-rolagem"><table id="tabPessoas"></table></div>
+  </section>
+</main>
+<div class="dica oculto" id="dica"></div>
+
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script>
+const { CFG, esc, semAcento, normalizarUF, regiaoDe, UFS, rotuloDia } = ENPEMT;
+const $ = id => document.getElementById(id);
+$('evento').textContent = CFG.evento;
+
+let inscritos = [], presencas = [], atividades = [], base = 'presentes';
+
+const n = x => x.toLocaleString('pt-BR');
+const pct = (a, b) => b ? Math.round(100 * a / b) + '%' : '—';
+const horas = min => { const h = Math.floor(min / 60), m = min % 60; return h + 'h' + (m ? String(m).padStart(2, '0') : ''); };
+const chavePessoa = r => r.id === 'MANUAL' ? 'MANUAL:' + semAcento(r.nome) : r.id;
+
+// ------------------------------------------------------------ dados derivados
+function duracaoDe(r) {
+  const a = atividades.find(x => x.id === r.atividadeId);
+  if (a) return a.duracao || 0;
+  const i = ENPEMT.minutos(r.inicio), f = ENPEMT.minutos(r.fim);
+  return i != null && f != null ? f - i : 0;
+}
+
+function calcular() {
+  const data = $('fDia').value;
+  const regs = presencas.filter(r => !data || r.data === data);
+  const pessoas = new Map();
+  // Estado: da inscrição; se faltar, o que foi perguntado no credenciamento
+  const ufCredenciamento = {};
+  presencas.forEach(r => { if (normalizarUF(r.uf)) ufCredenciamento[r.id] = normalizarUF(r.uf); });
+  inscritos.forEach(p => pessoas.set(p.id, { ...p, ufN: normalizarUF(p.uf) || ufCredenciamento[p.id] || '', regs: [] }));
+  regs.forEach(r => {
+    const k = chavePessoa(r);
+    if (!pessoas.has(k)) pessoas.set(k, { id: r.id, nome: r.nome, uf: r.uf, ufN: normalizarUF(r.uf), email: '', categoria: 'Não inscrito', apoio: '', regs: [] });
+    pessoas.get(k).regs.push(r);
+  });
+  const todas = [...pessoas.values()];
+  return { regs, todas, presentes: todas.filter(p => p.regs.length) };
+}
+
+/** Atividades distintas, dias e carga horária de uma pessoa (o mesmo registro duas vezes conta uma). */
+function resumoPessoa(p) {
+  const porAtividade = new Map();
+  p.regs.forEach(r => porAtividade.set(r.atividadeId, r));
+  const lista = [...porAtividade.values()];
+  return {
+    atividades: lista.length,
+    dias: [...new Set(lista.map(r => r.data))].sort(),
+    minutos: lista.reduce((t, r) => t + duracaoDe(r), 0)
+  };
+}
+
+// ------------------------------------------------------------ desenho
+function barras(el, linhas, total) {
+  const max = Math.max(1, ...linhas.map(l => l.v));
+  el.innerHTML = linhas.map((l, i) => `
+    <div class="linha-hover" data-i="${i}">
+      <div class="rot">${esc(l.rot)}</div>
+      <div class="trilho"><div class="barra" style="width:${(100 * l.v / max).toFixed(1)}%"></div></div>
+      <div class="val">${n(l.v)} <small>· ${pct(l.v, total)}</small></div>
+    </div>`).join('') || '<div class="muted">Sem dados ainda.</div>';
+  el.onmousemove = e => {
+    const linha = e.target.closest('.linha-hover');
+    const dica = $('dica');
+    if (!linha) { dica.classList.add('oculto'); return; }
+    const l = linhas[linha.dataset.i];
+    dica.innerHTML = `<b>${esc(l.nome || l.rot)}</b>${n(l.v)} ${base} · ${pct(l.v, total)} do total${l.extra ? '<br>' + esc(l.extra) : ''}`;
+    dica.classList.remove('oculto');
+    dica.style.left = Math.min(e.clientX + 14, innerWidth - dica.offsetWidth - 8) + 'px';
+    dica.style.top = (e.clientY + 14) + 'px';
+  };
+  el.onmouseleave = () => $('dica').classList.add('oculto');
+}
+
+function render() {
+  const { regs, todas, presentes } = calcular();
+  const grupo = base === 'presentes' ? presentes : todas.filter(p => p.categoria !== 'Não inscrito');
+
+  // KPIs
+  const ufsPresentes = new Set(presentes.map(p => p.ufN).filter(Boolean));
+  const naoInscritos = presentes.filter(p => p.categoria === 'Não inscrito').length;
+  $('kpis').innerHTML = [
+    ['Inscritos', n(inscritos.length), 'no Google Forms'],
+    ['Presentes', n(presentes.length), `${pct(presentes.length - naoInscritos, inscritos.length)} dos inscritos` + (naoInscritos ? ` · ${naoInscritos} sem inscrição` : '')],
+    ['Registros de presença', n(regs.length), `em ${n(new Set(regs.map(r => r.atividadeId)).size)} atividades`],
+    ['Estados presentes', n(ufsPresentes.size), 'de 27 UFs']
+  ].map(([t, v, r]) => `<div class="kpi"><div class="r">${t}</div><div class="v">${v}</div><div class="r">${r}</div></div>`).join('');
+
+  // Por UF
+  const contUF = {};
+  grupo.forEach(p => { if (p.ufN) contUF[p.ufN] = (contUF[p.ufN] || 0) + 1; });
+  $('tituloUF').textContent = `${base === 'presentes' ? 'Presentes' : 'Inscritos'} por estado`;
+  barras($('graficoUF'), Object.entries(contUF).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ rot: k, nome: UFS[k], v, extra: regiaoDe(k) })), grupo.length);
+
+  // Por região
+  const contReg = {};
+  grupo.forEach(p => { const r = p.ufN ? regiaoDe(p.ufN) : 'Outro / exterior'; contReg[r] = (contReg[r] || 0) + 1; });
+  barras($('graficoRegiao'), Object.entries(contReg).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ rot: k, v })), grupo.length);
+
+  const semUF = grupo.filter(p => !p.ufN);
+  $('naoReconhecidos').textContent = semUF.length
+    ? `Estado não reconhecido em ${semUF.length} pessoa(s): ${[...new Set(semUF.map(p => p.uf || '(vazio)'))].slice(0, 8).join(', ')}. Estão contadas em "Outro / exterior".`
+    : '';
+  if (!todas.some(p => p.ufN)) {
+    $('graficoUF').innerHTML = '<div class="aviso warn" style="grid-column:1/-1">Ainda não há <b>estado</b> de ninguém: o Forms não fez essa pergunta. O estado é perguntado no <b>credenciamento</b> (no celular do monitor) e os gráficos aparecem aqui conforme as pessoas chegam.</div>';
+    $('graficoRegiao').innerHTML = '';
+    $('naoReconhecidos').textContent = '';
+  }
+
+  // Por vínculo
+  const contCat = {};
+  grupo.forEach(p => { const k = p.categoria || 'Não informado'; contCat[k] = (contCat[k] || 0) + 1; });
+  $('tituloVinculo').textContent = `${base === 'presentes' ? 'Presentes' : 'Inscritos'} por vínculo`;
+  barras($('graficoVinculo'), Object.entries(contCat).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ rot: k, v })), grupo.length);
+
+  // Por atividade: programação + atividades extras que os monitores criaram
+  const pessoasPorAtiv = {};
+  regs.forEach(r => (pessoasPorAtiv[r.atividadeId] = pessoasPorAtiv[r.atividadeId] || new Set()).add(chavePessoa(r)));
+  const data = $('fDia').value;
+  const linhas = atividades.filter(a => !data || a.data === data).map(a => ({ ...a, v: pessoasPorAtiv[a.id]?.size || 0 }));
+  const conhecidas = new Set(atividades.map(a => a.id));
+  regs.forEach(r => {
+    if (conhecidas.has(r.atividadeId)) return;
+    conhecidas.add(r.atividadeId);
+    linhas.push({ id: r.atividadeId, data: r.data, inicio: r.inicio, fim: r.fim, local: r.local, titulo: r.atividade + ' (fora da programação)', v: pessoasPorAtiv[r.atividadeId].size });
+  });
+  linhas.sort((a, b) => (a.data + a.inicio).localeCompare(b.data + b.inicio));
+  $('tabAtividades').innerHTML = linhas.length
+    ? '<tr><th>Data</th><th>Horário</th><th>Local</th><th>Atividade</th><th class="num">Pessoas</th></tr>' +
+      linhas.map(a => `<tr><td>${esc(rotuloDia(a.data))}</td><td>${esc(a.inicio)}${a.fim ? '–' + esc(a.fim) : ''}</td><td>${esc(a.local)}</td><td>${esc(a.titulo)}</td><td class="num${a.v ? '' : ' zero'}">${a.v || '–'}</td></tr>`).join('')
+    : '<tr><td class="muted">Programação não carregada.</td></tr>';
+
+  renderPessoas(todas);
+}
+
+let ultimasPessoas = [];
+function renderPessoas(todas) {
+  ultimasPessoas = todas;
+  const q = semAcento($('buscaPessoa').value);
+  const lista = todas
+    .filter(p => !q || semAcento(p.nome + ' ' + p.email + ' ' + p.id).includes(q))
+    .map(p => ({ p, r: resumoPessoa(p) }))
+    .sort((a, b) => b.r.minutos - a.r.minutos || a.p.nome.localeCompare(b.p.nome, 'pt-BR'));
+  $('tabPessoas').innerHTML = '<tr><th>Nome</th><th>UF</th><th class="num">Atividades</th><th class="num">Carga horária</th><th>Dias</th></tr>' +
+    lista.slice(0, 300).map(({ p, r }) => `<tr>
+      <td>${esc(p.nome)}${p.categoria === 'Não inscrito' ? ' <small>(sem inscrição)</small>' : ''}</td>
+      <td>${esc(p.ufN || p.uf)}</td>
+      <td class="num${r.atividades ? '' : ' zero'}">${r.atividades || '–'}</td>
+      <td class="num${r.minutos ? '' : ' zero'}">${r.minutos ? horas(r.minutos) : '–'}</td>
+      <td>${esc(r.dias.map(rotuloDia).join(', ')) || '<span class="muted">ausente</span>'}</td></tr>`).join('');
+}
+
+// ------------------------------------------------------------ controles
+function definirBase(v) {
+  base = v;
+  $('base').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v));
+}
+$('base').onclick = e => {
+  const v = e.target.dataset?.v;
+  if (!v) return;
+  definirBase(v);
+  render();
+};
+$('fDia').onchange = render;
+$('buscaPessoa').oninput = () => renderPessoas(ultimasPessoas);
+$('btAtualizar').onclick = carregar;
+
+$('btCsvPessoas').onclick = () => {
+  const dias = [...new Set(atividades.map(a => a.data))];
+  const linhas = [['ID', 'Nome', 'E-mail', 'UF', 'Região', 'Vínculo', 'Acessibilidade', 'Atividades', 'Carga horária (h)', ...dias.map(d => 'Presente ' + rotuloDia(d))]];
+  ultimasPessoas.forEach(p => {
+    const r = resumoPessoa(p);
+    linhas.push([p.id, p.nome, p.email, p.ufN || p.uf, p.ufN ? regiaoDe(p.ufN) : '', p.categoria, p.apoio || '', r.atividades,
+      (r.minutos / 60).toLocaleString('pt-BR', { maximumFractionDigits: 2 }), ...dias.map(d => r.dias.includes(d) ? 'sim' : 'não')]);
+  });
+  ENPEMT.baixarCSV('enpemt-frequencia.csv', linhas);
+};
+$('btCsvRegistros').onclick = () => {
+  const linhas = [['Lido em', 'ID', 'Nome', 'UF', 'Data', 'Início', 'Fim', 'Local', 'Atividade', 'Monitor', 'Modo']];
+  presencas.forEach(r => linhas.push([new Date(r.ts).toLocaleString('pt-BR'), r.id, r.nome, r.uf, r.data, r.inicio, r.fim, r.local, r.atividade, r.monitor, r.modo]));
+  ENPEMT.baixarCSV('enpemt-registros.csv', linhas);
+};
+
+async function carregar() {
+  if (!ENPEMT.conexao()) { $('info').innerHTML = 'Sistema não configurado. Configure na <a href="./">página inicial</a>.'; return; }
+  $('info').textContent = 'Carregando…';
+  try {
+    const [a, b, prog] = await Promise.all([ENPEMT.carregarInscritos(), ENPEMT.chamarGet('presencas'), ENPEMT.carregarProgramacao()]);
+    inscritos = a;
+    presencas = b.presencas;
+    atividades = prog.atividades;
+    const escolhida = $('fDia').value;
+    $('fDia').innerHTML = '<option value="">Todas as datas</option>' +
+      [...new Set(atividades.map(x => x.data))].map(d => `<option value="${d}"${d === escolhida ? ' selected' : ''}>${esc(rotuloDia(d))}</option>`).join('');
+    if (!presencas.length) definirBase('inscritos'); // antes do evento só há inscritos para mostrar
+    $('info').textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) + ' · programação ' + prog.origem;
+    render();
+  } catch (err) {
+    $('info').textContent = 'Erro ao carregar: ' + err.message;
+  }
+}
+carregar();
+</script>
+</body>
+</html>

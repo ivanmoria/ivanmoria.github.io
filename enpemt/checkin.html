@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presença ENPEMT</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  main { max-width: 560px; }
+  #leitor { width: 100%; border-radius: var(--radius); overflow: hidden; background: #000; min-height: 60px; }
+  #leitor video { width: 100% !important; display: block; }
+  #retorno { margin-top: 12px; font-size: 1.05rem; min-height: 64px; display: flex; flex-direction: column; justify-content: center; }
+  #retorno strong { font-size: 1.25rem; display: block; }
+  .sessao-atual { font-weight: 600; }
+  .resultados { list-style: none; margin: 8px 0 0; padding: 0; }
+  .resultados li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 4px; border-bottom: 1px solid var(--line); }
+  .resultados li:last-child { border-bottom: 0; }
+  .resultados .nome { font-weight: 500; }
+  .dias { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .dias button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .atividades { list-style: none; margin: 0; padding: 0; }
+  .atividades li { padding: 12px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
+  .atividades li:hover, .atividades li:focus { border-color: var(--accent); outline: none; }
+  .atividades li.agora { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
+  .atividades .hora { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .atividades .tit { display: block; margin-top: 2px; }
+  .ufs { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; margin-top: 10px; }
+  .ufs button { padding: 10px 0; }
+  .contador { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topo">
+    <div>
+      <h1>Presença · <span id="evento"></span></h1>
+      <div class="sub" id="infoInscritos">—</div>
+    </div>
+    <span class="pill" id="statusSync">—</span>
+  </div>
+
+  <!-- 1. Conexão (só aparece se o aparelho ainda não foi configurado) -->
+  <section class="card oculto" id="secConexao">
+    <h2>Configurar este aparelho</h2>
+    <p class="muted">O ideal é abrir o <b>link de configuração</b> enviado pela coordenação. Se preferir, preencha à mão:</p>
+    <label for="cUrl">Endereço do Apps Script</label>
+    <input id="cUrl" placeholder="https://script.google.com/macros/s/…/exec">
+    <label for="cChave" style="margin-top:8px">Chave</label>
+    <input id="cChave" type="password">
+    <div class="linha" style="margin-top:12px">
+      <button class="primario" id="btSalvarConexao">Salvar</button>
+    </div>
+  </section>
+
+  <!-- 2. Escolha da atividade -->
+  <section class="card oculto" id="secSessao">
+    <h2>Qual atividade você vai registrar?</h2>
+    <label for="sMonitor">Seu nome (monitor)</label>
+    <input id="sMonitor" placeholder="Exemplo de nome" style="margin-bottom:12px">
+    <div class="dias" id="abasDias"></div>
+    <ul class="atividades" id="listaAtividades"><li class="muted">Carregando a programação…</li></ul>
+    <details style="margin-top:6px">
+      <summary class="muted" style="cursor:pointer">Atividade que não está na lista</summary>
+      <div class="grade" style="margin-top:10px">
+        <div><label for="oTitulo">Nome da atividade</label><input id="oTitulo"></div>
+        <div><label for="oLocal">Local</label><input id="oLocal" placeholder="Ex.: Sala 004"></div>
+      </div>
+      <button style="margin-top:10px" id="btOutra">Começar a registrar</button>
+    </details>
+    <p class="muted" style="margin:12px 0 0;font-size:.8rem" id="origemProg"></p>
+  </section>
+
+  <!-- 3. Registro -->
+  <section class="oculto" id="secRegistro">
+    <div class="card linha" style="justify-content:space-between">
+      <div>
+        <div class="sessao-atual" id="rotuloSessao"></div>
+        <small id="rotuloMonitor"></small>
+      </div>
+      <div style="text-align:right">
+        <div class="contador" id="contador">0</div>
+        <small>presentes</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="leitor"></div>
+      <div class="linha" style="margin-top:10px">
+        <button class="primario" id="btCamera">Ligar câmera</button>
+        <button id="btTrocar">Trocar atividade</button>
+      </div>
+      <div id="retorno" class="aviso" style="background:var(--track);color:var(--ink2)">Aponte a câmera para o QR code do crachá.</div>
+      <div id="perguntaUF" class="oculto" style="margin-top:10px">
+        <b id="perguntaNome"></b> — de qual estado você é?
+        <div class="ufs" id="botoesUF"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Sem crachá? Busque pelo nome</h2>
+      <input id="busca" placeholder="Digite parte do nome…" autocomplete="off">
+      <ul class="resultados" id="resultadosBusca"></ul>
+      <details style="margin-top:10px">
+        <summary class="muted" style="cursor:pointer">Pessoa não está na lista de inscritos</summary>
+        <div class="grade" style="margin-top:10px">
+          <div><label for="mNome">Nome</label><input id="mNome"></div>
+          <div><label for="mUf">Estado (UF)</label><input id="mUf" maxlength="30" placeholder="SP"></div>
+        </div>
+        <button style="margin-top:10px" id="btManual">Registrar</button>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="linha" style="justify-content:space-between">
+        <h2 style="margin:0">Registrados nesta atividade</h2>
+        <button id="btSync">Enviar agora</button>
+      </div>
+      <ul class="resultados" id="listaSessao"></ul>
+    </div>
+
+    <p class="muted" style="text-align:center"><a href="#" id="btAtualizarLista">Atualizar lista de inscritos</a> · <a href="#" id="btDesconectar">Desconectar aparelho</a></p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="comum.js"></script>
+<script>
+const { CFG, ler, gravar, esc, semAcento } = ENPEMT;
+const $ = id => document.getElementById(id);
+$('evento').textContent = CFG.evento;
+
+let inscritos = ler('inscritos', []);      // [{id, nome, uf, ...}]
+let porId = new Map();
+let fila = ler('fila', []);                // registros ainda não enviados
+let historico = ler('historico', []);      // tudo que este aparelho registrou
+let sessao = ler('sessao2', null);         // {atividade, monitor}
+let atividades = [], diaEscolhido = null;
+let leitor = null, ultimoLido = { id: null, t: 0 };
+
+
+// ------------------------------------------------------------ telas
+function mostrar() {
+  const conectado = !!ENPEMT.conexao();
+  $('secConexao').classList.toggle('oculto', conectado);
+  $('secSessao').classList.toggle('oculto', !conectado || !!sessao);
+  $('secRegistro').classList.toggle('oculto', !conectado || !sessao);
+  if (conectado && sessao) renderSessao();
+  atualizarStatus();
+}
+
+$('sMonitor').value = ler('monitor', '');
+
+// ------------------------------------------------------------ programação
+const hojeISO = () => new Date().toLocaleDateString('sv-SE'); // AAAA-MM-DD no fuso do aparelho
+const agoraMin = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
+
+async function carregarProgramacao() {
+  try {
+    const r = await ENPEMT.carregarProgramacao();
+    atividades = r.atividades;
+    $('origemProg').textContent = `Programação: ${r.origem}.`;
+  } catch (err) {
+    $('origemProg').textContent = 'Não foi possível carregar a programação. Use "Atividade que não está na lista".';
+  }
+  const dias = [...new Set(atividades.map(a => a.data))];
+  diaEscolhido = dias.includes(hojeISO()) ? hojeISO() : (diaEscolhido || dias[0]);
+  renderAtividades();
+}
+
+function renderAtividades() {
+  const dias = [...new Set(atividades.map(a => a.data))];
+  $('abasDias').innerHTML = dias.map(d => `<button data-dia="${d}" aria-pressed="${d === diaEscolhido}">${esc(ENPEMT.rotuloDia(d))}</button>`).join('');
+  const ehHoje = diaEscolhido === hojeISO(), m = agoraMin();
+  $('listaAtividades').innerHTML = atividades.filter(a => a.data === diaEscolhido).map(a => {
+    const ini = ENPEMT.minutos(a.inicio), fim = ENPEMT.minutos(a.fim) ?? ini + 60;
+    const agora = ehHoje && m >= ini - 20 && m <= fim; // abre 20 min antes, para a fila da porta
+    return `<li tabindex="0" data-id="${esc(a.id)}" class="${agora ? 'agora' : ''}">
+      <span class="hora">${esc(a.inicio)}${a.fim ? '–' + esc(a.fim) : ''}</span>
+      ${agora ? '<span class="pill ok" style="margin-left:6px">agora</span>' : ''}
+      <small style="margin-left:6px">${esc(a.local || 'local a confirmar')}</small>
+      <span class="tit">${esc(a.titulo)}</span>
+      ${a.grupo ? `<small>${esc(a.grupo)}</small>` : ''}
+    </li>`;
+  }).join('') || '<li class="muted">Nenhuma atividade neste dia.</li>';
+}
+
+$('abasDias').onclick = e => { const d = e.target.dataset?.dia; if (d) { diaEscolhido = d; renderAtividades(); } };
+
+function comecar(atividade) {
+  const monitor = $('sMonitor').value.trim();
+  if (!monitor) { alert('Informe seu nome antes de escolher a atividade.'); $('sMonitor').focus(); return; }
+  gravar('monitor', monitor);
+  sessao = { atividade, monitor };
+  gravar('sessao2', sessao);
+  mostrar();
+}
+$('listaAtividades').onclick = e => {
+  const li = e.target.closest('li[data-id]');
+  if (li) comecar(atividades.find(a => a.id === li.dataset.id));
+};
+$('listaAtividades').onkeydown = e => { if (e.key === 'Enter') $('listaAtividades').onclick(e); };
+$('btOutra').onclick = () => {
+  const titulo = $('oTitulo').value.trim();
+  if (!titulo) return alert('Informe o nome da atividade.');
+  const data = diaEscolhido || hojeISO();
+  comecar({ id: 'extra-' + data + '-' + ENPEMT.semAcento(titulo).replace(/[^a-z0-9]+/g, '-'), data, inicio: '', fim: '', local: $('oLocal').value.trim(), titulo, grupo: '', tipo: 'extra', duracao: 0 });
+};
+
+$('btSalvarConexao').onclick = () => {
+  if (!$('cUrl').value.trim() || !$('cChave').value.trim()) return alert('Preencha os dois campos.');
+  ENPEMT.definirConexao($('cUrl').value, $('cChave').value);
+  iniciar();
+};
+
+$('btTrocar').onclick = () => {
+  pararCamera();
+  sessao = null;
+  gravar('sessao2', null);
+  renderAtividades();
+  mostrar();
+};
+$('btDesconectar').onclick = e => {
+  e.preventDefault();
+  if (fila.length && !confirm(`Há ${fila.length} registro(s) ainda não enviados. Desconectar mesmo assim?`)) return;
+  pararCamera();
+  ['api', 'inscritos', 'inscritosEm', 'fila'].forEach(k => localStorage.removeItem('enpemt:' + k));
+  inscritos = []; fila = [];
+  indexar();
+  mostrar();
+};
+$('btAtualizarLista').onclick = e => { e.preventDefault(); carregarInscritos(true); };
+
+// ------------------------------------------------------------ inscritos
+function indexar() {
+  porId = new Map(inscritos.map(p => [p.id, p]));
+  const t = ler('inscritosEm', null);
+  $('infoInscritos').textContent = inscritos.length
+    ? `${inscritos.length} inscritos carregados${t ? ' · ' + new Date(t).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''}`
+    : 'Lista de inscritos ainda não carregada';
+}
+async function carregarInscritos(avisar) {
+  try {
+    inscritos = await ENPEMT.carregarInscritos();
+    gravar('inscritos', inscritos);
+    gravar('inscritosEm', Date.now());
+    indexar();
+    if (avisar) alert(`Lista atualizada: ${inscritos.length} inscritos.`);
+  } catch (err) {
+    indexar();
+    if (avisar || !inscritos.length) alert('Não foi possível baixar a lista de inscritos: ' + err.message);
+  }
+}
+
+// ------------------------------------------------------------ registrar
+function jaRegistrado(p) {
+  const k = sessao.atividade.id;
+  return historico.find(r => r.atividadeId === k && (p.id !== 'MANUAL' ? r.id === p.id : semAcento(r.nome) === semAcento(p.nome)));
+}
+
+// No credenciamento, quem não tem estado na inscrição é perguntado uma vez (o painel usa essa resposta).
+const ufConhecida = p => ENPEMT.normalizarUF(p.uf) || historico.find(r => r.id === p.id && r.uf)?.uf;
+let aguardandoUF = null;
+$('botoesUF').innerHTML = [...Object.keys(ENPEMT.UFS), 'Exterior'].map(u => `<button data-uf="${u}">${u}</button>`).join('') + '<button data-uf="" style="grid-column:span 2">Pular</button>';
+$('botoesUF').onclick = e => {
+  const uf = e.target.dataset?.uf;
+  if (uf === undefined || !aguardandoUF) return;
+  const { p, modo } = aguardandoUF;
+  aguardandoUF = null;
+  $('perguntaUF').classList.add('oculto');
+  registrar({ ...p, uf }, modo, true);
+};
+
+function registrar(p, modo, ufJaPerguntada) {
+  if (aguardandoUF && !ufJaPerguntada) {
+    // Leu outro crachá sem responder: a pessoa anterior fica registrada, só sem estado
+    const pendente = aguardandoUF;
+    aguardandoUF = null;
+    $('perguntaUF').classList.add('oculto');
+    registrar(pendente.p, pendente.modo, true);
+  }
+  if (jaRegistrado(p)) { retorno('warn', p.nome, 'Já estava registrado(a) nesta atividade.'); return; }
+  if (!ufJaPerguntada && p.id !== 'MANUAL' && /credenciamento/i.test(sessao.atividade.titulo) && !ufConhecida(p)) {
+    aguardandoUF = { p, modo };
+    $('perguntaNome').textContent = p.nome;
+    $('perguntaUF').classList.remove('oculto');
+    retorno('ok', p.nome, 'Falta só o estado: toque na UF abaixo.', '?');
+    sinal(true);
+    return;
+  }
+  if (!p.uf) p = { ...p, uf: ufConhecida(p) || '' };
+  const reg = ENPEMT.registroDe(p, sessao.atividade, sessao.monitor, modo);
+  historico.push(reg);
+  fila.push(reg);
+  gravar('historico', historico);
+  gravar('fila', fila);
+  const info = [reg.uf, p.categoria].filter(Boolean).join(' · ') || 'Presença registrada';
+  if (p.apoio) retorno('warn', p.nome, info + ' — ♿ Acessibilidade: ' + p.apoio, '✓');
+  else retorno('ok', p.nome, info);
+  sinal(true);
+  renderSessao();
+  sincronizar();
+}
+
+function retorno(tipo, titulo, texto, icone) {
+  const el = $('retorno');
+  el.className = 'aviso ' + tipo;
+  el.style.background = el.style.color = '';
+  icone = icone || { ok: '✓', warn: '!', err: '✕' }[tipo];
+  el.innerHTML = `<strong>${icone} ${esc(titulo)}</strong><span>${esc(texto)}</span>`;
+}
+
+let audio;
+function sinal(ok) {
+  try {
+    navigator.vibrate?.(ok ? 80 : [60, 60, 60]);
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    const o = audio.createOscillator(), g = audio.createGain();
+    o.frequency.value = ok ? 880 : 220;
+    g.gain.value = 0.15;
+    o.connect(g).connect(audio.destination);
+    o.start();
+    o.stop(audio.currentTime + (ok ? 0.12 : 0.3));
+  } catch {}
+}
+
+// ------------------------------------------------------------ câmera
+function aoLer(texto) {
+  const id = ENPEMT.extrairId(texto);
+  const agora = Date.now();
+  if (id && id === ultimoLido.id && agora - ultimoLido.t < 3000) return; // mesmo crachá parado na frente da câmera
+  ultimoLido = { id, t: agora };
+  const p = id && porId.get(id);
+  if (!p) {
+    retorno('err', 'Código não reconhecido', id ? `Código ${id} não está na lista. Atualize a lista ou busque pelo nome.` : 'Este QR não é de um crachá do evento.');
+    sinal(false);
+    return;
+  }
+  registrar(p, 'qr');
+}
+
+async function ligarCamera() {
+  if (leitor?.isScanning) return pararCamera();
+  if (!window.isSecureContext) {
+    retorno('err', 'Câmera bloqueada neste endereço', 'O celular só libera a câmera em páginas https://. Abra pelo link https://ivanmoria.github.io/enpemt/. Enquanto isso, use a busca por nome.');
+    return;
+  }
+  leitor = leitor || new Html5Qrcode('leitor', { verbose: false });
+  try {
+    await leitor.start({ facingMode: 'environment' }, { fps: 10, qrbox: (w, h) => { const s = Math.floor(Math.min(w, h) * 0.7); return { width: s, height: s }; } }, aoLer, () => {});
+    $('btCamera').textContent = 'Desligar câmera';
+  } catch (err) {
+    retorno('err', 'Câmera indisponível', 'Permita o acesso à câmera nas configurações do navegador. (' + err + ')');
+  }
+}
+async function pararCamera() {
+  if (leitor?.isScanning) await leitor.stop();
+  $('btCamera').textContent = 'Ligar câmera';
+}
+$('btCamera').onclick = ligarCamera;
+
+// ------------------------------------------------------------ busca por nome / manual
+$('busca').oninput = () => {
+  const q = semAcento($('busca').value);
+  const ul = $('resultadosBusca');
+  if (q.length < 2) { ul.innerHTML = ''; return; }
+  const termos = q.split(/\s+/);
+  const achados = inscritos.filter(p => { const n = semAcento(p.nome + ' ' + p.nomeCracha); return termos.every(t => n.includes(t)); }).slice(0, 8);
+  ul.innerHTML = achados.length
+    ? achados.map(p => `<li><span><span class="nome">${esc(p.nome)}</span> <small>${esc([ENPEMT.normalizarUF(p.uf) || p.uf, p.categoria].filter(Boolean).join(' · '))}</small>${p.apoio ? ' <span title="Precisa de acessibilidade">♿</span>' : ''}</span><button data-id="${esc(p.id)}">Registrar</button></li>`).join('')
+    : '<li class="muted">Ninguém encontrado.</li>';
+};
+$('resultadosBusca').onclick = e => {
+  const id = e.target.dataset?.id;
+  if (!id) return;
+  registrar(porId.get(id), 'busca');
+  $('busca').value = '';
+  $('resultadosBusca').innerHTML = '';
+};
+$('btManual').onclick = () => {
+  const nome = $('mNome').value.trim();
+  if (!nome) return alert('Informe o nome.');
+  registrar({ id: 'MANUAL', nome, uf: $('mUf').value.trim() }, 'manual');
+  $('mNome').value = $('mUf').value = '';
+};
+
+// ------------------------------------------------------------ sessão atual
+function renderSessao() {
+  const a = sessao.atividade;
+  $('rotuloSessao').textContent = a.titulo;
+  $('rotuloMonitor').textContent = [ENPEMT.rotuloDia(a.data) + (a.inicio ? ' ' + a.inicio : ''), a.local, 'Monitor: ' + sessao.monitor].filter(Boolean).join(' · ');
+  const k = a.id;
+  const pendentes = new Set(fila.map(r => r.uid));
+  const daSessao = historico.filter(r => r.atividadeId === k).reverse();
+  $('contador').textContent = daSessao.length;
+  $('listaSessao').innerHTML = daSessao.map(r => `<li><span><span class="nome">${esc(r.nome)}</span> <small>${esc(r.uf)}</small></span><small title="${pendentes.has(r.uid) ? 'Aguardando envio' : 'Salvo na planilha'}">${new Date(r.ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} ${pendentes.has(r.uid) ? '⏳' : '✓'}</small></li>`).join('')
+    || '<li class="muted">Ninguém ainda.</li>';
+}
+
+// ------------------------------------------------------------ envio para a planilha (com fila offline)
+let enviando = false, ultimoErro = null;
+async function sincronizar() {
+  if (enviando || !fila.length || !ENPEMT.conexao()) { atualizarStatus(); return; }
+  enviando = true;
+  atualizarStatus();
+  try {
+    while (fila.length) {
+      const lote = fila.slice(0, 40);
+      const r = await ENPEMT.chamarPost({ acao: 'registrar', registros: lote });
+      const ok = new Set(r.gravados);
+      fila = fila.filter(x => !ok.has(x.uid));
+      gravar('fila', fila);
+    }
+    ultimoErro = null;
+  } catch (err) {
+    ultimoErro = err.message;
+  } finally {
+    enviando = false;
+    atualizarStatus();
+    if (sessao) renderSessao();
+  }
+}
+function atualizarStatus() {
+  const el = $('statusSync');
+  if (!ENPEMT.conexao()) { el.className = 'pill'; el.textContent = 'Não configurado'; return; }
+  if (enviando) { el.className = 'pill'; el.textContent = 'Enviando…'; }
+  else if (fila.length) { el.className = 'pill warn'; el.textContent = `${fila.length} aguardando envio`; el.title = ultimoErro || ''; }
+  else { el.className = 'pill ok'; el.textContent = 'Tudo salvo'; el.title = ''; }
+}
+$('btSync').onclick = sincronizar;
+window.addEventListener('online', sincronizar);
+setInterval(sincronizar, 15000);
+window.addEventListener('beforeunload', e => { if (fila.length) { e.preventDefault(); e.returnValue = ''; } });
+
+// ------------------------------------------------------------ início
+function iniciar() {
+  indexar();
+  mostrar();
+  carregarProgramacao();
+  if (ENPEMT.conexao()) { carregarInscritos(false); sincronizar(); }
+}
+iniciar();
+</script>
+</body>
+</html>
