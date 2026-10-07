@@ -27,6 +27,9 @@
   .atividades .tit { display: block; margin-top: 2px; }
   .ufs { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; margin-top: 10px; }
   .ufs button { padding: 10px 0; }
+  .resultados li.alerta { background: var(--warn-bg); border-radius: 8px; padding-left: 8px; padding-right: 8px; }
+  .resultados .aviso-alerta { display: block; color: var(--warn); font-size: .8rem; }
+  .bt-remover { padding: 4px 10px; color: var(--err); border-color: transparent; background: transparent; font-size: 1.05rem; }
   .contador { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; }
 </style>
 </head>
@@ -106,6 +109,7 @@
         <div class="grade" style="margin-top:10px">
           <div><label for="mNome">Nome</label><input id="mNome"></div>
           <div><label for="mUf">Estado (UF)</label><input id="mUf" maxlength="30" placeholder="SP"></div>
+          <div><label for="mEmail">E-mail (para o certificado)</label><input id="mEmail" type="email" autocomplete="off"></div>
         </div>
         <button style="margin-top:10px" id="btManual">Registrar</button>
       </details>
@@ -134,6 +138,7 @@ $('evento').textContent = CFG.evento;
 let inscritos = ler('inscritos', []);      // [{id, nome, uf, ...}]
 let porId = new Map();
 let fila = ler('fila', []);                // registros ainda não enviados
+let remocoes = ler('remocoes', []);        // leituras desfeitas ainda não enviadas: [{uid, monitor, ts}]
 let historico = ler('historico', []);      // tudo que este aparelho registrou
 let sessao = ler('sessao2', null);         // {atividade, monitor}
 let atividades = [], diaEscolhido = null;
@@ -194,6 +199,7 @@ function comecar(atividade) {
   gravar('monitor', monitor);
   sessao = { atividade, monitor };
   gravar('sessao2', sessao);
+  ultimoLido = { id: null, t: 0 };
   mostrar();
 }
 $('listaAtividades').onclick = e => {
@@ -223,11 +229,11 @@ $('btTrocar').onclick = () => {
 };
 $('btDesconectar').onclick = e => {
   e.preventDefault();
-  if (fila.length && !confirm(`Há ${fila.length} registro(s) ainda não enviados. Desconectar mesmo assim?`)) return;
+  if ((fila.length || remocoes.length) && !confirm(`Há ${fila.length + remocoes.length} alteração(ões) ainda não enviadas. Desconectar mesmo assim?`)) return;
   pararCamera();
   // Limpa tudo deste aparelho, inclusive o histórico (senão testes bloqueiam registros reais com "já registrado")
-  ['api', 'inscritos', 'inscritosEm', 'fila', 'historico', 'sessao2'].forEach(k => localStorage.removeItem('enpemt:' + k));
-  inscritos = []; fila = []; historico = []; sessao = null;
+  ['api', 'inscritos', 'inscritosEm', 'fila', 'remocoes', 'historico', 'sessao2'].forEach(k => localStorage.removeItem('enpemt:' + k));
+  inscritos = []; fila = []; remocoes = []; historico = []; sessao = null;
   indexar();
   mostrar();
 };
@@ -255,9 +261,12 @@ async function carregarInscritos(avisar) {
 }
 
 // ------------------------------------------------------------ registrar
+const mesmaPessoa = (r, p) => p.id !== 'MANUAL' ? r.id === p.id : r.id === 'MANUAL' && semAcento(r.nome) === semAcento(p.nome);
+const hora = ts => new Date(ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
 function jaRegistrado(p) {
   const k = sessao.atividade.id;
-  return historico.find(r => r.atividadeId === k && (p.id !== 'MANUAL' ? r.id === p.id : semAcento(r.nome) === semAcento(p.nome)));
+  return historico.find(r => r.atividadeId === k && mesmaPessoa(r, p));
 }
 
 // No credenciamento, quem não tem estado na inscrição é perguntado uma vez (o painel usa essa resposta).
@@ -292,12 +301,16 @@ function registrar(p, modo, ufJaPerguntada) {
   }
   if (!p.uf) p = { ...p, uf: ufConhecida(p) || '' };
   const reg = ENPEMT.registroDe(p, sessao.atividade, sessao.monitor, modo);
+  // Outra atividade no mesmo horário (neste aparelho): registra, mas avisa. A planilha confere entre aparelhos.
+  const conflitos = historico.filter(r => mesmaPessoa(r, p) && ENPEMT.mesmoHorario(r, sessao.atividade));
+  if (conflitos.length) reg.alerta = conflitos.map(r => 'Também em ' + (r.local || r.atividade) + ' às ' + hora(r.ts)).join('; ');
   historico.push(reg);
   fila.push(reg);
   gravar('historico', historico);
   gravar('fila', fila);
   const info = [reg.uf, p.categoria].filter(Boolean).join(' · ') || 'Presença registrada';
-  if (p.apoio) retorno('warn', p.nome, info + ' — ♿ Acessibilidade: ' + p.apoio, '✓');
+  if (reg.alerta) retorno('warn', p.nome, '⚠ ' + reg.alerta + ', no mesmo horário. Confira se a pessoa está mesmo nesta sala; se não, toque no ✕ abaixo.' + (p.apoio ? ' ♿ ' + p.apoio : ''), '⚠');
+  else if (p.apoio) retorno('warn', p.nome, info + ' — ♿ Acessibilidade: ' + p.apoio, '✓');
   else retorno('ok', p.nome, info);
   sinal(true);
   renderSessao();
@@ -382,8 +395,8 @@ $('resultadosBusca').onclick = e => {
 $('btManual').onclick = () => {
   const nome = $('mNome').value.trim();
   if (!nome) return alert('Informe o nome.');
-  registrar({ id: 'MANUAL', nome, uf: $('mUf').value.trim() }, 'manual');
-  $('mNome').value = $('mUf').value = '';
+  registrar({ id: 'MANUAL', nome, uf: $('mUf').value.trim(), email: $('mEmail').value.trim() }, 'manual');
+  $('mNome').value = $('mUf').value = $('mEmail').value = '';
 };
 
 // ------------------------------------------------------------ sessão atual
@@ -395,14 +408,35 @@ function renderSessao() {
   const pendentes = new Set(fila.map(r => r.uid));
   const daSessao = historico.filter(r => r.atividadeId === k).reverse();
   $('contador').textContent = daSessao.length;
-  $('listaSessao').innerHTML = daSessao.map(r => `<li><span><span class="nome">${esc(r.nome)}</span> <small>${esc(r.uf)}</small></span><small title="${pendentes.has(r.uid) ? 'Aguardando envio' : 'Salvo na planilha'}">${new Date(r.ts).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} ${pendentes.has(r.uid) ? '⏳' : '✓'}</small></li>`).join('')
+  $('listaSessao').innerHTML = daSessao.map(r => `<li class="${r.alerta ? 'alerta' : ''}">
+      <span><span class="nome">${r.alerta ? '⚠ ' : ''}${esc(r.nome)}</span> <small>${esc(r.uf)}</small>
+        ${r.alerta ? `<span class="aviso-alerta">${esc(r.alerta)}</span>` : ''}</span>
+      <span style="white-space:nowrap"><small title="${pendentes.has(r.uid) ? 'Aguardando envio' : 'Salvo na planilha'}">${hora(r.ts)} ${pendentes.has(r.uid) ? '⏳' : '✓'}</small>
+        <button class="bt-remover" data-uid="${esc(r.uid)}" title="Desfazer esta leitura" aria-label="Remover ${esc(r.nome)}">✕</button></span>
+    </li>`).join('')
     || '<li class="muted">Ninguém ainda.</li>';
 }
 
 // ------------------------------------------------------------ envio para a planilha (com fila offline)
 let enviando = false, ultimoErro = null;
+$('listaSessao').onclick = e => {
+  const uid = e.target.closest('.bt-remover')?.dataset.uid;
+  if (!uid) return;
+  const r = historico.find(x => x.uid === uid);
+  if (!r || !confirm(`Remover a presença de ${r.nome} nesta atividade?`)) return;
+  historico = historico.filter(x => x.uid !== uid);
+  if (fila.some(x => x.uid === uid)) fila = fila.filter(x => x.uid !== uid); // nem chegou à planilha
+  else remocoes.push({ uid, monitor: sessao.monitor, ts: new Date().toISOString() });
+  gravar('historico', historico);
+  gravar('fila', fila);
+  gravar('remocoes', remocoes);
+  retorno('ok', r.nome, 'Presença removida desta atividade.', '↩');
+  renderSessao();
+  sincronizar();
+};
+
 async function sincronizar() {
-  if (enviando || !fila.length || !ENPEMT.conexao()) { atualizarStatus(); return; }
+  if (enviando || !(fila.length || remocoes.length) || !ENPEMT.conexao()) { atualizarStatus(); return; }
   enviando = true;
   atualizarStatus();
   try {
@@ -412,6 +446,18 @@ async function sincronizar() {
       const ok = new Set(r.gravados);
       fila = fila.filter(x => !ok.has(x.uid));
       gravar('fila', fila);
+      // A planilha avisa quando a pessoa foi lida no mesmo horário em outra sala (por qualquer monitor)
+      Object.entries(r.alertas || {}).forEach(([uid, texto]) => {
+        const h = historico.find(x => x.uid === uid);
+        if (h && h.alerta !== texto) { h.alerta = texto; if (h.atividadeId === sessao?.atividade.id) retorno('warn', h.nome, '⚠ ' + texto, '⚠'); }
+      });
+      gravar('historico', historico);
+    }
+    if (remocoes.length) {
+      const r = await ENPEMT.chamarPost({ acao: 'remover', remocoes: remocoes.slice(0, 40) });
+      const ok = new Set(r.removidos);
+      remocoes = remocoes.filter(x => !ok.has(x.uid));
+      gravar('remocoes', remocoes);
     }
     ultimoErro = null;
   } catch (err) {
@@ -426,13 +472,13 @@ function atualizarStatus() {
   const el = $('statusSync');
   if (!ENPEMT.conexao()) { el.className = 'pill'; el.textContent = 'Não configurado'; return; }
   if (enviando) { el.className = 'pill'; el.textContent = 'Enviando…'; }
-  else if (fila.length) { el.className = 'pill warn'; el.textContent = `${fila.length} aguardando envio`; el.title = ultimoErro || ''; }
+  else if (fila.length || remocoes.length) { el.className = 'pill warn'; el.textContent = `${fila.length + remocoes.length} aguardando envio`; el.title = ultimoErro || ''; }
   else { el.className = 'pill ok'; el.textContent = 'Tudo salvo'; el.title = ''; }
 }
 $('btSync').onclick = sincronizar;
 window.addEventListener('online', sincronizar);
 setInterval(sincronizar, 15000);
-window.addEventListener('beforeunload', e => { if (fila.length) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('beforeunload', e => { if (fila.length || remocoes.length) { e.preventDefault(); e.returnValue = ''; } });
 
 // ------------------------------------------------------------ início
 function iniciar() {

@@ -26,9 +26,9 @@
   .etiqueta .completo, .etiqueta .cat { display: none; }
   .etiqueta .uf, .etiqueta .ev { font-size: 7.5pt; }
   .item .qr { flex: none; text-align: center; font: 600 8pt ui-monospace, monospace; color: #444; }
-  .item .qr img, .item .qr canvas { display: block; margin-bottom: 1mm; }
-  .cracha .qr img, .cracha .qr canvas { width: 34mm; height: 34mm; }
-  .etiqueta .qr img, .etiqueta .qr canvas { width: 26mm; height: 26mm; }
+  .item .qr svg { display: block; margin-bottom: 1mm; }
+  .cracha .qr svg { width: 34mm; height: 34mm; }
+  .etiqueta .qr svg { width: 26mm; height: 26mm; }
 
   @media print {
     @page { size: A4; margin: 10mm; }
@@ -71,7 +71,7 @@
   <div id="folha" class="folha cracha"></div>
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="config.js"></script>
 <script src="comum.js"></script>
 <script>
@@ -102,10 +102,30 @@ function render() {
       <div class="qr" data-id="${esc(p.id)}"><div></div>${esc(p.id)}</div>
     </div>`;
   }).join('');
-  folha.querySelectorAll('.qr').forEach(el => {
-    new QRCode(el.firstElementChild, { text: CFG.prefixoQR + el.dataset.id, width: 256, height: 256, correctLevel: QRCode.CorrectLevel.M });
-  });
   $('info').textContent = `${lista.length} de ${inscritos.length} inscritos`;
+  desenharQRs([...folha.querySelectorAll('.qr')]);
+}
+
+// QR em SVG (leve e nítido na impressão), em lotes, para a página não travar
+const cacheQR = new Map();
+function svgQR(id) {
+  if (!cacheQR.has(id)) {
+    const qr = qrcode(0, 'M');
+    qr.addData(CFG.prefixoQR + id);
+    qr.make();
+    cacheQR.set(id, qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }));
+  }
+  return cacheQR.get(id);
+}
+let desenho = 0;
+function desenharQRs(els) {
+  const vez = ++desenho; // um filtro novo cancela o desenho anterior
+  const lote = () => {
+    if (vez !== desenho) return;
+    els.splice(0, 20).forEach(el => { el.firstElementChild.innerHTML = svgQR(el.dataset.id); });
+    if (els.length) setTimeout(lote, 0); // setTimeout segue mesmo com a aba em segundo plano
+  };
+  lote();
 }
 
 $('modelo').onchange = render;
@@ -114,11 +134,14 @@ $('filtro').oninput = () => { clearTimeout(t); t = setTimeout(render, 250); };
 
 (async () => {
   if (!ENPEMT.conexao()) { $('info').innerHTML = 'Sistema não configurado. Configure na <a href="./">página inicial</a>.'; return; }
+  const guardados = ENPEMT.ler('inscritos', []);
+  if (guardados.length) { inscritos = guardados; render(); $('info').textContent += ' · atualizando…'; }
   try {
     inscritos = await ENPEMT.carregarInscritos();
+    ENPEMT.gravar('inscritos', inscritos);
     render();
   } catch (err) {
-    $('info').textContent = 'Erro ao carregar inscritos: ' + err.message;
+    $('info').textContent = (guardados.length ? `${guardados.length} inscritos (lista guardada neste aparelho) · ` : '') + 'Não foi possível atualizar: ' + err.message;
   }
 })();
 </script>

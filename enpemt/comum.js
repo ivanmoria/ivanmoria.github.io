@@ -26,11 +26,20 @@ const ENPEMT = (() => {
   const definirConexao = (url, chave) => gravar('api', { url: url.trim(), chave: chave.trim() });
 
   // ------------------------------------------------------------ API
+  // O Google às vezes demora; depois de 40 s desiste e avisa, em vez de deixar a tela parada
+  async function comLimite(url, opcoes) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 40000);
+    try { return await fetch(url, { ...opcoes, signal: ctrl.signal }); }
+    catch (err) { throw new Error(err.name === 'AbortError' ? 'o Google demorou demais para responder, tente de novo' : 'sem conexão'); }
+    finally { clearTimeout(t); }
+  }
+
   async function chamarGet(acao) {
     const c = conexao();
     if (!c) throw new Error('Sistema não configurado');
     const q = new URLSearchParams({ acao, chave: c.chave });
-    const r = await fetch(c.url + '?' + q, { cache: 'no-store' });
+    const r = await comLimite(c.url + '?' + q, { cache: 'no-store' });
     const j = await r.json();
     if (!j.ok) throw new Error(j.erro || 'Erro no servidor');
     return j;
@@ -39,7 +48,7 @@ const ENPEMT = (() => {
     const c = conexao();
     if (!c) throw new Error('Sistema não configurado');
     // Sem cabeçalhos extras: vai como text/plain e o navegador não faz preflight (o Apps Script não aceita).
-    const r = await fetch(c.url, { method: 'POST', body: JSON.stringify({ ...corpo, chave: c.chave }) });
+    const r = await comLimite(c.url, { method: 'POST', body: JSON.stringify({ ...corpo, chave: c.chave }) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.erro || 'Erro no servidor');
     return j;
@@ -241,6 +250,15 @@ const ENPEMT = (() => {
     }
   }
 
+  /** Duas atividades diferentes no mesmo dia com horários que se cruzam (mesma regra do Codigo.gs) */
+  function mesmoHorario(a, b) {
+    if (!a.data || a.data !== b.data || (a.atividadeId || a.id) === (b.atividadeId || b.id)) return false;
+    const ai = minutos(a.inicio), bi = minutos(b.inicio);
+    if (ai == null || bi == null) return false;
+    const af = minutos(a.fim) ?? ai + 60, bf = minutos(b.fim) ?? bi + 60;
+    return ai < bf && bi < af;
+  }
+
   /** Mesmo rótulo curto em todas as telas: "Sex 9/10 · 14:00" */
   function rotuloDia(data) {
     const d = new Date(data + 'T12:00:00');
@@ -266,7 +284,7 @@ const ENPEMT = (() => {
   function registroDe(pessoa, atividade, monitor, modo) {
     return {
       uid: novoUid(), ts: new Date().toISOString(),
-      id: pessoa.id, nome: pessoa.nome, uf: normalizarUF(pessoa.uf) || pessoa.uf || '',
+      id: pessoa.id, nome: pessoa.nome, email: pessoa.email || '', uf: normalizarUF(pessoa.uf) || pessoa.uf || '',
       data: atividade.data, inicio: atividade.inicio, fim: atividade.fim, local: atividade.local,
       atividade: atividade.titulo, atividadeId: atividade.id, monitor, modo
     };
@@ -282,6 +300,6 @@ const ENPEMT = (() => {
     CFG, ler, gravar, conexao, definirConexao, chamarGet, chamarPost, carregarInscritos,
     semAcento, esc, formatarNome, nomeCurto, categoria, extrairId, novoUid,
     UFS, REGIOES, regiaoDe, normalizarUF, inscritosDaTabela, baixarCSV,
-    lerCSV, montarAtividades, carregarProgramacao, rotuloDia, minutos, registroDe
+    lerCSV, montarAtividades, carregarProgramacao, rotuloDia, minutos, mesmoHorario, registroDe
   };
 })();
