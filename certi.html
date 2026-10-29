@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CXXQWTK780"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CXXQWTK780');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="description" content="Certificados">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#2d2b2b">
+  <title>Certificados</title>
+  <link rel="icon" href="https://img.icons8.com/?size=100&id=30660&format=png&color=000000" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Poiret+One&display=swap" rel="stylesheet">
+  <!-- Fontes usadas para escrever DENTRO do certificado -->
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: white; color: #333; }
+
+    html { overscroll-behavior: none; height: 100%; }
+    body, html {
+      overflow: hidden;
+      background: #2d2b2b;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      overscroll-behavior: none;
+      position: fixed;
+      width: 100%; height: 100%;
+    }
+
+    body.light-theme { background: #eceae6; }
+
+    .link-btn {
+      color: white;
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(18px, 4vw, 25px);
+      font-weight: 600; letter-spacing: 0.04em;
+      border: none; background: none;
+      padding: 8px 12px; cursor: pointer;
+      transition: all 0.25s ease; display: block;
+    }
+    .link-btn:hover { color: rgba(255,255,255,0.95); text-shadow: 0 0 12px rgba(150,200,255,0.4); }
+
+    .planet-button {
+      border: none; background: none; cursor: pointer; padding: 4px;
+      transition: transform 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10000; position: relative; pointer-events: auto !important;
+    }
+    .planet-button:hover { transform: scale(1.15); }
+
+    /* ── Layout ── */
+    .shell {
+      position: fixed; inset: 0;
+      padding: 68px 18px 16px;
+      z-index: 1000;
+      display: flex; gap: 14px;
+      pointer-events: none;
+    }
+    .panel {
+      width: min(380px, 42vw);
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 16px;
+      overflow-y: auto; scrollbar-width: none;
+      pointer-events: auto;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .panel::-webkit-scrollbar { width: 0; }
+    .stage {
+      flex: 1; min-width: 0;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 12px;
+      pointer-events: auto;
+      display: flex; flex-direction: column; gap: 8px;
+      align-items: center; justify-content: center;
+    }
+    .stage-wrap { position: relative; max-width: 100%; line-height: 0; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
+    .stage-wrap > canvas { display: block; max-width: 100%; width: auto; height: auto; }
+    img.blk { padding: 0; line-height: 0; }
+    .stage-empty {
+      font-family: 'Poiret One', cursive;
+      font-size: clamp(15px, 2.6vw, 19px);
+      color: rgba(255,255,255,0.55);
+      text-align: center; line-height: 1.6; padding: 20px;
+    }
+    .stage-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; flex-wrap: wrap;
+      font-family: 'Poiret One', cursive;
+      font-size: 14px; color: rgba(255,255,255,0.72);
+    }
+
+    /* blocos arrastáveis sobre o certificado */
+    .blk {
+      position: absolute; white-space: pre; line-height: 1.05;
+      cursor: grab; touch-action: none;
+      padding: 2px 4px; border: 1px dashed rgba(150,200,255,0.4);
+      border-radius: 3px;
+    }
+    .blk:hover { border-color: rgba(150,200,255,0.9); background: rgba(120,180,255,0.08); }
+    .blk.sel { border-color: rgba(150,200,255,1); background: rgba(120,180,255,0.14); }
+    .stage-wrap.no-guides .blk { border-color: transparent; background: none; }
+
+    /* ── Seções ── */
+    .sec { display: flex; flex-direction: column; gap: 9px; padding-bottom: 14px;
+           border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sec:last-child { border-bottom: none; padding-bottom: 0; }
+    .sec-title {
+      font-family: 'Poiret One', cursive;
+      font-size: 16px; letter-spacing: 0.09em;
+      color: rgba(255,255,255,0.92); font-weight: 600;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 19px; height: 19px; border-radius: 50%;
+      background: rgba(150,200,255,0.2); border: 1px solid rgba(150,200,255,0.5);
+      font-size: 11px; color: rgba(255,255,255,0.9);
+    }
+    .lbl { font-family: 'Poiret One', cursive; font-size: 13px;
+           letter-spacing: 0.06em; color: rgba(255,255,255,0.72); }
+    .note { font-family: 'Poiret One', cursive; font-size: 12.5px;
+            color: rgba(255,255,255,0.5); line-height: 1.45; }
+    .note.warn { color: rgba(255,190,150,0.9); }
+    .note.ok { color: rgba(180,255,190,0.85); }
+
+    .inp, select.inp, textarea.inp {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px; color: white;
+      font-family: 'Poiret One', cursive; font-size: 15px;
+      padding: 8px 10px; outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      user-select: text !important; -webkit-user-select: text !important;
+      pointer-events: auto !important;
+    }
+    textarea.inp { resize: vertical; line-height: 1.4; }
+    select.inp { cursor: pointer; -webkit-appearance: none; appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.6) 50%),
+                        linear-gradient(135deg, rgba(255,255,255,0.6) 50%, transparent 50%);
+      background-position: calc(100% - 15px) 16px, calc(100% - 10px) 16px;
+      background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 26px;
+    }
+    select.inp option { background: #2d2b2b; color: white; }
+    .inp:focus { border-color: rgba(150,200,255,0.55); background: rgba(255,255,255,0.11); }
+    .inp::placeholder { color: rgba(255,255,255,0.25); }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .row { display: flex; gap: 8px; align-items: center; }
+    .row > .grow { flex: 1; min-width: 0; }
+
+    .btn {
+      padding: 10px 12px; border-radius: 6px; cursor: pointer;
+      font-family: 'Poiret One', cursive; font-size: 15px; letter-spacing: 0.07em;
+      transition: all 0.22s ease; pointer-events: auto !important; width: 100%;
+      background: rgba(120,180,255,0.26); color: #fff;
+      border: 1.5px solid rgba(150,200,255,0.5);
+    }
+    .btn:hover { background: rgba(120,180,255,0.42); border-color: rgba(180,220,255,0.95); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+    .btn-go { background: rgba(140,230,150,0.28); border-color: rgba(170,255,180,0.6);
+              font-size: 16px; padding: 13px 12px; }
+    .btn-go:hover { background: rgba(140,230,150,0.45); border-color: rgba(190,255,200,0.95); }
+    .btn-sm { width: auto; padding: 5px 10px; font-size: 13px;
+              background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); }
+    .btn-sm:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.4); }
+
+    /* label é inline por natureza: sem o block, a moldura tracejada
+       encolhe em volta do texto e o cartão fica torto */
+    .drop {
+      display: block; width: 100%;
+      border: 1.5px dashed rgba(255,255,255,0.25); border-radius: 8px;
+      padding: 13px 10px; text-align: center; cursor: pointer;
+      font-family: 'Poiret One', cursive; font-size: 14px; line-height: 1.45;
+      color: rgba(255,255,255,0.6); transition: all 0.2s ease;
+    }
+    .drop:hover, .drop.over { border-color: rgba(150,200,255,0.7); color: rgba(255,255,255,0.9);
+                              background: rgba(120,180,255,0.08); }
+    .drop.ok { border-color: rgba(170,255,180,0.5); border-style: solid; color: rgba(200,255,210,0.9); }
+    .drop input[type=file] { display: none; }
+
+    .toggle { display: flex; align-items: center; gap: 7px;
+              font-family: 'Poiret One', cursive; font-size: 13.5px;
+              color: rgba(255,255,255,0.75); cursor: pointer; }
+    .toggle input { accent-color: #7ab8ff; cursor: pointer; width: 15px; height: 15px; flex-shrink: 0; }
+
+    input[type="color"] {
+      -webkit-appearance: none; appearance: none;
+      width: 38px; height: 32px; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px; cursor: pointer; background: none; padding: 2px;
+      pointer-events: auto !important; flex-shrink: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 2px; }
+    input[type="color"]::-webkit-color-swatch { border: none; border-radius: 3px; }
+
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 3px;
+      border-radius: 2px; background: rgba(255,255,255,0.22); outline: none;
+      pointer-events: auto !important; cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+      background: rgba(190,220,255,0.95); cursor: pointer;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 14px; height: 14px; border-radius: 50%; border: none;
+      background: rgba(190,220,255,0.95); cursor: pointer;
+    }
+
+    .seg { display: flex; border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; overflow: hidden; }
+    .seg button { flex: 1; padding: 7px 4px; border: none; cursor: pointer;
+      background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6);
+      font-family: 'Poiret One', cursive; font-size: 13.5px; transition: all 0.2s ease; }
+    .seg button + button { border-left: 1px solid rgba(255,255,255,0.14); }
+    .seg button.on { background: rgba(120,180,255,0.3); color: white; }
+
+    /* lista de quem ministrou */
+    .people {
+      max-height: 168px; overflow-y: auto; scrollbar-width: thin;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;
+      padding: 6px; display: flex; flex-direction: column; gap: 2px;
+    }
+    .person { display: flex; align-items: center; gap: 7px; padding: 3px 4px;
+      border-radius: 4px; cursor: pointer;
+      font-family: 'Poiret One', cursive; font-size: 13.5px;
+      color: rgba(255,255,255,0.75); }
+    .person:hover { background: rgba(255,255,255,0.07); }
+    .person.on { color: rgba(190,225,255,1); background: rgba(120,180,255,0.12); }
+    .person.aqui { outline: 1px solid rgba(150,200,255,0.5); }
+    .person span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* botão N (negrito) */
+    .btn.neg, #name-bold, #body-bold {
+      width: 34px; flex: 0 0 34px; padding: 7px 0;
+      font-weight: 700; font-size: 15px;
+    }
+    .btn.neg.on, #name-bold.on, #body-bold.on {
+      background: rgba(120,180,255,0.4); border-color: rgba(180,220,255,0.95); color: #fff;
+    }
+    body.light-theme .btn.neg.on, body.light-theme #name-bold.on, body.light-theme #body-bold.on {
+      background: rgba(60,120,200,0.3); color: rgba(20,60,130,1);
+    }
+
+    .prog { width: 100%; height: 4px; border-radius: 2px;
+            background: rgba(255,255,255,0.14); overflow: hidden; display: none; }
+    .prog.on { display: block; }
+    .prog > div { height: 100%; width: 0%; background: rgba(170,255,180,0.85); transition: width 0.2s ease; }
+
+    .signature-wrap { position: fixed; left: 50%; bottom: 5px;
+      transform: translateX(-50%); z-index: 1000; pointer-events: none; }
+    .signature { font-family: "Rock Salt", cursive; font-size: clamp(10px, 2.2vw, 13px);
+      color: rgba(255,255,255,0.45); white-space: nowrap; }
+
+    /* ── Tema claro ── */
+    body.light-theme .panel { background: rgba(255,255,255,0.93); }
+    body.light-theme .stage { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); }
+    body.light-theme .sec { border-bottom-color: rgba(0,0,0,0.1); }
+    body.light-theme .sec-title { color: black; }
+    body.light-theme .num { color: rgba(20,60,130,1); background: rgba(60,120,200,0.16);
+                            border-color: rgba(60,120,200,0.45); }
+    body.light-theme .lbl, body.light-theme .note { color: rgba(0,0,0,0.6); }
+    body.light-theme .stage-bar, body.light-theme .toggle { color: rgba(0,0,0,0.65); }
+    body.light-theme .inp, body.light-theme select.inp, body.light-theme textarea.inp {
+      background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.22); color: black; }
+    body.light-theme select.inp option { background: white; color: black; }
+    body.light-theme .inp::placeholder { color: rgba(0,0,0,0.3); }
+    body.light-theme .drop { color: rgba(0,0,0,0.55); border-color: rgba(0,0,0,0.25); }
+    body.light-theme .drop.ok { color: rgba(20,110,50,0.95); border-color: rgba(40,150,70,0.5); }
+    body.light-theme .btn { background: rgba(60,120,200,0.14); color: rgba(30,80,160,1);
+                            border-color: rgba(60,120,200,0.5); }
+    body.light-theme .btn-go { background: rgba(40,150,70,0.16); color: rgba(20,110,50,1);
+                               border-color: rgba(40,150,70,0.5); }
+    body.light-theme .btn-sm { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.7);
+                               border-color: rgba(0,0,0,0.2); }
+    body.light-theme .seg button { background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.55); }
+    body.light-theme .seg button.on { background: rgba(60,120,200,0.25); color: rgba(20,60,130,1); }
+    body.light-theme .people { border-color: rgba(0,0,0,0.15); }
+    body.light-theme .person { color: rgba(0,0,0,0.75); }
+    body.light-theme .person.on { color: rgba(20,60,130,1); background: rgba(60,120,200,0.12); }
+    body.light-theme .link-btn { color: black !important; }
+    body.light-theme .signature { color: rgba(0,0,0,0.5); }
+    body.light-theme #page-title { color: rgba(0,0,0,0.8) !important; }
+    body.light-theme #theme-label { color: black !important; }
+    body.light-theme .stage-empty { color: rgba(0,0,0,0.5); }
+
+    @media (max-width: 900px) {
+      .shell { flex-direction: column; padding: 58px 8px 8px; gap: 8px; }
+      .panel { width: 100%; max-height: 54vh; }
+      .stage { min-height: 140px; padding: 6px; }
+      .signature-wrap { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <div style="position: fixed; top: 16px; left: 0; right: 0; z-index: 10001; display: flex; align-items: center; justify-content: space-between; padding: 0 18px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button class="link-btn" onclick="window.location.href='../'" style="font-size: 28px; padding: 0; margin: 0;">←</button>
+      <div id="page-title" style="font-family: 'Poiret One', cursive; font-size: clamp(15px, 3vw, 19px); color: rgba(255,255,255,0.8); font-weight: 600; letter-spacing: 0.04em;">Certificados</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span id="theme-label" style="font-family: 'Poiret One', cursive; font-size: clamp(14px, 2.8vw, 18px); color: white; font-weight: 600;">Tema</span>
+      <button id="planet-toggle-top" class="planet-button" title="Trocar o tema">
+        <svg viewBox="0 0 80 80" width="38" height="38" xmlns="http://www.w3.org/2000/svg" class="planet-svg">
+          <defs>
+            <radialGradient id="nebulaGradient" cx="35%" cy="35%">
+              <stop offset="0%" style="stop-color:#ff99ff;stop-opacity:1" />
+              <stop offset="30%" style="stop-color:#dd55ff;stop-opacity:0.85" />
+              <stop offset="60%" style="stop-color:#5588ff;stop-opacity:0.6" />
+              <stop offset="100%" style="stop-color:#1155ff;stop-opacity:0" />
+            </radialGradient>
+            <radialGradient id="nebulaGradient2" cx="50%" cy="50%">
+              <stop offset="0%" style="stop-color:#ff77ff;stop-opacity:0.4" />
+              <stop offset="100%" style="stop-color:#3366ff;stop-opacity:0" />
+            </radialGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow2">
+              <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/></feMerge>
+            </filter>
+            <style>
+              @keyframes moonOrbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+              @keyframes nebulaPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+              @keyframes nebulaSpin { from { transform: rotate(0deg); } to { transform: rotate(-180deg); } }
+              .moon-container { animation: moonOrbit 6s linear infinite; transform-origin: 40px 40px; }
+              .nebula-core { animation: nebulaPulse 3s ease-in-out infinite; }
+              .nebula-ring { animation: nebulaSpin 8s linear infinite; transform-origin: 40px 40px; }
+            </style>
+          </defs>
+          <circle cx="40" cy="40" r="32" fill="none" stroke="url(#nebulaGradient2)" stroke-width="6" filter="url(#glow)" opacity="0.5"/>
+          <circle cx="40" cy="40" r="26" fill="url(#nebulaGradient)" class="nebula-core" filter="url(#glow)"/>
+          <ellipse cx="40" cy="35" rx="22" ry="18" fill="none" stroke="#dd77ff" stroke-width="1.5" opacity="0.4" class="nebula-ring" filter="url(#glow2)"/>
+          <ellipse cx="40" cy="45" rx="20" ry="20" fill="none" stroke="#6699ff" stroke-width="1" opacity="0.3" class="nebula-ring" filter="url(#glow2)"/>
+          <g class="moon-container">
+            <defs>
+              <radialGradient id="moonGlow">
+                <stop offset="0%" style="stop-color:#ffff88;stop-opacity:1" />
+                <stop offset="70%" style="stop-color:#ffdd44;stop-opacity:0.8" />
+                <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <circle cx="40" cy="10" r="6" fill="url(#moonGlow)" opacity="1" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="4" fill="#ffffcc" opacity="0.95" filter="url(#glow)"/>
+            <circle cx="40" cy="10" r="2" fill="#ffffff" opacity="0.8"/>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="shell">
+
+    <!-- ══════════ Painel ══════════ -->
+    <div class="panel">
+
+      <!-- 1. Template -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">1</span> Certificado em branco</div>
+        <div class="seg" id="seg-modo">
+          <button data-v="arquivo">Carregar arquivo</button>
+          <button data-v="montar">Montar aqui</button>
+        </div>
+
+        <div id="modo-arquivo" style="display:flex; flex-direction:column; gap:9px;">
+          <label class="drop" id="drop-tpl">
+            <span id="tpl-msg">Clique ou arraste o arquivo<br>(PDF, PNG ou JPG)</span>
+            <input type="file" id="file-tpl" accept="image/png,image/jpeg,image/webp,application/pdf">
+          </label>
+          <div class="note" id="tpl-info"></div>
+        </div>
+
+        <div id="modo-montar" style="display:none; flex-direction:column; gap:9px;">
+          <div class="seg" id="seg-orient">
+            <button data-v="h">horizontal</button>
+            <button data-v="v">vertical</button>
+          </div>
+          <div class="row">
+            <span class="lbl grow">Cor do papel</span>
+            <input type="color" id="fundo-cor" value="#fdfaf3">
+          </div>
+          <label class="drop" id="drop-bg" style="padding:9px;">
+            <span id="bg-msg">Imagem de fundo (opcional)</span>
+            <input type="file" id="file-bg" accept="image/png,image/jpeg,image/webp">
+          </label>
+          <div class="row" id="bg-linha" style="display:none;">
+            <div class="seg grow" id="seg-fit">
+              <button data-v="cobrir">cobrir</button>
+              <button data-v="caber">caber</button>
+              <button data-v="esticar">esticar</button>
+            </div>
+            <button class="btn btn-sm btn-del" id="btn-bg-off">tirar</button>
+          </div>
+          <div class="row">
+            <label class="toggle grow"><input type="checkbox" id="chk-borda" checked> Moldura</label>
+            <input type="color" id="borda-cor" value="#b08d3f">
+          </div>
+          <input type="range" id="borda-esp" min="0" max="40" step="1">
+
+          <div class="row">
+            <button class="btn btn-sm grow" id="add-titulo">+ Título</button>
+            <button class="btn btn-sm grow" id="add-texto">+ Texto</button>
+            <button class="btn btn-sm grow" id="add-img">+ Imagem</button>
+            <input type="file" id="file-item" accept="image/png,image/jpeg,image/webp,image/svg+xml" style="display:none;">
+          </div>
+          <div class="people" id="itens" style="display:none; max-height:140px;"></div>
+          <div id="item-editor"></div>
+          <div class="note">Clique no elemento aqui ou no desenho para editar; arraste no desenho
+            para posicionar. Assinatura e logo entram como imagem — de preferência PNG com fundo transparente.</div>
+        </div>
+      </div>
+
+      <!-- 2. Participantes -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">2</span> Participantes</div>
+        <label class="drop" id="drop-xls">
+          <span id="xls-msg">Clique ou arraste a planilha<br>(XLSX ou CSV do Google Forms)</span>
+          <input type="file" id="file-xls" accept=".xlsx,.xls,.csv,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+        </label>
+        <div class="row" id="name-row" style="display:none;">
+          <span class="lbl" style="width:74px;">Coluna do nome</span>
+          <select class="inp grow" id="sel-name"></select>
+        </div>
+        <div class="note" id="xls-info"></div>
+        <input class="inp" id="people-search" placeholder="procurar pelo nome" style="display:none;">
+        <div class="people" id="people" style="display:none;"></div>
+      </div>
+
+      <!-- 3. Dados do evento -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">3</span> Dados do evento</div>
+        <div class="note">O <b>N</b> ao lado de cada campo deixa aquele dado em negrito no certificado.</div>
+        <button class="btn btn-sm" id="btn-limpar-ev" style="width:100%;">Limpar dados do evento</button>
+        <div class="field">
+          <span class="lbl">Evento</span>
+          <div class="row">
+            <input class="inp grow" id="ev-evento">
+            <button class="btn btn-sm neg" data-k="evento">N</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Curso / título</span>
+          <div class="row">
+            <input class="inp grow" id="ev-curso">
+            <button class="btn btn-sm neg" data-k="curso">N</button>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Quem ministrou</span>
+          <div class="row">
+            <input class="inp grow" id="ev-prof">
+            <button class="btn btn-sm neg" data-k="prof">N</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field grow">
+            <span class="lbl">Data</span>
+            <div class="row">
+              <input class="inp grow" id="ev-data">
+              <button class="btn btn-sm neg" data-k="data">N</button>
+            </div>
+          </div>
+          <div class="field grow">
+            <span class="lbl">Carga horária</span>
+            <div class="row">
+              <input class="inp grow" id="ev-carga">
+              <button class="btn btn-sm neg" data-k="carga">N</button>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Modalidade</span>
+          <div class="row">
+            <div class="seg grow" id="seg-mod">
+              <button data-v="online">online</button>
+              <button data-v="presencial">presencial</button>
+              <button data-v="híbrido">híbrido</button>
+            </div>
+            <button class="btn btn-sm neg" data-k="modalidade">N</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Quem ministrou o curso -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">4</span> Quem ministrou o curso</div>
+        <textarea class="inp" id="min-nomes" rows="2"
+          placeholder="Um nome por linha&#10;Nome Sobrenome &lt;email@exemplo.com&gt;"></textarea>
+        <div class="row">
+          <button class="btn btn-sm" id="btn-usar-prof">Usar o nome do passo 3</button>
+        </div>
+        <div class="note">Estas pessoas recebem o texto de quem <b>ministrou</b>. Quem não estiver
+          na planilha entra na lista assim mesmo — dá para pôr o e-mail entre &lt; &gt; na mesma linha.</div>
+        <div class="note" id="people-info"></div>
+      </div>
+
+      <!-- 5. Textos -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">5</span> Texto do certificado</div>
+        <div class="field">
+          <span class="lbl">Para quem assistiu</span>
+          <textarea class="inp txt" id="txt-assistiu" rows="4"></textarea>
+        </div>
+        <div class="field">
+          <span class="lbl">Para quem ministrou</span>
+          <textarea class="inp txt" id="txt-ministrou" rows="4"></textarea>
+        </div>
+        <div class="row">
+          <button class="btn btn-sm" id="btn-restore">Restaurar textos padrão</button>
+        </div>
+        <div class="note">O texto se atualiza sozinho com os dados acima. Se preferir escrever
+          de outro jeito, edite aqui — as marcas <b>{EVENTO} {CURSO} {PROFESSOR} {DATA}
+          {MODALIDADE} {CARGA}</b> e <b>{NOME}</b> continuam valendo.</div>
+      </div>
+
+      <!-- 6. Aparência -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">6</span> Aparência</div>
+        <div class="lbl">Nome do participante</div>
+        <div class="row">
+          <select class="inp grow" id="name-font"></select>
+          <button class="btn btn-sm" id="name-bold">N</button>
+          <input type="color" id="name-color" value="#1a1a1a">
+        </div>
+        <input type="range" id="name-size" min="10" max="140" step="1">
+        <div class="seg" id="name-align" style="margin-bottom:4px;">
+          <button data-v="left">esquerda</button>
+          <button data-v="center">centro</button>
+          <button data-v="right">direita</button>
+        </div>
+
+        <div class="lbl" style="margin-top:6px;">Texto</div>
+        <div class="row">
+          <select class="inp grow" id="body-font"></select>
+          <button class="btn btn-sm" id="body-bold">N</button>
+          <input type="color" id="body-color" value="#333333">
+        </div>
+        <input type="range" id="body-size" min="6" max="60" step="1">
+        <div class="seg" id="body-align">
+          <button data-v="left">esquerda</button>
+          <button data-v="center">centro</button>
+          <button data-v="right">direita</button>
+        </div>
+        <div class="field">
+          <span class="lbl">Largura do texto</span>
+          <input type="range" id="body-width" min="20" max="98" step="1">
+        </div>
+        <label class="toggle"><input type="checkbox" id="chk-mask" checked>
+          Cobrir o texto que já existe no template</label>
+      </div>
+
+      <!-- 7. Gerar -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">7</span> Gerar</div>
+        <select class="inp" id="sel-format">
+          <option value="pdf-single">Um PDF só, com todos (uma página por pessoa)</option>
+          <option value="pdf-zip">ZIP com um PDF por pessoa</option>
+          <option value="png-zip">ZIP com um PNG por pessoa</option>
+          <option value="jpg-zip">ZIP com um JPG por pessoa</option>
+        </select>
+        <button class="btn btn-go" id="btn-generate" disabled>Gerar todos</button>
+        <button class="btn btn-sm" id="btn-one" style="width:100%;" disabled>Baixar só o que está na tela</button>
+        <div class="prog" id="prog"><div id="prog-bar"></div></div>
+        <div class="note" id="gen-info"></div>
+      </div>
+
+      <!-- 8. Enviar por e-mail -->
+      <div class="sec">
+        <div class="sec-title"><span class="num">8</span> Enviar por e-mail</div>
+        <div class="row" id="mail-col-row" style="display:none;">
+          <span class="lbl" style="width:74px;">Coluna do e-mail</span>
+          <select class="inp grow" id="sel-email"></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Assunto</span>
+          <input class="inp mail" id="mail-subject" placeholder="Seu certificado do {EVENTO}">
+        </div>
+        <div class="field">
+          <span class="lbl">Mensagem</span>
+          <textarea class="inp mail" id="mail-body" rows="5"></textarea>
+        </div>
+        <div class="field">
+          <span class="lbl">Abrir com</span>
+          <div class="seg" id="seg-cliente">
+            <button data-v="gmail">Gmail no navegador</button>
+            <button data-v="mailto">e-mail do computador</button>
+          </div>
+        </div>
+        <div class="row" id="linha-conta">
+          <span class="lbl grow">Se você usa mais de uma conta Google, o número dela</span>
+          <input class="inp" id="mail-conta" type="number" min="0" max="9" value="0"
+                 style="width:58px;flex:0 0 58px;text-align:center;">
+        </div>
+        <div class="row">
+          <button class="btn grow" id="btn-mail-abrir" disabled>Preparar e-mail</button>
+          <button class="btn btn-sm" id="btn-mail-pular">pular</button>
+        </div>
+        <div class="prog" id="mail-prog"><div id="mail-bar"></div></div>
+        <div class="note" id="mail-info">Marcas que valem no assunto e na mensagem:
+          <b>{NOME} {EVENTO} {CURSO} {PROFESSOR} {DATA} {MODALIDADE} {CARGA}</b>.</div>
+        <div class="note warn">Nenhum link de e-mail consegue levar anexo — isso é limite do
+          sistema, não do app. Então cada clique <b>baixa o PDF da pessoa</b> e abre a mensagem
+          pronta: você arrasta o arquivo para dentro e envia. O botão anda sozinho para o próximo.</div>
+      </div>
+    </div>
+
+    <!-- ══════════ Preview ══════════ -->
+    <div class="stage">
+      <div class="stage-wrap" id="stage-wrap">
+        <div class="stage-empty" id="stage-empty">
+          Carregue o certificado em branco para começar.<br>
+          Tudo roda no seu navegador — nenhum arquivo é enviado.
+        </div>
+      </div>
+      <div class="stage-bar" id="stage-bar" style="display:none;">
+        <button class="btn btn-sm" id="btn-prev" style="padding:4px 10px;">‹</button>
+        <span id="row-label">—</span>
+        <button class="btn btn-sm" id="btn-next" style="padding:4px 10px;">›</button>
+        <label class="toggle"><input type="checkbox" id="chk-guides" checked> guias</label>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    const $ = id => document.getElementById(id);
+
+    const FONTS = ['Great Vibes', 'Alex Brush', 'Playfair Display', 'Cormorant Garamond',
+                   'Montserrat', 'Poiret One', 'Georgia', 'Times New Roman', 'Arial', 'Courier New'];
+
+    /* As duas frases. As marcas entre { } são trocadas pelos dados do evento. */
+    const PADRAO = {
+      assistiu: 'participou do {EVENTO}, no CURSO - {CURSO}, ministrado pela {PROFESSOR}, ' +
+                'em {DATA}, {MODALIDADE}, com carga horária de {CARGA}.',
+      ministrou: 'participou do {EVENTO}, ministrando o CURSO - {CURSO}, ' +
+                 'em {DATA}, {MODALIDADE}, com carga horária de {CARGA}.'
+    };
+
+    const LS = 'tmirim-certificados-v2';
+
+    const MAIL_PADRAO =
+      'Olá, {NOME}!\n\n' +
+      'Segue em anexo o seu certificado do {EVENTO}.';
+
+    const S = {
+      tpl: null,
+      allRows: [], rows: [], columns: [], nameCol: '', emailCol: '',
+      idx: 0,
+      min: '',                        // quem ministrou, um nome por linha
+      ev: { evento: '', curso: '', prof: '', data: '', modalidade: '', carga: '' },
+      neg: {},                        // quais dados do evento saem em negrito
+      txt: { assistiu: PADRAO.assistiu, ministrou: PADRAO.ministrou },
+      nome: { x: 0.5, y: 0.46, size: 0.062, font: 'Great Vibes', color: '#1a1a1a', align: 'center', maxw: 0.82 },
+      corpo: { x: 0.5, y: 0.63, size: 0.024, font: 'Montserrat', color: '#333333', align: 'center', maxw: 0.66, lineh: 1.5 },
+      masks: [], mask: true,
+      modo: 'arquivo',
+      montar: {
+        orient: 'h', cor: '#fdfaf3', bgFit: 'cobrir', bgImg: null,
+        borda: true, bordaCor: '#b08d3f', bordaEsp: 14,
+        itens: []                    // {id, tipo:'texto'|'img', …}
+      },
+      selItem: null,
+      mail: { subject: 'Seu certificado do {EVENTO}', body: MAIL_PADRAO,
+              cliente: 'gmail', conta: 0 },
+      mailIdx: 0,                     // em qual pessoa está a fila de envio
+      sel: null
+    };
+
+    /* ═══════════════ Utilidades ═══════════════ */
+
+    function norm(s) {
+      return String(s == null ? '' : s)
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .toLowerCase().trim().replace(/\s+/g, ' ');
+    }
+    function slug(s) {
+      return String(s == null ? '' : s)
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^\w\s.-]/g, '').trim()
+        .replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 90) || 'certificado';
+    }
+    function cssFont(n) { return /\s/.test(n) ? '"' + n + '"' : n; }
+    function clamp01(v) { return Math.max(0, Math.min(1, isNaN(v) ? 0 : v)); }
+
+    function nomeDe(row) {
+      if (!row) return '';
+      if (row.__nome) return row.__nome;
+      return S.nameCol ? String(row[S.nameCol] == null ? '' : row[S.nameCol]).trim() : '';
+    }
+    function emailDe(row) {
+      if (!row) return '';
+      if (row.__email) return row.__email;
+      return S.emailCol ? String(row[S.emailCol] == null ? '' : row[S.emailCol]).trim() : '';
+    }
+    function ministrou(row) { return !!(row && row.__ministrou); }
+    function linhaAtual() { return S.rows.length ? S.rows[Math.min(S.idx, S.rows.length - 1)] : null; }
+
+    /* "Clara Márcia <clara@email.com>" → { nome, email } */
+    function lerMinistrantes() {
+      return String(S.min || '').split('\n').map(l => {
+        const m = /^(.*?)\s*<([^>]+)>\s*$/.exec(l.trim());
+        return m ? { nome: m[1].trim(), email: m[2].trim() } : { nome: l.trim(), email: '' };
+      }).filter(p => p.nome);
+    }
+
+    /* Monta o texto final: marcas do evento + colunas da planilha.
+       O que está marcado como negrito sai entre ** ** e é desenhado em negrito. */
+    function textoDe(row) {
+      const base = ministrou(row) ? S.txt.ministrou : S.txt.assistiu;
+      const mapa = {
+        EVENTO: ['evento', S.ev.evento], CURSO: ['curso', S.ev.curso],
+        PROFESSOR: ['prof', S.ev.prof], DATA: ['data', S.ev.data],
+        MODALIDADE: ['modalidade', S.ev.modalidade], CARGA: ['carga', S.ev.carga],
+        NOME: ['nome', nomeDe(row)]
+      };
+      return base
+        .replace(/\{\s*([A-ZÀ-ÝÇ]+)\s*\}/g, (m, k) => {
+          if (!mapa[k]) return m;
+          const [chave, valor] = mapa[k];
+          if (!valor) return '';
+          return S.neg[chave] ? '**' + valor + '**' : valor;
+        })
+        .replace(/\{\{\s*([^}]+?)\s*\}\}/g, (m, k) => {
+          const col = S.columns.find(c => norm(c) === norm(k));
+          return col && row && row[col] != null ? String(row[col]) : '';
+        })
+        .replace(/\s+([,.;])/g, '$1')      // some com o espaço solto de marca vazia
+        .replace(/([,;])(\s*[,;])+/g, '$1')  // e com a vírgula que sobrou dobrada
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+    }
+
+    /* ═══════════════ Guardar/retomar ═══════════════ */
+
+    function save() {
+      try {
+        localStorage.setItem(LS, JSON.stringify({
+          ev: S.ev, neg: S.neg, txt: S.txt, nome: S.nome, corpo: S.corpo,
+          min: S.min, mail: S.mail, mask: S.mask, format: $('sel-format').value,
+          modo: S.modo,
+          // as imagens ficam de fora (não cabem no armazenamento do navegador)
+          montar: Object.assign({}, S.montar, {
+            bgImg: null,
+            itens: S.montar.itens.filter(i => i.tipo === 'texto')
+          })
+        }));
+      } catch (e) {}
+    }
+    function load() {
+      let d = null;
+      try { d = JSON.parse(localStorage.getItem(LS) || 'null'); } catch (e) {}
+      if (!d) return;
+      Object.assign(S.ev, d.ev || {});
+      Object.assign(S.neg, d.neg || {});
+      Object.assign(S.txt, d.txt || {});
+      Object.assign(S.nome, d.nome || {});
+      Object.assign(S.corpo, d.corpo || {});
+      Object.assign(S.mail, d.mail || {});
+      if (d.montar) {
+        Object.assign(S.montar, d.montar, { bgImg: null });
+        S.montar.itens = (d.montar.itens || []).map(i => novoItem(i));
+      }
+      S.modo = d.modo === 'montar' ? 'montar' : 'arquivo';
+      S.min = d.min || '';
+      S.mask = d.mask !== false;
+      if (d.format) $('sel-format').value = d.format;
+    }
+
+    /* ═══════════════ 1. Certificado em branco ═══════════════ */
+
+    async function carregarTemplate(file) {
+      if (!file) return;
+      $('tpl-info').textContent = 'Abrindo…';
+      $('tpl-info').className = 'note';
+      try {
+        if (file.type === 'application/pdf' || /\.pdf$/i.test(file.name)) await lerPDF(file);
+        else await lerImagem(file);
+        S.tpl.name = file.name.replace(/\.[^.]+$/, '');
+        $('tpl-msg').textContent = file.name;
+        $('drop-tpl').classList.add('ok');
+        S.modo = 'arquivo';
+        pintarSeg('seg-modo', 'arquivo');
+        $('modo-arquivo').style.display = 'flex';
+        $('modo-montar').style.display = 'none';
+
+        const achou = acharLugares();
+        S.tplArquivo = S.tpl;
+        S.masksArquivo = S.masks;
+        $('tpl-info').className = achou ? 'note ok' : 'note';
+        $('tpl-info').textContent = achou
+          ? 'Achei no template onde entram o nome e o texto — já posicionei.'
+          : S.tpl.width + ' × ' + S.tpl.height + ' px · arraste o nome e o texto para o lugar certo.';
+
+        montarTemplate();
+        desenhar();
+        garantirFontes().then(desenhar);
+        atualizarBotoes();
+      } catch (err) {
+        console.error(err);
+        $('tpl-info').className = 'note warn';
+        $('tpl-info').textContent = 'Não consegui abrir este arquivo: ' + err.message;
+      }
+    }
+
+    function lerImagem(file) {
+      return new Promise((ok, erro) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+          S.tpl = { clean: img, source: img, words: [], width: img.naturalWidth, height: img.naturalHeight };
+          ok();
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); erro(new Error('imagem inválida')); };
+        img.src = url;
+      });
+    }
+
+    async function lerPDF(file) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+      const page = await pdf.getPage(1);
+      const vp = page.getViewport({ scale: 2 });          // 2× = boa resolução p/ imprimir
+      const c = document.createElement('canvas');
+      c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+      let words = [];
+      try {
+        const tc = await page.getTextContent();
+        words = tc.items.filter(i => i.str && i.str.trim()).map(i => {
+          const t = pdfjsLib.Util.transform(vp.transform, i.transform);
+          const h = Math.hypot(t[2], t[3]) || 12;
+          return { str: i.str.trim(), x: t[4], y: t[5] - h,
+                   w: (i.width || 0) * vp.scale || h * i.str.length * 0.55, h: h * 1.28 };
+        });
+      } catch (e) { /* PDF sem camada de texto */ }
+
+      S.tpl = { clean: c, source: c, words: words, width: c.width, height: c.height, pages: pdf.numPages };
+    }
+
+    /* ── Acha no PDF onde ficam o nome e o parágrafo ──
+       Serve tanto para posicionar quanto para cobrir o texto antigo. */
+    function acharLugares() {
+      S.masks = [];
+      const t = S.tpl;
+      if (!t.words || !t.words.length) return false;
+
+      // linhas
+      const linhas = [];
+      t.words.slice().sort((a, b) => a.y - b.y || a.x - b.x).forEach(w => {
+        const L = linhas.find(l => Math.abs((l.y + l.h / 2) - (w.y + w.h / 2)) < Math.max(l.h, w.h) * 0.6);
+        if (L) { L.itens.push(w); L.x = Math.min(L.x, w.x); L.r = Math.max(L.r, w.x + w.w);
+                 L.y = Math.min(L.y, w.y); L.h = Math.max(L.h, w.h); }
+        else linhas.push({ itens: [w], x: w.x, r: w.x + w.w, y: w.y, h: w.h });
+      });
+      linhas.forEach(L => { L.itens.sort((a, b) => a.x - b.x);
+                            L.str = L.itens.map(i => i.str).join(' ').replace(/\s+/g, ' ').trim(); });
+      linhas.sort((a, b) => a.y - b.y);
+
+      // blocos (linhas coladas viram parágrafo)
+      const blocos = [];
+      linhas.forEach(L => {
+        const p = blocos[blocos.length - 1];
+        const gap = p ? L.y - (p.y + p.altura) : Infinity;
+        const junto = p ? Math.min(p.r, L.r) - Math.max(p.x, L.x) : 0;
+        if (p && gap < p.h * 1.1 && Math.abs(p.h - L.h) < p.h * 0.35 &&
+            junto > Math.min(p.r - p.x, L.r - L.x) * 0.35) {
+          p.linhas.push(L); p.x = Math.min(p.x, L.x); p.r = Math.max(p.r, L.r);
+          p.altura = L.y + L.h - p.y;
+        } else {
+          blocos.push({ linhas: [L], x: L.x, r: L.r, y: L.y, h: L.h, altura: L.h });
+        }
+      });
+
+      const ehNome = s => /^(nome|nome completo|name|participante|\{\{?\s*nome\s*\}?\}|_{3,})$/i
+        .test(s.trim());
+      let achou = false;
+
+      // O lugar do nome: um bloco curto escrito NOME (ou uma linha de underscores)
+      const bNome = blocos.find(b => ehNome(b.linhas.map(l => l.str).join(' ')));
+      if (bNome) {
+        S.nome.x = (bNome.x + (bNome.r - bNome.x) / 2) / t.width;
+        S.nome.y = (bNome.y + bNome.altura / 2) / t.height;
+        S.nome.size = (bNome.h / 1.28) / t.height;
+        S.nome.align = 'center';
+        marcar(bNome);
+        achou = true;
+      }
+
+      // O texto: o parágrafo mais comprido do certificado
+      let bTexto = null, maisPalavras = 8;
+      blocos.forEach(b => {
+        if (b === bNome) return;
+        const n = b.linhas.map(l => l.str).join(' ').split(/\s+/).length;
+        if (n > maisPalavras) { maisPalavras = n; bTexto = b; }
+      });
+      if (bTexto) {
+        const alturaFonte = bTexto.h / 1.28;
+        S.corpo.x = bTexto.x / t.width;
+        S.corpo.y = (bTexto.y + bTexto.altura / 2) / t.height;
+        S.corpo.size = alturaFonte / t.height;
+        S.corpo.maxw = Math.min(0.96, (bTexto.r - bTexto.x) / t.width * 1.02);
+        S.corpo.align = 'left';
+        S.corpo.lineh = bTexto.linhas.length > 1
+          ? Math.max(1, ((bTexto.linhas[bTexto.linhas.length - 1].y - bTexto.linhas[0].y) /
+                         (bTexto.linhas.length - 1)) / alturaFonte)
+          : 1.5;
+        marcar(bTexto);
+        achou = true;
+      }
+      return achou;
+
+      function marcar(b) {
+        S.masks.push({
+          x: (b.x - b.h * 0.2) / t.width,
+          y: (b.y - b.h * 0.28) / t.height,
+          w: (b.r - b.x + b.h * 0.4) / t.width,
+          h: (b.altura + b.h * 0.55) / t.height,
+          color: corDoFundo(b)
+        });
+      }
+    }
+
+    function corDoFundo(b) {
+      const t = S.tpl;
+      const ctx = t.clean.getContext ? t.clean.getContext('2d') : null;
+      if (!ctx) return '#ffffff';
+      const pontos = [[b.x + (b.r - b.x) / 2, b.y - b.h * 0.6],
+                      [b.x + (b.r - b.x) / 2, b.y + b.altura + b.h * 0.6],
+                      [b.x - b.h * 0.4, b.y + b.altura / 2]];
+      const cores = {};
+      pontos.forEach(([px, py]) => {
+        px = Math.max(0, Math.min(t.width - 1, Math.round(px)));
+        py = Math.max(0, Math.min(t.height - 1, Math.round(py)));
+        const d = ctx.getImageData(px, py, 1, 1).data;
+        const k = d[0] + ',' + d[1] + ',' + d[2];
+        cores[k] = (cores[k] || 0) + 1;
+      });
+      return 'rgb(' + Object.keys(cores).sort((a, b2) => cores[b2] - cores[a])[0] + ')';
+    }
+
+    /* Cobre o texto antigo do template */
+    function montarTemplate() {
+      const t = S.tpl;
+      if (!t) return;
+      if (!S.mask || !S.masks.length) { t.source = t.clean; return; }
+      const c = t.work || (t.work = document.createElement('canvas'));
+      if (c.width !== t.width || c.height !== t.height) { c.width = t.width; c.height = t.height; }
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, t.width, t.height);
+      ctx.drawImage(t.clean, 0, 0, t.width, t.height);
+      S.masks.forEach(m => {
+        ctx.fillStyle = m.color || '#ffffff';
+        ctx.fillRect(m.x * t.width, m.y * t.height, m.w * t.width, m.h * t.height);
+      });
+      t.source = c;
+    }
+
+    /* ═══════════════ Montar o certificado aqui ═══════════════ */
+
+    // A4 a 200 dpi — bom para imprimir sem deixar o navegador lento
+    const TAM = { h: [2339, 1654], v: [1654, 2339] };
+
+    let idItem = 1;
+    function novoItem(over) {
+      return Object.assign({
+        id: 'i' + (idItem++), tipo: 'texto',
+        texto: 'Texto', x: 0.5, y: 0.3,
+        size: 0.03, font: 'Playfair Display', cor: '#333333',
+        bold: false, align: 'center', maxw: 0.8, larg: 0.18
+      }, over || {});
+    }
+
+    /* Desenha o papel: cor, imagem de fundo e moldura. O resto (logos, textos)
+       é desenhado por cima na hora de gerar, para continuar arrastável. */
+    function montarFundo() {
+      const m = S.montar;
+      const [w, h] = TAM[m.orient];
+      const c = (S.tpl && S.tpl.__montado) || document.createElement('canvas');
+      c.width = w; c.height = h;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = m.cor;
+      ctx.fillRect(0, 0, w, h);
+
+      if (m.bgImg) {
+        const iw = m.bgImg.naturalWidth, ih = m.bgImg.naturalHeight;
+        if (m.bgFit === 'esticar') ctx.drawImage(m.bgImg, 0, 0, w, h);
+        else {
+          const e = m.bgFit === 'cobrir' ? Math.max(w / iw, h / ih) : Math.min(w / iw, h / ih);
+          const dw = iw * e, dh = ih * e;
+          ctx.drawImage(m.bgImg, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        }
+      }
+      if (m.borda && m.bordaEsp > 0) {
+        const e = m.bordaEsp * (w / 1000) * 0.75;
+        ctx.strokeStyle = m.bordaCor;
+        ctx.lineWidth = e;
+        ctx.strokeRect(e * 1.6, e * 1.6, w - e * 3.2, h - e * 3.2);
+      }
+
+      S.tpl = { clean: c, source: c, words: [], width: w, height: h,
+                name: 'certificado', __montado: c };
+      S.masks = [];
+      atualizarBotoes();
+    }
+
+    /* Desenha os elementos do montador (logos, assinaturas, textos fixos) */
+    function desenharItens(ctx, largura, altura) {
+      if (S.modo !== 'montar') return;
+      S.montar.itens.forEach(it => {
+        if (it.tipo === 'img') {
+          if (!it.img) return;
+          const w = it.larg * largura;
+          const h = w * (it.img.naturalHeight / it.img.naturalWidth);
+          ctx.drawImage(it.img, it.x * largura - w / 2, it.y * altura - h / 2, w, h);
+        } else {
+          const b = { font: it.font, bold: it.bold, maxw: it.maxw, align: it.align,
+                      x: it.x, y: it.y, lineh: 1.3 };
+          const size = it.size * altura;
+          const linhas = quebrar(b, it.texto, size);
+          const espaco = larguraDe(b, ' ', size, false);
+          const lh = size * 1.3;
+          ctx.fillStyle = it.cor;
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          const topo = it.y * altura - ((linhas.length - 1) * lh) / 2;
+          linhas.forEach((linha, i) => {
+            let x = it.align === 'center' ? it.x * largura - linha.larg / 2
+                  : it.align === 'right' ? it.x * largura - linha.larg
+                  : it.x * largura;
+            linha.forEach((p, j) => {
+              if (j && !p.cola) x += espaco;
+              ctx.font = fonteStr(b, size, p.b);
+              ctx.fillText(p.t, x, topo + i * lh);
+              x += p.w;
+            });
+          });
+        }
+      });
+    }
+
+    function carregarImagem(file) {
+      return new Promise((ok, erro) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => ok(img);
+        img.onerror = () => { URL.revokeObjectURL(url); erro(new Error('imagem inválida')); };
+        img.src = url;
+      });
+    }
+
+    /* Lista dos elementos + editor do que estiver selecionado */
+    function montarItens() {
+      const box = $('itens');
+      box.innerHTML = '';
+      box.style.display = S.montar.itens.length ? 'flex' : 'none';
+      S.montar.itens.forEach(it => {
+        const el = document.createElement('div');
+        el.className = 'person' + (S.selItem === it.id ? ' aqui' : '');
+        const s = document.createElement('span');
+        s.textContent = (it.tipo === 'img' ? '🖼 ' : '') +
+                        (it.tipo === 'img' ? (it.nome || 'imagem') : it.texto.slice(0, 34));
+        el.appendChild(s);
+        el.addEventListener('click', () => { S.selItem = it.id; montarItens(); editorItem(); desenhar(); });
+        box.appendChild(el);
+      });
+      editorItem();
+    }
+
+    function editorItem() {
+      const cx = $('item-editor');
+      cx.innerHTML = '';
+      const it = S.montar.itens.find(i => i.id === S.selItem);
+      if (!it) return;
+
+      const caixa = document.createElement('div');
+      caixa.style.cssText = 'display:flex;flex-direction:column;gap:7px;padding:9px;border-radius:6px;' +
+        'background:rgba(120,180,255,0.07);border:1px solid rgba(150,200,255,0.18);';
+
+      if (it.tipo === 'texto') {
+        const ta = document.createElement('textarea');
+        ta.className = 'inp'; ta.rows = 2; ta.value = it.texto;
+        ta.addEventListener('input', () => { it.texto = ta.value; montarItens(); desenhar(); save(); });
+        caixa.appendChild(ta);
+
+        const linha = document.createElement('div');
+        linha.className = 'row';
+        const fonte = document.createElement('select');
+        fonte.className = 'inp grow';
+        FONTS.forEach(f => {
+          const o = document.createElement('option');
+          o.value = f; o.textContent = f; o.style.fontFamily = cssFont(f);
+          fonte.appendChild(o);
+        });
+        fonte.value = it.font;
+        fonte.addEventListener('change', () => {
+          it.font = fonte.value; desenhar(); garantirFontes().then(desenhar); save();
+        });
+        const neg = document.createElement('button');
+        neg.className = 'btn btn-sm' + (it.bold ? ' on' : '');
+        neg.textContent = 'N';
+        neg.style.cssText = 'width:34px;flex:0 0 34px;font-weight:700;';
+        neg.addEventListener('click', () => {
+          it.bold = !it.bold; neg.classList.toggle('on', it.bold); desenhar(); save();
+        });
+        const cor = document.createElement('input');
+        cor.type = 'color'; cor.value = it.cor;
+        cor.addEventListener('input', () => { it.cor = cor.value; desenhar(); save(); });
+        linha.appendChild(fonte); linha.appendChild(neg); linha.appendChild(cor);
+        caixa.appendChild(linha);
+
+        caixa.appendChild(faixa('Tamanho', 5, 120, Math.round(it.size * 1000),
+          v => { it.size = v / 1000; desenhar(); save(); }));
+
+        const seg = document.createElement('div');
+        seg.className = 'seg';
+        [['left', 'esquerda'], ['center', 'centro'], ['right', 'direita']].forEach(([v, t]) => {
+          const b = document.createElement('button');
+          b.textContent = t;
+          b.className = it.align === v ? 'on' : '';
+          b.addEventListener('click', () => {
+            it.align = v;
+            seg.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+            b.classList.add('on');
+            desenhar(); save();
+          });
+          seg.appendChild(b);
+        });
+        caixa.appendChild(seg);
+      } else {
+        caixa.appendChild(faixa('Tamanho', 3, 90, Math.round(it.larg * 100),
+          v => { it.larg = v / 100; desenhar(); save(); }));
+      }
+
+      const rem = document.createElement('button');
+      rem.className = 'btn btn-sm btn-del';
+      rem.style.width = '100%';
+      rem.textContent = 'Remover elemento';
+      rem.addEventListener('click', () => {
+        S.montar.itens = S.montar.itens.filter(i => i.id !== it.id);
+        S.selItem = null;
+        montarItens(); desenhar(); save();
+      });
+      caixa.appendChild(rem);
+      cx.appendChild(caixa);
+
+      function faixa(rotulo, min, max, valor, fn) {
+        const w = document.createElement('div');
+        const l = document.createElement('div');
+        l.className = 'lbl'; l.textContent = rotulo;
+        const r = document.createElement('input');
+        r.type = 'range'; r.min = min; r.max = max; r.value = valor;
+        r.addEventListener('input', () => fn(Number(r.value)));
+        w.appendChild(l); w.appendChild(r);
+        return w;
+      }
+    }
+
+    /* ═══════════════ 2. Planilha ═══════════════ */
+
+    async function carregarPlanilha(file) {
+      if (!file) return;
+      $('xls-info').textContent = 'Lendo…';
+      $('xls-info').className = 'note';
+      try {
+        const buf = await file.arrayBuffer();
+        let wb;
+        if (/\.(csv|txt|tsv)$/i.test(file.name) || /csv/.test(file.type || '')) {
+          // CSV não diz a codificação: Google exporta UTF-8, Excel pt-BR exporta Windows-1252
+          let txt = new TextDecoder('utf-8').decode(buf);
+          if (txt.indexOf('�') !== -1) txt = new TextDecoder('windows-1252').decode(buf);
+          wb = XLSX.read(txt, { type: 'string', cellDates: true });
+        } else {
+          wb = XLSX.read(buf, { type: 'array', cellDates: true });
+        }
+        $('xls-msg').textContent = file.name;
+        $('drop-xls').classList.add('ok');
+
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(ws, { defval: '', raw: false });
+        const cols = [];
+        json.forEach(r => Object.keys(r).forEach(k => { if (cols.indexOf(k) === -1) cols.push(k); }));
+        S.columns = cols.filter(c => String(c).trim() && !/^__EMPTY/.test(c));
+        S.allRows = json;
+        S.nameCol = acharColunaNome(S.columns, json);
+
+        const sel = $('sel-name');
+        sel.innerHTML = '';
+        S.columns.forEach(c => {
+          const o = document.createElement('option'); o.value = c; o.textContent = c; sel.appendChild(o);
+        });
+        sel.value = S.nameCol;
+        $('name-row').style.display = 'flex';
+
+        // coluna do e-mail, para o envio
+        const selMail = $('sel-email');
+        selMail.innerHTML = '';
+        [['', '— sem envio por e-mail —']].concat(S.columns.map(c => [c, c])).forEach(([v, t]) => {
+          const o = document.createElement('option'); o.value = v; o.textContent = t;
+          selMail.appendChild(o);
+        });
+        S.emailCol = S.columns.find(c => /e-?mail/i.test(c)) ||
+                     S.columns.find(c => json.slice(0, 20).some(r => /@/.test(String(r[c] || '')))) || '';
+        selMail.value = S.emailCol;
+        $('mail-col-row').style.display = 'flex';
+
+        aplicarLinhas();
+      } catch (err) {
+        console.error(err);
+        $('xls-info').className = 'note warn';
+        $('xls-info').textContent = 'Não consegui ler a planilha: ' + err.message;
+      }
+    }
+
+    /* Google Forms costuma trazer "Carimbo de data/hora" na frente */
+    function acharColunaNome(cols, rows) {
+      const exatos = ['nome completo', 'nome', 'name', 'full name', 'nome do participante',
+                      'participante', 'aluno', 'seu nome', 'nome e sobrenome'];
+      const fora = /carimbo|timestamp|hora|e-?mail|telefone|celular|cpf|whats|idade|curso|turma|data/;
+      let melhor = null, pontos = -1;
+      cols.forEach((c, i) => {
+        const n = norm(c);
+        let p = -1;
+        const e = exatos.indexOf(n);
+        if (e !== -1) p = 1000 - e;
+        else if (/\bnomes?\b|\bname\b/.test(n) && !fora.test(n)) p = 500 - i;
+        else if (/participante|aluno|inscrito/.test(n)) p = 300 - i;
+        if (p > pontos) { pontos = p; melhor = c; }
+      });
+      if (pontos > 0) return melhor;
+      const parecido = cols.find(c => !fora.test(norm(c)) &&
+        rows.slice(0, 20).some(r => /^[^\d@]{4,}\s+\S+/.test(String(r[c] || '').trim())));
+      return parecido || cols[0] || '';
+    }
+
+    /* Junta a planilha com os nomes digitados de quem ministrou.
+       Se a pessoa que ministrou também assinou a lista, ela não entra duas vezes:
+       a linha dela na planilha só passa a receber o texto de quem ministrou. */
+    function aplicarLinhas() {
+      const vistos = {};
+      const doVivo = lerMinistrantes();
+      const porNome = {};
+      doVivo.forEach(p => { porNome[norm(p.nome)] = p; });
+
+      const daPlanilha = (S.allRows || []).filter(r => {
+        const v = String(r[S.nameCol] == null ? '' : r[S.nameCol]).trim();
+        if (!v) return false;
+        const k = norm(v);
+        if (vistos[k]) return false;
+        vistos[k] = true;
+        return true;
+      }).map(r => {
+        const k = norm(String(r[S.nameCol] || ''));
+        const p = porNome[k];
+        const linha = Object.assign({}, r);
+        if (p) {
+          linha.__ministrou = true;
+          if (p.email) linha.__email = p.email;
+        }
+        return linha;
+      });
+
+      // quem ministrou e não está na planilha entra no fim
+      const extras = doVivo.filter(p => !vistos[norm(p.nome)]).map(p => ({
+        __nome: p.nome, __email: p.email, __ministrou: true, __extra: true
+      }));
+
+      S.rows = daPlanilha.concat(extras);
+      S.idx = Math.min(S.idx, Math.max(0, S.rows.length - 1));
+      S.mailIdx = 0;
+
+      const pulou = (S.allRows || []).length - daPlanilha.length;
+      $('xls-info').className = 'note';
+      $('xls-info').textContent = S.rows.length
+        ? S.rows.length + ' certificado' + (S.rows.length === 1 ? '' : 's') +
+          (pulou > 0 ? ' · ' + pulou + ' repetida/vazia fora' : '') +
+          (extras.length ? ' · ' + extras.length + ' fora da planilha' : '')
+        : '';
+      contarMinistrantes();
+      montarLista();
+      desenhar();
+      atualizarBotoes();
+    }
+
+    /* ═══════════════ 4. Lista de quem ministrou ═══════════════ */
+
+    /* Lista só para conferir se a planilha entrou certo. Clicar abre a pessoa no preview. */
+    function montarLista() {
+      const box = $('people');
+      const busca = norm($('people-search').value || '');
+      box.innerHTML = '';
+      if (!S.rows.length) { box.style.display = 'none'; $('people-search').style.display = 'none'; return; }
+      box.style.display = 'flex';
+      $('people-search').style.display = S.rows.length > 8 ? 'block' : 'none';
+
+      S.rows.forEach((row, i) => {
+        const nome = nomeDe(row);
+        if (busca && norm(nome).indexOf(busca) === -1) return;
+        const el = document.createElement('div');
+        el.className = 'person' + (ministrou(row) ? ' on' : '') + (i === S.idx ? ' aqui' : '');
+        const txt = document.createElement('span');
+        const mail = emailDe(row);
+        txt.textContent = nome + (mail ? ' · ' + mail : '');
+        txt.title = nome + (mail ? ' · ' + mail : ' · sem e-mail');
+        el.appendChild(txt);
+        if (ministrou(row)) {
+          const tag = document.createElement('b');
+          tag.textContent = 'ministrou';
+          tag.style.cssText = 'font-size:10.5px;opacity:0.75;margin-left:auto;flex-shrink:0;';
+          el.appendChild(tag);
+        }
+        el.addEventListener('click', () => { S.idx = i; desenhar(); montarLista(); });
+        box.appendChild(el);
+      });
+    }
+
+    function contarMinistrantes() {
+      const n = S.rows.filter(ministrou).length;
+      $('people-info').textContent = S.rows.length
+        ? (n ? n + ' com o texto de quem ministrou · ' + (S.rows.length - n) + ' com o de quem assistiu'
+             : 'Ninguém aqui ainda — todos recebem o texto de quem assistiu.')
+        : '';
+    }
+
+    /* ═══════════════ Desenho ═══════════════ */
+
+    const medir = document.createElement('canvas').getContext('2d');
+
+    function fonteStr(b, size, negrito) {
+      return (negrito || b.bold ? '700 ' : '400 ') + size + 'px ' + cssFont(b.font);
+    }
+
+    function larguraDe(b, texto, size, negrito) {
+      medir.font = fonteStr(b, size, negrito);
+      return medir.measureText(texto).width;
+    }
+
+    function encolher(b, texto, size) {
+      const max = b.maxw * S.tpl.width;
+      for (let i = 0; i < 60; i++) {
+        if (larguraDe(b, texto, size) <= max || size <= 6) break;
+        size *= 0.95;
+      }
+      return size;
+    }
+
+    /* Quebra o texto em palavras, guardando quais estão em negrito (** **).
+       `cola` marca a palavra que gruda na anterior sem espaço — é o caso da
+       vírgula logo depois de um trecho em negrito. */
+    function palavras(texto) {
+      const out = [];
+      let colaProxima = false;
+      String(texto).split(/(\*\*[^*]+\*\*)/).forEach(seg => {
+        if (!seg) return;
+        const m = /^\*\*([^*]+)\*\*$/.exec(seg);
+        const negrito = !!m;
+        const corpo = m ? m[1] : seg;
+        const abreComEspaco = /^\s/.test(corpo);
+        let primeira = true;
+        corpo.split(/(\n)/).forEach(pedaco => {
+          if (pedaco === '\n') { out.push({ t: '\n', b: false }); primeira = false; colaProxima = false; return; }
+          pedaco.split(/\s+/).forEach(w => {
+            if (!w) return;
+            out.push({ t: w, b: negrito, cola: primeira && colaProxima && !abreComEspaco });
+            primeira = false;
+          });
+        });
+        colaProxima = !/\s$/.test(corpo);
+      });
+      return out;
+    }
+
+    function semMarcas(texto) { return String(texto).replace(/\*\*/g, ''); }
+
+    /* Monta as linhas: cada linha é uma lista de palavras com seu peso */
+    function quebrar(b, texto, size) {
+      const max = b.maxw * S.tpl.width;
+      const espaco = larguraDe(b, ' ', size, false);
+      const linhas = [];
+      let linha = [], larg = 0;
+      palavras(texto).forEach(p => {
+        if (p.t === '\n') { linhas.push(linha); linha = []; larg = 0; return; }
+        const w = larguraDe(b, p.t, size, p.b);
+        const cola = p.cola && linha.length > 0;
+        const extra = (linha.length && !cola) ? espaco + w : w;
+        // pontuação colada nunca começa linha sozinha
+        if (linha.length && !cola && larg + extra > max) { linhas.push(linha); linha = []; larg = 0; }
+        linha.push({ t: p.t, b: p.b, w: w, cola: cola && linha.length > 0 });
+        larg += linha.length === 1 ? w : extra;
+      });
+      if (linha.length) linhas.push(linha);
+      return linhas.map(l => {
+        l.larg = l.reduce((s, p, i) => s + p.w + (i && !p.cola ? espaco : 0), 0);
+        return l;
+      });
+    }
+
+    function desenhar() {
+      const wrap = $('stage-wrap');
+      if (!S.tpl) return;
+
+      let base = wrap.querySelector('.tpl-base');
+      if (!base) {
+        wrap.innerHTML = '';
+        base = document.createElement('canvas');
+        base.className = 'tpl-base';
+        wrap.appendChild(base);
+      }
+      if (base.width !== S.tpl.width || base.height !== S.tpl.height) {
+        base.width = S.tpl.width; base.height = S.tpl.height;
+      }
+      const bctx = base.getContext('2d');
+      bctx.clearRect(0, 0, base.width, base.height);
+      bctx.drawImage(S.tpl.source, 0, 0, base.width, base.height);
+
+      const palco = document.querySelector('.stage');
+      const barra = $('stage-bar');
+      base.style.maxHeight = Math.max(120, palco.clientHeight - (barra.offsetHeight || 0) - 34) + 'px';
+
+      const escala = base.clientWidth / S.tpl.width || 0;
+      const row = linhaAtual();
+
+      // elementos do montador (logo, assinatura, títulos) — arrastáveis também
+      const vivos = {};
+      if (S.modo === 'montar') {
+        S.montar.itens.forEach(it => {
+          vivos[it.id] = true;
+          let el = wrap.querySelector('.blk[data-id="' + it.id + '"]');
+          if (!el || el.dataset.tipo !== it.tipo) {
+            if (el) el.remove();
+            el = it.tipo === 'img' ? document.createElement('img') : document.createElement('div');
+            el.className = 'blk';
+            el.dataset.id = it.id;
+            el.dataset.tipo = it.tipo;
+            arrastar(el, it, it.id);
+            el.addEventListener('pointerdown', () => { S.selItem = it.id; montarItens(); });
+            wrap.appendChild(el);
+          }
+          if (it.tipo === 'img') {
+            if (it.img && el.src !== it.img.src) el.src = it.img.src;
+            el.style.width = (it.larg * 100) + '%';
+            el.style.height = 'auto';
+            el.style.transform = 'translate(-50%, -50%)';
+          } else {
+            el.textContent = it.texto;
+            el.style.fontFamily = cssFont(it.font);
+            el.style.fontWeight = it.bold ? '700' : '400';
+            el.style.color = it.cor;
+            el.style.fontSize = (it.size * S.tpl.height * escala) + 'px';
+            el.style.lineHeight = 1.3;
+            el.style.textAlign = it.align;
+            el.style.whiteSpace = 'pre-wrap';
+            el.style.width = (it.maxw * 100) + '%';
+            el.style.transform = 'translate(' +
+              (it.align === 'center' ? '-50%' : it.align === 'right' ? '-100%' : '0') + ', -50%)';
+          }
+          el.style.left = (it.x * 100) + '%';
+          el.style.top = (it.y * 100) + '%';
+          el.classList.toggle('sel', S.selItem === it.id);
+        });
+      }
+      wrap.querySelectorAll('.blk').forEach(el => {
+        const k = el.dataset.id;
+        if (k !== 'nome' && k !== 'corpo' && !vivos[k]) el.remove();
+      });
+
+      caixa('nome', S.nome, nomeDe(row) || 'Nome do participante', !nomeDe(row), escala, false);
+      caixa('corpo', S.corpo, textoDe(row) || 'Texto do certificado', !textoDe(row), escala, true);
+
+      $('stage-bar').style.display = S.rows.length ? 'flex' : 'none';
+      $('row-label').textContent = S.rows.length
+        ? (S.idx + 1) + ' / ' + S.rows.length + ' — ' + (nomeDe(row) || '(sem nome)') +
+          (ministrou(row) ? ' · ministrou' : '')
+        : '—';
+
+      function caixa(id, b, texto, fantasma, escala, quebra) {
+        let el = wrap.querySelector('.blk[data-id="' + id + '"]');
+        if (!el) {
+          el = document.createElement('div');
+          el.className = 'blk';
+          el.dataset.id = id;
+          arrastar(el, b, id);
+          wrap.appendChild(el);
+        }
+        const px = b.size * S.tpl.height;
+        const size = quebra ? px : encolher(b, semMarcas(texto), px);
+        // ** vira <b> no preview
+        el.innerHTML = String(texto)
+          .replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]))
+          .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+        el.style.fontWeight = b.bold ? '700' : '400';
+        el.style.fontFamily = cssFont(b.font);
+        el.style.color = b.color;
+        el.style.opacity = fantasma ? '0.4' : '1';
+        el.style.fontSize = (size * escala) + 'px';
+        el.style.lineHeight = quebra ? (b.lineh || 1.5) : 1.05;
+        el.style.textAlign = b.align;
+        el.style.whiteSpace = quebra ? 'pre-wrap' : 'pre';
+        el.style.width = quebra ? (b.maxw * 100) + '%' : 'auto';
+        el.style.left = (b.x * 100) + '%';
+        el.style.top = (b.y * 100) + '%';
+        el.style.transform = 'translate(' +
+          (b.align === 'center' ? '-50%' : b.align === 'right' ? '-100%' : '0') + ', -50%)';
+        el.classList.toggle('sel', S.sel === id);
+      }
+    }
+
+    function arrastar(el, b, id) {
+      let inicio = null;
+      el.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        S.sel = id;
+        document.querySelectorAll('.blk').forEach(x => x.classList.toggle('sel', x.dataset.id === id));
+        const r = $('stage-wrap').getBoundingClientRect();
+        inicio = { px: e.clientX, py: e.clientY, x: b.x, y: b.y, w: r.width, h: r.height };
+        el.setPointerCapture(e.pointerId);
+      });
+      el.addEventListener('pointermove', e => {
+        if (!inicio) return;
+        b.x = clamp01(inicio.x + (e.clientX - inicio.px) / inicio.w);
+        b.y = clamp01(inicio.y + (e.clientY - inicio.py) / inicio.h);
+        el.style.left = (b.x * 100) + '%';
+        el.style.top = (b.y * 100) + '%';
+      });
+      const fim = () => { if (inicio) { inicio = null; save(); } };
+      el.addEventListener('pointerup', fim);
+      el.addEventListener('pointercancel', fim);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!S.sel) return;
+      if (/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+      const b = S.sel === 'nome' ? S.nome
+              : S.sel === 'corpo' ? S.corpo
+              : S.montar.itens.find(i => i.id === S.sel);
+      if (!b) return;
+      const passo = e.shiftKey ? 0.01 : 0.001;
+      let ok = true;
+      if (e.key === 'ArrowLeft') b.x = clamp01(b.x - passo);
+      else if (e.key === 'ArrowRight') b.x = clamp01(b.x + passo);
+      else if (e.key === 'ArrowUp') b.y = clamp01(b.y - passo);
+      else if (e.key === 'ArrowDown') b.y = clamp01(b.y + passo);
+      else ok = false;
+      if (ok) { e.preventDefault(); desenhar(); save(); }
+    });
+
+    /* ═══════════════ Gerar ═══════════════ */
+
+    const fontesProntas = {};
+    async function garantirFontes() {
+      const jobs = [];
+      [S.nome.font, S.corpo.font].concat(S.montar.itens.map(i => i.font)).forEach(f => {
+        if (fontesProntas[f]) return;
+        fontesProntas[f] = true;
+        ['400 80px ', '700 80px '].forEach(p => jobs.push(document.fonts.load(p + cssFont(f)).catch(() => {})));
+      });
+      if (jobs.length) await Promise.all(jobs);
+      await document.fonts.ready;
+    }
+
+    function certificado(row) {
+      const c = document.createElement('canvas');
+      c.width = S.tpl.width; c.height = S.tpl.height;
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.drawImage(S.tpl.source, 0, 0, c.width, c.height);
+      desenharItens(ctx, c.width, c.height);
+
+      escrever(S.nome, nomeDe(row), false);
+      escrever(S.corpo, textoDe(row), true);
+      return c;
+
+      function escrever(b, texto, quebra) {
+        if (!texto) return;
+        const px = b.size * S.tpl.height;
+        const size = quebra ? px : encolher(b, semMarcas(texto), px);
+        const linhas = quebrar(b, texto, size);
+        const lh = size * (quebra ? (b.lineh || 1.5) : 1);
+        const espaco = larguraDe(b, ' ', size, false);
+        ctx.fillStyle = b.color;
+        ctx.textAlign = 'left';       // cada pedaço é posicionado na mão
+        ctx.textBaseline = 'middle';
+        const topo = b.y * c.height - ((linhas.length - 1) * lh) / 2;
+        linhas.forEach((linha, i) => {
+          let x = b.align === 'center' ? b.x * c.width - linha.larg / 2
+                : b.align === 'right' ? b.x * c.width - linha.larg
+                : b.x * c.width;
+          const y = topo + i * lh;
+          linha.forEach((p, j) => {
+            if (j && !p.cola) x += espaco;
+            ctx.font = fonteStr(b, size, p.b);
+            ctx.fillText(p.t, x, y);
+            x += p.w;
+          });
+        });
+      }
+    }
+
+    function blobDe(canvas, tipo, q) { return new Promise(r => canvas.toBlob(r, tipo, q)); }
+
+    function baixar(blob, nome) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = nome;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    }
+
+    function novoPdf() {
+      const { jsPDF } = window.jspdf;
+      const w = S.tpl.width, h = S.tpl.height;
+      return new jsPDF({ orientation: w >= h ? 'landscape' : 'portrait',
+                         unit: 'px', format: [w, h], compress: true });
+    }
+
+    function nomeArquivo(row, i, usados) {
+      let base = slug('certificado-' + nomeDe(row)) || ('certificado-' + (i + 1));
+      let out = base, n = 2;
+      while (usados[out]) out = base + '-' + (n++);
+      usados[out] = true;
+      return out;
+    }
+
+    async function gerarTodos() {
+      if (!S.tpl || !S.rows.length) return;
+      const formato = $('sel-format').value;
+      $('btn-generate').disabled = true;
+      $('prog').classList.add('on');
+      $('gen-info').className = 'note';
+      $('gen-info').textContent = 'Preparando as fontes…';
+      await garantirFontes();
+
+      const usados = {};
+      const total = S.rows.length;
+      let zip = null, pdf = null;
+      if (formato === 'pdf-single') pdf = novoPdf(); else zip = new JSZip();
+
+      try {
+        for (let i = 0; i < total; i++) {
+          const row = S.rows[i];
+          const canvas = certificado(row);
+          const nome = nomeArquivo(row, i, usados);
+
+          if (formato === 'pdf-single') {
+            if (i > 0) pdf.addPage([S.tpl.width, S.tpl.height],
+                                   S.tpl.width >= S.tpl.height ? 'landscape' : 'portrait');
+            pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG',
+                         0, 0, S.tpl.width, S.tpl.height, undefined, 'FAST');
+          } else if (formato === 'pdf-zip') {
+            const um = novoPdf();
+            um.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG',
+                        0, 0, S.tpl.width, S.tpl.height, undefined, 'FAST');
+            zip.file(nome + '.pdf', um.output('blob'));
+          } else if (formato === 'png-zip') {
+            zip.file(nome + '.png', await blobDe(canvas, 'image/png'));
+          } else {
+            zip.file(nome + '.jpg', await blobDe(canvas, 'image/jpeg', 0.92));
+          }
+
+          $('prog-bar').style.width = Math.round(((i + 1) / total) * 100) + '%';
+          $('gen-info').textContent = 'Montando ' + (i + 1) + ' de ' + total + '…';
+          if (i % 3 === 0) await new Promise(r => setTimeout(r, 0));
+        }
+
+        const base = slug(S.tpl.name || 'certificados');
+        if (formato === 'pdf-single') {
+          $('gen-info').textContent = 'Fechando o PDF…';
+          await new Promise(r => setTimeout(r, 30));
+          pdf.save(base + '.pdf');
+        } else {
+          $('gen-info').textContent = 'Compactando…';
+          const blob = await zip.generateAsync({ type: 'blob' },
+            m => { $('prog-bar').style.width = Math.round(m.percent) + '%'; });
+          baixar(blob, base + '.zip');
+        }
+        $('gen-info').className = 'note ok';
+        $('gen-info').textContent = 'Pronto — ' + total + ' certificado' + (total === 1 ? '' : 's') + '.';
+      } catch (err) {
+        console.error(err);
+        $('gen-info').className = 'note warn';
+        $('gen-info').textContent = 'Deu erro: ' + err.message;
+      } finally {
+        $('prog').classList.remove('on');
+        $('prog-bar').style.width = '0%';
+        $('btn-generate').disabled = false;
+      }
+    }
+
+    async function gerarUm() {
+      if (!S.tpl) return;
+      await garantirFontes();
+      const row = linhaAtual();
+      const canvas = certificado(row);
+      const nome = nomeArquivo(row, S.idx, {});
+      const f = $('sel-format').value;
+      if (f === 'pdf-single' || f === 'pdf-zip') {
+        const pdf = novoPdf();
+        pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG',
+                     0, 0, S.tpl.width, S.tpl.height, undefined, 'FAST');
+        pdf.save(nome + '.pdf');
+      } else if (f === 'png-zip') {
+        baixar(await blobDe(canvas, 'image/png'), nome + '.png');
+      } else {
+        baixar(await blobDe(canvas, 'image/jpeg', 0.92), nome + '.jpg');
+      }
+    }
+
+    /* ═══════════════ Envio por e-mail ═══════════════ */
+
+    /* Nenhum link de e-mail carrega anexo (nem mailto:, nem o compor do Gmail).
+       Então cada pessoa é preparada assim: baixa o PDF dela e abre a mensagem
+       já preenchida no programa de e-mail — só falta arrastar o arquivo. */
+
+    function comMarcas(txt, row) {
+      const mapa = {
+        NOME: nomeDe(row), EVENTO: S.ev.evento, CURSO: S.ev.curso,
+        PROFESSOR: S.ev.prof, DATA: S.ev.data, MODALIDADE: S.ev.modalidade, CARGA: S.ev.carga
+      };
+      return String(txt || '').replace(/\{\s*([A-ZÀ-ÝÇ]+)\s*\}/g,
+        (m, k) => (mapa[k] != null ? mapa[k] : m));
+    }
+
+    function comEmail() {
+      return S.rows.filter(r => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailDe(r)));
+    }
+
+    function baixarPdfDe(row) {
+      const pdf = novoPdf();
+      pdf.addImage(certificado(row).toDataURL('image/jpeg', 0.92), 'JPEG',
+                   0, 0, S.tpl.width, S.tpl.height, undefined, 'FAST');
+      pdf.save(nomeArquivo(row, 0, {}) + '.pdf');
+    }
+
+    function urlEmail(row) {
+      const para = emailDe(row);
+      const assunto = comMarcas(S.mail.subject, row);
+      const corpo = comMarcas(S.mail.body, row);
+      if (S.mail.cliente === 'gmail') {
+        const conta = Math.max(0, Math.min(9, Number(S.mail.conta) || 0));
+        return 'https://mail.google.com/mail/u/' + conta + '/?view=cm&fs=1' +
+          '&to=' + encodeURIComponent(para) +
+          '&su=' + encodeURIComponent(assunto) +
+          '&body=' + encodeURIComponent(corpo);
+      }
+      return 'mailto:' + encodeURIComponent(para) +
+        '?subject=' + encodeURIComponent(assunto) +
+        '&body=' + encodeURIComponent(corpo);
+    }
+
+    /* Sem async aqui de propósito: o navegador só deixa abrir uma aba nova
+       durante o próprio clique. Se esperarmos o PDF ficar pronto antes,
+       o Gmail é barrado como pop-up. Então abre primeiro, baixa depois. */
+    function prepararEmail() {
+      const fila = comEmail();
+      if (!S.tpl || !fila.length) return;
+      if (S.mailIdx >= fila.length) S.mailIdx = 0;
+      const row = fila[S.mailIdx];
+      const url = urlEmail(row);
+
+      let aba = null;
+      if (S.mail.cliente === 'gmail') {
+        aba = window.open(url, '_blank');
+        if (!aba) { avisarBloqueio(url); return; }
+      }
+
+      garantirFontes().then(() => {
+        baixarPdfDe(row);
+        // o mailto: sai depois do download para o anexo já estar na pasta
+        if (S.mail.cliente !== 'gmail') window.location.href = url;
+      });
+
+      S.mailIdx++;
+      const proximo = fila[S.mailIdx];
+      if (proximo) S.idx = S.rows.indexOf(proximo);
+      desenhar(); montarLista(); filaEmail();
+    }
+
+    /* Se o navegador barrar a aba, deixa um link para clicar */
+    function avisarBloqueio(url) {
+      const el = $('mail-info');
+      el.className = 'note warn';
+      el.innerHTML = 'O navegador bloqueou a aba. Libere os pop-ups deste site ou ';
+      const a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'clique aqui para abrir o Gmail';
+      a.style.cssText = 'color:inherit;text-decoration:underline;pointer-events:auto;';
+      el.appendChild(a);
+    }
+
+    /* Estado da fila: quem é o próximo e quantos faltam */
+    function filaEmail() {
+      const fila = comEmail();
+      const sem = S.rows.length - fila.length;
+      const btn = $('btn-mail-abrir');
+      btn.disabled = !(S.tpl && fila.length);
+      $('btn-mail-pular').disabled = !fila.length;
+
+      if (!fila.length) {
+        btn.textContent = 'Preparar e-mail';
+        $('mail-prog').classList.remove('on');
+        infoMail(S.rows.length ? 'Nenhum e-mail válido na lista.' : '', S.rows.length ? 'warn' : '');
+        return;
+      }
+      if (S.mailIdx >= fila.length) {
+        btn.textContent = 'Recomeçar do primeiro';
+        $('mail-bar').style.width = '100%';
+        $('mail-prog').classList.add('on');
+        infoMail('Passei por todos os ' + fila.length +
+                 (sem ? ' · ' + sem + ' sem e-mail ficaram de fora' : ''), 'ok');
+        return;
+      }
+      const row = fila[S.mailIdx];
+      btn.textContent = 'Preparar: ' + nomeDe(row).split(' ')[0];
+      $('mail-prog').classList.add('on');
+      $('mail-bar').style.width = Math.round((S.mailIdx / fila.length) * 100) + '%';
+      infoMail((S.mailIdx + 1) + ' de ' + fila.length + ' — ' + nomeDe(row) + ' · ' + emailDe(row) +
+               (sem ? ' (' + sem + ' sem e-mail)' : ''));
+    }
+
+    function infoMail(txt, tipo) {
+      const el = $('mail-info');
+      el.className = 'note' + (tipo ? ' ' + tipo : '');
+      el.textContent = txt;
+    }
+
+    /* ═══════════════ Ligações da tela ═══════════════ */
+
+    function atualizarBotoes() {
+      $('btn-generate').disabled = !(S.tpl && S.rows.length);
+      $('btn-one').disabled = !S.tpl;
+      filaEmail();
+    }
+
+    function ligarDrop(dropId, inputId, fn) {
+      const drop = $(dropId), input = $(inputId);
+      input.addEventListener('change', () => { fn(input.files[0]); input.value = ''; });
+      ['dragenter', 'dragover'].forEach(ev =>
+        drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+      ['dragleave', 'drop'].forEach(ev =>
+        drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+      drop.addEventListener('drop', e => {
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) fn(e.dataTransfer.files[0]);
+      });
+    }
+    ligarDrop('drop-tpl', 'file-tpl', carregarTemplate);
+    ligarDrop('drop-xls', 'file-xls', carregarPlanilha);
+
+    /* ── Montador ── */
+    function trocarModo(modo) {
+      S.modo = modo;
+      pintarSeg('seg-modo', modo);
+      $('modo-arquivo').style.display = modo === 'arquivo' ? 'flex' : 'none';
+      $('modo-montar').style.display = modo === 'montar' ? 'flex' : 'none';
+      if (modo === 'montar') { montarFundo(); montarItens(); }
+      else {
+        // volta para o arquivo que tinha sido carregado (se houve algum)
+        S.tpl = S.tplArquivo || null;
+        S.masks = S.tpl ? S.masksArquivo || [] : [];
+        if (!S.tpl) {
+          $('stage-wrap').innerHTML =
+            '<div class="stage-empty">Carregue o certificado em branco ' +
+            'ou volte para "Montar aqui".</div>';
+          $('stage-bar').style.display = 'none';
+        } else { montarTemplate(); }
+        atualizarBotoes();
+      }
+      desenhar();
+      garantirFontes().then(desenhar);
+      save();
+    }
+    $('seg-modo').querySelectorAll('button').forEach(b =>
+      b.addEventListener('click', () => trocarModo(b.dataset.v)));
+
+    $('seg-orient').querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        S.montar.orient = b.dataset.v;
+        pintarSeg('seg-orient', S.montar.orient);
+        montarFundo(); desenhar(); save();
+      });
+    });
+    $('fundo-cor').addEventListener('input', e => {
+      S.montar.cor = e.target.value; montarFundo(); desenhar(); save();
+    });
+    ligarDrop('drop-bg', 'file-bg', async file => {
+      if (!file) return;
+      try {
+        S.montar.bgImg = await carregarImagem(file);
+        $('bg-msg').textContent = file.name;
+        $('drop-bg').classList.add('ok');
+        $('bg-linha').style.display = 'flex';
+        montarFundo(); desenhar();
+      } catch (e) { $('bg-msg').textContent = 'Não consegui abrir a imagem.'; }
+    });
+    $('btn-bg-off').addEventListener('click', () => {
+      S.montar.bgImg = null;
+      $('bg-msg').textContent = 'Imagem de fundo (opcional)';
+      $('drop-bg').classList.remove('ok');
+      $('bg-linha').style.display = 'none';
+      montarFundo(); desenhar();
+    });
+    $('seg-fit').querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        S.montar.bgFit = b.dataset.v;
+        pintarSeg('seg-fit', S.montar.bgFit);
+        montarFundo(); desenhar(); save();
+      });
+    });
+    $('chk-borda').addEventListener('change', e => {
+      S.montar.borda = e.target.checked; montarFundo(); desenhar(); save();
+    });
+    $('borda-cor').addEventListener('input', e => {
+      S.montar.bordaCor = e.target.value; montarFundo(); desenhar(); save();
+    });
+    $('borda-esp').addEventListener('input', e => {
+      S.montar.bordaEsp = Number(e.target.value); montarFundo(); desenhar(); save();
+    });
+
+    function juntarItem(it) {
+      S.montar.itens.push(it);
+      S.selItem = it.id;
+      montarItens(); desenhar();
+      garantirFontes().then(desenhar);
+      save();
+    }
+    $('add-titulo').addEventListener('click', () => juntarItem(novoItem({
+      texto: 'CERTIFICADO', y: 0.16, size: 0.055, font: 'Playfair Display',
+      cor: '#7a5c1e', bold: true
+    })));
+    $('add-texto').addEventListener('click', () => juntarItem(novoItem({
+      texto: 'Certificamos que', y: 0.32, size: 0.022, font: 'Montserrat'
+    })));
+    $('add-img').addEventListener('click', () => $('file-item').click());
+    $('file-item').addEventListener('change', async e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const img = await carregarImagem(file);
+        // cada imagem nova entra num lugar diferente, para não empilhar
+        const quantas = S.montar.itens.filter(i => i.tipo === 'img').length;
+        juntarItem(novoItem({
+          tipo: 'img', img: img, nome: file.name, larg: 0.18,
+          x: quantas % 2 ? 0.72 : 0.28, y: quantas < 2 ? 0.82 : 0.14
+        }));
+      } catch (err) { /* imagem inválida */ }
+      e.target.value = '';
+    });
+
+    $('sel-name').addEventListener('change', e => { S.nameCol = e.target.value; aplicarLinhas(); });
+
+    // Dados do evento → refazem os dois textos
+    const campos = { 'ev-evento': 'evento', 'ev-curso': 'curso', 'ev-prof': 'prof',
+                     'ev-data': 'data', 'ev-carga': 'carga' };
+    Object.keys(campos).forEach(id => {
+      $(id).value = S.ev[campos[id]] || '';
+      $(id).addEventListener('input', () => { S.ev[campos[id]] = $(id).value; desenhar(); save(); });
+    });
+    function pintarSeg(seg, valor) {
+      $(seg).querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === valor));
+    }
+    $('btn-limpar-ev').addEventListener('click', () => {
+      Object.keys(S.ev).forEach(k => { S.ev[k] = ''; });
+      Object.keys(campos).forEach(id => { $(id).value = ''; });
+      S.neg = {};
+      pintarSeg('seg-mod', ''); pintarNeg(); desenhar(); save();
+    });
+    $('seg-mod').querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        S.ev.modalidade = S.ev.modalidade === b.dataset.v ? '' : b.dataset.v;
+        pintarSeg('seg-mod', S.ev.modalidade);
+        desenhar(); save();
+      });
+    });
+
+    // Negrito de cada dado do evento
+    function pintarNeg() {
+      document.querySelectorAll('.btn.neg').forEach(b =>
+        b.classList.toggle('on', !!S.neg[b.dataset.k]));
+      $('name-bold').classList.toggle('on', !!S.nome.bold);
+      $('body-bold').classList.toggle('on', !!S.corpo.bold);
+    }
+    document.querySelectorAll('.btn.neg').forEach(b => {
+      b.addEventListener('click', () => {
+        S.neg[b.dataset.k] = !S.neg[b.dataset.k];
+        pintarNeg(); desenhar(); save();
+      });
+    });
+    $('name-bold').addEventListener('click', () => {
+      S.nome.bold = !S.nome.bold; pintarNeg(); desenhar(); save();
+    });
+    $('body-bold').addEventListener('click', () => {
+      S.corpo.bold = !S.corpo.bold; pintarNeg(); desenhar(); save();
+    });
+
+    $('people-search').addEventListener('input', () => montarLista());
+
+    // Quem ministrou — nomes digitados
+    $('min-nomes').addEventListener('input', () => {
+      S.min = $('min-nomes').value;
+      aplicarLinhas(); save();
+    });
+    $('btn-usar-prof').addEventListener('click', () => {
+      const nome = (S.ev.prof || '').trim();
+      if (!nome) { $('people-info').textContent = 'Preencha "Quem ministrou" no passo 3 primeiro.'; return; }
+      const linhas = String(S.min || '').split('\n').filter(l => l.trim());
+      if (!linhas.some(l => norm(l).indexOf(norm(nome)) !== -1)) linhas.push(nome);
+      S.min = linhas.join('\n');
+      $('min-nomes').value = S.min;
+      aplicarLinhas(); save();
+    });
+
+    ['txt-assistiu', 'txt-ministrou'].forEach(id => {
+      const key = id === 'txt-assistiu' ? 'assistiu' : 'ministrou';
+      $(id).value = S.txt[key];
+      $(id).addEventListener('input', () => { S.txt[key] = $(id).value; desenhar(); save(); });
+    });
+    $('btn-restore').addEventListener('click', () => {
+      S.txt.assistiu = PADRAO.assistiu;
+      S.txt.ministrou = PADRAO.ministrou;
+      $('txt-assistiu').value = PADRAO.assistiu;
+      $('txt-ministrou').value = PADRAO.ministrou;
+      desenhar(); save();
+    });
+
+    // Aparência
+    [['name-font', S.nome], ['body-font', S.corpo]].forEach(([id, b]) => {
+      const sel = $(id);
+      FONTS.forEach(f => {
+        const o = document.createElement('option');
+        o.value = f; o.textContent = f; o.style.fontFamily = cssFont(f);
+        sel.appendChild(o);
+      });
+      sel.value = b.font;
+      sel.addEventListener('change', () => { b.font = sel.value; desenhar(); garantirFontes().then(desenhar); save(); });
+    });
+    [['name-color', S.nome], ['body-color', S.corpo]].forEach(([id, b]) => {
+      $(id).value = b.color;
+      $(id).addEventListener('input', () => { b.color = $(id).value; desenhar(); save(); });
+    });
+    [['name-size', S.nome], ['body-size', S.corpo]].forEach(([id, b]) => {
+      $(id).value = String(Math.round(b.size * 1000));
+      $(id).addEventListener('input', () => { b.size = Number($(id).value) / 1000; desenhar(); save(); });
+    });
+    [['name-align', S.nome], ['body-align', S.corpo]].forEach(([id, b]) => {
+      $(id).querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => { b.align = btn.dataset.v; pintarSeg(id, b.align); desenhar(); save(); });
+      });
+      pintarSeg(id, b.align);
+    });
+    $('body-width').value = String(Math.round(S.corpo.maxw * 100));
+    $('body-width').addEventListener('input', () => {
+      S.corpo.maxw = Number($('body-width').value) / 100; desenhar(); save();
+    });
+    $('chk-mask').checked = S.mask;
+    $('chk-mask').addEventListener('change', e => {
+      S.mask = e.target.checked; montarTemplate(); desenhar(); save();
+    });
+
+    $('btn-prev').addEventListener('click', () => {
+      if (!S.rows.length) return;
+      S.idx = (S.idx - 1 + S.rows.length) % S.rows.length; desenhar();
+    });
+    $('btn-next').addEventListener('click', () => {
+      if (!S.rows.length) return;
+      S.idx = (S.idx + 1) % S.rows.length; desenhar();
+    });
+    $('chk-guides').addEventListener('change', e =>
+      $('stage-wrap').classList.toggle('no-guides', !e.target.checked));
+
+    $('sel-format').addEventListener('change', save);
+    $('btn-generate').addEventListener('click', gerarTodos);
+    $('btn-one').addEventListener('click', gerarUm);
+
+    // E-mail
+    $('sel-email').addEventListener('change', e => {
+      S.emailCol = e.target.value; S.mailIdx = 0;
+      montarLista(); filaEmail(); atualizarBotoes();
+    });
+    const camposMail = { 'mail-subject': 'subject', 'mail-body': 'body' };
+    Object.keys(camposMail).forEach(id => {
+      $(id).addEventListener('input', () => { S.mail[camposMail[id]] = $(id).value; save(); });
+    });
+    function pintarCliente() {
+      pintarSeg('seg-cliente', S.mail.cliente);
+      $('linha-conta').style.display = S.mail.cliente === 'gmail' ? 'flex' : 'none';
+    }
+    $('seg-cliente').querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        S.mail.cliente = b.dataset.v;
+        pintarCliente();
+        save();
+      });
+    });
+    $('mail-conta').addEventListener('input', e => {
+      S.mail.conta = Number(e.target.value) || 0; save();
+    });
+    $('btn-mail-abrir').addEventListener('click', prepararEmail);
+    $('btn-mail-pular').addEventListener('click', () => {
+      const fila = comEmail();
+      if (!fila.length) return;
+      S.mailIdx = Math.min(S.mailIdx + 1, fila.length);
+      const proximo = fila[S.mailIdx];
+      if (proximo) { S.idx = S.rows.indexOf(proximo); desenhar(); montarLista(); }
+      filaEmail();
+    });
+
+    window.addEventListener('resize', () => { if (S.tpl) desenhar(); });
+
+    /* Tema (esta página não carrega o script.js do site: sem fundo animado,
+       o navegador fica leve mesmo com o preview redesenhando o tempo todo) */
+    const TEMA = 'tmirim-certificados-tema';
+    function aplicarTema(claro) {
+      document.body.classList.toggle('light-theme', claro);
+      try { localStorage.setItem(TEMA, claro ? 'claro' : 'escuro'); } catch (e) {}
+    }
+    $('planet-toggle-top').addEventListener('click', () =>
+      aplicarTema(!document.body.classList.contains('light-theme')));
+    try { aplicarTema(localStorage.getItem(TEMA) === 'claro'); } catch (e) {}
+
+    /* Início */
+    load();
+    Object.keys(campos).forEach(id => { $(id).value = S.ev[campos[id]] || ''; });
+    Object.keys(camposMail).forEach(id => { $(id).value = S.mail[camposMail[id]] || ''; });
+    $('min-nomes').value = S.min || '';
+    $('txt-assistiu').value = S.txt.assistiu;
+    $('txt-ministrou').value = S.txt.ministrou;
+    pintarNeg();
+    pintarSeg('seg-mod', S.ev.modalidade);
+    $('mail-conta').value = String(S.mail.conta || 0);
+    pintarCliente();
+    pintarSeg('seg-orient', S.montar.orient);
+    pintarSeg('seg-fit', S.montar.bgFit);
+    $('fundo-cor').value = S.montar.cor;
+    $('borda-cor').value = S.montar.bordaCor;
+    $('borda-esp').value = String(S.montar.bordaEsp);
+    $('chk-borda').checked = S.montar.borda;
+    idItem = S.montar.itens.length + 1;
+    S.montar.itens.forEach((it, i) => { it.id = 'i' + (i + 1); });
+    trocarModo(S.modo);
+    pintarSeg('name-align', S.nome.align);
+    pintarSeg('body-align', S.corpo.align);
+    $('name-font').value = S.nome.font; $('body-font').value = S.corpo.font;
+    $('name-color').value = S.nome.color; $('body-color').value = S.corpo.color;
+    $('name-size').value = String(Math.round(S.nome.size * 1000));
+    $('body-size').value = String(Math.round(S.corpo.size * 1000));
+    $('body-width').value = String(Math.round(S.corpo.maxw * 100));
+    $('chk-mask').checked = S.mask;
+    atualizarBotoes();
+    garantirFontes();
+  })();
+  </script>
+</body>
+</html>
