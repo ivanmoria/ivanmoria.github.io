@@ -1,0 +1,21 @@
+Gerador de Certificados — Licença de uso
+Copyright (c) 2026 Ivan Moriá Borges. Todos os direitos reservados.
+
+Autor: Ivan Moriá Borges <ivanmoriabr@gmail.com>
+Site:  https://ivanmoria.github.io
+
+1. Este software (o arquivo "certi.html" e os recursos a ele associados)
+   é protegido por direitos autorais e disponibilizado apenas para uso
+   direto nesta página.
+
+2. É PROIBIDO, sem autorização prévia e por escrito do autor:
+   - copiar, no todo ou em parte, o código-fonte;
+   - redistribuir, publicar ou hospedar o software em outro endereço;
+   - criar obras derivadas ou modificar o software para redistribuição;
+   - remover ou alterar este aviso de direitos autorais.
+
+3. O software é fornecido "como está", sem garantias de qualquer tipo.
+   O autor não se responsabiliza por quaisquer danos decorrentes do uso.
+
+4. Para pedidos de licenciamento, parcerias ou outras autorizações,
+   entre em contato pelo e-mail acima.
