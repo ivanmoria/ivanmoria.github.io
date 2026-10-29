@@ -1486,12 +1486,16 @@
     }
     function ministrou(row) { return !!(row && row.__ministrou) && tipoDaLinha(row).id === 'minicurso'; }
     /* {TRABALHO}: o da coluna da planilha; quem ficou sem usa o digitado no passo 3 */
+    /* O que está na coluna Título, mesmo que o tipo não imprima — serve para
+       não juntar dois trabalhos diferentes da mesma pessoa */
+    function tituloBruto(row) {
+      return row && S.trabCol ? String(row[S.trabCol] == null ? '' : row[S.trabCol]).replace(/\s+/g, ' ').trim() : '';
+    }
     function trabalhoDe(row) {
       if (!row) return '';
       const id = tipoDaLinha(row).id;
       if (!usaTrabalho(id)) return '';
-      const v = S.trabCol ? String(row[S.trabCol] == null ? '' : row[S.trabCol]).replace(/\s+/g, ' ').trim() : '';
-      return v || String(S.ativ[id] || '').replace(/\s+/g, ' ').trim();
+      return tituloBruto(row) || String(S.ativ[id] || '').replace(/\s+/g, ' ').trim();
     }
     /* A linha grande do certificado: o nome, ou o título do trabalho */
     function destaqueEhTrabalho(row) {
@@ -2482,7 +2486,9 @@
         }
 
         const k = norm(v);
-        const kk = k + '|' + tipoDaLinha(r).id + '|' + norm(trabalhoDe(r));
+        // dois trabalhos diferentes da mesma pessoa = dois certificados (mesmo que
+        // o tipo não imprima o título); turnos de monitoria (sem título) continuam somando
+        const kk = k + '|' + tipoDaLinha(r).id + '|' + norm(trabalhoDe(r) || tituloBruto(r));
         const min = minutosDe(r);
         const ja = porChave[kk];
         if (ja) {
