@@ -136,19 +136,6 @@
     .vaga { display: grid; justify-items: end; }
     .vaga > * { grid-area: 1 / 1; }
     .coloc-seg button { flex: 0 0 auto; padding: 4px 10px; font-size: 13px; }
-    .coloc-lista { max-height: 260px; gap: 4px; }
-    .coloc-item { display: flex; flex-direction: column; gap: 5px; padding: 6px; border-radius: 6px;
-                  border: 1px solid transparent; }
-    .coloc-item.aqui { border-color: rgba(150,200,255,0.5); background: rgba(120,180,255,0.08); }
-    .coloc-item.falta .coloc-tit::after { content: ' · sem colocação'; color: #ffb38a; font-size: 11.5px; }
-    .coloc-tit { cursor: pointer; font-size: 13.5px; line-height: 1.35; color: rgba(255,255,255,0.9); }
-    .coloc-tit small { display: block; font-size: 11.5px; opacity: 0.65; overflow: hidden;
-                       text-overflow: ellipsis; white-space: nowrap; }
-    .coloc-tit:hover { text-decoration: underline; }
-    .coloc-ctrl { display: flex; gap: 6px; align-items: center; }
-    .coloc-ctrl .seg { flex: 0 0 auto; }
-    .coloc-ctrl .inp { flex: 1; min-width: 0; font-size: 13px; padding: 4px 8px; }
-    body.light-theme .coloc-tit { color: rgba(0,0,0,0.85); }
 
     /* blocos arrastáveis sobre o certificado */
     .blk {
@@ -462,7 +449,7 @@
     body.light-theme .prog > div { background: #2e9e52; }
     body.light-theme .note.warn, body.light-theme .aviso-nome { color: #b4541c; }
     body.light-theme .note.ok { color: #1f7a3a; }
-    body.light-theme .coloc-item.falta .coloc-tit::after, body.light-theme .grade tr.fora td.n small { color: #b4541c; }
+    body.light-theme .grade tr.fora td.n small { color: #b4541c; }
     body.light-theme .drop { border-color: rgba(0,0,0,0.3); }
     body.light-theme .people, body.light-theme .colrow { border-color: rgba(0,0,0,0.15); }
     body.light-theme .colrow .cn small { color: rgba(0,0,0,0.6); opacity: 1; }
@@ -770,10 +757,10 @@
             e <b>Horário</b> (monitores: "08:00-12:00", ou colunas Entrada e Saída — o app soma
             as horas, inclusive de vários turnos da mesma pessoa). As outras colunas podem
             ficar — você escolhe quais usar depois de carregar.</div>
-          <div class="row">
-            <button class="btn btn-sm grow" id="btn-modelo">Baixar planilha modelo</button>
-            <button class="btn btn-sm grow" id="btn-digitar">Digitar a lista aqui</button>
-          </div>
+        </div>
+        <div class="row">
+          <button class="btn btn-sm grow" id="btn-modelo">Baixar planilha modelo</button>
+          <button class="btn btn-sm grow" id="btn-digitar">Digitar a lista aqui</button>
         </div>
         <div class="lbl" id="cols-lbl" style="display:none;">Colunas do arquivo — o que é cada uma?</div>
         <div class="people" id="cols" style="display:none; max-height:none;"></div>
@@ -796,12 +783,6 @@
           <span class="lbl">Tipo de certificado</span>
           <select class="inp" id="sel-tipo"></select>
           <div class="note" id="tipo-info"></div>
-        </div>
-        <div class="field" id="campo-coloc" style="display:none;">
-          <span class="lbl">Colocação de cada trabalho</span>
-          <div class="people coloc-lista" id="coloc-lista"></div>
-          <div class="note warn" id="coloc-info"></div>
-          <datalist id="premios-lista"></datalist>
         </div>
         <div class="note">O <b>N</b> ao lado de cada campo deixa aquele dado em negrito no certificado.</div>
         <button class="btn btn-sm" id="btn-limpar-ev" style="width:100%;">Limpar dados do evento</button>
@@ -1014,6 +995,7 @@
       <div class="sec">
         <div class="sec-title"><span class="num">8</span> Enviar por e-mail</div>
         <div class="note" id="mail-col-info"></div>
+        <div class="note" id="mail-tipo"></div>
         <div class="field">
           <span class="lbl">Assunto</span>
           <div class="inp editor uma-linha sem-formato" id="mail-subject" contenteditable="true" spellcheck="false"></div>
@@ -1042,8 +1024,9 @@
                  style="width:58px;flex:0 0 58px;text-align:center;">
         </div>
         <div class="row">
+          <button class="btn btn-sm" id="btn-mail-voltar" title="Voltar para a pessoa anterior (reenviar)">‹ voltar</button>
           <button class="btn grow" id="btn-mail-abrir" disabled>Preparar e-mail</button>
-          <button class="btn btn-sm" id="btn-mail-pular">pular</button>
+          <button class="btn btn-sm" id="btn-mail-pular">pular ›</button>
         </div>
         <div class="prog" id="mail-prog"><div id="mail-bar"></div></div>
         <div class="note" id="mail-info"></div>
@@ -1362,6 +1345,27 @@
     const MAIL_PADRAO =
       'Olá, {NOME}!\n\n' +
       'Segue em anexo o seu certificado de {TIPO} do {EVENTO}.';
+    // mensagens por tipo (quem não estiver aqui usa a de cima)
+    const MAIL_POR_TIPO = {
+      premiacao: 'Olá, {NOME}!\n\nÉ com satisfação que enviamos o seu certificado de premiação do ' +
+                 '{EVENTO}. Parabéns pelo {COLOCACAO} lugar com o trabalho "{TRABALHO}"!',
+      poster: 'Olá, {NOME}!\n\nSegue em anexo o seu certificado de apresentação de pôster do {EVENTO}. ' +
+              'Obrigado por compartilhar o trabalho "{TRABALHO}".',
+      oral: 'Olá, {NOME}!\n\nSegue em anexo o seu certificado de apresentação de comunicação oral do ' +
+            '{EVENTO}. Obrigado por compartilhar o trabalho "{TRABALHO}".',
+      monitoria: 'Olá, {NOME}!\n\nSegue em anexo o seu certificado de monitoria do {EVENTO}. ' +
+                 'Obrigado pela sua dedicação ao evento.',
+      minicurso: 'Olá, {NOME}!\n\nSegue em anexo o seu certificado do {EVENTO}.',
+      livro: 'Olá, {NOME}!\n\nSegue em anexo o seu certificado de lançamento de livro do {EVENTO}.'
+    };
+    function mailSubjectDe(id) {
+      return S.mail.subjectTipo[id] != null ? S.mail.subjectTipo[id] : S.mail.subject;
+    }
+    function mailBodyDe(id) {
+      if (S.mail.bodyTipo[id] != null) return S.mail.bodyTipo[id];
+      // o padrão por tipo só vale enquanto a mensagem geral não foi mexida
+      return S.mail.body === MAIL_PADRAO && MAIL_POR_TIPO[id] ? MAIL_POR_TIPO[id] : S.mail.body;
+    }
 
     const S = {
       tpl: null,
@@ -1400,7 +1404,7 @@
       },
       selItem: null,
       mail: { subject: 'Certificado de {TIPO} — {EVENTO}', body: MAIL_PADRAO,
-              cliente: 'gmail', conta: 0 },
+              subjectTipo: {}, bodyTipo: {}, cliente: 'gmail', conta: 0 },
       mailIdx: 0,                     // em qual pessoa está a fila de envio
       sel: null
     };
@@ -1594,6 +1598,12 @@
         S.txt.minicurso = d.txt.assistiu;
         S.txt.minicurso_min = d.txt.ministrou;
       } else Object.assign(S.txt, d.txt || {});
+      // textos salvos de versões antigas que perderam as marcas ({NOME}, {EVENTO}…)
+      // apareciam com palavras soltas; descarta para voltar ao padrão
+      Object.keys(S.txt).forEach(k => {
+        const salvo = String(S.txt[k] || '');
+        if (!/\{/.test(salvo) && /\{/.test(String(padraoDe(k) || ''))) delete S.txt[k];
+      });
       Object.assign(S.cargas, d.cargas || {});
       if (!d.cargas && d.ev && d.ev.carga) S.cargas.minicurso = d.ev.carga;
       delete S.ev.carga;
@@ -1610,6 +1620,8 @@
       Object.assign(S.nome, d.nome || {});
       Object.assign(S.corpo, d.corpo || {});
       Object.assign(S.mail, d.mail || {});
+      S.mail.subjectTipo = (d.mail && d.mail.subjectTipo) || {};
+      S.mail.bodyTipo = (d.mail && d.mail.bodyTipo) || {};
       if (d.montar) {
         Object.assign(S.montar, d.montar, { bgImg: null });
         S.montar.itens = (d.montar.itens || []).map(i => novoItem(i));
@@ -2075,8 +2087,8 @@
         S.tipoCol = S.columns.filter(c => livre(c) && curta(c) &&
           /tipo|categoria|apresenta|formato|modalidade/i.test(c)).find(c => {
           const vs = valores(c);
-          return vs.length && new Set(vs.map(norm)).size <= 12 &&
-                 vs.filter(tipoDoValor).length >= vs.length * 0.6;
+          // nome da coluna já diz "tipo/categoria…"; basta a maioria dos valores ser um tipo conhecido
+          return vs.length && vs.filter(tipoDoValor).length >= vs.length * 0.6;
         }) || '';
         // Horário: pelo nome da coluna, e os valores têm que ter cara de horário
         // (o "Carimbo de data/hora" do Forms fica fora)
@@ -2183,45 +2195,65 @@
 
     /* Planilha modelo (.xlsx), para quem vai montar a lista do zero */
     function baixarModelo() {
-      const dados = [
-        ['Nome', 'E-mail', 'Tipo', 'Título do trabalho', 'Horário', 'Colocação', 'Prêmio'],
-        ['Maria da Silva Souza; João Pereira', 'maria@email.com', 'Pôster',
-         'Música e cognição na infância', '', '', ''],
-        ['Maria da Silva Souza', 'maria@email.com', 'Comunicação oral', 'Ritmo e linguagem', '', '', ''],
-        ['Maria da Silva Souza', 'maria@email.com', 'Premiação', 'Ritmo e linguagem', '', '1', 'Prêmio Fulano de Tal'],
-        ['João Pereira', 'joao@email.com', 'Participação', '', '', '', ''],
-        ['Ana Costa', 'ana@email.com', 'Mesa redonda', 'Nome da mesa redonda', '', '', ''],
-        ['Ana Costa', 'ana@email.com', 'Monitoria', '', '08:00-12:00', '', ''],
-        ['Ana Costa', 'ana@email.com', 'Monitoria', '', '14:00-18:00', '', '']
+      // uma coluna para cada coisa que o app sabe ler
+      const COLS = ['Nome', 'E-mail', 'Tipo', 'Título do trabalho', 'Colocação', 'Prêmio',
+                    'Entrada', 'Saída'];
+      // um exemplo de cada tipo, para servir de esqueleto
+      const dados = [COLS,
+        ['Maria da Silva Souza; João Pereira', 'maria@email.com', 'Pôster', 'Música e cognição na infância', '', '', '', ''],
+        ['Ana Beatriz Costa', 'ana@email.com', 'Comunicação oral', 'Ritmo e linguagem na infância', '', '', '', ''],
+        ['Marcelo Henrique Godoi', 'marcelo@email.com', 'Premiação', 'Avaliação em musicoterapia', '1', 'Prêmio Fulano de Tal', '', ''],
+        ['Raquel Souza e Silva', 'raquel@email.com', 'Premiação', 'Música e autismo', '2', 'Prêmio Fulano de Tal', '', ''],
+        ['Carla Dias', 'carla@email.com', 'Lançamento de livro', 'Musicoterapia e cuidado', '', '', '', ''],
+        ['Diego Reis', 'diego@email.com', 'Palestrante de mesa redonda', 'Cooperação Sul-Sul', '', '', '', ''],
+        ['Elisa Mota', 'elisa@email.com', 'Mediação de mesa redonda', 'Cooperação Sul-Sul', '', '', '', ''],
+        ['Fábio Nunes', 'fabio@email.com', 'Coordenação de grupo de trabalho', 'Musicoterapia social', '', '', '', ''],
+        ['Gabriela Lima', 'gabriela@email.com', 'Workshop', 'Tecnologia assistiva na clínica', '', '', '', ''],
+        ['Hugo Pereira', 'hugo@email.com', 'Workshop ministrante', 'Tecnologia assistiva na clínica', '', '', '', ''],
+        ['Irene Alves', 'irene@email.com', 'Minicurso', '', '', '', '', ''],
+        ['João Pereira', 'joao@email.com', 'Participação', '', '', '', '', ''],
+        ['Kátia Maheirie', 'katia@email.com', 'Organização', '', '', '', '', ''],
+        ['Lucas Prado', 'lucas@email.com', 'Comissão científica', '', '', '', '', ''],
+        ['Marina Reis', 'marina@email.com', 'Comissão de premiação', '', '', '', '', ''],
+        ['Natália Gomes', 'natalia@email.com', 'Parecerista', '', '', '', '', ''],
+        ['Otávio Souza', 'otavio@email.com', 'Expositor', '', '', '', '', ''],
+        ['Paula Andrade', 'paula@email.com', 'Agradecimento', '', '', '', '', ''],
+        ['Ana Costa', 'ana2@email.com', 'Monitoria', '', '', '', '08:00', '12:00'],
+        ['Ana Costa', 'ana2@email.com', 'Monitoria', '', '', '', '14:00', '18:00']
       ];
+      const sim = s => '      ✔ ' + s;
       const ajuda = [
-        ['Como preencher'],
+        ['COMO PREENCHER ESTE MODELO'],
         [''],
-        ['Uma linha por certificado. Quem recebe dois certificados aparece em duas linhas.'],
-        ['Só a coluna Nome é obrigatória. Apague as colunas que não for usar.'],
+        ['Preencha a aba "Participantes" e carregue este arquivo no app. Uma linha = um certificado.'],
+        ['Só a coluna Nome é obrigatória; apague as colunas que não for usar.'],
         [''],
-        ['Nome', 'Pode estar em maiúsculas: o app arruma (MARIA DA SILVA → Maria da Silva).'],
-        ['E-mail', 'Para o envio dos certificados.'],
-        ['Tipo', TIPOS.map(t => t.nome).join(' · ')],
-        ['', 'Se não houver esta coluna, todos recebem o tipo escolhido no app.'],
-        ['Título do trabalho', 'Pôster, comunicação oral, premiação, livro — e também o nome da mesa'],
-        ['', 'redonda, do grupo de trabalho ou do workshop (que sai em negrito no certificado).'],
-        ['', 'Pôster, comunicação oral e premiação: um certificado por trabalho, com todos os'],
-        ['', 'autores juntos. Ponha os autores na coluna Nome separados por ";" ou uma linha por autor.'],
-        ['Colocação', 'Premiação: 1, 2… (sai "1º lugar").'],
-        ['Prêmio', 'Premiação: o nome do prêmio.'],
-        ['Horário', 'Monitores: 08:00-12:00, ou 8h às 12h, ou só a quantidade de horas (4).'],
-        ['', 'Vários turnos: uma linha por turno, ou 08:00-12:00 / 14:00-18:00 na mesma célula.'],
-        ['', 'Também dá para usar duas colunas, Entrada e Saída.']
-      ];
+        ['COLUNA', 'PARA QUE SERVE'],
+        ['Nome', 'Quem recebe. Pode estar em MAIÚSCULAS — o app arruma (MARIA DA SILVA → Maria da Silva).'],
+        ['', 'Trabalho com vários autores: separe por ";" na mesma célula, ou uma linha por autor.'],
+        ['E-mail', 'Para enviar o certificado (passo 8). Pode deixar em branco.'],
+        ['Tipo', 'Qual certificado é cada linha. Se não houver esta coluna, todos usam o tipo escolhido no app.'],
+        ['Título do trabalho', 'Pôster, comunicação oral, premiação, livro; e também o nome da mesa redonda,'],
+        ['', 'do grupo de trabalho ou do workshop. Sai em destaque/negrito no certificado.'],
+        ['Colocação', 'Só premiação: 1, 2, 3 (vira "1º lugar"). Dá para marcar pelo app também.'],
+        ['Prêmio', 'Só premiação: o nome do prêmio (quando há mais de um prêmio).'],
+        ['Entrada / Saída', 'Só monitoria: o horário do turno. O app soma as horas de todos os turnos.'],
+        ['', 'Em vez de duas colunas, dá para usar uma coluna "Horário": 08:00-12:00, 8h às 12h, ou só 4.'],
+        [''],
+        ['Data, modalidade, local, carga horária do evento: preencha no app (passo 3), valem para todos.'],
+        [''],
+        ['VALORES ACEITOS NA COLUNA TIPO'],
+        ['(escreva como estiver mais fácil — o app reconhece variações)']
+      ].concat(TIPOS.map(t => [t.nome, sim(t.diz)]));
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(dados);
-      ws['!cols'] = [{ wch: 36 }, { wch: 22 }, { wch: 18 }, { wch: 34 }, { wch: 14 }, { wch: 11 }, { wch: 24 }];
+      ws['!cols'] = [{ wch: 34 }, { wch: 22 }, { wch: 28 }, { wch: 32 }, { wch: 10 }, { wch: 22 }, { wch: 9 }, { wch: 9 }];
+      ws['!freeze'] = { xSplit: 0, ySplit: 1 };
       XLSX.utils.book_append_sheet(wb, ws, 'Participantes');
       const wa = XLSX.utils.aoa_to_sheet(ajuda);
-      wa['!cols'] = [{ wch: 20 }, { wch: 90 }];
+      wa['!cols'] = [{ wch: 32 }, { wch: 92 }];
       XLSX.utils.book_append_sheet(wb, wa, 'Como preencher');
-      XLSX.writeFile(wb, 'modelo-participantes.xlsx');
+      XLSX.writeFile(wb, 'modelo-certificados.xlsx');
     }
 
     /* ═══════════════ Editor da planilha ═══════════════
@@ -2531,7 +2563,6 @@
       $('arrumar-linha').style.display = S.allRows.length ? 'flex' : 'none';
       contarMinistrantes();
       montarLista();
-      montarColocacoes();
       desenhar();
       atualizarBotoes();
     }
@@ -2753,8 +2784,6 @@
       const temCarga = !temColoc && S.rows.length && usaMarca(tipoDaLinha(row).id, 'CARGA');
       $('coloc-linha').style.visibility = temColoc ? 'visible' : 'hidden';
       if (temColoc) pintarSeg('coloc-rapida', colocacaoDe(row));
-      const kAtual = row && chaveTrabalho(row);
-      document.querySelectorAll('.coloc-item').forEach(x => x.classList.toggle('aqui', x.dataset.k === kAtual));
       $('carga-pessoa-linha').style.visibility = temCarga ? 'visible' : 'hidden';
       if (temCarga && document.activeElement !== $('carga-pessoa')) {
         $('carga-pessoa').value = S.cargaPessoa[chavePessoa(row)] || '';
@@ -3051,8 +3080,9 @@
 
     function urlEmail(row) {
       const para = emailDe(row);
-      const assunto = comMarcas(S.mail.subject, row);
-      const corpo = comMarcas(S.mail.body, row);
+      const id = tipoDaLinha(row).id;
+      const assunto = comMarcas(mailSubjectDe(id), row);
+      const corpo = comMarcas(mailBodyDe(id), row);
       if (S.mail.cliente === 'gmail') {
         const conta = Math.max(0, Math.min(9, Number(S.mail.conta) || 0));
         return 'https://mail.google.com/mail/u/' + conta + '/?view=cm&fs=1' +
@@ -3111,7 +3141,8 @@
       const sem = S.rows.length - fila.length;
       const btn = $('btn-mail-abrir');
       btn.disabled = !(S.tpl && fila.length);
-      $('btn-mail-pular').disabled = !fila.length;
+      $('btn-mail-pular').disabled = !fila.length || S.mailIdx >= fila.length;
+      $('btn-mail-voltar').disabled = !fila.length || S.mailIdx <= 0;
 
       if (!fila.length) {
         btn.textContent = 'Preparar e-mail';
@@ -3401,75 +3432,25 @@
       mostrarTipo(); aplicarLinhas(); save();
     });
 
-    /* ── Premiação: colocação (e prêmio) de cada trabalho, à mão ── */
-    function trabalhosDaLista() {
-      const vistos = {}, lista = [];
-      S.rows.forEach((r, i) => {
-        if (!usaMarca(tipoDaLinha(r).id, 'COLOCACAO')) return;
-        const k = chaveTrabalho(r);
-        if (vistos[k]) return;
-        vistos[k] = true;
-        lista.push({ k, row: r, i });
-      });
-      return lista;
-    }
+    /* ── Premiação: a colocação é marcada por pessoa (barra do preview) ── */
     function marcarColocacao(k, v) {
       if (S.colocTrab[k] === v) delete S.colocTrab[k]; else S.colocTrab[k] = v;   // clicar de novo desmarca
-      montarColocacoes(); desenhar(); save();
+      desenhar(); montarLista(); save();
     }
-    function montarColocacoes() {
-      const lista = trabalhosDaLista();
-      $('campo-coloc').style.display = lista.length ? 'flex' : 'none';
-      const box = $('coloc-lista');
-      // não refaz enquanto digita o prêmio (só o campo de texto; clicar nos botões refaz)
-      if (box.contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return;
-      box.innerHTML = '';
-      // sugestões de prêmio: o do campo, os da planilha e os já escritos
-      const premios = new Set(Object.values(S.premios).concat(Object.values(S.premioTrab))
-        .concat(S.premioCol ? S.allRows.map(r => r[S.premioCol]) : [])
-        .map(x => String(x || '').trim()).filter(Boolean));
-      $('premios-lista').innerHTML = '';
-      premios.forEach(p => { const o = document.createElement('option'); o.value = p; $('premios-lista').appendChild(o); });
-      const atual = linhaAtual() && chaveTrabalho(linhaAtual());
-      lista.forEach(({ k, row, i }) => {
-        const el = document.createElement('div');
-        el.className = 'coloc-item' + (k === atual ? ' aqui' : '') + (colocacaoDe(row) ? '' : ' falta');
-        el.dataset.k = k;
-        const tit = document.createElement('div');
-        tit.className = 'coloc-tit';
-        tit.textContent = (trabalhoDe(row) || nomeDe(row));
-        const quem = document.createElement('small');
-        quem.textContent = row.__todos || nomeDe(row);
-        tit.appendChild(quem);
-        tit.title = 'Ver este certificado';
-        tit.addEventListener('click', () => { S.idx = i; desenhar(); montarLista(); montarColocacoes(); });
-        const ctrl = document.createElement('div');
-        ctrl.className = 'coloc-ctrl';
-        const seg = document.createElement('div');
-        seg.className = 'seg';
-        ['1º', '2º', '3º'].forEach(v => {
-          const b = document.createElement('button');
-          b.textContent = v;
-          if (colocacaoDe(row) === v) b.className = 'on';
-          b.addEventListener('click', () => marcarColocacao(k, v));
-          seg.appendChild(b);
-        });
-        const pr = document.createElement('input');
-        pr.className = 'inp';
-        pr.setAttribute('list', 'premios-lista');
-        pr.value = S.premioTrab[k] || '';
-        pr.placeholder = premioDe(row) || 'prêmio';
-        pr.addEventListener('input', () => {
-          if (pr.value.trim()) S.premioTrab[k] = pr.value; else delete S.premioTrab[k];
-          desenhar(); save();
-        });
-        ctrl.appendChild(seg); ctrl.appendChild(pr);
-        el.appendChild(tit); el.appendChild(ctrl);
-        box.appendChild(el);
-      });
-      const falta = lista.filter(x => !colocacaoDe(x.row)).length;
-      $('coloc-info').textContent = falta
-        ? falta + ' trabalho' + (falta === 1 ? '' : 's') + ' sem colocação.' : '';
+    function avisoColoc() {
+      const n = trabalhosSemColocacao();
+      return n + (n === 1 ? ' trabalho sem colocação' : ' trabalhos sem colocação') +
+             ' — marque 1º, 2º ou 3º na barra abaixo do certificado (ou na coluna Colocação da planilha).';
+    }
+    function trabalhosSemColocacao() {
+      const vistos = {};
+      return S.rows.filter(r => {
+        if (!usaMarca(tipoDaLinha(r).id, 'COLOCACAO')) return false;
+        const k = chaveTrabalho(r);
+        if (vistos[k]) return false;
+        vistos[k] = true;
+        return !colocacaoDe(r);
+      }).length;
     }
     $('coloc-rapida').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
       const row = linhaAtual();
@@ -3497,7 +3478,7 @@
       if (document.activeElement !== $('txt-titulo')) $('txt-titulo').value = txtDe(t.id + '_titulo');
       if (document.activeElement !== $('txt-intro')) $('txt-intro').value = txtDe(chaveIntro(t.id));
       montarPaleta();
-      montarColocacoes();
+      pintarMail();
       // cada tipo mostra só os campos que o seu texto usa
       $('campo-carga').style.display = usaMarca(t.id, 'CARGA') ? 'flex' : 'none';
       $('campo-dia').style.display = usaMarca(t.id, 'DIA') ? 'flex' : 'none';
@@ -3536,10 +3517,12 @@
           (lista ? ': ' + lista : '') + '. Este seletor escolhe qual texto editar' +
           (fora ? ' e vale para o que não reconheci: ' + fora : ' e vale para linhas sem tipo') + '.' +
           (S.trabCol || !S.rows.some(r => usaTrabalho(tipoDaLinha(r).id)) ? ''
-            : ' Falta marcar no passo 2 a coluna do título.');
-        if (fora) $('tipo-info').className = 'note warn';
+            : ' Falta marcar no passo 2 a coluna do título.') +
+          (trabalhosSemColocacao() ? ' ' + avisoColoc() : '');
+        if (fora || trabalhosSemColocacao()) $('tipo-info').className = 'note warn';
         return;
       }
+      const semColoc = usaMarca(t.id, 'COLOCACAO') ? trabalhosSemColocacao() : 0;
       const faltaTitulo = usaTrabalho() && S.columns.length && !S.trabCol && !S.ativ[t.id];
       const sobreArquivo = S.tipoPeloArquivo === '?'
         ? 'Pelo nome do arquivo não deu para saber o tipo — confira se "' + t.nome + '" é o certo. '
@@ -3549,8 +3532,9 @@
         : !S.columns.length ? ''
         : !S.trabCol ? (S.ativ[t.id] ? '' : 'Marque no passo 2 qual coluna tem o ' + nomeT +
                                              ', ou escreva abaixo se for o mesmo para todos.')
-        : (t.trabalho || 'Título') + ' vem da coluna "' + S.trabCol + '".')).trim();
-      $('tipo-info').className = faltaTitulo || S.tipoPeloArquivo === '?' ? 'note warn'
+        : (t.trabalho || 'Título') + ' vem da coluna "' + S.trabCol + '".') +
+        (semColoc ? ' ' + avisoColoc() : '')).trim();
+      $('tipo-info').className = faltaTitulo || semColoc || S.tipoPeloArquivo === '?' ? 'note warn'
         : S.tipoPeloArquivo ? 'note ok' : 'note';
     }
     $('sel-tipo').addEventListener('change', e => {
@@ -3662,10 +3646,17 @@
     $('btn-one').addEventListener('click', gerarUm);
 
     // E-mail
-    const camposMail = { 'mail-subject': 'subject', 'mail-body': 'body' };
+    const camposMail = { 'mail-subject': 'subjectTipo', 'mail-body': 'bodyTipo' };
     Object.keys(camposMail).forEach(id => {
-      $(id).addEventListener('input', () => { S.mail[camposMail[id]] = $(id).value; save(); });
+      $(id).addEventListener('input', () => { S.mail[camposMail[id]][S.tipo] = $(id).value; save(); });
     });
+    function pintarMail() {
+      const nome = tipoAtual().nome;
+      if (document.activeElement !== $('mail-subject')) $('mail-subject').value = mailSubjectDe(S.tipo);
+      if (document.activeElement !== $('mail-body')) $('mail-body').value = mailBodyDe(S.tipo);
+      $('mail-tipo').innerHTML = 'Assunto e mensagem do tipo <b>' + nome +
+        '</b>. Cada tipo tem o seu — troque o tipo no passo 3 para editar os outros.';
+    }
     function pintarCliente() {
       pintarSeg('seg-cliente', S.mail.cliente);
       $('linha-conta').style.display = S.mail.cliente === 'gmail' ? 'flex' : 'none';
@@ -3681,14 +3672,16 @@
       S.mail.conta = Number(e.target.value) || 0; save();
     });
     $('btn-mail-abrir').addEventListener('click', prepararEmail);
-    $('btn-mail-pular').addEventListener('click', () => {
+    function irFilaEmail(passo) {
       const fila = comEmail();
       if (!fila.length) return;
-      S.mailIdx = Math.min(S.mailIdx + 1, fila.length);
-      const proximo = fila[S.mailIdx];
-      if (proximo) { S.idx = S.rows.indexOf(proximo); desenhar(); montarLista(); }
+      S.mailIdx = Math.max(0, Math.min(S.mailIdx + passo, fila.length));
+      const alvo = fila[S.mailIdx] || fila[fila.length - 1];
+      if (alvo) { S.idx = S.rows.indexOf(alvo); desenhar(); montarLista(); }
       filaEmail();
-    });
+    }
+    $('btn-mail-pular').addEventListener('click', () => irFilaEmail(1));
+    $('btn-mail-voltar').addEventListener('click', () => irFilaEmail(-1));
 
     window.addEventListener('resize', () => { if (S.tpl) desenhar(); });
 
@@ -4387,7 +4380,7 @@
     /* Início */
     load();
     Object.keys(campos).forEach(id => { $(id).value = S.ev[campos[id]] || ''; });
-    Object.keys(camposMail).forEach(id => { $(id).value = S.mail[camposMail[id]] || ''; });
+    pintarMail();
     $('min-nomes').value = S.min || '';
     mostrarTipo();
     pintarNeg();
